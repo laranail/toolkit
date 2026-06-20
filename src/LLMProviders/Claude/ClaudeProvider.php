@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\LLMProviders\Claude;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Simtabi\Laranail\Toolkit\LLMProviders\Claude\Responses\ClaudeResponse;
+use Simtabi\Laranail\Toolkit\LLMProviders\Concerns\RetriesHttpRequests;
 use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\LLMProviders\Exceptions\LlmRequestException;
 
 class ClaudeProvider implements LLMProviderInterface
 {
+    use RetriesHttpRequests;
+
     private string $apiKey;
 
     private int $maxRetries;
@@ -28,7 +32,7 @@ class ClaudeProvider implements LLMProviderInterface
         $this->apiKey = $apiKey;
         $this->maxRetries = $maxRetries;
         $this->retryDelay = $retryDelay;
-        $this->baseUrl = rtrim($baseUrl, '/');
+        $this->baseUrl = $this->sanitizeBaseUrl($baseUrl);
     }
 
     public function generateResponse(
@@ -58,16 +62,26 @@ class ClaudeProvider implements LLMProviderInterface
         );
 
         return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse) {
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'x-api-key' => $this->apiKey,
-                'anthropic-version' => '2023-06-01',
-            ])->post($endpoint, $payload);
+            try {
+                $response = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'x-api-key' => $this->apiKey,
+                    'anthropic-version' => '2023-06-01',
+                ])->post($endpoint, $payload);
+            } catch (ConnectionException $e) {
+                throw new LlmRequestException('Claude API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
+            }
 
             if (!$response->successful()) {
+                $status = $response->status();
                 $body = $response->json();
-                $message = $body['error']['message'] ?? 'Claude API request failed';
-                throw new \RuntimeException($message);
+                $message = (is_array($body) ? ($body['error']['message'] ?? null) : null) ?? 'Claude API request failed';
+
+                throw new LlmRequestException(
+                    "Claude API request failed (HTTP {$status}): {$message}",
+                    retryable: $this->isRetryableStatus($status),
+                    status: $status,
+                );
             }
 
             $data = $response->json();
@@ -83,7 +97,7 @@ class ClaudeProvider implements LLMProviderInterface
                 usage: (object) ($data['usage'] ?? []),
                 rawResponse: $fullResponse ? (object) $data : null
             );
-        });
+        }, 'Claude');
     }
 
     private function buildPayload(
@@ -117,41 +131,5 @@ class ClaudeProvider implements LLMProviderInterface
         // These parameters are ignored for Claude
 
         return $payload;
-    }
-
-    /**
-     * @template T
-     *
-     * @param callable(): T $callback
-     *
-     * @return T
-     */
-    private function executeWithRetry(callable $callback)
-    {
-        $attempt = 0;
-        $lastException = null;
-
-        while ($attempt < $this->maxRetries) {
-            try {
-                return $callback();
-            } catch (\Throwable $e) {
-                $lastException = $e;
-                $attempt++;
-
-                if ($attempt < $this->maxRetries) {
-                    Log::warning('Claude API request failed, retrying...', [
-                        'attempt' => $attempt,
-                        'error' => $e->getMessage(),
-                    ]);
-                    sleep($this->retryDelay);
-                }
-            }
-        }
-
-        Log::error("Claude API request failed after {$this->maxRetries} attempts", [
-            'error' => $lastException?->getMessage(),
-        ]);
-
-        throw $lastException ?? new \RuntimeException('Unknown Claude error');
     }
 }
