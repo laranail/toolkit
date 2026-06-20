@@ -16,6 +16,12 @@ abstract class TestCase extends OrchestraTestCase
         $this->loadLaravelMigrations();
     }
 
+    protected function defineDatabaseMigrations(): void
+    {
+        // Run the package's own migrations (access_logs, model_audits, ...).
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+    }
+
     protected function getPackageProviders($app): array
     {
         return [

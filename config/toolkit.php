@@ -12,6 +12,15 @@ return [
         'default_tags' => [],
     ],
 
+    'access_log' => [
+        // Toggle persistence of the access.log middleware.
+        'enabled' => env('LARANAIL_ACCESS_LOG_ENABLED', true),
+
+        // Request keys whose values are redacted before being stored.
+        // null = use the middleware's built-in default deny-list.
+        'redact' => null,
+    ],
+
     'rate_limiting' => [
         'default_max_attempts' => 60,
         'default_decay_minutes' => 1,

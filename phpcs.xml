@@ -28,6 +28,11 @@
         <exclude-pattern>tests/*</exclude-pattern>
     </rule>
 
+    <!-- Tests may colocate small fixture classes alongside the test class. -->
+    <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
     <!-- Clean-code (built-in sniffs only) -->
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
     <rule ref="Generic.CodeAnalysis.EmptyStatement"/>

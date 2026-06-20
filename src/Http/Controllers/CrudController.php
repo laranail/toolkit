@@ -19,7 +19,17 @@ abstract class CrudController extends Controller
 
     protected array $relationships = [];
 
+    /**
+     * Columns that may be used in `?sort_by=`. Empty disables sorting
+     * (prevents arbitrary-column ordering / SQL identifier injection).
+     *
+     * @var list<string>
+     */
+    protected array $sortableFields = [];
+
     protected int $perPage = 15;
+
+    protected int $maxPerPage = 100;
 
     public function __construct(Model $model)
     {
@@ -30,11 +40,12 @@ abstract class CrudController extends Controller
     {
         $query = $this->model->query();
 
-        if (!empty($this->searchableFields) && $request->has('search')) {
-            $searchTerm = $request->get('search');
-            $query->where(function ($q) use ($searchTerm) {
+        if (!empty($this->searchableFields) && $request->filled('search')) {
+            // Escape LIKE wildcards so user input can't broaden the match.
+            $term = addcslashes((string) $request->get('search'), '%_\\');
+            $query->where(function ($q) use ($term) {
                 foreach ($this->searchableFields as $field) {
-                    $q->orWhere($field, 'LIKE', "%{$searchTerm}%");
+                    $q->orWhere($field, 'LIKE', "%{$term}%");
                 }
             });
         }
@@ -44,12 +55,12 @@ abstract class CrudController extends Controller
             $query->with($this->relationships);
         }
 
-        if ($request->has('sort_by')) {
-            $direction = $request->get('sort_direction', 'asc');
+        if ($request->filled('sort_by') && in_array($request->get('sort_by'), $this->sortableFields, true)) {
+            $direction = strtolower((string) $request->get('sort_direction', 'asc')) === 'desc' ? 'desc' : 'asc';
             $query->orderBy($request->get('sort_by'), $direction);
         }
 
-        $records = $query->paginate($request->get('per_page', $this->perPage));
+        $records = $query->paginate($this->resolvePerPage($request));
 
         return response()->json([
             'data' => $records->items(),
@@ -119,22 +130,64 @@ abstract class CrudController extends Controller
         ], 204);
     }
 
+    protected function resolvePerPage(Request $request): int
+    {
+        $perPage = (int) $request->get('per_page', $this->perPage);
+
+        // Clamp to [1, maxPerPage] so a client cannot request an unbounded page.
+        return max(1, min($perPage, $this->maxPerPage));
+    }
+
     protected function validateRequest(Request $request, $id = null): array
     {
+        // Without explicit rules, never mass-assign arbitrary input: restrict to
+        // the model's fillable attributes (empty fillable => nothing assignable).
         if (empty($this->validationRules)) {
-            return $request->all();
+            $fillable = $this->model->getFillable();
+
+            return $fillable === [] ? [] : $request->only($fillable);
         }
 
         $rules = $this->validationRules;
 
-        if ($id) {
-            foreach ($rules as $field => $rule) {
-                if (is_string($rule) && str_contains($rule, 'unique:')) {
-                    $rules[$field] = $rule . ',' . $id;
-                }
-            }
+        if ($id !== null) {
+            $rules = $this->applyUniqueIgnore($rules, $id);
         }
 
         return $request->validate($rules);
+    }
+
+    /**
+     * Rewrite `unique:` rules to ignore the record being updated, defaulting the
+     * column to the field name when omitted (avoids malformed rule strings).
+     *
+     * @param array<string, mixed> $rules
+     * @param int|string           $id
+     *
+     * @return array<string, mixed>
+     */
+    private function applyUniqueIgnore(array $rules, $id): array
+    {
+        foreach ($rules as $field => $rule) {
+            if (!is_string($rule) || !str_contains($rule, 'unique:')) {
+                continue;
+            }
+
+            $segments = array_map(function (string $segment) use ($field, $id) {
+                if (!str_starts_with($segment, 'unique:')) {
+                    return $segment;
+                }
+
+                $params = explode(',', substr($segment, strlen('unique:')));
+                $table = $params[0];
+                $column = $params[1] ?? (string) $field;
+
+                return "unique:{$table},{$column},{$id},id";
+            }, explode('|', $rule));
+
+            $rules[$field] = implode('|', $segments);
+        }
+
+        return $rules;
     }
 }
