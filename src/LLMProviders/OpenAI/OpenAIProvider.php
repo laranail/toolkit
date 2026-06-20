@@ -164,6 +164,6 @@ class OpenAIProvider implements LLMProviderInterface
             'error' => $lastException?->getMessage(),
         ]);
 
-        throw $lastException;
+        throw $lastException ?? new \RuntimeException('OpenAI API request failed.');
     }
 }

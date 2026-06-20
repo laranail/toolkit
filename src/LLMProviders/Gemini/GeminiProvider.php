@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\LLMProviders\Gemini;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
+use Simtabi\Laranail\Toolkit\LLMProviders\Concerns\RetriesHttpRequests;
 use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\LLMProviders\Exceptions\LlmRequestException;
 use Simtabi\Laranail\Toolkit\LLMProviders\Gemini\Responses\GeminiResponse;
 
 class GeminiProvider implements LLMProviderInterface
 {
+    use RetriesHttpRequests;
+
     private string $apiKey;
 
     private int $maxRetries;
@@ -28,7 +32,7 @@ class GeminiProvider implements LLMProviderInterface
         $this->apiKey = $apiKey;
         $this->maxRetries = $maxRetries;
         $this->retryDelay = $retryDelay;
-        $this->baseUrl = rtrim($baseUrl, '/');
+        $this->baseUrl = $this->sanitizeBaseUrl($baseUrl);
     }
 
     public function generateResponse(
@@ -45,9 +49,10 @@ class GeminiProvider implements LLMProviderInterface
         ?bool $jsonMode = false,
         bool $fullResponse = false
     ): GeminiResponse {
-        $endpoint = $this->baseUrl . '/models/' . $modelName . ':generateContent?key=' . urlencode($this->apiKey);
+        // Auth via header, never as a query param (which would leak into logs/proxies).
+        $endpoint = $this->baseUrl . '/models/' . $modelName . ':generateContent';
 
-        $contents = $this->mapMessagesToGeminiContents($messages, $jsonMode === true);
+        [$contents, $systemInstruction] = $this->mapMessages($messages);
 
         $generationConfig = [];
         if ($temperature !== null) {
@@ -62,23 +67,38 @@ class GeminiProvider implements LLMProviderInterface
         if ($stop !== null) {
             $generationConfig['stopSequences'] = $stop;
         }
+        if ($jsonMode === true) {
+            $generationConfig['responseMimeType'] = 'application/json';
+        }
 
-        $payload = [
-            'contents' => $contents,
-        ];
+        $payload = ['contents' => $contents];
+        if ($systemInstruction !== null) {
+            $payload['systemInstruction'] = $systemInstruction;
+        }
         if (!empty($generationConfig)) {
             $payload['generationConfig'] = $generationConfig;
         }
 
-        return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse) {
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-            ])->post($endpoint, $payload);
+        return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse, $modelName) {
+            try {
+                $response = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'x-goog-api-key' => $this->apiKey,
+                ])->post($endpoint, $payload);
+            } catch (ConnectionException $e) {
+                throw new LlmRequestException('Gemini API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
+            }
 
             if (!$response->successful()) {
+                $status = $response->status();
                 $body = $response->json();
-                $message = $body['error']['message'] ?? 'Gemini API request failed';
-                throw new \RuntimeException($message);
+                $message = (is_array($body) ? ($body['error']['message'] ?? null) : null) ?? 'Gemini API request failed';
+
+                throw new LlmRequestException(
+                    "Gemini API request failed (HTTP {$status}): {$message}",
+                    retryable: $this->isRetryableStatus($status),
+                    status: $status,
+                );
             }
 
             $data = $response->json();
@@ -93,80 +113,53 @@ class GeminiProvider implements LLMProviderInterface
             }
 
             return new GeminiResponse(
+                // Gemini does not echo the model; report the requested model.
                 content: $text,
-                model: $data['model'] ?? null,
+                model: $modelName,
                 usage: (object) ($data['usageMetadata'] ?? []),
                 rawResponse: $fullResponse ? (object) $data : null
             );
-        });
+        }, 'Gemini');
     }
 
-    private function mapMessagesToGeminiContents(array $messages, bool $jsonMode): array
+    /**
+     * Map chat messages to Gemini `contents`, hoisting any system messages into
+     * a `systemInstruction` payload (Gemini only accepts user/model roles).
+     *
+     * @param array<int, array<string, mixed>> $messages
+     *
+     * @return array{0: array<int, array<string, mixed>>, 1: array<string, mixed>|null}
+     */
+    private function mapMessages(array $messages): array
     {
         $contents = [];
+        $system = [];
+
         foreach ($messages as $message) {
             $role = $message['role'] ?? 'user';
             $text = $message['content'] ?? '';
 
-            // Gemini uses 'user' and 'model' roles
+            if ($role === 'system') {
+                $system[] = $text;
+
+                continue;
+            }
+
+            // Gemini uses 'user' and 'model' roles.
             if ($role === 'assistant') {
                 $role = 'model';
             }
 
-            $parts = [
-                ['text' => $text],
-            ];
-
-            if ($jsonMode === true) {
-                $parts = [
-                    [
-                        'text' => $text,
-                    ],
-                ];
-            }
-
             $contents[] = [
                 'role' => $role,
-                'parts' => $parts,
+                'parts' => [['text' => $text]],
             ];
         }
 
-        return $contents;
-    }
+        $systemInstruction = $system === []
+            ? null
+            : ['parts' => [['text' => implode("\n", $system)]]];
 
-    /**
-     * @template T
-     *
-     * @param callable(): T $callback
-     *
-     * @return T
-     */
-    private function executeWithRetry(callable $callback)
-    {
-        $attempt = 0;
-        $lastException = null;
-
-        while ($attempt < $this->maxRetries) {
-            try {
-                return $callback();
-            } catch (\Throwable $e) {
-                $lastException = $e;
-                $attempt++;
-
-                if ($attempt < $this->maxRetries) {
-                    Log::warning('Gemini API request failed, retrying...', [
-                        'attempt' => $attempt,
-                        'error' => $e->getMessage(),
-                    ]);
-                    sleep($this->retryDelay);
-                }
-            }
-        }
-
-        Log::error("Gemini API request failed after {$this->maxRetries} attempts", [
-            'error' => $lastException?->getMessage(),
-        ]);
-
-        throw $lastException ?? new \RuntimeException('Unknown Gemini error');
+        return [$contents, $systemInstruction];
     }
 }

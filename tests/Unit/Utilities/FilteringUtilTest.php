@@ -72,6 +72,27 @@ class FilteringUtilTest extends TestCase
         $this->assertEquals('Jane Smith', $result->first()['name']);
     }
 
+    public function test_ends_with_matches_when_the_needle_repeats_earlier(): void
+    {
+        $collection = collect([
+            ['name' => 'banana'],   // ends with 'a' (and contains earlier 'a's)
+            ['name' => 'orange'],
+        ]);
+
+        $result = FilteringUtil::filter($collection, 'name', 'ends_with', 'a');
+
+        $this->assertCount(1, $result);
+        $this->assertSame('banana', $result->first()['name']);
+    }
+
+    public function test_string_operators_tolerate_non_string_and_missing_values(): void
+    {
+        // age is an int and some rows lack the field entirely — must not error.
+        $result = FilteringUtil::filter($this->testCollection, 'age', 'contains', '5');
+
+        $this->assertGreaterThanOrEqual(1, $result->count());
+    }
+
     public function test_returns_empty_collection_for_unknown_operator()
     {
         $result = FilteringUtil::filter($this->testCollection, 'name', 'unknown_operator', 'test');

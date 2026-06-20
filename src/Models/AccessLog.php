@@ -8,5 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccessLog extends Model
 {
-    protected $guarded = ['id'];
+    /** @var list<string> */
+    protected $fillable = [
+        'ip',
+        'method',
+        'url',
+        'user_agent',
+        'request_data',
+    ];
+
+    /** @return array<string, string> */
+    protected function casts(): array
+    {
+        return [
+            'request_data' => 'array',
+        ];
+    }
 }
