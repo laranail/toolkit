@@ -14,6 +14,7 @@ use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\LLMProviders\Gemini\GeminiProvider;
 use Simtabi\Laranail\Toolkit\LLMProviders\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Models\AccessLog;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
@@ -30,10 +31,21 @@ use Simtabi\Laranail\Toolkit\Utilities\SchedulerUtil;
 class ToolkitServiceProvider extends ServiceProvider
 {
     /**
-     * Register services.
+     * Feature-module providers. Each is deferred and self-contained so modules
+     * can later be extracted into their own packages.
+     *
+     * @var list<class-string<ServiceProvider>>
      */
+    private const MODULE_PROVIDERS = [
+        GravatarServiceProvider::class,
+    ];
+
     public function register(): void
     {
+        foreach (self::MODULE_PROVIDERS as $provider) {
+            $this->app->register($provider);
+        }
+
         $this->app->bind('AccessLog', AccessLog::class);
 
         // Register base LLM Provider interface with provider selection
