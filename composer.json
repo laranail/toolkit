@@ -41,6 +41,7 @@
         "illuminate/routing": "^13.0",
         "illuminate/support": "^13.0",
         "illuminate/validation": "^13.0",
+        "intervention/image": "^4.1",
         "openai-php/client": "^0.20.0"
     },
     "require-dev": {
