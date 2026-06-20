@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Utilities;
 
+use Illuminate\Cache\TaggableStore;
 use Illuminate\Support\Facades\Cache;
 
 class CachingUtil
 {
     protected int $defaultExpiration;
+
     protected array $defaultTags;
 
     public function __construct(int $defaultExpiration, array $defaultTags)
@@ -18,13 +22,9 @@ class CachingUtil
     /**
      * Cache data with configurable options.
      *
-     * @param  string  $key
-     * @param  mixed   $data
-     * @param  int     $minutes
-     * @param  array   $tags
      * @return mixed
      */
-    public function cache(string $key, mixed $data, int $minutes = null, array $tags = null)
+    public function cache(string $key, mixed $data, ?int $minutes = null, ?array $tags = null)
     {
         // Use constructor defaults if parameters are null
         $minutes = $minutes ?? $this->defaultExpiration;
@@ -34,7 +34,7 @@ class CachingUtil
         $seconds = $minutes * 60;
 
         // Try to use tags if the store supports it and tags are provided
-        if (Cache::getStore() instanceof \Illuminate\Cache\TaggableStore && !empty($tags)) {
+        if (Cache::getStore() instanceof TaggableStore && !empty($tags)) {
             try {
                 Cache::tags($tags)->put($key, $data, $seconds);
             } catch (\Exception $e) {
@@ -51,8 +51,6 @@ class CachingUtil
     /**
      * Retrieve cached data.
      *
-     * @param  string  $key
-     * @param  mixed   $default
      * @return mixed
      */
     public function get(string $key, mixed $default = null)
@@ -63,7 +61,6 @@ class CachingUtil
     /**
      * Forget cached data.
      *
-     * @param  string  $key
      * @return void
      */
     public function forget(string $key)

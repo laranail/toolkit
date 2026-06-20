@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
 
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Utilities\SchedulerUtil;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Log;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Utilities\SchedulerUtil;
 
 class SchedulerUtilTest extends TestCase
 {
@@ -22,11 +24,11 @@ class SchedulerUtilTest extends TestCase
         // Mock empty Schedule
         $schedule = $this->createMock(Schedule::class);
         $schedule->method('events')->willReturn([]);
-        
+
         $this->app->instance(Schedule::class, $schedule);
-        
+
         $summary = $this->schedulerUtil->getScheduleSummary();
-        
+
         $this->assertIsArray($summary);
         $this->assertEmpty($summary);
     }
@@ -36,11 +38,11 @@ class SchedulerUtilTest extends TestCase
         // Mock empty Schedule
         $schedule = $this->createMock(Schedule::class);
         $schedule->method('events')->willReturn([]);
-        
+
         $this->app->instance(Schedule::class, $schedule);
-        
+
         $hasOverdue = $this->schedulerUtil->hasOverdueTasks();
-        
+
         $this->assertIsBool($hasOverdue);
     }
 
@@ -49,11 +51,11 @@ class SchedulerUtilTest extends TestCase
         // Mock empty Schedule
         $schedule = $this->createMock(Schedule::class);
         $schedule->method('events')->willReturn([]);
-        
+
         $this->app->instance(Schedule::class, $schedule);
-        
+
         $hasOverdue = $this->schedulerUtil->hasOverdueTasks();
-        
+
         $this->assertFalse($hasOverdue);
     }
 
@@ -62,11 +64,11 @@ class SchedulerUtilTest extends TestCase
         // Mock empty Schedule
         $schedule = $this->createMock(Schedule::class);
         $schedule->method('events')->willReturn([]);
-        
+
         $this->app->instance(Schedule::class, $schedule);
-        
+
         $hasOverdue = $this->schedulerUtil->hasOverdueTasks();
-        
+
         $this->assertFalse($hasOverdue);
     }
 
@@ -75,12 +77,12 @@ class SchedulerUtilTest extends TestCase
         // Mock empty Schedule
         $schedule = $this->createMock(Schedule::class);
         $schedule->method('events')->willReturn([]);
-        
+
         $this->app->instance(Schedule::class, $schedule);
-        
+
         $summary = $this->schedulerUtil->getScheduleSummary();
         $hasOverdue = $this->schedulerUtil->hasOverdueTasks();
-        
+
         $this->assertIsArray($summary);
         $this->assertEmpty($summary);
         $this->assertFalse($hasOverdue);
@@ -91,14 +93,14 @@ class SchedulerUtilTest extends TestCase
         // Mock empty Schedule
         $schedule = $this->createMock(Schedule::class);
         $schedule->method('events')->willReturn([]);
-        
+
         $this->app->instance(Schedule::class, $schedule);
-        
+
         // Mock Log facade to verify logging
         Log::shouldReceive('info')
             ->with(\Mockery::type('string'))
             ->once();
-        
+
         $this->schedulerUtil->getScheduleSummary();
     }
 
@@ -107,11 +109,11 @@ class SchedulerUtilTest extends TestCase
         // Mock empty Schedule
         $schedule = $this->createMock(Schedule::class);
         $schedule->method('events')->willReturn([]);
-        
+
         $this->app->instance(Schedule::class, $schedule);
-        
+
         $summary = $this->schedulerUtil->getScheduleSummary();
-        
+
         $this->assertIsArray($summary);
         $this->assertEmpty($summary);
     }

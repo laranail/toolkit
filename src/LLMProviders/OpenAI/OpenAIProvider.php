@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\LLMProviders\OpenAI;
 
-use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
-use Simtabi\Laranail\Toolkit\LLMProviders\OpenAI\Responses\OpenAIResponse;
+use Illuminate\Support\Facades\Log;
 use OpenAI\Client;
 use OpenAI\Exceptions\ErrorException;
-use Illuminate\Support\Facades\Log;
+use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\LLMProviders\OpenAI\Responses\OpenAIResponse;
 
 class OpenAIProvider implements LLMProviderInterface
 {
     private Client $client;
+
     private int $maxRetries;
+
     private int $retryDelay;
 
     public function __construct(
@@ -54,7 +58,7 @@ class OpenAIProvider implements LLMProviderInterface
 
         return $this->executeWithRetry(function () use ($parameters, $fullResponse) {
             $response = $this->client->chat()->create($parameters);
-            
+
             return $this->createResponse($response, $fullResponse);
         });
     }
@@ -127,9 +131,12 @@ class OpenAIProvider implements LLMProviderInterface
      * Execute a function with retry logic
      *
      * @template T
+     *
      * @param callable(): T $callback
-     * @return T
+     *
      * @throws ErrorException
+     *
+     * @return T
      */
     private function executeWithRetry(callable $callback)
     {
@@ -142,11 +149,11 @@ class OpenAIProvider implements LLMProviderInterface
             } catch (ErrorException $e) {
                 $lastException = $e;
                 $attempt++;
-                
+
                 if ($attempt < $this->maxRetries) {
-                    Log::warning("OpenAI API request failed, retrying...", [
+                    Log::warning('OpenAI API request failed, retrying...', [
                         'attempt' => $attempt,
-                        'error' => $e->getMessage()
+                        'error' => $e->getMessage(),
                     ]);
                     sleep($this->retryDelay);
                 }
@@ -154,9 +161,9 @@ class OpenAIProvider implements LLMProviderInterface
         }
 
         Log::error("OpenAI API request failed after {$this->maxRetries} attempts", [
-            'error' => $lastException?->getMessage()
+            'error' => $lastException?->getMessage(),
         ]);
 
         throw $lastException;
     }
-} 
+}

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\LLMProviders\Claude\Responses;
 
 use JsonSerializable;

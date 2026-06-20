@@ -1,98 +1,53 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
-    'choose_image'            => 'Choose image',
-    'actions'                 => 'Actions',
-    'save'                    => 'Save',
-    'save_and_continue'       => 'Save & Edit',
-    'image'                   => 'Image',
-    'image_placeholder'       => 'Insert path of image or click upload button',
-    'create'                  => 'Create',
-    'edit'                    => 'Edit',
-    'permalink'               => 'Permalink',
-    'ok'                      => 'OK',
-    'cancel'                  => 'Cancel',
-    'character_remain'        => 'character(s) remain',
-    'template'                => 'Template',
-    'choose_file'             => 'Choose file',
-    'file'                    => 'File',
-    'content'                 => 'Content',
-    'description'             => 'Description',
-    'name'                    => 'Name',
-    'slug'                    => 'Slug',
-    'title'                   => 'Title',
-    'value'                   => 'Value',
-    'name_placeholder'        => 'Name',
-    'alias_placeholder'       => 'Alias',
+    'choose_image' => 'Choose image',
+    'actions' => 'Actions',
+    'save' => 'Save',
+    'save_and_continue' => 'Save & Edit',
+    'image' => 'Image',
+    'image_placeholder' => 'Insert path of image or click upload button',
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'permalink' => 'Permalink',
+    'ok' => 'OK',
+    'cancel' => 'Cancel',
+    'character_remain' => 'character(s) remain',
+    'template' => 'Template',
+    'choose_file' => 'Choose file',
+    'file' => 'File',
+    'content' => 'Content',
+    'description' => 'Description',
+    'name' => 'Name',
+    'slug' => 'Slug',
+    'title' => 'Title',
+    'value' => 'Value',
+    'name_placeholder' => 'Name',
+    'alias_placeholder' => 'Alias',
     'description_placeholder' => 'Short description',
-    'parent'                  => 'Parent',
-    'icon'                    => 'Icon',
-    'icon_placeholder'        => 'Ex: fa fa-home',
-    'order_by'                => 'Order by',
-    'order_by_placeholder'    => 'Order by',
-    'is_featured'             => 'Is featured?',
-    'is_default'              => 'Is default?',
-    'update'                  => 'Update',
-    'publish'                 => 'Publish',
-    'remove_image'            => 'Remove image',
-    'remove_file'             => 'Remove file',
-    'order'                   => 'Order',
-    'alias'                   => 'Alias',
-    'basic_information'       => 'Basic information',
-    'short_code'              => 'Shortcode',
-    'add_short_code'          => 'Add a shortcode',
-    'add'                     => 'Add',
-    'link'                    => 'Link',
-    'show_hide_editor'        => 'Show/Hide Editor',
-    'basic_info_title'        => 'Basic information',
-
-
-
-    'status'            => 'Status',
-    'color'             => 'Color',
-    'user_id'           => 'User',
-    'mugshot'           => 'Mugshot',
-    'notes'             => 'Notes',
-    'notes_placeholder' => 'Notes',
-    'file_placeholder'  => 'Chose file',
-    'preview'           => 'Preview',
-    'no_record'         => 'No Record',
-    'slug_is_empty'     => 'Slug filed has no content',
-    'nothing_to_show'   => 'Nothing to Show',
-
-
-    'no_categories'     => 'No Categories',
-    'no_users'          => 'No Users',
-    'no_countries'      => 'No Countries',
-    'no_types'          => 'No Types',
-    'no_addresses'      => 'No Addresses',
-    'no_companies'      => 'No Companies',
-
-    // selection
-    'no_data' => [
-        'label' => 'No Data',
-        'help'  => 'There is not enough data to populate a selection list. Please check and try again!',
-    ],
-    'loading_data' => [
-        'label' => 'Loading Data',
-        'help'  => 'Please wait as we load found records!',
-    ],
-
-
-    /////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
+    'parent' => 'Parent',
+    'icon' => 'Icon',
+    'icon_placeholder' => 'Ex: fa fa-home',
+    'order_by' => 'Order by',
+    'order_by_placeholder' => 'Order by',
+    'is_featured' => 'Is featured?',
+    'is_default' => 'Is default?',
+    'update' => 'Update',
+    'publish' => 'Publish',
+    'remove_image' => 'Remove image',
+    'remove_file' => 'Remove file',
+    'order' => 'Order',
+    'alias' => 'Alias',
+    'basic_information' => 'Basic information',
+    'short_code' => 'Shortcode',
+    'add_short_code' => 'Add a shortcode',
+    'add' => 'Add',
+    'link' => 'Link',
+    'show_hide_editor' => 'Show/Hide Editor',
+    'basic_info_title' => 'Basic information',
 
     'status' => 'Status',
     'color' => 'Color',
@@ -106,7 +61,6 @@ return [
     'slug_is_empty' => 'Slug filed has no content',
     'nothing_to_show' => 'Nothing to Show',
 
-
     'no_categories' => 'No Categories',
     'no_users' => 'No Users',
     'no_countries' => 'No Countries',
@@ -114,8 +68,36 @@ return [
     'no_addresses' => 'No Addresses',
     'no_companies' => 'No Companies',
 
+    // selection
+    'no_data' => [
+        'label' => 'No Data',
+        'help' => 'There is not enough data to populate a selection list. Please check and try again!',
+    ],
+    'loading_data' => [
+        'label' => 'Loading Data',
+        'help' => 'Please wait as we load found records!',
+    ],
 
+    // ///////////////////
 
+    'status' => 'Status',
+    'color' => 'Color',
+    'user_id' => 'User',
+    'mugshot' => 'Mugshot',
+    'notes' => 'Notes',
+    'notes_placeholder' => 'Notes',
+    'file_placeholder' => 'Chose file',
+    'preview' => 'Preview',
+    'no_record' => 'No Record',
+    'slug_is_empty' => 'Slug filed has no content',
+    'nothing_to_show' => 'Nothing to Show',
+
+    'no_categories' => 'No Categories',
+    'no_users' => 'No Users',
+    'no_countries' => 'No Countries',
+    'no_types' => 'No Types',
+    'no_addresses' => 'No Addresses',
+    'no_companies' => 'No Companies',
 
     // selection
     'no_data' => [
@@ -131,202 +113,202 @@ return [
 
         // general form elements
         'create' => [
-            'label'       => 'Create',
+            'label' => 'Create',
             'placeholder' => 'Create',
-            'help'        => 'Create',
+            'help' => 'Create',
         ],
         'owner' => [
-            'label'       => 'Owner',
+            'label' => 'Owner',
             'placeholder' => 'Owner',
-            'help'        => 'Owner',
+            'help' => 'Owner',
         ],
         'salutation' => [
-            'label'       => 'Salutation',
+            'label' => 'Salutation',
             'placeholder' => 'Salutation',
-            'help'        => 'Salutation',
+            'help' => 'Salutation',
         ],
         'name' => [
-            'label'       => 'Name',
+            'label' => 'Name',
             'placeholder' => 'Name',
-            'help'        => 'Name',
+            'help' => 'Name',
         ],
         'alias' => [
-            'label'       => 'Alias',
+            'label' => 'Alias',
             'placeholder' => 'Alias',
-            'help'        => 'First Name',
+            'help' => 'First Name',
         ],
         'first_name' => [
-            'label'       => 'First Name',
+            'label' => 'First Name',
             'placeholder' => 'First Name',
-            'help'        => 'First Name',
+            'help' => 'First Name',
         ],
         'middle_name' => [
-            'label'       => 'Middle Name',
+            'label' => 'Middle Name',
             'placeholder' => 'Middle Name',
-            'help'        => 'Middle Name',
+            'help' => 'Middle Name',
         ],
         'last_name' => [
-            'label'       => 'Last Name',
+            'label' => 'Last Name',
             'placeholder' => 'Last Name',
-            'help'        => 'Last Name',
+            'help' => 'Last Name',
         ],
         'birthday' => [
-            'label'       => 'Birthday',
+            'label' => 'Birthday',
             'placeholder' => 'Birthday',
-            'help'        => 'Birthday or Birth date',
+            'help' => 'Birthday or Birth date',
         ],
         'designation' => [
-            'label'       => 'Designation',
+            'label' => 'Designation',
             'placeholder' => 'Designation',
-            'help'        => 'Designation',
+            'help' => 'Designation',
         ],
         'additional_info' => [
-            'label'       => 'Additional Information',
+            'label' => 'Additional Information',
             'placeholder' => 'Additional Information',
-            'help'        => 'Additional Information',
+            'help' => 'Additional Information',
         ],
         'title' => [
-            'label'       => 'Title',
+            'label' => 'Title',
             'placeholder' => 'Title',
-            'help'        => 'Title',
+            'help' => 'Title',
         ],
         'subject' => [
-            'label'       => 'Subject',
+            'label' => 'Subject',
             'placeholder' => 'Subject',
-            'help'        => 'Subject',
+            'help' => 'Subject',
         ],
         'slug' => [
-            'label'       => 'Slug',
+            'label' => 'Slug',
             'placeholder' => 'Slug',
-            'help'        => 'Slug',
-            'waiting'     => 'Waiting for your input to process',
-            'generating'  => 'Generating slug request',
-            'generated'   => 'Your slug request has been generated successfully',
+            'help' => 'Slug',
+            'waiting' => 'Waiting for your input to process',
+            'generating' => 'Generating slug request',
+            'generated' => 'Your slug request has been generated successfully',
         ],
         'about' => [
-            'label'       => 'About',
+            'label' => 'About',
             'placeholder' => 'About',
-            'help'        => 'About',
+            'help' => 'About',
         ],
         'highlights' => [
-            'label'       => 'Highlights',
+            'label' => 'Highlights',
             'placeholder' => 'Highlights',
-            'help'        => 'Highlights',
+            'help' => 'Highlights',
         ],
         'slogan' => [
-            'label'       => 'Slogan',
+            'label' => 'Slogan',
             'placeholder' => 'Slogan',
-            'help'        => 'Slogan',
+            'help' => 'Slogan',
         ],
         'vision' => [
-            'label'       => 'Vision',
+            'label' => 'Vision',
             'placeholder' => 'Vision',
-            'help'        => 'Vision',
+            'help' => 'Vision',
         ],
         'mission' => [
-            'label'       => 'Mission',
+            'label' => 'Mission',
             'placeholder' => 'Mission',
-            'help'        => 'Mission',
+            'help' => 'Mission',
         ],
         'purpose' => [
-            'label'       => 'Purpose',
+            'label' => 'Purpose',
             'placeholder' => 'Purpose',
-            'help'        => 'Purpose',
+            'help' => 'Purpose',
         ],
         'charter' => [
-            'label'       => 'Charter',
+            'label' => 'Charter',
             'placeholder' => 'Charter',
-            'help'        => 'Charter',
+            'help' => 'Charter',
         ],
         'impressum' => [
-            'label'       => 'Impressum',
+            'label' => 'Impressum',
             'placeholder' => 'Impressum',
-            'help'        => 'Impressum',
+            'help' => 'Impressum',
         ],
         'focus_areas' => [
-            'label'       => 'Focus Areas',
+            'label' => 'Focus Areas',
             'placeholder' => 'Focus Areas',
-            'help'        => 'Focus Areas',
+            'help' => 'Focus Areas',
         ],
         'office_hours' => [
-            'label'       => 'Office Hours',
+            'label' => 'Office Hours',
             'placeholder' => 'Office Hours',
-            'help'        => 'Office Hours',
+            'help' => 'Office Hours',
         ],
         'year_launched' => [
-            'label'       => 'Year Launched',
+            'label' => 'Year Launched',
             'placeholder' => 'Year Launched',
-            'help'        => 'Year Launched',
+            'help' => 'Year Launched',
         ],
         'link_socialmedia' => [
-            'label'       => 'Link Social Media Accounts',
+            'label' => 'Link Social Media Accounts',
             'placeholder' => 'Link Social Media Accounts',
-            'help'        => 'Link Social Media Accounts',
+            'help' => 'Link Social Media Accounts',
         ],
         'company_id' => [
-            'label'       => 'Company ID',
+            'label' => 'Company ID',
             'placeholder' => 'Company ID',
-            'help'        => 'Company ID',
+            'help' => 'Company ID',
         ],
         'type_id' => [
-            'label'       => 'Type ID',
+            'label' => 'Type ID',
             'placeholder' => 'Type ID',
-            'help'        => 'Type ID',
+            'help' => 'Type ID',
         ],
         'description' => [
-            'label'       => 'Description',
+            'label' => 'Description',
             'placeholder' => 'Description',
-            'help'        => 'Description',
+            'help' => 'Description',
         ],
         'short_description' => [
-            'label'       => 'Short Description',
+            'label' => 'Short Description',
             'placeholder' => 'Short Description',
-            'help'        => 'Short Description',
+            'help' => 'Short Description',
         ],
         'long_description' => [
-            'label'       => 'Long Description',
+            'label' => 'Long Description',
             'placeholder' => 'Long Description',
-            'help'        => 'Long Description',
+            'help' => 'Long Description',
         ],
         'comment' => [
-            'label'       => 'Comment',
+            'label' => 'Comment',
             'placeholder' => 'Comment',
-            'help'        => 'Comment',
+            'help' => 'Comment',
         ],
         'content' => [
-            'label'       => 'Content',
+            'label' => 'Content',
             'placeholder' => 'Content',
-            'help'        => 'Content',
+            'help' => 'Content',
         ],
         'mugshot' => [
-            'label'       => 'Mugshot',
+            'label' => 'Mugshot',
             'placeholder' => 'Mugshot',
-            'help'        => 'Mugshot',
+            'help' => 'Mugshot',
         ],
         'banner' => [
-            'label'       => 'Banner',
+            'label' => 'Banner',
             'placeholder' => 'Banner',
-            'help'        => 'Banner',
+            'help' => 'Banner',
         ],
         'cover' => [
-            'label'       => 'Cover',
+            'label' => 'Cover',
             'placeholder' => 'Cover',
-            'help'        => 'Cover',
+            'help' => 'Cover',
         ],
         'avatar' => [
-            'label'       => 'Avatar',
+            'label' => 'Avatar',
             'placeholder' => 'Avatar',
-            'help'        => 'Avatar',
+            'help' => 'Avatar',
         ],
         'video' => [
-            'label'       => 'Video',
+            'label' => 'Video',
             'placeholder' => 'Video',
-            'help'        => 'Video',
+            'help' => 'Video',
         ],
         'logo' => [
-            'label'       => 'Logo',
+            'label' => 'Logo',
             'placeholder' => 'Logo',
-            'help'        => 'Logo',
+            'help' => 'Logo',
         ],
         'url' => [
             'label' => 'URL',
@@ -414,7 +396,6 @@ return [
             'help' => 'Please select a Category.',
         ],
 
-
         // general boolean selectors
         'published' => [
             'label' => 'Published',
@@ -482,10 +463,6 @@ return [
             'help' => 'Scheduled',
         ],
 
-
-
-
-
         // specific to commerce related
         'start_date' => [
             'label' => 'Start date',
@@ -518,7 +495,6 @@ return [
             'help' => 'Whats the recommended amount?',
         ],
 
-
         'color' => [
             'label' => 'Color',
             'placeholder' => 'Chose a color',
@@ -530,7 +506,6 @@ return [
             'placeholder' => 'Publish Date',
             'help' => 'Chose a publish date',
         ],
-
 
         'industry' => [
             'label' => 'Industry',
@@ -654,8 +629,6 @@ return [
             'placeholder' => 'Copyright Where does your copyright affect?',
         ],
 
-
-
         'registered' => [
             'label' => 'Registered',
             'placeholder' => 'Is it registered?',
@@ -686,7 +659,6 @@ return [
             'placeholder' => 'Registration message',
             'help' => 'Please enter registration notice message',
         ],
-
 
         'taxable' => [
             'label' => 'Taxable',
@@ -923,32 +895,6 @@ return [
             'placeholder' => 'Icon',
             'help' => 'Icon',
         ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         // general form elements
         'create' => [
@@ -1235,7 +1181,6 @@ return [
             'help' => 'Please select a Category.',
         ],
 
-
         // general boolean selectors
         'published' => [
             'label' => 'Published',
@@ -1303,10 +1248,6 @@ return [
             'help' => 'Scheduled',
         ],
 
-
-
-
-
         // specific to commerce related
         'start_date' => [
             'label' => 'Start date',
@@ -1339,7 +1280,6 @@ return [
             'help' => 'Whats the recommended amount?',
         ],
 
-
         'color' => [
             'label' => 'Color',
             'placeholder' => 'Chose a color',
@@ -1351,7 +1291,6 @@ return [
             'placeholder' => 'Publish Date',
             'help' => 'Chose a publish date',
         ],
-
 
         'industry' => [
             'label' => 'Industry',
@@ -1475,8 +1414,6 @@ return [
             'placeholder' => 'Copyright Where does your copyright affect?',
         ],
 
-
-
         'registered' => [
             'label' => 'Registered',
             'placeholder' => 'Is it registered?',
@@ -1507,7 +1444,6 @@ return [
             'placeholder' => 'Registration message',
             'help' => 'Please enter registration notice message',
         ],
-
 
         'taxable' => [
             'label' => 'Taxable',
@@ -1765,32 +1701,9 @@ return [
             'help' => 'Icon',
         ],
 
-
-
     ],
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /////////////////////
-
-
-
-
+    // ///////////////////
 
     'status' => 'Status',
     'color' => 'Color',
@@ -1802,7 +1715,6 @@ return [
     'preview' => 'Preview',
     'no_record' => 'No Record',
     'nothing_to_show' => 'Nothing to Show',
-
 
     'no_categories' => 'No Categories',
     'no_users' => 'No Users',
@@ -2101,7 +2013,6 @@ return [
             'help' => 'Please select a Category.',
         ],
 
-
         // general boolean selectors
         'published' => [
             'label' => 'Published',
@@ -2169,10 +2080,6 @@ return [
             'help' => 'Scheduled',
         ],
 
-
-
-
-
         // specific to commerce related
         'start_date' => [
             'label' => 'Start date',
@@ -2205,7 +2112,6 @@ return [
             'help' => 'Whats the recommended amount?',
         ],
 
-
         'color' => [
             'label' => 'Color',
             'placeholder' => 'Chose a color',
@@ -2217,7 +2123,6 @@ return [
             'placeholder' => 'Publish Date',
             'help' => 'Chose a publish date',
         ],
-
 
         'industry' => [
             'label' => 'Industry',
@@ -2341,8 +2246,6 @@ return [
             'placeholder' => 'Copyright Where does your copyright affect?',
         ],
 
-
-
         'registered' => [
             'label' => 'Registered',
             'placeholder' => 'Is it registered?',
@@ -2373,7 +2276,6 @@ return [
             'placeholder' => 'Registration message',
             'help' => 'Please enter registration notice message',
         ],
-
 
         'taxable' => [
             'label' => 'Taxable',
@@ -2610,7 +2512,6 @@ return [
             'placeholder' => 'Icon',
             'help' => 'Icon',
         ],
-
 
     ],
 ];

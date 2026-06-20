@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Traits;
 
 use Illuminate\Http\JsonResponse;
@@ -85,7 +87,7 @@ trait ApiResponseTrait
                     'per_page' => $paginator->perPage(),
                     'current_page' => $paginator->currentPage(),
                     'total_pages' => $paginator->lastPage(),
-                ]
+                ],
             ]
         );
     }

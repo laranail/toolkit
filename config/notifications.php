@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'queueable' => env('NOTIFICATIONS_QUEUEABLE', false),
     'queue_connection' => env('NOTIFICATIONS_QUEUE_CONNECTION', null),

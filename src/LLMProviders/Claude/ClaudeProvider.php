@@ -1,17 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\LLMProviders\Claude;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\LLMProviders\Claude\Responses\ClaudeResponse;
+use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
 
 class ClaudeProvider implements LLMProviderInterface
 {
     private string $apiKey;
+
     private int $maxRetries;
+
     private int $retryDelay;
+
     private string $baseUrl;
 
     public function __construct(
@@ -56,7 +61,7 @@ class ClaudeProvider implements LLMProviderInterface
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
                 'x-api-key' => $this->apiKey,
-                'anthropic-version' => '2023-06-01'
+                'anthropic-version' => '2023-06-01',
             ])->post($endpoint, $payload);
 
             if (!$response->successful()) {
@@ -116,7 +121,9 @@ class ClaudeProvider implements LLMProviderInterface
 
     /**
      * @template T
+     *
      * @param callable(): T $callback
+     *
      * @return T
      */
     private function executeWithRetry(callable $callback)
@@ -132,9 +139,9 @@ class ClaudeProvider implements LLMProviderInterface
                 $attempt++;
 
                 if ($attempt < $this->maxRetries) {
-                    Log::warning("Claude API request failed, retrying...", [
+                    Log::warning('Claude API request failed, retrying...', [
                         'attempt' => $attempt,
-                        'error' => $e->getMessage()
+                        'error' => $e->getMessage(),
                     ]);
                     sleep($this->retryDelay);
                 }
@@ -142,7 +149,7 @@ class ClaudeProvider implements LLMProviderInterface
         }
 
         Log::error("Claude API request failed after {$this->maxRetries} attempts", [
-            'error' => $lastException?->getMessage()
+            'error' => $lastException?->getMessage(),
         ]);
 
         throw $lastException ?? new \RuntimeException('Unknown Claude error');

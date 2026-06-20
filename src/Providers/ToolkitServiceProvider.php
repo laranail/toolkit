@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Providers;
 
 use Illuminate\Support\Facades\Validator;
@@ -127,7 +129,7 @@ class ToolkitServiceProvider extends ServiceProvider
             PaginationUtil::class,
             FilteringUtil::class,
             FeatureToggleUtil::class,
-            LoggingUtil::class
+            LoggingUtil::class,
         ];
 
         $this->loadUtilityClasses($classes);
@@ -149,11 +151,8 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->registerValidationRules();
     }
 
-
     /**
      * Dynamically load the given class.
-     *
-     * @param string $class
      */
     private function loadClass(string $class)
     {
@@ -164,8 +163,6 @@ class ToolkitServiceProvider extends ServiceProvider
 
     /**
      * Dynamically load the given utility classes.
-     *
-     * @param array $classes
      */
     private function loadUtilityClasses(array $classes)
     {
@@ -220,6 +217,7 @@ class ToolkitServiceProvider extends ServiceProvider
             $rule->validate($attribute, $value, function ($message) use (&$failed) {
                 $failed = true;
             });
+
             return !$failed;
         }, 'The :attribute contains a common password that is not allowed.');
 

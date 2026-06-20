@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Utilities;
 
 use Illuminate\Support\Facades\Config;
@@ -9,9 +11,6 @@ class FeatureToggleUtil
 {
     /**
      * Check if a feature is enabled.
-     *
-     * @param  string  $feature
-     * @return bool
      */
     public static function isEnabled(string $feature): bool
     {
@@ -33,8 +32,6 @@ class FeatureToggleUtil
 
     /**
      * Get the override key based on user or environment.
-     *
-     * @return string
      */
     private static function getOverrideKey(): string
     {

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Helpers;
 
-use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class XHelper
 {
@@ -13,7 +15,7 @@ class XHelper
 
     public static function arrayTrim(array $array): array
     {
-        return array_map(fn($value) => is_string($value) ? trim($value) : $value, $array);
+        return array_map(fn ($value) => is_string($value) ? trim($value) : $value, $array);
     }
 
     public static function arrayFlatten(array $array): array

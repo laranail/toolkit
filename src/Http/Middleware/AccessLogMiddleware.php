@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Log;
 use Simtabi\Laranail\Toolkit\Models\AccessLog;
 
 class AccessLogMiddleware

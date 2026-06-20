@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\LLMProviders\Gemini;
 
 use Illuminate\Support\Facades\Http;
@@ -10,8 +12,11 @@ use Simtabi\Laranail\Toolkit\LLMProviders\Gemini\Responses\GeminiResponse;
 class GeminiProvider implements LLMProviderInterface
 {
     private string $apiKey;
+
     private int $maxRetries;
+
     private int $retryDelay;
+
     private string $baseUrl;
 
     public function __construct(
@@ -65,9 +70,9 @@ class GeminiProvider implements LLMProviderInterface
             $payload['generationConfig'] = $generationConfig;
         }
 
-        return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse, $jsonMode) {
+        return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse) {
             $response = Http::withHeaders([
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
             ])->post($endpoint, $payload);
 
             if (!$response->successful()) {
@@ -109,20 +114,20 @@ class GeminiProvider implements LLMProviderInterface
             }
 
             $parts = [
-                ['text' => $text]
+                ['text' => $text],
             ];
 
             if ($jsonMode === true) {
                 $parts = [
                     [
-                        'text' => $text
-                    ]
+                        'text' => $text,
+                    ],
                 ];
             }
 
             $contents[] = [
                 'role' => $role,
-                'parts' => $parts
+                'parts' => $parts,
             ];
         }
 
@@ -131,7 +136,9 @@ class GeminiProvider implements LLMProviderInterface
 
     /**
      * @template T
+     *
      * @param callable(): T $callback
+     *
      * @return T
      */
     private function executeWithRetry(callable $callback)
@@ -147,9 +154,9 @@ class GeminiProvider implements LLMProviderInterface
                 $attempt++;
 
                 if ($attempt < $this->maxRetries) {
-                    Log::warning("Gemini API request failed, retrying...", [
+                    Log::warning('Gemini API request failed, retrying...', [
                         'attempt' => $attempt,
-                        'error' => $e->getMessage()
+                        'error' => $e->getMessage(),
                     ]);
                     sleep($this->retryDelay);
                 }
@@ -157,11 +164,9 @@ class GeminiProvider implements LLMProviderInterface
         }
 
         Log::error("Gemini API request failed after {$this->maxRetries} attempts", [
-            'error' => $lastException?->getMessage()
+            'error' => $lastException?->getMessage(),
         ]);
 
         throw $lastException ?? new \RuntimeException('Unknown Gemini error');
     }
 }
-
-

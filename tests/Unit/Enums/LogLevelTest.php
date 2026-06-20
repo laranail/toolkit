@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Enums;
 
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class LogLevelTest extends TestCase
 {
@@ -19,7 +21,7 @@ class LogLevelTest extends TestCase
     public function test_log_level_enum_can_be_used_in_switch()
     {
         $level = LogLevel::Info;
-        
+
         $result = match ($level) {
             LogLevel::Debug => 'debug',
             LogLevel::Info => 'info',
@@ -27,7 +29,7 @@ class LogLevelTest extends TestCase
             LogLevel::Error => 'error',
             LogLevel::Critical => 'critical',
         };
-        
+
         $this->assertEquals('info', $result);
     }
 
@@ -36,7 +38,7 @@ class LogLevelTest extends TestCase
         $level = LogLevel::Error;
         $serialized = serialize($level);
         $unserialized = unserialize($serialized);
-        
+
         $this->assertEquals($level, $unserialized);
     }
 
@@ -45,7 +47,7 @@ class LogLevelTest extends TestCase
         $level1 = LogLevel::Info;
         $level2 = LogLevel::Info;
         $level3 = LogLevel::Error;
-        
+
         $this->assertTrue($level1 === $level2);
         $this->assertFalse($level1 === $level3);
     }
@@ -53,15 +55,15 @@ class LogLevelTest extends TestCase
     public function test_all_log_levels_are_available()
     {
         $expectedLevels = ['debug', 'info', 'warning', 'error', 'critical'];
-        $actualLevels = array_map(fn($case) => $case->value, LogLevel::cases());
-        
+        $actualLevels = array_map(fn ($case) => $case->value, LogLevel::cases());
+
         $this->assertEquals($expectedLevels, $actualLevels);
     }
 
     public function test_log_level_enum_has_string_value()
     {
         $level = LogLevel::Warning;
-        
+
         $this->assertEquals('warning', $level->value);
         $this->assertIsString($level->value);
     }

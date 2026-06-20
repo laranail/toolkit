@@ -6,17 +6,21 @@ on:
   pull_request:
     branches: [ main, develop ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.2', '8.3' ]
-        laravel: [ '10.*', '11.*' ]
+        php: [ '8.3', '8.4', '8.5' ]
+        laravel: [ '13.*' ]
         dependency-version: [ prefer-lowest, prefer-stable ]
-        
+
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
     steps:
@@ -27,7 +31,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, fileinfo
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, fileinfo, gd
           coverage: xdebug
 
       - name: Get composer cache directory
@@ -35,11 +39,11 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-
+          key: deps-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-${{ matrix.dependency-version }}
+          restore-keys: deps-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-
 
       - name: Install dependencies
         run: |
@@ -49,9 +53,12 @@ jobs:
       - name: Execute tests
         run: vendor/bin/pest --coverage --min=80
 
+      - name: Run security regression suite
+        run: vendor/bin/pest --group=security
+
       - name: Upload coverage to Codecov
-        if: matrix.php == '8.3' && matrix.laravel == '11.*' && matrix.dependency-version == 'prefer-stable'
-        uses: codecov/codecov-action@v3
+        if: matrix.php == '8.4' && matrix.dependency-version == 'prefer-stable'
+        uses: codecov/codecov-action@v4
         with:
           files: ./coverage.xml
           fail_ci_if_error: false
@@ -67,8 +74,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          php-version: 8.4
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
           coverage: none
 
       - name: Install dependencies
@@ -94,7 +101,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.3
+          php-version: 8.4
           extensions: dom, curl, libxml, mbstring, zip
           coverage: none
 
@@ -107,4 +114,3 @@ jobs:
       - name: Check for outdated dependencies
         run: composer outdated --direct --strict
         continue-on-error: true
-

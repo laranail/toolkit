@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
 
+use Illuminate\Support\Facades\Storage;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Utilities\ConfigUtil;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Storage;
 
 class ConfigUtilTest extends TestCase
 {
@@ -20,7 +21,7 @@ class ConfigUtilTest extends TestCase
     public function test_can_get_all_app_settings()
     {
         $settings = $this->configUtil->getAllAppSettings();
-        
+
         $this->assertIsArray($settings);
         $this->assertArrayHasKey('name', $settings);
         $this->assertArrayHasKey('env', $settings);
@@ -29,7 +30,7 @@ class ConfigUtilTest extends TestCase
     public function test_can_get_specific_app_setting()
     {
         $appName = $this->configUtil->getAllSettings(null, 'name');
-        
+
         $this->assertIsString($appName);
     }
 
@@ -38,13 +39,13 @@ class ConfigUtilTest extends TestCase
         // Create a test settings file
         $testSettings = ['test_key' => 'test_value', 'another_key' => 'another_value'];
         $filePath = 'test_settings.json';
-        
+
         Storage::put($filePath, json_encode($testSettings));
-        
+
         $settings = $this->configUtil->getAllSettings($filePath);
-        
+
         $this->assertEquals($testSettings, $settings);
-        
+
         // Clean up
         Storage::delete($filePath);
     }
@@ -52,14 +53,14 @@ class ConfigUtilTest extends TestCase
     public function test_returns_empty_array_for_non_existent_file()
     {
         $settings = $this->configUtil->getAllSettings('non_existent_file.json');
-        
+
         $this->assertEquals([], $settings);
     }
 
     public function test_returns_null_for_non_existent_setting()
     {
         $setting = $this->configUtil->getSetting('non_existent_key');
-        
+
         $this->assertNull($setting);
     }
 
@@ -67,14 +68,14 @@ class ConfigUtilTest extends TestCase
     {
         $key = 'dynamic_test_key';
         $value = 'dynamic_test_value';
-        
+
         // Mock Storage to avoid file system issues
         Storage::shouldReceive('put')
             ->with(\Mockery::type('string'), \Mockery::type('string'))
             ->andReturn(true);
-        
+
         $this->configUtil->setSetting($key, $value);
-        
+
         // Test passes if no exception is thrown
         $this->assertTrue(true);
     }
@@ -84,18 +85,18 @@ class ConfigUtilTest extends TestCase
         $key = 'update_test_key';
         $initialValue = 'initial_value';
         $updatedValue = 'updated_value';
-        
+
         // Mock Storage to avoid file system issues
         Storage::shouldReceive('put')
             ->with(\Mockery::type('string'), \Mockery::type('string'))
             ->andReturn(true);
-        
+
         // Set initial value
         $this->configUtil->setSetting($key, $initialValue);
-        
+
         // Update the value
         $this->configUtil->setSetting($key, $updatedValue);
-        
+
         // Test passes if no exception is thrown
         $this->assertTrue(true);
     }

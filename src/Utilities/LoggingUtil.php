@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Utilities;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -17,7 +19,6 @@ class LoggingUtil
      * Initialize a custom logger instance if needed.
      *
      * @param string|null $channel Custom log channel
-     * @return Logger
      */
     private static function getLogger(?string $channel = null): Logger
     {
@@ -29,21 +30,20 @@ class LoggingUtil
             $logPath = storage_path('logs/custom.log');
             $handler = new StreamHandler($logPath, Logger::DEBUG);
             $handler->setFormatter(new JsonFormatter());
-            
-            
+
             self::$customLogger = new Logger('custom');
             self::$customLogger->pushHandler($handler);
         }
-        
+
         return self::$customLogger;
     }
 
     /**
      * Log a message with context and formatting.
      *
-     * @param LogLevel $level Log level (debug, info, warning, error, critical)
-     * @param string $message Log message
-     * @param array $context Additional context data
+     * @param LogLevel    $level   Log level (debug, info, warning, error, critical)
+     * @param string      $message Log message
+     * @param array       $context Additional context data
      * @param string|null $channel Log channel (default, single, daily, custom, etc.)
      */
     public static function log(LogLevel $level, string $message, array $context = [], ?string $channel = null): void
@@ -51,7 +51,7 @@ class LoggingUtil
         $logger = self::getLogger($channel);
         $context['timestamp'] = now()->toDateTimeString();
         $context['env'] = Config::get('app.env');
-        
+
         $logger->{$level->value}($message, $context);
     }
 

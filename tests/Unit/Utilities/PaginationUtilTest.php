@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Utilities\PaginationUtil;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class PaginationUtilTest extends TestCase
 {
@@ -16,9 +17,9 @@ class PaginationUtilTest extends TestCase
         $items = range(1, 25); // 25 items
         $perPage = 10;
         $currentPage = 1;
-        
+
         $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
-        
+
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
         $this->assertEquals(25, $paginator->total());
         $this->assertEquals(10, $paginator->perPage());
@@ -32,9 +33,9 @@ class PaginationUtilTest extends TestCase
         $items = range(1, 25); // 25 items
         $perPage = 10;
         $currentPage = 2;
-        
+
         $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
-        
+
         $this->assertEquals(2, $paginator->currentPage());
         $this->assertCount(10, $paginator->items());
         $this->assertEquals([11, 12, 13, 14, 15, 16, 17, 18, 19, 20], $paginator->items());
@@ -45,9 +46,9 @@ class PaginationUtilTest extends TestCase
         $items = range(1, 25); // 25 items
         $perPage = 10;
         $currentPage = 3;
-        
+
         $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
-        
+
         $this->assertEquals(3, $paginator->currentPage());
         $this->assertCount(5, $paginator->items());
         $this->assertEquals([21, 22, 23, 24, 25], $paginator->items());
@@ -59,9 +60,9 @@ class PaginationUtilTest extends TestCase
         $perPage = 5;
         $currentPage = 1;
         $options = ['path' => '/test', 'pageName' => 'p'];
-        
+
         $paginator = PaginationUtil::paginate($items, $perPage, $currentPage, $options);
-        
+
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
         $this->assertEquals(10, $paginator->total());
     }
@@ -71,9 +72,9 @@ class PaginationUtilTest extends TestCase
         $items = [];
         $perPage = 10;
         $currentPage = 1;
-        
+
         $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
-        
+
         $this->assertEquals(0, $paginator->total());
         $this->assertCount(0, $paginator->items());
     }
@@ -83,9 +84,9 @@ class PaginationUtilTest extends TestCase
         $items = range(1, 5);
         $perPage = 10;
         $currentPage = 2;
-        
+
         $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
-        
+
         $this->assertEquals(5, $paginator->total());
         $this->assertCount(0, $paginator->items());
     }
@@ -101,13 +102,13 @@ class PaginationUtilTest extends TestCase
             1,
             ['path' => '/test']
         ));
-        
+
         $perPage = 2;
         $page = 1;
         $options = ['path' => '/test'];
-        
+
         $paginator = PaginationUtil::paginateQuery($query, $perPage, $page, $options);
-        
+
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
     }
 
@@ -116,7 +117,7 @@ class PaginationUtilTest extends TestCase
         // Mock the request
         $request = Request::create('/test', 'GET', ['page' => 3]);
         $this->app->instance('request', $request);
-        
+
         $query = $this->createMock(Builder::class);
         $query->method('paginate')->willReturn(new LengthAwarePaginator(
             [1, 2, 3, 4, 5],
@@ -125,12 +126,12 @@ class PaginationUtilTest extends TestCase
             3,
             ['path' => '/test']
         ));
-        
+
         $perPage = 2;
         $options = ['path' => '/test'];
-        
+
         $paginator = PaginationUtil::paginateQuery($query, $perPage, null, $options);
-        
+
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
     }
 
@@ -139,7 +140,7 @@ class PaginationUtilTest extends TestCase
         // Mock the request with no page parameter
         $request = Request::create('/test', 'GET', []);
         $this->app->instance('request', $request);
-        
+
         $query = $this->createMock(Builder::class);
         $query->method('paginate')->willReturn(new LengthAwarePaginator(
             [1, 2, 3, 4, 5],
@@ -148,12 +149,12 @@ class PaginationUtilTest extends TestCase
             1,
             ['path' => '/test']
         ));
-        
+
         $perPage = 2;
         $options = ['path' => '/test'];
-        
+
         $paginator = PaginationUtil::paginateQuery($query, $perPage, null, $options);
-        
+
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
     }
 }

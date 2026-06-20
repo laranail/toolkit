@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Traits;
 
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Config;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 
 class ApiResponseTraitFeatureTest extends TestCase
 {
-    use \Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
+    use ApiResponseTrait;
 
     public function test_success_response_integration()
     {
@@ -24,12 +27,12 @@ class ApiResponseTraitFeatureTest extends TestCase
             'total' => 2,
             'page' => 1,
         ];
-        
+
         $response = $this->successResponse($data, $message, 200, $meta);
-        
+
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(200, $response->getStatusCode());
-        
+
         $responseData = $response->getData(true);
         $this->assertTrue($responseData['success']);
         $this->assertEquals($message, $responseData['message']);
@@ -41,7 +44,7 @@ class ApiResponseTraitFeatureTest extends TestCase
     {
         // Ensure debug mode is enabled for this test
         Config::set('app.debug', true);
-        
+
         $message = 'Validation failed';
         $errors = [
             'email' => ['The email field is required.'],
@@ -51,12 +54,12 @@ class ApiResponseTraitFeatureTest extends TestCase
             'request_data' => ['email' => '', 'password' => ''],
             'validation_rules' => ['email' => 'required', 'password' => 'required'],
         ];
-        
+
         $response = $this->errorResponse($message, 422, $errors, $debug);
-        
+
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(422, $response->getStatusCode());
-        
+
         $responseData = $response->getData(true);
         $this->assertFalse($responseData['success']);
         $this->assertEquals($message, $responseData['message']);
@@ -74,7 +77,7 @@ class ApiResponseTraitFeatureTest extends TestCase
                 'created_at' => now()->subDays($i)->toDateTimeString(),
             ];
         });
-        
+
         $paginator = new LengthAwarePaginator(
             $items->forPage(1, 10),
             25,
@@ -82,18 +85,18 @@ class ApiResponseTraitFeatureTest extends TestCase
             1,
             ['path' => '/api/items']
         );
-        
+
         $response = $this->paginatedResponse($paginator, 'Items retrieved successfully');
-        
+
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(200, $response->getStatusCode());
-        
+
         $responseData = $response->getData(true);
         $this->assertTrue($responseData['success']);
         $this->assertEquals('Items retrieved successfully', $responseData['message']);
         $this->assertCount(10, $responseData['data']);
         $this->assertArrayHasKey('pagination', $responseData['meta']);
-        
+
         $pagination = $responseData['meta']['pagination'];
         $this->assertEquals(25, $pagination['total']);
         $this->assertEquals(10, $pagination['count']);
@@ -106,14 +109,14 @@ class ApiResponseTraitFeatureTest extends TestCase
     {
         // Ensure debug mode is enabled for this test
         Config::set('app.debug', true);
-        
+
         $exception = new \InvalidArgumentException('Invalid parameter provided');
-        
+
         $response = $this->exceptionResponse($exception, 400);
-        
+
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(400, $response->getStatusCode());
-        
+
         $responseData = $response->getData(true);
         $this->assertFalse($responseData['success']);
         $this->assertEquals('Internal server error.', $responseData['message']);
@@ -130,7 +133,7 @@ class ApiResponseTraitFeatureTest extends TestCase
         $response = $this->errorResponse('Test error', 500, [], ['debug_info' => 'sensitive_data']);
         $responseData = $response->getData(true);
         $this->assertArrayHasKey('debug', $responseData);
-        
+
         // Test with debug disabled
         Config::set('app.debug', false);
         $response = $this->errorResponse('Test error', 500, [], ['debug_info' => 'sensitive_data']);
@@ -141,7 +144,7 @@ class ApiResponseTraitFeatureTest extends TestCase
     public function test_response_headers_are_correct()
     {
         $response = $this->successResponse(['test' => 'data']);
-        
+
         $this->assertEquals('application/json', $response->headers->get('Content-Type'));
         $this->assertNotNull($response->headers->get('Date'));
     }
@@ -157,14 +160,14 @@ class ApiResponseTraitFeatureTest extends TestCase
                 'updated_at' => now()->toDateTimeString(),
             ],
         ]);
-        
+
         $startTime = microtime(true);
         $response = $this->successResponse($largeData);
         $responseTime = microtime(true) - $startTime;
-        
+
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertLessThan(1.0, $responseTime); // Should respond in less than 1 second
-        
+
         $responseData = $response->getData(true);
         $this->assertCount(1000, $responseData['data']);
     }
@@ -187,10 +190,10 @@ class ApiResponseTraitFeatureTest extends TestCase
             ],
             'permissions' => ['read', 'write'],
         ];
-        
+
         $response = $this->successResponse($nestedData);
         $responseData = $response->getData(true);
-        
+
         $this->assertEquals($nestedData, $responseData['data']);
         $this->assertEquals(123, $responseData['data']['user']['id']);
         $this->assertEquals('John Doe', $responseData['data']['user']['profile']['name']);

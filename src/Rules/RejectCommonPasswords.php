@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Rules;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
 class RejectCommonPasswords implements ValidationRule
 {
@@ -235,11 +237,6 @@ class RejectCommonPasswords implements ValidationRule
 
     /**
      * Run the validation rule.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @param  \Closure  $fail
-     * @return void
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
@@ -248,7 +245,7 @@ class RejectCommonPasswords implements ValidationRule
         }
 
         $password = strtolower(trim($value));
-        
+
         if (in_array($password, $this->commonPasswords)) {
             $fail('The :attribute contains a common password that is not allowed.');
         }

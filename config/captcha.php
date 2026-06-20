@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -74,20 +76,15 @@ return [
     'behavior' => [
         // Allow requests to proceed if CAPTCHA is not configured (useful for development)
         'allow_unconfigured' => env('CAPTCHA_ALLOW_UNCONFIGURED', false),
-        
+
         // Log failed verification attempts
         'log_failures' => env('CAPTCHA_LOG_FAILURES', true),
-        
+
         // Cache verification results (in seconds, 0 to disable)
         'cache_duration' => env('CAPTCHA_CACHE_DURATION', 0),
-        
+
         // Maximum number of verification attempts per IP per hour
         'max_attempts_per_hour' => env('CAPTCHA_MAX_ATTEMPTS_PER_HOUR', 100),
     ],
-
-
-
-
-
 
 ];

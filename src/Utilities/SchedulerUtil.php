@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Utilities;
 
 use Carbon\Carbon;
@@ -36,7 +38,6 @@ class SchedulerUtil
     /**
      * Check if any scheduled tasks are overdue.
      *
-     * @param  Event  $event
      * @return bool
      */
     private function isDue(Event $event)

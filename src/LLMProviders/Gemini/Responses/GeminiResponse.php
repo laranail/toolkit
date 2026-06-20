@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\LLMProviders\Gemini\Responses;
 
 use JsonSerializable;
@@ -52,5 +54,3 @@ class GeminiResponse implements JsonSerializable
         return $this->toArray();
     }
 }
-
-

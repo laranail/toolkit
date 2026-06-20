@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Utilities;
 
 use Illuminate\Http\Request;
@@ -9,8 +11,6 @@ class QueryParameterUtil
     /**
      * Parse query parameters from request.
      *
-     * @param Request $request
-     * @param array $allowedParameters
      * @return array
      */
     public static function parse(Request $request, array $allowedParameters)

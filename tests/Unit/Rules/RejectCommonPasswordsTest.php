@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Rules;
 
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
-use Illuminate\Validation\Validator;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
+use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class RejectCommonPasswordsTest extends TestCase
 {
@@ -217,7 +219,7 @@ class RejectCommonPasswordsTest extends TestCase
     public function test_rule_implements_validation_rule_interface()
     {
         $this->assertInstanceOf(
-            \Illuminate\Contracts\Validation\ValidationRule::class,
+            ValidationRule::class,
             $this->rule
         );
     }

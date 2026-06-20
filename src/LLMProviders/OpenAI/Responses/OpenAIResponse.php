@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\LLMProviders\OpenAI\Responses;
 
 use JsonSerializable;
@@ -72,4 +74,4 @@ class OpenAIResponse implements JsonSerializable
     {
         return $this->toArray();
     }
-} 
+}

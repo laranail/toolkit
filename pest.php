@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Simtabi\Laranail\Toolkit\Providers\ToolkitServiceProvider;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /*
@@ -39,7 +40,7 @@ expect()->extend('toBeOne', function () {
 function getPackageServiceProviders(): array
 {
     return [
-        \Simtabi\Laranail\Toolkit\Providers\ToolkitServiceProvider::class,
+        ToolkitServiceProvider::class,
     ];
 }
 

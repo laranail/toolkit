@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Commands;
 
-use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Simtabi\Laranail\Toolkit\Core\Console\Command;
 
 class MakeCrud extends Command
 {
-    protected $signature = 'make:crud
+    /** @var list<string> */
+    protected array $commandAliases = ['make:crud'];
+
+    protected $signature = 'laranail::toolkit.make-crud
         {name : The model name (e.g. Post, UserProfile)}
         {--fields= : Comma-separated fields as column:type:validation (e.g. title:string:required,body:text:nullable,price:decimal:required|min:0)}
         {--belongs-to=* : BelongsTo relationship (e.g. --belongs-to=User)}
@@ -24,16 +30,19 @@ class MakeCrud extends Command
     protected $description = 'Generate a full API CRUD scaffold: Model, Controller, and Migration';
 
     private string $modelName;
+
     private string $modelVar;
+
     private string $tableName;
+
     private array $fields = [];
 
     public function handle(): int
     {
         $this->modelName = Str::studly($this->argument('name'));
-        $this->modelVar  = Str::camel($this->modelName);
+        $this->modelVar = Str::camel($this->modelName);
         $this->tableName = Str::snake(Str::plural($this->modelName));
-        $this->fields    = $this->parseFields($this->option('fields') ?? '');
+        $this->fields = $this->parseFields($this->option('fields') ?? '');
 
         $this->components->info("Generating CRUD for [{$this->modelName}]...");
 
@@ -70,18 +79,20 @@ class MakeCrud extends Command
     {
         $apiRoutesPath = base_path('routes/api.php');
 
-        if (! file_exists($apiRoutesPath)) {
+        if (!file_exists($apiRoutesPath)) {
             $this->components->error('routes/api.php not found.');
+
             return;
         }
 
-        $routeUri  = Str::kebab(Str::plural($this->modelName));
+        $routeUri = Str::kebab(Str::plural($this->modelName));
         $routeLine = "Route::apiResource('{$routeUri}', \\App\\Http\\Controllers\\{$this->modelName}Controller::class);";
 
         $contents = file_get_contents($apiRoutesPath);
 
         if (str_contains($contents, $routeLine)) {
             $this->components->warn("Route for [{$this->modelName}] is already registered in routes/api.php.");
+
             return;
         }
 
@@ -101,7 +112,7 @@ class MakeCrud extends Command
     {
         // Allow users to override stubs by publishing them
         $published = base_path("stubs/vendor/laranail-toolkit/{$name}");
-        $default   = __DIR__ . '/../../stubs/' . $name;
+        $default = __DIR__ . '/../../stubs/' . $name;
 
         $path = file_exists($published) ? $published : $default;
 
@@ -113,6 +124,7 @@ class MakeCrud extends Command
         foreach ($replacements as $placeholder => $value) {
             $stub = str_replace('{{ ' . $placeholder . ' }}', $value, $stub);
         }
+
         return $stub;
     }
 
@@ -133,10 +145,10 @@ class MakeCrud extends Command
                 continue;
             }
             // Limit to 3 splits so validation rules containing ':' are preserved
-            $parts    = explode(':', $def, 3);
+            $parts = explode(':', $def, 3);
             $fields[] = [
-                'name'  => trim($parts[0]),
-                'type'  => trim($parts[1] ?? 'string'),
+                'name' => trim($parts[0]),
+                'type' => trim($parts[1] ?? 'string'),
                 'rules' => trim($parts[2] ?? ''),
             ];
         }
@@ -154,16 +166,17 @@ class MakeCrud extends Command
 
         if ($existing) {
             $this->components->warn("Migration already exists: [database/migrations/{$existing}]. Skipping.");
+
             return;
         }
 
         $timestamp = now()->format('Y_m_d_His');
-        $filename  = "{$timestamp}_create_{$this->tableName}_table.php";
-        $path      = database_path("migrations/{$filename}");
+        $filename = "{$timestamp}_create_{$this->tableName}_table.php";
+        $path = database_path("migrations/{$filename}");
 
         $content = $this->fillStub($this->loadStub('crud.migration.stub'), [
-            'table'        => $this->tableName,
-            'columns'      => $this->buildMigrationColumns(),
+            'table' => $this->tableName,
+            'columns' => $this->buildMigrationColumns(),
             'foreign_keys' => $this->buildForeignKeys(),
             'soft_deletes' => $this->option('soft-deletes') ? "\n            \$table->softDeletes();" : '',
         ]);
@@ -190,38 +203,39 @@ class MakeCrud extends Command
         foreach ($this->fields as $field) {
             $lines[] = '            ' . $this->migrationColumnLine($field);
         }
+
         return implode("\n", $lines);
     }
 
     private function migrationColumnLine(array $field): string
     {
-        $name     = $field['name'];
-        $type     = strtolower($field['type']);
-        $rules    = $field['rules'];
+        $name = $field['name'];
+        $type = strtolower($field['type']);
+        $rules = $field['rules'];
         $nullable = str_contains($rules, 'nullable') ? '->nullable()' : '';
-        $unique   = (str_contains($rules, 'unique') && ! str_contains($rules, 'unique:')) ? '->unique()' : '';
+        $unique = (str_contains($rules, 'unique') && !str_contains($rules, 'unique:')) ? '->unique()' : '';
 
         return match (true) {
-            in_array($type, ['string', 'varchar'])                     => "\$table->string('{$name}'){$nullable}{$unique};",
-            in_array($type, ['text'])                                  => "\$table->text('{$name}'){$nullable};",
-            in_array($type, ['longtext'])                              => "\$table->longText('{$name}'){$nullable};",
-            in_array($type, ['mediumtext'])                            => "\$table->mediumText('{$name}'){$nullable};",
-            in_array($type, ['integer', 'int'])                        => "\$table->integer('{$name}'){$nullable};",
-            in_array($type, ['biginteger', 'bigint'])                  => "\$table->bigInteger('{$name}'){$nullable};",
-            in_array($type, ['unsignedbiginteger', 'unsignedbigint'])  => "\$table->unsignedBigInteger('{$name}'){$nullable};",
-            in_array($type, ['tinyinteger', 'tinyint'])                => "\$table->tinyInteger('{$name}'){$nullable};",
-            in_array($type, ['smallinteger', 'smallint'])              => "\$table->smallInteger('{$name}'){$nullable};",
-            in_array($type, ['float'])                                 => "\$table->float('{$name}'){$nullable};",
-            in_array($type, ['double'])                                => "\$table->double('{$name}'){$nullable};",
-            in_array($type, ['decimal'])                               => "\$table->decimal('{$name}', 10, 2){$nullable};",
-            in_array($type, ['boolean', 'bool'])                      => "\$table->boolean('{$name}')->default(false);",
-            in_array($type, ['date'])                                  => "\$table->date('{$name}'){$nullable};",
-            in_array($type, ['datetime'])                              => "\$table->dateTime('{$name}'){$nullable};",
-            in_array($type, ['timestamp'])                             => "\$table->timestamp('{$name}'){$nullable};",
-            in_array($type, ['json'])                                  => "\$table->json('{$name}'){$nullable};",
-            in_array($type, ['uuid'])                                  => "\$table->uuid('{$name}'){$nullable};",
-            in_array($type, ['enum'])                                  => "\$table->enum('{$name}', []){$nullable};",
-            default                                                    => "\$table->string('{$name}'){$nullable}{$unique};",
+            in_array($type, ['string', 'varchar']) => "\$table->string('{$name}'){$nullable}{$unique};",
+            in_array($type, ['text']) => "\$table->text('{$name}'){$nullable};",
+            in_array($type, ['longtext']) => "\$table->longText('{$name}'){$nullable};",
+            in_array($type, ['mediumtext']) => "\$table->mediumText('{$name}'){$nullable};",
+            in_array($type, ['integer', 'int']) => "\$table->integer('{$name}'){$nullable};",
+            in_array($type, ['biginteger', 'bigint']) => "\$table->bigInteger('{$name}'){$nullable};",
+            in_array($type, ['unsignedbiginteger', 'unsignedbigint']) => "\$table->unsignedBigInteger('{$name}'){$nullable};",
+            in_array($type, ['tinyinteger', 'tinyint']) => "\$table->tinyInteger('{$name}'){$nullable};",
+            in_array($type, ['smallinteger', 'smallint']) => "\$table->smallInteger('{$name}'){$nullable};",
+            in_array($type, ['float']) => "\$table->float('{$name}'){$nullable};",
+            in_array($type, ['double']) => "\$table->double('{$name}'){$nullable};",
+            in_array($type, ['decimal']) => "\$table->decimal('{$name}', 10, 2){$nullable};",
+            in_array($type, ['boolean', 'bool']) => "\$table->boolean('{$name}')->default(false);",
+            in_array($type, ['date']) => "\$table->date('{$name}'){$nullable};",
+            in_array($type, ['datetime']) => "\$table->dateTime('{$name}'){$nullable};",
+            in_array($type, ['timestamp']) => "\$table->timestamp('{$name}'){$nullable};",
+            in_array($type, ['json']) => "\$table->json('{$name}'){$nullable};",
+            in_array($type, ['uuid']) => "\$table->uuid('{$name}'){$nullable};",
+            in_array($type, ['enum']) => "\$table->enum('{$name}', []){$nullable};",
+            default => "\$table->string('{$name}'){$nullable}{$unique};",
         };
     }
 
@@ -229,10 +243,11 @@ class MakeCrud extends Command
     {
         $lines = [];
         foreach ($this->option('belongs-to') as $related) {
-            $fk      = Str::snake($related) . '_id';
-            $table   = Str::snake(Str::plural($related));
+            $fk = Str::snake($related) . '_id';
+            $table = Str::snake(Str::plural($related));
             $lines[] = "\n            \$table->foreignId('{$fk}')->constrained('{$table}')->cascadeOnDelete();";
         }
+
         return implode('', $lines);
     }
 
@@ -244,21 +259,22 @@ class MakeCrud extends Command
     {
         $path = app_path("Models/{$this->modelName}.php");
 
-        if (file_exists($path) && ! $this->option('force')) {
+        if (file_exists($path) && !$this->option('force')) {
             $this->components->warn("Model [{$this->modelName}] already exists. Use --force to overwrite.");
+
             return;
         }
 
         $softDeletes = $this->option('soft-deletes');
 
         $content = $this->fillStub($this->loadStub('crud.model.stub'), [
-            'namespace'          => 'App\\Models',
-            'class'              => $this->modelName,
+            'namespace' => 'App\\Models',
+            'class' => $this->modelName,
             'soft_delete_import' => $softDeletes ? "use Illuminate\\Database\\Eloquent\\SoftDeletes;\n" : '',
-            'soft_delete_trait'  => $softDeletes ? "\n    use SoftDeletes;" : '',
-            'fillable'           => $this->buildFillable(),
-            'casts_block'        => $this->buildCastsBlock(),
-            'relationships'      => $this->buildModelRelationships(),
+            'soft_delete_trait' => $softDeletes ? "\n    use SoftDeletes;" : '',
+            'fillable' => $this->buildFillable(),
+            'casts_block' => $this->buildCastsBlock(),
+            'relationships' => $this->buildModelRelationships(),
         ]);
 
         $this->ensureDirectoryExists(app_path('Models'));
@@ -268,7 +284,7 @@ class MakeCrud extends Command
 
     private function buildFillable(): string
     {
-        $items = array_map(fn($f) => "        '{$f['name']}'", $this->fields);
+        $items = array_map(fn ($f) => "        '{$f['name']}'", $this->fields);
 
         foreach ($this->option('belongs-to') as $related) {
             $items[] = "        '" . Str::snake($related) . "_id'";
@@ -301,15 +317,16 @@ class MakeCrud extends Command
     private function resolveCast(string $type): ?string
     {
         $type = strtolower($type);
+
         return match (true) {
             in_array($type, ['integer', 'int', 'biginteger', 'bigint', 'tinyinteger', 'smallinteger']) => 'integer',
-            in_array($type, ['float', 'double'])                                                        => 'float',
-            in_array($type, ['decimal'])                                                                => 'decimal:2',
-            in_array($type, ['boolean', 'bool'])                                                        => 'boolean',
-            in_array($type, ['json'])                                                                   => 'array',
-            in_array($type, ['date'])                                                                   => 'date',
-            in_array($type, ['datetime', 'timestamp'])                                                  => 'datetime',
-            default                                                                                     => null,
+            in_array($type, ['float', 'double']) => 'float',
+            in_array($type, ['decimal']) => 'decimal:2',
+            in_array($type, ['boolean', 'bool']) => 'boolean',
+            in_array($type, ['json']) => 'array',
+            in_array($type, ['date']) => 'date',
+            in_array($type, ['datetime', 'timestamp']) => 'datetime',
+            default => null,
         };
     }
 
@@ -318,22 +335,22 @@ class MakeCrud extends Command
         $methods = [];
 
         foreach ($this->option('belongs-to') as $related) {
-            $related   = Str::studly($related);
+            $related = Str::studly($related);
             $methods[] = $this->relationshipMethod(Str::camel($related), 'BelongsTo', "belongsTo(\\App\\Models\\{$related}::class)");
         }
 
         foreach ($this->option('has-many') as $related) {
-            $related   = Str::studly($related);
+            $related = Str::studly($related);
             $methods[] = $this->relationshipMethod(Str::camel(Str::plural($related)), 'HasMany', "hasMany(\\App\\Models\\{$related}::class)");
         }
 
         foreach ($this->option('has-one') as $related) {
-            $related   = Str::studly($related);
+            $related = Str::studly($related);
             $methods[] = $this->relationshipMethod(Str::camel($related), 'HasOne', "hasOne(\\App\\Models\\{$related}::class)");
         }
 
         foreach ($this->option('belongs-to-many') as $related) {
-            $related   = Str::studly($related);
+            $related = Str::studly($related);
             $methods[] = $this->relationshipMethod(Str::camel(Str::plural($related)), 'BelongsToMany', "belongsToMany(\\App\\Models\\{$related}::class)");
         }
 
@@ -358,21 +375,22 @@ PHP;
     {
         $path = app_path("Http/Controllers/{$this->modelName}Controller.php");
 
-        if (file_exists($path) && ! $this->option('force')) {
+        if (file_exists($path) && !$this->option('force')) {
             $this->components->warn("Controller [{$this->modelName}Controller] already exists. Use --force to overwrite.");
+
             return;
         }
 
         $relationships = $this->getRelationshipsList();
-        $eagerLoad     = $relationships ? $this->buildEagerLoad($relationships) : '';
+        $eagerLoad = $relationships ? $this->buildEagerLoad($relationships) : '';
 
         $content = $this->fillStub($this->loadStub('crud.controller.stub'), [
-            'namespace'        => 'App\\Http\\Controllers',
-            'model_namespace'  => 'App\\Models',
-            'class'            => $this->modelName,
-            'model_var'        => $this->modelVar,
-            'index_body'       => $this->buildIndexBody($relationships),
-            'show_eager_load'  => $eagerLoad,
+            'namespace' => 'App\\Http\\Controllers',
+            'model_namespace' => 'App\\Models',
+            'class' => $this->modelName,
+            'model_var' => $this->modelVar,
+            'index_body' => $this->buildIndexBody($relationships),
+            'show_eager_load' => $eagerLoad,
             'store_validation' => $this->buildStoreValidation(),
             'store_eager_load' => $eagerLoad,
             'update_validation' => $this->buildUpdateValidation(),
@@ -387,46 +405,46 @@ PHP;
     private function buildIndexBody(array $relationships): string
     {
         $searchable = $this->getSearchableFields();
-        $perPage    = (int) ($this->option('per-page') ?? 15);
-        $lines      = [];
+        $perPage = (int) ($this->option('per-page') ?? 15);
+        $lines = [];
 
         $lines[] = "        \$query = {$this->modelName}::query();";
         $lines[] = '';
 
         if ($searchable) {
             $searchStr = "['" . implode("', '", $searchable) . "']";
-            $lines[]   = "        if (\$request->filled('search')) {";
-            $lines[]   = "            \$term = \$request->input('search');";
-            $lines[]   = "            \$query->where(function (\$q) use (\$term) {";
-            $lines[]   = "                foreach ({$searchStr} as \$field) {";
-            $lines[]   = "                    \$q->orWhere(\$field, 'LIKE', \"%{\$term}%\");";
-            $lines[]   = "                }";
-            $lines[]   = "            });";
-            $lines[]   = "        }";
-            $lines[]   = '';
+            $lines[] = "        if (\$request->filled('search')) {";
+            $lines[] = "            \$term = \$request->input('search');";
+            $lines[] = '            $query->where(function ($q) use ($term) {';
+            $lines[] = "                foreach ({$searchStr} as \$field) {";
+            $lines[] = "                    \$q->orWhere(\$field, 'LIKE', \"%{\$term}%\");";
+            $lines[] = '                }';
+            $lines[] = '            });';
+            $lines[] = '        }';
+            $lines[] = '';
         }
 
         if ($relationships) {
-            $relStr  = "['" . implode("', '", $relationships) . "']";
+            $relStr = "['" . implode("', '", $relationships) . "']";
             $lines[] = "        \$query->with({$relStr});";
             $lines[] = '';
         }
 
         $lines[] = "        if (\$request->filled('sort_by')) {";
         $lines[] = "            \$query->orderBy(\$request->input('sort_by'), \$request->input('sort_direction', 'asc'));";
-        $lines[] = "        }";
+        $lines[] = '        }';
         $lines[] = '';
         $lines[] = "        \$records = \$query->paginate(\$request->input('per_page', {$perPage}));";
         $lines[] = '';
-        $lines[] = "        return response()->json([";
+        $lines[] = '        return response()->json([';
         $lines[] = "            'data' => \$records->items(),";
         $lines[] = "            'meta' => [";
         $lines[] = "                'current_page' => \$records->currentPage(),";
         $lines[] = "                'last_page'    => \$records->lastPage(),";
         $lines[] = "                'per_page'     => \$records->perPage(),";
         $lines[] = "                'total'        => \$records->total(),";
-        $lines[] = "            ],";
-        $lines[] = "        ]);";
+        $lines[] = '            ],';
+        $lines[] = '        ]);';
 
         return implode("\n", $lines);
     }
@@ -434,31 +452,32 @@ PHP;
     private function buildEagerLoad(array $relationships): string
     {
         $relStr = "['" . implode("', '", $relationships) . "']";
+
         return "        \${$this->modelVar}->load({$relStr});\n";
     }
 
     private function buildStoreValidation(): string
     {
-        $rules    = $this->collectValidationRules(false);
+        $rules = $this->collectValidationRules(false);
         $messages = $this->collectValidationMessages($rules);
 
         if (empty($rules)) {
-            return "        \$validated = \$request->all();";
+            return '        $validated = $request->all();';
         }
 
-        $lines = ["        \$validated = \$request->validate(["];
+        $lines = ['        $validated = $request->validate(['];
         foreach ($rules as $field => $rule) {
             $lines[] = "            '{$field}' => '{$rule}',";
         }
 
         if ($messages) {
-            $lines[] = "        ], [";
+            $lines[] = '        ], [';
             foreach ($messages as $key => $message) {
                 $lines[] = "            '{$key}' => '{$message}',";
             }
-            $lines[] = "        ]);";
+            $lines[] = '        ]);';
         } else {
-            $lines[] = "        ]);";
+            $lines[] = '        ]);';
         }
 
         return implode("\n", $lines);
@@ -466,26 +485,26 @@ PHP;
 
     private function buildUpdateValidation(): string
     {
-        $rules    = $this->collectValidationRules(true);
+        $rules = $this->collectValidationRules(true);
         $messages = $this->collectValidationMessages($rules);
 
         if (empty($rules)) {
-            return "        \$validated = \$request->all();";
+            return '        $validated = $request->all();';
         }
 
-        $lines = ["        \$validated = \$request->validate(["];
+        $lines = ['        $validated = $request->validate(['];
         foreach ($rules as $field => $rule) {
             $lines[] = $this->buildUpdateRuleLine($field, $rule);
         }
 
         if ($messages) {
-            $lines[] = "        ], [";
+            $lines[] = '        ], [';
             foreach ($messages as $key => $message) {
                 $lines[] = "            '{$key}' => '{$message}',";
             }
-            $lines[] = "        ]);";
+            $lines[] = '        ]);';
         } else {
-            $lines[] = "        ]);";
+            $lines[] = '        ]);';
         }
 
         return implode("\n", $lines);
@@ -500,9 +519,9 @@ PHP;
 
             foreach ($parts as $part) {
                 if (str_starts_with($part, 'exists:')) {
-                    $spec    = explode(',', substr($part, 7));
-                    $table   = $spec[0];
-                    $label   = str_replace('_id', '', $field);
+                    $spec = explode(',', substr($part, 7));
+                    $table = $spec[0];
+                    $label = str_replace('_id', '', $field);
                     $messages["{$field}.exists"] = "The selected {$label} does not exist in the {$table} table.";
                     $messages["{$field}.required"] = "The {$label} field is required.";
                 }
@@ -518,28 +537,28 @@ PHP;
 
     private function buildUpdateRuleLine(string $field, string $rule): string
     {
-        if (! str_contains($rule, 'unique:')) {
+        if (!str_contains($rule, 'unique:')) {
             return "            '{$field}' => '{$rule}',";
         }
 
         // Isolate the unique segment and append model ID so existing records pass validation
-        $parts       = explode('|', $rule);
-        $nonUnique   = [];
+        $parts = explode('|', $rule);
+        $nonUnique = [];
         $uniqueTable = '';
-        $uniqueCol   = $field;
+        $uniqueCol = $field;
 
         foreach ($parts as $part) {
             if (str_starts_with($part, 'unique:')) {
-                $spec        = substr($part, 7);
-                $specParts   = explode(',', $spec);
+                $spec = substr($part, 7);
+                $specParts = explode(',', $spec);
                 $uniqueTable = $specParts[0];
-                $uniqueCol   = $specParts[1] ?? $field;
+                $uniqueCol = $specParts[1] ?? $field;
             } else {
                 $nonUnique[] = $part;
             }
         }
 
-        $base   = implode('|', $nonUnique);
+        $base = implode('|', $nonUnique);
         $prefix = $base ? "{$base}|unique:{$uniqueTable},{$uniqueCol}," : "unique:{$uniqueTable},{$uniqueCol},";
 
         return "            '{$field}' => '{$prefix}' . \${$this->modelVar}->id,";
@@ -550,16 +569,16 @@ PHP;
         $rules = [];
 
         foreach ($this->fields as $field) {
-            if (! empty($field['rules'])) {
+            if (!empty($field['rules'])) {
                 $rules[$field['name']] = $field['rules'];
             }
         }
 
         // Add foreign key fields from --belongs-to relationships
         foreach ($this->option('belongs-to') as $related) {
-            $fk           = Str::snake($related) . '_id';
-            $table        = Str::snake(Str::plural($related));
-            $rules[$fk]   = $isUpdate
+            $fk = Str::snake($related) . '_id';
+            $table = Str::snake(Str::plural($related));
+            $rules[$fk] = $isUpdate
                 ? "sometimes|integer|exists:{$table},id"
                 : "required|integer|exists:{$table},id";
         }
@@ -577,6 +596,7 @@ PHP;
         if (empty(trim($raw))) {
             return [];
         }
+
         return array_values(array_filter(array_map('trim', explode(',', $raw))));
     }
 
@@ -595,6 +615,7 @@ PHP;
         foreach ($this->option('belongs-to-many') as $r) {
             $rels[] = Str::camel(Str::plural(Str::studly($r)));
         }
+
         return $rels;
     }
 
@@ -603,15 +624,15 @@ PHP;
         $missing = [];
 
         $toCheck = [
-            'has-many'         => fn($r) => Str::snake(Str::plural($r)),
-            'has-one'          => fn($r) => Str::snake($r),
-            'belongs-to-many'  => fn($r) => Str::snake(Str::plural($r)),
+            'has-many' => fn ($r) => Str::snake(Str::plural($r)),
+            'has-one' => fn ($r) => Str::snake($r),
+            'belongs-to-many' => fn ($r) => Str::snake(Str::plural($r)),
         ];
 
         foreach ($toCheck as $option => $tableNameFn) {
             foreach ($this->option($option) as $related) {
                 $table = $tableNameFn($related);
-                if (! $this->tableExists($table)) {
+                if (!$this->tableExists($table)) {
                     $missing[] = [
                         'model' => Str::studly($related),
                         'table' => $table,
@@ -622,7 +643,7 @@ PHP;
 
         foreach ($this->option('belongs-to') as $related) {
             $table = Str::snake(Str::plural($related));
-            if (! $this->tableExists($table)) {
+            if (!$this->tableExists($table)) {
                 $missing[] = [
                     'model' => Str::studly($related),
                     'table' => $table,
@@ -646,7 +667,7 @@ PHP;
     private function tableExists(string $table): bool
     {
         try {
-            return \Illuminate\Support\Facades\Schema::hasTable($table);
+            return Schema::hasTable($table);
         } catch (\Throwable) {
             return false;
         }
@@ -654,7 +675,7 @@ PHP;
 
     private function ensureDirectoryExists(string $path): void
     {
-        if (! is_dir($path)) {
+        if (!is_dir($path)) {
             mkdir($path, 0755, true);
         }
     }

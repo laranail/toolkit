@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
+use Illuminate\Support\Facades\Schema;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class MakeCrudCommandTest extends TestCase
@@ -26,16 +29,19 @@ class MakeCrudCommandTest extends TestCase
     private function track(string $path): string
     {
         $this->cleanup[] = $path;
+
         return $path;
     }
 
     private function trackMigration(string $table): string
     {
         $files = glob(database_path("migrations/*_create_{$table}_table.php"));
-        if (! empty($files)) {
+        if (!empty($files)) {
             $this->track($files[0]);
+
             return $files[0];
         }
+
         return '';
     }
 
@@ -107,7 +113,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_migration_contains_string_column()
     {
         $this->artisan('make:crud', [
-            'name'     => 'Product',
+            'name' => 'Product',
             '--fields' => 'name:string:required',
         ])->assertExitCode(0);
 
@@ -118,7 +124,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_migration_contains_nullable_modifier_when_rule_is_nullable()
     {
         $this->artisan('make:crud', [
-            'name'     => 'Product',
+            'name' => 'Product',
             '--fields' => 'description:text:nullable',
         ])->assertExitCode(0);
 
@@ -129,7 +135,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_migration_maps_all_field_types_correctly()
     {
         $this->artisan('make:crud', [
-            'name'     => 'Product',
+            'name' => 'Product',
             '--fields' => 'name:string,bio:text,qty:integer,price:decimal,active:boolean,born:date,created:datetime,meta:json',
         ])->assertExitCode(0);
 
@@ -147,7 +153,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_migration_adds_foreign_key_for_belongs_to()
     {
         $this->artisan('make:crud', [
-            'name'         => 'Product',
+            'name' => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -161,12 +167,12 @@ class MakeCrudCommandTest extends TestCase
     public function test_migration_adds_soft_deletes_column()
     {
         $this->artisan('make:crud', [
-            'name'           => 'Product',
+            'name' => 'Product',
             '--soft-deletes' => true,
         ])->assertExitCode(0);
 
         $content = file_get_contents($this->trackMigration('products'));
-        $this->assertStringContainsString("\$table->softDeletes()", $content);
+        $this->assertStringContainsString('$table->softDeletes()', $content);
     }
 
     public function test_migration_is_skipped_if_one_already_exists()
@@ -216,7 +222,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_model_fillable_contains_fields()
     {
         $this->artisan('make:crud', [
-            'name'     => 'Product',
+            'name' => 'Product',
             '--fields' => 'name:string:required,price:decimal:required',
         ])->assertExitCode(0);
 
@@ -231,7 +237,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_model_fillable_contains_foreign_keys_from_belongs_to()
     {
         $this->artisan('make:crud', [
-            'name'         => 'Product',
+            'name' => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -245,7 +251,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_model_casts_are_generated_for_typed_fields()
     {
         $this->artisan('make:crud', [
-            'name'     => 'Product',
+            'name' => 'Product',
             '--fields' => 'price:decimal,active:boolean,meta:json,born:date,launched:datetime,qty:integer',
         ])->assertExitCode(0);
 
@@ -264,7 +270,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_model_includes_soft_deletes_trait()
     {
         $this->artisan('make:crud', [
-            'name'           => 'Product',
+            'name' => 'Product',
             '--soft-deletes' => true,
         ])->assertExitCode(0);
 
@@ -279,7 +285,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_model_generates_belongs_to_relationship()
     {
         $this->artisan('make:crud', [
-            'name'         => 'Product',
+            'name' => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -295,7 +301,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_model_generates_has_many_relationship()
     {
         $this->artisan('make:crud', [
-            'name'       => 'Product',
+            'name' => 'Product',
             '--has-many' => ['Review'],
         ])->assertExitCode(0);
 
@@ -311,7 +317,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_model_generates_has_one_relationship()
     {
         $this->artisan('make:crud', [
-            'name'      => 'Product',
+            'name' => 'Product',
             '--has-one' => ['Image'],
         ])->assertExitCode(0);
 
@@ -327,7 +333,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_model_generates_belongs_to_many_relationship()
     {
         $this->artisan('make:crud', [
-            'name'              => 'Product',
+            'name' => 'Product',
             '--belongs-to-many' => ['Tag'],
         ])->assertExitCode(0);
 
@@ -416,7 +422,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_controller_store_contains_validation_rules()
     {
         $this->artisan('make:crud', [
-            'name'     => 'Product',
+            'name' => 'Product',
             '--fields' => 'name:string:required|max:100,price:decimal:required|min:0',
         ])->assertExitCode(0);
 
@@ -431,7 +437,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_controller_update_modifies_unique_rule_to_ignore_current_record()
     {
         $this->artisan('make:crud', [
-            'name'     => 'Product',
+            'name' => 'Product',
             '--fields' => 'slug:string:required|unique:products',
         ])->assertExitCode(0);
 
@@ -445,7 +451,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_controller_store_has_exists_validation_for_belongs_to()
     {
         $this->artisan('make:crud', [
-            'name'         => 'Product',
+            'name' => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -459,7 +465,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_controller_update_uses_sometimes_for_belongs_to()
     {
         $this->artisan('make:crud', [
-            'name'         => 'Product',
+            'name' => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -473,7 +479,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_controller_generates_custom_message_for_exists_rule()
     {
         $this->artisan('make:crud', [
-            'name'         => 'Product',
+            'name' => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -488,7 +494,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_controller_generates_custom_message_for_unique_rule()
     {
         $this->artisan('make:crud', [
-            'name'     => 'Product',
+            'name' => 'Product',
             '--fields' => 'slug:string:required|unique:products',
         ])->assertExitCode(0);
 
@@ -503,8 +509,8 @@ class MakeCrudCommandTest extends TestCase
     public function test_controller_index_contains_search_logic_when_searchable_provided()
     {
         $this->artisan('make:crud', [
-            'name'         => 'Product',
-            '--fields'     => 'name:string,description:text',
+            'name' => 'Product',
+            '--fields' => 'name:string,description:text',
             '--searchable' => 'name,description',
         ])->assertExitCode(0);
 
@@ -531,7 +537,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_controller_index_uses_custom_per_page()
     {
         $this->artisan('make:crud', [
-            'name'       => 'Product',
+            'name' => 'Product',
             '--per-page' => '25',
         ])->assertExitCode(0);
 
@@ -545,9 +551,9 @@ class MakeCrudCommandTest extends TestCase
     public function test_controller_eager_loads_relationships()
     {
         $this->artisan('make:crud', [
-            'name'         => 'Product',
+            'name' => 'Product',
             '--belongs-to' => ['User'],
-            '--has-many'   => ['Review'],
+            '--has-many' => ['Review'],
         ])->assertExitCode(0);
 
         $content = file_get_contents($this->track(app_path('Http/Controllers/ProductController.php')));
@@ -589,17 +595,17 @@ class MakeCrudCommandTest extends TestCase
     public function test_register_routes_appends_route_to_api_php()
     {
         $routesPath = base_path('routes/api.php');
-        $existed    = file_exists($routesPath);
-        $original   = $existed ? file_get_contents($routesPath) : null;
+        $existed = file_exists($routesPath);
+        $original = $existed ? file_get_contents($routesPath) : null;
 
-        if (! is_dir(base_path('routes'))) {
+        if (!is_dir(base_path('routes'))) {
             mkdir(base_path('routes'), 0755, true);
         }
         file_put_contents($routesPath, "<?php\n");
 
         $this->artisan('make:crud', [
-            'name'               => 'Product',
-            '--register-routes'  => true,
+            'name' => 'Product',
+            '--register-routes' => true,
         ])->assertExitCode(0);
 
         $content = file_get_contents($routesPath);
@@ -619,10 +625,10 @@ class MakeCrudCommandTest extends TestCase
     public function test_register_routes_does_not_duplicate_existing_route()
     {
         $routesPath = base_path('routes/api.php');
-        $existed    = file_exists($routesPath);
-        $original   = $existed ? file_get_contents($routesPath) : null;
+        $existed = file_exists($routesPath);
+        $original = $existed ? file_get_contents($routesPath) : null;
 
-        if (! is_dir(base_path('routes'))) {
+        if (!is_dir(base_path('routes'))) {
             mkdir(base_path('routes'), 0755, true);
         }
         file_put_contents($routesPath, "<?php\n");
@@ -655,18 +661,18 @@ class MakeCrudCommandTest extends TestCase
     public function test_migrate_flag_runs_migration()
     {
         $this->artisan('make:crud', [
-            'name'      => 'Product',
-            '--fields'  => 'name:string:required',
+            'name' => 'Product',
+            '--fields' => 'name:string:required',
             '--migrate' => true,
         ])->assertExitCode(0);
 
         $this->assertTrue(
-            \Illuminate\Support\Facades\Schema::hasTable('products'),
+            Schema::hasTable('products'),
             'products table should exist after --migrate'
         );
 
         // Clean up
-        \Illuminate\Support\Facades\Schema::dropIfExists('products');
+        Schema::dropIfExists('products');
         $this->track(app_path('Models/Product.php'));
         $this->track(app_path('Http/Controllers/ProductController.php'));
         $this->trackMigration('products');
@@ -679,7 +685,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_warns_when_related_table_does_not_exist()
     {
         $this->artisan('make:crud', [
-            'name'       => 'Product',
+            'name' => 'Product',
             '--has-many' => ['NonExistentModel'],
         ])
             ->expectsOutputToContain('do not exist yet')
@@ -694,7 +700,7 @@ class MakeCrudCommandTest extends TestCase
     {
         // users table exists (loaded via loadLaravelMigrations in TestCase)
         $this->artisan('make:crud', [
-            'name'         => 'Product',
+            'name' => 'Product',
             '--belongs-to' => ['User'],
         ])
             ->doesntExpectOutputToContain('do not exist yet')

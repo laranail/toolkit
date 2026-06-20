@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Simtabi\Laranail\Toolkit\Enums;
 
 enum LogLevel: string
@@ -9,4 +11,4 @@ enum LogLevel: string
     case Warning = 'warning';
     case Error = 'error';
     case Critical = 'critical';
-} 
+}
