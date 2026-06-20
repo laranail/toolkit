@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Helpers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class XHelper
@@ -18,9 +19,16 @@ class XHelper
         return array_map(fn ($value) => is_string($value) ? trim($value) : $value, $array);
     }
 
+    /**
+     * Flatten a multi-dimensional array into a single level of leaf values.
+     *
+     * @param array<mixed> $array
+     *
+     * @return array<int, mixed>
+     */
     public static function arrayFlatten(array $array): array
     {
-        return iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveArrayIterator($array)), false);
+        return Arr::flatten($array);
     }
 
     // ------------------------
@@ -38,9 +46,10 @@ class XHelper
         return $matches[1] ?? null;
     }
 
-    public static function strSlugify(string $string): string
+    public static function strSlugify(string $string, string $separator = '-'): string
     {
-        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
+        // Str::slug transliterates unicode (e.g. "Café" => "cafe").
+        return Str::slug($string, $separator);
     }
 
     // ------------------------

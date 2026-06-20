@@ -16,15 +16,18 @@ class PaginationUtil
      */
     public static function paginate(array $items, int $perPage, int $currentPage, array $options = [])
     {
-        $paginator = new LengthAwarePaginator(
+        // Guard against zero/negative inputs (a negative offset would slice from
+        // the end of the array and return the wrong page).
+        $perPage = max(1, $perPage);
+        $currentPage = max(1, $currentPage);
+
+        return new LengthAwarePaginator(
             array_slice($items, ($currentPage - 1) * $perPage, $perPage),
             count($items),
             $perPage,
             $currentPage,
             $options
         );
-
-        return $paginator;
     }
 
     /**

@@ -18,22 +18,27 @@ class FilteringUtil
     public static function filter(Collection $items, string $name, string $operator, $value)
     {
         return $items->filter(function ($item) use ($name, $operator, $value) {
-            switch ($operator) {
-                case 'equals':
-                    return data_get($item, $name) == $value;
-                case 'not_equals':
-                    return data_get($item, $name) != $value;
-                case 'contains':
-                    return stripos(data_get($item, $name), $value) !== false;
-                case 'not_contains':
-                    return stripos(data_get($item, $name), $value) === false;
-                case 'starts_with':
-                    return stripos(data_get($item, $name), $value) === 0;
-                case 'ends_with':
-                    return stripos(data_get($item, $name), $value) === strlen(data_get($item, $name)) - strlen($value);
-                default:
-                    return false;
+            $actual = data_get($item, $name);
+
+            if ($operator === 'equals') {
+                return $actual == $value;
             }
+
+            if ($operator === 'not_equals') {
+                return $actual != $value;
+            }
+
+            // String operators: compare case-insensitively, guarding non-scalars.
+            $haystack = is_scalar($actual) ? strtolower((string) $actual) : '';
+            $needle = strtolower((string) $value);
+
+            return match ($operator) {
+                'contains' => str_contains($haystack, $needle),
+                'not_contains' => !str_contains($haystack, $needle),
+                'starts_with' => str_starts_with($haystack, $needle),
+                'ends_with' => str_ends_with($haystack, $needle),
+                default => false,
+            };
         });
     }
 }
