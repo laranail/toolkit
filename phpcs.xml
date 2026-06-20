@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Laranail Coding Standard">
+    <description>The coding standard for Laranail package</description>
+
+    <!-- Show progress and colors -->
+    <arg value="p"/>
+    <arg value="s"/>
+    <arg name="colors"/>
+
+    <!-- Paths to check -->
+    <file>src</file>
+    <file>tests</file>
+
+    <!-- Exclude paths -->
+    <exclude-pattern>src/Examples/*</exclude-pattern>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+
+    <!-- Use PSR-12 as base -->
+    <rule ref="PSR12"/>
+
+    <!-- Additional rules -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Generic.Commenting.Todo"/>
+    <rule ref="Generic.Commenting.Fixme"/>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="150"/>
+        </properties>
+    </rule>
+
+    <!-- Method naming -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName"/>
+
+    <!-- Require strict types declaration -->
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property name="linesCountBeforeDeclare" value="1"/>
+            <property name="linesCountAfterDeclare" value="1"/>
+            <property name="spacesCountAroundEqualsSign" value="0"/>
+        </properties>
+    </rule>
+
+    <!-- Disallow empty statements -->
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+
+    <!-- Detect unused parameters -->
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+
+    <!-- Clean code rules -->
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1"/>
+        </properties>
+    </rule>
+
+    <!-- PHP version compatibility -->
+    <config name="testVersion" value="8.2-"/>
+    <rule ref="PHPCompatibility"/>
+</ruleset>

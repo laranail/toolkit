@@ -1,0 +1,59 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "binary_operator_spaces": {
+            "default": "single_space"
+        },
+        "blank_line_after_opening_tag": true,
+        "blank_line_between_import_groups": true,
+        "class_attributes_separation": {
+            "elements": {
+                "const": "one",
+                "method": "one",
+                "property": "one",
+                "trait_import": "none"
+            }
+        },
+        "concat_space": {
+            "spacing": "one"
+        },
+        "declare_strict_types": true,
+        "final_class": false,
+        "method_argument_space": {
+            "on_multiline": "ensure_fully_multiline"
+        },
+        "new_with_braces": true,
+        "no_unused_imports": true,
+        "not_operator_with_successor_space": false,
+        "ordered_imports": {
+            "sort_algorithm": "alpha"
+        },
+        "phpdoc_align": {
+            "align": "vertical"
+        },
+        "phpdoc_no_empty_return": false,
+        "phpdoc_order": true,
+        "phpdoc_scalar": true,
+        "phpdoc_separation": true,
+        "phpdoc_single_line_var_spacing": true,
+        "phpdoc_summary": false,
+        "phpdoc_trim": true,
+        "phpdoc_types": true,
+        "single_quote": true,
+        "trailing_comma_in_multiline": {
+            "elements": ["arrays"]
+        },
+        "visibility_required": {
+            "elements": ["property", "method", "const"]
+        },
+        "whitespace_after_comma_in_array": true
+    },
+    "exclude": [
+        "src/Examples",
+        "vendor",
+        "node_modules"
+    ]
+}

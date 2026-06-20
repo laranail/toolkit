@@ -1,0 +1,53 @@
+# PHPStan Configuration for Laranail Package
+
+parameters:
+    level: 8
+    paths:
+        - src
+    
+    # Laravel-specific configurations
+    bootstrapFiles:
+        - vendor/autoload.php
+    
+    # Ignore patterns
+    ignoreErrors:
+        # Allow mixed types from Laravel facades and helpers
+        - '#Call to an undefined method Illuminate\\.*#'
+        - '#Access to an undefined property Illuminate\\.*#'
+        
+        # Allow dynamic properties on stdClass
+        - '#Access to an undefined property stdClass::\$.*#'
+        
+        # Ignore macro-related false positives
+        - '#Call to an undefined static method Illuminate\\Support\\Collection::macro\(\)#'
+        - '#Call to an undefined static method Illuminate\\Support\\Str::macro\(\)#'
+        
+    excludePaths:
+        - src/Examples/*
+        - tests/*/Fixtures/*
+        - vendor/*
+    
+    # Check missing type hints
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: false
+    
+    # Strict rules (for better code quality)
+    checkAlwaysTrueCheckTypeFunctionCall: true
+    checkAlwaysTrueInstanceof: true
+    checkAlwaysTrueStrictComparison: true
+    checkExplicitMixedMissingReturn: true
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+    
+    # Report unused parameters
+    reportUnmatchedIgnoredErrors: false
+    
+    # Parallel processing
+    parallel:
+        jobSize: 20
+        maximumNumberOfProcesses: 4
+        minimumNumberOfJobsPerProcess: 2
+    
+    # Custom rules
+    strictRules:
+        allRules: false

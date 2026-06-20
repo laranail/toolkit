@@ -1,0 +1,89 @@
+{
+    "name": "laranail/toolkit",
+    "description": "Laranail Toolkit — a comprehensive, security-first Swiss-army toolkit for Laravel: utilities, traits, middleware, macros, LLM providers, and feature modules for day-to-day Laravel development.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "laranail",
+        "toolkit",
+        "utilities",
+        "traits",
+        "middleware",
+        "macros",
+        "llm"
+    ],
+    "homepage": "https://opensource.simtabi.com/toolkit/",
+    "authors": [
+        {
+            "name": "Imani Manyara",
+            "email": "imani@simtabi.com",
+            "homepage": "https://www.imanimanyara.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/laranail/toolkit/issues",
+        "source": "https://github.com/laranail/toolkit",
+        "docs": "https://opensource.simtabi.com/toolkit/docs/"
+    },
+    "require": {
+        "php": "^8.3 || ^8.4 || ^8.5",
+        "ext-fileinfo": "*",
+        "ext-mbstring": "*",
+        "illuminate/cache": "^13.0",
+        "illuminate/console": "^13.0",
+        "illuminate/contracts": "^13.0",
+        "illuminate/database": "^13.0",
+        "illuminate/filesystem": "^13.0",
+        "illuminate/http": "^13.0",
+        "illuminate/pagination": "^13.0",
+        "illuminate/routing": "^13.0",
+        "illuminate/support": "^13.0",
+        "illuminate/validation": "^13.0",
+        "openai-php/client": "^0.20.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.18",
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^11.0",
+        "pestphp/pest": "^3.0",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^11.0",
+        "squizlabs/php_codesniffer": "^3.10"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Simtabi\\Laranail\\Toolkit\\": "src/"
+        },
+        "files": [
+            "helpers/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Simtabi\\Laranail\\Toolkit\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "test": "pest",
+        "test:coverage": "pest --coverage --min=80",
+        "analyse": "phpstan analyse",
+        "format": "pint"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider"
+            ]
+        }
+    }
+}
