@@ -14,6 +14,7 @@ use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\LLMProviders\Gemini\GeminiProvider;
 use Simtabi\Laranail\Toolkit\LLMProviders\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Models\AccessLog;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
@@ -44,6 +45,7 @@ class ToolkitServiceProvider extends ServiceProvider
         AvatarServiceProvider::class,
         CaptchaServiceProvider::class,
         NotificationServiceProvider::class,
+        ArchiverServiceProvider::class,
     ];
 
     public function register(): void

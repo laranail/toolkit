@@ -20,7 +20,10 @@
     <!-- PSR-12 base. Pint owns formatting; exclude the one sniff that fights
          Pint's single-line empty bodies (`) {}`, valid under PER style). -->
     <rule ref="PSR12">
+        <!-- Pint owns formatting; exclude the sniffs that fight its PER-style
+             single-line empty bodies (`class Foo {}` / `) {}`). -->
         <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
+        <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
     </rule>
 
     <!-- Test methods follow PHPUnit's snake_case convention. -->
