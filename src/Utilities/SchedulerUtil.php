@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Utilities;
 
 use Carbon\Carbon;
+use Cron\CronExpression;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Log;
@@ -14,50 +15,42 @@ class SchedulerUtil
     /**
      * Get a summary of the scheduled tasks.
      *
-     * @return array
+     * @return array<int, array<string, mixed>>
      */
-    public function getScheduleSummary()
+    public function getScheduleSummary(): array
     {
         $schedule = app(Schedule::class);
+        $events = $schedule->events();
 
-        Log::info('Scheduled Events: ' . print_r($schedule->events(), true));
+        Log::info('Summarized ' . count($events) . ' scheduled event(s).');
 
-        return collect($schedule->events())->map(function (Event $event) {
+        return collect($events)->map(function (Event $event) {
             return [
                 'command' => $event->command,
                 'expression' => $event->expression,
                 'description' => $event->description,
                 'next_run' => $event->nextRunDate(),
                 'is_due' => $this->isDue($event),
-                'is_running' => $event->isRunning(),
                 'output' => $event->output,
             ];
         })->toArray();
     }
 
     /**
-     * Check if any scheduled tasks are overdue.
-     *
-     * @return bool
+     * Whether any scheduled task is due to run now.
      */
-    private function isDue(Event $event)
-    {
-        $nextRunDate = $event->getNextRunDate();
-
-        return $nextRunDate <= Carbon::now();
-    }
-
-    /**
-     * Check if any scheduled tasks are overdue.
-     *
-     * @return bool
-     */
-    public function hasOverdueTasks()
+    public function hasOverdueTasks(): bool
     {
         $schedule = app(Schedule::class);
 
-        return collect($schedule->events())->filter(function (Event $event) {
-            return $this->isDue($event) && !$event->isRunning();
-        })->isNotEmpty();
+        return collect($schedule->events())->contains(fn (Event $event): bool => $this->isDue($event));
+    }
+
+    /**
+     * Evaluate the event's cron expression against the current time.
+     */
+    private function isDue(Event $event): bool
+    {
+        return (new CronExpression($event->expression))->isDue(Carbon::now());
     }
 }

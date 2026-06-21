@@ -113,6 +113,18 @@ class ToolkitServiceProvider extends ServiceProvider
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
+        // Load + publish views and translations (namespace: laranail-toolkit).
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'laranail-toolkit');
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/assets/lang', 'laranail-toolkit');
+
+        $this->publishes([
+            __DIR__ . '/../../resources/views' => resource_path('views/vendor/laranail-toolkit'),
+        ], 'laranail-toolkit-views');
+
+        $this->publishes([
+            __DIR__ . '/../../resources/assets/lang' => lang_path('vendor/laranail-toolkit'),
+        ], 'laranail-toolkit-lang');
+
         // Publish configs
         $this->publishes([
             __DIR__ . '/../../config/toolkit.php' => config_path('laranail-toolkit.php'),

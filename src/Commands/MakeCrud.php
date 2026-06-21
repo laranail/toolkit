@@ -411,12 +411,14 @@ PHP;
         $lines[] = "        \$query = {$this->modelName}::query();";
         $lines[] = '';
 
+        $columnsStr = "['" . implode("', '", $searchable) . "']";
+
         if ($searchable) {
-            $searchStr = "['" . implode("', '", $searchable) . "']";
             $lines[] = "        if (\$request->filled('search')) {";
-            $lines[] = "            \$term = \$request->input('search');";
+            $lines[] = '            // Escape LIKE wildcards so user input cannot broaden the match.';
+            $lines[] = "            \$term = addcslashes((string) \$request->input('search'), '%_\\\\');";
             $lines[] = '            $query->where(function ($q) use ($term) {';
-            $lines[] = "                foreach ({$searchStr} as \$field) {";
+            $lines[] = "                foreach ({$columnsStr} as \$field) {";
             $lines[] = "                    \$q->orWhere(\$field, 'LIKE', \"%{\$term}%\");";
             $lines[] = '                }';
             $lines[] = '            });';
@@ -430,11 +432,16 @@ PHP;
             $lines[] = '';
         }
 
-        $lines[] = "        if (\$request->filled('sort_by')) {";
-        $lines[] = "            \$query->orderBy(\$request->input('sort_by'), \$request->input('sort_direction', 'asc'));";
+        // Only allow ordering by a whitelisted column, and a valid direction.
+        $lines[] = "        \$sortable = {$columnsStr};";
+        $lines[] = "        if (\$request->filled('sort_by') && in_array(\$request->input('sort_by'), \$sortable, true)) {";
+        $lines[] = "            \$direction = strtolower((string) \$request->input('sort_direction', 'asc')) === 'desc' ? 'desc' : 'asc';";
+        $lines[] = "            \$query->orderBy(\$request->input('sort_by'), \$direction);";
         $lines[] = '        }';
         $lines[] = '';
-        $lines[] = "        \$records = \$query->paginate(\$request->input('per_page', {$perPage}));";
+        // Clamp per_page so a client cannot request an unbounded page.
+        $lines[] = "        \$perPage = min(max((int) \$request->input('per_page', {$perPage}), 1), 100);";
+        $lines[] = '        $records = $query->paginate($perPage);';
         $lines[] = '';
         $lines[] = '        return response()->json([';
         $lines[] = "            'data' => \$records->items(),";

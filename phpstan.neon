@@ -1,8 +1,8 @@
-# PHPStan configuration for laranail/toolkit (PHPStan 2.x)
-# Larastan + strict-rules are introduced in a later phase; the baseline below
-# captures inherited debt and is ratcheted down per cleaned module.
+# PHPStan configuration for laranail/toolkit (PHPStan 2.x + Larastan).
+# The baseline captures residual inherited debt and is ratcheted down over time.
 
 includes:
+    - vendor/larastan/larastan/extension.neon
     - phpstan-baseline.neon
 
 parameters:
@@ -36,16 +36,6 @@ parameters:
         -
             message: '#Parameter \#1 \$value of class Illuminate\\Database\\Query\\Expression constructor expects TValue of float\|int\|literal-string, non-falsy-string given\.#'
             path: src/Laravel/Macros/QueryBuilderMacros.php
-
-        # Builder::macro() rebinds the closure's $this to the query builder at
-        # runtime, but the closure still closes over the outer scope's $this
-        # (the ArchiveScope), so withoutGlobalScope($this) is correct — this is
-        # the exact pattern Laravel's own SoftDeletingScope uses. Without
-        # Larastan's macro extension loaded, the analyser cannot model the
-        # rebind and mis-types $this; safe to ignore here.
-        -
-            message: '#Parameter \#1 \$scope of method Illuminate\\Database\\Eloquent\\Builder<Illuminate\\Database\\Eloquent\\Model>::withoutGlobalScope\(\) expects Illuminate\\Database\\Eloquent\\Scope\|string, Illuminate\\Database\\Query\\Builder given\.#'
-            path: src/Support/Scopes/ArchiveScope.php
 
     excludePaths:
         - tests/*/Fixtures/*

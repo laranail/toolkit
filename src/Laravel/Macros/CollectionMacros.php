@@ -42,11 +42,6 @@ final class CollectionMacros extends ServiceProvider
             });
         });
 
-        Collection::macro('collectBy', function (callable $callback): Collection {
-            /** @var Collection<array-key, mixed> $this */
-            return $this->groupBy($callback)->map(static fn (mixed $group): Collection => new Collection($group));
-        });
-
         Collection::macro('mapToKey', function (callable $callback): Collection {
             /** @var Collection<array-key, mixed> $this */
             $result = [];

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
-use Psr\Log\LoggerInterface;
 
 /**
  * Registers convenience macros on the query and Eloquent builders.
@@ -66,13 +66,8 @@ final class QueryBuilderMacros extends ServiceProvider
 
         QueryBuilder::macro('log', function (?string $channel = null): QueryBuilder {
             /** @var QueryBuilder $this */
-            $logger = app(LoggerInterface::class);
-
-            if ($channel !== null && method_exists($logger, 'channel')) {
-                $logger = $logger->channel($channel);
-            }
-
-            $logger->debug('Query Builder SQL', [
+            // Log::channel(null) resolves the default channel.
+            Log::channel($channel)->debug('Query Builder SQL', [
                 'sql' => $this->toSql(),
                 'bindings' => $this->getBindings(),
             ]);
