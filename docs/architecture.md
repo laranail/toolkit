@@ -2,51 +2,62 @@
 
 The toolkit favours small, contract-bound pieces over a single god-class. The
 root `ToolkitServiceProvider` wires everything; feature modules are isolated and
-deferred so they can later be extracted into stand-alone packages.
+deferred so they can later be extracted into stand-alone packages (as the
+notifications module already was — it now lives in `laranail/notifications`).
 
 ## Source layout
 
+The layout is **flat and feature-first**: cross-cutting glue sits at the top of
+`src/`, and every feature is a single folder under `src/Modules/` with its files
+directly inside it (a sub-folder only for a genuinely multi-file group such as
+`Captcha/Providers/` or the per-driver LLM folders).
+
 ```
 src/
-├── Providers/ToolkitServiceProvider.php   # the one entry point
-├── Commands/MakeCrud.php                   # make-crud generator
-├── Core/Console/                           # base Command + namespaced-name concern
-├── Http/
-│   ├── Controllers/CrudController.php       # abstract base controller
-│   └── Middleware/AccessLogMiddleware.php   # access.log
-├── Models/AccessLog.php
-├── Enums/LogLevel.php
-├── LLMProviders/                           # OpenAI / Claude / Gemini + contract
-├── Laravel/
-│   ├── Macros/                             # grouped macro providers
-│   └── Blade/BladeServiceProvider.php       # custom-only directives
-├── Modules/                                # self-contained feature modules
-│   ├── Avatar/  Gravatar/  Captcha/  Archiver/
-├── Support/
-│   ├── FilePathGuard.php                    # `..` / null-byte guard
-│   ├── Scopes/ArchiveScope.php              # soft-archive global scope
-│   └── Diagnostics/RequirementsDiagnostics.php
-├── Traits/                                  # ApiResponse, Auditable, ...
+├── Providers/
+│   ├── ToolkitServiceProvider.php          # the one entry point
+│   └── BladeServiceProvider.php            # custom-only Blade directives
+├── Facades/Toolkit.php                     # unified entry facade
+├── ToolkitManager.php                      # Toolkit::avatar()/gravatar()/...
+├── Commands/MakeCrud.php                   # make-crud (extends the laranail/console base)
+├── Http/Controllers/CrudController.php     # abstract base controller
+├── Macros/                                 # grouped macro providers + MacroServiceProvider
+├── Traits/                                 # ApiResponse, Auditable, HasAvatar, ...
 ├── Utilities/                              # 9 utility classes
+├── Support/                                # FilePathGuard, Scopes/ArchiveScope, Diagnostics/
+├── Enums/LogLevel.php
 ├── Rules/RejectCommonPasswords.php
-└── Helpers/XHelper.php
+├── Helpers/XHelper.php
+└── Modules/                                # self-contained feature modules (flat inside)
+    ├── Avatar/        AvatarService, AvatarServiceInterface, AvatarFont, DTOs, Avatar facade, provider
+    ├── Gravatar/      GravatarService, …, Gravatar facade, provider
+    ├── Captcha/       CaptchaService, …, Providers/{Recaptcha,Hcaptcha,Turnstile}, Captcha facade, provider
+    ├── Archiver/      ArchiverService, ArchiveManager, Zip/Tar/TarGz/Extractor, Archiver facade, provider
+    ├── AccessLog/     AccessLogMiddleware, AccessLog (model)
+    └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests
 ```
+
+> The command base (`Command` + `SupportsNamespacedNames`) is **not** local — it
+> comes from [`laranail/console`](https://opensource.simtabi.com/console/), the
+> org-canonical command base. `MakeCrud` extends it.
+
+## Adding a feature / tool / module
+
+The layout is designed so a new feature is a drop-in folder:
+
+1. Create `src/Modules/<Name>/` with `<Name>Service.php`, `<Name>ServiceInterface.php`,
+   a `<Name>Facade.php`, and a deferred `<Name>ServiceProvider.php` (plus DTOs/enums
+   as needed). Keep a sub-folder only for a genuinely multi-file group.
+2. Register the provider in `ToolkitServiceProvider::MODULE_PROVIDERS`.
+3. (Optional) add a `Toolkit::<name>()` accessor on `ToolkitManager` and a Laravel
+   alias in `composer.json` `extra.laravel.aliases`.
 
 ## Deferred feature modules
 
-Each module under `src/Modules/` is a self-contained unit with its own
-`Contracts/`, `Services/`, `Facades/`, optional DTOs/enums, and a dedicated
-`ServiceProvider`. The root provider registers all five module providers:
+Each module provider:
 
-```php
-GravatarServiceProvider, AvatarServiceProvider, CaptchaServiceProvider,
-ArchiverServiceProvider
-```
-
-Every module provider:
-
-- **is deferred** (`DeferrableProvider`) — its services are only booted when
-  first resolved, keeping the framework boot lean;
+- **is deferred** (`DeferrableProvider`) — services boot only when first resolved,
+  keeping the framework boot lean;
 - **binds by interface** (e.g. `AvatarServiceInterface` → `AvatarService`);
 - **registers a string alias** (`laranail.<module>`) and a Facade.
 
@@ -57,7 +68,8 @@ Every module provider:
 | Captcha | `CaptchaProviderInterface` / `CaptchaService` | `laranail.captcha` | `Captcha` |
 | Archiver | `ArchiverServiceInterface` | `laranail.archiver` | `Archiver` |
 
-Resolve any module by its contract (preferred, for testability) or its facade.
+Resolve any module by its contract (preferred, for testability), its own facade,
+or the unified `Toolkit` facade (`Toolkit::avatar()`, …).
 
 ## Eager vs. deferred
 
@@ -72,15 +84,17 @@ the `php artisan about` diagnostics are also wired in `boot()`.
 
 ## LLM provider selection
 
-`LLMProviderInterface` is bound to a single driver chosen at resolution time
-from `config('laranail.toolkit.llm.default_provider')` — `openai` (default),
-`claude`, or `gemini`. See [LLM providers](llm-providers.md).
+`Modules\Llm\LLMProviderInterface` is bound to a single driver chosen at
+resolution time from `config('laranail.toolkit.llm.default_provider')` — `openai`
+(default), `claude`, or `gemini`. See [LLM providers](llm-providers.md).
 
 ## Migration / removal record
 
 This package was ported from the pre-1.0 `Simtabi\Laranail` monolith, keeping
-only the genuine delta over Laravel 13 / PHP 8.3–8.5 natives. The full list of
-dropped legacy code (each with its native replacement) and the kept items lives
-in [migration/dropped.md](migration/dropped.md).
+only the genuine delta over Laravel 13 / PHP 8.3–8.5 natives. The complete
+per-symbol accounting (migrated / relocated / dropped) is in
+[migration/MIGRATION.md](migration/MIGRATION.md); the cited drop rationale is in
+[migration/dropped.md](migration/dropped.md). A regression test
+(`tests/Regression/ApiSurfaceTest`) enforces that nothing is lost unplanned.
 
 [← Docs index](../README.md#documentation)
