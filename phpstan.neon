@@ -17,8 +17,25 @@ parameters:
     ignoreErrors:
         # Laravel facades / magic helpers resolve dynamically.
         - '#Call to an undefined method Illuminate\\.*#'
+        # Custom Str/Stringable macros registered at runtime are resolved via the
+        # Macroable __callStatic shim, so the static analyser cannot see them.
+        - '#Call to an undefined static method Illuminate\\Support\\Str::.*#'
         - '#Access to an undefined property Illuminate\\.*#'
         - '#Access to an undefined property stdClass::\$.*#'
+
+        # Inside a Factory mixin the returned closure is rebound to the factory by
+        # the Macroable trait; without Larastan loaded the analyser still sees the
+        # mixin instance, so $this widening to Factory is expected and safe.
+        -
+            message: '#PHPDoc tag @var with type Illuminate\\Database\\Eloquent\\Factories\\Factory.* is not subtype of native type \$this.*#'
+            path: src/Laravel/Macros/FactoryBuilderMixin.php
+
+        # The orderByNulls* macros build an "<grammar-quoted column> is [not] null"
+        # fragment. The column is quoted by the connection grammar, so the value is
+        # injection-safe even though it is not a compile-time literal-string.
+        -
+            message: '#Parameter \#1 \$value of class Illuminate\\Database\\Query\\Expression constructor expects TValue of float\|int\|literal-string, non-falsy-string given\.#'
+            path: src/Laravel/Macros/QueryBuilderMacros.php
 
     excludePaths:
         - tests/*/Fixtures/*
