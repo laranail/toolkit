@@ -1,0 +1,735 @@
+{
+    "Simtabi\\Laranail\\Toolkit\\Commands\\Command": [
+        "__construct"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Commands\\Concerns\\SupportsNamespacedNames": [
+        "setAliases",
+        "setName"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Commands\\MakeCrud": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Enums\\LogLevel": [],
+    "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper": [
+        "arrayFlatten",
+        "arrayTrim",
+        "carbonHumanDiff",
+        "carbonParse",
+        "strBetween",
+        "strSlugify",
+        "uuid"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Http\\Controllers\\CrudController": [
+        "__construct",
+        "deleteRecord",
+        "getAllRecords",
+        "getRecordById",
+        "storeRecord",
+        "updateRecord"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\ClaudeProvider": [
+        "__construct",
+        "generateResponse"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\Responses\\ClaudeResponse": [
+        "__construct",
+        "getContent",
+        "getModel",
+        "getRawResponse",
+        "getUsage",
+        "jsonSerialize",
+        "toArray",
+        "toJson"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\LLMProviders\\Concerns\\RetriesHttpRequests": [],
+    "Simtabi\\Laranail\\Toolkit\\LLMProviders\\Contracts\\LLMProviderInterface": [
+        "generateResponse"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\LLMProviders\\Exceptions\\LlmRequestException": [
+        "__construct",
+        "isRetryable"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\GeminiProvider": [
+        "__construct",
+        "generateResponse"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\Responses\\GeminiResponse": [
+        "__construct",
+        "getContent",
+        "getModel",
+        "getRawResponse",
+        "getUsage",
+        "jsonSerialize",
+        "toArray",
+        "toJson"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\OpenAIProvider": [
+        "__construct",
+        "generateResponse"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\Responses\\OpenAIResponse": [
+        "__construct",
+        "getContent",
+        "getModel",
+        "getRawResponse",
+        "getUsage",
+        "jsonSerialize",
+        "toArray",
+        "toJson"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Macros\\ArrMacros": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Macros\\BlueprintMacros": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Macros\\FactoryBuilderMixin": [
+        "withoutEvents"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Macros\\MacroServiceProvider": [
+        "boot",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Macros\\QueryBuilderMacros": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Macros\\RequestMacros": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\AccessLog\\Http\\Middleware\\AccessLogMiddleware": [
+        "handle",
+        "terminate"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\AccessLog\\Models\\AccessLog": [],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\ArchiverServiceProvider": [
+        "provides",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Contracts\\ArchiverServiceInterface": [
+        "extract",
+        "tar",
+        "tarGz",
+        "zip"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Exceptions\\ArchiveException": [
+        "cannotOpen",
+        "missingExtractor",
+        "tooLarge",
+        "unsafeEntry"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Facades\\Archiver": [],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Services\\ArchiveManager": [
+        "__construct",
+        "addExtractor",
+        "extract",
+        "getExtractor"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Services\\ArchiverService": [
+        "extract",
+        "tar",
+        "tarGz",
+        "zip"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Services\\Extractor": [
+        "extract",
+        "setLimits"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Services\\Tar": [
+        "extract"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Services\\TarGz": [],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Services\\Zip": [
+        "extract"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Support\\GuardsArchivePaths": [],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarServiceProvider": [
+        "provides",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Contracts\\AvatarServiceInterface": [
+        "generate",
+        "generateBase64",
+        "generateDataUri",
+        "generateWithGravatarFallback",
+        "getAvailableBackgroundColors",
+        "getAvailableFontEnums",
+        "getAvailableFontNames",
+        "getAvailableFontValues",
+        "getAvailableFonts",
+        "getAvailableForegroundColors",
+        "getAvailableShapes",
+        "getAvatar",
+        "getAvatarCached",
+        "getAvatarUrl",
+        "getBackgroundColor",
+        "getBorderColor",
+        "getBorderSize",
+        "getCacheTtl",
+        "getChars",
+        "getDefaultFont",
+        "getDefaultFontName",
+        "getFontPath",
+        "getFontSize",
+        "getForegroundColor",
+        "getGravatar",
+        "getGravatarDefaultImages",
+        "getGravatarForEmail",
+        "getGravatarRatings",
+        "getHeight",
+        "getImageObject",
+        "getName",
+        "getQuality",
+        "getRandomBackgroundColor",
+        "getRandomForegroundColor",
+        "getShape",
+        "getWidth",
+        "gravatar",
+        "hasGravatar",
+        "isAscii",
+        "isCacheEnabled",
+        "isImageProcessingAvailable",
+        "isUppercase",
+        "makeInitials",
+        "save",
+        "setAscii",
+        "setBackgroundColor",
+        "setBorderColor",
+        "setBorderSize",
+        "setCacheEnabled",
+        "setCacheTtl",
+        "setChars",
+        "setColors",
+        "setDefaultFont",
+        "setDefaultFontName",
+        "setFontByName",
+        "setFontPath",
+        "setFontSize",
+        "setForegroundColor",
+        "setHeight",
+        "setName",
+        "setQuality",
+        "setShape",
+        "setSize",
+        "setUppercase",
+        "setWidth",
+        "useDefaultFont",
+        "useFont",
+        "useFontByName"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\DataTransferObjects\\AvatarGeneration": [
+        "__construct",
+        "__toString",
+        "getAspectRatio",
+        "getBackgroundColor",
+        "getColors",
+        "getForegroundColor",
+        "getFormat",
+        "getHeight",
+        "getMetadata",
+        "getShape",
+        "getUrl",
+        "getWidth",
+        "isCircular",
+        "isSquare",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\DataTransferObjects\\AvatarResolution": [
+        "__construct",
+        "__toString",
+        "getDescription",
+        "getMetadata",
+        "getMethod",
+        "getSourceType",
+        "getUrl",
+        "isFallback",
+        "isFromCallback",
+        "isFromEmail",
+        "isFromModel",
+        "isFromName",
+        "isGravatar",
+        "isInitials",
+        "isUrl",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\DataTransferObjects\\AvatarResolutionContextData": [
+        "__construct",
+        "avatar",
+        "createCustomResult",
+        "createGravatarResult",
+        "createInitialsResult",
+        "createResult",
+        "createUrlResult",
+        "generateCustom",
+        "generateGravatar",
+        "getAllConfig",
+        "getConfig",
+        "gravatar",
+        "hasConfig",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Enums\\AvatarFont": [
+        "fromValueOrNull",
+        "getByCategory",
+        "getCategory",
+        "getDescription",
+        "getDisplayName",
+        "getValue",
+        "names",
+        "supportsUnicode",
+        "values"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Facades\\Avatar": [],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Services\\AvatarResolutionContext": [
+        "__construct",
+        "config",
+        "custom",
+        "customResult",
+        "getConfig",
+        "gravatar",
+        "gravatarResult",
+        "hasConfig",
+        "initials",
+        "initialsResult",
+        "result"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Services\\AvatarResolver": [
+        "__construct",
+        "getConfig",
+        "getFieldMappings",
+        "resolve",
+        "setConfig",
+        "setFieldMappings"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Services\\AvatarService": [
+        "__construct",
+        "generate",
+        "generateBase64",
+        "generateDataUri",
+        "generateWithGravatarFallback",
+        "getAvailableBackgroundColors",
+        "getAvailableFontEnums",
+        "getAvailableFontNames",
+        "getAvailableFontValues",
+        "getAvailableFonts",
+        "getAvailableForegroundColors",
+        "getAvailableShapes",
+        "getAvatar",
+        "getAvatarCached",
+        "getAvatarUrl",
+        "getBackgroundColor",
+        "getBorderColor",
+        "getBorderSize",
+        "getCacheTtl",
+        "getChars",
+        "getDefaultFont",
+        "getDefaultFontName",
+        "getFontPath",
+        "getFontSize",
+        "getForegroundColor",
+        "getGravatar",
+        "getGravatarDefaultImages",
+        "getGravatarForEmail",
+        "getGravatarRatings",
+        "getHeight",
+        "getImageObject",
+        "getName",
+        "getQuality",
+        "getRandomBackgroundColor",
+        "getRandomForegroundColor",
+        "getShape",
+        "getWidth",
+        "gravatar",
+        "hasGravatar",
+        "isAscii",
+        "isCacheEnabled",
+        "isImageProcessingAvailable",
+        "isUppercase",
+        "makeInitials",
+        "save",
+        "setAscii",
+        "setBackgroundColor",
+        "setBorderColor",
+        "setBorderSize",
+        "setCacheEnabled",
+        "setCacheTtl",
+        "setChars",
+        "setColors",
+        "setDefaultFont",
+        "setDefaultFontName",
+        "setFontByName",
+        "setFontPath",
+        "setFontSize",
+        "setForegroundColor",
+        "setHeight",
+        "setName",
+        "setQuality",
+        "setShape",
+        "setSize",
+        "setUppercase",
+        "setWidth",
+        "useDefaultFont",
+        "useFont",
+        "useFontByName"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\CaptchaServiceProvider": [
+        "boot",
+        "provides",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Contracts\\CaptchaProviderInterface": [
+        "getName",
+        "getSiteKey",
+        "isConfigured",
+        "verify"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Facades\\Captcha": [],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Providers\\HcaptchaProvider": [
+        "__construct",
+        "getName",
+        "getSiteKey",
+        "getTimeout",
+        "isConfigured",
+        "verify"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Providers\\RecaptchaProvider": [
+        "__construct",
+        "getMinScore",
+        "getName",
+        "getSiteKey",
+        "getTimeout",
+        "isConfigured",
+        "verify"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Providers\\TurnstileProvider": [
+        "__construct",
+        "getName",
+        "getSiteKey",
+        "getTimeout",
+        "isConfigured",
+        "verify"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Results\\CaptchaVerificationResult": [
+        "context",
+        "errorCodes",
+        "failure",
+        "getContext",
+        "getErrors",
+        "getFirstError",
+        "getProviderName",
+        "getScore",
+        "isFailure",
+        "isSuccess",
+        "providerName",
+        "score",
+        "success",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Services\\CaptchaService": [
+        "__construct",
+        "getDefaultProvider",
+        "getProvider",
+        "getProviderNames",
+        "getSiteKey",
+        "hasConfiguredProvider",
+        "hasProvider",
+        "registerProvider",
+        "setDefaultProvider",
+        "verify",
+        "verifyWithAllProviders"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\Contracts\\GravatarServiceInterface": [
+        "availableDefaultImages",
+        "availableRatings",
+        "generate",
+        "getCustomDefaultUrl",
+        "getDefaultImage",
+        "getEmail",
+        "getRating",
+        "getSize",
+        "hashEmail",
+        "isForceDefault",
+        "isHttps",
+        "isValidEmail",
+        "resolve",
+        "setCustomDefaultUrl",
+        "setDefaultImage",
+        "setEmail",
+        "setForceDefault",
+        "setHttps",
+        "setRating",
+        "setSize"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\DataTransferObjects\\GravatarResolution": [
+        "__construct",
+        "__toString",
+        "domain",
+        "isAppropriate",
+        "isSecure",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\Facades\\Gravatar": [],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\GravatarServiceProvider": [
+        "provides",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\Services\\GravatarService": [
+        "__toString",
+        "availableDefaultImages",
+        "availableRatings",
+        "generate",
+        "getCustomDefaultUrl",
+        "getDefaultImage",
+        "getEmail",
+        "getRating",
+        "getSize",
+        "hashEmail",
+        "isForceDefault",
+        "isHttps",
+        "isValidEmail",
+        "resolve",
+        "setCustomDefaultUrl",
+        "setDefaultImage",
+        "setEmail",
+        "setForceDefault",
+        "setHttps",
+        "setRating",
+        "setSize"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\AbstractNotificationChannel": [
+        "__construct",
+        "isEnabled",
+        "requiresConfig",
+        "setConfig",
+        "validateConfig"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\AppleBusinessMessagesChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\CacheChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\ConsoleChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\DatabaseChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\DiscordChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\EmailChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\FileChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\LogChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\PushChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\SlackChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\SmsChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Channels\\WebhookChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Contracts\\NotificationChannelInterface": [
+        "getName",
+        "isEnabled",
+        "requiresConfig",
+        "send",
+        "setConfig",
+        "validateConfig"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\DataTransferObjects\\NotificationMessage": [
+        "__construct",
+        "fromArray",
+        "make",
+        "option",
+        "toArray",
+        "toData",
+        "withOptions"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Enums\\NotificationChannel": [
+        "channelClass",
+        "isOutboundHttp",
+        "keys",
+        "label",
+        "requiresConfig",
+        "tryFromKey"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Facades\\Notifications": [],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Jobs\\SendQueuedNotification": [
+        "__construct",
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\NotificationServiceProvider": [
+        "boot",
+        "provides",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Services\\NotificationService": [
+        "__construct",
+        "broadcast",
+        "dispatchNow",
+        "fromContainer",
+        "getChannel",
+        "getChannels",
+        "registerChannel",
+        "send",
+        "setDefaultChannels",
+        "unregisterChannel"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Support\\GuardsOutboundUrls": [],
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Notifications\\Support\\NotificationResult": [
+        "__construct",
+        "getErrors",
+        "getFailedChannels",
+        "getResults",
+        "getSuccessfulChannels",
+        "hasPartialSuccess",
+        "isSuccessful",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Providers\\BladeServiceProvider": [
+        "boot",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider": [
+        "boot",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Rules\\RejectCommonPasswords": [
+        "__construct",
+        "validate"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics": [
+        "checkExtensions",
+        "checkPhpVersion",
+        "checkWritableDirectories",
+        "isDirectoryWritable",
+        "toAboutArray"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Support\\FilePathGuard": [
+        "assertSafePath",
+        "isSafePath"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Support\\Scopes\\ArchiveScope": [
+        "apply",
+        "extend"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Traits\\ApiResponseTrait": [],
+    "Simtabi\\Laranail\\Toolkit\\Traits\\Auditable": [
+        "bootAuditable"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Traits\\FileProcessingTrait": [
+        "deleteFile",
+        "deleteFiles",
+        "getFile",
+        "uploadFile",
+        "uploadFiles"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Traits\\HasArchiver": [
+        "archive",
+        "archived",
+        "archiver",
+        "archiving",
+        "bootHasArchiver",
+        "getArchivedAtColumn",
+        "getQualifiedArchivedAtColumn",
+        "initializeHasArchiver",
+        "isArchived",
+        "runArchive",
+        "unArchive",
+        "unArchived",
+        "unArchiving"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Traits\\HasAvatar": [
+        "generateAvatar",
+        "getAvatar",
+        "getAvatarWithFallback",
+        "getGravatar",
+        "gravatar",
+        "resolveAvatarUrl"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters": [
+        "excerpt",
+        "formattedCreatedAt",
+        "formattedFullName",
+        "formattedUpdatedAt",
+        "formattedUsername"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil": [
+        "__construct",
+        "cache",
+        "forget",
+        "get"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Utilities\\ConfigUtil": [
+        "getAllAppSettings",
+        "getAllSettings",
+        "getSetting",
+        "setSetting"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Utilities\\FeatureToggleUtil": [
+        "isEnabled"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Utilities\\FilteringUtil": [
+        "filter"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Utilities\\LoggingUtil": [
+        "critical",
+        "debug",
+        "error",
+        "info",
+        "log",
+        "warning"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Utilities\\PaginationUtil": [
+        "paginate",
+        "paginateQuery"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Utilities\\QueryParameterUtil": [
+        "parse"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Utilities\\RateLimiterUtil": [
+        "__construct",
+        "attempt",
+        "attempts",
+        "availableIn",
+        "clear",
+        "getRateLimiter",
+        "hit",
+        "remaining",
+        "tooManyAttempts"
+    ],
+    "Simtabi\\Laranail\\Toolkit\\Utilities\\SchedulerUtil": [
+        "getScheduleSummary",
+        "hasOverdueTasks"
+    ]
+}
