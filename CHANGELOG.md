@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-06-21
+
+First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
+`laranail/laranail` monolith into a single cohesive, security-first toolkit.
+
 ### Changed
 
 - **BREAKING (identity):** the package is `laranail/toolkit`
