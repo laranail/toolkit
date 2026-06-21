@@ -99,13 +99,7 @@ class ApiSurfaceTest extends TestCase
      */
     private function matched(string $short, array $table): bool
     {
-        foreach ($this->variants($short) as $variant) {
-            if (isset($table[$variant])) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any($this->variants($short), fn ($variant) => isset($table[$variant]));
     }
 
     /**
