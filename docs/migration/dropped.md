@@ -9,6 +9,10 @@ package.
 
 Each row cites the native replacement so consumers can migrate.
 
+> For the **complete** per-symbol accounting (all 279 legacy public types, classified
+> migrated / relocated / dropped), see **[MIGRATION.md](MIGRATION.md)**. This file is
+> the cited drop-rationale subset.
+
 | Item | Why dropped | Native / replacement | Source URL |
 |------|-------------|----------------------|------------|
 | `Support/Traits/Concerns/ConditionalRunner` + `RunsConditionally` | Re-implements conditional method chaining. | `Illuminate\Support\Traits\Conditionable` — `->when()` / `->unless()`. | https://laravel.com/api/13.x/Illuminate/Support/Traits/Conditionable.html |
