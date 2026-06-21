@@ -18,9 +18,10 @@ namespace Simtabi\Laranail\Toolkit\Support\Diagnostics;
 final class RequirementsDiagnostics
 {
     /**
-     * The package's minimum supported PHP version.
+     * The package's minimum supported PHP version (matches composer's `^8.4.1`
+     * floor, inherited from the laranail/console dependency).
      */
-    public const MINIMUM_PHP_VERSION = '8.3.0';
+    public const MINIMUM_PHP_VERSION = '8.4.1';
 
     /**
      * Extensions the toolkit relies on across its modules.
