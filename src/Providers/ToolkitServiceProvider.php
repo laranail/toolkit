@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Providers;
 
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Helpers\XHelper;
 use Simtabi\Laranail\Toolkit\Http\Middleware\AccessLogMiddleware;
+use Simtabi\Laranail\Toolkit\Laravel\Blade\BladeServiceProvider;
 use Simtabi\Laranail\Toolkit\Laravel\Macros\MacroServiceProvider;
 use Simtabi\Laranail\Toolkit\LLMProviders\Claude\ClaudeProvider;
 use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
@@ -21,6 +23,7 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Notifications\NotificationServiceProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
+use Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
 use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
@@ -100,6 +103,13 @@ class ToolkitServiceProvider extends ServiceProvider
         // globally (macro registration must not be deferred).
         $this->app->register(MacroServiceProvider::class);
 
+        // Register custom Blade directives eagerly (directive registration
+        // must not be deferred).
+        $this->app->register(BladeServiceProvider::class);
+
+        // Surface toolkit runtime diagnostics under `php artisan about`.
+        $this->registerAboutDiagnostics();
+
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
@@ -174,6 +184,18 @@ class ToolkitServiceProvider extends ServiceProvider
 
         // Register custom validation rules
         $this->registerValidationRules();
+    }
+
+    /**
+     * Surface the toolkit's requirements diagnostics under `php artisan about`.
+     */
+    private function registerAboutDiagnostics(): void
+    {
+        if (!class_exists(AboutCommand::class)) {
+            return;
+        }
+
+        AboutCommand::add('Laranail Toolkit', static fn (): array => (new RequirementsDiagnostics())->toAboutArray());
     }
 
     /**
