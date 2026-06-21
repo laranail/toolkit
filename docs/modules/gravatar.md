@@ -6,8 +6,8 @@ state leaking between calls. Bound by contract through a deferred provider (alia
 `laranail.gravatar`, facade `Gravatar`).
 
 ```php
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Contracts\GravatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Facades\Gravatar;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
 ```
 
 ## Build a URL

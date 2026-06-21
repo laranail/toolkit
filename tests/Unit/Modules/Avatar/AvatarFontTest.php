@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar;
 
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Enums\AvatarFont;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarFont;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class AvatarFontTest extends TestCase

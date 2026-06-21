@@ -1,0 +1,164 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Simtabi\Laranail\Toolkit\Modules\Llm\Gemini;
+
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Http;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LlmRequestException;
+use Simtabi\Laranail\Toolkit\Modules\Llm\RetriesHttpRequests;
+
+class GeminiProvider implements LLMProviderInterface
+{
+    use RetriesHttpRequests;
+
+    private string $apiKey;
+
+    private int $maxRetries;
+
+    private int $retryDelay;
+
+    private string $baseUrl;
+
+    public function __construct(
+        string $apiKey,
+        int $maxRetries = 3,
+        int $retryDelay = 2,
+        string $baseUrl = 'https://generativelanguage.googleapis.com/v1beta'
+    ) {
+        $this->apiKey = $apiKey;
+        $this->maxRetries = $maxRetries;
+        $this->retryDelay = $retryDelay;
+        $this->baseUrl = $this->sanitizeBaseUrl($baseUrl);
+    }
+
+    public function generateResponse(
+        string $modelName,
+        array $messages,
+        ?float $temperature = null,
+        ?int $maxTokens = null,
+        ?array $stop = null,
+        ?float $topP = null,
+        ?float $frequencyPenalty = null,
+        ?float $presencePenalty = null,
+        ?array $logitBias = null,
+        ?string $user = null,
+        ?bool $jsonMode = false,
+        bool $fullResponse = false
+    ): GeminiResponse {
+        // Auth via header, never as a query param (which would leak into logs/proxies).
+        $endpoint = $this->baseUrl . '/models/' . $modelName . ':generateContent';
+
+        [$contents, $systemInstruction] = $this->mapMessages($messages);
+
+        $generationConfig = [];
+        if ($temperature !== null) {
+            $generationConfig['temperature'] = $temperature;
+        }
+        if ($maxTokens !== null) {
+            $generationConfig['maxOutputTokens'] = $maxTokens;
+        }
+        if ($topP !== null) {
+            $generationConfig['topP'] = $topP;
+        }
+        if ($stop !== null) {
+            $generationConfig['stopSequences'] = $stop;
+        }
+        if ($jsonMode === true) {
+            $generationConfig['responseMimeType'] = 'application/json';
+        }
+
+        $payload = ['contents' => $contents];
+        if ($systemInstruction !== null) {
+            $payload['systemInstruction'] = $systemInstruction;
+        }
+        if (!empty($generationConfig)) {
+            $payload['generationConfig'] = $generationConfig;
+        }
+
+        return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse, $modelName) {
+            try {
+                $response = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'x-goog-api-key' => $this->apiKey,
+                ])->post($endpoint, $payload);
+            } catch (ConnectionException $e) {
+                throw new LlmRequestException('Gemini API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
+            }
+
+            if (!$response->successful()) {
+                $status = $response->status();
+                $body = $response->json();
+                $message = (is_array($body) ? ($body['error']['message'] ?? null) : null) ?? 'Gemini API request failed';
+
+                throw new LlmRequestException(
+                    "Gemini API request failed (HTTP {$status}): {$message}",
+                    retryable: $this->isRetryableStatus($status),
+                    status: $status,
+                );
+            }
+
+            $data = $response->json();
+
+            $text = '';
+            if (isset($data['candidates'][0]['content']['parts'])) {
+                foreach ($data['candidates'][0]['content']['parts'] as $part) {
+                    if (isset($part['text'])) {
+                        $text .= $part['text'];
+                    }
+                }
+            }
+
+            return new GeminiResponse(
+                // Gemini does not echo the model; report the requested model.
+                content: $text,
+                model: $modelName,
+                usage: (object) ($data['usageMetadata'] ?? []),
+                rawResponse: $fullResponse ? (object) $data : null
+            );
+        }, 'Gemini');
+    }
+
+    /**
+     * Map chat messages to Gemini `contents`, hoisting any system messages into
+     * a `systemInstruction` payload (Gemini only accepts user/model roles).
+     *
+     * @param array<int, array<string, mixed>> $messages
+     *
+     * @return array{0: array<int, array<string, mixed>>, 1: array<string, mixed>|null}
+     */
+    private function mapMessages(array $messages): array
+    {
+        $contents = [];
+        $system = [];
+
+        foreach ($messages as $message) {
+            $role = $message['role'] ?? 'user';
+            $text = $message['content'] ?? '';
+
+            if ($role === 'system') {
+                $system[] = $text;
+
+                continue;
+            }
+
+            // Gemini uses 'user' and 'model' roles.
+            if ($role === 'assistant') {
+                $role = 'model';
+            }
+
+            $contents[] = [
+                'role' => $role,
+                'parts' => [['text' => $text]],
+            ];
+        }
+
+        $systemInstruction = $system === []
+            ? null
+            : ['parts' => [['text' => implode("\n", $system)]]];
+
+        return [$contents, $systemInstruction];
+    }
+}

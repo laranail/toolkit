@@ -18,6 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Restructured to a flat, feature-first `src/`** (behaviour-preserving): each
+  `Modules/<Feature>/` now holds its files directly (the `Services/`, `Contracts/`,
+  `DataTransferObjects/`, `Facades/`, `Enums/`, `Support/`, `Results/` sub-folders
+  were flattened up one level; only multi-file groups like `Captcha/Providers/` keep
+  a sub-folder). `src/LLMProviders/` moved to `src/Modules/Llm/` (per-driver folders
+  kept), and `AccessLog` flattened to `src/Modules/AccessLog/`. Namespaces follow:
+  e.g. `…\Modules\Avatar\Services\AvatarService` → `…\Modules\Avatar\AvatarService`,
+  `…\LLMProviders\Claude\ClaudeProvider` → `…\Modules\Llm\Claude\ClaudeProvider`.
 - **BREAKING:** the command base now comes from **`laranail/console`** — the toolkit
   no longer ships its own `Commands\Command` + `SupportsNamespacedNames` (the unique
   `$commandAliases` convenience was merged upstream into console). `MakeCrud` extends

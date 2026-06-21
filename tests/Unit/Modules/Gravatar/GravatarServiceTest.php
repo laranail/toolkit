@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar;
 
 use InvalidArgumentException;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Contracts\GravatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Services\GravatarService;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarService;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class GravatarServiceTest extends TestCase

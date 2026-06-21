@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar;
 
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\DataTransferObjects\GravatarResolution;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarResolution;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class GravatarResolutionTest extends TestCase

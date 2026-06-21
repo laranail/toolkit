@@ -5,8 +5,8 @@ Create and safely extract `tar`, `tar.gz`, and `zip` archives behind
 `laranail.archiver`, facade `Archiver`). The zip extractor requires `ext-zip`.
 
 ```php
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Contracts\ArchiverServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Facades\Archiver;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Archiver;
 ```
 
 ## Extract

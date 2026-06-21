@@ -6,8 +6,6 @@ namespace Simtabi\Laranail\Toolkit\Modules\Archiver;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Contracts\ArchiverServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Services\ArchiverService;
 
 class ArchiverServiceProvider extends ServiceProvider implements DeferrableProvider
 {

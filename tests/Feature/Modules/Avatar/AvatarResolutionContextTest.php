@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar;
 
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Contracts\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\DataTransferObjects\AvatarResolution;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\DataTransferObjects\AvatarResolutionContextData;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Services\AvatarResolutionContext;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Contracts\GravatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarResolution;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarResolutionContext;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarResolutionContextData;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class AvatarResolutionContextTest extends TestCase

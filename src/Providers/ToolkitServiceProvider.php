@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Helpers\XHelper;
-use Simtabi\Laranail\Toolkit\LLMProviders\Claude\ClaudeProvider;
-use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
-use Simtabi\Laranail\Toolkit\LLMProviders\Gemini\GeminiProvider;
-use Simtabi\Laranail\Toolkit\LLMProviders\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Macros\MacroServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\AccessLog\Http\Middleware\AccessLogMiddleware;
-use Simtabi\Laranail\Toolkit\Modules\AccessLog\Models\AccessLog;
+use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLog;
+use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLogMiddleware;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Llm\Claude\ClaudeProvider;
+use Simtabi\Laranail\Toolkit\Modules\Llm\Gemini\GeminiProvider;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\Llm\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
@@ -138,9 +138,9 @@ class ToolkitServiceProvider extends ServiceProvider
             __DIR__ . '/../../database/migrations' => database_path('migrations'),
         ], 'laranail-toolkit-migrations');
 
-        // Publish models
+        // Publish the AccessLog model (now part of the AccessLog module)
         $this->publishes([
-            __DIR__ . '/../Models' => app_path('Models'),
+            __DIR__ . '/../Modules/AccessLog/AccessLog.php' => app_path('Models/AccessLog.php'),
         ], 'laranail-toolkit-models');
 
         // Publish traits

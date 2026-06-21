@@ -8,8 +8,6 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Contracts\CaptchaProviderInterface;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Services\CaptchaService;
 
 /**
  * Deferred service provider for the self-contained Captcha module.

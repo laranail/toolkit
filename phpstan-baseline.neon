@@ -193,190 +193,190 @@ parameters:
 			path: src/Http/Controllers/CrudController.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\ClaudeProvider\:\:buildPayload\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeProvider\:\:buildPayload\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Claude/ClaudeProvider.php
+			path: src/Modules/Llm/Claude/ClaudeProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\ClaudeProvider\:\:buildPayload\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeProvider\:\:buildPayload\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Claude/ClaudeProvider.php
+			path: src/Modules/Llm/Claude/ClaudeProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\ClaudeProvider\:\:buildPayload\(\) return type has no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeProvider\:\:buildPayload\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Claude/ClaudeProvider.php
+			path: src/Modules/Llm/Claude/ClaudeProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\ClaudeProvider\:\:generateResponse\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeProvider\:\:generateResponse\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Claude/ClaudeProvider.php
+			path: src/Modules/Llm/Claude/ClaudeProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\ClaudeProvider\:\:generateResponse\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeProvider\:\:generateResponse\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Claude/ClaudeProvider.php
+			path: src/Modules/Llm/Claude/ClaudeProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\ClaudeProvider\:\:generateResponse\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeProvider\:\:generateResponse\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Claude/ClaudeProvider.php
+			path: src/Modules/Llm/Claude/ClaudeProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\Responses\\ClaudeResponse\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeResponse\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Claude/Responses/ClaudeResponse.php
+			path: src/Modules/Llm/Claude/ClaudeResponse.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\Responses\\ClaudeResponse\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeResponse\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Claude/Responses/ClaudeResponse.php
+			path: src/Modules/Llm/Claude/ClaudeResponse.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\Responses\\ClaudeResponse\:\:toJson\(\) should return string but returns string\|false\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeResponse\:\:toJson\(\) should return string but returns string\|false\.$#'
 			identifier: return.type
 			count: 1
-			path: src/LLMProviders/Claude/Responses/ClaudeResponse.php
+			path: src/Modules/Llm/Claude/ClaudeResponse.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Contracts\\LLMProviderInterface\:\:generateResponse\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Gemini\\GeminiProvider\:\:generateResponse\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Contracts/LLMProviderInterface.php
+			path: src/Modules/Llm/Gemini/GeminiProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Contracts\\LLMProviderInterface\:\:generateResponse\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Gemini\\GeminiProvider\:\:generateResponse\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Contracts/LLMProviderInterface.php
+			path: src/Modules/Llm/Gemini/GeminiProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Contracts\\LLMProviderInterface\:\:generateResponse\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Gemini\\GeminiProvider\:\:generateResponse\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Contracts/LLMProviderInterface.php
+			path: src/Modules/Llm/Gemini/GeminiProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\GeminiProvider\:\:generateResponse\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Gemini\\GeminiResponse\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Gemini/GeminiProvider.php
+			path: src/Modules/Llm/Gemini/GeminiResponse.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\GeminiProvider\:\:generateResponse\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Gemini\\GeminiResponse\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/Gemini/GeminiProvider.php
+			path: src/Modules/Llm/Gemini/GeminiResponse.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\GeminiProvider\:\:generateResponse\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/LLMProviders/Gemini/GeminiProvider.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\Responses\\GeminiResponse\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/LLMProviders/Gemini/Responses/GeminiResponse.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\Responses\\GeminiResponse\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/LLMProviders/Gemini/Responses/GeminiResponse.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\Responses\\GeminiResponse\:\:toJson\(\) should return string but returns string\|false\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Gemini\\GeminiResponse\:\:toJson\(\) should return string but returns string\|false\.$#'
 			identifier: return.type
 			count: 1
-			path: src/LLMProviders/Gemini/Responses/GeminiResponse.php
+			path: src/Modules/Llm/Gemini/GeminiResponse.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\LLMProviderInterface\:\:generateResponse\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Modules/Llm/LLMProviderInterface.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\LLMProviderInterface\:\:generateResponse\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Modules/Llm/LLMProviderInterface.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\LLMProviderInterface\:\:generateResponse\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Modules/Llm/LLMProviderInterface.php
 
 		-
 			message: '#^Access to an undefined property object\:\:\$choices\.$#'
 			identifier: property.notFound
 			count: 2
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
 			message: '#^Access to an undefined property object\:\:\$model\.$#'
 			identifier: property.notFound
 			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
 			message: '#^Access to an undefined property object\:\:\$usage\.$#'
 			identifier: property.notFound
 			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\OpenAIProvider\:\:buildParameters\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIProvider\:\:buildParameters\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\OpenAIProvider\:\:buildParameters\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIProvider\:\:buildParameters\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\OpenAIProvider\:\:buildParameters\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIProvider\:\:buildParameters\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\OpenAIProvider\:\:buildParameters\(\) return type has no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIProvider\:\:buildParameters\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\OpenAIProvider\:\:generateResponse\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIProvider\:\:generateResponse\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\OpenAIProvider\:\:generateResponse\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIProvider\:\:generateResponse\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\OpenAIProvider\:\:generateResponse\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIProvider\:\:generateResponse\(\) has parameter \$stop with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\Responses\\OpenAIResponse\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIResponse\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/OpenAI/Responses/OpenAIResponse.php
+			path: src/Modules/Llm/OpenAI/OpenAIResponse.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\Responses\\OpenAIResponse\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIResponse\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
-			path: src/LLMProviders/OpenAI/Responses/OpenAIResponse.php
+			path: src/Modules/Llm/OpenAI/OpenAIResponse.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\OpenAI\\Responses\\OpenAIResponse\:\:toJson\(\) should return string but returns string\|false\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIResponse\:\:toJson\(\) should return string but returns string\|false\.$#'
 			identifier: return.type
 			count: 1
-			path: src/LLMProviders/OpenAI/Responses/OpenAIResponse.php
+			path: src/Modules/Llm/OpenAI/OpenAIResponse.php
 
 		-
 			message: '#^Cannot access offset ''router'' on Illuminate\\Contracts\\Foundation\\Application\.$#'
@@ -623,21 +623,3 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Utilities/QueryParameterUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\SchedulerUtil\:\:getScheduleSummary\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/SchedulerUtil.php
-
-		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),Illuminate\\Console\\Scheduling\\Event\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: argument.unresolvableType
-			count: 1
-			path: src/Utilities/SchedulerUtil.php
-
-		-
-			message: '#^Return type of call to method Illuminate\\Support\\Collection\<\(int\|string\),Illuminate\\Console\\Scheduling\\Event\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: method.unresolvableReturnType
-			count: 1
-			path: src/Utilities/SchedulerUtil.php

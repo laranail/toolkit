@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar;
 
-use Simtabi\Laranail\Toolkit\Modules\Avatar\DataTransferObjects\AvatarGeneration;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\DataTransferObjects\AvatarResolution;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarGeneration;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarResolution;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class AvatarDtosTest extends TestCase

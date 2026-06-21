@@ -6,8 +6,6 @@ namespace Simtabi\Laranail\Toolkit\Modules\Gravatar;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Contracts\GravatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Services\GravatarService;
 
 class GravatarServiceProvider extends ServiceProvider implements DeferrableProvider
 {

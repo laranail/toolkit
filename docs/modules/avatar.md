@@ -9,8 +9,8 @@ Image rendering uses `intervention/image`.
 Resolve by contract (preferred) or facade:
 
 ```php
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Contracts\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Facades\Avatar;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\Avatar;
 
 $svc = app(AvatarServiceInterface::class);
 ```

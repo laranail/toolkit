@@ -6,7 +6,7 @@ namespace Simtabi\Laranail\Toolkit\Traits;
 
 use Closure;
 use Illuminate\Database\Eloquent\Model;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Contracts\ArchiverServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Support\Scopes\ArchiveScope;
 
 /**

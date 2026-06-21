@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Contracts\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Contracts\GravatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 
 /**
  * Avatar helpers for Eloquent models, wired to the toolkit's Avatar and

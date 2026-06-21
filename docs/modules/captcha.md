@@ -6,8 +6,8 @@ behind a single `CaptchaProviderInterface`. Bound through a deferred provider
 `config('laranail.toolkit.captcha.default_provider')` (`recaptcha` by default).
 
 ```php
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Facades\Captcha;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Services\CaptchaService;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\Captcha;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 ```
 
 ## Verify a token

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules;
 
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Contracts\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Facades\Avatar;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Facades\Captcha;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Services\CaptchaService;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Contracts\GravatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Facades\Gravatar;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\Avatar;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\Captcha;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class FacadesTest extends TestCase

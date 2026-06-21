@@ -6,9 +6,9 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Contracts\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Enums\AvatarFont;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Services\AvatarService;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarFont;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarService;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class AvatarServiceTest extends TestCase

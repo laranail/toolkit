@@ -1,0 +1,97 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Simtabi\Laranail\Toolkit\Modules\AccessLog;
+
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Throwable;
+
+class AccessLogMiddleware
+{
+    /**
+     * Keys whose values are never persisted to the access log.
+     *
+     * @var list<string>
+     */
+    private const DEFAULT_REDACT = [
+        'password',
+        'password_confirmation',
+        'current_password',
+        'token',
+        '_token',
+        'secret',
+        'authorization',
+        'api_key',
+        'access_token',
+        'refresh_token',
+        'credit_card',
+        'card_number',
+        'cvv',
+        'ssn',
+    ];
+
+    public function handle(Request $request, Closure $next): Response
+    {
+        return $next($request);
+    }
+
+    /**
+     * Persist the access log after the response has been sent, so logging never
+     * adds latency to — nor (via the try/catch) breaks — the request lifecycle.
+     */
+    public function terminate(Request $request, Response $response): void
+    {
+        if (!(bool) config('laranail.toolkit.access_log.enabled', true)) {
+            return;
+        }
+
+        try {
+            AccessLog::create([
+                'ip' => $request->ip(),
+                'method' => $request->method(),
+                // Drop the query string so secrets passed as query params are not stored.
+                'url' => $request->url(),
+                'user_agent' => $request->userAgent(),
+                'request_data' => $this->redact($request->input()),
+            ]);
+        } catch (Throwable $e) {
+            report($e);
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     *
+     * @return array<string, mixed>
+     */
+    private function redact(array $data): array
+    {
+        $redactKeys = $this->redactKeys();
+
+        foreach ($data as $key => $value) {
+            if (in_array(strtolower((string) $key), $redactKeys, true)) {
+                $data[$key] = '[REDACTED]';
+            } elseif (is_array($value)) {
+                $data[$key] = $this->redact($value);
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function redactKeys(): array
+    {
+        $configured = config('laranail.toolkit.access_log.redact', self::DEFAULT_REDACT);
+
+        return array_values(array_map(
+            static fn (string $key): string => strtolower($key),
+            is_array($configured) ? $configured : self::DEFAULT_REDACT,
+        ));
+    }
+}

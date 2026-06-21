@@ -7,8 +7,8 @@ namespace Simtabi\Laranail\Toolkit\Modules\Captcha\Providers;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Contracts\CaptchaProviderInterface;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Results\CaptchaVerificationResult;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaVerificationResult;
 
 /**
  * Google reCAPTCHA driver, supporting both v2 (no score) and v3 (score + action).

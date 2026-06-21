@@ -6,11 +6,11 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver;
 
 use PharData;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Contracts\ArchiverServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Exceptions\ArchiveException;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Services\ArchiverService;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Services\Tar;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Services\Zip;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Tar;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use ZipArchive;
 

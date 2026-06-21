@@ -7,10 +7,10 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha;
 use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\HcaptchaProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\RecaptchaProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\TurnstileProvider;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Services\CaptchaService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class CaptchaServiceTest extends TestCase

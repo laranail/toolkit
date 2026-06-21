@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver;
 
 use PharData;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Exceptions\ArchiveException;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Facades\Archiver as ArchiverFacade;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Services\ArchiverService;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Services\Tar;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Services\TarGz;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Services\Zip;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Archiver as ArchiverFacade;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Tar;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\TarGz;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class ArchiverServiceTest extends TestCase

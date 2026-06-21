@@ -6,8 +6,6 @@ namespace Simtabi\Laranail\Toolkit\Modules\Avatar;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Contracts\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Services\AvatarService;
 
 class AvatarServiceProvider extends ServiceProvider implements DeferrableProvider
 {

@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Exceptions\ArchiveException;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Support\GuardsArchivePaths;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\GuardsArchivePaths;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class GuardHarness

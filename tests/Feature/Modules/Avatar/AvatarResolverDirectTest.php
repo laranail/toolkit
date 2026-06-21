@@ -6,9 +6,9 @@ namespace Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar;
 
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Contracts\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Services\AvatarResolver;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Contracts\GravatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarResolver;
+use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class AvatarResolverDirectTest extends TestCase

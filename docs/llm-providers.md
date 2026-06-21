@@ -7,7 +7,7 @@ Claude, and Gemini. The driver bound in the container is chosen by
 ## Contract
 
 ```php
-namespace Simtabi\Laranail\Toolkit\LLMProviders\Contracts;
+namespace Simtabi\Laranail\Toolkit\Modules\Llm;
 
 interface LLMProviderInterface
 {
@@ -35,7 +35,7 @@ interface LLMProviderInterface
 Inject the contract; the configured provider is resolved for you:
 
 ```php
-use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
 
 public function __construct(private LLMProviderInterface $llm) {}
 
@@ -84,7 +84,7 @@ You can also resolve a specific driver directly when you need to bypass the
 configured default:
 
 ```php
-use Simtabi\Laranail\Toolkit\LLMProviders\Claude\ClaudeProvider;
+use Simtabi\Laranail\Toolkit\Modules\Llm\Claude\ClaudeProvider;
 
 $claude = new ClaudeProvider(apiKey: config('laranail.toolkit.claude.api_key'));
 ```

@@ -9,7 +9,7 @@ use OpenAI\Exceptions\ErrorException;
 use OpenAI\Responses\Chat\CreateResponse;
 use OpenAI\Testing\ClientFake;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\LLMProviders\OpenAI\OpenAIProvider;
+use Simtabi\Laranail\Toolkit\Modules\Llm\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class OpenAIProviderTest extends TestCase
