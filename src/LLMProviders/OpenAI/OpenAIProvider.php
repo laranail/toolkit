@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\LLMProviders\OpenAI;
 
 use Illuminate\Support\Facades\Log;
-use OpenAI\Client;
+use OpenAI\Contracts\ClientContract;
 use OpenAI\Exceptions\ErrorException;
 use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\LLMProviders\OpenAI\Responses\OpenAIResponse;
 
 class OpenAIProvider implements LLMProviderInterface
 {
-    private Client $client;
+    private ClientContract $client;
 
     private int $maxRetries;
 
@@ -21,9 +21,10 @@ class OpenAIProvider implements LLMProviderInterface
     public function __construct(
         string $apiKey,
         int $maxRetries = 3,
-        int $retryDelay = 2
+        int $retryDelay = 2,
+        ?ClientContract $client = null
     ) {
-        $this->client = \OpenAI::client($apiKey);
+        $this->client = $client ?? \OpenAI::client($apiKey);
         $this->maxRetries = $maxRetries;
         $this->retryDelay = $retryDelay;
     }

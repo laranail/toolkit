@@ -33,6 +33,21 @@ class SchedulerUtilTest extends TestCase
         $this->assertEmpty($summary);
     }
 
+    public function test_summary_and_overdue_handle_real_scheduled_events()
+    {
+        // A real scheduled event exercises isDue() -> nextRunDate() (regression
+        // for the getNextRunDate() bug, which does not exist on Laravel 13).
+        $schedule = $this->app->make(Schedule::class);
+        $schedule->command('inspire')->everyMinute();
+
+        $summary = $this->schedulerUtil->getScheduleSummary();
+
+        $this->assertCount(1, $summary);
+        $this->assertArrayHasKey('is_due', $summary[0]);
+        $this->assertArrayHasKey('next_run', $summary[0]);
+        $this->assertIsBool($this->schedulerUtil->hasOverdueTasks());
+    }
+
     public function test_can_check_for_overdue_tasks()
     {
         // Mock empty Schedule
