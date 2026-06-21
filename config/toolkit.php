@@ -72,4 +72,13 @@ return [
         'default_max_tokens' => env('CLAUDE_DEFAULT_MAX_TOKENS', 1024),
         'default_top_p' => env('CLAUDE_DEFAULT_TOP_P', 1.0),
     ],
+
+    /*
+     * Runtime settings store (Utilities\ConfigUtil) — a JSON file of dynamic,
+     * persisted-at-runtime values, kept separate from this static config.
+     */
+    'settings' => [
+        'disk' => env('LARANAIL_SETTINGS_DISK', 'local'),
+        'path' => env('LARANAIL_SETTINGS_PATH', 'laranail/settings.json'),
+    ],
 ];

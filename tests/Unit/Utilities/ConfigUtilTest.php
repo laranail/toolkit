@@ -10,94 +10,78 @@ use Simtabi\Laranail\Toolkit\Utilities\ConfigUtil;
 
 class ConfigUtilTest extends TestCase
 {
-    private ConfigUtil $configUtil;
+    private ConfigUtil $config;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->configUtil = new ConfigUtil();
+
+        Storage::fake('local');
+        $this->config = new ConfigUtil(Storage::disk('local'), 'settings.json');
     }
 
-    public function test_can_get_all_app_settings()
+    public function test_all_is_empty_before_anything_is_written(): void
     {
-        $settings = $this->configUtil->getAllAppSettings();
-
-        $this->assertIsArray($settings);
-        $this->assertArrayHasKey('name', $settings);
-        $this->assertArrayHasKey('env', $settings);
+        $this->assertSame([], $this->config->all());
     }
 
-    public function test_can_get_specific_app_setting()
+    public function test_get_returns_default_for_missing_key(): void
     {
-        $appName = $this->configUtil->getAllSettings(null, 'name');
-
-        $this->assertIsString($appName);
+        $this->assertNull($this->config->get('missing'));
+        $this->assertSame('fallback', $this->config->get('missing', 'fallback'));
     }
 
-    public function test_can_get_setting_from_existing_file()
+    public function test_set_then_get_round_trips_and_persists(): void
     {
-        // Create a test settings file
-        $testSettings = ['test_key' => 'test_value', 'another_key' => 'another_value'];
-        $filePath = 'test_settings.json';
+        $this->config->set('mail.from', 'a@b.com');
 
-        Storage::put($filePath, json_encode($testSettings));
+        $this->assertSame('a@b.com', $this->config->get('mail.from'));
+        Storage::disk('local')->assertExists('settings.json');
 
-        $settings = $this->configUtil->getAllSettings($filePath);
-
-        $this->assertEquals($testSettings, $settings);
-
-        // Clean up
-        Storage::delete($filePath);
+        // A fresh instance reads the same persisted store.
+        $fresh = new ConfigUtil(Storage::disk('local'), 'settings.json');
+        $this->assertSame('a@b.com', $fresh->get('mail.from'));
     }
 
-    public function test_returns_empty_array_for_non_existent_file()
+    public function test_set_uses_dot_notation_nesting(): void
     {
-        $settings = $this->configUtil->getAllSettings('non_existent_file.json');
+        $this->config->set('feature.flags.beta', true);
 
-        $this->assertEquals([], $settings);
+        $this->assertTrue($this->config->get('feature.flags.beta'));
+        $this->assertSame(['flags' => ['beta' => true]], $this->config->get('feature'));
     }
 
-    public function test_returns_null_for_non_existent_setting()
+    public function test_has_reflects_presence(): void
     {
-        $setting = $this->configUtil->getSetting('non_existent_key');
-
-        $this->assertNull($setting);
+        $this->assertFalse($this->config->has('x'));
+        $this->config->set('x', 1);
+        $this->assertTrue($this->config->has('x'));
     }
 
-    public function test_can_set_and_get_dynamic_setting()
+    public function test_forget_removes_a_key(): void
     {
-        $key = 'dynamic_test_key';
-        $value = 'dynamic_test_value';
+        $this->config->set('a', 1);
+        $this->config->set('b', 2);
 
-        // Mock Storage to avoid file system issues
-        Storage::shouldReceive('put')
-            ->with(\Mockery::type('string'), \Mockery::type('string'))
-            ->andReturn(true);
+        $this->config->forget('a');
 
-        $this->configUtil->setSetting($key, $value);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
+        $this->assertFalse($this->config->has('a'));
+        $this->assertTrue($this->config->has('b'));
     }
 
-    public function test_can_update_existing_setting()
+    public function test_overwrites_an_existing_value(): void
     {
-        $key = 'update_test_key';
-        $initialValue = 'initial_value';
-        $updatedValue = 'updated_value';
+        $this->config->set('k', 'first');
+        $this->config->set('k', 'second');
 
-        // Mock Storage to avoid file system issues
-        Storage::shouldReceive('put')
-            ->with(\Mockery::type('string'), \Mockery::type('string'))
-            ->andReturn(true);
+        $this->assertSame('second', $this->config->get('k'));
+    }
 
-        // Set initial value
-        $this->configUtil->setSetting($key, $initialValue);
+    public function test_corrupt_store_degrades_to_empty(): void
+    {
+        Storage::disk('local')->put('settings.json', 'not-json');
 
-        // Update the value
-        $this->configUtil->setSetting($key, $updatedValue);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
+        $this->assertSame([], $this->config->all());
+        $this->assertNull($this->config->get('anything'));
     }
 }

@@ -4,79 +4,79 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Utilities;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
+use Illuminate\Log\LogManager;
+use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
 
+/**
+ * Thin, injectable logging helper that enriches every record with a timestamp
+ * and the current environment before delegating to Laravel's logger.
+ *
+ * Resolve it from the container (it is bound as a singleton) or inject it by
+ * type — it wraps the configured {@see LogManager}, so channel selection and
+ * formatting stay owned by the host app's `config/logging.php`.
+ */
 class LoggingUtil
 {
-    private static ?Logger $customLogger = null;
+    public function __construct(
+        private readonly LogManager $logs,
+    ) {}
 
     /**
-     * Initialize a custom logger instance if needed.
-     *
-     * @param string|null $channel Custom log channel
+     * @param array<string, mixed> $context
      */
-    private static function getLogger(?string $channel = null): Logger
+    public function log(LogLevel $level, string $message, array $context = [], ?string $channel = null): void
     {
-        if ($channel) {
-            return Log::channel($channel);
-        }
+        $context += [
+            'timestamp' => now()->toDateTimeString(),
+            'env' => (string) config('app.env'),
+        ];
 
-        if (!self::$customLogger) {
-            $logPath = storage_path('logs/custom.log');
-            $handler = new StreamHandler($logPath, Logger::DEBUG);
-            $handler->setFormatter(new JsonFormatter());
-
-            self::$customLogger = new Logger('custom');
-            self::$customLogger->pushHandler($handler);
-        }
-
-        return self::$customLogger;
+        $this->logger($channel)->log($level->value, $message, $context);
     }
 
     /**
-     * Log a message with context and formatting.
-     *
-     * @param LogLevel    $level   Log level (debug, info, warning, error, critical)
-     * @param string      $message Log message
-     * @param array       $context Additional context data
-     * @param string|null $channel Log channel (default, single, daily, custom, etc.)
+     * @param array<string, mixed> $context
      */
-    public static function log(LogLevel $level, string $message, array $context = [], ?string $channel = null): void
+    public function info(string $message, array $context = [], ?string $channel = null): void
     {
-        $logger = self::getLogger($channel);
-        $context['timestamp'] = now()->toDateTimeString();
-        $context['env'] = Config::get('app.env');
-
-        $logger->{$level->value}($message, $context);
+        $this->log(LogLevel::Info, $message, $context, $channel);
     }
 
-    public static function info(string $message, array $context = [], ?string $channel = null): void
+    /**
+     * @param array<string, mixed> $context
+     */
+    public function debug(string $message, array $context = [], ?string $channel = null): void
     {
-        self::log(LogLevel::Info, $message, $context, $channel);
+        $this->log(LogLevel::Debug, $message, $context, $channel);
     }
 
-    public static function debug(string $message, array $context = [], ?string $channel = null): void
+    /**
+     * @param array<string, mixed> $context
+     */
+    public function warning(string $message, array $context = [], ?string $channel = null): void
     {
-        self::log(LogLevel::Debug, $message, $context, $channel);
+        $this->log(LogLevel::Warning, $message, $context, $channel);
     }
 
-    public static function warning(string $message, array $context = [], ?string $channel = null): void
+    /**
+     * @param array<string, mixed> $context
+     */
+    public function error(string $message, array $context = [], ?string $channel = null): void
     {
-        self::log(LogLevel::Warning, $message, $context, $channel);
+        $this->log(LogLevel::Error, $message, $context, $channel);
     }
 
-    public static function error(string $message, array $context = [], ?string $channel = null): void
+    /**
+     * @param array<string, mixed> $context
+     */
+    public function critical(string $message, array $context = [], ?string $channel = null): void
     {
-        self::log(LogLevel::Error, $message, $context, $channel);
+        $this->log(LogLevel::Critical, $message, $context, $channel);
     }
 
-    public static function critical(string $message, array $context = [], ?string $channel = null): void
+    private function logger(?string $channel): LoggerInterface
     {
-        self::log(LogLevel::Critical, $message, $context, $channel);
+        return $channel !== null ? $this->logs->channel($channel) : $this->logs;
     }
 }

@@ -4,67 +4,94 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Utilities;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * A small, typed runtime settings store backed by a single JSON file on a
+ * configured filesystem disk.
+ *
+ * This is a *dynamic* settings store (values that change at runtime and persist
+ * across requests) — it is deliberately separate from Laravel's `config()` (the
+ * static, deploy-time configuration). Keys use dot notation.
+ */
 class ConfigUtil
 {
-    /**
-     * Get all dynamic configuration settings.
-     *
-     * @return array
-     */
-    public function getAllSettings(?string $path = null, ?string $key = null)
+    private ?Filesystem $disk;
+
+    private readonly string $path;
+
+    public function __construct(?Filesystem $disk = null, ?string $path = null)
     {
-        $filePath = $path ? $path : config('app');
+        $this->disk = $disk;
+        $this->path = $path ?? (string) config('laranail.toolkit.settings.path', 'laranail/settings.json');
+    }
 
-        if ($filePath == config('app')) {
-            $settings = $this->getAllAppSettings();
+    /**
+     * All persisted settings.
+     *
+     * @return array<string, mixed>
+     */
+    public function all(): array
+    {
+        $disk = $this->disk();
 
-            return $settings[$key] ?? null;
+        if (!$disk->exists($this->path)) {
+            return [];
         }
 
-        if (Storage::exists($filePath)) {
-            $settingsJson = Storage::get($filePath);
+        $decoded = json_decode((string) $disk->get($this->path), true);
 
-            return json_decode($settingsJson, true);
-        }
-
-        return [];
+        return is_array($decoded) ? $decoded : [];
     }
 
     /**
-     * Get a specific dynamic configuration setting.
-     *
-     * @return mixed
+     * Get a setting by dot-notation key.
      */
-    public function getSetting(string $key)
+    public function get(string $key, mixed $default = null): mixed
     {
-        $settings = $this->getAllSettings();
+        return Arr::get($this->all(), $key, $default);
+    }
 
-        return $settings[$key] ?? null;
+    public function has(string $key): bool
+    {
+        return Arr::has($this->all(), $key);
     }
 
     /**
-     * Set or update a dynamic configuration setting.
-     *
-     * @return void
+     * Set (or overwrite) a setting by dot-notation key and persist.
      */
-    public function setSetting(string $key, mixed $value)
+    public function set(string $key, mixed $value): void
     {
-        $settings = $this->getAllSettings();
-        $settings[$key] = $value;
-
-        $filePath = storage_path('app/config/settings.json');
-        Storage::put($filePath, json_encode($settings) ?: '{}');
+        $all = $this->all();
+        Arr::set($all, $key, $value);
+        $this->persist($all);
     }
 
     /**
-     * Get all application settings.
-     *
-     * @return array
+     * Remove a setting by dot-notation key and persist.
      */
-    public function getAllAppSettings()
+    public function forget(string $key): void
     {
-        return config('app');
+        $all = $this->all();
+        Arr::forget($all, $key);
+        $this->persist($all);
+    }
+
+    /**
+     * @param array<string, mixed> $settings
+     */
+    private function persist(array $settings): void
+    {
+        $this->disk()->put(
+            $this->path,
+            json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR),
+        );
+    }
+
+    private function disk(): Filesystem
+    {
+        return $this->disk ??= Storage::disk((string) config('laranail.toolkit.settings.disk', 'local'));
     }
 }

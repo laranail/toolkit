@@ -4,192 +4,67 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
-use Monolog\Logger;
+use Illuminate\Log\LogManager;
+use Mockery;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Utilities\LoggingUtil;
 
 class LoggingUtilTest extends TestCase
 {
-    protected function setUp(): void
+    public function test_log_delegates_to_the_default_logger_with_enriched_context(): void
     {
-        parent::setUp();
+        $logs = Mockery::mock(LogManager::class);
+        $logs->shouldReceive('log')->once()->withArgs(
+            fn (string $level, string $message, array $context): bool => $level === 'info'
+                && $message === 'hello'
+                && ($context['key'] ?? null) === 'value'
+                && array_key_exists('timestamp', $context)
+                && array_key_exists('env', $context)
+        );
 
-        // Clear any existing log file
-        $logFile = storage_path('logs/custom.log');
-        if (file_exists($logFile)) {
-            unlink($logFile);
-        }
+        (new LoggingUtil($logs))->info('hello', ['key' => 'value']);
     }
 
-    private function mockLogger()
+    /**
+     * @return iterable<string, array{LogLevel}>
+     */
+    public static function levels(): iterable
     {
-        $mockLogger = $this->createMock(Logger::class);
-        $mockLogger->method('info')->willReturnSelf();
-        $mockLogger->method('debug')->willReturnSelf();
-        $mockLogger->method('warning')->willReturnSelf();
-        $mockLogger->method('error')->willReturnSelf();
-        $mockLogger->method('critical')->willReturnSelf();
-
-        // Use reflection to set the custom logger
-        $reflection = new \ReflectionClass(LoggingUtil::class);
-        $property = $reflection->getProperty('customLogger');
-        $property->setAccessible(true);
-        $property->setValue(null, $mockLogger);
-
-        return $mockLogger;
+        yield 'debug' => [LogLevel::Debug];
+        yield 'info' => [LogLevel::Info];
+        yield 'warning' => [LogLevel::Warning];
+        yield 'error' => [LogLevel::Error];
+        yield 'critical' => [LogLevel::Critical];
     }
 
-    protected function tearDown(): void
+    #[DataProvider('levels')]
+    public function test_each_level_helper_maps_to_its_psr_level(LogLevel $level): void
     {
-        // Clean up log file after each test
-        $logFile = storage_path('logs/custom.log');
-        if (file_exists($logFile)) {
-            unlink($logFile);
-        }
+        $logs = Mockery::mock(LogManager::class);
+        $logs->shouldReceive('log')->once()->withArgs(
+            fn (string $psrLevel): bool => $psrLevel === $level->value
+        );
 
-        parent::tearDown();
+        (new LoggingUtil($logs))->{$level->value}('msg');
     }
 
-    public function test_can_log_with_info_level()
+    public function test_a_named_channel_is_routed_through_channel(): void
     {
-        $message = 'Test info message';
-        $context = ['key' => 'value'];
+        $channelLogger = Mockery::mock(LoggerInterface::class);
+        $channelLogger->shouldReceive('log')->once();
 
-        $this->mockLogger();
-        LoggingUtil::info($message, $context);
+        $logs = Mockery::mock(LogManager::class);
+        $logs->shouldReceive('channel')->with('slack')->once()->andReturn($channelLogger);
+        $logs->shouldNotReceive('log');
 
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
+        (new LoggingUtil($logs))->error('boom', [], 'slack');
     }
 
-    public function test_can_log_with_debug_level()
+    public function test_is_resolvable_from_the_container(): void
     {
-        $message = 'Test debug message';
-        $context = ['debug_key' => 'debug_value'];
-
-        $this->mockLogger();
-        LoggingUtil::debug($message, $context);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
-    }
-
-    public function test_can_log_with_warning_level()
-    {
-        $message = 'Test warning message';
-        $context = ['warning_key' => 'warning_value'];
-
-        $this->mockLogger();
-        LoggingUtil::warning($message, $context);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
-    }
-
-    public function test_can_log_with_error_level()
-    {
-        $message = 'Test error message';
-        $context = ['error_key' => 'error_value'];
-
-        $this->mockLogger();
-        LoggingUtil::error($message, $context);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
-    }
-
-    public function test_can_log_with_critical_level()
-    {
-        $message = 'Test critical message';
-        $context = ['critical_key' => 'critical_value'];
-
-        $this->mockLogger();
-        LoggingUtil::critical($message, $context);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
-    }
-
-    public function test_can_log_with_custom_channel()
-    {
-        $message = 'Test channel message';
-        $context = ['channel_key' => 'channel_value'];
-        $channel = 'custom_channel';
-
-        // Mock the Log facade to verify channel is used
-        $mockLogger = $this->createMock(Logger::class);
-        $mockLogger->method('info')->willReturnSelf();
-
-        Log::shouldReceive('channel')
-            ->with($channel)
-            ->once()
-            ->andReturn($mockLogger);
-
-        LoggingUtil::info($message, $context, $channel);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
-    }
-
-    public function test_includes_timestamp_in_context()
-    {
-        $message = 'Test timestamp message';
-        $context = ['test_key' => 'test_value'];
-
-        // Mock the logger to avoid file system issues
-        $mockLogger = $this->createMock(Logger::class);
-        $mockLogger->method('info')->willReturnSelf();
-
-        // Use reflection to set the custom logger
-        $reflection = new \ReflectionClass(LoggingUtil::class);
-        $property = $reflection->getProperty('customLogger');
-        $property->setAccessible(true);
-        $property->setValue(null, $mockLogger);
-
-        LoggingUtil::info($message, $context);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
-    }
-
-    public function test_includes_environment_in_context()
-    {
-        Config::set('app.env', 'testing');
-
-        $message = 'Test environment message';
-        $context = ['test_key' => 'test_value'];
-
-        $this->mockLogger();
-        LoggingUtil::info($message, $context);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
-    }
-
-    public function test_can_use_generic_log_method()
-    {
-        $message = 'Test generic log message';
-        $context = ['test_key' => 'test_value'];
-
-        $this->mockLogger();
-        LoggingUtil::log(LogLevel::Info, $message, $context);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
-    }
-
-    public function test_logs_are_in_json_format()
-    {
-        $message = 'Test JSON format message';
-        $context = ['json_key' => 'json_value'];
-
-        $this->mockLogger();
-        LoggingUtil::info($message, $context);
-
-        // Test passes if no exception is thrown
-        $this->assertTrue(true);
+        $this->assertInstanceOf(LoggingUtil::class, $this->app->make(LoggingUtil::class));
     }
 }

@@ -231,6 +231,9 @@ class ToolkitServiceProvider extends ServiceProvider
         foreach ($classes as $class) {
             if ($class === RateLimiterUtil::class) {
                 $this->loadRateLimiterUtility();
+            } elseif ($class === LoggingUtil::class) {
+                // LoggingUtil is injectable — let the container autowire its LogManager.
+                $this->app->singleton($class);
             } else {
                 $this->app->bind($class, function () use ($class) {
                     return new $class();
