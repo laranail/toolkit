@@ -16,6 +16,8 @@
     <!-- Exclude paths -->
     <exclude-pattern>vendor/*</exclude-pattern>
     <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <!-- Fixtures + the api-surface scanner are data/tooling, not style-governed source. -->
+    <exclude-pattern>tests/Fixtures/*</exclude-pattern>
 
     <!-- PSR-12 base. Pint owns formatting; exclude the one sniff that fights
          Pint's single-line empty bodies (`) {}`, valid under PER style). -->

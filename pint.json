@@ -53,6 +53,7 @@
     },
     "exclude": [
         "src/Examples",
+        "tests/Fixtures",
         "vendor",
         "node_modules"
     ]

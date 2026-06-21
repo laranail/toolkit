@@ -6,9 +6,13 @@ namespace Simtabi\Laranail\Toolkit\Commands;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use Simtabi\Laranail\Console\Tools\Commands\Command;
+use Simtabi\Laranail\Console\Tools\Commands\Concerns\SupportsNamespacedNames;
 
 class MakeCrud extends Command
 {
+    use SupportsNamespacedNames;
+
     /** @var list<string> */
     protected array $commandAliases = ['make:crud'];
 

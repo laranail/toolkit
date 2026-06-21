@@ -7,7 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-06-21
+### Changed
+
+- **BREAKING:** the command base now comes from **`laranail/console`** — the toolkit
+  no longer ships its own `Commands\Command` + `SupportsNamespacedNames` (the unique
+  `$commandAliases` convenience was merged upstream into console). `MakeCrud` extends
+  `Simtabi\Laranail\Console\Tools\Commands\Command`.
+- **BREAKING:** PHP floor raised to **`^8.4.1`** (drop 8.3) — mandated by the
+  `laranail/console` dependency. CI matrix is now `8.4 / 8.5 × Laravel 13`.
+
+> Note: until `laranail/console` cuts a release carrying the `$commandAliases`
+> convenience (≥ v1.3.0), local development resolves console via a `path`
+> repository (`../../tools/console`); release/CI will pin `laranail/console: ^1.3`.
 
 First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
 `laranail/laranail` monolith into a single cohesive, security-first toolkit.
