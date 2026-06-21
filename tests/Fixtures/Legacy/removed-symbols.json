@@ -1,0 +1,970 @@
+{
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AbstractNotificationChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AppleBusinessMessagesChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\CacheChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\ConsoleChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\DatabaseChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\DiscordChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\EmailChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\FileChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\LogChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\PushChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\SlackChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\SmsChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\WebhookChannel": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Contracts\\NotificationChannelInterface": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Services\\NotificationService": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Features\\Notifications\\Support\\NotificationResult": {
+    "status": "relocated",
+    "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\AuthenticationServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\CacheServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\DatabaseServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\FileServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\RouteServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\AuthenticationHelperServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ClassHelperServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\CollectionHelperServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\DatabaseFileServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ErrorStorageServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\FakerHelperServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\FileHelperServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\HttpConfigurationServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\LivewireComponentServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ModelFormatterServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\PackageServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\StringHelperServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\SessionServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\SystemServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\UtilityServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\ValidationServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Exceptions\\FileTooLargeException": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Exceptions\\InvalidPathException": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Exceptions\\LaranailException": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Exceptions\\LaranailExceptionHandler": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Facades\\LaranailFacade": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Laranail": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Providers\\LaranailEventServiceProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Providers\\LaranailHookServiceProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Providers\\LaranailServiceProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationHelperService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\CacheService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\ClassHelperService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\CollectionHelperService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\DatabaseFileService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\DatabaseService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\ErrorStorageService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\FakerHelperService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\FileHelperService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\FileService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\HttpConfigurationService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\LivewireComponentService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\ModelFormatterService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\ModelService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\PackageService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\RouteService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\SessionService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\StringHelperService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\SystemService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\UtilityService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\ValidationService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Commands\\AssetCommand": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Commands\\CronJobCommand": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Commands\\DatabaseCommand": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Commands\\InitializeApplication": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Commands\\LicenseCommand": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Commands\\MacrosCommand": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Commands\\MaintenanceCommand": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Commands\\SetAppNamespace": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Commands\\TidyCommand": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Http\\Controllers\\BaseController": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\ApiMiddleware": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\ApiRequestMiddleware": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\ApiResponseMiddleware": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\EmailObfuscatorMiddleware": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Http\\Requests\\ApiRequest": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Http\\Requests\\BaseRequest": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Jobs\\BaseJob": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Listeners\\BaseListener": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Listeners\\LicenseListener": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\After": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\At": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Before": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Bind": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\BrazilianHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\CanadianDates": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\CapitalizeWords": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\CatchableProxy": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ChunkBy": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\CollectBy": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Decrement": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\DistanceBetween": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\DutchHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\EachCons": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Eighth": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Error": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Extract": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Fifth": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\FilterMap": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\FirstDifferentLengthAwarePaginator": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\FirstOrFail": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\FirstOrPush": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ForSelectBox": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Fourth": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\FrenchHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\FromBase64": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\FromJson": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\FromPairs": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\GenerateName": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\GermanHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\GetFile": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\GetNth": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Glob": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\GroupByModel": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Head": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\HighlightWords": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Human": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\IfAny": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\IfEmpty": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\IfMacro": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Increment": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\IndianHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\IndonesianHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Initials": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\InsertAfter": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\InsertAfterKey": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\InsertAt": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\InsertBefore": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\InsertBeforeKey": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Interpolate": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\IsEquals": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ItalianHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\KenyanHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Krsort": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Ksort": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\LinesCount": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\MacroSupport": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Matches": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Message": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\MultiNationalDates": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Ninth": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\None": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Paginate": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\PaginateFirstDifferent": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\PaginateWithPrevious": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Paginator": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ParallelMap": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Path": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Pdf": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\PluckMany": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\PluckToArray": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Prioritize": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ReadingMinutes": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Recursive": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\RenameKeys": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ReplaceInKeys": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ResponseMacros": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Rotate": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Round5": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Rsort": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Second": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\SectionBy": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Seventh": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\SimplePaginate": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Sixth": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\SliceBefore": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\StripTags": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Success": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\SwedishHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Tail": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Tenth": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Third": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ToBase64": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ToPairs": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Transpose": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\TryCatch": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\UkrainianHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\UsDates": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\Validate": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\WhenEquals": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\WhereContains": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\WhereEndsWith": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\WhereStartsWith": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\WithSize": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\WordsCount": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Macros\\ZambianHolidays": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Observers\\BaseObserver": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\ArrMacroProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\BlueprintMacroProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\CarbonMacroProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\CollectionMacroProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\LaravelMiddlewareServiceProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\MacrosServiceProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\QueryBuilderMacroProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\RequestMacroProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\ResponseMacroProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Providers\\StringMacroProvider": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Services\\ImportDatabaseService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Services\\ResponseBuilderService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Laravel\\Services\\SystemService": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Events\\BaseEvent": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Events\\CacheEvents": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Events\\EnvironmentEvents": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Events\\LicenseEvents": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Events\\RequirementsEvents": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\AuthenticationException": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\CollectionItemNotFound": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\ImmutableDataException": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\MissingUuidColumnException": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\ModelException": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\UuidException": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Contracts\\CacheHelperInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Contracts\\LoggerServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Contracts\\ResponseBuilderServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Contracts\\ResponseMacroInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Contracts\\ShovelHttpInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Contracts\\SystemServiceInterface": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Facades\\LanguagesFacade": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Services\\Atlas\\Countries": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Services\\Atlas\\Languages": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Traits\\HasAuth": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Traits\\HasErrorStorage": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Traits\\HasGuzzleConfig": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Traits\\HasPackageTools": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Traits\\Livewire\\HasLivewire": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Traits\\RunsConditionally": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\Auth": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\BladeDirectives": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\DatabaseSession": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\Runners\\ConditionalRunner": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\DiskSpaceValidator": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\Environment": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\RequirementsChecker": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\Username": {
+    "status": "dropped",
+    "target": "see docs/migration/MIGRATION.md + dropped.md"
+  }
+}

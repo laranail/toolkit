@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **API-surface regression proof** — a `tests/Regression/ApiSurfaceTest` diffs the
+  frozen legacy public-API snapshot against the current toolkit and fails on any
+  *unplanned* lost symbol; intentional removals/relocations live in
+  `tests/Fixtures/Legacy/removed-symbols.json` (kept honest by a no-stale-entries
+  check). Plus behavioural parity snapshots (`ParityTest`).
 - **Unified `Toolkit` facade** (`Simtabi\Laranail\Toolkit\Facades\Toolkit`, alias
   `Toolkit`) fronting the feature modules — `Toolkit::avatar()/gravatar()/captcha()/
   archiver()` return the module's typed service. The modern, typed replacement for the
