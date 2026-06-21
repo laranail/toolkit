@@ -7,6 +7,24 @@ parameters:
 			path: src/Commands/MakeCrud.php
 
 		-
+			message: '#^Call to function array_filter\(\) requires parameter \#2 to be passed to avoid loose comparison semantics\.$#'
+			identifier: arrayFilter.strict
+			count: 1
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Call to function in_array\(\) requires parameter \#3 to be set\.$#'
+			identifier: function.strict
+			count: 26
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 9
+			path: src/Commands/MakeCrud.php
+
+		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Commands\\MakeCrud\:\:buildEagerLoad\(\) has parameter \$relationships with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -69,6 +87,54 @@ parameters:
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Commands\\MakeCrud\:\:parseFields\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
+			count: 1
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, array\|bool\|float\|int\|string\|null given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 2
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, array given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, array\|bool\|float\|int\|string\|null given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 3
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, list\<string\> given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, string given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array given\.$#'
+			identifier: if.condNotBoolean
+			count: 4
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, array\|bool\|float\|int\|string\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 2
+			path: src/Commands/MakeCrud.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|null given\.$#'
+			identifier: if.condNotBoolean
 			count: 1
 			path: src/Commands/MakeCrud.php
 
@@ -145,6 +211,48 @@ parameters:
 			path: src/Helpers/XHelper.php
 
 		-
+			message: '#^Casting to string something that''s already string\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Http/Controllers/CrudController.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 6
+			path: src/Http/Controllers/CrudController.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:create\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Http/Controllers/CrudController.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:findOrFail\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 2
+			path: src/Http/Controllers/CrudController.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:orderBy\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Http/Controllers/CrudController.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Model\:\:query\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 2
+			path: src/Http/Controllers/CrudController.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Http\\Request\:\:validate\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Http/Controllers/CrudController.php
+
+		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Http\\Controllers\\CrudController\:\:deleteRecord\(\) has parameter \$id with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -191,6 +299,120 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Http/Controllers/CrudController.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Macros/ArrMacros.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:doesntExist\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Macros/QueryBuilderMacros.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:exists\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Macros/QueryBuilderMacros.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereBetween\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Macros/QueryBuilderMacros.php
+
+		-
+			message: '#^Casting to string something that''s already string\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Modules/AccessLog/AccessLogMiddleware.php
+
+		-
+			message: '#^Call to method RecursiveDirectoryIterator\:\:getSubPathname\(\) with incorrect case\: getSubPathName$#'
+			identifier: method.nameCase
+			count: 1
+			path: src/Modules/Archiver/Extractor.php
+
+		-
+			message: '#^Casting to string something that''s already string\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Modules/Archiver/Extractor.php
+
+		-
+			message: '#^Casting to int something that''s already int\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Modules/Archiver/Zip.php
+
+		-
+			message: '#^Casting to string something that''s already string\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Modules/Archiver/Zip.php
+
+		-
+			message: '#^Only booleans are allowed in &&, string\|false given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 2
+			path: src/Modules/Avatar/AvatarResolver.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 5
+			path: src/Modules/Avatar/AvatarResolver.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|false given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Modules/Avatar/AvatarResolver.php
+
+		-
+			message: '#^Casting to int something that''s already int\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Modules/Avatar/AvatarService.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, int\|false given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Modules/Avatar/AvatarService.php
+
+		-
+			message: '#^Only booleans are allowed in an if condition, string\|false given\.$#'
+			identifier: if.condNotBoolean
+			count: 3
+			path: src/Modules/Avatar/AvatarService.php
+
+		-
+			message: '#^PHPDoc tag @var with type Intervention\\Image\\Interfaces\\DriverInterface is not subtype of type Intervention\\Image\\Drivers\\Gd\\Driver\|Intervention\\Image\\Drivers\\Imagick\\Driver\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Modules/Avatar/AvatarService.php
+
+		-
+			message: '#^PHPDoc tag @var with type Illuminate\\Contracts\\Config\\Repository is not subtype of type Illuminate\\Config\\Repository\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Modules/Captcha/CaptchaServiceProvider.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, string\|false given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: src/Modules/Gravatar/GravatarService.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Modules/Llm/Claude/ClaudeProvider.php
 
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Claude\\ClaudeProvider\:\:buildPayload\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
@@ -245,6 +467,12 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: src/Modules/Llm/Claude/ClaudeResponse.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Modules/Llm/Gemini/GeminiProvider.php
 
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Gemini\\GeminiProvider\:\:generateResponse\(\) has parameter \$logitBias with no value type specified in iterable type array\.$#'
@@ -361,6 +589,12 @@ parameters:
 			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
 
 		-
+			message: '#^Only booleans are allowed in an if condition, bool\|null given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: src/Modules/Llm/OpenAI/OpenAIProvider.php
+
+		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\OpenAI\\OpenAIResponse\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -427,6 +661,12 @@ parameters:
 			path: src/Providers/ToolkitServiceProvider.php
 
 		-
+			message: '#^Call to function in_array\(\) requires parameter \#3 to be set\.$#'
+			identifier: function.strict
+			count: 1
+			path: src/Rules/RejectCommonPasswords.php
+
+		-
 			message: '#^Property Simtabi\\Laranail\\Toolkit\\Rules\\RejectCommonPasswords\:\:\$commonPasswords type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -437,6 +677,36 @@ parameters:
 			identifier: trait.unused
 			count: 1
 			path: src/Support/FilePathGuard.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:macro\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 5
+			path: src/Support/Scopes/ArchiveScope.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:whereNull\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Support/Scopes/ArchiveScope.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNotNull\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Support/Scopes/ArchiveScope.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNull\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Support/Scopes/ArchiveScope.php
+
+		-
+			message: '#^Variable method call on \$this\(Simtabi\\Laranail\\Toolkit\\Support\\Scopes\\ArchiveScope\)\.$#'
+			identifier: method.dynamicName
+			count: 1
+			path: src/Support/Scopes/ArchiveScope.php
 
 		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\ApiResponseTrait is used zero times and is not analysed\.$#'
@@ -475,6 +745,12 @@ parameters:
 			path: src/Traits/HasFormatters.php
 
 		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Utilities/CachingUtil.php
+
+		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil\:\:__construct\(\) has parameter \$defaultTags with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -487,40 +763,40 @@ parameters:
 			path: src/Utilities/CachingUtil.php
 
 		-
-			message: '#^Property Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil\:\:\$defaultTags type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Dynamic call to static method Illuminate\\Contracts\\Auth\\Guard\:\:user\(\)\.$#'
+			identifier: staticMethod.dynamicCall
 			count: 1
-			path: src/Utilities/CachingUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\ConfigUtil\:\:getAllAppSettings\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/ConfigUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\ConfigUtil\:\:getAllSettings\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/ConfigUtil.php
-
-		-
-			message: '#^Parameter \#1 \$json of function json_decode expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Utilities/ConfigUtil.php
-
-		-
-			message: '#^Possibly invalid array key type string\|null\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 1
-			path: src/Utilities/ConfigUtil.php
+			path: src/Utilities/FeatureToggleUtil.php
 
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\FeatureToggleUtil\:\:ensureConfigFileExists\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/Utilities/FeatureToggleUtil.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, Illuminate\\Foundation\\Auth\\User\|null given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Utilities/FeatureToggleUtil.php
+
+		-
+			message: '#^Casting to string something that''s already string\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Utilities/FilteringUtil.php
+
+		-
+			message: '#^Loose comparison via "\!\=" is not allowed\.$#'
+			identifier: notEqual.notAllowed
+			count: 1
+			path: src/Utilities/FilteringUtil.php
+
+		-
+			message: '#^Loose comparison via "\=\=" is not allowed\.$#'
+			identifier: equal.notAllowed
+			count: 1
+			path: src/Utilities/FilteringUtil.php
 
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\FilteringUtil\:\:filter\(\) has parameter \$items with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
@@ -533,48 +809,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: src/Utilities/FilteringUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\LoggingUtil\:\:critical\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/LoggingUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\LoggingUtil\:\:debug\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/LoggingUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\LoggingUtil\:\:error\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/LoggingUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\LoggingUtil\:\:getLogger\(\) should return Monolog\\Logger but returns Psr\\Log\\LoggerInterface\.$#'
-			identifier: return.type
-			count: 1
-			path: src/Utilities/LoggingUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\LoggingUtil\:\:info\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/LoggingUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\LoggingUtil\:\:log\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/LoggingUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\LoggingUtil\:\:warning\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/LoggingUtil.php
 
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\PaginationUtil\:\:paginate\(\) has parameter \$items with no value type specified in iterable type array\.$#'
@@ -609,6 +843,12 @@ parameters:
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\PaginationUtil\:\:paginateQuery\(\) return type with generic interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
 			identifier: missingType.generics
+			count: 1
+			path: src/Utilities/PaginationUtil.php
+
+		-
+			message: '#^Short ternary operator is not allowed\. Use null coalesce operator if applicable or consider using long ternary\.$#'
+			identifier: ternary.shortNotAllowed
 			count: 1
 			path: src/Utilities/PaginationUtil.php
 
