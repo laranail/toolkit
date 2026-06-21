@@ -37,7 +37,7 @@ class MacroRegistrationTest extends TestCase
             'countWords', 'removeAccents',
         ],
         'Collection' => [
-            'transpose', 'recursive', 'collectBy', 'mapToKey', 'filterRecursive', 'firstOrFail',
+            'transpose', 'recursive', 'mapToKey', 'filterRecursive', 'firstOrFail',
             'sumRecursive', 'averageBy', 'toCsv', 'prioritize', 'rotateLeft', 'rotateRight',
             'toTree', 'insertAfter', 'insertBefore',
         ],

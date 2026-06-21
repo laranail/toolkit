@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
 use Illuminate\Support\Facades\Schema;
+use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class MakeCrudCommandTest extends TestCase
@@ -561,6 +562,41 @@ class MakeCrudCommandTest extends TestCase
 
         $this->track(app_path('Models/Product.php'));
         $this->trackMigration('products');
+    }
+
+    #[Group('security')]
+    public function test_generated_controller_index_is_injection_safe()
+    {
+        $this->artisan('make:crud', [
+            'name' => 'Product',
+            '--fields' => 'name:string,description:text',
+            '--searchable' => 'name,description',
+            '--per-page' => 20,
+        ])->assertExitCode(0);
+
+        $content = file_get_contents($this->track(app_path('Http/Controllers/ProductController.php')));
+
+        // LIKE wildcards escaped; sort_by whitelisted; per_page clamped.
+        $this->assertStringContainsString('addcslashes', $content);
+        $this->assertStringContainsString('$sortable = ', $content);
+        $this->assertStringContainsString("in_array(\$request->input('sort_by'), \$sortable, true)", $content);
+        $this->assertStringContainsString('min(max((int) $request->input(', $content);
+
+        // The generated file must be valid PHP and declare strict types.
+        $this->assertSame(0, $this->lintPhp($content));
+
+        $this->track(app_path('Models/Product.php'));
+        $this->trackMigration('products');
+    }
+
+    private function lintPhp(string $code): int
+    {
+        $tmp = tempnam(sys_get_temp_dir(), 'crudlint') . '.php';
+        file_put_contents($tmp, $code);
+        exec('php -l ' . escapeshellarg($tmp) . ' 2>&1', $out, $exit);
+        @unlink($tmp);
+
+        return $exit;
     }
 
     public function test_controller_index_has_no_search_logic_without_searchable()

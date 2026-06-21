@@ -115,18 +115,6 @@ parameters:
 			path: src/Commands/MakeCrud.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper\:\:arrayFlatten\(\) has parameter \$array with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Helpers/XHelper.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper\:\:arrayFlatten\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Helpers/XHelper.php
-
-		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper\:\:arrayTrim\(\) has parameter \$array with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -153,12 +141,6 @@ parameters:
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper\:\:carbonParse\(\) has parameter \$format with no type specified\.$#'
 			identifier: missingType.parameter
-			count: 1
-			path: src/Helpers/XHelper.php
-
-		-
-			message: '#^Parameter \#1 \$string of function trim expects string, string\|null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/Helpers/XHelper.php
 
@@ -209,24 +191,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Http/Controllers/CrudController.php
-
-		-
-			message: '#^Call to an undefined static method Simtabi\\Laranail\\Toolkit\\Models\\AccessLog\:\:create\(\)\.$#'
-			identifier: staticMethod.notFound
-			count: 1
-			path: src/Http/Middleware/AccessLogMiddleware.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Http\\Middleware\\AccessLogMiddleware\:\:handle\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/Http/Middleware/AccessLogMiddleware.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Http\\Middleware\\AccessLogMiddleware\:\:handle\(\) has parameter \$request with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/Http/Middleware/AccessLogMiddleware.php
 
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Claude\\ClaudeProvider\:\:buildPayload\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
@@ -319,18 +283,6 @@ parameters:
 			path: src/LLMProviders/Gemini/GeminiProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\GeminiProvider\:\:mapMessagesToGeminiContents\(\) has parameter \$messages with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/LLMProviders/Gemini/GeminiProvider.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\GeminiProvider\:\:mapMessagesToGeminiContents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/LLMProviders/Gemini/GeminiProvider.php
-
-		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\LLMProviders\\Gemini\\Responses\\GeminiResponse\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -363,12 +315,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property object\:\:\$usage\.$#'
 			identifier: property.notFound
-			count: 1
-			path: src/LLMProviders/OpenAI/OpenAIProvider.php
-
-		-
-			message: '#^Invalid type OpenAI\\Exceptions\\ErrorException\|null to throw\.$#'
-			identifier: throw.notThrowable
 			count: 1
 			path: src/LLMProviders/OpenAI/OpenAIProvider.php
 
@@ -487,6 +433,12 @@ parameters:
 			path: src/Rules/RejectCommonPasswords.php
 
 		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Support\\FilePathGuard is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Support/FilePathGuard.php
+
+		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\ApiResponseTrait is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
@@ -523,12 +475,6 @@ parameters:
 			path: src/Traits/HasFormatters.php
 
 		-
-			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Support\\FilePathGuard is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Support/FilePathGuard.php
-
-		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil\:\:__construct\(\) has parameter \$defaultTags with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -560,12 +506,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$json of function json_decode expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Utilities/ConfigUtil.php
-
-		-
-			message: '#^Parameter \#2 \$contents of static method Illuminate\\Support\\Facades\\Storage\:\:put\(\) expects Illuminate\\Http\\File\|Illuminate\\Http\\UploadedFile\|Psr\\Http\\Message\\StreamInterface\|resource\|string, string\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Utilities/ConfigUtil.php

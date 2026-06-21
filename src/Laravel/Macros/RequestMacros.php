@@ -83,15 +83,12 @@ final class RequestMacros extends ServiceProvider
 
         Request::macro('getReferer', function (?string $default = null): ?string {
             /** @var Request $this */
-            $referer = $this->header('referer', $default);
-
-            return is_array($referer) ? ($referer[0] ?? $default) : $referer;
+            return $this->header('referer', $default);
         });
 
         Request::macro('isFromDomain', function (string $domain): bool {
             /** @var Request $this */
             $referer = $this->header('referer');
-            $referer = is_array($referer) ? ($referer[0] ?? null) : $referer;
 
             if ($referer === null || $referer === '') {
                 return false;

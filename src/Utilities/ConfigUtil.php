@@ -55,7 +55,7 @@ class ConfigUtil
         $settings[$key] = $value;
 
         $filePath = storage_path('app/config/settings.json');
-        Storage::put($filePath, json_encode($settings));
+        Storage::put($filePath, json_encode($settings) ?: '{}');
     }
 
     /**
