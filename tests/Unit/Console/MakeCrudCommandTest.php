@@ -12,8 +12,17 @@ class MakeCrudCommandTest extends TestCase
     private array $cleanup = [];
 
     // -----------------------------------------------------------------------
-    // Teardown
+    // Setup / Teardown
     // -----------------------------------------------------------------------
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Start each test from a pristine generation environment so test order
+        // (or artifacts left by a prior run) can never cause a stale-file read.
+        $this->clearGeneratedArtifacts();
+    }
 
     protected function tearDown(): void
     {
@@ -23,7 +32,38 @@ class MakeCrudCommandTest extends TestCase
             }
         }
 
+        $this->clearGeneratedArtifacts();
+
         parent::tearDown();
+    }
+
+    /**
+     * Remove CRUD-generated controllers, models and migrations from the shared
+     * testbench app skeleton while protecting framework files.
+     */
+    private function clearGeneratedArtifacts(): void
+    {
+        foreach (glob(app_path('Http/Controllers/*Controller.php')) ?: [] as $file) {
+            if (basename($file) !== 'Controller.php') {
+                @unlink($file);
+            }
+        }
+
+        foreach (glob(app_path('Models/*.php')) ?: [] as $file) {
+            if (basename($file) !== 'User.php') {
+                @unlink($file);
+            }
+        }
+
+        $protected = ['users', 'password_reset_tokens', 'sessions', 'cache', 'cache_locks', 'jobs', 'job_batches', 'failed_jobs'];
+
+        foreach (glob(database_path('migrations/*_create_*_table.php')) ?: [] as $file) {
+            $table = preg_match('/_create_(.+)_table\.php$/', basename($file), $matches) ? $matches[1] : '';
+
+            if ($table !== '' && !in_array($table, $protected, true)) {
+                @unlink($file);
+            }
+        }
     }
 
     private function track(string $path): string
