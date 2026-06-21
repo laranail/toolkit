@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Helpers\XHelper;
 use Simtabi\Laranail\Toolkit\Http\Middleware\AccessLogMiddleware;
+use Simtabi\Laranail\Toolkit\Laravel\Macros\MacroServiceProvider;
 use Simtabi\Laranail\Toolkit\LLMProviders\Claude\ClaudeProvider;
 use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\LLMProviders\Gemini\GeminiProvider;
@@ -95,6 +96,10 @@ class ToolkitServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register the macro coordinator eagerly so all grouped macros load
+        // globally (macro registration must not be deferred).
+        $this->app->register(MacroServiceProvider::class);
+
         // Load migrations
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
