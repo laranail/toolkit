@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Http\Middleware;
+namespace Simtabi\Laranail\Toolkit\Modules\AccessLog\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Simtabi\Laranail\Toolkit\Models\AccessLog;
+use Simtabi\Laranail\Toolkit\Modules\AccessLog\Models\AccessLog;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 

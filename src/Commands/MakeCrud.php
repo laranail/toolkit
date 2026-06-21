@@ -6,7 +6,6 @@ namespace Simtabi\Laranail\Toolkit\Commands;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use Simtabi\Laranail\Toolkit\Core\Console\Command;
 
 class MakeCrud extends Command
 {

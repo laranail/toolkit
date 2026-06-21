@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Core\Console\Concerns;
+namespace Simtabi\Laranail\Toolkit\Commands\Concerns;
 
 use ReflectionProperty;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;

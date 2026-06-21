@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Laravel\Macros;
+namespace Simtabi\Laranail\Toolkit\Macros;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;

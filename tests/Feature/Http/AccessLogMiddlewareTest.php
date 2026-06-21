@@ -7,8 +7,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Http\Middleware\AccessLogMiddleware;
-use Simtabi\Laranail\Toolkit\Models\AccessLog;
+use Simtabi\Laranail\Toolkit\Modules\AccessLog\Http\Middleware\AccessLogMiddleware;
+use Simtabi\Laranail\Toolkit\Modules\AccessLog\Models\AccessLog;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 #[Group('security')]
