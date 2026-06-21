@@ -14,23 +14,14 @@ class GeminiProvider implements LLMProviderInterface
 {
     use RetriesHttpRequests;
 
-    private string $apiKey;
-
-    private int $maxRetries;
-
-    private int $retryDelay;
-
     private string $baseUrl;
 
     public function __construct(
-        string $apiKey,
-        int $maxRetries = 3,
-        int $retryDelay = 2,
+        private string $apiKey,
+        private int $maxRetries = 3,
+        private int $retryDelay = 2,
         string $baseUrl = 'https://generativelanguage.googleapis.com/v1beta'
     ) {
-        $this->apiKey = $apiKey;
-        $this->maxRetries = $maxRetries;
-        $this->retryDelay = $retryDelay;
         $this->baseUrl = $this->sanitizeBaseUrl($baseUrl);
     }
 

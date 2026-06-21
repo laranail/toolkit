@@ -16,16 +16,16 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaVerificationResult;
  * Turnstile does not return a score, so a successful verification yields a
  * score of 1.0. Verification fails closed on transport/response errors.
  */
-final class TurnstileProvider implements CaptchaProviderInterface
+final readonly class TurnstileProvider implements CaptchaProviderInterface
 {
     private const API_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
     private const PROVIDER_NAME = 'turnstile';
 
     public function __construct(
-        private readonly string $siteKey,
-        private readonly string $secretKey,
-        private readonly int $timeout = 30,
+        private string $siteKey,
+        private string $secretKey,
+        private int $timeout = 30,
     ) {}
 
     /**

@@ -87,14 +87,10 @@ class ToolkitServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->singleton('xhelper', function () {
-            return new XHelper();
-        });
+        $this->app->singleton('xhelper', fn () => new XHelper());
 
         // Unified entry point to the feature modules (the `Toolkit` facade root).
-        $this->app->singleton(ToolkitManager::class, function ($app): ToolkitManager {
-            return new ToolkitManager($app);
-        });
+        $this->app->singleton(ToolkitManager::class, fn ($app): ToolkitManager => new ToolkitManager($app));
     }
 
     /**
@@ -210,7 +206,7 @@ class ToolkitServiceProvider extends ServiceProvider
             return;
         }
 
-        AboutCommand::add('Laranail Toolkit', static fn (): array => (new RequirementsDiagnostics())->toAboutArray());
+        AboutCommand::add('Laranail Toolkit', static fn (): array => new RequirementsDiagnostics()->toAboutArray());
     }
 
     /**
@@ -218,9 +214,7 @@ class ToolkitServiceProvider extends ServiceProvider
      */
     private function loadClass(string $class)
     {
-        $this->app->bind($class, function () use ($class) {
-            return new $class();
-        });
+        $this->app->bind($class, fn () => new $class());
     }
 
     /**
@@ -235,9 +229,7 @@ class ToolkitServiceProvider extends ServiceProvider
                 // LoggingUtil is injectable — let the container autowire its LogManager.
                 $this->app->singleton($class);
             } else {
-                $this->app->bind($class, function () use ($class) {
-                    return new $class();
-                });
+                $this->app->bind($class, fn () => new $class());
             }
         }
     }
@@ -249,9 +241,7 @@ class ToolkitServiceProvider extends ServiceProvider
     {
         $config = config('laranail.toolkit.cache');
 
-        $this->app->bind(CachingUtil::class, function () use ($config) {
-            return new CachingUtil($config['default_expiration'], $config['default_tags']);
-        });
+        $this->app->bind(CachingUtil::class, fn () => new CachingUtil($config['default_expiration'], $config['default_tags']));
     }
 
     /**
@@ -259,9 +249,7 @@ class ToolkitServiceProvider extends ServiceProvider
      */
     private function loadRateLimiterUtility()
     {
-        $this->app->bind(RateLimiterUtil::class, function ($app) {
-            return new RateLimiterUtil($app->make('cache.store'));
-        });
+        $this->app->bind(RateLimiterUtil::class, fn ($app) => new RateLimiterUtil($app->make('cache.store')));
     }
 
     private function publishUtility(string $utility, string $name)
@@ -286,9 +274,7 @@ class ToolkitServiceProvider extends ServiceProvider
             return !$failed;
         }, 'The :attribute contains a common password that is not allowed.');
 
-        Validator::replacer('reject_common_passwords', function ($message, $attribute, $rule, $parameters) {
-            return str_replace(':attribute', $attribute, $message);
-        });
+        Validator::replacer('reject_common_passwords', fn ($message, $attribute, $rule, $parameters) => str_replace(':attribute', $attribute, $message));
     }
 
     /**

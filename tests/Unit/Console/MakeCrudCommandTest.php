@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
@@ -93,7 +94,7 @@ class MakeCrudCommandTest extends TestCase
     public function test_command_is_registered()
     {
         $this->assertTrue(
-            collect($this->app['Illuminate\Contracts\Console\Kernel']->all())
+            collect($this->app[Kernel::class]->all())
                 ->has('make:crud')
         );
     }

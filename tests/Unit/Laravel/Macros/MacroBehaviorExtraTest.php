@@ -62,39 +62,39 @@ class MacroBehaviorExtraTest extends TestCase
 
     public function test_collection_recursive_and_map_to_key(): void
     {
-        $recursive = (new Collection(['a' => ['b' => 1]]))->recursive();
+        $recursive = new Collection(['a' => ['b' => 1]])->recursive();
         $this->assertInstanceOf(Collection::class, $recursive->get('a'));
 
-        $mapped = (new Collection(['x', 'y']))->mapToKey(fn (string $v, int $k): array => ["k{$k}", $v]);
+        $mapped = new Collection(['x', 'y'])->mapToKey(fn (string $v, int $k): array => ["k{$k}", $v]);
         $this->assertSame(['k0' => 'x', 'k1' => 'y'], $mapped->all());
     }
 
     public function test_collection_filter_recursive_and_first_or_fail(): void
     {
-        $filtered = (new Collection([1, 0, [2, 0]]))->filterRecursive();
+        $filtered = new Collection([1, 0, [2, 0]])->filterRecursive();
         $this->assertSame(1, $filtered->get(0));
         $this->assertInstanceOf(Collection::class, $filtered->get(2));
         $this->assertSame([2], $filtered->get(2)->values()->all());
 
-        $this->assertSame(2, (new Collection([1, 2, 3]))->firstOrFail(fn (int $n): bool => $n === 2));
+        $this->assertSame(2, new Collection([1, 2, 3])->firstOrFail(fn (int $n): bool => $n === 2));
 
         $this->expectException(RuntimeException::class);
-        (new Collection([]))->firstOrFail();
+        new Collection([])->firstOrFail();
     }
 
     public function test_collection_sum_average_and_csv(): void
     {
-        $this->assertSame(10, (new Collection([[1, 2], [3, 4]]))->sumRecursive());
-        $this->assertSame(2, (new Collection([1, 2, 3]))->averageBy(fn (int $n): int => $n));
+        $this->assertSame(10, new Collection([[1, 2], [3, 4]])->sumRecursive());
+        $this->assertSame(2, new Collection([1, 2, 3])->averageBy(fn (int $n): int => $n));
 
-        $csv = (new Collection([['a', 'b'], ['c', 'd']]))->toCsv();
+        $csv = new Collection([['a', 'b'], ['c', 'd']])->toCsv();
         $this->assertSame(['"a","b"', '"c","d"'], $csv);
     }
 
     public function test_collection_rotate_right_and_tree(): void
     {
-        $this->assertSame([], (new Collection([]))->rotateRight()->all());
-        $this->assertSame([3, 1, 2], (new Collection([1, 2, 3]))->rotateRight()->values()->all());
+        $this->assertSame([], new Collection([])->rotateRight()->all());
+        $this->assertSame([3, 1, 2], new Collection([1, 2, 3])->rotateRight()->values()->all());
 
         $rows = new Collection([
             ['id' => 1, 'parent_id' => null],
@@ -109,19 +109,19 @@ class MacroBehaviorExtraTest extends TestCase
     {
         // Found-key path: returns a collection that still contains the
         // original keys (numeric inserts re-key, hence assert membership).
-        $after = (new Collection(['a' => 1, 'b' => 2]))->insertAfter('a', 'X');
+        $after = new Collection(['a' => 1, 'b' => 2])->insertAfter('a', 'X');
         $this->assertInstanceOf(Collection::class, $after);
         $this->assertTrue($after->keys()->contains('b'));
 
-        $before = (new Collection(['a' => 1, 'b' => 2]))->insertBefore('b', 'Y');
+        $before = new Collection(['a' => 1, 'b' => 2])->insertBefore('b', 'Y');
         $this->assertInstanceOf(Collection::class, $before);
         $this->assertTrue($before->keys()->contains('a'));
 
         // Missing-key path: append (after) / prepend (before) with the key.
-        $missingAfter = (new Collection(['a' => 1]))->insertAfter('zzz', 'V');
+        $missingAfter = new Collection(['a' => 1])->insertAfter('zzz', 'V');
         $this->assertSame('V', $missingAfter->get('zzz'));
 
-        $missingBefore = (new Collection(['a' => 1]))->insertBefore('zzz', 'W');
+        $missingBefore = new Collection(['a' => 1])->insertBefore('zzz', 'W');
         $this->assertSame('W', $missingBefore->first());
     }
 

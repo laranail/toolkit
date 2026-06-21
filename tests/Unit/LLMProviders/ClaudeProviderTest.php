@@ -35,7 +35,7 @@ class ClaudeProviderTest extends TestCase
         $this->assertSame('Hello there', $response->getContent());
 
         Http::assertSent(fn ($request) => $request->hasHeader('x-api-key', 'test-key')
-            && str_ends_with($request->url(), '/v1/messages'));
+            && str_ends_with((string) $request->url(), '/v1/messages'));
     }
 
     #[Group('security')]

@@ -24,16 +24,14 @@ class SchedulerUtil
 
         Log::info('Summarized ' . count($events) . ' scheduled event(s).');
 
-        return collect($events)->map(function (Event $event) {
-            return [
-                'command' => $event->command,
-                'expression' => $event->expression,
-                'description' => $event->description,
-                'next_run' => $event->nextRunDate(),
-                'is_due' => $this->isDue($event),
-                'output' => $event->output,
-            ];
-        })->toArray();
+        return collect($events)->map(fn (Event $event) => [
+            'command' => $event->command,
+            'expression' => $event->expression,
+            'description' => $event->description,
+            'next_run' => $event->nextRunDate(),
+            'is_due' => $this->isDue($event),
+            'output' => $event->output,
+        ])->toArray();
     }
 
     /**
@@ -51,6 +49,6 @@ class SchedulerUtil
      */
     private function isDue(Event $event): bool
     {
-        return (new CronExpression($event->expression))->isDue(Carbon::now());
+        return new CronExpression($event->expression)->isDue(Carbon::now());
     }
 }

@@ -28,12 +28,10 @@ class TurnstileProviderTest extends TestCase
         $this->assertTrue($result->isSuccess());
         $this->assertSame(1.0, $result->score());
 
-        Http::assertSent(function ($request) {
-            return $request->url() === 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
-                && $request['secret'] === 'secret-key'
-                && $request['response'] === 'token-xyz'
-                && $request['remoteip'] === '192.0.2.10';
-        });
+        Http::assertSent(fn ($request) => $request->url() === 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+            && $request['secret'] === 'secret-key'
+            && $request['response'] === 'token-xyz'
+            && $request['remoteip'] === '192.0.2.10');
     }
 
     #[Group('security')]

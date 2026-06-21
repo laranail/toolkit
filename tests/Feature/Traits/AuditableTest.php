@@ -50,7 +50,7 @@ class AuditableTest extends TestCase
         AuditWidget::create(['name' => 'Acme', 'secret' => 'top-secret']);
 
         $audit = DB::table('model_audits')->where('event', 'created')->first();
-        $newValues = json_decode($audit->new_values, true);
+        $newValues = json_decode((string) $audit->new_values, true);
 
         $this->assertSame('Acme', $newValues['name']);
         $this->assertSame('[REDACTED]', $newValues['secret']);

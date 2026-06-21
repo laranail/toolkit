@@ -148,7 +148,7 @@ class BladeServiceProvider extends ServiceProvider
      */
     private static function twoArgs(string $expression): array
     {
-        $parts = array_map('trim', explode(',', $expression, 2));
+        $parts = array_map(trim(...), explode(',', $expression, 2));
 
         return [$parts[0], $parts[1] ?? ''];
     }

@@ -29,13 +29,7 @@ trait FilePathGuard
         // Normalise separators, then reject any `..` segment.
         $segments = preg_split('#[\\\\/]+#', $path) ?: [];
 
-        foreach ($segments as $segment) {
-            if ($segment === '..') {
-                return false;
-            }
-        }
-
-        return true;
+        return array_all($segments, fn ($segment) => !($segment === '..'));
     }
 
     /**

@@ -71,7 +71,7 @@ class CaptchaServiceTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        (new CaptchaService())->getProvider('Evil\\ArbitraryClass');
+        new CaptchaService()->getProvider('Evil\\ArbitraryClass');
     }
 
     #[Group('security')]
@@ -79,7 +79,7 @@ class CaptchaServiceTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        (new CaptchaService())->setDefaultProvider('nope');
+        new CaptchaService()->setDefaultProvider('nope');
     }
 
     public function test_verify_through_service_uses_selected_provider(): void
@@ -88,7 +88,7 @@ class CaptchaServiceTest extends TestCase
             'hcaptcha.com/*' => Http::response(['success' => true], 200),
         ]);
 
-        $result = (new CaptchaService())->verify('token', [], 'hcaptcha', '203.0.113.1');
+        $result = new CaptchaService()->verify('token', [], 'hcaptcha', '203.0.113.1');
 
         $this->assertTrue($result->isSuccess());
         $this->assertSame('hcaptcha', $result->getProviderName());
@@ -101,7 +101,7 @@ class CaptchaServiceTest extends TestCase
     {
         config()->set('laranail.toolkit.captcha.turnstile.secret_key', '');
 
-        $result = (new CaptchaService())->verify('token', [], 'turnstile');
+        $result = new CaptchaService()->verify('token', [], 'turnstile');
 
         $this->assertTrue($result->isFailure());
     }
@@ -110,7 +110,7 @@ class CaptchaServiceTest extends TestCase
     {
         $this->assertSame(
             ['recaptcha', 'turnstile', 'hcaptcha'],
-            (new CaptchaService())->getProviderNames(),
+            new CaptchaService()->getProviderNames(),
         );
     }
 }

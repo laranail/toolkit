@@ -41,7 +41,7 @@ class MacroBehaviorTest extends TestCase
 
     public function test_collection_prioritize_moves_matches_to_front(): void
     {
-        $result = (new Collection([1, 2, 3, 4]))
+        $result = new Collection([1, 2, 3, 4])
             ->prioritize(static fn (int $n): bool => $n % 2 === 0)
             ->values()
             ->all();
@@ -51,15 +51,15 @@ class MacroBehaviorTest extends TestCase
 
     public function test_collection_transpose_swaps_rows_and_columns(): void
     {
-        $result = (new Collection([[1, 2], [3, 4]]))->transpose()->all();
+        $result = new Collection([[1, 2], [3, 4]])->transpose()->all();
 
         $this->assertSame([[1, 3], [2, 4]], $result);
     }
 
     public function test_collection_rotate_left_handles_empty(): void
     {
-        $this->assertSame([], (new Collection([]))->rotateLeft()->all());
-        $this->assertSame([2, 3, 1], (new Collection([1, 2, 3]))->rotateLeft()->values()->all());
+        $this->assertSame([], new Collection([])->rotateLeft()->all());
+        $this->assertSame([2, 3, 1], new Collection([1, 2, 3])->rotateLeft()->values()->all());
     }
 
     public function test_arr_remove_value_uses_value_membership(): void

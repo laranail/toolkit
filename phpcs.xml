@@ -26,6 +26,9 @@
              single-line empty bodies (`class Foo {}` / `) {}`). -->
         <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
         <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+        <!-- Single-line promoted-constructor empty bodies (`__construct(...) {}`)
+             that Pint produces. -->
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
     </rule>
 
     <!-- Test methods follow PHPUnit's snake_case convention. -->

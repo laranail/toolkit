@@ -16,17 +16,17 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaVerificationResult;
  * Verification fails closed: connection errors, non-2xx responses, or malformed
  * bodies all produce a failed result instead of throwing.
  */
-final class RecaptchaProvider implements CaptchaProviderInterface
+final readonly class RecaptchaProvider implements CaptchaProviderInterface
 {
     private const API_URL = 'https://www.google.com/recaptcha/api/siteverify';
 
     private const PROVIDER_NAME = 'recaptcha';
 
     public function __construct(
-        private readonly string $siteKey,
-        private readonly string $secretKey,
-        private readonly float $minScore = 0.5,
-        private readonly int $timeout = 30,
+        private string $siteKey,
+        private string $secretKey,
+        private float $minScore = 0.5,
+        private int $timeout = 30,
     ) {}
 
     /**

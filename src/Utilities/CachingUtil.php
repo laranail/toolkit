@@ -9,15 +9,7 @@ use Illuminate\Support\Facades\Cache;
 
 class CachingUtil
 {
-    protected int $defaultExpiration;
-
-    protected array $defaultTags;
-
-    public function __construct(int $defaultExpiration, array $defaultTags)
-    {
-        $this->defaultExpiration = $defaultExpiration;
-        $this->defaultTags = $defaultTags;
-    }
+    public function __construct(protected int $defaultExpiration, protected array $defaultTags) {}
 
     /**
      * Cache data with configurable options.
@@ -27,8 +19,8 @@ class CachingUtil
     public function cache(string $key, mixed $data, ?int $minutes = null, ?array $tags = null)
     {
         // Use constructor defaults if parameters are null
-        $minutes = $minutes ?? $this->defaultExpiration;
-        $tags = $tags ?? $this->defaultTags;
+        $minutes ??= $this->defaultExpiration;
+        $tags ??= $this->defaultTags;
 
         // Convert minutes to seconds for Cache::put()
         $seconds = $minutes * 60;
@@ -37,7 +29,7 @@ class CachingUtil
         if (Cache::getStore() instanceof TaggableStore && !empty($tags)) {
             try {
                 Cache::tags($tags)->put($key, $data, $seconds);
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 // Fallback to regular cache if tags fail
                 Cache::put($key, $data, $seconds);
             }

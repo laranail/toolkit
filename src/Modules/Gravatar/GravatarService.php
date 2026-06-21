@@ -12,7 +12,7 @@ use InvalidArgumentException;
  *
  * Defaults to HTTPS. Every `set*` returns a fresh instance.
  */
-class GravatarService implements GravatarServiceInterface
+class GravatarService implements \Stringable, GravatarServiceInterface
 {
     private const HTTPS_BASE_URL = 'https://secure.gravatar.com/avatar/';
 

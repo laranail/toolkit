@@ -64,7 +64,7 @@ trait ApiResponseTrait
             $statusCode,
             [],
             [
-                'exception' => get_class($e),
+                'exception' => $e::class,
                 'message' => $e->getMessage(),
                 'trace' => $e->getTrace(),
             ]

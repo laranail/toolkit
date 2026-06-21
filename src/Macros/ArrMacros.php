@@ -97,7 +97,7 @@ final class ArrMacros extends ServiceProvider
                 $array = Arr::pluck($array, $key);
             }
 
-            $array = array_filter($array, 'is_numeric');
+            $array = array_filter($array, is_numeric(...));
 
             if ($array === []) {
                 return 0;
@@ -113,7 +113,7 @@ final class ArrMacros extends ServiceProvider
 
             $array = array_values(array_map(
                 static fn (mixed $value): float|int => $value + 0,
-                array_filter($array, 'is_numeric'),
+                array_filter($array, is_numeric(...)),
             ));
             sort($array);
 

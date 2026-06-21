@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Avatar;
 /**
  * Immutable metadata describing a generated avatar image.
  */
-readonly class AvatarGeneration
+readonly class AvatarGeneration implements \Stringable
 {
     /**
      * @param array<string, string> $colors

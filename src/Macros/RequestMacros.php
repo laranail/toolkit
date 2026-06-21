@@ -34,13 +34,7 @@ final class RequestMacros extends ServiceProvider
             $userAgent = strtolower($this->userAgent() ?? '');
             $bots = ['bot', 'crawl', 'slurp', 'spider', 'mediapartners'];
 
-            foreach ($bots as $bot) {
-                if (str_contains($userAgent, $bot)) {
-                    return true;
-                }
-            }
-
-            return false;
+            return array_any($bots, fn ($bot) => str_contains($userAgent, $bot));
         });
 
         Request::macro('isFromMobile', function (): bool {
@@ -48,26 +42,14 @@ final class RequestMacros extends ServiceProvider
             $userAgent = strtolower($this->userAgent() ?? '');
             $mobileKeywords = ['mobile', 'android', 'iphone', 'ipad', 'windows phone'];
 
-            foreach ($mobileKeywords as $keyword) {
-                if (str_contains($userAgent, $keyword)) {
-                    return true;
-                }
-            }
-
-            return false;
+            return array_any($mobileKeywords, fn ($keyword) => str_contains($userAgent, $keyword));
         });
 
         Request::macro('hasFiles', function (array $keys): bool {
             /** @var Request $this */
             $request = $this;
 
-            foreach ($keys as $key) {
-                if (!$request->hasFile($key)) {
-                    return false;
-                }
-            }
-
-            return true;
+            return array_all($keys, fn ($key) => $request->hasFile($key));
         });
 
         Request::macro('hasValidFile', function (string $key): bool {
@@ -104,20 +86,14 @@ final class RequestMacros extends ServiceProvider
 
         Request::macro('onlyFilled', function (array $keys): array {
             /** @var Request $this */
-            return array_filter($this->only($keys), static fn (mixed $value): bool => filled($value));
+            return array_filter($this->only($keys), filled(...));
         });
 
         Request::macro('hasAny', function (array $keys): bool {
             /** @var Request $this */
             $request = $this;
 
-            foreach ($keys as $key) {
-                if ($request->has($key)) {
-                    return true;
-                }
-            }
-
-            return false;
+            return array_any($keys, fn ($key) => $request->has($key));
         });
 
         Request::macro('mergeIfMissing', function (array $values): Request {

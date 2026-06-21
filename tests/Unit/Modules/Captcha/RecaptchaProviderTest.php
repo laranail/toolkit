@@ -28,12 +28,10 @@ class RecaptchaProviderTest extends TestCase
         $this->assertTrue($result->isSuccess());
         $this->assertSame('recaptcha', $result->getProviderName());
 
-        Http::assertSent(function ($request) {
-            return $request->url() === 'https://www.google.com/recaptcha/api/siteverify'
-                && $request['secret'] === 'secret-key'
-                && $request['response'] === 'token-123'
-                && $request['remoteip'] === '203.0.113.7';
-        });
+        Http::assertSent(fn ($request) => $request->url() === 'https://www.google.com/recaptcha/api/siteverify'
+            && $request['secret'] === 'secret-key'
+            && $request['response'] === 'token-123'
+            && $request['remoteip'] === '203.0.113.7');
     }
 
     public function test_remoteip_is_omitted_when_not_provided(): void
@@ -87,7 +85,7 @@ class RecaptchaProviderTest extends TestCase
     #[Group('security')]
     public function test_fails_closed_when_not_configured(): void
     {
-        $result = (new RecaptchaProvider('', ''))->verify('token-123');
+        $result = new RecaptchaProvider('', '')->verify('token-123');
 
         $this->assertTrue($result->isFailure());
     }

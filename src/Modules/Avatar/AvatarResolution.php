@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Avatar;
 /**
  * Immutable result of an avatar resolution operation.
  */
-readonly class AvatarResolution
+readonly class AvatarResolution implements \Stringable
 {
     /**
      * @param array<string, mixed> $metadata

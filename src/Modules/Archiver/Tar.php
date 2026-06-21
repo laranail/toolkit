@@ -13,7 +13,7 @@ class Tar extends Extractor
     {
         try {
             $phar = new PharData($pathToArchive);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             throw ArchiveException::cannotOpen($pathToArchive);
         }
 

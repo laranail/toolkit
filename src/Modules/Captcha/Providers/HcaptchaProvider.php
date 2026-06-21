@@ -16,16 +16,16 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaVerificationResult;
  * hCaptcha does not return a score, so a successful verification yields a
  * score of 1.0. Verification fails closed on transport/response errors.
  */
-final class HcaptchaProvider implements CaptchaProviderInterface
+final readonly class HcaptchaProvider implements CaptchaProviderInterface
 {
     private const API_URL = 'https://hcaptcha.com/siteverify';
 
     private const PROVIDER_NAME = 'hcaptcha';
 
     public function __construct(
-        private readonly string $siteKey,
-        private readonly string $secretKey,
-        private readonly int $timeout = 30,
+        private string $siteKey,
+        private string $secretKey,
+        private int $timeout = 30,
     ) {}
 
     /**

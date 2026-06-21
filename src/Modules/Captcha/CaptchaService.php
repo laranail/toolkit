@@ -156,13 +156,7 @@ class CaptchaService
      */
     public function hasConfiguredProvider(): bool
     {
-        foreach (self::ALLOWED_PROVIDERS as $name) {
-            if ($this->getProvider($name)->isConfigured()) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(self::ALLOWED_PROVIDERS, fn ($name) => $this->getProvider($name)->isConfigured());
     }
 
     /**

@@ -18,13 +18,10 @@ use Illuminate\Support\Facades\Storage;
  */
 class ConfigUtil
 {
-    private ?Filesystem $disk;
-
     private readonly string $path;
 
-    public function __construct(?Filesystem $disk = null, ?string $path = null)
+    public function __construct(private ?Filesystem $disk = null, ?string $path = null)
     {
-        $this->disk = $disk;
         $this->path = $path ?? (string) config('laranail.toolkit.settings.path', 'laranail/settings.json');
     }
 

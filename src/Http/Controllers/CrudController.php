@@ -11,8 +11,6 @@ use Illuminate\Routing\Controller;
 
 abstract class CrudController extends Controller
 {
-    protected Model $model;
-
     protected array $validationRules = [];
 
     protected array $searchableFields = [];
@@ -31,10 +29,7 @@ abstract class CrudController extends Controller
 
     protected int $maxPerPage = 100;
 
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
+    public function __construct(protected Model $model) {}
 
     public function getAllRecords(Request $request): JsonResponse
     {

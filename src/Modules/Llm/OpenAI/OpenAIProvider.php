@@ -11,21 +11,15 @@ use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
 
 class OpenAIProvider implements LLMProviderInterface
 {
-    private ClientContract $client;
-
-    private int $maxRetries;
-
-    private int $retryDelay;
+    private readonly ClientContract $client;
 
     public function __construct(
         string $apiKey,
-        int $maxRetries = 3,
-        int $retryDelay = 2,
+        private readonly int $maxRetries = 3,
+        private readonly int $retryDelay = 2,
         ?ClientContract $client = null
     ) {
         $this->client = $client ?? \OpenAI::client($apiKey);
-        $this->maxRetries = $maxRetries;
-        $this->retryDelay = $retryDelay;
     }
 
     public function generateResponse(

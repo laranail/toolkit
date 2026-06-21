@@ -213,7 +213,7 @@ class MakeCrud extends Command
     private function migrationColumnLine(array $field): string
     {
         $name = $field['name'];
-        $type = strtolower($field['type']);
+        $type = strtolower((string) $field['type']);
         $rules = $field['rules'];
         $nullable = str_contains($rules, 'nullable') ? '->nullable()' : '';
         $unique = (str_contains($rules, 'unique') && !str_contains($rules, 'unique:')) ? '->unique()' : '';
@@ -525,7 +525,7 @@ PHP;
         $messages = [];
 
         foreach ($rules as $field => $rule) {
-            $parts = explode('|', $rule);
+            $parts = explode('|', (string) $rule);
 
             foreach ($parts as $part) {
                 if (str_starts_with($part, 'exists:')) {
@@ -607,7 +607,7 @@ PHP;
             return [];
         }
 
-        return array_values(array_filter(array_map('trim', explode(',', $raw))));
+        return array_values(array_filter(array_map(trim(...), explode(',', $raw))));
     }
 
     private function getRelationshipsList(): array

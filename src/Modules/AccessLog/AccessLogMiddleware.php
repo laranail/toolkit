@@ -90,7 +90,7 @@ class AccessLogMiddleware
         $configured = config('laranail.toolkit.access_log.redact', self::DEFAULT_REDACT);
 
         return array_values(array_map(
-            static fn (string $key): string => strtolower($key),
+            strtolower(...),
             is_array($configured) ? $configured : self::DEFAULT_REDACT,
         ));
     }

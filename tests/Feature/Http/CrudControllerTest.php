@@ -85,7 +85,7 @@ class CrudControllerTest extends TestCase
     {
         CrudWidget::insert([['name' => 'a'], ['name' => 'b'], ['name' => 'c']]);
 
-        $response = (new CrudWidgetController())->getAllRecords(
+        $response = new CrudWidgetController()->getAllRecords(
             Request::create('/', 'GET', ['per_page' => 999999]),
         );
 
@@ -97,7 +97,7 @@ class CrudControllerTest extends TestCase
         CrudWidget::insert([['name' => 'Alpha'], ['name' => 'Beta']]);
 
         // A bare '%' must not match every row.
-        $response = (new CrudWidgetController())->getAllRecords(
+        $response = new CrudWidgetController()->getAllRecords(
             Request::create('/', 'GET', ['search' => '%']),
         );
 
@@ -109,7 +109,7 @@ class CrudControllerTest extends TestCase
         CrudWidget::insert([['name' => 'a'], ['name' => 'b']]);
 
         // An injection-style sort_by must be ignored, not executed.
-        $response = (new CrudWidgetController())->getAllRecords(
+        $response = new CrudWidgetController()->getAllRecords(
             Request::create('/', 'GET', ['sort_by' => 'name); drop table crud_widgets;--']),
         );
 

@@ -25,7 +25,7 @@ class LoggingUtilTest extends TestCase
                 && array_key_exists('env', $context)
         );
 
-        (new LoggingUtil($logs))->info('hello', ['key' => 'value']);
+        new LoggingUtil($logs)->info('hello', ['key' => 'value']);
     }
 
     /**
@@ -48,7 +48,7 @@ class LoggingUtilTest extends TestCase
             fn (string $psrLevel): bool => $psrLevel === $level->value
         );
 
-        (new LoggingUtil($logs))->{$level->value}('msg');
+        new LoggingUtil($logs)->{$level->value}('msg');
     }
 
     public function test_a_named_channel_is_routed_through_channel(): void
@@ -60,7 +60,7 @@ class LoggingUtilTest extends TestCase
         $logs->shouldReceive('channel')->with('slack')->once()->andReturn($channelLogger);
         $logs->shouldNotReceive('log');
 
-        (new LoggingUtil($logs))->error('boom', [], 'slack');
+        new LoggingUtil($logs)->error('boom', [], 'slack');
     }
 
     public function test_is_resolvable_from_the_container(): void

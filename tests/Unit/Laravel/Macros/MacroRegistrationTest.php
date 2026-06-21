@@ -184,6 +184,6 @@ class MacroRegistrationTest extends TestCase
         }
 
         // Also assert via the facade-backed request instance path.
-        $this->assertTrue((new Request())->hasMacro('isBot'));
+        $this->assertTrue(new Request()->hasMacro('isBot'));
     }
 }

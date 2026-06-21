@@ -70,13 +70,11 @@ class ApiResponseTraitFeatureTest extends TestCase
     public function test_paginated_response_integration()
     {
         // Create a mock paginator with realistic data
-        $items = collect(range(1, 25))->map(function ($i) {
-            return [
-                'id' => $i,
-                'name' => "Item {$i}",
-                'created_at' => now()->subDays($i)->toDateTimeString(),
-            ];
-        });
+        $items = collect(range(1, 25))->map(fn ($i) => [
+            'id' => $i,
+            'name' => "Item {$i}",
+            'created_at' => now()->subDays($i)->toDateTimeString(),
+        ]);
 
         $paginator = new LengthAwarePaginator(
             $items->forPage(1, 10),

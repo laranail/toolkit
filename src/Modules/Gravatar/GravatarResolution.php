@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Gravatar;
 /**
  * Immutable result of a Gravatar resolution.
  */
-readonly class GravatarResolution
+readonly class GravatarResolution implements \Stringable
 {
     public function __construct(
         public string $url,

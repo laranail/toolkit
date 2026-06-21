@@ -38,11 +38,9 @@ class GeminiProviderTest extends TestCase
 
         $this->assertSame('Hi from Gemini', $response->getContent());
 
-        Http::assertSent(function ($request) {
-            return $request->hasHeader('x-goog-api-key', 'secret-key')
-                && !str_contains($request->url(), 'key=')
-                && !str_contains($request->url(), 'secret-key');
-        });
+        Http::assertSent(fn ($request) => $request->hasHeader('x-goog-api-key', 'secret-key')
+            && !str_contains((string) $request->url(), 'key=')
+            && !str_contains((string) $request->url(), 'secret-key'));
     }
 
     public function test_model_is_reported_from_the_request(): void

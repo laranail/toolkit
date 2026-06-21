@@ -101,7 +101,7 @@ final class ArchiveScope implements Scope
                 return $builder->withoutArchived();
             }
 
-            return $builder->withoutGlobalScope(static::class);
+            return $builder->withoutGlobalScope(self::class);
         });
     }
 
@@ -113,7 +113,7 @@ final class ArchiveScope implements Scope
         $builder->macro('withoutArchived', function (Builder $builder) {
             $model = $builder->getModel();
 
-            return $builder->withoutGlobalScope(static::class)->whereNull(
+            return $builder->withoutGlobalScope(self::class)->whereNull(
                 $model->getQualifiedArchivedAtColumn()
             );
         });
@@ -127,7 +127,7 @@ final class ArchiveScope implements Scope
         $builder->macro('onlyArchived', function (Builder $builder) {
             $model = $builder->getModel();
 
-            return $builder->withoutGlobalScope(static::class)->whereNotNull(
+            return $builder->withoutGlobalScope(self::class)->whereNotNull(
                 $model->getQualifiedArchivedAtColumn()
             );
         });

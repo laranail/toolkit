@@ -47,7 +47,7 @@ class ArchiverServiceTest extends TestCase
         unset($phar);
 
         $dest = $this->work . '/out';
-        (new ArchiverService())->extract($tarPath, $dest);
+        new ArchiverService()->extract($tarPath, $dest);
 
         $this->assertFileExists($dest . '/hello.txt');
         $this->assertSame('hi', file_get_contents($dest . '/hello.txt'));

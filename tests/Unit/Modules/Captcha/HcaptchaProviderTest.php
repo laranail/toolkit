@@ -28,12 +28,10 @@ class HcaptchaProviderTest extends TestCase
         $this->assertTrue($result->isSuccess());
         $this->assertSame(1.0, $result->score());
 
-        Http::assertSent(function ($request) {
-            return $request->url() === 'https://hcaptcha.com/siteverify'
-                && $request['secret'] === 'secret-key'
-                && $request['response'] === 'token-abc'
-                && $request['remoteip'] === '198.51.100.4';
-        });
+        Http::assertSent(fn ($request) => $request->url() === 'https://hcaptcha.com/siteverify'
+            && $request['secret'] === 'secret-key'
+            && $request['response'] === 'token-abc'
+            && $request['remoteip'] === '198.51.100.4');
     }
 
     #[Group('security')]

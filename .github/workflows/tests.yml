@@ -90,6 +90,9 @@ jobs:
       - name: Run PHP CodeSniffer
         run: vendor/bin/phpcs
 
+      - name: Run Rector (dry-run)
+        run: vendor/bin/rector process --dry-run
+
   security:
     runs-on: ubuntu-latest
     name: Security Audit

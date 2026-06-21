@@ -90,28 +90,28 @@ class AvatarDtosTest extends TestCase
 
     public function test_avatar_resolution_describes_each_source_combination(): void
     {
-        $this->assertSame('Stored avatar from model', (new AvatarResolution('u', 'model', 'url'))->getDescription());
-        $this->assertSame('Initials avatar for model name', (new AvatarResolution('u', 'model', 'initials'))->getDescription());
-        $this->assertSame('Fallback initials avatar for model', (new AvatarResolution('u', 'model', 'fallback'))->getDescription());
-        $this->assertSame('Avatar from model', (new AvatarResolution('u', 'model', 'other'))->getDescription());
+        $this->assertSame('Stored avatar from model', new AvatarResolution('u', 'model', 'url')->getDescription());
+        $this->assertSame('Initials avatar for model name', new AvatarResolution('u', 'model', 'initials')->getDescription());
+        $this->assertSame('Fallback initials avatar for model', new AvatarResolution('u', 'model', 'fallback')->getDescription());
+        $this->assertSame('Avatar from model', new AvatarResolution('u', 'model', 'other')->getDescription());
 
-        $this->assertSame('Gravatar for email', (new AvatarResolution('u', 'email', 'gravatar'))->getDescription());
-        $this->assertSame('Initials avatar for email', (new AvatarResolution('u', 'email', 'initials'))->getDescription());
-        $this->assertSame('Fallback initials avatar for email', (new AvatarResolution('u', 'email', 'fallback'))->getDescription());
-        $this->assertSame('Avatar for email', (new AvatarResolution('u', 'email', 'other'))->getDescription());
+        $this->assertSame('Gravatar for email', new AvatarResolution('u', 'email', 'gravatar')->getDescription());
+        $this->assertSame('Initials avatar for email', new AvatarResolution('u', 'email', 'initials')->getDescription());
+        $this->assertSame('Fallback initials avatar for email', new AvatarResolution('u', 'email', 'fallback')->getDescription());
+        $this->assertSame('Avatar for email', new AvatarResolution('u', 'email', 'other')->getDescription());
 
-        $this->assertSame('Initials avatar for name', (new AvatarResolution('u', 'name', 'initials'))->getDescription());
-        $this->assertSame('Custom avatar from callback', (new AvatarResolution('u', 'callback', 'custom'))->getDescription());
-        $this->assertSame('Avatar', (new AvatarResolution('u', 'unknown', 'x'))->getDescription());
+        $this->assertSame('Initials avatar for name', new AvatarResolution('u', 'name', 'initials')->getDescription());
+        $this->assertSame('Custom avatar from callback', new AvatarResolution('u', 'callback', 'custom')->getDescription());
+        $this->assertSame('Avatar', new AvatarResolution('u', 'unknown', 'x')->getDescription());
     }
 
     public function test_avatar_resolution_flag_variants(): void
     {
-        $this->assertTrue((new AvatarResolution('u', 'email', 'initials'))->isInitials());
-        $this->assertTrue((new AvatarResolution('u', 'callback', 'url'))->isUrl());
-        $this->assertTrue((new AvatarResolution('u', 'model', 'fallback'))->isFallback());
-        $this->assertTrue((new AvatarResolution('u', 'email', 'gravatar'))->isFromEmail());
-        $this->assertTrue((new AvatarResolution('u', 'name', 'initials'))->isFromName());
-        $this->assertTrue((new AvatarResolution('u', 'callback', 'custom'))->isFromCallback());
+        $this->assertTrue(new AvatarResolution('u', 'email', 'initials')->isInitials());
+        $this->assertTrue(new AvatarResolution('u', 'callback', 'url')->isUrl());
+        $this->assertTrue(new AvatarResolution('u', 'model', 'fallback')->isFallback());
+        $this->assertTrue(new AvatarResolution('u', 'email', 'gravatar')->isFromEmail());
+        $this->assertTrue(new AvatarResolution('u', 'name', 'initials')->isFromName());
+        $this->assertTrue(new AvatarResolution('u', 'callback', 'custom')->isFromCallback());
     }
 }
