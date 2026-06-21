@@ -17,6 +17,7 @@ use Simtabi\Laranail\Toolkit\Models\AccessLog;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Notifications\NotificationServiceProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
@@ -42,6 +43,7 @@ class ToolkitServiceProvider extends ServiceProvider
         GravatarServiceProvider::class,
         AvatarServiceProvider::class,
         CaptchaServiceProvider::class,
+        NotificationServiceProvider::class,
     ];
 
     public function register(): void
