@@ -505,6 +505,30 @@ parameters:
 			path: src/Traits/FileProcessingTrait.php
 
 		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasArchiver is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasArchiver.php
+
+		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasAvatar is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasAvatar.php
+
+		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasFormatters.php
+
+		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Support\\FilePathGuard is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Support/FilePathGuard.php
+
+		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil\:\:__construct\(\) has parameter \$defaultTags with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
