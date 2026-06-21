@@ -15,6 +15,7 @@ use Simtabi\Laranail\Toolkit\LLMProviders\Gemini\GeminiProvider;
 use Simtabi\Laranail\Toolkit\LLMProviders\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Models\AccessLog;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
@@ -40,6 +41,7 @@ class ToolkitServiceProvider extends ServiceProvider
     private const MODULE_PROVIDERS = [
         GravatarServiceProvider::class,
         AvatarServiceProvider::class,
+        CaptchaServiceProvider::class,
     ];
 
     public function register(): void
