@@ -22,6 +22,7 @@ use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Modules\Llm\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics;
+use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
 use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
@@ -88,6 +89,11 @@ class ToolkitServiceProvider extends ServiceProvider
 
         $this->app->singleton('xhelper', function () {
             return new XHelper();
+        });
+
+        // Unified entry point to the feature modules (the `Toolkit` facade root).
+        $this->app->singleton(ToolkitManager::class, function ($app): ToolkitManager {
+            return new ToolkitManager($app);
         });
     }
 

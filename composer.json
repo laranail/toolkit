@@ -95,7 +95,14 @@
         "laravel": {
             "providers": [
                 "Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Toolkit": "Simtabi\\Laranail\\Toolkit\\Facades\\Toolkit",
+                "Avatar": "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Avatar",
+                "Gravatar": "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\Gravatar",
+                "Captcha": "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Captcha",
+                "Archiver": "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Archiver"
+            }
         }
     }
 }

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Unified `Toolkit` facade** (`Simtabi\Laranail\Toolkit\Facades\Toolkit`, alias
+  `Toolkit`) fronting the feature modules — `Toolkit::avatar()/gravatar()/captcha()/
+  archiver()` return the module's typed service. The modern, typed replacement for the
+  legacy 48-method `Laranail` service-locator (see `docs/migration/MIGRATION.md`).
+- **Module facade aliases** registered for `Avatar`, `Gravatar`, `Captcha`, and
+  `Archiver`, so `Avatar::…` etc. work out of the box.
+
 ### Removed
 
 - **BREAKING:** the **Notifications** module was extracted into the dedicated

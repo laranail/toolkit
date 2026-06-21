@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules;
 
+use Simtabi\Laranail\Toolkit\Facades\Toolkit;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\Avatar;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Captcha;
@@ -32,6 +34,21 @@ class FacadesTest extends TestCase
     public function test_gravatar_facade_proxies_a_method_call(): void
     {
         $url = Gravatar::setEmail('user@example.com')->setSize(120)->generate();
+
+        $this->assertStringContainsString('gravatar.com/avatar/', $url);
+    }
+
+    public function test_toolkit_facade_fronts_each_module(): void
+    {
+        $this->assertInstanceOf(AvatarServiceInterface::class, Toolkit::avatar());
+        $this->assertInstanceOf(GravatarServiceInterface::class, Toolkit::gravatar());
+        $this->assertInstanceOf(CaptchaService::class, Toolkit::captcha());
+        $this->assertInstanceOf(ArchiverServiceInterface::class, Toolkit::archiver());
+    }
+
+    public function test_toolkit_facade_chains_into_a_module(): void
+    {
+        $url = Toolkit::gravatar()->setEmail('user@example.com')->setSize(64)->generate();
 
         $this->assertStringContainsString('gravatar.com/avatar/', $url);
     }

@@ -118,6 +118,25 @@ Route::middleware('access.log')->group(function () {
 });
 ```
 
+### Unified entry — the `Toolkit` facade
+
+Each module is reachable three ways: dependency injection (by contract), its own
+facade (registered as a Laravel alias — `Avatar`, `Gravatar`, `Captcha`,
+`Archiver`), or the unified **`Toolkit`** facade that fronts them all:
+
+```php
+use Simtabi\Laranail\Toolkit\Facades\Toolkit;
+
+$url = Toolkit::gravatar()->setEmail('user@example.com')->setSize(120)->generate();
+$ok  = Toolkit::captcha()->verify($token)->isSuccess();
+Toolkit::archiver()->extract($zip, $dest);
+```
+
+`Toolkit::avatar()/gravatar()/captcha()/archiver()` return the module's typed
+service from the container (deferred providers boot on demand). It replaces the
+legacy 48-method `Laranail` service-locator (see the
+[migration ledger](docs/migration/MIGRATION.md)).
+
 ### Avatar (DI or facade)
 
 ```php
