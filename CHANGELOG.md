@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- **BREAKING:** the **Notifications** module was extracted into the dedicated
+  [`laranail/notifications`](https://opensource.simtabi.com/notifications/) package
+  (hardened: SSRF-guarded outbound channels, typed message DTO, channel allow-list,
+  serializable queue job). The toolkit no longer ships notifications — install
+  `laranail/notifications` instead. Removed `src/Modules/Notifications/**`,
+  `config/notifications.php`, and the `Notifications` provider/facade.
+
 ### Changed
 
 - **BREAKING:** the command base now comes from **`laranail/console`** — the toolkit

@@ -5,7 +5,7 @@
 `laranail/toolkit` bundles the genuinely-reusable building blocks of a Laravel
 application behind clean contracts: an LLM provider abstraction (OpenAI / Claude
 / Gemini), an API CRUD generator, an access-log middleware, avatar + gravatar +
-captcha + notifications + archiver modules, a library of utilities, traits,
+captcha + archiver modules, a library of utilities, traits,
 macros, and custom Blade directives.
 
 ## Support matrix
@@ -53,7 +53,7 @@ see [installation](docs/installation.md) for the full tag list.
 - **`access.log` middleware** — terminate-phase request logging with recursive,
   case-insensitive redaction of secrets.
 - **Feature modules** (deferred, contract-bound): Avatar, Gravatar, Captcha,
-  Notifications, Archiver.
+  Archiver.
 - **Utilities** — caching, config, feature toggles, filtering, logging,
   pagination, query-parameter parsing, rate limiting, scheduler inspection.
 - **Traits** — `ApiResponseTrait`, `Auditable`, `FileProcessingTrait`,
@@ -151,11 +151,10 @@ if ($result->isSuccess()) { /* ... */ }
 
 ### Notifications
 
-```php
-use Simtabi\Laranail\Toolkit\Modules\Notifications\Facades\Notifications;
-
-$result = Notifications::send('Deployment finished', channels: ['slack', 'log']);
-```
+Multi-channel notifications moved to a dedicated package —
+[`laranail/notifications`](https://opensource.simtabi.com/notifications/)
+(`composer require laranail/notifications`). It ships the hardened, SSRF-guarded
+channels, the typed message DTO, and the channel allow-list.
 
 ### Archiver (Zip-Slip hardened)
 
@@ -209,7 +208,6 @@ class Post extends Model
 | [Avatar module](docs/modules/avatar.md) | Generated initials avatars |
 | [Gravatar module](docs/modules/gravatar.md) | Gravatar URL builder |
 | [Captcha module](docs/modules/captcha.md) | reCAPTCHA / hCaptcha / Turnstile |
-| [Notifications module](docs/modules/notifications.md) | Multi-channel notifications |
 | [Archiver module](docs/modules/archiver.md) | Safe tar/zip extraction |
 
 ## License

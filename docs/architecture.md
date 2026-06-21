@@ -21,7 +21,7 @@ src/
 │   ├── Macros/                             # grouped macro providers
 │   └── Blade/BladeServiceProvider.php       # custom-only directives
 ├── Modules/                                # self-contained feature modules
-│   ├── Avatar/  Gravatar/  Captcha/  Notifications/  Archiver/
+│   ├── Avatar/  Gravatar/  Captcha/  Archiver/
 ├── Support/
 │   ├── FilePathGuard.php                    # `..` / null-byte guard
 │   ├── Scopes/ArchiveScope.php              # soft-archive global scope
@@ -40,7 +40,7 @@ Each module under `src/Modules/` is a self-contained unit with its own
 
 ```php
 GravatarServiceProvider, AvatarServiceProvider, CaptchaServiceProvider,
-NotificationServiceProvider, ArchiverServiceProvider
+ArchiverServiceProvider
 ```
 
 Every module provider:
@@ -55,7 +55,6 @@ Every module provider:
 | Gravatar | `GravatarServiceInterface` | `laranail.gravatar` | `Gravatar` |
 | Avatar | `AvatarServiceInterface` | `laranail.avatar` | `Avatar` |
 | Captcha | `CaptchaProviderInterface` / `CaptchaService` | `laranail.captcha` | `Captcha` |
-| Notifications | `NotificationService` | `laranail.notifications` | `Notifications` |
 | Archiver | `ArchiverServiceInterface` | `laranail.archiver` | `Archiver` |
 
 Resolve any module by its contract (preferred, for testability) or its facade.

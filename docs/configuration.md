@@ -75,9 +75,11 @@ The feature modules merge their own config files under the same namespace:
 
 - `laranail.toolkit.captcha` — providers and behavior (see
   [captcha module](modules/captcha.md)).
-- `laranail.toolkit.notifications` — channels and queue settings (see
-  [notifications module](modules/notifications.md)).
 - `laranail.toolkit.archiver` — archiver limits.
+
+> Multi-channel notifications now live in the separate
+> [`laranail/notifications`](https://opensource.simtabi.com/notifications/) package,
+> with its own `config/notifications.php`.
 
 ## Feature toggles
 

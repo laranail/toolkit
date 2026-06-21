@@ -10,8 +10,6 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\Facades\Captcha;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Services\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\Contracts\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\Facades\Gravatar;
-use Simtabi\Laranail\Toolkit\Modules\Notifications\Facades\Notifications;
-use Simtabi\Laranail\Toolkit\Modules\Notifications\Services\NotificationService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class FacadesTest extends TestCase
@@ -29,11 +27,6 @@ class FacadesTest extends TestCase
     public function test_captcha_facade_resolves_its_root(): void
     {
         $this->assertInstanceOf(CaptchaService::class, Captcha::getFacadeRoot());
-    }
-
-    public function test_notifications_facade_resolves_its_root(): void
-    {
-        $this->assertInstanceOf(NotificationService::class, Notifications::getFacadeRoot());
     }
 
     public function test_gravatar_facade_proxies_a_method_call(): void
