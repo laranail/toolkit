@@ -2,36 +2,11 @@
 
 declare(strict_types=1);
 
-/**
- * Laranail Helper Functions
+/*
+ * Laranail Toolkit — global helper functions.
  *
- * IMPORTANT NOTICE:
- * ================
- * The application-specific helper functions (pathToPlugin, pathToPlatform,
- * pathToCore, pathToPackage) have been REMOVED in v2.0.
- *
- * These helpers assumed a specific directory structure and were not suitable
- * for a general-purpose Laravel package.
- *
- * MIGRATION:
- * ==========
- * If your application used these helpers, please add them to your own
- * app/helpers.php file or create a dedicated helper file for your project.
- *
- * Example migration:
- *
- * In your app/Providers/AppServiceProvider.php boot() method:
- *
- *     require_once app_path('helpers.php');
- *
- * In your app/helpers.php:
- *
- *     function pathToPlugin(?string $path = null): string {
- *         return base_path('platform/plugins/' . $path);
- *     }
- *
- * For more information, see: UPGRADE.md
+ * Autoloaded via composer's "files" entry. Add genuinely global,
+ * application-agnostic helpers here. Application-specific path helpers from the
+ * pre-1.0 monolith were intentionally not ported — define those in your own
+ * app's helper file instead.
  */
-
-// Future general-purpose helper functions will be added here
-// For now, this file is kept for backward compatibility but contains no functions

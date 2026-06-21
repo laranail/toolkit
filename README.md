@@ -1,186 +1,222 @@
-# Laranail: Unleash the Power of Laravel with Utilities and Helpers
+# Laranail Toolkit
 
-<div align="center">
-  <img src="assets/LaraUtilX.svg" alt="Laranail Logo" width="200" height="200">
-</div>
+> A security-first Swiss-army toolkit for Laravel — utilities, traits, middleware, macros, LLM providers, and self-contained feature modules for day-to-day Laravel development.
 
-Laranail is a comprehensive Laravel package designed to supercharge your development experience by providing a suite of utility classes, helpful traits, middleware, and more. Whether you're a seasoned Laravel developer or just getting started, Laranail offers a collection of tools to streamline common tasks and enhance the functionality of your Laravel applications.
+`laranail/toolkit` bundles the genuinely-reusable building blocks of a Laravel
+application behind clean contracts: an LLM provider abstraction (OpenAI / Claude
+/ Gemini), an API CRUD generator, an access-log middleware, avatar + gravatar +
+captcha + notifications + archiver modules, a library of utilities, traits,
+macros, and custom Blade directives.
 
-**Version:** 1.3.0  
-**Laravel Support:** Laravel 8.0+  
-**PHP Support:** PHP 8.0+  
-**License:** MIT
+## Support matrix
 
----
+| | |
+|---|---|
+| PHP | `^8.3 \|\| ^8.4 \|\| ^8.5` |
+| Laravel | `^13.0` |
+| License | MIT |
+| Author | Imani Manyara — Simtabi LLC |
 
-📘 **Full Documentation**  
-Explore full usage examples, configuration options, and best practices at:  
-👉 [https://larautilx.omarchouman.com](https://larautilx.omarchouman.com)
-
----
-
-## Key Features
-
-1. **CrudController:** Simplify your CRUD operations with the generic `CrudController` that can be easily extended, allowing you to create, read, update, and delete records effortlessly.
-
-2. **ApiResponseTrait:** Craft consistent and standardized API responses with the `ApiResponseTrait`. This trait provides helper methods for formatting JSON responses, making your API endpoints clean and well-structured.
-
-3. **FileProcessingTrait:** Manage file uploads and deletions seamlessly with the `FileProcessingTrait`. This trait offers methods for uploading single or multiple files, deleting files, and now retrieving file contents.
-
-4. **ValidationHelperTrait:** Validate user input with ease using the `ValidationHelperTrait`. This trait includes handy methods for common validation scenarios, such as email addresses, phone numbers, and strong passwords.
-
-5. **SchedulerMonitor:** Keep an eye on your scheduled tasks with the `SchedulerUtil` utility. Monitor upcoming scheduled events, check if tasks are overdue, and gain insights into the status of your scheduled jobs.
-
-6. **FilteringUtil:** Effortlessly filter data based on specified criteria with the `FilteringUtil`. This utility provides a convenient way to filter collections or arrays based on field names, operators, and values.
-
-7. **AccessLogMiddleware:** Laranail includes middleware components like the `AccessLogMiddleware` to log access to your application, adding an extra layer of security and accountability.
-
-8. **PaginationUtil:** Seamlessly handle paginated data with Laranail's `PaginationUtil`. This utility simplifies the process of paginating query results, allowing you to customize the number of items per page, navigate through paginated results effortlessly, and present data in a user-friendly manner.
-
-9. **CachingUtil:** Optimize performance and reduce database queries using Laranail's `CachingUtil`. Store and retrieve frequently accessed data with ease, taking advantage of features like customizable cache expiration and cache tags.
-    
-10. **ConfigUtil:** Manage your Laravel configuration settings effortlessly with the `ConfigUtil`. Retrieve, set defaults, and dynamically manipulate configuration data. Simplify the way you interact with your application's configuration, ensuring a clean and organized approach.
-
-11. **LLM Providers:** Effortlessly integrate advanced AI-powered chat completions into your Laravel application with our LLM providers. Choose between OpenAI's GPT models or Google's Gemini models through a unified interface. Both providers support all major chat parameters, automatic retry logic, and structured responses. Generate dynamic, context-aware text completions for your users with just a few lines of code.
-
-    - **OpenAIProvider:** Interact with OpenAI's GPT models (GPT-3.5, GPT-4, etc.)
-    - **GeminiProvider:** Interact with Google's Gemini models (Gemini 2.0 Flash, etc.)
-    - **Configurable Provider Selection:** Switch between providers via configuration
-    - **Unified Interface:** Same API for both providers with automatic model selection
-
-12. **FeatureToggleUtil:** Implement feature flags and toggles with ease using the `FeatureToggleUtil`. Enable or disable features dynamically based on configuration, user context, or environment settings. Perfect for A/B testing, gradual rollouts, and feature management.
-
-13. **LoggingUtil:** Enhance your application's logging capabilities with the `LoggingUtil`. Create structured logs with JSON formatting, custom channels, and contextual information. Includes predefined methods for all log levels with automatic timestamp and environment tracking.
-
-14. **QueryParameterUtil:** Parse and validate query parameters from HTTP requests with the `QueryParameterUtil`. Safely extract and filter query parameters based on allowed lists, improving API security and data handling.
-
-15. **RateLimiterUtil:** Implement rate limiting for your APIs and endpoints using the `RateLimiterUtil`. Control request frequency, prevent abuse, and manage API usage with configurable limits and decay times.
-
-16. **Auditable Trait:** Automatically track model changes with the `Auditable` trait. Log create, update, and delete operations with user context, old values, and new values. Perfect for audit trails and compliance requirements.
-
-17. **RejectCommonPasswords Rule:** Strengthen password security with the `RejectCommonPasswords` validation rule. Prevent users from using common, easily guessable passwords with a comprehensive list of weak passwords.
-
-## Test Suite
-
-Laranail comes with a comprehensive test suite that ensures reliability and quality. The test suite includes both unit tests and feature tests covering all utilities, traits, and components.
-
-### Running Tests
-
-#### Prerequisites
-
-Make sure you have installed the development dependencies:
+## Installation
 
 ```bash
-composer install --dev
+composer require laranail/toolkit
 ```
 
-#### Run All Tests
+The package auto-registers `ToolkitServiceProvider` via Laravel package
+discovery. Publish only what you need:
 
 ```bash
-./vendor/bin/phpunit
+# Main config (config/laranail-toolkit.php)
+php artisan vendor:publish --tag=laranail-toolkit-config
+
+# Feature-toggles config, migrations, views, lang, CRUD stubs
+php artisan vendor:publish --tag=laranail-toolkit-feature-toggles
+php artisan vendor:publish --tag=laranail-toolkit-migrations
+php artisan vendor:publish --tag=laranail-toolkit-views
+php artisan vendor:publish --tag=laranail-toolkit-lang
+php artisan vendor:publish --tag=laranail-toolkit-stubs
 ```
 
-#### Run Specific Test Suites
+Every utility, trait, and rule can also be published into your app namespace —
+see [installation](docs/installation.md) for the full tag list.
+
+## Feature overview
+
+- **LLM providers** — one `LLMProviderInterface`, three drivers (OpenAI, Claude,
+  Gemini), selected by config, with retries and typed response objects.
+- **`make-crud` command** — generate a Model, API Controller, and Migration from
+  a single field spec, with relationships, search, soft deletes, and route
+  registration.
+- **`CrudController`** — an abstract base controller with secure pagination,
+  search, sorting, and validation out of the box.
+- **`access.log` middleware** — terminate-phase request logging with recursive,
+  case-insensitive redaction of secrets.
+- **Feature modules** (deferred, contract-bound): Avatar, Gravatar, Captcha,
+  Notifications, Archiver.
+- **Utilities** — caching, config, feature toggles, filtering, logging,
+  pagination, query-parameter parsing, rate limiting, scheduler inspection.
+- **Traits** — `ApiResponseTrait`, `Auditable`, `FileProcessingTrait`,
+  `HasAvatar`, `HasArchiver`, `HasFormatters`.
+- **Macros & Blade** — Str/Arr/Collection/Query/Request/Blueprint macros and a
+  set of custom-only Blade directives.
+- **Validation** — `reject_common_passwords` rule.
+
+## Quick start
+
+### LLM providers
+
+```php
+use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
+
+// Provider chosen by config('laranail.toolkit.llm.default_provider')
+public function __construct(private LLMProviderInterface $llm) {}
+
+$response = $this->llm->generateResponse(
+    modelName: 'gpt-4o-mini',
+    messages: [['role' => 'user', 'content' => 'Hello!']],
+    temperature: 0.7,
+);
+
+echo $response->getContent();
+```
+
+### make-crud
 
 ```bash
-# Run only unit tests
-./vendor/bin/phpunit --testsuite Unit
-
-# Run only feature tests
-./vendor/bin/phpunit --testsuite Feature
+php artisan laranail::toolkit.make-crud Post \
+  --fields="title:string:required,body:text:nullable,price:decimal:required|min:0" \
+  --belongs-to=User --has-many=Comment \
+  --searchable=title,body --soft-deletes --register-routes
+# alias: php artisan make:crud Post ...
 ```
 
-#### Run Specific Test Classes
+### CrudController
 
-```bash
-# Run tests for a specific utility
-./vendor/bin/phpunit tests/Unit/Utilities/CachingUtilTest.php
+```php
+use Simtabi\Laranail\Toolkit\Http\Controllers\CrudController;
+use App\Models\Post;
 
-# Run tests for a specific trait
-./vendor/bin/phpunit tests/Unit/Traits/ApiResponseTraitTest.php
+class PostController extends CrudController
+{
+    public function __construct()
+    {
+        parent::__construct(new Post());
+        $this->searchableFields = ['title', 'body'];
+        $this->sortableFields   = ['title', 'created_at'];
+        $this->relationships    = ['author'];
+    }
+}
 ```
 
-#### Run Tests with Coverage
+### access.log middleware
 
-```bash
-./vendor/bin/phpunit --coverage-html coverage
+```php
+// routes/web.php
+Route::middleware('access.log')->group(function () {
+    // ...
+});
 ```
 
-### Test Coverage
+### Avatar (DI or facade)
 
-The test suite provides comprehensive coverage for:
+```php
+use Simtabi\Laranail\Toolkit\Modules\Avatar\Contracts\AvatarServiceInterface;
 
-- **Utilities**: All utility classes with their methods and edge cases
-- **Traits**: All traits with their functionality and integration
-- **Enums**: All enum values and behaviors
-- **Rules**: Validation rules with various input scenarios
-- **Feature Tests**: Integration scenarios and performance tests
-
-### Test Structure
-
-```
-tests/
-├── TestCase.php                    # Base test case with Laravel setup
-├── Unit/                          # Unit tests for individual components
-│   ├── Enums/
-│   │   └── LogLevelTest.php
-│   ├── Rules/
-│   │   └── RejectCommonPasswordsTest.php
-│   ├── Traits/
-│   │   ├── ApiResponseTraitTest.php
-│   │   └── FileProcessingTraitTest.php
-│   └── Utilities/
-│       ├── CachingUtilTest.php
-│       ├── ConfigUtilTest.php
-│       ├── FeatureToggleUtilTest.php
-│       ├── FilteringUtilTest.php
-│       ├── LoggingUtilTest.php
-│       ├── PaginationUtilTest.php
-│       ├── QueryParameterUtilTest.php
-│       ├── RateLimiterUtilTest.php
-│       └── SchedulerUtilTest.php
-└── Feature/                       # Integration tests
-    ├── Traits/
-    │   └── ApiResponseTraitFeatureTest.php
-    └── Utilities/
-        └── CachingUtilFeatureTest.php
+$dataUri = app(AvatarServiceInterface::class)
+    ->setName('Imani Manyara')
+    ->setSize(128, 128)
+    ->generateDataUri();
 ```
 
-## How to Get Started
+### Gravatar (immutable fluent builder)
 
-1. Install Laranail using Composer:
-   ```bash
-   composer require omarchouman/lara-util-x
-   ```
-2. Explore the included utilities, traits, and middleware in your Laravel project.
-3. Customize and extend Laranail to match the specific needs of your application.
+```php
+use Simtabi\Laranail\Toolkit\Modules\Gravatar\Facades\Gravatar;
 
-## Development & Contributing
+$url = Gravatar::setEmail('user@example.com')
+    ->setSize(200)
+    ->setHttps(true)
+    ->generate();
+```
 
-Laranail is actively maintained and welcomes contributions! The package includes a comprehensive test suite to ensure reliability and quality.
+### Captcha (fails closed)
 
-### Development Setup
+```php
+use Simtabi\Laranail\Toolkit\Modules\Captcha\Facades\Captcha;
 
-1. Clone the repository
-2. Install dependencies: `composer install --dev`
-3. Run tests: `./vendor/bin/phpunit`
-4. Check code coverage: `./vendor/bin/phpunit --coverage-html coverage`
+$result = Captcha::verify($request->input('captcha-token'));
+if ($result->isSuccess()) { /* ... */ }
+```
 
-### Writing Tests
+### Notifications
 
-When contributing new features:
-- Write unit tests for individual components
-- Write feature tests for integration scenarios
-- Maintain high test coverage (90%+)
-- Follow the AAA pattern: Arrange, Act, Assert
-- Test edge cases and error conditions
+```php
+use Simtabi\Laranail\Toolkit\Modules\Notifications\Facades\Notifications;
 
-### Code Quality
+$result = Notifications::send('Deployment finished', channels: ['slack', 'log']);
+```
 
-- Follow PSR-12 coding standards
-- Use descriptive variable and method names
-- Include comprehensive docblocks
-- Handle errors gracefully
-- Write clean, maintainable code
+### Archiver (Zip-Slip hardened)
 
-Save time, enhance code readability, and boost your Laravel projects with Laranail – the toolkit every Laravel developer deserves.
+```php
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Facades\Archiver;
+
+Archiver::extract(storage_path('app/release.zip'), storage_path('app/release'));
+```
+
+### Utilities
+
+```php
+use Simtabi\Laranail\Toolkit\Utilities\PaginationUtil;
+
+$page = PaginationUtil::paginate($items, perPage: 15, currentPage: 1);
+```
+
+### Macros
+
+```php
+Str::camelToTitle('helloWorld');          // "Hello World"
+collect($rows)->toTree('parent_id');      // nested tree
+$table->addCommonFields();                // timestamps + soft deletes
+```
+
+### Traits
+
+```php
+use Simtabi\Laranail\Toolkit\Traits\Auditable;
+
+class Post extends Model
+{
+    use Auditable; // writes change history to the model_audits table
+}
+```
+
+## Documentation
+
+| Page | Description |
+|------|-------------|
+| [Installation](docs/installation.md) | Install, publish tags, requirements |
+| [Configuration](docs/configuration.md) | `laranail.toolkit.*` config reference |
+| [Architecture](docs/architecture.md) | Modules, deferred providers, layout, migration record |
+| [LLM providers](docs/llm-providers.md) | OpenAI / Claude / Gemini abstraction |
+| [make-crud](docs/make-crud.md) | API CRUD generator command |
+| [CrudController](docs/crud-controller.md) | Secure base controller |
+| [Access log](docs/access-log.md) | `access.log` middleware + redaction |
+| [Utilities](docs/utilities.md) | The nine utility classes |
+| [Macros](docs/macros.md) | Str/Arr/Collection/Query/Blueprint macros + Blade directives |
+| [Traits](docs/traits.md) | Model & controller traits |
+| [Avatar module](docs/modules/avatar.md) | Generated initials avatars |
+| [Gravatar module](docs/modules/gravatar.md) | Gravatar URL builder |
+| [Captcha module](docs/modules/captcha.md) | reCAPTCHA / hCaptcha / Turnstile |
+| [Notifications module](docs/modules/notifications.md) | Multi-channel notifications |
+| [Archiver module](docs/modules/archiver.md) | Safe tar/zip extraction |
+
+## License
+
+MIT © Simtabi LLC. See [LICENSE](LICENSE).
+
+- Product: <https://opensource.simtabi.com/toolkit/>
+- Documentation: <https://opensource.simtabi.com/toolkit/docs/>
+- Source & issues: <https://github.com/laranail/toolkit>
+- Security policy: [SECURITY.md](SECURITY.md)
