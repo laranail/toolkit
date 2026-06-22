@@ -824,8 +824,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\BladeDirectives": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Providers\\BladeServiceProvider"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\DatabaseSession": {
     "status": "dropped",

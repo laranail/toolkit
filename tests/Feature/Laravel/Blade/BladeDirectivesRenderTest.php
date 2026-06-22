@@ -94,4 +94,83 @@ class BladeDirectivesRenderTest extends TestCase
             @unlink($path);
         }
     }
+
+    public function test_addstyle_and_addscript_directives_emit_asset_tags(): void
+    {
+        $this->assertSame(
+            '<link rel="stylesheet" href="/css/app.css">',
+            Blade::render("@addstyle('/css/app.css')"),
+        );
+        $this->assertSame(
+            '<script src="/js/app.js"></script>',
+            Blade::render("@addscript('/js/app.js')"),
+        );
+
+        // No-argument block form wraps inline content.
+        $this->assertSame(
+            '<style>body{}</style>',
+            str_replace(' ', '', Blade::render('@addstyle body{} @endaddstyle')),
+        );
+        $this->assertSame(
+            "<script>alert('x')</script>",
+            str_replace(' ', '', Blade::render("@addscript alert('x') @endaddscript")),
+        );
+    }
+
+    public function test_inline_directive_wraps_by_extension(): void
+    {
+        $this->assertStringContainsString(
+            '<style>',
+            Blade::compileString("@inline('foo.css')"),
+        );
+        $this->assertStringContainsString(
+            '<script>',
+            Blade::compileString("@inline('foo.js')"),
+        );
+        // Compiles to an include of public_path(), not a raw echo of input.
+        $this->assertStringContainsString(
+            'include public_path',
+            Blade::compileString("@inline('foo.css')"),
+        );
+    }
+
+    public function test_nl2br_directive_inserts_breaks(): void
+    {
+        $out = Blade::render('@nl2br($text)', ['text' => "a\nb"]);
+
+        $this->assertSame("a<br />\nb", $out);
+    }
+
+    public function test_data_attributes_directive_renders_attributes(): void
+    {
+        $out = Blade::render('@dataAttributes($attrs)', ['attrs' => ['id' => '7', 'role' => 'btn']]);
+
+        $this->assertSame('data-id="7" data-role="btn"', $out);
+    }
+
+    public function test_haserror_block_shows_on_validation_error(): void
+    {
+        $this->assertStringContainsString('$errors->has', Blade::compileString("@haserror('name')x@endhaserror"));
+    }
+
+    public function test_selectedif_directive(): void
+    {
+        $this->assertSame('selected', Blade::render('@selectedif($v)', ['v' => true]));
+        $this->assertSame('', Blade::render('@selectedif($v)', ['v' => false]));
+    }
+
+    public function test_inputvalue_directive_echoes_old_or_model_value(): void
+    {
+        $model = (object) ['title' => 'Hello'];
+
+        $out = Blade::render("@inputvalue(\$m, 'title')", ['m' => $model]);
+
+        $this->assertSame('Hello', $out);
+    }
+
+    public function test_returnifempty_directive_bails_on_empty(): void
+    {
+        $this->assertSame('', trim(Blade::render('@returnifempty($v) shown', ['v' => []])));
+        $this->assertSame('shown', trim(Blade::render('@returnifempty($v) shown', ['v' => [1]])));
+    }
 }

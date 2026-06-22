@@ -11,9 +11,9 @@ current package surfaces, and curated below. The cited drop rationale lives in
 
 | Status | Count | Meaning |
 |---|---:|---|
-| **MIGRATED** | 85 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). Includes 19 **MIGRATED(merged)** symbols folded into an existing class (the short name changes — see note): the original 5, plus the **14 Carbon holiday/date calendar traits** folded into `Macros\CarbonMacros` in G3. |
+| **MIGRATED** | 86 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). Includes 20 **MIGRATED(merged)** symbols folded into an existing class (the short name changes — see note): the original 5, the **14 Carbon holiday/date calendar traits** folded into `Macros\CarbonMacros` in G3, plus `Support\Utilities\BladeDirectives` folded into `Providers\BladeServiceProvider` in G4. |
 | **RELOCATED** | 17 | Moved to a sibling package: **16** notification classes → `laranail/notifications`, the `NotificationChannel` enum → same. |
-| **DROPPED** | 177 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
+| **DROPPED** | 176 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
 | **Total** | 279 | |
 
 > **MIGRATED(merged)** — these legacy symbols were *folded into* an existing
@@ -30,6 +30,12 @@ current package surfaces, and curated below. The cited drop rationale lives in
 > `IndonesianHolidays`, `ItalianHolidays`, `KenyanHolidays`, `SwedishHolidays`,
 > `UkrainianHolidays`, `UsDates`, `ZambianHolidays` → folded into
 > `Macros\CarbonMacros` as registered Carbon macros (assignment bugs fixed).
+> Plus (G4) `Support\Utilities\BladeDirectives` — its portable custom directives
+> were folded into `Providers\BladeServiceProvider` (the short `BladeDirectives`
+> class is gone). Native-duplicative (`@dump`/`@dd`/`@pushOnce`), Mix-removed
+> (`@mix`), compile-time-broken (`@kebab`/`@snake`/`@camel`/`@count`) and the
+> missing-helper `@javascript` directives were dropped; value-echoing ports
+> (`@nl2br`, `@dataAttributes`, `@inputvalue`) were XSS-hardened with `e()`.
 
 > Separately, the `Command` base + `SupportsNamespacedNames` trait (a
 > `toolkit` v0.1.0 addition, **not** an `old/` symbol) were **RELOCATED to
@@ -380,7 +386,7 @@ wire them.
 | `Support\Traits\Models\HasFormatters` | MIGRATED | Toolkit\Traits\HasFormatters |
 | `Support\Traits\RunsConditionally` | DROPPED | Service-specific/out-of-scope traits (auth, livewire, guzzle-config, package-tools, error-storage) — native Laravel or out of the toolkit's scope. |
 | `Support\Utilities\Auth` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
-| `Support\Utilities\BladeDirectives` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
+| `Support\Utilities\BladeDirectives` | MIGRATED(merged) | Portable custom directives folded into `Toolkit\Providers\BladeServiceProvider` (G4): `@addstyle`/`@addscript`/`@inline`/`@dataAttributes`/`@haserror`/`@nl2br`/`@returnifempty`/`@selectedif`/`@inputvalue`/`@optionvalue`/`@checkboxvalue`/`@checkboxvaluefromarray`. Native-duplicative/broken directives dropped (`@dump`,`@dd`,`@pushonce`,`@mix`,`@kebab`/`@snake`/`@camel`,`@count`,`@javascript`); value-echoing ports XSS-hardened with `e()`; legacy bugs fixed (`endscript`→`</style>`, `@inline` missing return). |
 | `Support\Utilities\DatabaseSession` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
 | `Support\Utilities\Runners\ConditionalRunner` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
 | `Support\Utilities\SystemIO\DiskSpaceValidator` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |

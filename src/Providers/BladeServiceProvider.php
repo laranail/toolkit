@@ -15,7 +15,9 @@ use Illuminate\Support\ServiceProvider;
  * `@style`, `@session`, `@vite`, `@js`, `@error`, `@once`, `@pushOnce`,
  * `@prepend`, `@prependOnce`, `@fragment`, `@aware`, `@props`, `@dump`,
  * `@dd`, `@mix`/`@vite`) are intentionally not registered here. Only
- * directives with no native counterpart remain.
+ * directives with no native counterpart remain. The legacy `@kebab`/`@snake`/
+ * `@camel`, `@count`, `@mix` and `@javascript` directives are deliberately
+ * dropped (compile-time-only / broken / Mix-removed / missing helper).
  *
  * Registered eagerly from the root provider's boot().
  */
@@ -33,6 +35,9 @@ class BladeServiceProvider extends ServiceProvider
         $this->registerTypeDirectives();
         $this->registerIconDirectives();
         $this->registerAssetDirectives();
+        $this->registerInlineAssetDirectives();
+        $this->registerStringDirectives();
+        $this->registerFormDirectives();
     }
 
     /**
@@ -139,6 +144,135 @@ class BladeServiceProvider extends ServiceProvider
         });
 
         Blade::directive('base64image', static fn (string $expression): string => "<?php echo 'data:image/' . pathinfo({$expression}, PATHINFO_EXTENSION) . ';base64,' . base64_encode((string) file_get_contents({$expression})); ?>");
+    }
+
+    /**
+     * Inline-asset directives with no native counterpart:
+     *
+     * - `@addstyle('/css/app.css')` — emit a stylesheet `<link>` to a static
+     *   path; `@addstyle ... @endaddstyle` (no argument) wraps an inline
+     *   `<style>` block.
+     * - `@addscript('/js/app.js')` — emit a `<script src>` to a static path;
+     *   `@addscript ... @endaddscript` (no argument) wraps an inline `<script>`
+     *   block.
+     * - `@inline('file.css'|'file.js'|'file.html')` — include a file from
+     *   `public_path()` inline, wrapped in the appropriate tag.
+     *
+     * These take static, developer-authored asset paths (not request input), so
+     * emitting their argument as a literal path is acceptable. The path is still
+     * passed through {@see self::stripQuotes()} and never echoed via raw `{!! !!}`.
+     */
+    private function registerInlineAssetDirectives(): void
+    {
+        Blade::directive('addstyle', static function (string $expression): string {
+            if (trim($expression) === '') {
+                return '<style>';
+            }
+
+            return '<link rel="stylesheet" href="' . self::stripQuotes($expression) . '">';
+        });
+        Blade::directive('endaddstyle', static fn (): string => '</style>');
+
+        Blade::directive('addscript', static function (string $expression): string {
+            if (trim($expression) === '') {
+                return '<script>';
+            }
+
+            return '<script src="' . self::stripQuotes($expression) . '"></script>';
+        });
+        Blade::directive('endaddscript', static fn (): string => '</script>');
+
+        Blade::directive('inline', static function (string $expression): string {
+            $include = "<?php include public_path({$expression}); ?>";
+
+            $path = self::stripQuotes($expression);
+
+            if (str_ends_with($path, '.css')) {
+                return "<style>\n{$include}\n</style>";
+            }
+
+            if (str_ends_with($path, '.js')) {
+                return "<script>\n{$include}\n</script>";
+            }
+
+            return $include;
+        });
+    }
+
+    /**
+     * String / value echo directives.
+     *
+     * - `@nl2br($text)` — convert newlines to `<br>`. The value is escaped with
+     *   `e()` BEFORE `nl2br()`, so embedded HTML in the value cannot inject
+     *   markup (only the directive's own `<br>` tags are raw). XSS-safe.
+     * - `@dataAttributes($array)` — render an associative array as
+     *   `data-key="value"` attributes; both keys and values are escaped with
+     *   `e()`. XSS-safe.
+     */
+    private function registerStringDirectives(): void
+    {
+        Blade::directive('nl2br', static fn (string $expression): string => "<?php echo nl2br(e({$expression})); ?>");
+
+        Blade::directive('dataAttributes', static fn (string $expression): string => "<?php echo collect((array) ({$expression}))->map(fn (\$value, \$key): string => 'data-' . e(\$key) . '=\"' . e(\$value) . '\"')->implode(' '); ?>");
+    }
+
+    /**
+     * Form-helper directives with no native counterpart.
+     *
+     * - `@haserror('field') ... @endhaserror` — block shown when the named field
+     *   has a validation error.
+     * - `@returnifempty($value)` — bail out of the current view when the value
+     *   is empty.
+     * - `@selectedif($condition)` — echo the literal `selected` attribute.
+     * - `@inputvalue($model, 'field')` — old() / model value, escaped with `e()`.
+     * - `@optionvalue($model, 'field', $value)` — `selected` when old/model
+     *   value matches; emits a literal attribute only.
+     * - `@checkboxvalue($model, 'field')` — `checked` when truthy; literal
+     *   attribute only.
+     * - `@checkboxvaluefromarray($model, 'field', $array)` — `checked` when the
+     *   model id is present in old() or the given array; literal attribute only.
+     *
+     * `@inputvalue` is the only value-echoing directive here and already wraps
+     * its output in `e()`. The others emit fixed `selected`/`checked` literals.
+     */
+    private function registerFormDirectives(): void
+    {
+        Blade::directive('haserror', static fn (string $expression): string => "<?php if (isset(\$errors) && \$errors->has({$expression})) : ?>");
+        Blade::directive('endhaserror', static fn (): string => '<?php endif; ?>');
+
+        Blade::directive('returnifempty', static fn (string $expression): string => "<?php if (empty({$expression})) { return; } ?>");
+
+        Blade::directive('selectedif', static fn (string $expression): string => "<?php echo ({$expression}) ? 'selected' : ''; ?>");
+
+        Blade::directive('inputvalue', static function (string $expression): string {
+            [$model, $field] = self::twoArgs($expression);
+            $field = self::stripQuotes($field);
+
+            return "<?php echo isset({$model}) ? e(old('{$field}', {$model}->{$field})) : e(old('{$field}')); ?>";
+        });
+
+        Blade::directive('optionvalue', static function (string $expression): string {
+            [$model, $rest] = self::twoArgs($expression);
+            [$field, $default] = self::twoArgs($rest);
+            $field = self::stripQuotes($field);
+
+            return "<?php if ((isset({$model}) && old('{$field}', {$model}->{$field}) == {$default}) || old('{$field}') == {$default}) { echo 'selected=\"selected\"'; } ?>";
+        });
+
+        Blade::directive('checkboxvalue', static function (string $expression): string {
+            [$model, $field] = self::twoArgs($expression);
+            $field = self::stripQuotes($field);
+
+            return "<?php if ((isset({$model}) && old('{$field}', {$model}->{$field}) == 1) || old('{$field}') == 1) { echo 'checked=\"checked\"'; } ?>";
+        });
+
+        Blade::directive('checkboxvaluefromarray', static function (string $expression): string {
+            [$model, $rest] = self::twoArgs($expression);
+            [$field, $array] = self::twoArgs($rest);
+            $field = self::stripQuotes($field);
+
+            return "<?php if (collect(old('{$field}', []))->contains({$model}->id) || collect({$array})->contains(fn (\$item): bool => \$item == {$model}->id)) { echo 'checked=\"checked\"'; } ?>";
+        });
     }
 
     /**
