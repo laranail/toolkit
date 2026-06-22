@@ -11,9 +11,9 @@ current package surfaces, and curated below. The cited drop rationale lives in
 
 | Status | Count | Meaning |
 |---|---:|---|
-| **MIGRATED** | 37 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). |
+| **MIGRATED** | 51 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). |
 | **RELOCATED** | 17 | Moved to a sibling package: **16** notification classes → `laranail/notifications`, the `NotificationChannel` enum → same. |
-| **DROPPED** | 225 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
+| **DROPPED** | 211 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
 | **Total** | 279 | |
 
 > Separately, the `Command` base + `SupportsNamespacedNames` trait (a
@@ -140,11 +140,11 @@ wire them.
 | `Foundation\Contracts\DatabaseServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\FileServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\RouteServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Contracts\Services\AuthenticationHelperServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Contracts\Services\AuthenticationHelperServiceInterface` | MIGRATED | Toolkit\Services\Contracts\AuthenticationHelperServiceInterface |
 | `Foundation\Contracts\Services\ClassHelperServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\Services\CollectionHelperServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\Services\DatabaseFileServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Contracts\Services\ErrorStorageServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Contracts\Services\ErrorStorageServiceInterface` | MIGRATED | Toolkit\Services\Contracts\ErrorStorageServiceInterface |
 | `Foundation\Contracts\Services\FakerHelperServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\Services\FileHelperServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\Services\HttpConfigurationServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
@@ -156,23 +156,23 @@ wire them.
 | `Foundation\Contracts\SystemServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\UtilityServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\ValidationServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Exceptions\FileTooLargeException` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
-| `Foundation\Exceptions\InvalidPathException` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
-| `Foundation\Exceptions\LaranailException` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
+| `Foundation\Exceptions\FileTooLargeException` | MIGRATED | Toolkit\Exceptions\FileTooLargeException |
+| `Foundation\Exceptions\InvalidPathException` | MIGRATED | Toolkit\Exceptions\InvalidPathException |
+| `Foundation\Exceptions\LaranailException` | MIGRATED | Toolkit\Exceptions\LaranailException |
 | `Foundation\Exceptions\LaranailExceptionHandler` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
 | `Foundation\Facades\LaranailFacade` | DROPPED | The 48-method service-locator facade — see **The `Laranail` facade** section. Replaced by per-module facade aliases + the new fluent `Toolkit` facade (R-Facade). |
 | `Foundation\Laranail` | DROPPED | The 48-method service-locator facade — see **The `Laranail` facade** section. Replaced by per-module facade aliases + the new fluent `Toolkit` facade (R-Facade). |
 | `Foundation\Providers\LaranailEventServiceProvider` | DROPPED | Superseded by `Providers\ToolkitServiceProvider` (merge/publish/migrations) + native event/listener auto-discovery. |
 | `Foundation\Providers\LaranailHookServiceProvider` | DROPPED | Superseded by `Providers\ToolkitServiceProvider` (merge/publish/migrations) + native event/listener auto-discovery. |
 | `Foundation\Providers\LaranailServiceProvider` | DROPPED | Superseded by `Providers\ToolkitServiceProvider` (merge/publish/migrations) + native event/listener auto-discovery. |
-| `Foundation\Services\AuthenticationHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Services\AuthenticationHelperService` | MIGRATED | Toolkit\Services\AuthenticationHelperService |
 | `Foundation\Services\AuthenticationService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\CacheService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\ClassHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\CollectionHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\DatabaseFileService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\DatabaseService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Services\ErrorStorageService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Services\ErrorStorageService` | MIGRATED | Toolkit\Services\ErrorStorageService |
 | `Foundation\Services\FakerHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\FileHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\FileService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
@@ -337,11 +337,11 @@ wire them.
 | `Shared\Events\LicenseEvents` | DROPPED | Trivial event POPOs nothing dispatched; define events natively where needed (cited in `dropped.md`). |
 | `Shared\Events\RequirementsEvents` | DROPPED | Trivial event POPOs nothing dispatched; define events natively where needed (cited in `dropped.md`). |
 | `Shared\Exceptions\AuthenticationException` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
-| `Shared\Exceptions\CollectionItemNotFound` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
-| `Shared\Exceptions\ImmutableDataException` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
-| `Shared\Exceptions\MissingUuidColumnException` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
-| `Shared\Exceptions\ModelException` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
-| `Shared\Exceptions\UuidException` | DROPPED | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, model `ModelNotFoundException`). |
+| `Shared\Exceptions\CollectionItemNotFound` | MIGRATED | Toolkit\Exceptions\CollectionItemNotFound |
+| `Shared\Exceptions\ImmutableDataException` | MIGRATED | Toolkit\Exceptions\ImmutableDataException |
+| `Shared\Exceptions\MissingUuidColumnException` | MIGRATED | Toolkit\Exceptions\MissingUuidColumnException |
+| `Shared\Exceptions\ModelException` | MIGRATED | Toolkit\Exceptions\ModelException |
+| `Shared\Exceptions\UuidException` | MIGRATED | Toolkit\Exceptions\UuidException |
 | `Support\Contracts\CacheHelperInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
 | `Support\Contracts\LoggerServiceInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
 | `Support\Contracts\ResponseBuilderServiceInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
@@ -356,8 +356,8 @@ wire them.
 | `Support\Services\Atlas\Countries` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Support\Services\Atlas\Languages` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Support\Traits\HasArchiver` | MIGRATED | Toolkit\Traits\HasArchiver |
-| `Support\Traits\HasAuth` | DROPPED | Service-specific/out-of-scope traits (auth, livewire, guzzle-config, package-tools, error-storage) — native Laravel or out of the toolkit's scope. |
-| `Support\Traits\HasErrorStorage` | DROPPED | Service-specific/out-of-scope traits (auth, livewire, guzzle-config, package-tools, error-storage) — native Laravel or out of the toolkit's scope. |
+| `Support\Traits\HasAuth` | MIGRATED | Toolkit\Traits\HasAuth |
+| `Support\Traits\HasErrorStorage` | MIGRATED | Toolkit\Traits\HasErrorStorage |
 | `Support\Traits\HasGuzzleConfig` | DROPPED | Service-specific/out-of-scope traits (auth, livewire, guzzle-config, package-tools, error-storage) — native Laravel or out of the toolkit's scope. |
 | `Support\Traits\HasPackageTools` | DROPPED | Service-specific/out-of-scope traits (auth, livewire, guzzle-config, package-tools, error-storage) — native Laravel or out of the toolkit's scope. |
 | `Support\Traits\Livewire\HasLivewire` | DROPPED | Service-specific/out-of-scope traits (auth, livewire, guzzle-config, package-tools, error-storage) — native Laravel or out of the toolkit's scope. |

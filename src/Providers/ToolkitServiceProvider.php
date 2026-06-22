@@ -21,6 +21,10 @@ use Simtabi\Laranail\Toolkit\Modules\Llm\Gemini\GeminiProvider;
 use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Modules\Llm\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
+use Simtabi\Laranail\Toolkit\Services\AuthenticationHelperService;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
 use Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
@@ -57,6 +61,11 @@ class ToolkitServiceProvider extends ServiceProvider
         }
 
         $this->app->bind('AccessLog', AccessLog::class);
+
+        // Foundation services (stateful — fresh instance per resolve so each
+        // consuming object gets its own error/auth context).
+        $this->app->bind(ErrorStorageServiceInterface::class, ErrorStorageService::class);
+        $this->app->bind(AuthenticationHelperServiceInterface::class, AuthenticationHelperService::class);
 
         // Register base LLM Provider interface with provider selection
         $this->app->bind(LLMProviderInterface::class, function ($app) {

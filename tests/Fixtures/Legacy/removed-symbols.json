@@ -83,10 +83,6 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\AuthenticationHelperServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ClassHelperServiceInterface": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -96,10 +92,6 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\DatabaseFileServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ErrorStorageServiceInterface": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
@@ -147,18 +139,6 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Foundation\\Exceptions\\FileTooLargeException": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Exceptions\\InvalidPathException": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Exceptions\\LaranailException": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Foundation\\Exceptions\\LaranailExceptionHandler": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -183,10 +163,6 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationHelperService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationService": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -208,10 +184,6 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\DatabaseService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\ErrorStorageService": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
@@ -855,26 +827,6 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Shared\\Exceptions\\CollectionItemNotFound": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Shared\\Exceptions\\ImmutableDataException": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Shared\\Exceptions\\MissingUuidColumnException": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Shared\\Exceptions\\ModelException": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Shared\\Exceptions\\UuidException": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Support\\Contracts\\CacheHelperInterface": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -908,14 +860,6 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Services\\Atlas\\Languages": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Support\\Traits\\HasAuth": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Support\\Traits\\HasErrorStorage": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },

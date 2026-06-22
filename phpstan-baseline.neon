@@ -733,10 +733,22 @@ parameters:
 			path: src/Traits/HasArchiver.php
 
 		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasAuth is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasAuth.php
+
+		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasAvatar is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
 			path: src/Traits/HasAvatar.php
+
+		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasErrorStorage is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasErrorStorage.php
 
 		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters is used zero times and is not analysed\.$#'
