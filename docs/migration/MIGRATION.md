@@ -402,9 +402,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 109 | direct + 42 merged |
+| **MIGRATED** | 112 | direct + 45 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 153 | native / out-of-scope (see rows) |
+| **DROPPED** | 150 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -617,7 +617,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `DatabaseService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\DatabaseService` |
 | `ErrorStorageService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ErrorStorageService` |
 | `FakerHelperService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `FileHelperService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `FileHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\FileHelper (useful static helpers recovered, restore-candidates)` |
 | `FileService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `HttpConfigurationService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\HttpConfigurationService` |
 | `LivewireComponentService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
@@ -627,7 +627,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `RouteService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\RouteService` |
 | `SessionService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `StringHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper` |
-| `SystemService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `SystemService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\SystemHelper (useful static helpers recovered, restore-candidates)` |
 | `UtilityService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ValidationService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ValidationService` |
 
@@ -821,7 +821,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 |---|---|---|
 | `ImportDatabaseService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ResponseBuilderService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `SystemService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `SystemService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\SystemHelper (useful static helpers recovered, restore-candidates)` |
 
 ### Simtabi\Laranail\Shared\Enums
 

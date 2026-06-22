@@ -172,8 +172,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\FileHelperService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\FileHelper (useful static helpers recovered, restore-candidates)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\FileService": {
     "status": "dropped",
@@ -200,8 +200,8 @@
     "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\SystemService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\SystemHelper (useful static helpers recovered, restore-candidates)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\UtilityService": {
     "status": "dropped",
@@ -744,8 +744,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Services\\SystemService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\SystemHelper (useful static helpers recovered, restore-candidates)"
   },
   "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": {
     "status": "relocated",
