@@ -284,12 +284,12 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\BrazilianHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\CanadianDates": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\CapitalizeWords": {
     "status": "dropped",
@@ -313,11 +313,11 @@
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\DistanceBetween": {
     "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "target": "Orphaned pheg-dependent geo invokable; never wired to any Macroable target (G3)."
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\DutchHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\EachCons": {
     "status": "dropped",
@@ -364,8 +364,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\FrenchHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\FromBase64": {
     "status": "dropped",
@@ -384,8 +384,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\GermanHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\GetFile": {
     "status": "dropped",
@@ -432,12 +432,12 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\IndianHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\IndonesianHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Initials": {
     "status": "dropped",
@@ -472,12 +472,12 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\ItalianHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\KenyanHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Krsort": {
     "status": "dropped",
@@ -504,8 +504,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\MultiNationalDates": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Ninth": {
     "status": "dropped",
@@ -533,7 +533,7 @@
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\ParallelMap": {
     "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "target": "Requires amphp/parallel-functions; native Laravel concurrency supersedes it (G3)."
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Path": {
     "status": "dropped",
@@ -620,8 +620,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\SwedishHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Tail": {
     "status": "dropped",
@@ -652,12 +652,12 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\UkrainianHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\UsDates": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Validate": {
     "status": "dropped",
@@ -688,8 +688,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\ZambianHolidays": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Observers\\BaseObserver": {
     "status": "dropped",

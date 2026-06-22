@@ -11,19 +11,25 @@ current package surfaces, and curated below. The cited drop rationale lives in
 
 | Status | Count | Meaning |
 |---|---:|---|
-| **MIGRATED** | 71 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). Includes 5 **MIGRATED(merged)** symbols folded into an existing class (the short name changes — see note). |
+| **MIGRATED** | 85 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). Includes 19 **MIGRATED(merged)** symbols folded into an existing class (the short name changes — see note): the original 5, plus the **14 Carbon holiday/date calendar traits** folded into `Macros\CarbonMacros` in G3. |
 | **RELOCATED** | 17 | Moved to a sibling package: **16** notification classes → `laranail/notifications`, the `NotificationChannel` enum → same. |
-| **DROPPED** | 191 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
+| **DROPPED** | 177 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
 | **Total** | 279 | |
 
-> **MIGRATED(merged)** — five legacy symbols were *folded into* an existing
-> toolkit class rather than ported 1:1 (G2-3), so their short name disappears.
+> **MIGRATED(merged)** — these legacy symbols were *folded into* an existing
+> toolkit class rather than ported 1:1, so their short name disappears.
 > Because `ApiSurfaceTest` matches by short name, these keep a
 > `removed-symbols.json` entry with `status: "merged"` + a `target` (any
-> allowlist entry counts as accounted-for): `CacheService` /
-> `CacheServiceInterface` → `Utilities\CachingUtil`; `StringHelperService` /
-> `StringHelperServiceInterface` → `Helpers\XHelper`; `Support\Utilities\Username`
-> → `Traits\HasFormatters` (name→username, pheg inlined to native `Str`).
+> allowlist entry counts as accounted-for). The original five (G2-3):
+> `CacheService` / `CacheServiceInterface` → `Utilities\CachingUtil`;
+> `StringHelperService` / `StringHelperServiceInterface` → `Helpers\XHelper`;
+> `Support\Utilities\Username` → `Traits\HasFormatters` (name→username, pheg
+> inlined to native `Str`). Plus the **14 Carbon holiday/date calendar traits**
+> (G3) — `MultiNationalDates`, `BrazilianHolidays`, `CanadianDates`,
+> `DutchHolidays`, `FrenchHolidays`, `GermanHolidays`, `IndianHolidays`,
+> `IndonesianHolidays`, `ItalianHolidays`, `KenyanHolidays`, `SwedishHolidays`,
+> `UkrainianHolidays`, `UsDates`, `ZambianHolidays` → folded into
+> `Macros\CarbonMacros` as registered Carbon macros (assignment bugs fixed).
 
 > Separately, the `Command` base + `SupportsNamespacedNames` trait (a
 > `toolkit` v0.1.0 addition, **not** an `old/` symbol) were **RELOCATED to
@@ -41,7 +47,7 @@ channels, and a serializable queue job. `composer require laranail/notifications
 
 | Bucket | ~count | Why |
 |---|---:|---|
-| `Laravel\Macros\*` | 104 | The 107-file micro-macro library **consolidated** into the grouped `Macros\{Str,Arr,Collection,QueryBuilder,Blueprint,Request}Macros` providers (kept subset); low-value ones (national-holiday / locale-date macros) dropped. Coverage asserted by the macro-inventory test. |
+| `Laravel\Macros\*` | 90 | The 107-file micro-macro library **consolidated** into the grouped `Macros\{Str,Arr,Collection,QueryBuilder,Blueprint,Request,Carbon}Macros` providers (kept subset). **G3 added the Carbon group**: the 14 national holiday/date calendar traits (`MultiNationalDates`, `BrazilianHolidays`, `CanadianDates`, `DutchHolidays`, `FrenchHolidays`, `GermanHolidays`, `IndianHolidays`, `IndonesianHolidays`, `ItalianHolidays`, `KenyanHolidays`, `SwedishHolidays`, `UkrainianHolidays`, `UsDates`, `ZambianHolidays`) were ported into `Macros\CarbonMacros` (110 holiday predicates + 7 non-native date helpers), with the legacy `=`-instead-of-`===` assignment bugs fixed. `DistanceBetween` (orphaned + pheg) and `ParallelMap` (amphp) stay dropped. Coverage asserted by the macro-inventory + Carbon behaviour tests. |
 | `Foundation\Services\*` + `Foundation\Contracts\*` | ~34 | The service-locator service layer (`CacheService`, `FileService`, `ValidationService`, `SessionService`, `SystemService`, helper services, …) — **native-duplicative**. Superseded by native Laravel + the kept `Utilities\*` / `Traits\*`. These were the services the old `Laranail` facade fronted (see below). **Revived** (hardened, de-faceted, bound by contract): `RouteService`, `HttpConfigurationService`, `DatabaseService`, `ModelService` + their contracts → `Toolkit\Services\*` (G2-2). |
 | `Laravel\Providers\*` | 10 | Per-macro sub-providers + `MacrosServiceProvider` → consolidated into `Macros\MacroServiceProvider`; the middleware provider dropped (register middleware in the app). |
 | `Laravel\Http\*` | 3 | Of the 7 legacy HTTP symbols, **5 were MIGRATED in G1** (`ApiMiddleware`, `ApiRequestMiddleware`, `ApiResponseMiddleware` → `Http\Middleware\*`; `BaseRequest` → `Http\Requests\BaseRequest`; `Support\Contracts\ShovelHttpInterface` → `Http\Contracts\ShovelHttpInterface`). Still dropped: `BaseController` (→ `Http\Controllers\CrudController`), `ApiRequest` (the camelCase-keyed `BaseRequest` subclass is trivially re-derivable; envelope its errors via `Traits\ApiResponseTrait`), and `EmailObfuscatorMiddleware` (pheg dependency). |
@@ -219,15 +225,15 @@ wire them.
 | `Laravel\Macros\At` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Before` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Bind` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\BrazilianHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\CanadianDates` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\BrazilianHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
+| `Laravel\Macros\CanadianDates` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Macros\CapitalizeWords` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\CatchableProxy` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\ChunkBy` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\CollectBy` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Decrement` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\DistanceBetween` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\DutchHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\DistanceBetween` | DROPPED | Orphaned pheg-dependent geo invokable; never wired to any Macroable target. Not ported (no clean target class) (G3). |
+| `Laravel\Macros\DutchHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Macros\EachCons` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Eighth` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Error` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
@@ -240,12 +246,12 @@ wire them.
 | `Laravel\Macros\FirstOrPush` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\ForSelectBox` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Fourth` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\FrenchHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\FrenchHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Macros\FromBase64` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\FromJson` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\FromPairs` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\GenerateName` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\GermanHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\GermanHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Macros\GetFile` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\GetNth` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Glob` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
@@ -257,8 +263,8 @@ wire them.
 | `Laravel\Macros\IfEmpty` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\IfMacro` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Increment` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\IndianHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\IndonesianHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\IndianHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
+| `Laravel\Macros\IndonesianHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Macros\Initials` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\InsertAfter` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\InsertAfterKey` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
@@ -267,22 +273,22 @@ wire them.
 | `Laravel\Macros\InsertBeforeKey` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Interpolate` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\IsEquals` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\ItalianHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\KenyanHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\ItalianHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
+| `Laravel\Macros\KenyanHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Macros\Krsort` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Ksort` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\LinesCount` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\MacroSupport` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Matches` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Message` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\MultiNationalDates` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\MultiNationalDates` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Macros\Ninth` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\None` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Paginate` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\PaginateFirstDifferent` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\PaginateWithPrevious` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Paginator` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\ParallelMap` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\ParallelMap` | DROPPED | Requires `amphp/parallel-functions`; native Laravel concurrency supersedes it (G3). |
 | `Laravel\Macros\Path` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Pdf` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\PluckMany` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
@@ -304,7 +310,7 @@ wire them.
 | `Laravel\Macros\SliceBefore` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\StripTags` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Success` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\SwedishHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\SwedishHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Macros\Tail` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Tenth` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Third` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
@@ -312,8 +318,8 @@ wire them.
 | `Laravel\Macros\ToPairs` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\Transpose` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\TryCatch` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\UkrainianHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\UsDates` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\UkrainianHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
+| `Laravel\Macros\UsDates` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Macros\Validate` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\WhenEquals` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\WhereContains` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
@@ -321,7 +327,7 @@ wire them.
 | `Laravel\Macros\WhereStartsWith` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\WithSize` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
 | `Laravel\Macros\WordsCount` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
-| `Laravel\Macros\ZambianHolidays` | DROPPED | Consolidated into the grouped `Macros\*Macros` providers (kept subset) or dropped as low-value (holiday/date macros); see the macro inventory test. |
+| `Laravel\Macros\ZambianHolidays` | MIGRATED(merged) | Ported into `Macros\CarbonMacros` as registered Carbon macros (G3); legacy `=`/`===` assignment bugs fixed. Coverage in the macro-inventory + Carbon behaviour tests. |
 | `Laravel\Observers\BaseObserver` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Laravel\Providers\ArchiverServiceProvider` | MIGRATED | Toolkit\Modules\Archiver\ArchiverServiceProvider |
 | `Laravel\Providers\ArrMacroProvider` | DROPPED | Macro sub-providers consolidated into the single `Macros\MacroServiceProvider`; middleware provider dropped (register middleware in the app). |

@@ -9,6 +9,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -61,6 +62,53 @@ class MacroRegistrationTest extends TestCase
             'expectsJsonOrAjax', 'isBot', 'isFromMobile', 'hasFiles', 'hasValidFile', 'getReferer',
             'isFromDomain', 'isJsonRequest', 'onlyFilled', 'hasAny', 'mergeIfMissing',
         ],
+        'Carbon' => [
+            // General-purpose date / business-day helpers that are NOT native in
+            // Carbon 3 (startOfQuarter/endOfQuarter/isSameQuarter/isWeekday/
+            // nextWeekday/previousWeekday/toDateTimeLocalString are native — dropped).
+            'fromDateTimeLocalString', 'addBusinessDays', 'subBusinessDays',
+            'isLastDayOfMonth', 'isFirstDayOfMonth', 'toHumanReadableString', 'getQuarter',
+            // Multi-national (Christian feasts + new year).
+            'isNewYearsDay', 'isEasterSunday', 'isGoodFriday', 'isAllSaintsDay', 'isChristmasDay', 'isNewYearsEve',
+            // Brazilian.
+            'isTiradentesDay', 'isBrazilianLaborDay', 'isBrazilianIndependenceDay', 'isTheDayOfOurLadyAparecida',
+            'isBrazilianDayOfTheDead', 'isBrazilianRepublicProclamationDay',
+            // Canadian.
+            'isVictoriaDay', 'isCanadaDay', 'isLabourDay', 'isCanadianThanksgiving', 'isRemembranceDay',
+            'isBoxingDay', 'isCivicHoliday', 'isFamilyDay',
+            // Dutch.
+            'isDutchLiberationDay', 'isSaintNicholasEve', 'isDutchRemembranceDay', 'isDutchNationalDay',
+            // French.
+            'isAscensionDay', 'isAssumptionDay', 'isEasterMonday', 'isFirstWarArmisticeDay', 'isFrenchNationalDay',
+            'isPentecostDay', 'isSecondWarArmisticeDay',
+            // German.
+            'isGermanLabourDay', 'isAscensionOfJesus', 'isWhitSunday', 'isWhitsun', 'isPentecost',
+            'isPentecostSunday', 'isWhitMonday', 'isPentecostMonday', 'isCorpusChristi', 'isGermanUnityDay',
+            'isHeiligerAbend', 'isHeiligAbend',
+            // Indian.
+            'isIndianRepublicDay', 'isIndianIndependenceDay', 'isGandhiJayanti',
+            // Indonesian.
+            'isIndonesianIndependenceDay', 'isPancasilaDay', 'isIndonesianLaborDay', 'isKartiniDay',
+            'isIndonesianEducationDay', 'isIndonesiaCustomerDay', 'isIndonesianHeroesDay', 'isIndonesianMothersDay',
+            // Italian.
+            'isLiberationDay', 'isRepublicDay', 'isImmaculateConceptionFeast', 'isAssumptionOfMaryFeast',
+            'isEpiphany', 'isSaintStephenDay', 'isSaintSylvesterDay', 'isWorkersDay',
+            // Kenyan.
+            'isKenyanIndependenceDay', 'isKenyanJamhuriDay', 'isKenyanLabourDay', 'isKenyanMadarakaDay',
+            'isKenyanHudumaDay', 'isKenyanMashujaaDay', 'isKenyanUtamaduniDay',
+            // Swedish.
+            'isSwedishMidsummerDay', 'isChristmasEve', 'isSwedishNationalDay',
+            // Ukrainian.
+            'isUkrainianIndependenceDay', 'isUkraineDefenderDay', 'isUkrainianConstitutionDay',
+            'isUkrainianLabourDay', 'isKupalaNight', 'isVictoryDayOverNazism',
+            // US.
+            'isMlkJrDay', 'isIndependenceDay', 'isMemorialDay', 'isLaborDay', 'isVeteransDay',
+            'isAmericanThanksgiving', 'isPresidentsDay', 'isColumbusDay',
+            // Zambian.
+            'isZambianIndependenceDay', 'isZambianLabourDay', 'isZambianYouthDay', 'isZambianWomensDay',
+            'isZambianAfricanUnityDay', 'isZambianAfricaDay', 'isZambianHeroesDay', 'isZambianUnityDay',
+            'isZambianFarmersDay', 'isZambianNationalPrayerDay',
+        ],
     ];
 
     /**
@@ -70,22 +118,26 @@ class MacroRegistrationTest extends TestCase
      * @var array<string, string>
      */
     private const DROPPED = [
-        // Carbon provider + all national holiday/date classes.
-        'CarbonMacroProvider (all Carbon macros)' => 'Locale-specific holiday wiring; remaining date macros are niche/duplicative.',
-        'BrazilianHolidays' => 'Locale-specific national holidays; low value.',
-        'CanadianDates' => 'Locale-specific national dates; low value.',
-        'DutchHolidays' => 'Locale-specific national holidays; low value.',
-        'FrenchHolidays' => 'Locale-specific national holidays; low value.',
-        'GermanHolidays' => 'Locale-specific national holidays; low value.',
-        'IndianHolidays' => 'Locale-specific national holidays; low value.',
-        'IndonesianHolidays' => 'Locale-specific national holidays; low value.',
-        'ItalianHolidays' => 'Locale-specific national holidays; low value.',
-        'KenyanHolidays' => 'Locale-specific national holidays; low value.',
-        'SwedishHolidays' => 'Locale-specific national holidays; low value.',
-        'UkrainianHolidays' => 'Locale-specific national holidays; low value.',
-        'ZambianHolidays' => 'Locale-specific national holidays; low value.',
-        'UsDates' => 'Locale-specific national dates; low value.',
-        'MultiNationalDates' => 'Locale-specific national dates aggregator; low value.',
+        // Carbon date/quarter/business-day macros + every national holiday/date
+        // calendar are now PORTED into Macros\CarbonMacros (G3) — see the
+        // 'Carbon' group in self::KEPT and the per-calendar behaviour tests.
+        // The only Carbon-area class still dropped is DistanceBetween (below).
+
+        // Geo macro: orphaned invokable, never wired to any Macroable target,
+        // and pheg-dependent. No clean target class to extend, so kept dropped.
+        'DistanceBetween' => 'Orphaned pheg-dependent geo invokable; never registered on any target class.',
+
+        // Concurrency macro: needs amphp/parallel-functions; native Laravel
+        // concurrency exists, so dropped rather than pulling the dep.
+        'ParallelMap' => 'Requires amphp/parallel-functions; native Laravel concurrency supersedes it.',
+
+        // Carbon date macros that are native in Carbon 3 — the legacy macros only
+        // shadowed them, so they are not re-registered. (The remaining Carbon
+        // date helpers + every holiday calendar ARE ported — see KEPT['Carbon'].)
+        'Carbon::startOfQuarter / endOfQuarter / isSameQuarter' => 'Native Carbon 3 methods; legacy macros shadowed them.',
+        'Carbon::isWeekday' => 'Native Carbon method; the legacy macro shadowed it.',
+        'Carbon::nextWeekday / previousWeekday' => 'Native Carbon mutating modifiers; legacy macros shadowed them.',
+        'Carbon::toDateTimeLocalString' => 'Native Carbon method (with a $precision arg); the legacy macro shadowed it.',
 
         // Response HTML/JSON macros — superseded by ApiResponseTrait.
         'ResponseMacroProvider' => 'Superseded by ApiResponseTrait; legacy HTML helpers emit unescaped markup (XSS risk).',
@@ -185,5 +237,12 @@ class MacroRegistrationTest extends TestCase
 
         // Also assert via the facade-backed request instance path.
         $this->assertTrue(new Request()->hasMacro('isBot'));
+    }
+
+    public function test_carbon_macros_are_registered(): void
+    {
+        foreach (self::KEPT['Carbon'] as $macro) {
+            $this->assertTrue(Carbon::hasMacro($macro), "Carbon::{$macro} should be registered.");
+        }
     }
 }

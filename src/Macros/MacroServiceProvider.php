@@ -28,6 +28,7 @@ final class MacroServiceProvider extends ServiceProvider
         QueryBuilderMacros::class,
         BlueprintMacros::class,
         RequestMacros::class,
+        CarbonMacros::class,
     ];
 
     public function register(): void
