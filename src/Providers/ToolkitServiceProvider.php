@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Providers;
 
 use Illuminate\Foundation\Console\AboutCommand;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Helpers\XHelper;
+use Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware;
+use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
 use Simtabi\Laranail\Toolkit\Macros\MacroServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLog;
 use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLogMiddleware;
@@ -234,8 +237,13 @@ class ToolkitServiceProvider extends ServiceProvider
             ], 'laranail-toolkit-stubs');
         }
 
-        // Register middleware
-        $this->app['router']->aliasMiddleware('access.log', AccessLogMiddleware::class);
+        // Register middleware. All are opt-in (attach per route/group) — none is
+        // pushed onto the global stack. `api.request` snake_cases incoming keys;
+        // `api.response` envelopes + camelCases outgoing JSON.
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('access.log', AccessLogMiddleware::class);
+        $router->aliasMiddleware('api.request', ApiRequestMiddleware::class);
+        $router->aliasMiddleware('api.response', ApiResponseMiddleware::class);
 
         // Register custom validation rules
         $this->registerValidationRules();

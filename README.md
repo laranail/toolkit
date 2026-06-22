@@ -222,6 +222,7 @@ class Post extends Model
 | [make-crud](docs/make-crud.md) | API CRUD generator command |
 | [CrudController](docs/crud-controller.md) | Secure base controller |
 | [Access log](docs/access-log.md) | `access.log` middleware + redaction |
+| [API middleware](docs/api-middleware.md) | `api.request` / `api.response` envelope + `BaseRequest` sanitization |
 | [Utilities](docs/utilities.md) | The nine utility classes |
 | [Macros](docs/macros.md) | Str/Arr/Collection/Query/Blueprint macros + Blade directives |
 | [Traits](docs/traits.md) | Model & controller traits |

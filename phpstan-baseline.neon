@@ -612,11 +612,6 @@ parameters:
 			count: 1
 			path: src/Modules/Llm/OpenAI/OpenAIResponse.php
 
-		-
-			message: '#^Cannot access offset ''router'' on Illuminate\\Contracts\\Foundation\\Application\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/Providers/ToolkitServiceProvider.php
 
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadCachingUtility\(\) has no return type specified\.$#'

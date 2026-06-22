@@ -247,27 +247,11 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\ApiMiddleware": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\ApiRequestMiddleware": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\ApiResponseMiddleware": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\EmailObfuscatorMiddleware": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Http\\Requests\\ApiRequest": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Http\\Requests\\BaseRequest": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
@@ -804,10 +788,6 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Contracts\\ResponseMacroInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Support\\Contracts\\ShovelHttpInterface": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },

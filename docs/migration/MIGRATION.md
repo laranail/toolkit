@@ -11,9 +11,9 @@ current package surfaces, and curated below. The cited drop rationale lives in
 
 | Status | Count | Meaning |
 |---|---:|---|
-| **MIGRATED** | 66 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). Includes 5 **MIGRATED(merged)** symbols folded into an existing class (the short name changes — see note). |
+| **MIGRATED** | 71 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). Includes 5 **MIGRATED(merged)** symbols folded into an existing class (the short name changes — see note). |
 | **RELOCATED** | 17 | Moved to a sibling package: **16** notification classes → `laranail/notifications`, the `NotificationChannel` enum → same. |
-| **DROPPED** | 196 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
+| **DROPPED** | 191 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
 | **Total** | 279 | |
 
 > **MIGRATED(merged)** — five legacy symbols were *folded into* an existing
@@ -44,10 +44,10 @@ channels, and a serializable queue job. `composer require laranail/notifications
 | `Laravel\Macros\*` | 104 | The 107-file micro-macro library **consolidated** into the grouped `Macros\{Str,Arr,Collection,QueryBuilder,Blueprint,Request}Macros` providers (kept subset); low-value ones (national-holiday / locale-date macros) dropped. Coverage asserted by the macro-inventory test. |
 | `Foundation\Services\*` + `Foundation\Contracts\*` | ~34 | The service-locator service layer (`CacheService`, `FileService`, `ValidationService`, `SessionService`, `SystemService`, helper services, …) — **native-duplicative**. Superseded by native Laravel + the kept `Utilities\*` / `Traits\*`. These were the services the old `Laranail` facade fronted (see below). **Revived** (hardened, de-faceted, bound by contract): `RouteService`, `HttpConfigurationService`, `DatabaseService`, `ModelService` + their contracts → `Toolkit\Services\*` (G2-2). |
 | `Laravel\Providers\*` | 10 | Per-macro sub-providers + `MacrosServiceProvider` → consolidated into `Macros\MacroServiceProvider`; the middleware provider dropped (register middleware in the app). |
-| `Laravel\Http\*` | 7 | `BaseController`/`BaseRequest`/`ApiRequest` scaffolding → replaced by `Http\Controllers\CrudController`; `ApiResponse*Middleware` → `Traits\ApiResponseTrait`; `EmailObfuscatorMiddleware` dropped (pheg dependency). |
+| `Laravel\Http\*` | 3 | Of the 7 legacy HTTP symbols, **5 were MIGRATED in G1** (`ApiMiddleware`, `ApiRequestMiddleware`, `ApiResponseMiddleware` → `Http\Middleware\*`; `BaseRequest` → `Http\Requests\BaseRequest`; `Support\Contracts\ShovelHttpInterface` → `Http\Contracts\ShovelHttpInterface`). Still dropped: `BaseController` (→ `Http\Controllers\CrudController`), `ApiRequest` (the camelCase-keyed `BaseRequest` subclass is trivially re-derivable; envelope its errors via `Traits\ApiResponseTrait`), and `EmailObfuscatorMiddleware` (pheg dependency). |
 | `Shared\Exceptions\*` + `Foundation\Exceptions\*` | 10 | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, `ModelNotFoundException`). |
 | `Support\Traits\*` | 4 | `HasAuth`/`HasLivewire`/`HasPackageTools`/`HasErrorStorage` — native Laravel or out of the toolkit's scope (livewire/package-tools/pheg). (`HasGuzzleConfig` **revived** alongside `HttpConfigurationService` → `Toolkit\Traits\HasGuzzleConfig`.) |
-| `Support\Contracts\*` | 6 | Interfaces for the dropped service-locator services. |
+| `Support\Contracts\*` | 5 | Interfaces for the dropped service-locator services. (`ShovelHttpInterface` was **MIGRATED in G1** → `Http\Contracts\ShovelHttpInterface`, backing `ApiResponseMiddleware`.) |
 | `Shared\Events\*` | 4 | Trivial event POPOs nothing dispatched. |
 | `Foundation\Providers\*` | 3 | Superseded by `Providers\ToolkitServiceProvider` + native auto-discovery. |
 | `Support\Resources\*` | 3 | Superseded by the module DTOs (`AvatarResolution`, `GravatarResolution`). |
@@ -205,13 +205,13 @@ wire them.
 | `Laravel\Commands\MaintenanceCommand` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Laravel\Commands\SetAppNamespace` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Laravel\Commands\TidyCommand` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
-| `Laravel\Http\Controllers\BaseController` | DROPPED | Replaced by `Http\Controllers\CrudController` + `Traits\ApiResponseTrait`; `EmailObfuscatorMiddleware` dropped (pheg dependency); base controller/request scaffolding dropped. |
-| `Laravel\Http\Middleware\ApiMiddleware` | DROPPED | Replaced by `Http\Controllers\CrudController` + `Traits\ApiResponseTrait`; `EmailObfuscatorMiddleware` dropped (pheg dependency); base controller/request scaffolding dropped. |
-| `Laravel\Http\Middleware\ApiRequestMiddleware` | DROPPED | Replaced by `Http\Controllers\CrudController` + `Traits\ApiResponseTrait`; `EmailObfuscatorMiddleware` dropped (pheg dependency); base controller/request scaffolding dropped. |
-| `Laravel\Http\Middleware\ApiResponseMiddleware` | DROPPED | Replaced by `Http\Controllers\CrudController` + `Traits\ApiResponseTrait`; `EmailObfuscatorMiddleware` dropped (pheg dependency); base controller/request scaffolding dropped. |
-| `Laravel\Http\Middleware\EmailObfuscatorMiddleware` | DROPPED | Replaced by `Http\Controllers\CrudController` + `Traits\ApiResponseTrait`; `EmailObfuscatorMiddleware` dropped (pheg dependency); base controller/request scaffolding dropped. |
-| `Laravel\Http\Requests\ApiRequest` | DROPPED | Replaced by `Http\Controllers\CrudController` + `Traits\ApiResponseTrait`; `EmailObfuscatorMiddleware` dropped (pheg dependency); base controller/request scaffolding dropped. |
-| `Laravel\Http\Requests\BaseRequest` | DROPPED | Replaced by `Http\Controllers\CrudController` + `Traits\ApiResponseTrait`; `EmailObfuscatorMiddleware` dropped (pheg dependency); base controller/request scaffolding dropped. |
+| `Laravel\Http\Controllers\BaseController` | DROPPED | Replaced by `Http\Controllers\CrudController` + `Traits\ApiResponseTrait`. |
+| `Laravel\Http\Middleware\ApiMiddleware` | MIGRATED | Toolkit\Http\Middleware\ApiMiddleware (abstract base; the recursive key walker extracted into the reusable `Http\Concerns\MutatesPayloadKeys` concern). |
+| `Laravel\Http\Middleware\ApiRequestMiddleware` | MIGRATED | Toolkit\Http\Middleware\ApiRequestMiddleware (alias `api.request`; snake_cases incoming keys). |
+| `Laravel\Http\Middleware\ApiResponseMiddleware` | MIGRATED | Toolkit\Http\Middleware\ApiResponseMiddleware (alias `api.response`; envelope shape-compatible with `Traits\ApiResponseTrait`, camelCases data keys, hardened json_decode). |
+| `Laravel\Http\Middleware\EmailObfuscatorMiddleware` | DROPPED | pheg dependency (`pheg()->email()->obfuscate()`) is out of scope; see dropped.md. |
+| `Laravel\Http\Requests\ApiRequest` | DROPPED | The legacy `BaseRequest` subclass only swapped the failed-validation response to a JSON body; build that envelope with `Traits\ApiResponseTrait` (or override `failedValidation()` on a `BaseRequest` subclass). |
+| `Laravel\Http\Requests\BaseRequest` | MIGRATED | Toolkit\Http\Requests\BaseRequest (input sanitization; Unicode-safe name normaliser; legacy discard-of-return bug fixed). |
 | `Laravel\Jobs\BaseJob` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Laravel\Listeners\BaseListener` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Laravel\Listeners\LicenseListener` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
@@ -355,7 +355,7 @@ wire them.
 | `Support\Contracts\LoggerServiceInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
 | `Support\Contracts\ResponseBuilderServiceInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
 | `Support\Contracts\ResponseMacroInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
-| `Support\Contracts\ShovelHttpInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
+| `Support\Contracts\ShovelHttpInterface` | MIGRATED | Toolkit\Http\Contracts\ShovelHttpInterface (HTTP status code constants + reason-phrase map; backs `ApiResponseMiddleware`). |
 | `Support\Contracts\SystemServiceInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
 | `Support\Eloquent\Scopes\ArchiveScope` | MIGRATED | Toolkit\Support\Scopes\ArchiveScope |
 | `Support\Facades\LanguagesFacade` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
