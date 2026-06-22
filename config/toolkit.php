@@ -10,6 +10,8 @@ return [
     'cache' => [
         'default_expiration' => 60,
         'default_tags' => [],
+        // Optional key prefix applied to get/forget/remember/put/many/inc/dec.
+        'namespace' => env('LARANAIL_CACHE_NAMESPACE', ''),
     ],
 
     /*

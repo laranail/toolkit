@@ -11,10 +11,19 @@ current package surfaces, and curated below. The cited drop rationale lives in
 
 | Status | Count | Meaning |
 |---|---:|---|
-| **MIGRATED** | 59 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). |
+| **MIGRATED** | 66 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). Includes 5 **MIGRATED(merged)** symbols folded into an existing class (the short name changes — see note). |
 | **RELOCATED** | 17 | Moved to a sibling package: **16** notification classes → `laranail/notifications`, the `NotificationChannel` enum → same. |
-| **DROPPED** | 203 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
+| **DROPPED** | 196 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
 | **Total** | 279 | |
+
+> **MIGRATED(merged)** — five legacy symbols were *folded into* an existing
+> toolkit class rather than ported 1:1 (G2-3), so their short name disappears.
+> Because `ApiSurfaceTest` matches by short name, these keep a
+> `removed-symbols.json` entry with `status: "merged"` + a `target` (any
+> allowlist entry counts as accounted-for): `CacheService` /
+> `CacheServiceInterface` → `Utilities\CachingUtil`; `StringHelperService` /
+> `StringHelperServiceInterface` → `Helpers\XHelper`; `Support\Utilities\Username`
+> → `Traits\HasFormatters` (name→username, pheg inlined to native `Str`).
 
 > Separately, the `Command` base + `SupportsNamespacedNames` trait (a
 > `toolkit` v0.1.0 addition, **not** an `old/` symbol) were **RELOCATED to
@@ -136,7 +145,7 @@ wire them.
 | `Features\Notifications\Services\NotificationService` | RELOCATED | Notifications\Services\NotificationService (laranail/notifications) |
 | `Features\Notifications\Support\NotificationResult` | RELOCATED | Notifications\Support\NotificationResult (laranail/notifications) |
 | `Foundation\Contracts\AuthenticationServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Contracts\CacheServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Contracts\CacheServiceInterface` | MIGRATED(merged) | Folded into `Toolkit\Utilities\CachingUtil` (remember/rememberForever/put/many/increment/decrement + fluent tags + key namespacing + log-and-fall-back). No separate cache contract kept; `CachingUtil` is bound by class. |
 | `Foundation\Contracts\DatabaseServiceInterface` | MIGRATED | Toolkit\Services\Contracts\DatabaseServiceInterface |
 | `Foundation\Contracts\FileServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\RouteServiceInterface` | MIGRATED | Toolkit\Services\Contracts\RouteServiceInterface |
@@ -151,11 +160,11 @@ wire them.
 | `Foundation\Contracts\Services\LivewireComponentServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\Services\ModelFormatterServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\Services\PackageServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Contracts\Services\StringHelperServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Contracts\Services\StringHelperServiceInterface` | MIGRATED(merged) | Folded into `Toolkit\Helpers\XHelper` (`ucWords`, `usernameFromEmail`, `emailFromUsername`). |
 | `Foundation\Contracts\SessionServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\SystemServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\UtilityServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Contracts\ValidationServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Contracts\ValidationServiceInterface` | MIGRATED | `Toolkit\Services\Contracts\ValidationServiceInterface` (DB-credential methods dropped — see ValidationService row). |
 | `Foundation\Exceptions\FileTooLargeException` | MIGRATED | Toolkit\Exceptions\FileTooLargeException |
 | `Foundation\Exceptions\InvalidPathException` | MIGRATED | Toolkit\Exceptions\InvalidPathException |
 | `Foundation\Exceptions\LaranailException` | MIGRATED | Toolkit\Exceptions\LaranailException |
@@ -167,7 +176,7 @@ wire them.
 | `Foundation\Providers\LaranailServiceProvider` | DROPPED | Superseded by `Providers\ToolkitServiceProvider` (merge/publish/migrations) + native event/listener auto-discovery. |
 | `Foundation\Services\AuthenticationHelperService` | MIGRATED | Toolkit\Services\AuthenticationHelperService |
 | `Foundation\Services\AuthenticationService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Services\CacheService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Services\CacheService` | MIGRATED(merged) | Folded into `Toolkit\Utilities\CachingUtil` — existing `cache`/`get`/`forget` API preserved verbatim; legacy delta added as new methods. |
 | `Foundation\Services\ClassHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\CollectionHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\DatabaseFileService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
@@ -183,10 +192,10 @@ wire them.
 | `Foundation\Services\PackageService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\RouteService` | MIGRATED | Toolkit\Services\RouteService |
 | `Foundation\Services\SessionService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Services\StringHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Services\StringHelperService` | MIGRATED(merged) | Folded into `Toolkit\Helpers\XHelper` (`ucWords`, `usernameFromEmail`, `emailFromUsername`) — de-faceted to static helpers. |
 | `Foundation\Services\SystemService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\UtilityService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Services\ValidationService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Services\ValidationService` | MIGRATED | `Toolkit\Services\ValidationService` (hardened, de-faceted, bound by contract). Error-bag HTML, conditional CSS classes, checkbox status, old-input resolution ported; **every** interpolated value `e()`-escaped + returned as `HtmlString`. **DROPPED-with-reason:** `isValidDbCredentials` / `setDatabaseCredentials` — the legacy pair mutated live `config()` globally and ran a raw `SHOW TABLES`; rebuilding it safely (isolated on-demand connection) is a different, credential-leak-prone feature for negligible benefit. The reachability check `isValidDatabaseConnection()` (via `Schema::hasTable`) is kept. |
 | `Laravel\Commands\AssetCommand` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Laravel\Commands\CronJobCommand` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Laravel\Commands\DatabaseCommand` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
@@ -371,4 +380,4 @@ wire them.
 | `Support\Utilities\SystemIO\DiskSpaceValidator` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
 | `Support\Utilities\SystemIO\Environment` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
 | `Support\Utilities\SystemIO\RequirementsChecker` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
-| `Support\Utilities\Username` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
+| `Support\Utilities\Username` | MIGRATED(merged) | Name→username suggestion folded into `Toolkit\Traits\HasFormatters::suggestUsername()` + the native generator `XHelper::nameToUsernames()`. The legacy `pheg()->name()->name2username()` dependency was **inlined to native `Str`** (slug/substr-based candidates); availability checked via the model's own query. |

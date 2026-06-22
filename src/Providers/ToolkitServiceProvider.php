@@ -28,11 +28,13 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\DatabaseService;
 use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
 use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Services\RouteService;
+use Simtabi\Laranail\Toolkit\Services\ValidationService;
 use Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
@@ -80,6 +82,13 @@ class ToolkitServiceProvider extends ServiceProvider
 
         // HTTP client config builder (seeded from laranail.toolkit.http.*).
         $this->app->bind(HttpConfigurationServiceInterface::class, HttpConfigurationService::class);
+
+        // View-layer validation helpers (session + logger injected; HTML output
+        // is e()-escaped). Folded from the legacy Foundation\ValidationService.
+        $this->app->bind(ValidationServiceInterface::class, fn ($app): ValidationService => new ValidationService(
+            $app->make('session.store'),
+            $app->make(LoggerInterface::class),
+        ));
 
         // Database helpers + maintenance, confined to the application base path.
         $this->app->bind(DatabaseServiceInterface::class, fn ($app): DatabaseService => new DatabaseService(
@@ -276,7 +285,12 @@ class ToolkitServiceProvider extends ServiceProvider
     {
         $config = config('laranail.toolkit.cache');
 
-        $this->app->bind(CachingUtil::class, fn () => new CachingUtil($config['default_expiration'], $config['default_tags']));
+        $this->app->bind(CachingUtil::class, fn ($app): CachingUtil => new CachingUtil(
+            $config['default_expiration'],
+            $config['default_tags'],
+            $app->make(LoggerInterface::class),
+            (string) ($config['namespace'] ?? ''),
+        ));
     }
 
     /**

@@ -68,8 +68,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\CacheServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\FileServiceInterface": {
     "status": "dropped",
@@ -108,8 +108,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\StringHelperServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\SessionServiceInterface": {
     "status": "dropped",
@@ -120,10 +120,6 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\UtilityServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\ValidationServiceInterface": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
@@ -156,8 +152,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\CacheService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\ClassHelperService": {
     "status": "dropped",
@@ -200,18 +196,14 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\StringHelperService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\SystemService": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\UtilityService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\ValidationService": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
@@ -876,7 +868,7 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\Username": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters"
   }
 }

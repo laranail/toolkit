@@ -44,4 +44,56 @@ class XHelperTest extends TestCase
             XHelper::uuid(),
         );
     }
+
+    // --- Folded-in StringHelperService delta ---
+
+    public function test_uc_words_title_cases_multibyte(): void
+    {
+        $this->assertSame('Hello World', XHelper::ucWords('hello world'));
+        $this->assertSame('Élan Vital', XHelper::ucWords('élan vital'));
+    }
+
+    public function test_username_from_email_strips_and_prefixes(): void
+    {
+        $this->assertSame('john.doe', XHelper::usernameFromEmail('john.doe@example.com'));
+        // Local part starting with a non-letter gets a user_ prefix.
+        $this->assertSame('user_123abc', XHelper::usernameFromEmail('123abc@example.com'));
+        // Nothing usable falls back to "user".
+        $this->assertSame('user', XHelper::usernameFromEmail('!!!@example.com'));
+    }
+
+    public function test_email_from_username_appends_domain_or_passes_through(): void
+    {
+        $this->assertSame('jane@example.com', XHelper::emailFromUsername('jane'));
+        $this->assertSame('jane@corp.test', XHelper::emailFromUsername('jane', 'corp.test'));
+        // Already an email — returned unchanged.
+        $this->assertSame('jane@x.com', XHelper::emailFromUsername('jane@x.com'));
+    }
+
+    // --- Folded-in Username (pheg-free native generator) ---
+
+    public function test_name_to_usernames_generates_native_candidates(): void
+    {
+        $candidates = XHelper::nameToUsernames('Jane', 'Doe');
+
+        $this->assertContains('janedoe', $candidates);
+        $this->assertContains('jane.doe', $candidates);
+        $this->assertContains('jdoe', $candidates);
+        // No duplicates and no empty entries.
+        $this->assertSame($candidates, array_values(array_unique($candidates)));
+        $this->assertNotContains('', $candidates);
+    }
+
+    public function test_name_to_usernames_handles_missing_last_name(): void
+    {
+        $candidates = XHelper::nameToUsernames('Madonna');
+
+        $this->assertContains('madonna', $candidates);
+        $this->assertNotEmpty($candidates);
+    }
+
+    public function test_name_to_usernames_empty_for_blank_input(): void
+    {
+        $this->assertSame([], XHelper::nameToUsernames('', ''));
+    }
 }

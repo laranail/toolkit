@@ -6,6 +6,7 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
 
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Support\Facades\Cache;
+use Psr\Log\AbstractLogger;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
 
@@ -127,5 +128,113 @@ class CachingUtilTest extends TestCase
         $result = $this->cachingUtil->cache($key, $data, null, $tags);
 
         $this->assertEquals($data, $result);
+    }
+
+    // --- Folded-in legacy delta (remember/put/many/inc/dec/tags/namespacing) ---
+
+    public function test_remember_computes_stores_and_returns_value(): void
+    {
+        $calls = 0;
+        $compute = function () use (&$calls) {
+            $calls++;
+
+            return 'computed';
+        };
+
+        $this->assertSame('computed', $this->cachingUtil->remember('rk', $compute));
+        // Second call hits the cache; the callback must not run again.
+        $this->assertSame('computed', $this->cachingUtil->remember('rk', $compute));
+        $this->assertSame(1, $calls);
+    }
+
+    public function test_remember_forever_caches_value(): void
+    {
+        $value = $this->cachingUtil->rememberForever('rfk', fn () => 'forever');
+
+        $this->assertSame('forever', $value);
+        $this->assertSame('forever', $this->cachingUtil->get('rfk'));
+    }
+
+    public function test_put_writes_value_and_returns_true(): void
+    {
+        $this->assertTrue($this->cachingUtil->put('pk', 'pv'));
+        $this->assertSame('pv', $this->cachingUtil->get('pk'));
+    }
+
+    public function test_many_returns_values_keyed_by_original_keys(): void
+    {
+        $this->cachingUtil->put('a', 1);
+        $this->cachingUtil->put('b', 2);
+
+        $this->assertSame(
+            ['a' => 1, 'b' => 2, 'missing' => 'def'],
+            $this->cachingUtil->many(['a', 'b', 'missing'], 'def'),
+        );
+    }
+
+    public function test_increment_and_decrement(): void
+    {
+        $this->cachingUtil->put('counter', 5);
+
+        $this->assertSame(6, $this->cachingUtil->increment('counter'));
+        $this->assertSame(4, $this->cachingUtil->decrement('counter', 2));
+    }
+
+    public function test_namespace_prefix_is_applied_to_namespaced_writes(): void
+    {
+        $namespaced = new CachingUtil(60, [], null, 'app1');
+        $namespaced->put('shared', 'one');
+
+        // put() prefixes the key; the value lands under "app1:shared", not "shared".
+        $this->assertSame('one', Cache::get('app1:shared'));
+        $this->assertNull(Cache::get('shared'));
+
+        // remember() reads back via the same prefix.
+        $this->assertSame('one', $namespaced->remember('shared', fn () => 'recomputed'));
+    }
+
+    public function test_tags_returns_a_distinct_clone(): void
+    {
+        $tagged = $this->cachingUtil->tags(['x', 'y']);
+
+        $this->assertInstanceOf(CachingUtil::class, $tagged);
+        $this->assertNotSame($this->cachingUtil, $tagged);
+    }
+
+    public function test_remember_falls_back_to_callback_and_logs_on_store_failure(): void
+    {
+        $logger = new CollectingTestLogger();
+        $util = new CachingUtil(60, [], $logger);
+
+        // Force the underlying store to throw on remember().
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
+        Cache::shouldReceive('tags')->andReturnSelf();
+        Cache::shouldReceive('store')->andThrow(new \RuntimeException('backend down'));
+
+        $result = $util->remember('boom', fn () => 'fallback');
+
+        $this->assertSame('fallback', $result);
+        $this->assertNotEmpty($logger->errors);
+    }
+}
+
+/**
+ * Minimal PSR-3 logger that records `error`-level messages for assertions.
+ */
+class CollectingTestLogger extends AbstractLogger
+{
+    /** @var list<string> */
+    public array $errors = [];
+
+    /**
+     * @param mixed              $level
+     * @param string|\Stringable $message
+     * @param array<mixed>       $context
+     */
+    public function log($level, $message, array $context = []): void
+    {
+        if ($level === 'error') {
+            $this->errors[] = (string) $message;
+        }
     }
 }

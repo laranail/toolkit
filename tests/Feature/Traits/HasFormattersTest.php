@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Traits;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\HasFormatters;
@@ -55,5 +56,25 @@ class HasFormattersTest extends TestCase
         $record = new FormattableRecord(['content' => str_repeat('a', 200)]);
 
         $this->assertSame(13, mb_strlen($record->excerpt(10)));
+    }
+
+    public function test_suggest_username_returns_first_available_candidate(): void
+    {
+        Schema::create('formattable_records', function ($table): void {
+            $table->increments('id');
+            $table->string('username')->nullable();
+        });
+
+        // Take the primary candidate so the suggester skips to the next one.
+        FormattableRecord::query()->create(['username' => 'janedoe']);
+
+        $suggestion = new FormattableRecord()->suggestUsername('Jane', 'Doe');
+
+        // The taken primary candidate must be skipped, and the result must be free.
+        $this->assertNotSame('janedoe', $suggestion);
+        $this->assertNotSame('', $suggestion);
+        $this->assertFalse(FormattableRecord::query()->where('username', $suggestion)->exists());
+
+        Schema::drop('formattable_records');
     }
 }
