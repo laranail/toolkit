@@ -12,6 +12,18 @@ return [
         'default_tags' => [],
     ],
 
+    /*
+     * Guzzle / HTTP client defaults consumed by Services\HttpConfigurationService.
+     * Each value is overridable via its env key; the service reads these under
+     * `laranail.toolkit.http.*` (merged from this file).
+     */
+    'http' => [
+        'persist_connection' => env('GUZZLE_PERSIST_CONNECTION', true),
+        'request_timeout' => env('GUZZLE_REQUEST_TIMEOUT', 60),
+        'max_retries' => env('GUZZLE_MAX_RETRIES', 10),
+        'cache_ttl' => env('GUZZLE_CACHE_TTL', 10),
+    ],
+
     'access_log' => [
         // Toggle persistence of the access.log middleware.
         'enabled' => env('LARANAIL_ACCESS_LOG_ENABLED', true),

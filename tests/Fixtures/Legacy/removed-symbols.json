@@ -71,15 +71,7 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\DatabaseServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Foundation\\Contracts\\FileServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\RouteServiceInterface": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
@@ -100,10 +92,6 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\FileHelperServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\HttpConfigurationServiceInterface": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
@@ -183,10 +171,6 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Foundation\\Services\\DatabaseService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Foundation\\Services\\FakerHelperService": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -199,10 +183,6 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Foundation\\Services\\HttpConfigurationService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Foundation\\Services\\LivewireComponentService": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -211,15 +191,7 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Foundation\\Services\\ModelService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Foundation\\Services\\PackageService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\RouteService": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
@@ -860,10 +832,6 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Services\\Atlas\\Languages": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Support\\Traits\\HasGuzzleConfig": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },

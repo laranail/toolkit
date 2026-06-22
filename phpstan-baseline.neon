@@ -875,3 +875,57 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Utilities/QueryParameterUtil.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:orderBy\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:select\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:addSelect\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Variable property access on Illuminate\\Database\\Eloquent\\Model\.$#'
+			identifier: property.dynamicName
+			count: 2
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$parent_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$depth\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Parameter \#1 \$value of method Illuminate\\Database\\Connection\:\:raw\(\) expects float\|int\|literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasGuzzleConfig is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasGuzzleConfig.php

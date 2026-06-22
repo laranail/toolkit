@@ -7,6 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Providers;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Helpers\XHelper;
 use Simtabi\Laranail\Toolkit\Macros\MacroServiceProvider;
@@ -23,8 +24,15 @@ use Simtabi\Laranail\Toolkit\Modules\Llm\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Services\AuthenticationHelperService;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\DatabaseService;
 use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
+use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
+use Simtabi\Laranail\Toolkit\Services\ModelService;
+use Simtabi\Laranail\Toolkit\Services\RouteService;
 use Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
@@ -66,6 +74,24 @@ class ToolkitServiceProvider extends ServiceProvider
         // consuming object gets its own error/auth context).
         $this->app->bind(ErrorStorageServiceInterface::class, ErrorStorageService::class);
         $this->app->bind(AuthenticationHelperServiceInterface::class, AuthenticationHelperService::class);
+
+        // Request-scoped route helpers (Router + Request are container-resolved).
+        $this->app->bind(RouteServiceInterface::class, RouteService::class);
+
+        // HTTP client config builder (seeded from laranail.toolkit.http.*).
+        $this->app->bind(HttpConfigurationServiceInterface::class, HttpConfigurationService::class);
+
+        // Database helpers + maintenance, confined to the application base path.
+        $this->app->bind(DatabaseServiceInterface::class, fn ($app): DatabaseService => new DatabaseService(
+            $app->make(LoggerInterface::class),
+            $app->make('session.store'),
+            $app->basePath(),
+        ));
+
+        // Eloquent model helpers (no contract in the legacy surface).
+        $this->app->bind(ModelService::class, fn ($app): ModelService => new ModelService(
+            $app->make(LoggerInterface::class),
+        ));
 
         // Register base LLM Provider interface with provider selection
         $this->app->bind(LLMProviderInterface::class, function ($app) {
