@@ -30,21 +30,29 @@ class MacroRegistrationTest extends TestCase
         'Str' => [
             'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
             'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'replaceMany',
-            'reverseString', 'countWords', 'removeAccents',
+            'reverseString', 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
         ],
         'Stringable' => [
             'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
             'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'reverseString',
-            'countWords', 'removeAccents',
+            'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
         ],
         'Collection' => [
             'transpose', 'recursive', 'mapToKey', 'filterRecursive', 'firstOrFail',
             'sumRecursive', 'averageBy', 'toCsv', 'prioritize', 'rotateLeft', 'rotateRight',
             'toTree', 'insertAfter', 'insertBefore',
+            // G6a: navigation / positional.
+            'before', 'insertAt', 'rotate', 'firstOrPush',
+            // G6a: consecutive-window / predicate chunking.
+            'eachCons', 'sliceBefore', 'chunkBy', 'groupByModel',
+            // G6a: reshape / conditional.
+            'forSelectBox', 'extract', 'tail', 'toPairs', 'fromPairs', 'ifEmpty',
         ],
         'Arr' => [
             'filterNulls', 'filterEmpty', 'mapKeys', 'insertAfter', 'insertBefore', 'removeValue',
             'removeValues', 'renameKey', 'average', 'median', 'groupByKey', 'uniqueBy', 'sortByKeys',
+            // G6a: multi-rename map.
+            'renameKeys',
         ],
         'QueryBuilder' => [
             'whenFilled', 'whereBetweenDates', 'orderByNullsLast', 'orderByNullsFirst', 'log',
@@ -166,8 +174,18 @@ class MacroRegistrationTest extends TestCase
         'Request::isAjax / getUserAgent / isHttps / getClientIps / getBearerToken / getFullUrlWithQuery / getQueryString' => 'Trivial one-to-one aliases of native Request methods.',
         'Request::getPreferredLanguage' => 'Macro recursed into the native method of the same name (infinite loop).',
 
+        // G6a: useful Collection/Str micro-classes folded into the grouped macro
+        // providers. The short name changes (each is now a registered macro, not
+        // a class) — see KEPT['Collection']/['Str']/['Arr'] and the ledger.
+        'Macros\\Before / InsertAt / Rotate / FirstOrPush / EachCons / SliceBefore / ChunkBy / GroupByModel / ForSelectBox / Extract / Tail / ToPairs / FromPairs / IfEmpty' => 'Folded into Macros\\CollectionMacros as registered Collection macros (G6a).',
+        'Macros\\RenameKeys' => 'Folded into Macros\\ArrMacros as the Arr::renameKeys multi-rename macro (G6a).',
+        'Macros\\ReadingMinutes / HighlightWords' => 'Folded into Macros\\StringMacros as Str/Stringable macros (G6a); HighlightWords emits e()-escaped HtmlString.',
+
+        // Native-duplicative / broken legacy macros, kept dropped.
+        'Str::initials / Stringable::initials (legacy Macros\\Initials)' => 'Native Str::initials exists; the legacy macro called a nonexistent Str::interpolate.',
+
         // Orphaned invokable micro-classes (unreferenced by any grouped provider).
-        'Orphaned Macros/* micro-classes (After, Before, At, Bind, ChunkBy, Decrement, EachCons, Nth-ordinals, FilterMap, FirstOrPush, FromBase64/Json/Pairs, Glob, Head, Tail, Human, IfMacro, Interpolate, Ksort/Krsort/Rsort, Paginate*, ParallelMap, PluckMany, Recursive, RenameKeys, ReplaceInKeys, Rotate, Round5, SectionBy, SliceBefore, StripTags, ToBase64, ToPairs, Transpose, TryCatch, Validate, WhenEquals, Where*, WithSize, WordsCount, etc.)' => 'Unreferenced by any provider; dead code, or redundant with kept inline macros.',
+        'Orphaned Macros/* micro-classes (After, At, Bind, Decrement, Nth-ordinals, FilterMap, FromBase64/Json, Glob, Head, Human, IfMacro, Interpolate, Initials, Ksort/Krsort/Rsort, Paginate*, ParallelMap, PluckMany, Recursive, ReplaceInKeys, Round5, SectionBy, StripTags, ToBase64, Transpose, TryCatch, Validate, WhenEquals, Where*, WithSize, WordsCount, etc.)' => 'Unreferenced by any provider; dead code, or redundant with kept inline macros.',
     ];
 
     public function test_dropped_inventory_is_documented(): void

@@ -10,19 +10,27 @@ are included — native duplicates were intentionally dropped (see
 `kebabToTitle`, `snakeToTitle`, `camelToTitle`, `truncateMiddle($len = 50,
 $middle = '...')`, `isEmail`, `stripWhitespace`, `normalizeWhitespace`, `toBool`,
 `wrapWith($wrapper = '"')`, `replaceMany($replacements)` (Str only),
-`reverseString`, `countWords`, `removeAccents`.
+`reverseString`, `countWords`, `removeAccents`,
+`readingMinutes($wordsPerMinute = 200)`, `highlightWords($words)`.
 
 ```php
 Str::camelToTitle('helloWorld');          // "Hello World"
 Str::truncateMiddle('a-very-long-name');  // "a-very-...name"
 str('Café')->removeAccents();             // "Cafe"
+Str::readingMinutes($article);            // 4
+Str::highlightWords('the quick fox', 'quick'); // HtmlString: "the <mark>quick</mark> fox"
 ```
+
+`highlightWords` is XSS-safe: the input text is `e()`-escaped, only matched terms
+are wrapped in `<mark>…</mark>`, and the result is returned as an
+`Illuminate\Support\HtmlString`.
 
 ## Arr macros
 
 `filterNulls`, `filterEmpty`, `mapKeys($cb)`, `insertAfter($key, $insert)`,
 `insertBefore($key, $insert)`, `removeValue($value)`, `removeValues($values)`,
-`renameKey($old, $new)`, `average($key = null)`, `median($key = null)`,
+`renameKey($old, $new)`, `renameKeys($changes)` (multi-rename from an
+`[old => new]` map), `average($key = null)`, `median($key = null)`,
 `groupByKey($key)`, `uniqueBy($key)`, `sortByKeys($keys)`.
 
 ```php
@@ -37,11 +45,20 @@ Arr::average($rows, 'score');
 `averageBy($cb)`, `toCsv($delimiter = ',', $enclosure = '"', $escape = '\\')`,
 `prioritize($cb)`, `rotateLeft($count = 1)`, `rotateRight($count = 1)`,
 `toTree($parentKey = 'parent_id', $childrenKey = 'children')`,
-`insertAfter($key, $value)`, `insertBefore($key, $value)`.
+`insertAfter($key, $value)`, `insertBefore($key, $value)`,
+`before($current, $strict = false)`, `insertAt($index, $item, $key = null)`,
+`rotate($offset)` (signed), `firstOrPush($cb, $value, $instance = null)`,
+`eachCons($size, $preserveKeys = false)` (overlapping windows),
+`sliceBefore($cb, $preserveKeys = false)`, `chunkBy($cb, $preserveKeys = false)`,
+`groupByModel($cb, $modelKey = 0, $itemsKey = 1)`,
+`forSelectBox($key, $value, $addEmpty = true)`, `extract($keys)`,
+`tail($preserveKeys = false)`, `toPairs()`, `fromPairs()`, `ifEmpty($cb)`.
 
 ```php
 collect($flatRows)->toTree('parent_id'); // nested children tree
 collect($items)->prioritize(fn ($i) => $i->pinned);
+collect([1, 1, 2, 3, 3])->chunkBy(fn ($n) => $n); // [[1,1],[2],[3,3]]
+collect($rows)->forSelectBox('id', 'name');       // ['' => '', 5 => 'Apple', ...]
 ```
 
 ## Query builder macros

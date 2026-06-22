@@ -100,8 +100,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ModelFormatterServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters (working formatters folded, G6d)"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\PackageServiceInterface": {
     "status": "dropped",
@@ -184,8 +184,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\ModelFormatterService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters (working formatters folded, G6d)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\PackageService": {
     "status": "dropped",
@@ -276,8 +276,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Before": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Bind": {
     "status": "dropped",
@@ -300,8 +300,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\ChunkBy": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\CollectBy": {
     "status": "dropped",
@@ -320,8 +320,8 @@
     "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\EachCons": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Eighth": {
     "status": "dropped",
@@ -332,8 +332,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Extract": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Fifth": {
     "status": "dropped",
@@ -352,12 +352,12 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\FirstOrPush": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\ForSelectBox": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Fourth": {
     "status": "dropped",
@@ -376,8 +376,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\FromPairs": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\GenerateName": {
     "status": "dropped",
@@ -400,16 +400,16 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\GroupByModel": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Head": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\HighlightWords": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (folded as a Str/Stringable macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Human": {
     "status": "dropped",
@@ -420,8 +420,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\IfEmpty": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\IfMacro": {
     "status": "dropped",
@@ -452,8 +452,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\InsertAt": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\InsertBefore": {
     "status": "dropped",
@@ -556,16 +556,16 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\ReadingMinutes": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (folded as a Str/Stringable macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Recursive": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\RenameKeys": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ArrMacros (folded as the Arr::renameKeys macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\ReplaceInKeys": {
     "status": "dropped",
@@ -576,8 +576,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Rotate": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Round5": {
     "status": "dropped",
@@ -608,8 +608,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\SliceBefore": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\StripTags": {
     "status": "dropped",
@@ -624,8 +624,8 @@
     "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Tail": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Tenth": {
     "status": "dropped",
@@ -640,8 +640,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\ToPairs": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\Transpose": {
     "status": "dropped",
@@ -820,16 +820,12 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\Auth": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\AuthUtil"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\BladeDirectives": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Providers\\BladeServiceProvider"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\DatabaseSession": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\Runners\\ConditionalRunner": {
     "status": "dropped",
@@ -840,12 +836,12 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\Environment": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\EnvironmentUtil"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\RequirementsChecker": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics (useful probes folded, G6c)"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\Username": {
     "status": "merged",

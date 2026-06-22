@@ -92,6 +92,21 @@ final class ArrMacros extends ServiceProvider
             return array_combine($keys, $array);
         });
 
+        // Rename many keys at once from an [oldKey => newKey] map; missing keys
+        // are skipped (the legacy version assumed each old key existed).
+        Arr::macro('renameKeys', function (array $array, array $changes): array {
+            foreach ($changes as $oldKey => $newKey) {
+                if (!array_key_exists($oldKey, $array)) {
+                    continue;
+                }
+
+                $array[$newKey] = $array[$oldKey];
+                unset($array[$oldKey]);
+            }
+
+            return $array;
+        });
+
         Arr::macro('average', function (array $array, ?string $key = null): float|int {
             if ($key !== null) {
                 $array = Arr::pluck($array, $key);

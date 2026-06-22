@@ -92,6 +92,63 @@ trait HasFormatters
     }
 
     /**
+     * Format the model's `content` attribute, optionally stripping HTML and/or
+     * truncating.
+     *
+     * Folded from the legacy `ModelFormatterService` (the only formatters there
+     * with real bodies — its address/display-name methods returned `''`).
+     *
+     * @param array{strip_html?: bool, truncate?: int} $options
+     */
+    public function formattedContent(array $options = []): string
+    {
+        $content = (string) ($this->getAttribute('content') ?? '');
+
+        if (($options['strip_html'] ?? false) === true) {
+            $content = strip_tags($content);
+        }
+
+        if (array_key_exists('truncate', $options)) {
+            $content = Str::limit($content, (int) $options['truncate']);
+        }
+
+        return $content;
+    }
+
+    /**
+     * Join non-empty address components into a single comma-separated line.
+     *
+     * @param array<array-key, string|null> $components
+     */
+    public function formatAddress(array $components): string
+    {
+        $parts = array_filter(
+            array_map(static fn (?string $value): string => trim((string) $value), $components),
+            static fn (string $value): bool => $value !== '',
+        );
+
+        return implode(', ', $parts);
+    }
+
+    /**
+     * Join two address lines, omitting the second when empty.
+     */
+    public function formatAddressLine(string $line1, ?string $line2 = null): string
+    {
+        return $line2 === null || trim($line2) === ''
+            ? $line1
+            : $line1 . ', ' . $line2;
+    }
+
+    /**
+     * Format a "City, State ZIP" line with consistent casing.
+     */
+    public function formatCityStateZip(string $city, string $state, string $zip): string
+    {
+        return Str::ucwords($city) . ', ' . Str::ucwords($state) . ' ' . Str::upper($zip);
+    }
+
+    /**
      * Suggest a username derived from a person's name that is not already taken
      * in the given column.
      *

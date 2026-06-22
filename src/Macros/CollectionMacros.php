@@ -179,5 +179,223 @@ final class CollectionMacros extends ServiceProvider
 
             return new Collection($start)->merge([$key => $value])->merge($end);
         });
+
+        $this->registerNavigationMacros();
+        $this->registerChunkingMacros();
+        $this->registerReshapeMacros();
+    }
+
+    /**
+     * Item-navigation and positional-insertion macros.
+     */
+    private function registerNavigationMacros(): void
+    {
+        // The previous item relative to $current (mirror of the native after()).
+        // Returns null when $current is the first item or is not present.
+        Collection::macro('before', function (mixed $current, bool $strict = false): mixed {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->reverse()->after($current, $strict);
+        });
+
+        // Insert $item at a positional $index (optionally keyed). Returns a new
+        // collection — unlike the legacy version it does not mutate in place.
+        Collection::macro('insertAt', function (int $index, mixed $item, mixed $key = null): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $head = $this->slice(0, $index);
+            $tail = $this->slice($index);
+
+            $inserted = $key !== null ? new Collection([$key => $item]) : new Collection([$item]);
+
+            return $head->merge($inserted)->merge($tail)->values();
+        });
+
+        // Rotate items by a (possibly negative) offset.
+        Collection::macro('rotate', function (int $offset): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            if ($this->isEmpty()) {
+                return new Collection([]);
+            }
+
+            $count = $this->count();
+            $offset %= $count;
+
+            if ($offset < 0) {
+                $offset += $count;
+            }
+
+            return $this->slice($offset)->merge($this->take($offset))->values();
+        });
+
+        // First item passing $callback, or push value($value) onto $instance
+        // (defaulting to this collection) and return it.
+        Collection::macro('firstOrPush', function (
+            callable $callback,
+            mixed $value,
+            ?Collection $instance = null,
+        ): mixed {
+            /** @var Collection<array-key, mixed> $this */
+            $found = $this->first($callback);
+
+            if ($found !== null) {
+                return $found;
+            }
+
+            $resolved = value($value);
+            ($instance ?? $this)->push($resolved);
+
+            return $resolved;
+        });
+    }
+
+    /**
+     * Consecutive-window and predicate-chunking macros.
+     */
+    private function registerChunkingMacros(): void
+    {
+        // Consecutive overlapping windows of $chunkSize items.
+        Collection::macro('eachCons', function (int $chunkSize, bool $preserveKeys = false): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $result = new Collection([]);
+            $limit = $this->count() - $chunkSize;
+
+            for ($index = 0; $index <= $limit; $index++) {
+                $window = $this->slice($index, $chunkSize);
+                $result->push($preserveKeys ? $window : $window->values());
+            }
+
+            return $preserveKeys ? $result : $result->values();
+        });
+
+        // Split into chunks before each point where $callback's result changes.
+        Collection::macro('sliceBefore', function (callable $callback, bool $preserveKeys = false): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            if ($this->isEmpty()) {
+                return new Collection([]);
+            }
+
+            $chunks = new Collection([]);
+            $current = null;
+
+            foreach ($this as $key => $item) {
+                if ($current === null) {
+                    $current = $preserveKeys ? new Collection([$key => $item]) : new Collection([$item]);
+
+                    continue;
+                }
+
+                $previous = $current->last();
+
+                if ($callback($item, $previous)) {
+                    $chunks->push($current);
+                    $current = $preserveKeys ? new Collection([$key => $item]) : new Collection([$item]);
+                } elseif ($preserveKeys) {
+                    $current->put($key, $item);
+                } else {
+                    $current->push($item);
+                }
+            }
+
+            if ($current instanceof Collection) {
+                $chunks->push($current);
+            }
+
+            return $chunks;
+        });
+
+        // Chunk while $callback's result over consecutive items stays the same.
+        Collection::macro('chunkBy', function (callable $callback, bool $preserveKeys = false): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->sliceBefore(
+                static fn (mixed $item, mixed $previous): bool => $callback($item) !== $callback($previous),
+                $preserveKeys,
+            );
+        });
+
+        // Group by an Eloquent model resolved from each item, returning rows of
+        // [model, items].
+        Collection::macro('groupByModel', function (
+            callable|string $callback,
+            mixed $modelKey = 0,
+            mixed $itemsKey = 1,
+        ): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $resolver = is_string($callback)
+                ? static fn (mixed $item): mixed => data_get($item, $callback)
+                : $callback;
+
+            return $this
+                ->groupBy(static fn (mixed $item): int|string => $resolver($item)->getKey())
+                ->map(static fn (Collection $items): array => [
+                    $modelKey => $resolver($items->first()),
+                    $itemsKey => $items,
+                ])
+                ->values();
+        });
+    }
+
+    /**
+     * Key/value reshaping and conditional macros.
+     */
+    private function registerReshapeMacros(): void
+    {
+        // Sort by lowercased $value, key by $key, optionally prepend an empty option.
+        Collection::macro('forSelectBox', function (string $key, string $value, bool $addEmpty = true): array {
+            /** @var Collection<array-key, mixed> $this */
+            $options = $this
+                ->sortBy(static fn (mixed $item): string => mb_strtolower((string) data_get($item, $value)))
+                ->mapWithKeys(static fn (mixed $item): array => [
+                    data_get($item, $key) => data_get($item, $value),
+                ])
+                ->all();
+
+            return $addEmpty ? ['' => ''] + $options : $options;
+        });
+
+        // Pull the given keys in order, substituting null for missing ones, and
+        // drop the keys so list() destructuring works.
+        Collection::macro('extract', function (mixed $keys): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $keys = is_array($keys) ? $keys : func_get_args();
+
+            return new Collection(array_map(
+                fn (mixed $key): mixed => data_get($this->all(), $key),
+                $keys,
+            ));
+        });
+
+        // Everything except the first item.
+        Collection::macro('tail', function (bool $preserveKeys = false): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            return $preserveKeys ? $this->slice(1) : $this->slice(1)->values();
+        });
+
+        // To a collection of [key, value] pairs.
+        Collection::macro('toPairs', function (): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->map(static fn (mixed $value, mixed $key): array => [$key, $value])->values();
+        });
+
+        // From a collection of [key, value] pairs back to an associative collection.
+        Collection::macro('fromPairs', function (): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $assoc = [];
+
+            foreach ($this as $pair) {
+                [$key, $value] = $pair;
+                $assoc[$key] = $value;
+            }
+
+            return new Collection($assoc);
+        });
+
+        // Run $callback when the collection is empty, then return the collection.
+        Collection::macro('ifEmpty', function (callable $callback): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            if ($this->isEmpty()) {
+                $callback($this);
+            }
+
+            return $this;
+        });
     }
 }

@@ -49,6 +49,45 @@ class RequirementsDiagnosticsTest extends TestCase
         $this->assertFalse($this->diagnostics->isDirectoryWritable('/this/path/does/not/exist/and/is/not/writable'));
     }
 
+    public function test_missing_extensions_lists_only_absent_ones(): void
+    {
+        $this->assertSame([], $this->diagnostics->missingExtensions(['json', 'mbstring']));
+        $this->assertSame(
+            ['definitely_not_a_real_extension'],
+            $this->diagnostics->missingExtensions(['json', 'definitely_not_a_real_extension']),
+        );
+    }
+
+    public function test_disk_space_probe_reports_free_space(): void
+    {
+        $result = $this->diagnostics->checkDiskSpace(sys_get_temp_dir());
+
+        $this->assertSame(
+            ['path', 'free', 'total', 'minimum', 'available', 'sufficient'],
+            array_keys($result),
+        );
+        $this->assertTrue($result['available']);
+        $this->assertIsInt($result['free']);
+        $this->assertTrue($result['sufficient']); // no minimum given
+    }
+
+    public function test_disk_space_probe_flags_an_impossible_minimum(): void
+    {
+        $result = $this->diagnostics->checkDiskSpace(sys_get_temp_dir(), PHP_INT_MAX);
+
+        $this->assertTrue($result['available']);
+        $this->assertFalse($result['sufficient']);
+    }
+
+    public function test_disk_space_probe_degrades_on_unreadable_path(): void
+    {
+        $result = $this->diagnostics->checkDiskSpace('/this/path/does/not/exist');
+
+        $this->assertFalse($result['available']);
+        $this->assertNull($result['free']);
+        $this->assertFalse($result['sufficient']);
+    }
+
     public function test_about_array_exposes_expected_keys(): void
     {
         $about = $this->diagnostics->toAboutArray();
@@ -57,6 +96,7 @@ class RequirementsDiagnosticsTest extends TestCase
         $this->assertArrayHasKey('Minimum PHP', $about);
         $this->assertArrayHasKey('Required Extensions', $about);
         $this->assertArrayHasKey('Storage Writable', $about);
+        $this->assertArrayHasKey('Storage Free Space', $about);
     }
 
     public function test_about_command_registration_does_not_error(): void

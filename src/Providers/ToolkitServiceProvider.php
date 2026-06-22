@@ -44,6 +44,7 @@ use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
 use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
 use Simtabi\Laranail\Toolkit\Utilities\ConfigUtil;
+use Simtabi\Laranail\Toolkit\Utilities\EnvironmentUtil;
 use Simtabi\Laranail\Toolkit\Utilities\FeatureToggleUtil;
 use Simtabi\Laranail\Toolkit\Utilities\FilteringUtil;
 use Simtabi\Laranail\Toolkit\Utilities\LoggingUtil;
@@ -212,6 +213,8 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->publishUtility('PaginationUtil', 'paginator');
         $this->publishUtility('FilteringUtil', 'filtering');
         $this->publishUtility('LoggingUtil', 'logging');
+        $this->publishUtility('EnvironmentUtil', 'environment');
+        $this->publishUtility('AuthUtil', 'auth-util');
 
         // Load utilities
         $classes = [
@@ -223,6 +226,7 @@ class ToolkitServiceProvider extends ServiceProvider
             FilteringUtil::class,
             FeatureToggleUtil::class,
             LoggingUtil::class,
+            EnvironmentUtil::class,
         ];
 
         $this->loadUtilityClasses($classes);

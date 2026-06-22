@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -69,6 +70,41 @@ final class StringMacros extends ServiceProvider
 
             return $converted === false ? $string : $converted;
         });
+
+        // Estimated reading time in (rounded-up) minutes for a body of text.
+        Str::macro('readingMinutes', function (string $string, int $wordsPerMinute = 200): int {
+            $wordsPerMinute = max(1, $wordsPerMinute);
+            $words = str_word_count(strip_tags($string));
+
+            return max(1, (int) ceil($words / $wordsPerMinute));
+        });
+
+        // Wrap each occurrence of the given term(s) in <mark>…</mark>. The input
+        // text is e()-escaped first and only the matched terms are wrapped, so
+        // the result is always safe HTML — returned as an HtmlString.
+        Str::macro('highlightWords', function (string $string, string|array $words): HtmlString {
+            $terms = array_filter(
+                array_map(static fn (mixed $word): string => trim((string) $word), (array) $words),
+                static fn (string $word): bool => $word !== '',
+            );
+
+            $escaped = e($string);
+
+            if ($terms === []) {
+                return new HtmlString($escaped);
+            }
+
+            // Match against the already-escaped haystack using escaped needles so
+            // terms containing HTML-special chars (", &, <, >) still highlight.
+            $pattern = '/(' . implode('|', array_map(
+                static fn (string $term): string => preg_quote(e($term), '/'),
+                $terms,
+            )) . ')/iu';
+
+            $highlighted = preg_replace($pattern, '<mark>$1</mark>', $escaped);
+
+            return new HtmlString($highlighted ?? $escaped);
+        });
     }
 
     private function registerStringableMacros(): void
@@ -131,6 +167,16 @@ final class StringMacros extends ServiceProvider
         Stringable::macro('removeAccents', function (): Stringable {
             /** @var Stringable $this */
             return new Stringable(Str::removeAccents((string) $this));
+        });
+
+        Stringable::macro('readingMinutes', function (int $wordsPerMinute = 200): int {
+            /** @var Stringable $this */
+            return Str::readingMinutes((string) $this, $wordsPerMinute);
+        });
+
+        Stringable::macro('highlightWords', function (string|array $words): HtmlString {
+            /** @var Stringable $this */
+            return Str::highlightWords((string) $this, $words);
         });
     }
 }

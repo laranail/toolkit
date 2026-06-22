@@ -110,6 +110,62 @@ final class RequirementsDiagnostics
     }
 
     /**
+     * Report which of the given extensions are missing (the inverse view of
+     * {@see checkExtensions()}), handy for a single "all good?" answer.
+     *
+     * @param list<string>|null $extensions
+     *
+     * @return list<string>
+     */
+    public function missingExtensions(?array $extensions = null): array
+    {
+        return array_keys(array_filter(
+            $this->checkExtensions($extensions),
+            static fn (bool $loaded): bool => !$loaded,
+        ));
+    }
+
+    /**
+     * Probe free disk space at the given path against an optional minimum.
+     *
+     * `disk_total_space` / `disk_free_space` can return false (unreadable path,
+     * restricted SAPI); that is reported as `available: false` rather than
+     * throwing, so the probe degrades gracefully.
+     *
+     * @return array{
+     *     path: string,
+     *     free: int|null,
+     *     total: int|null,
+     *     minimum: int|null,
+     *     available: bool,
+     *     sufficient: bool,
+     * }
+     */
+    public function checkDiskSpace(?string $path = null, ?int $minimumBytes = null): array
+    {
+        $path ??= storage_path();
+
+        $free = is_dir($path) ? disk_free_space($path) : false;
+        $total = is_dir($path) ? disk_total_space($path) : false;
+
+        $freeBytes = $free === false ? null : (int) $free;
+        $totalBytes = $total === false ? null : (int) $total;
+        $available = $freeBytes !== null;
+
+        $sufficient = $available
+            && ($minimumBytes === null || $freeBytes >= $minimumBytes);
+
+        return [
+            'path' => $path,
+            'free' => $freeBytes,
+            'total' => $totalBytes,
+            'minimum' => $minimumBytes,
+            'available' => $available,
+            'sufficient' => $sufficient,
+        ];
+    }
+
+    /**
      * Build the array surfaced under `php artisan about`.
      *
      * @return array<string, string>
@@ -118,8 +174,9 @@ final class RequirementsDiagnostics
     {
         $php = $this->checkPhpVersion();
 
-        $extensions = $this->checkExtensions();
-        $missing = array_keys(array_filter($extensions, static fn (bool $loaded): bool => !$loaded));
+        $missing = $this->missingExtensions();
+
+        $disk = $this->checkDiskSpace();
 
         return [
             'PHP Version' => $php['current'],
@@ -127,6 +184,19 @@ final class RequirementsDiagnostics
             'PHP Supported' => $php['supported'] ? 'Yes' : 'No',
             'Required Extensions' => $missing === [] ? 'All loaded' : 'Missing: ' . implode(', ', $missing),
             'Storage Writable' => $this->isDirectoryWritable(storage_path()) ? 'Yes' : 'No',
+            'Storage Free Space' => $disk['free'] === null ? 'Unknown' : $this->formatBytes($disk['free']),
         ];
+    }
+
+    /**
+     * Human-readable byte size (binary units).
+     */
+    private function formatBytes(int $bytes): string
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        $power = $bytes > 0 ? (int) floor(log($bytes, 1024)) : 0;
+        $power = min($power, count($units) - 1);
+
+        return round($bytes / 1024 ** $power, 2) . ' ' . $units[$power];
     }
 }

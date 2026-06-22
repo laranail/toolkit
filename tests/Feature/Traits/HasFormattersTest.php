@@ -58,6 +58,40 @@ class HasFormattersTest extends TestCase
         $this->assertSame(13, mb_strlen($record->excerpt(10)));
     }
 
+    public function test_formatted_content_strips_html_and_truncates(): void
+    {
+        $record = new FormattableRecord(['content' => '<p>Hello <b>world</b> of content</p>']);
+
+        $this->assertSame('Hello world of content', $record->formattedContent(['strip_html' => true]));
+        $this->assertSame('Hello...', $record->formattedContent(['strip_html' => true, 'truncate' => 5]));
+        $this->assertSame('<p>Hello <b>world</b> of content</p>', $record->formattedContent());
+    }
+
+    public function test_format_address_joins_non_empty_components(): void
+    {
+        $record = new FormattableRecord();
+
+        $this->assertSame(
+            '123 Main St, Apt 4, Springfield',
+            $record->formatAddress(['123 Main St', '', 'Apt 4', null, 'Springfield']),
+        );
+    }
+
+    public function test_format_address_line_omits_empty_second_line(): void
+    {
+        $record = new FormattableRecord();
+
+        $this->assertSame('123 Main St', $record->formatAddressLine('123 Main St'));
+        $this->assertSame('123 Main St, Apt 4', $record->formatAddressLine('123 Main St', 'Apt 4'));
+    }
+
+    public function test_format_city_state_zip(): void
+    {
+        $record = new FormattableRecord();
+
+        $this->assertSame('Springfield, Illinois 62704', $record->formatCityStateZip('springfield', 'illinois', '62704'));
+    }
+
     public function test_suggest_username_returns_first_available_candidate(): void
     {
         Schema::create('formattable_records', function ($table): void {

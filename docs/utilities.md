@@ -1,6 +1,6 @@
 # Utilities
 
-Nine focused utility classes under
+Eleven focused utility classes under
 `Simtabi\Laranail\Toolkit\Utilities`. Instance-based utilities are bound in the
 container (resolve with `app(...)` or constructor injection); the others expose
 static methods. Each can also be published into `app/Utilities/` — see
@@ -101,6 +101,36 @@ Inspect the scheduler and find overdue tasks.
 $scheduler = app(SchedulerUtil::class);
 $summary   = $scheduler->getScheduleSummary();
 $overdue   = $scheduler->hasOverdueTasks();
+```
+
+## EnvironmentUtil (static)
+
+Environment predicates over the app's own resolver — adds the named buckets and
+`isNonProduction()` aggregate the framework does not ship.
+
+```php
+EnvironmentUtil::isLocal();            // local / staging / development
+EnvironmentUtil::isProduction();
+EnvironmentUtil::isNonProduction();
+EnvironmentUtil::isTesting();
+EnvironmentUtil::isEnvironment(['beta', 'alpha']);
+EnvironmentUtil::isRunningUnitTests();
+EnvironmentUtil::current();            // 'testing'
+```
+
+## AuthUtil (instance, per guard)
+
+Typed accessor for a single named guard (named `AuthUtil` to avoid the `Auth`
+facade collision). Built via the `for()` factory, not the container.
+
+```php
+$auth = AuthUtil::for('web');
+
+$auth->check();   // bool
+$auth->user();    // ?Authenticatable
+$auth->id();      // int|string|null
+$auth->email();   // ?string
+$auth->guard();   // 'web'
 ```
 
 [← Docs index](../README.md#documentation)
