@@ -748,8 +748,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "relocated",
+    "target": "laranail/notifications"
   },
   "Simtabi\\Laranail\\Shared\\Events\\BaseEvent": {
     "status": "dropped",
