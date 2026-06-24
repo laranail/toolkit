@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Helpers;
+namespace Simtabi\Laranail\Toolkit\Helpers\Concerns;
 
+use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Small helpers for writing styled output to a Symfony console stream.
  *
- * Recovered from the legacy `writeToConsoleOutput`.
+ * Folded into {@see Helper} — call via the
+ * `Helper::` facade, never the trait directly.
  */
-final class ConsoleHelper
+trait InteractsWithConsole
 {
     /**
      * Write one or more lines to the console wrapped in a Symfony style tag

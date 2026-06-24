@@ -2,23 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Helpers;
+namespace Simtabi\Laranail\Toolkit\Helpers\Concerns;
 
 use InvalidArgumentException;
+use Simtabi\Laranail\Toolkit\Helpers\Helper;
 
 /**
- * Geospatial helpers. Native (no third-party geo dependency).
+ * Native geospatial helpers (no third-party geo dependency).
  *
- * Recovers the legacy `DistanceBetween` macro as a clean static helper, since
- * it was never wired to any Macroable target.
+ * Folded into {@see Helper} — call via the
+ * `Helper::` facade, never the trait directly.
  */
-final class GeoHelper
+trait InteractsWithGeo
 {
     /** Mean Earth radius in kilometres (used as the Haversine base unit). */
     private const EARTH_RADIUS_KM = 6371.0;
 
     /**
      * Per-unit conversion factor from kilometres.
+     *
+     * @var array<string, float>
      */
     private const UNITS = [
         'km' => 1.0,

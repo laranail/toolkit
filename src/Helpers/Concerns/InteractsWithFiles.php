@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Helpers;
+namespace Simtabi\Laranail\Toolkit\Helpers\Concerns;
 
 use Illuminate\Support\Str;
+use Simtabi\Laranail\Toolkit\Helpers\Helper;
 
 /**
  * Pure file-name / size inspection helpers.
  *
- * Recovered from the legacy FileHelperService (see
- * docs/migration/RESTORE-CANDIDATES.md). These inspect/format strings only —
- * they touch no filesystem. For path-traversal safety use Support\FilePathGuard;
- * for file I/O use the Storage facade / Traits\FileProcessingTrait.
+ * These inspect/format strings only — they touch no filesystem. For
+ * path-traversal safety use Support\FilePathGuard; for file I/O use the Storage
+ * facade / Traits\FileProcessingTrait. Folded into
+ * {@see Helper} — call via the `Helper::`
+ * facade, never the trait directly.
  */
-final class FileHelper
+trait InteractsWithFiles
 {
+    /** @var list<string> Extensions treated as images by {@see isImage()}. */
     private const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'];
 
     /** Human-readable byte size, e.g. 1024 → "1 KB". */

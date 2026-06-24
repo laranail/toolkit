@@ -15,6 +15,14 @@ parameters:
     bootstrapFiles:
         - vendor/autoload.php
 
+    # Optional runtime dependencies the package references only behind
+    # class_exists() guards (so they are never required). These shim files are
+    # scanned for symbol discovery only — never autoloaded — so the analyser
+    # can type-check the guarded calls without installing the package, and a
+    # real install transparently supersedes them.
+    scanFiles:
+        - stubs/phpstan/livewire.php
+
     ignoreErrors:
         # Laravel facades / magic helpers resolve dynamically.
         - '#Call to an undefined method Illuminate\\.*#'

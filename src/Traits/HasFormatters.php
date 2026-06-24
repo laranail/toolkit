@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-use Simtabi\Laranail\Toolkit\Helpers\XHelper;
+use Simtabi\Laranail\Toolkit\Helpers\Helper;
 
 /**
  * Convenience presentation helpers for common model attributes (timestamps,
@@ -152,7 +152,7 @@ trait HasFormatters
      * Suggest a username derived from a person's name that is not already taken
      * in the given column.
      *
-     * Username candidates come from {@see XHelper::nameToUsernames()} (native,
+     * Username candidates come from {@see Helper::nameToUsernames()} (native,
      * no third-party name library); the first one with no existing row wins.
      * When every candidate is taken, the base candidate is returned with a
      * random numeric suffix so the caller still gets a usable value.
@@ -162,7 +162,7 @@ trait HasFormatters
         ?string $lastName = null,
         string $column = 'username'
     ): string {
-        $candidates = XHelper::nameToUsernames($firstName, $lastName);
+        $candidates = Helper::nameToUsernames($firstName, $lastName);
 
         if ($candidates === []) {
             return 'user' . random_int(100, 999);

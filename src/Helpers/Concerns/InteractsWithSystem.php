@@ -2,19 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Helpers;
+namespace Simtabi\Laranail\Toolkit\Helpers\Concerns;
 
 use Illuminate\Support\Facades\File;
+use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Throwable;
 
 /**
  * Read-only system / runtime introspection helpers.
  *
- * Recovered from the legacy SystemService classes (see
- * docs/migration/RESTORE-CANDIDATES.md). Every method is side-effect free —
- * no config() mutation, no I/O beyond reading PHP/ini/$_SERVER state.
+ * Every method is side-effect free — no config() mutation, no I/O beyond
+ * reading PHP/ini/$_SERVER state. Folded into
+ * {@see Helper} — call via the `Helper::`
+ * facade, never the trait directly.
  */
-final class SystemHelper
+trait InteractsWithSystem
 {
     /**
      * Parse a PHP memory-limit string ("256M", "1G", "512K") into bytes.
@@ -60,8 +62,8 @@ final class SystemHelper
             'current' => $current,
             'peak' => $peak,
             'limit' => self::memoryLimit(),
-            'current_formatted' => FileHelper::formatFileSize($current),
-            'peak_formatted' => FileHelper::formatFileSize($peak),
+            'current_formatted' => self::formatFileSize($current),
+            'peak_formatted' => self::formatFileSize($peak),
         ];
     }
 

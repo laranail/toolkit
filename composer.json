@@ -106,8 +106,12 @@
                 "Avatar": "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Avatar",
                 "Gravatar": "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\Gravatar",
                 "Captcha": "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Captcha",
-                "Archiver": "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Archiver"
+                "Archiver": "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Archiver",
+                "Livewire": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\Livewire"
             }
         }
+    },
+    "suggest": {
+        "livewire/livewire": "^3.0 — for the Livewire component-registration module"
     }
 }

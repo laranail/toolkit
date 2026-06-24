@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 129 | direct + 53 merged |
+| **MIGRATED** | 132 | direct + 56 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 133 | native / out-of-scope (see rows) |
+| **DROPPED** | 130 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -619,10 +619,10 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `FakerHelperServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `FileHelperServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `HttpConfigurationServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface` |
-| `LivewireComponentServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `LivewireComponentServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface` |
 | `ModelFormatterServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Traits\HasFormatters (working formatters folded, G6d)` |
 | `PackageServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `StringHelperServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper` |
+| `StringHelperServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper` |
 
 ### Simtabi\Laranail\Foundation\Exceptions
 
@@ -654,24 +654,24 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `AuthenticationHelperService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\AuthenticationHelperService` |
 | `AuthenticationService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\AuthUtil (auth context + username/userExists folded, G8a)` |
 | `CacheService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\CachingUtil` |
-| `ClassHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper (classBasename folded, G8a)` |
+| `ClassHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (classBasename folded, G8a)` |
 | `CollectionHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (mapKeyValuePairs + sortSearchResults folded, G8a)` |
 | `DatabaseFileService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `DatabaseService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\DatabaseService` |
 | `ErrorStorageService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ErrorStorageService` |
-| `FakerHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper (faker + randomIntExcept folded, G8a)` |
-| `FileHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\FileHelper (useful static helpers recovered, restore-candidates)` |
+| `FakerHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (faker + randomIntExcept folded, G8a)` |
+| `FileHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (useful static file helpers recovered, restore-candidates)` |
 | `FileService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `HttpConfigurationService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\HttpConfigurationService` |
-| `LivewireComponentService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `LivewireComponentService` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireService` |
 | `ModelFormatterService` | MERGED | `Simtabi\Laranail\Toolkit\Traits\HasFormatters (working formatters folded, G6d)` |
 | `ModelService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ModelService` |
 | `PackageService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `RouteService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\RouteService` |
 | `SessionService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\SessionHelper (query-string filter-key helpers folded, G8a)` |
-| `StringHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper` |
-| `SystemService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\SystemHelper (useful static helpers recovered, restore-candidates)` |
-| `UtilityService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)` |
+| `StringHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper` |
+| `SystemService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (useful static system helpers recovered, restore-candidates)` |
+| `UtilityService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)` |
 | `ValidationService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ValidationService` |
 
 ### Simtabi\Laranail\Laravel\Commands
@@ -738,7 +738,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `ChunkBy` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `CollectBy` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Decrement` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `DistanceBetween` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\GeoHelper (native Haversine distanceBetween, G8b)` |
+| `DistanceBetween` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (native Haversine distanceBetween, G8b)` |
 | `DutchHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `EachCons` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `Eighth` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
@@ -864,7 +864,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 |---|---|---|
 | `ImportDatabaseService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ResponseBuilderService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `SystemService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\SystemHelper (useful static helpers recovered, restore-candidates)` |
+| `SystemService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (useful static system helpers recovered, restore-candidates)` |
 
 ### Simtabi\Laranail\Shared\Enums
 
@@ -947,7 +947,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `HasLivewire` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `HasLivewire` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Livewire\HasLivewireComponents` |
 
 ### Simtabi\Laranail\Support\Traits\Models
 

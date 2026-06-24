@@ -2,52 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Helpers;
+namespace Simtabi\Laranail\Toolkit\Helpers\Concerns;
 
-use Carbon\Carbon;
 use Faker\Generator;
-use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use RuntimeException;
+use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Simtabi\Laranail\Toolkit\Support\Cast;
 
-class XHelper
+/**
+ * String / identity / miscellaneous value helpers.
+ *
+ * Folded into {@see Helper} — call via the
+ * `Helper::` facade, never the trait directly.
+ */
+trait InteractsWithStrings
 {
-    // ------------------------
-    // Array Helpers
-    // ------------------------
-
-    public static function arrayTrim(array $array): array
-    {
-        return array_map(fn ($value) => is_string($value) ? trim($value) : $value, $array);
-    }
-
-    /**
-     * Flatten a multi-dimensional array into a single level of leaf values.
-     *
-     * @param array<mixed> $array
-     *
-     * @return array<int, mixed>
-     */
-    public static function arrayFlatten(array $array): array
-    {
-        return Arr::flatten($array);
-    }
-
-    /**
-     * Convert a bracketed array expression into dot notation:
-     * `a[b][c]` => `a.b.c`. A plain key (no brackets) is returned unchanged.
-     */
-    public static function arrayToDotNotation(string $expr): string
-    {
-        return Str::replace(['[', ']'], ['.', ''], $expr);
-    }
-
-    // ------------------------
-    // String Helpers
-    // ------------------------
-
     public static function strBetween(string $string, string $start, string $end): ?string
     {
         $start = preg_quote($start, '/');
@@ -157,24 +128,6 @@ class XHelper
 
         return array_values(array_unique($candidates));
     }
-
-    // ------------------------
-    // Date Helpers
-    // ------------------------
-
-    public static function carbonParse($date, $format = 'Y-m-d H:i:s'): ?string
-    {
-        return Carbon::parse($date)->format($format);
-    }
-
-    public static function carbonHumanDiff($date): string
-    {
-        return Carbon::parse($date)->diffForHumans();
-    }
-
-    // ------------------------
-    // Miscellaneous Helpers
-    // ------------------------
 
     public static function uuid(): string
     {

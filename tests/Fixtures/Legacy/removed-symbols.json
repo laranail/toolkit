@@ -96,8 +96,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\LivewireComponentServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\LivewireServiceInterface"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ModelFormatterServiceInterface": {
     "status": "merged",
@@ -109,7 +109,7 @@
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\StringHelperServiceInterface": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper"
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\SessionServiceInterface": {
     "status": "dropped",
@@ -157,7 +157,7 @@
   },
   "Simtabi\\Laranail\\Foundation\\Services\\ClassHelperService": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper (classBasename folded, G8a)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (classBasename folded, G8a)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\CollectionHelperService": {
     "status": "merged",
@@ -169,19 +169,19 @@
   },
   "Simtabi\\Laranail\\Foundation\\Services\\FakerHelperService": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper (faker + randomIntExcept folded, G8a)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (faker + randomIntExcept folded, G8a)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\FileHelperService": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\FileHelper (useful static helpers recovered, restore-candidates)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (useful static file helpers recovered, restore-candidates)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\FileService": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\LivewireComponentService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\LivewireService"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\ModelFormatterService": {
     "status": "merged",
@@ -197,15 +197,15 @@
   },
   "Simtabi\\Laranail\\Foundation\\Services\\StringHelperService": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper"
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\SystemService": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\SystemHelper (useful static helpers recovered, restore-candidates)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (useful static system helpers recovered, restore-candidates)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\UtilityService": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)"
   },
   "Simtabi\\Laranail\\Laravel\\Commands\\AssetCommand": {
     "status": "dropped",
@@ -293,7 +293,7 @@
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\DistanceBetween": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\GeoHelper (native Haversine distanceBetween, G8b)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (native Haversine distanceBetween, G8b)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\DutchHolidays": {
     "status": "merged",
@@ -721,7 +721,7 @@
   },
   "Simtabi\\Laranail\\Laravel\\Services\\SystemService": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\SystemHelper (useful static helpers recovered, restore-candidates)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (useful static system helpers recovered, restore-candidates)"
   },
   "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": {
     "status": "relocated",
@@ -784,8 +784,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Traits\\Livewire\\HasLivewire": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\HasLivewireComponents"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\Auth": {
     "status": "merged",

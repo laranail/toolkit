@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
-use Simtabi\Laranail\Toolkit\Helpers\XHelper;
+use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware;
@@ -21,6 +21,7 @@ use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Llm\Claude\ClaudeProvider;
 use Simtabi\Laranail\Toolkit\Modules\Llm\Gemini\GeminiProvider;
 use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
@@ -68,6 +69,7 @@ class ToolkitServiceProvider extends ServiceProvider
         AvatarServiceProvider::class,
         CaptchaServiceProvider::class,
         ArchiverServiceProvider::class,
+        LivewireServiceProvider::class,
     ];
 
     public function register(): void
@@ -137,7 +139,7 @@ class ToolkitServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->singleton('xhelper', fn () => new XHelper());
+        $this->app->singleton('helper', fn () => new Helper());
 
         // Unified entry point to the feature modules (the `Toolkit` facade root).
         $this->app->singleton(ToolkitManager::class, fn ($app): ToolkitManager => new ToolkitManager($app));

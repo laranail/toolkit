@@ -224,7 +224,7 @@ class Post extends Model
 | [Access log](docs/access-log.md) | `access.log` middleware + redaction |
 | [API middleware](docs/api-middleware.md) | `api.request` / `api.response` envelope + `BaseRequest` sanitization |
 | [Utilities](docs/utilities.md) | The twelve utility classes |
-| [Static helpers](docs/helpers.md) | `XHelper`, `SystemHelper`, `FileHelper`, `DbHelper`, `GeoHelper`, `ConsoleHelper` |
+| [Static helpers](docs/helpers.md) | `Helper` — one static facade (array, string, date, system, file, db, geo, console) |
 | [Base classes](docs/base-classes.md) | Reusable controller / job / listener / observer / event bases |
 | [Macros](docs/macros.md) | Str/Arr/Collection/Query/Blueprint macros + Blade directives + IDE stub |
 | [Traits](docs/traits.md) | Model & controller traits |
@@ -232,6 +232,7 @@ class Post extends Model
 | [Gravatar module](docs/modules/gravatar.md) | Gravatar URL builder |
 | [Captcha module](docs/modules/captcha.md) | reCAPTCHA / hCaptcha / Turnstile |
 | [Archiver module](docs/modules/archiver.md) | Safe tar/zip extraction |
+| [Livewire module](docs/modules/livewire.md) | Livewire component registration |
 
 ## License
 

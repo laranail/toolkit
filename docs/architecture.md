@@ -27,7 +27,7 @@ src/
 ├── Support/                                # FilePathGuard, Scopes/ArchiveScope, Diagnostics/
 ├── Enums/LogLevel.php
 ├── Rules/RejectCommonPasswords.php
-├── Helpers/XHelper.php
+├── Helpers/Helper.php                       # one static facade; Concerns/InteractsWith* traits
 └── Modules/                                # self-contained feature modules (flat inside)
     ├── Avatar/        AvatarService, AvatarServiceInterface, AvatarFont, DTOs, Avatar facade, provider
     ├── Gravatar/      GravatarService, …, Gravatar facade, provider

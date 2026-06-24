@@ -55,6 +55,7 @@
         "src/Examples",
         "tests/Fixtures",
         "ide-helper",
+        "stubs/phpstan",
         "vendor",
         "node_modules"
     ]

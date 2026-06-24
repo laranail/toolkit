@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Helpers;
+namespace Simtabi\Laranail\Toolkit\Helpers\Concerns;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Throwable;
 
 /**
  * Safe, read-only database introspection helpers.
  *
- * The motivating "check the DB connection" case — done safely. Unlike the
- * legacy ValidationService credential check, nothing here mutates config() or
- * logs credentials (see docs/migration/RESTORE-CANDIDATES.md).
+ * Nothing here mutates config() or logs credentials. Folded into
+ * {@see Helper} — call via the `Helper::`
+ * facade, never the trait directly.
  */
-final class DbHelper
+trait InteractsWithDatabase
 {
     /**
      * Whether a database connection can actually be opened. Resolves the PDO
