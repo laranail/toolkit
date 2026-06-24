@@ -21,13 +21,15 @@ src/
 ├── ToolkitManager.php                      # Toolkit::avatar()/gravatar()/...
 ├── Commands/MakeCrud.php                   # make-crud (extends the laranail/console base)
 ├── Http/Controllers/CrudController.php     # abstract base controller
+├── Services/                               # injectable, interface-backed services (File, System, Database, ...)
 ├── Macros/                                 # grouped macro providers + MacroServiceProvider
 ├── Traits/                                 # ApiResponse, Auditable, HasAvatar, ...
-├── Utilities/                              # 9 utility classes
+├── Utilities/                              # 9 utility classes (Caching/Logging now interface-backed)
 ├── Support/                                # FilePathGuard, Scopes/ArchiveScope, Diagnostics/
 ├── Enums/LogLevel.php
 ├── Rules/RejectCommonPasswords.php
-├── Helpers/Helper.php                       # one static facade; Concerns/InteractsWith* traits
+├── Helpers/Helper.php                       # static PURE-function facade (arrays/strings/dates/geo/console); Concerns/InteractsWith* traits
+                                             #   (file/system/database domains moved to injectable Services/*)
 └── Modules/                                # self-contained feature modules (flat inside)
     ├── Avatar/        AvatarService, AvatarServiceInterface, AvatarFont, DTOs, Avatar facade, provider
     ├── Gravatar/      GravatarService, …, Gravatar facade, provider

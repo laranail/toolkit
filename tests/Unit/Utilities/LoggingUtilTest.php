@@ -10,10 +10,19 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Utilities\Contracts\LoggerServiceInterface;
 use Simtabi\Laranail\Toolkit\Utilities\LoggingUtil;
 
 class LoggingUtilTest extends TestCase
 {
+    public function test_logger_service_contract_resolves_to_the_logging_util(): void
+    {
+        $this->assertInstanceOf(
+            LoggingUtil::class,
+            $this->app->make(LoggerServiceInterface::class),
+        );
+    }
+
     public function test_log_delegates_to_the_default_logger_with_enriched_context(): void
     {
         $logs = Mockery::mock(LogManager::class);

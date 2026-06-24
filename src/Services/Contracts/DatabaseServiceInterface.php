@@ -7,12 +7,40 @@ namespace Simtabi\Laranail\Toolkit\Services\Contracts;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Database helpers: join detection, timestamp modification, session-scoped
- * view counting, morph aliases, relationship sync data, and maintenance
- * (cache/log/symlink) cleanup confined to the application directories.
+ * Database helpers: connection probing, schema introspection, join detection,
+ * timestamp modification, session-scoped view counting, morph aliases,
+ * relationship sync data, and maintenance (cache/log/symlink) cleanup confined
+ * to the application directories.
  */
 interface DatabaseServiceInterface
 {
+    /**
+     * Whether a database connection can actually be opened. Resolves the PDO
+     * inside a try/catch so a failure is a boolean, not an exception.
+     */
+    public function canConnect(?string $connection = null): bool;
+
+    /**
+     * Whether a connection can be opened from an ad-hoc config array, WITHOUT
+     * touching the application's configured connections.
+     *
+     * @param array<string, mixed> $config a `database.connections.*`-shaped array
+     */
+    public function canConnectWith(array $config): bool;
+
+    /** Whether a table exists on the (optional) connection. Exception-safe. */
+    public function tableExists(string $table, ?string $connection = null): bool;
+
+    /** Whether a column exists on a table. Exception-safe. */
+    public function columnExists(string $table, string $column, ?string $connection = null): bool;
+
+    /**
+     * The names of all configured database connections.
+     *
+     * @return list<string>
+     */
+    public function connectionNames(): array;
+
     /** Whether the given query already joins the named table. */
     public function isJoined(mixed $query, string $table): bool;
 

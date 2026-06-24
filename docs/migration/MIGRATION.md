@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 160 | direct + 79 merged |
+| **MIGRATED** | 169 | direct + 80 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 102 | native / out-of-scope (see rows) |
+| **DROPPED** | 93 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -600,10 +600,10 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `AuthenticationServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `CacheServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\CachingUtil` |
 | `DatabaseServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface` |
-| `FileServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `FileServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface` |
 | `RouteServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface` |
 | `SessionServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `SystemServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `SystemServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface` |
 | `UtilityServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ValidationServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface` |
 
@@ -614,10 +614,10 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `AuthenticationHelperServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface` |
 | `ClassHelperServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `CollectionHelperServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `DatabaseFileServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `DatabaseFileServiceInterface` | MERGED | `Merged into Simtabi\Laranail\Toolkit\Services\DatabaseService (+ Services\FileService for the file-side helpers).` |
 | `ErrorStorageServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface` |
 | `FakerHelperServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `FileHelperServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `FileHelperServiceInterface` | MERGED | `Merged into Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface.` |
 | `HttpConfigurationServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface` |
 | `LivewireComponentServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface` |
 | `ModelFormatterServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Traits\HasFormatters (working formatters folded, G6d)` |
@@ -661,7 +661,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `ErrorStorageService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ErrorStorageService` |
 | `FakerHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (faker + randomIntExcept folded, G8a)` |
 | `FileHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (useful static file helpers recovered, restore-candidates)` |
-| `FileService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `FileService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\FileService` |
 | `HttpConfigurationService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\HttpConfigurationService` |
 | `LivewireComponentService` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireService` |
 | `ModelFormatterService` | MERGED | `Simtabi\Laranail\Toolkit\Traits\HasFormatters (working formatters folded, G6d)` |
@@ -670,7 +670,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `RouteService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\RouteService` |
 | `SessionService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\SessionHelper (query-string filter-key helpers folded, G8a)` |
 | `StringHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper` |
-| `SystemService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (useful static system helpers recovered, restore-candidates)` |
+| `SystemService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\SystemService` |
 | `UtilityService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)` |
 | `ValidationService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ValidationService` |
 
@@ -862,9 +862,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `ImportDatabaseService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `ImportDatabaseService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ImportDatabaseService` |
 | `ResponseBuilderService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `SystemService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (useful static system helpers recovered, restore-candidates)` |
+| `SystemService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\SystemService` |
 
 ### Simtabi\Laranail\Shared\Enums
 
@@ -898,12 +898,12 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `CacheHelperInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `LoggerServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `CacheHelperInterface` | MERGED | `Merged into Simtabi\Laranail\Toolkit\Utilities\Contracts\CacheRepositoryInterface.` |
+| `LoggerServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Utilities\Contracts\LoggerServiceInterface` |
 | `ResponseBuilderServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ResponseMacroInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ShovelHttpInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Http\Contracts\ShovelHttpInterface` |
-| `SystemServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `SystemServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface` |
 
 ### Simtabi\Laranail\Support\Eloquent\Scopes
 

@@ -13,8 +13,10 @@ use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 
@@ -81,6 +83,23 @@ class ToolkitManager
     public function database(): DatabaseServiceInterface
     {
         return $this->db();
+    }
+
+    /**
+     * File-name / size inspection plus path-guarded, exception-safe filesystem
+     * probes (the primary, injectable file domain).
+     */
+    public function file(): FileServiceInterface
+    {
+        return $this->app->make(FileServiceInterface::class);
+    }
+
+    /**
+     * Read-only system / runtime introspection (PHP, memory, composer, SAPI).
+     */
+    public function system(): SystemServiceInterface
+    {
+        return $this->app->make(SystemServiceInterface::class);
     }
 
     /**

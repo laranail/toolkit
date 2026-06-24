@@ -5,15 +5,24 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Helpers;
 
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Helpers\Helper;
+use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 #[Group('security')]
 class HelperCanConnectWithTest extends TestCase
 {
+    private DatabaseServiceInterface $db;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->db = $this->app->make(DatabaseServiceInterface::class);
+    }
+
     public function test_can_connect_with_a_valid_ad_hoc_config(): void
     {
-        $this->assertTrue(Helper::canConnectWith([
+        $this->assertTrue($this->db->canConnectWith([
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
@@ -22,7 +31,7 @@ class HelperCanConnectWithTest extends TestCase
 
     public function test_returns_false_for_an_unreachable_config(): void
     {
-        $this->assertFalse(Helper::canConnectWith([
+        $this->assertFalse($this->db->canConnectWith([
             'driver' => 'sqlite',
             'database' => '/nonexistent/dir/' . uniqid() . '/db.sqlite',
             'prefix' => '',
@@ -35,7 +44,7 @@ class HelperCanConnectWithTest extends TestCase
         $before = config('database.connections');
         $defaultBefore = config('database.default');
 
-        Helper::canConnectWith([
+        $this->db->canConnectWith([
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',

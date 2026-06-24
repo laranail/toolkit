@@ -10,6 +10,7 @@ use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Cache;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Simtabi\Laranail\Toolkit\Utilities\Contracts\CacheRepositoryInterface;
 use Throwable;
 
 /**
@@ -21,7 +22,7 @@ use Throwable;
  * the capability folded in from the legacy `Foundation\Services\CacheService`
  * (namespacing prefix + injected-logger fallback included).
  */
-class CachingUtil
+class CachingUtil implements CacheRepositoryInterface
 {
     /**
      * Tag group applied by the fluent {@see tags()} helper (separate from the

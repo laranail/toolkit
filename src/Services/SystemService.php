@@ -2,27 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Helpers\Concerns;
+namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Support\Facades\File;
-use Simtabi\Laranail\Toolkit\Helpers\Helper;
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Throwable;
 
 /**
  * Read-only system / runtime introspection helpers.
  *
  * Every method is side-effect free — no config() mutation, no I/O beyond
- * reading PHP/ini/$_SERVER state. Folded into
- * {@see Helper} — call via the `Helper::`
- * facade, never the trait directly.
+ * reading PHP/ini/$_SERVER state. This is the primary, injectable system
+ * domain (formerly the static `Helper::*` system helpers).
+ *
+ * The human-readable byte formatting in {@see memoryUsage()} delegates to the
+ * injected {@see FileServiceInterface} so there is a single byte-formatter
+ * implementation (no logic duplication).
  */
-trait InteractsWithSystem
+final readonly class SystemService implements SystemServiceInterface
 {
-    /**
-     * Parse a PHP memory-limit string ("256M", "1G", "512K") into bytes.
-     * Returns -1 for the "unlimited" sentinel.
-     */
-    public static function parseMemoryLimit(string $memoryLimit): int
+    public function __construct(
+        private FileServiceInterface $files,
+    ) {}
+
+    public function parseMemoryLimit(string $memoryLimit): int
     {
         $memoryLimit = trim($memoryLimit);
         if ($memoryLimit === '' || $memoryLimit === '-1') {
@@ -40,8 +44,7 @@ trait InteractsWithSystem
         };
     }
 
-    /** The configured memory_limit ini string (e.g. "256M", "-1"). */
-    public static function memoryLimit(): string
+    public function memoryLimit(): string
     {
         $limit = ini_get('memory_limit');
 
@@ -53,7 +56,7 @@ trait InteractsWithSystem
      *
      * @return array{current: int, peak: int, limit: string, current_formatted: string, peak_formatted: string}
      */
-    public static function memoryUsage(): array
+    public function memoryUsage(): array
     {
         $current = memory_get_usage(true);
         $peak = memory_get_peak_usage(true);
@@ -61,42 +64,37 @@ trait InteractsWithSystem
         return [
             'current' => $current,
             'peak' => $peak,
-            'limit' => self::memoryLimit(),
-            'current_formatted' => self::formatFileSize($current),
-            'peak_formatted' => self::formatFileSize($peak),
+            'limit' => $this->memoryLimit(),
+            'current_formatted' => $this->files->formatFileSize($current),
+            'peak_formatted' => $this->files->formatFileSize($peak),
         ];
     }
 
-    /** The running PHP version string. */
-    public static function phpVersion(): string
+    public function phpVersion(): string
     {
         return PHP_VERSION;
     }
 
-    /** Whether the running PHP version is >= the given minimum. */
-    public static function isPhpVersionSupported(string $minimumVersion): bool
+    public function isPhpVersionSupported(string $minimumVersion): bool
     {
         return version_compare(PHP_VERSION, $minimumVersion, '>=');
     }
 
-    /** Whether PHP is running under the CLI SAPI. */
-    public static function isCli(): bool
+    public function isCli(): bool
     {
         return PHP_SAPI === 'cli';
     }
 
-    /** Whether the current request is served over HTTPS. */
-    public static function isHttps(): bool
+    public function isHttps(): bool
     {
         $https = $_SERVER['HTTPS'] ?? null;
 
         return is_string($https) && $https !== '' && strtolower($https) !== 'off';
     }
 
-    /** Alias of {@see isHttps()} — whether the request is served over TLS/SSL. */
-    public static function isSslInstalled(): bool
+    public function isSslInstalled(): bool
     {
-        return self::isHttps();
+        return $this->isHttps();
     }
 
     /**
@@ -105,7 +103,7 @@ trait InteractsWithSystem
      *
      * @return array<string, mixed>
      */
-    public static function composer(): array
+    public function composer(): array
     {
         try {
             $path = base_path('composer.json');
@@ -123,13 +121,9 @@ trait InteractsWithSystem
         }
     }
 
-    /**
-     * The constraint declared for a package in the app's `composer.json`
-     * `require` / `require-dev`, or null when it is not a direct dependency.
-     */
-    public static function composerPackageVersion(string $package): ?string
+    public function composerPackageVersion(string $package): ?string
     {
-        $composer = self::composer();
+        $composer = $this->composer();
 
         foreach (['require', 'require-dev'] as $section) {
             $requirements = $composer[$section] ?? null;
@@ -148,7 +142,7 @@ trait InteractsWithSystem
      *
      * @return array{php_version: string, os: string, sapi: string, laravel_version: string, env: string}
      */
-    public static function systemInfo(): array
+    public function systemInfo(): array
     {
         return [
             'php_version' => PHP_VERSION,
@@ -164,14 +158,14 @@ trait InteractsWithSystem
      *
      * @return array<string, mixed>
      */
-    public static function serverEnv(): array
+    public function serverEnv(): array
     {
         return [
-            'https' => self::isHttps(),
+            'https' => $this->isHttps(),
             'php_version' => PHP_VERSION,
             'php_sapi' => PHP_SAPI,
             'php_extensions' => get_loaded_extensions(),
-            'memory_limit' => self::memoryLimit(),
+            'memory_limit' => $this->memoryLimit(),
             'max_execution_time' => ini_get('max_execution_time'),
             'upload_max_filesize' => ini_get('upload_max_filesize'),
             'post_max_size' => ini_get('post_max_size'),

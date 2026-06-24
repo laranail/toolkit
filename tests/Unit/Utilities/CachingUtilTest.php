@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Psr\Log\AbstractLogger;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
+use Simtabi\Laranail\Toolkit\Utilities\Contracts\CacheRepositoryInterface;
 
 class CachingUtilTest extends TestCase
 {
@@ -19,6 +20,13 @@ class CachingUtilTest extends TestCase
         parent::setUp();
         $this->cachingUtil = new CachingUtil(60, ['default']);
         Cache::flush();
+    }
+
+    public function test_cache_repository_contract_resolves_to_the_caching_util(): void
+    {
+        $resolved = $this->app->make(CacheRepositoryInterface::class);
+
+        $this->assertInstanceOf(CachingUtil::class, $resolved);
     }
 
     public function test_can_cache_data_with_default_expiration()

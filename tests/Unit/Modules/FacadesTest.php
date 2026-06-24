@@ -17,8 +17,10 @@ use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
@@ -70,6 +72,8 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(DatabaseServiceInterface::class, Toolkit::database());
         $this->assertInstanceOf(ModelService::class, Toolkit::model());
         $this->assertInstanceOf(HttpConfigurationServiceInterface::class, Toolkit::http());
+        $this->assertInstanceOf(FileServiceInterface::class, Toolkit::file());
+        $this->assertInstanceOf(SystemServiceInterface::class, Toolkit::system());
     }
 
     public function test_toolkit_facade_fronts_auth_atlas_and_livewire(): void

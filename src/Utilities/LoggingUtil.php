@@ -8,6 +8,7 @@ use Illuminate\Log\LogManager;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Simtabi\Laranail\Toolkit\Utilities\Contracts\LoggerServiceInterface;
 use Throwable;
 
 /**
@@ -18,7 +19,7 @@ use Throwable;
  * type — it wraps the configured {@see LogManager}, so channel selection and
  * formatting stay owned by the host app's `config/logging.php`.
  */
-class LoggingUtil
+class LoggingUtil implements LoggerServiceInterface
 {
     public function __construct(
         private readonly LogManager $logs,

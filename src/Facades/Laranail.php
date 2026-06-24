@@ -23,6 +23,8 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface           validation()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface             db()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface             database()
+ * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface                 file()
+ * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface               system()
  * @method static \Simtabi\Laranail\Toolkit\Services\ModelService                                   model()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface    http()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface auth()

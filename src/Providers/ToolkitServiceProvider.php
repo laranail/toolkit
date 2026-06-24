@@ -33,14 +33,20 @@ use Simtabi\Laranail\Toolkit\Services\AuthenticationHelperService;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ImportDatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\DatabaseService;
 use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
+use Simtabi\Laranail\Toolkit\Services\FileService;
 use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
+use Simtabi\Laranail\Toolkit\Services\ImportDatabaseService;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Services\RouteService;
+use Simtabi\Laranail\Toolkit\Services\SystemService;
 use Simtabi\Laranail\Toolkit\Services\ValidationService;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics;
@@ -49,6 +55,8 @@ use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
 use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
 use Simtabi\Laranail\Toolkit\Utilities\ConfigUtil;
+use Simtabi\Laranail\Toolkit\Utilities\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Utilities\Contracts\LoggerServiceInterface;
 use Simtabi\Laranail\Toolkit\Utilities\EnvironmentUtil;
 use Simtabi\Laranail\Toolkit\Utilities\FeatureToggleUtil;
 use Simtabi\Laranail\Toolkit\Utilities\FilteringUtil;
@@ -107,6 +115,26 @@ class ToolkitServiceProvider extends ServiceProvider
             $app->make('session.store'),
             $app->basePath(),
         ));
+
+        // File-domain service (primary, injectable; formerly static Helper::*).
+        $this->app->singleton(FileServiceInterface::class, FileService::class);
+
+        // System/runtime introspection service (delegates byte formatting to the
+        // FileService so there is a single byte-formatter implementation).
+        $this->app->singleton(SystemServiceInterface::class, fn ($app): SystemService => new SystemService(
+            $app->make(FileServiceInterface::class),
+        ));
+
+        // Generic, safe SQL importer (path-guarded, transactional, no credential
+        // logging).
+        $this->app->bind(ImportDatabaseServiceInterface::class, fn ($app): ImportDatabaseService => new ImportDatabaseService(
+            $app->make('db'),
+            $app->make(LoggerInterface::class),
+        ));
+
+        // Restore the Cache/Logger utility contracts (interface→concrete util).
+        $this->app->bind(CacheRepositoryInterface::class, CachingUtil::class);
+        $this->app->bind(LoggerServiceInterface::class, LoggingUtil::class);
 
         // Eloquent model helpers (no contract in the legacy surface).
         $this->app->bind(ModelService::class, fn ($app): ModelService => new ModelService(

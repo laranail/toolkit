@@ -215,8 +215,8 @@ class MacroRegistrationTest extends TestCase
         'Macros\\StripTags' => 'Restored as the Str::stripTags macro only; Stringable::stripTags is native in Laravel (a macro there would be shadowed).',
         'Macros\\FromBase64' => 'Str::fromBase64 / Stringable::fromBase64 are native in Laravel (strictly-better for the bare-payload case); the data-URI variant cannot override the native method, so kept dropped.',
 
-        // RESTORED legacy file/util micro-classes → Helpers\Helper (file domain).
-        'Macros\\GenerateName / ToBase64 / FromJson' => 'Restored as Helper::generateName / Helper::toDataUri / Helper::fromJson (path-guarded; decode errors handled).',
+        // RESTORED legacy file/util micro-classes → Services\FileService (file domain).
+        'Macros\\GenerateName / ToBase64 / FromJson' => 'Restored as FileService::generateName / FileService::toDataUri / FileService::fromJson (path-guarded; decode errors handled).',
 
         // Native-strictly-better legacy micro-classes, kept dropped.
         'Macros\\At / Second..Tenth (ordinals) / GetNth' => 'Positional access is the native $c->slice($n, 1)->first() / values()->get($n) / nth(); no macro adds value.',
@@ -228,7 +228,7 @@ class MacroRegistrationTest extends TestCase
         'Macros\\CapitalizeWords' => 'Native Str::headline() does proper title-case and is strictly better; legacy called a nonexistent Str::capitalizeWords.',
         'Macros\\Human / Bind' => 'Broken: called nonexistent Str::human()/Str::bind(); no salvageable intent.',
         'Macros\\Round5' => 'Native round($n / 5) * 5 is a strictly simpler, correct one-liner (the legacy version mishandled negatives).',
-        'Macros\\GetFile / Glob' => 'Trivial new SplFileInfo() / glob() wrappers; call PHP/File directly (per the InteractsWithFiles I/O policy).',
+        'Macros\\GetFile / Glob' => 'Trivial new SplFileInfo() / glob() wrappers; call PHP/File directly (per the FileService I/O policy).',
         'Macros\\FirstOrFail (legacy)' => 'Already registered as the inline Collection::firstOrFail() macro; legacy class is redundant.',
         'Macros\\Prioritize (legacy)' => 'Already registered as the inline Collection::prioritize() macro; legacy class is redundant.',
         'Macros\\InsertAfter / InsertBefore (legacy)' => 'Already registered as inline Collection::insertAfter()/insertBefore() macros.',

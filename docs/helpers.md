@@ -1,18 +1,28 @@
-# Static helpers
+# Helpers: static pure functions vs. injectable services
 
-One focused, **stateless** helper facade — `Simtabi\Laranail\Toolkit\Helpers\Helper`.
-Every method is `static` — call them directly (`Helper::uuid()`), no container
-resolution or injection required. `Helper` is a `final` class composed of
-per-domain `InteractsWith*` traits under
-`Simtabi\Laranail\Toolkit\Helpers\Concerns`; the trait split is an internal
-organising detail — the public surface is always `Helper::`.
+The toolkit splits its day-to-day helpers along a single line:
+
+- **Pure-function domains stay static** on `Simtabi\Laranail\Toolkit\Helpers\Helper`
+  (arrays, strings & identity, dates, geo, console). Every method is `static`
+  and side-effect free — call them directly (`Helper::uuid()`), no container
+  resolution required. `Helper` is a `final` class composed of per-domain
+  `InteractsWith*` traits under `Simtabi\Laranail\Toolkit\Helpers\Concerns`; the
+  trait split is an internal organising detail — the public surface is `Helper::`.
+- **Stateful / swappable domains are injectable services** (the primary API),
+  resolved from the container or fronted by the `Toolkit` facade:
+  - **Files** → `Services\Contracts\FileServiceInterface` (`Toolkit::file()`)
+  - **System** → `Services\Contracts\SystemServiceInterface` (`Toolkit::system()`)
+  - **Database** → `Services\Contracts\DatabaseServiceInterface` (`Toolkit::db()`)
 
 ```php
-use Simtabi\Laranail\Toolkit\Helpers\Helper;
+use Simtabi\Laranail\Toolkit\Helpers\Helper;          // pure static helpers
+use Simtabi\Laranail\Toolkit\Facades\Toolkit;         // service accessors
 ```
 
-> These are deliberately **not** fronted by the [`Toolkit` facade](../README.md#unified-entry--the-toolkit-facade)
-> — they are pure static utilities, so call them on `Helper` directly.
+> The static `Helper::` methods are deliberately **not** fronted by the
+> [`Toolkit` facade](../README.md#unified-entry--the-toolkit-facade) — they are
+> pure utilities, so call them on `Helper` directly. The file/system/database
+> services ARE on the facade (and injectable by interface).
 
 ## Arrays
 
@@ -45,66 +55,86 @@ Helper::carbonParse('2026-01-02');              // '2026-01-02 00:00:00'
 Helper::carbonHumanDiff($date);                 // '3 days ago'
 ```
 
-## System
+## System (service)
 
 Read-only runtime / environment introspection (no `config()` mutation, no I/O
-beyond reading PHP/ini/`$_SERVER` state).
+beyond reading PHP/ini/`$_SERVER` state). Resolve via the container or
+`Toolkit::system()`; inject `SystemServiceInterface` by type. Byte formatting in
+`memoryUsage()` delegates to the file service (single formatter, no duplication).
 
 ```php
-Helper::parseMemoryLimit('256M');               // 268435456 (bytes; -1 = unlimited)
-Helper::memoryLimit();                          // '256M'
-Helper::memoryUsage();                          // ['current' => …, 'peak' => …]
-Helper::phpVersion();                           // '8.4.3'
-Helper::isPhpVersionSupported('8.3');           // bool
-Helper::isCli();                                // bool
-Helper::isHttps();                              // bool (alias: isSslInstalled())
-Helper::composer();                             // app composer.json as array (never throws)
-Helper::composerPackageVersion('laravel/framework'); // declared constraint or null
-Helper::systemInfo();                           // PHP/OS/SAPI/Laravel/env snapshot
-Helper::serverEnv();                            // read-only server settings snapshot
+use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
+
+$system = app(SystemServiceInterface::class);    // or Toolkit::system()
+
+$system->parseMemoryLimit('256M');               // 268435456 (bytes; -1 = unlimited)
+$system->memoryLimit();                          // '256M'
+$system->memoryUsage();                          // ['current' => …, 'peak' => …]
+$system->phpVersion();                           // '8.4.3'
+$system->isPhpVersionSupported('8.3');           // bool
+$system->isCli();                                // bool
+$system->isHttps();                              // bool (alias: isSslInstalled())
+$system->composer();                             // app composer.json as array (never throws)
+$system->composerPackageVersion('laravel/framework'); // declared constraint or null
+$system->systemInfo();                           // PHP/OS/SAPI/Laravel/env snapshot
+$system->serverEnv();                            // read-only server settings snapshot
 ```
 
-## Files
+## Files (service)
 
 File-**name** / size inspection plus a few thin, path-guarded filesystem probes.
+Resolve via the container or `Toolkit::file()`; inject `FileServiceInterface`.
 
 ```php
-Helper::formatFileSize(1024);                   // '1 KB'
-Helper::extension('/a/b/photo.JPG');            // 'jpg'
-Helper::filenameWithoutExtension('photo.jpg');  // 'photo'
-Helper::isImage('photo.png');                   // true
-Helper::sanitizeFilename($uploadedName);        // strips separators / null bytes
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 
-Helper::exists('/srv/app/.env');                // bool — safe path + File::exists
-Helper::size('/srv/app/dump.sql');              // int bytes (0 if missing/unsafe)
-Helper::lastModified('/srv/app/dump.sql');      // int UNIX ts (0 if missing/unsafe)
-Helper::hasAllowedExtension('db.sqlite', ['sql', 'sqlite', 'db']); // true
-Helper::fileInfo('/srv/app/dump.sql');          // path/size/extension/name/… or []
+$files = app(FileServiceInterface::class);       // or Toolkit::file()
+
+$files->formatFileSize(1024);                    // '1 KB'
+$files->extension('/a/b/photo.JPG');             // 'jpg'
+$files->filenameWithoutExtension('photo.jpg');   // 'photo'
+$files->isImage('photo.png');                    // true
+$files->sanitizeFilename($uploadedName);         // strips separators / null bytes
+
+$files->exists('/srv/app/.env');                 // bool — safe path + File::exists
+$files->size('/srv/app/dump.sql');               // int bytes (0 if missing/unsafe)
+$files->lastModified('/srv/app/dump.sql');       // int UNIX ts (0 if missing/unsafe)
+$files->hasAllowedExtension('db.sqlite', ['sql', 'sqlite', 'db']); // true
+$files->fileInfo('/srv/app/dump.sql');           // path/size/extension/name/… or []
+$files->generateName('pdf');                     // 'Xa9…q2.pdf' (random name)
+$files->toDataUri('/srv/app/logo.png');          // 'data:image/png;base64,…' or ''
+$files->fromJson('{"a":1}');                     // ['a' => 1] (file path or raw string)
 ```
 
 `sanitizeFilename()` cleans a file **name** (apply after `basename()`, before
 storing an uploaded name) — it is not a path sanitizer.
 
-The probes (`exists`, `size`, `lastModified`, `fileInfo`) are read-only and
-exception-safe: each rejects `..` traversal segments and null bytes via the
-canonical `Support\FilePathGuard` (returning `false`/`0`/`[]` rather than
-throwing). `hasAllowedExtension()` is generic — pass whatever allow-list you
-need; it lower-cases and strips a leading dot before comparing. Plain
-read/write/copy/move/delete are deliberately not wrapped — use the `Storage` /
-`File` facades or `Traits\FileProcessingTrait` directly.
+The probes (`exists`, `size`, `lastModified`, `fileInfo`, `toDataUri`,
+`fromJson`) are read-only and exception-safe: each rejects `..` traversal
+segments and null bytes via the canonical `Support\FilePathGuard` (returning
+`false`/`0`/`[]`/`null` rather than throwing). `hasAllowedExtension()` is
+generic — pass whatever allow-list you need; it lower-cases and strips a leading
+dot before comparing. Plain read/write/copy/move/delete are deliberately not
+wrapped — use the `Storage` / `File` facades or `Traits\FileProcessingTrait`
+directly.
 
-## Database
+## Database (service)
 
-Safe, **read-only** database introspection — every method is exception-safe and
-never mutates the application's connections.
+Safe, **read-only** database introspection (folded onto the existing
+`DatabaseService`) — every method is exception-safe and never mutates the
+application's connections. Resolve via the container or `Toolkit::db()`.
 
 ```php
-Helper::canConnect();                           // bool — default connection reachable?
-Helper::tableExists('users');                   // bool
-Helper::columnExists('users', 'email');         // bool
-Helper::connectionNames();                      // ['mysql', 'sqlite', …]
+use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 
-Helper::canConnectWith([                         // probe an ad-hoc config safely
+$db = app(DatabaseServiceInterface::class);      // or Toolkit::db()
+
+$db->canConnect();                               // bool — default connection reachable?
+$db->tableExists('users');                       // bool
+$db->columnExists('users', 'email');             // bool
+$db->connectionNames();                          // ['mysql', 'sqlite', …]
+
+$db->canConnectWith([                            // probe an ad-hoc config safely
     'driver' => 'mysql',
     'host' => '127.0.0.1',
     'database' => 'probe',
