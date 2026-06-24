@@ -51,14 +51,38 @@ channels, and a serializable queue job. `composer require laranail/notifications
 
 ## DROPPED — by bucket (with rationale)
 
+> **G8 (2026-06-23) — the owner's restoration notes, RESOLVED.** A developer toolkit keeps
+> convenient quick-access wrappers, so the items below were **restored/enhanced** (native Laravel
+> under the hood, no duplication). Full checklist in `RESTORE-CANDIDATES.md`; final statuses are in
+> the generated per-symbol table at the end of this file.
+> - **DistanceBetween** → restored natively as `Helpers\GeoHelper::distanceBetween` (Haversine, no pheg).
+>   All `Laravel\Macros\*` re-verified: every macro is registered in a grouped provider or in
+>   `Macros\CarbonMacros` (14 national calendars + date helpers, the `=`/`===`/octal bugs fixed) — **none lost**.
+> - **Helper services** (`Session`/`System`/`Class`/`Collection`/`Utility`/`Faker`/`Authentication`) → their
+>   useful convenience methods folded into `Helpers\{XHelper,SystemHelper,DbHelper,GeoHelper,ConsoleHelper}`,
+>   `Utilities\{SessionHelper,LoggingUtil,AuthUtil}`, `Services\ModelService`, and `Macros\CollectionMacros`.
+>   `CacheService`/`FileService`/`ValidationService` were already covered (`CachingUtil` / `FileHelper`+`FilePathGuard` / `Services\ValidationService`).
+>   The **unsafe** DB-credential mutation became the safe `Helpers\DbHelper::canConnectWith()` (ephemeral connection, no `config()` mutation, no credential logging).
+> - **BaseController / ApiRequest / EmailObfuscatorMiddleware** → all restored. `BaseController` is now a
+>   reusable abstract base (`AuthorizesRequests` + `ValidatesRequests` + `Traits\ApiResponseTrait`) that
+>   `Http\Controllers\CrudController` extends; `Http\Requests\ApiRequest` (JSON-envelope validation failures)
+>   extends `BaseRequest`; `Http\Middleware\EmailObfuscatorMiddleware` rebuilt **natively** (no pheg, opt-in alias `email.obfuscate`).
+> - **Reusable base classes** added for future reuse: `Jobs\BaseJob`, `Listeners\BaseListener`,
+>   `Observers\BaseObserver`, `Events\BaseEvent` (real shared code, not stubs).
+> - **Traits:** `HasAuth` and `HasErrorStorage` are already MIGRATED + improved (`Traits\*`).
+>   `HasPackageTools` (ServiceProvider / `laranail/package-tools` concern) and `HasLivewire` (Livewire-specific)
+>   stay out of the core toolkit's scope.
+
+
+
 | Bucket | ~count | Why |
 |---|---:|---|
 | `Laravel\Macros\*` | 90 | The 107-file micro-macro library **consolidated** into the grouped `Macros\{Str,Arr,Collection,QueryBuilder,Blueprint,Request,Carbon}Macros` providers (kept subset). **G3 added the Carbon group**: the 14 national holiday/date calendar traits (`MultiNationalDates`, `BrazilianHolidays`, `CanadianDates`, `DutchHolidays`, `FrenchHolidays`, `GermanHolidays`, `IndianHolidays`, `IndonesianHolidays`, `ItalianHolidays`, `KenyanHolidays`, `SwedishHolidays`, `UkrainianHolidays`, `UsDates`, `ZambianHolidays`) were ported into `Macros\CarbonMacros` (110 holiday predicates + 7 non-native date helpers), with the legacy `=`-instead-of-`===` assignment bugs fixed. `DistanceBetween` (orphaned + pheg) and `ParallelMap` (amphp) stay dropped. Coverage asserted by the macro-inventory + Carbon behaviour tests. |
-| `Foundation\Services\*` + `Foundation\Contracts\*` | ~34 | The service-locator service layer (`CacheService`, `FileService`, `ValidationService`, `SessionService`, `SystemService`, helper services, …) — **native-duplicative**. Superseded by native Laravel + the kept `Utilities\*` / `Traits\*`. These were the services the old `Laranail` facade fronted (see below). **Revived** (hardened, de-faceted, bound by contract): `RouteService`, `HttpConfigurationService`, `DatabaseService`, `ModelService` + their contracts → `Toolkit\Services\*` (G2-2). |
+| `Foundation\Services\*` + `Foundation\Contracts\*` | ~34 | The service-locator service layer (`CacheService`, `FileService`, `ValidationService`, `SessionService`, `SystemService`, helper services, …) — **native-duplicative**. Superseded by native Laravel + the kept `Utilities\*` / `Traits\*`. These were the services the old `Laranail` facade fronted (see below). **Revived** (hardened, de-faceted, bound by contract): `RouteService`, `HttpConfigurationService`, `DatabaseService`, `ModelService` + their contracts → `Toolkit\Services\*` (G2-2). **G8** folded the remaining useful convenience methods (`Session`/`System`/`Class`/`Collection`/`Faker`/`Authentication` services) into `Helpers\*` / `Utilities\*` / `Macros\CollectionMacros` — see the G8 note above. |
 | `Laravel\Providers\*` | 10 | Per-macro sub-providers + `MacrosServiceProvider` → consolidated into `Macros\MacroServiceProvider`; the middleware provider dropped (register middleware in the app). |
-| `Laravel\Http\*` | 3 | Of the 7 legacy HTTP symbols, **5 were MIGRATED in G1** (`ApiMiddleware`, `ApiRequestMiddleware`, `ApiResponseMiddleware` → `Http\Middleware\*`; `BaseRequest` → `Http\Requests\BaseRequest`; `Support\Contracts\ShovelHttpInterface` → `Http\Contracts\ShovelHttpInterface`). Still dropped: `BaseController` (→ `Http\Controllers\CrudController`), `ApiRequest` (the camelCase-keyed `BaseRequest` subclass is trivially re-derivable; envelope its errors via `Traits\ApiResponseTrait`), and `EmailObfuscatorMiddleware` (pheg dependency). |
+| `Laravel\Http\*` | 0 | **All 7 legacy HTTP symbols now MIGRATED.** G1: `ApiMiddleware`/`ApiRequestMiddleware`/`ApiResponseMiddleware` → `Http\Middleware\*`, `BaseRequest` → `Http\Requests\BaseRequest`, `ShovelHttpInterface` → `Http\Contracts\ShovelHttpInterface`. **G8: `BaseController`** is now the reusable abstract base `CrudController` extends; **`ApiRequest`** → `Http\Requests\ApiRequest` (JSON-envelope failures); **`EmailObfuscatorMiddleware`** rebuilt natively (no pheg, alias `email.obfuscate`). |
 | `Shared\Exceptions\*` + `Foundation\Exceptions\*` | 10 | Use native SPL / Laravel exceptions (`InvalidArgumentException`, `RuntimeException`, `ModelNotFoundException`). |
-| `Support\Traits\*` | 4 | `HasAuth`/`HasLivewire`/`HasPackageTools`/`HasErrorStorage` — native Laravel or out of the toolkit's scope (livewire/package-tools/pheg). (`HasGuzzleConfig` **revived** alongside `HttpConfigurationService` → `Toolkit\Traits\HasGuzzleConfig`.) |
+| `Support\Traits\*` | 2 | `HasAuth` and `HasErrorStorage` are **MIGRATED + improved** → `Toolkit\Traits\*` (memoised, strict-typed). Still dropped: `HasLivewire` (Livewire-specific) and `HasPackageTools` (ServiceProvider / `laranail/package-tools` concern). (`HasGuzzleConfig` **revived** alongside `HttpConfigurationService` → `Toolkit\Traits\HasGuzzleConfig`.) |
 | `Support\Contracts\*` | 5 | Interfaces for the dropped service-locator services. (`ShovelHttpInterface` was **MIGRATED in G1** → `Http\Contracts\ShovelHttpInterface`, backing `ApiResponseMiddleware`.) |
 | `Shared\Events\*` | 4 | Trivial event POPOs nothing dispatched. |
 | `Foundation\Providers\*` | 3 | Superseded by `Providers\ToolkitServiceProvider` + native auto-discovery. |
@@ -110,6 +134,25 @@ wire them.
 ---
 
 ## Appendix — full per-symbol table (all 279 legacy types)
+
+> **G8 — the owner's "good helper functions" list, resolved (each now lives in the toolkit, native under the hood):**
+> | Legacy fn(s) | Now provided by |
+> |---|---|
+> | getAppUrl, getCurrentRouteInfo, isCurrentRoute, getActiveCssClassForRoute | `Services\RouteService` |
+> | getErrorBagMessage, getCheckboxStatus, isValidDatabaseConnection | `Services\ValidationService` |
+> | registerModelObserver, eloquent2selectbox, sortItemWithChildren, getModelItem | `Services\ModelService` |
+> | existsInFilterKey, joinInFilterKey, removeFromFilterKey, saveJavaScriptCookies | `Utilities\SessionHelper` (G8) |
+> | getComposerArray→`composer`, getSystemEnv→`systemInfo`, getServerEnv→`serverEnv`, isSslInstalled | `Helpers\SystemHelper` (G8) |
+> | environment | `Utilities\EnvironmentUtil` |
+> | arrayToDotNotation, html→`escapeHtml`, ucWords, generateUsername→`usernameFromEmail`, generateEmailFromUsername→`emailFromUsername`, getClassNameFromClass→`classBasename`, random→`randomIntExcept`, faker | `Helpers\XHelper` (G8) |
+> | mapKeyValuePairArray→`mapKeyValuePairs`, sortSearchResults | `Macros\CollectionMacros` (G8) |
+> | username, authHelper, isUserExists→`userExists` | `Utilities\AuthUtil` (G8) |
+> | httpConfig | `Services\HttpConfigurationService` + `Traits\HasGuzzleConfig` |
+> | formatter | `Traits\HasFormatters` |
+> | logError | `Utilities\LoggingUtil::exception/error` (G8) |
+> | writeToConsoleOutput | `Helpers\ConsoleHelper::write` (G8) |
+> | setDatabaseCredentials | **dropped (unsafe config mutation)** → safe `Helpers\DbHelper::canConnectWith` |
+> | generateLivewireComponentKey, livewire | **dropped** — Livewire-specific, out of the core toolkit's scope |
 
 <!-- generated; do not hand-edit -->
 | Legacy symbol | Status | New location / reason |
@@ -402,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 112 | direct + 45 merged |
+| **MIGRATED** | 126 | direct + 52 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 150 | native / out-of-scope (see rows) |
+| **DROPPED** | 136 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -609,14 +652,14 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | Legacy type | Status | New target / reason |
 |---|---|---|
 | `AuthenticationHelperService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\AuthenticationHelperService` |
-| `AuthenticationService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `AuthenticationService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\AuthUtil (auth context + username/userExists folded, G8a)` |
 | `CacheService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\CachingUtil` |
-| `ClassHelperService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `CollectionHelperService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `ClassHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper (classBasename folded, G8a)` |
+| `CollectionHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (mapKeyValuePairs + sortSearchResults folded, G8a)` |
 | `DatabaseFileService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `DatabaseService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\DatabaseService` |
 | `ErrorStorageService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ErrorStorageService` |
-| `FakerHelperService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `FakerHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper (faker + randomIntExcept folded, G8a)` |
 | `FileHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\FileHelper (useful static helpers recovered, restore-candidates)` |
 | `FileService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `HttpConfigurationService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\HttpConfigurationService` |
@@ -625,10 +668,10 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `ModelService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ModelService` |
 | `PackageService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `RouteService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\RouteService` |
-| `SessionService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `SessionService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\SessionHelper (query-string filter-key helpers folded, G8a)` |
 | `StringHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper` |
 | `SystemService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\SystemHelper (useful static helpers recovered, restore-candidates)` |
-| `UtilityService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `UtilityService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\XHelper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)` |
 | `ValidationService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ValidationService` |
 
 ### Simtabi\Laranail\Laravel\Commands
@@ -649,7 +692,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseController` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `BaseController` | MIGRATED | `Simtabi\Laranail\Toolkit\Http\Controllers\BaseController` |
 
 ### Simtabi\Laranail\Laravel\Http\Middleware
 
@@ -658,26 +701,26 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `ApiMiddleware` | MIGRATED | `Simtabi\Laranail\Toolkit\Http\Middleware\ApiMiddleware` |
 | `ApiRequestMiddleware` | MIGRATED | `Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware` |
 | `ApiResponseMiddleware` | MIGRATED | `Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware` |
-| `EmailObfuscatorMiddleware` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `EmailObfuscatorMiddleware` | MIGRATED | `Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware` |
 
 ### Simtabi\Laranail\Laravel\Http\Requests
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `ApiRequest` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `ApiRequest` | MIGRATED | `Simtabi\Laranail\Toolkit\Http\Requests\ApiRequest` |
 | `BaseRequest` | MIGRATED | `Simtabi\Laranail\Toolkit\Http\Requests\BaseRequest` |
 
 ### Simtabi\Laranail\Laravel\Jobs
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseJob` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `BaseJob` | MIGRATED | `Simtabi\Laranail\Toolkit\Jobs\BaseJob` |
 
 ### Simtabi\Laranail\Laravel\Listeners
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseListener` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `BaseListener` | MIGRATED | `Simtabi\Laranail\Toolkit\Listeners\BaseListener` |
 | `LicenseListener` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 
 ### Simtabi\Laranail\Laravel\Macros
@@ -695,7 +738,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `ChunkBy` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `CollectBy` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Decrement` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `DistanceBetween` | DROPPED | `Orphaned pheg-dependent geo invokable; never wired to any Macroable target (G3).` |
+| `DistanceBetween` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\GeoHelper (native Haversine distanceBetween, G8b)` |
 | `DutchHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `EachCons` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `Eighth` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
@@ -796,7 +839,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseObserver` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `BaseObserver` | MIGRATED | `Simtabi\Laranail\Toolkit\Observers\BaseObserver` |
 
 ### Simtabi\Laranail\Laravel\Providers
 
@@ -834,7 +877,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseEvent` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `BaseEvent` | MIGRATED | `Simtabi\Laranail\Toolkit\Events\BaseEvent` |
 | `CacheEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `EnvironmentEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `LicenseEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |

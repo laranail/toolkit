@@ -47,6 +47,9 @@ class MacroRegistrationTest extends TestCase
             'eachCons', 'sliceBefore', 'chunkBy', 'groupByModel',
             // G6a: reshape / conditional.
             'forSelectBox', 'extract', 'tail', 'toPairs', 'fromPairs', 'ifEmpty',
+            // G8a: key/value reshape + relevance sort (fold the broken legacy
+            // Collection->select + CollectionHelperService::sortSearchResults).
+            'mapKeyValuePairs', 'sortSearchResults',
         ],
         'Arr' => [
             'filterNulls', 'filterEmpty', 'mapKeys', 'insertAfter', 'insertBefore', 'removeValue',

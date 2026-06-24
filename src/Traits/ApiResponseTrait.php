@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Traits;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
@@ -11,6 +12,8 @@ trait ApiResponseTrait
 {
     /**
      * Send a standardized success response.
+     *
+     * @param array<string, mixed> $meta
      */
     protected function successResponse(
         mixed $data = null,
@@ -28,6 +31,8 @@ trait ApiResponseTrait
 
     /**
      * Send a standardized error response with optional debug data.
+     *
+     * @param array<string, mixed> $errors
      */
     protected function errorResponse(
         string $message = 'Something went wrong.',
@@ -41,7 +46,7 @@ trait ApiResponseTrait
             'errors' => $errors,
         ];
 
-        if (config('app.debug') && $debug !== null) {
+        if ((bool) config('app.debug') && $debug !== null) {
             $response['debug'] = $debug;
         }
 
@@ -73,9 +78,13 @@ trait ApiResponseTrait
 
     /**
      * Send a paginated response with meta info.
+     *
+     * @param LengthAwarePaginator<int, mixed> $paginator
      */
-    protected function paginatedResponse($paginator, string $message = 'Data fetched successfully.'): JsonResponse
-    {
+    protected function paginatedResponse(
+        LengthAwarePaginator $paginator,
+        string $message = 'Data fetched successfully.'
+    ): JsonResponse {
         return $this->successResponse(
             $paginator->items(),
             $message,

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Helpers;
 
+use Illuminate\Support\Facades\File;
+use Throwable;
+
 /**
  * Read-only system / runtime introspection helpers.
  *
@@ -86,6 +89,72 @@ final class SystemHelper
         $https = $_SERVER['HTTPS'] ?? null;
 
         return is_string($https) && $https !== '' && strtolower($https) !== 'off';
+    }
+
+    /** Alias of {@see isHttps()} — whether the request is served over TLS/SSL. */
+    public static function isSslInstalled(): bool
+    {
+        return self::isHttps();
+    }
+
+    /**
+     * The application's `composer.json`, decoded to an array. Returns an empty
+     * array when the file is missing or unreadable (never throws).
+     *
+     * @return array<string, mixed>
+     */
+    public static function composer(): array
+    {
+        try {
+            $path = base_path('composer.json');
+
+            if (!File::exists($path)) {
+                return [];
+            }
+
+            /** @var array<string, mixed>|null $decoded */
+            $decoded = json_decode(File::get($path), true);
+
+            return is_array($decoded) ? $decoded : [];
+        } catch (Throwable) {
+            return [];
+        }
+    }
+
+    /**
+     * The constraint declared for a package in the app's `composer.json`
+     * `require` / `require-dev`, or null when it is not a direct dependency.
+     */
+    public static function composerPackageVersion(string $package): ?string
+    {
+        $composer = self::composer();
+
+        foreach (['require', 'require-dev'] as $section) {
+            $requirements = $composer[$section] ?? null;
+
+            if (is_array($requirements) && isset($requirements[$package]) && is_string($requirements[$package])) {
+                return $requirements[$package];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * A consolidated snapshot of the runtime: PHP, OS, SAPI, Laravel version
+     * and the current application environment.
+     *
+     * @return array{php_version: string, os: string, sapi: string, laravel_version: string, env: string}
+     */
+    public static function systemInfo(): array
+    {
+        return [
+            'php_version' => PHP_VERSION,
+            'os' => PHP_OS_FAMILY,
+            'sapi' => PHP_SAPI,
+            'laravel_version' => app()->version(),
+            'env' => app()->environment(),
+        ];
     }
 
     /**

@@ -67,4 +67,18 @@ class LoggingUtilTest extends TestCase
     {
         $this->assertInstanceOf(LoggingUtil::class, $this->app->make(LoggingUtil::class));
     }
+
+    public function test_exception_logs_at_error_level_with_structured_context(): void
+    {
+        $logs = Mockery::mock(LogManager::class);
+        $logs->shouldReceive('log')->once()->withArgs(
+            fn (string $level, string $message, array $context): bool => $level === 'error'
+                && $message === 'boom'
+                && ($context['exception'] ?? null) === \RuntimeException::class
+                && array_key_exists('file', $context)
+                && array_key_exists('line', $context)
+        );
+
+        new LoggingUtil($logs)->exception(new \RuntimeException('boom'));
+    }
 }

@@ -13,6 +13,7 @@ use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Helpers\XHelper;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
+use Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware;
 use Simtabi\Laranail\Toolkit\Macros\MacroServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLog;
 use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLogMiddleware;
@@ -248,6 +249,9 @@ class ToolkitServiceProvider extends ServiceProvider
         $router->aliasMiddleware('access.log', AccessLogMiddleware::class);
         $router->aliasMiddleware('api.request', ApiRequestMiddleware::class);
         $router->aliasMiddleware('api.response', ApiResponseMiddleware::class);
+        // `email.obfuscate` HTML-entity-encodes email addresses in HTML responses
+        // (JSON is left untouched) — opt-in per route/group.
+        $router->aliasMiddleware('email.obfuscate', EmailObfuscatorMiddleware::class);
 
         // Register custom validation rules
         $this->registerValidationRules();

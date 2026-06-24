@@ -7,6 +7,8 @@ namespace Simtabi\Laranail\Toolkit\Utilities;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\Auth\UserProvider;
 use InvalidArgumentException;
 
 /**
@@ -37,6 +39,14 @@ final readonly class AuthUtil
         $factory ??= app(AuthFactory::class);
 
         return new self($guard, $factory->guard($guard));
+    }
+
+    /**
+     * Alias of {@see for()} — build an accessor for the given (or default) guard.
+     */
+    public static function authHelper(?string $guard = null): self
+    {
+        return self::for($guard ?? (string) config('auth.defaults.guard', 'web'));
     }
 
     /**
@@ -85,6 +95,45 @@ final readonly class AuthUtil
         $email = data_get($user, 'email');
 
         return $email === null ? null : (string) $email;
+    }
+
+    /**
+     * The authenticated user's `username` attribute, falling back to `email`,
+     * or null when unavailable.
+     */
+    public function username(): ?string
+    {
+        $user = $this->user();
+
+        if ($user === null) {
+            return null;
+        }
+
+        $username = data_get($user, 'username') ?? data_get($user, 'email');
+
+        return $username === null ? null : (string) $username;
+    }
+
+    /**
+     * Whether a user matching `$key => $value` exists in this guard's user
+     * provider. Uses the provider's own `retrieveByCredentials()` lookup (which
+     * builds the `where` query for the non-secret credential), so it works for
+     * any provider that exposes a user provider. Returns false when the guard
+     * has no resolvable provider.
+     */
+    public function userExists(mixed $value, string $key = 'id'): bool
+    {
+        if (!$this->auth instanceof StatefulGuard) {
+            return false;
+        }
+
+        $provider = $this->auth->getProvider();
+
+        if (!$provider instanceof UserProvider) {
+            return false;
+        }
+
+        return $provider->retrieveByCredentials([$key => $value]) !== null;
     }
 
     /**

@@ -32,6 +32,40 @@ final class DbHelper
         }
     }
 
+    /**
+     * Whether a connection can be opened from an ad-hoc config array, WITHOUT
+     * touching the application's configured connections.
+     *
+     * Safe replacement for the dropped `setDatabaseCredentials`: it registers a
+     * throwaway, uniquely-named connection, opens its PDO inside a try/catch, and
+     * always purges + unsets the temp config afterwards. The default connection
+     * is never mutated, and credentials are never logged.
+     *
+     * @param array<string, mixed> $config a `database.connections.*`-shaped array
+     */
+    public static function canConnectWith(array $config): bool
+    {
+        $temp = 'laranail_probe_' . bin2hex(random_bytes(8));
+        $key = "database.connections.$temp";
+
+        config()->set($key, $config);
+
+        try {
+            DB::connection($temp)->getPdo();
+
+            return true;
+        } catch (Throwable) {
+            return false;
+        } finally {
+            DB::purge($temp);
+
+            /** @var array<string, mixed> $connections */
+            $connections = (array) config('database.connections', []);
+            unset($connections[$temp]);
+            config()->set('database.connections', $connections);
+        }
+    }
+
     /** Whether a table exists on the (optional) connection. Exception-safe. */
     public static function tableExists(string $table, ?string $connection = null): bool
     {

@@ -704,12 +704,6 @@ parameters:
 			path: src/Support/Scopes/ArchiveScope.php
 
 		-
-			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\ApiResponseTrait is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Traits/ApiResponseTrait.php
-
-		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\Auditable is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1

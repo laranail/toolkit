@@ -106,4 +106,14 @@ class ModelServiceTest extends TestCase
         $this->assertSame([1, 2, 3], array_map(static fn ($o): int => $o->id, $sorted));
         $this->assertSame([0, 1, 2], array_map(static fn ($o): int => $o->depth, $sorted));
     }
+
+    public function test_get_model_item_reads_by_dot_path_with_default(): void
+    {
+        $user = new ModelServiceUser();
+        $user->forceFill(['first_name' => 'Jane', 'email' => 'jane@example.com']);
+
+        $this->assertSame('Jane', $this->service->getModelItem($user, 'first_name'));
+        $this->assertSame('fallback', $this->service->getModelItem($user, 'missing', 'fallback'));
+        $this->assertNull($this->service->getModelItem($user, 'missing'));
+    }
 }

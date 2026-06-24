@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Helpers;
 
+use Faker\Generator;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Helpers\XHelper;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
@@ -95,5 +97,47 @@ class XHelperTest extends TestCase
     public function test_name_to_usernames_empty_for_blank_input(): void
     {
         $this->assertSame([], XHelper::nameToUsernames('', ''));
+    }
+
+    // --- G8a: folded-in UtilityService / Faker / Class helpers ---
+
+    public function test_array_to_dot_notation_converts_brackets(): void
+    {
+        $this->assertSame('a.b.c', XHelper::arrayToDotNotation('a[b][c]'));
+        $this->assertSame('plain', XHelper::arrayToDotNotation('plain'));
+    }
+
+    public function test_escape_html_escapes_strings_and_joins_arrays(): void
+    {
+        $this->assertSame('&lt;b&gt;hi&lt;/b&gt;', (string) XHelper::escapeHtml('<b>hi</b>'));
+        $this->assertSame('', (string) XHelper::escapeHtml(null));
+        $this->assertSame('a&amp;b', (string) XHelper::escapeHtml(['a&', 'b']));
+    }
+
+    public function test_class_basename_returns_short_name(): void
+    {
+        $this->assertSame('XHelper', XHelper::classBasename(XHelper::class));
+        $this->assertSame('XHelper', XHelper::classBasename(new XHelper()));
+    }
+
+    public function test_random_int_except_avoids_excluded_values(): void
+    {
+        for ($i = 0; $i < 50; $i++) {
+            $value = XHelper::randomIntExcept(1, 3, [2]);
+
+            $this->assertContains($value, [1, 3]);
+        }
+    }
+
+    public function test_random_int_except_throws_when_no_value_is_allowed(): void
+    {
+        $this->expectException(RuntimeException::class);
+
+        XHelper::randomIntExcept(1, 2, [1, 2]);
+    }
+
+    public function test_faker_returns_a_generator(): void
+    {
+        $this->assertInstanceOf(Generator::class, XHelper::faker());
     }
 }

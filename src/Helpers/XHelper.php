@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Helpers;
 
 use Carbon\Carbon;
+use Faker\Generator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use RuntimeException;
 
 class XHelper
 {
@@ -29,6 +32,15 @@ class XHelper
     public static function arrayFlatten(array $array): array
     {
         return Arr::flatten($array);
+    }
+
+    /**
+     * Convert a bracketed array expression into dot notation:
+     * `a[b][c]` => `a.b.c`. A plain key (no brackets) is returned unchanged.
+     */
+    public static function arrayToDotNotation(string $expr): string
+    {
+        return Str::replace(['[', ']'], ['.', ''], $expr);
     }
 
     // ------------------------
@@ -166,5 +178,72 @@ class XHelper
     public static function uuid(): string
     {
         return Str::uuid()->toString();
+    }
+
+    /**
+     * Escape a dirty string (or array of strings, joined) into an
+     * XSS-safe {@see HtmlString} via Laravel's `e()` helper. Null yields an
+     * empty HtmlString. (Recovered as the legacy `html()` sanitiser.)
+     *
+     * @param string|array<int|string, mixed>|null $dirty
+     */
+    public static function escapeHtml(string|array|null $dirty): HtmlString
+    {
+        if ($dirty === null) {
+            return new HtmlString('');
+        }
+
+        $value = is_array($dirty)
+            ? implode('', array_map(static fn (mixed $item): string => (string) $item, $dirty))
+            : $dirty;
+
+        return new HtmlString(e($value));
+    }
+
+    /**
+     * The "basename" of a class — its short name without the namespace.
+     */
+    public static function classBasename(object|string $class): string
+    {
+        return class_basename($class);
+    }
+
+    /**
+     * A random integer in `[$from, $to]` excluding any value in `$except`.
+     *
+     * Bounded (max attempts) so an impossible exclusion set throws rather than
+     * recursing forever — the legacy version recursed unbounded.
+     *
+     * @param list<int> $except
+     *
+     * @throws RuntimeException when no allowed value is found within the bound
+     */
+    public static function randomIntExcept(int $from, int $to, array $except = []): int
+    {
+        if ($from > $to) {
+            [$from, $to] = [$to, $from];
+        }
+
+        $maxAttempts = 1000;
+
+        for ($attempt = 0; $attempt < $maxAttempts; $attempt++) {
+            $number = random_int($from, $to);
+
+            if (!in_array($number, $except, true)) {
+                return $number;
+            }
+        }
+
+        throw new RuntimeException(
+            sprintf('Could not find an allowed integer in [%d, %d] after %d attempts.', $from, $to, $maxAttempts),
+        );
+    }
+
+    /**
+     * A Faker generator for the given locale, via Laravel's `fake()` helper.
+     */
+    public static function faker(?string $locale = null): Generator
+    {
+        return fake($locale);
     }
 }

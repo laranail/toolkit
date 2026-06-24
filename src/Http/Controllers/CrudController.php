@@ -7,9 +7,8 @@ namespace Simtabi\Laranail\Toolkit\Http\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 
-abstract class CrudController extends Controller
+abstract class CrudController extends BaseController
 {
     protected array $validationRules = [];
 

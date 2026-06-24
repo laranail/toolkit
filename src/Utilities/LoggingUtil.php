@@ -7,6 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Utilities;
 use Illuminate\Log\LogManager;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
+use Throwable;
 
 /**
  * Thin, injectable logging helper that enriches every record with a timestamp
@@ -73,6 +74,19 @@ class LoggingUtil
     public function critical(string $message, array $context = [], ?string $channel = null): void
     {
         $this->log(LogLevel::Critical, $message, $context, $channel);
+    }
+
+    /**
+     * Log a throwable at error level with structured context (class, message,
+     * file, line). Merges into the same enriched-context pipeline as {@see log()}.
+     */
+    public function exception(Throwable $e, ?string $channel = null): void
+    {
+        $this->error($e->getMessage(), [
+            'exception' => $e::class,
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+        ], $channel);
     }
 
     private function logger(?string $channel): LoggerInterface

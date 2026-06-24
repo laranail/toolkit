@@ -148,28 +148,28 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\AuthUtil (auth context + username/userExists folded, G8a)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\CacheService": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\ClassHelperService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper (classBasename folded, G8a)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\CollectionHelperService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (mapKeyValuePairs + sortSearchResults folded, G8a)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\DatabaseFileService": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\FakerHelperService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper (faker + randomIntExcept folded, G8a)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\FileHelperService": {
     "status": "merged",
@@ -192,8 +192,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\SessionService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\SessionHelper (query-string filter-key helpers folded, G8a)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\StringHelperService": {
     "status": "merged",
@@ -204,8 +204,8 @@
     "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\SystemHelper (useful static helpers recovered, restore-candidates)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\UtilityService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\XHelper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)"
   },
   "Simtabi\\Laranail\\Laravel\\Commands\\AssetCommand": {
     "status": "dropped",
@@ -240,26 +240,6 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Commands\\TidyCommand": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Http\\Controllers\\BaseController": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\EmailObfuscatorMiddleware": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Http\\Requests\\ApiRequest": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Jobs\\BaseJob": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Listeners\\BaseListener": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
@@ -312,8 +292,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\DistanceBetween": {
-    "status": "dropped",
-    "target": "Orphaned pheg-dependent geo invokable; never wired to any Macroable target (G3)."
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\GeoHelper (native Haversine distanceBetween, G8b)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\DutchHolidays": {
     "status": "merged",
@@ -691,10 +671,6 @@
     "status": "merged",
     "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
-  "Simtabi\\Laranail\\Laravel\\Observers\\BaseObserver": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Laravel\\Providers\\ArrMacroProvider": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -750,10 +726,6 @@
   "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": {
     "status": "relocated",
     "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Shared\\Events\\BaseEvent": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Shared\\Events\\CacheEvents": {
     "status": "dropped",

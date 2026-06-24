@@ -70,6 +70,40 @@ all `ValidationService` HTML/checkbox/old-input helpers (→ `Services\Validatio
 
 ---
 
+## G8 — convenience restoration + reusable base classes (2026-06-23, all ✅ done)
+
+The owner's "it's a developer toolkit — keep the convenience wrappers" pass. All native under
+the hood, no duplication; sources flipped `dropped → merged` (or the entry deleted = MIGRATED for
+same-named restorations), verifier stays green. **This section supersedes the SKIP list above where
+they conflict** (G8 reversed several earlier "native one-liner" / "broken" calls per owner).
+
+### Convenience methods (enhanced existing classes)
+- [x] `Helpers\XHelper`: `arrayToDotNotation`, `escapeHtml` (legacy `html`), `classBasename`, `randomIntExcept` (bounded — fixes legacy unbounded recursion), `faker`.
+- [x] `Helpers\SystemHelper`: `composer`, `composerPackageVersion`, `systemInfo`, `isSslInstalled` (alias of `isHttps`).
+- [x] `Helpers\DbHelper`: `canConnectWith` — **safe** ephemeral-connection probe (replaces the unsafe `setDatabaseCredentials`; no `config()` mutation, no credential logging).
+- [x] `Utilities\SessionHelper` (new): `existsInFilterKey`, `joinInFilterKey`, `removeFromFilterKey`, `saveJavaScriptCookies` (clean idiomatic re-implementation).
+- [x] `Utilities\LoggingUtil`: `exception()` (legacy `logError`).
+- [x] `Utilities\AuthUtil`: `username`, `userExists`, `authHelper` alias.
+- [x] `Services\ModelService`: `getModelItem` (`data_get`).
+- [x] `Macros\CollectionMacros`: `mapKeyValuePairs` (fixes the broken legacy `Collection->select`), `sortSearchResults` (relevance scoring).
+- [x] `Helpers\GeoHelper` (new): `distanceBetween` — native Haversine (restores `DistanceBetween`, no pheg).
+- [x] `Helpers\ConsoleHelper` (new): `write` (legacy `writeToConsoleOutput`).
+
+### New HTTP classes
+- [x] `Http\Requests\ApiRequest` — JSON-envelope validation failures (extends `BaseRequest`).
+- [x] `Http\Middleware\EmailObfuscatorMiddleware` — native, no pheg; opt-in alias `email.obfuscate`.
+
+### Reusable base classes (real shared code, for future reuse)
+- [x] `Http\Controllers\BaseController` — abstract base (`AuthorizesRequests`+`ValidatesRequests`+`ApiResponseTrait`); `CrudController` now extends it.
+- [x] `Jobs\BaseJob` (queue defaults + `failed()` logging), `Listeners\BaseListener` (`shouldHandle()` gate), `Observers\BaseObserver`, `Events\BaseEvent`.
+
+### Still dropped (with reason)
+`setDatabaseCredentials` as-is (security → `DbHelper::canConnectWith`); `HasPackageTools`
+(ServiceProvider / `laranail/package-tools` concern); `HasLivewire` / `generateLivewireComponentKey` /
+`livewire` (Livewire-specific); `LicenseListener` + the never-dispatched `Shared\Events\*` stubs.
+
+---
+
 ## Done condition (same as the migration)
 Each ticked item: source flipped `dropped → merged` (target = the helper) in
 `removed-symbols.json`, helper method + test added, all gates green, and

@@ -147,6 +147,15 @@ final readonly class ModelService
     }
 
     /**
+     * Read a value off a model by dot-path key, with a default fallback
+     * (a thin, typed convenience over `data_get`).
+     */
+    public function getModelItem(object $model, string $key, mixed $default = null): mixed
+    {
+        return data_get($model, $key, $default);
+    }
+
+    /**
      * Register an observer on a model, when both classes exist.
      */
     public function registerModelObserver(string $modelClass, string $observerClass): void

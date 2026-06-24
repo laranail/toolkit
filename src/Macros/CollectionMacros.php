@@ -397,5 +397,56 @@ final class CollectionMacros extends ServiceProvider
 
             return $this;
         });
+
+        // Map a list of {key, value} rows into an associative [key => value]
+        // collection. Fixes the broken legacy Collection->select.
+        Collection::macro('mapKeyValuePairs', function (): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $result = [];
+
+            foreach ($this as $row) {
+                $key = data_get($row, 'key');
+                $value = data_get($row, 'value');
+
+                if ($key === null) {
+                    continue;
+                }
+
+                /** @var array-key $key */
+                $result[$key] = $value;
+            }
+
+            return new Collection($result);
+        });
+
+        // Sort by search relevance against $column: exact match +100,
+        // starts-with +50, contains +25, otherwise a similar_text() weight.
+        Collection::macro('sortSearchResults', function (string $searchTerms, string $column): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $terms = Collection::make(explode(' ', mb_strtolower(trim($searchTerms))))
+                ->filter(static fn (string $term): bool => $term !== '')
+                ->all();
+
+            return $this->sortByDesc(static function (mixed $item) use ($terms, $column): float {
+                $value = mb_strtolower((string) data_get($item, $column, ''));
+                $score = 0.0;
+
+                foreach ($terms as $term) {
+                    if ($value === $term) {
+                        $score += 100;
+                    } elseif (str_starts_with($value, $term)) {
+                        $score += 50;
+                    } elseif (str_contains($value, $term)) {
+                        $score += 25;
+                    } else {
+                        $similarity = 0;
+                        similar_text($value, $term, $similarity);
+                        $score += $similarity / 10;
+                    }
+                }
+
+                return $score;
+            })->values();
+        });
     }
 }
