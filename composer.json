@@ -43,7 +43,8 @@
         "illuminate/validation": "^13.0",
         "intervention/image": "^4.1",
         "laranail/console": "dev-main",
-        "openai-php/client": "^0.20.0"
+        "openai-php/client": "^0.20.0",
+        "rinvex/countries": "^9.1"
     },
     "require-dev": {
         "infection/infection": "^0.33",
@@ -107,6 +108,7 @@
                 "Gravatar": "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\Gravatar",
                 "Captcha": "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Captcha",
                 "Archiver": "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Archiver",
+                "Atlas": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas",
                 "Livewire": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\Livewire"
             }
         }

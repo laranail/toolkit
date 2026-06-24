@@ -232,6 +232,7 @@ class Post extends Model
 | [Gravatar module](docs/modules/gravatar.md) | Gravatar URL builder |
 | [Captcha module](docs/modules/captcha.md) | reCAPTCHA / hCaptcha / Turnstile |
 | [Archiver module](docs/modules/archiver.md) | Safe tar/zip extraction |
+| [Atlas module](docs/modules/atlas.md) | Country / currency / timezone / locale data |
 | [Livewire module](docs/modules/livewire.md) | Livewire component registration |
 
 ## License

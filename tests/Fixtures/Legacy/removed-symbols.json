@@ -768,16 +768,16 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Support\\Facades\\LanguagesFacade": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas"
   },
   "Simtabi\\Laranail\\Support\\Services\\Atlas\\Countries": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasService"
   },
   "Simtabi\\Laranail\\Support\\Services\\Atlas\\Languages": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasService"
   },
   "Simtabi\\Laranail\\Support\\Traits\\HasPackageTools": {
     "status": "dropped",

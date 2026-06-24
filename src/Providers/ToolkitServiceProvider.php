@@ -18,6 +18,7 @@ use Simtabi\Laranail\Toolkit\Macros\MacroServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLog;
 use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLogMiddleware;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
@@ -69,6 +70,7 @@ class ToolkitServiceProvider extends ServiceProvider
         AvatarServiceProvider::class,
         CaptchaServiceProvider::class,
         ArchiverServiceProvider::class,
+        AtlasServiceProvider::class,
         LivewireServiceProvider::class,
     ];
 

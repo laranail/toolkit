@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 132 | direct + 56 merged |
+| **MIGRATED** | 135 | direct + 59 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 130 | native / out-of-scope (see rows) |
+| **DROPPED** | 127 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -915,7 +915,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `LanguagesFacade` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `LanguagesFacade` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Atlas\Atlas` |
 
 ### Simtabi\Laranail\Support\Resources
 
@@ -929,8 +929,8 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `Countries` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `Languages` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `Countries` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasService` |
+| `Languages` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasService` |
 
 ### Simtabi\Laranail\Support\Traits
 
