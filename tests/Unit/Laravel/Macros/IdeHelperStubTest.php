@@ -89,11 +89,11 @@ class IdeHelperStubTest extends TestCase
             'Str' => [
                 'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
                 'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'replaceMany',
-                'reverseString', 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
+                'matches', 'reverseString', 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
             ],
             'Stringable' => [
                 'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
-                'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'reverseString',
+                'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'matches', 'reverseString',
                 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
             ],
             'Collection' => [
@@ -104,6 +104,7 @@ class IdeHelperStubTest extends TestCase
                 'eachCons', 'sliceBefore', 'chunkBy', 'groupByModel',
                 'forSelectBox', 'extract', 'tail', 'toPairs', 'fromPairs', 'ifEmpty',
                 'mapKeyValuePairs', 'sortSearchResults',
+                'pluckMany', 'replaceInKeys',
             ],
             'Arr' => [
                 'filterNulls', 'filterEmpty', 'mapKeys', 'insertAfter', 'insertBefore', 'removeValue',

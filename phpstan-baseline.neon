@@ -685,12 +685,6 @@ parameters:
 			path: src/Services/ModelService.php
 
 		-
-			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Support\\FilePathGuard is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Support/FilePathGuard.php
-
-		-
 			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:macro\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 5

@@ -10,8 +10,9 @@ are included — native duplicates were intentionally dropped (see
 `kebabToTitle`, `snakeToTitle`, `camelToTitle`, `truncateMiddle($len = 50,
 $middle = '...')`, `isEmail`, `stripWhitespace`, `normalizeWhitespace`, `toBool`,
 `wrapWith($wrapper = '"')`, `replaceMany($replacements)` (Str only),
-`reverseString`, `countWords`, `removeAccents`,
-`readingMinutes($wordsPerMinute = 200)`, `highlightWords($words)`.
+`matches($pattern)` (whole-string PCRE test → bool), `reverseString`,
+`countWords`, `removeAccents`, `readingMinutes($wordsPerMinute = 200)`,
+`highlightWords($words)`.
 
 ```php
 Str::camelToTitle('helloWorld');          // "Hello World"
@@ -55,7 +56,9 @@ Arr::average($rows, 'score');
 `tail($preserveKeys = false)`, `toPairs()`, `fromPairs()`, `ifEmpty($cb)`,
 `mapKeyValuePairs()` (map `{key, value}` rows into an associative collection),
 `sortSearchResults($searchTerms, $column)` (relevance sort: exact +100,
-starts-with +50, contains +25, else a `similar_text()` weight).
+starts-with +50, contains +25, else a `similar_text()` weight),
+`pluckMany($keys)` (reduce each item to only the given keys),
+`replaceInKeys($search, $replace)` (`str_replace` over every key, values kept).
 
 ```php
 collect($flatRows)->toTree('parent_id'); // nested children tree

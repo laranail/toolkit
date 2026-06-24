@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 135 | direct + 59 merged |
+| **MIGRATED** | 137 | direct + 59 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 127 | native / out-of-scope (see rows) |
+| **DROPPED** | 125 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -591,7 +591,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `Laranail` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `Laranail` | MIGRATED | `Simtabi\Laranail\Toolkit\Facades\Laranail` |
 
 ### Simtabi\Laranail\Foundation\Contracts
 
@@ -637,7 +637,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `LaranailFacade` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `LaranailFacade` | MIGRATED | `Simtabi\Laranail\Toolkit\Facades\Laranail` |
 
 ### Simtabi\Laranail\Foundation\Providers
 

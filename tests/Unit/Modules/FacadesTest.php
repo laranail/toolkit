@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules;
 
+use Simtabi\Laranail\Toolkit\Facades\Laranail;
 use Simtabi\Laranail\Toolkit\Facades\Toolkit;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface;
@@ -76,5 +77,27 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(AuthenticationHelperServiceInterface::class, Toolkit::auth());
         $this->assertInstanceOf(AtlasServiceInterface::class, Toolkit::atlas());
         $this->assertInstanceOf(LivewireServiceInterface::class, Toolkit::livewire());
+    }
+
+    public function test_laranail_facade_fronts_each_module(): void
+    {
+        $this->assertInstanceOf(AvatarServiceInterface::class, Laranail::avatar());
+        $this->assertInstanceOf(RouteServiceInterface::class, Laranail::route());
+        $this->assertInstanceOf(DatabaseServiceInterface::class, Laranail::database());
+        $this->assertInstanceOf(AtlasServiceInterface::class, Laranail::atlas());
+    }
+
+    public function test_laranail_and_toolkit_resolve_the_same_manager_and_services(): void
+    {
+        // One manager, two facade names: both facades must resolve the very same
+        // singleton ToolkitManager — that is the merge (no duplicated logic).
+        $this->assertSame(Laranail::getFacadeRoot(), Toolkit::getFacadeRoot());
+
+        // And a service reached through either name is the same type/contract.
+        $this->assertInstanceOf(RouteServiceInterface::class, Laranail::route());
+        $this->assertInstanceOf(RouteServiceInterface::class, Toolkit::route());
+
+        // Singleton-bound services resolve to the identical instance via either.
+        $this->assertSame(Laranail::atlas(), Toolkit::atlas());
     }
 }

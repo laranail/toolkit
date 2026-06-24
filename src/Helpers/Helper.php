@@ -31,7 +31,8 @@ use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithSystem;
  *                                  isPhpVersionSupported, isCli, isHttps, isSslInstalled,
  *                                  composer, composerPackageVersion, systemInfo, serverEnv
  * - {@see InteractsWithFiles}    — formatFileSize, extension, filenameWithoutExtension,
- *                                  isImage, sanitizeFilename
+ *                                  isImage, sanitizeFilename, exists, size, lastModified,
+ *                                  hasAllowedExtension, fileInfo
  * - {@see InteractsWithDatabase} — canConnect, canConnectWith, tableExists, columnExists,
  *                                  connectionNames
  * - {@see InteractsWithGeo}      — distanceBetween

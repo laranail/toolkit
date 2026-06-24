@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
+use ArrayAccess;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use RuntimeException;
@@ -448,6 +450,50 @@ final class CollectionMacros extends ServiceProvider
             }
 
             return new Collection($result);
+        });
+
+        // Pluck several keys per item, returning a collection of reduced rows.
+        // Each item is narrowed to only $keys: Collections via only(), arrays via
+        // Arr::only(), ArrayAccess by reading each key, and plain objects by
+        // intersecting their public vars.
+        Collection::macro('pluckMany', function (array $keys): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->map(static function (mixed $item) use ($keys): mixed {
+                if ($item instanceof Collection) {
+                    return $item->only($keys);
+                }
+
+                if (is_array($item)) {
+                    return Arr::only($item, $keys);
+                }
+
+                if ($item instanceof ArrayAccess) {
+                    $picked = [];
+                    foreach ($keys as $key) {
+                        if (isset($item[$key])) {
+                            $picked[$key] = $item[$key];
+                        }
+                    }
+
+                    return $picked;
+                }
+
+                if (is_object($item)) {
+                    return (object) Arr::only(get_object_vars($item), $keys);
+                }
+
+                return $item;
+            });
+        });
+
+        // Run str_replace over every key of the collection, preserving values.
+        Collection::macro('replaceInKeys', function (string|array $search, string|array $replace): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->mapWithKeys(static function (mixed $value, int|string $key) use ($search, $replace): array {
+                $newKey = str_replace($search, $replace, (string) $key);
+
+                return [$newKey => $value];
+            });
         });
 
         // Sort by search relevance against $column: exact match +100,

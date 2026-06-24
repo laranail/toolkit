@@ -127,14 +127,6 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Foundation\\Facades\\LaranailFacade": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Laranail": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Foundation\\Providers\\LaranailEventServiceProvider": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"

@@ -30,11 +30,11 @@ class MacroRegistrationTest extends TestCase
         'Str' => [
             'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
             'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'replaceMany',
-            'reverseString', 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
+            'matches', 'reverseString', 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
         ],
         'Stringable' => [
             'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
-            'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'reverseString',
+            'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'matches', 'reverseString',
             'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
         ],
         'Collection' => [
@@ -50,6 +50,8 @@ class MacroRegistrationTest extends TestCase
             // G8a: key/value reshape + relevance sort (fold the broken legacy
             // Collection->select + CollectionHelperService::sortSearchResults).
             'mapKeyValuePairs', 'sortSearchResults',
+            // Restored borderline macros (legacy PluckMany / ReplaceInKeys).
+            'pluckMany', 'replaceInKeys',
         ],
         'Arr' => [
             'filterNulls', 'filterEmpty', 'mapKeys', 'insertAfter', 'insertBefore', 'removeValue',
@@ -187,8 +189,12 @@ class MacroRegistrationTest extends TestCase
         // Native-duplicative / broken legacy macros, kept dropped.
         'Str::initials / Stringable::initials (legacy Macros\\Initials)' => 'Native Str::initials exists; the legacy macro called a nonexistent Str::interpolate.',
 
+        // Restored borderline macros: folded into the grouped providers.
+        'Macros\\Matches' => 'Folded into Macros\\StringMacros as the Str/Stringable matches() macro (native preg_match wrapper, returns bool).',
+        'Macros\\PluckMany / ReplaceInKeys' => 'Folded into Macros\\CollectionMacros as registered Collection macros (pluckMany / replaceInKeys).',
+
         // Orphaned invokable micro-classes (unreferenced by any grouped provider).
-        'Orphaned Macros/* micro-classes (After, At, Bind, Decrement, Nth-ordinals, FilterMap, FromBase64/Json, Glob, Head, Human, IfMacro, Interpolate, Initials, Ksort/Krsort/Rsort, Paginate*, ParallelMap, PluckMany, Recursive, ReplaceInKeys, Round5, SectionBy, StripTags, ToBase64, Transpose, TryCatch, Validate, WhenEquals, Where*, WithSize, WordsCount, etc.)' => 'Unreferenced by any provider; dead code, or redundant with kept inline macros.',
+        'Orphaned Macros/* micro-classes (After, At, Bind, Decrement, Nth-ordinals, FilterMap, FromBase64/Json, Glob, Head, Human, IfMacro, Interpolate, Initials, Ksort/Krsort/Rsort, Paginate*, ParallelMap, Recursive, Round5, SectionBy, StripTags, ToBase64, Transpose, TryCatch, Validate, WhenEquals, Where*, WithSize, WordsCount, etc.)' => 'Unreferenced by any provider; dead code, or redundant with kept inline macros.',
     ];
 
     public function test_dropped_inventory_is_documented(): void

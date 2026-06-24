@@ -62,6 +62,11 @@ final class StringMacros extends ServiceProvider
             return $string;
         });
 
+        // Whether the string matches a full PCRE pattern. The legacy macro
+        // delegated to a non-existent Str::matches() and double-wrapped the
+        // result; this is a direct, bool-returning preg_match() wrapper.
+        Str::macro('matches', fn (string $string, string $pattern): bool => preg_match($pattern, $string) === 1);
+
         Str::macro('reverseString', fn (string $string): string => strrev($string));
 
         Str::macro('countWords', fn (string $string): int => str_word_count($string));
@@ -153,6 +158,11 @@ final class StringMacros extends ServiceProvider
         Stringable::macro('wrapWith', function (string $wrapper = '"'): Stringable {
             /** @var Stringable $this */
             return new Stringable(Str::wrapWith((string) $this, $wrapper));
+        });
+
+        Stringable::macro('matches', function (string $pattern): bool {
+            /** @var Stringable $this */
+            return Str::matches((string) $this, $pattern);
         });
 
         Stringable::macro('reverseString', function (): Stringable {

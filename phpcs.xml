@@ -29,6 +29,9 @@
         <!-- Single-line promoted-constructor empty bodies (`__construct(...) {}`)
              that Pint produces. -->
         <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+        <!-- Pint emits `new class()` (no space) for anonymous classes; this
+             PSR-12 sniff wants `new class ()`. Pint owns formatting. -->
+        <exclude name="PSR12.Classes.AnonClassDeclaration.SpaceAfterKeyword"/>
     </rule>
 
     <!-- Test methods follow PHPUnit's snake_case convention. -->

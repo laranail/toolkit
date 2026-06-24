@@ -43,6 +43,7 @@ namespace Illuminate\Support {
      * @method static bool toBool(string $string) Parse "1/true/yes/on" (case-insensitive) into a boolean.
      * @method static string wrapWith(string $string, string $wrapper = '"') Wrap the string in the given wrapper on both sides.
      * @method static string replaceMany(string $string, array $replacements) Apply an [search => replace] map in order.
+     * @method static bool matches(string $string, string $pattern) Whether the string matches the full PCRE pattern.
      * @method static string reverseString(string $string) Reverse the string (non-shadowing alias of native reverse).
      * @method static int countWords(string $string) Count the words in the string.
      * @method static string removeAccents(string $string) Transliterate accented characters to ASCII.
@@ -61,6 +62,7 @@ namespace Illuminate\Support {
      * @method \Illuminate\Support\Stringable normalizeWhitespace() Collapse runs of whitespace to a single space and trim.
      * @method bool toBool() Parse "1/true/yes/on" (case-insensitive) into a boolean.
      * @method \Illuminate\Support\Stringable wrapWith(string $wrapper = '"') Wrap the string in the given wrapper on both sides.
+     * @method bool matches(string $pattern) Whether the string matches the full PCRE pattern.
      * @method \Illuminate\Support\Stringable reverseString() Reverse the string (non-shadowing alias of native reverse).
      * @method int countWords() Count the words in the string.
      * @method \Illuminate\Support\Stringable removeAccents() Transliterate accented characters to ASCII.
@@ -100,6 +102,8 @@ namespace Illuminate\Support {
      * @method \Illuminate\Support\Collection ifEmpty(callable $callback) Run the callback when empty, then return the collection.
      * @method \Illuminate\Support\Collection mapKeyValuePairs() Map {key, value} rows into an associative [key => value] collection.
      * @method \Illuminate\Support\Collection sortSearchResults(string $searchTerms, string $column) Sort by search relevance against the given column.
+     * @method \Illuminate\Support\Collection pluckMany(array $keys) Reduce each item to only the given keys.
+     * @method \Illuminate\Support\Collection replaceInKeys(string|array $search, string|array $replace) Run str_replace over every key, preserving values.
      */
     class Collection {}
 

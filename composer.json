@@ -104,6 +104,7 @@
             ],
             "aliases": {
                 "Toolkit": "Simtabi\\Laranail\\Toolkit\\Facades\\Toolkit",
+                "Laranail": "Simtabi\\Laranail\\Toolkit\\Facades\\Laranail",
                 "Avatar": "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Avatar",
                 "Gravatar": "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\Gravatar",
                 "Captcha": "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Captcha",

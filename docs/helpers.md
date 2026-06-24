@@ -66,7 +66,7 @@ Helper::serverEnv();                            // read-only server settings sna
 
 ## Files
 
-Pure file-**name** / size inspection (no filesystem writes).
+File-**name** / size inspection plus a few thin, path-guarded filesystem probes.
 
 ```php
 Helper::formatFileSize(1024);                   // '1 KB'
@@ -74,10 +74,24 @@ Helper::extension('/a/b/photo.JPG');            // 'jpg'
 Helper::filenameWithoutExtension('photo.jpg');  // 'photo'
 Helper::isImage('photo.png');                   // true
 Helper::sanitizeFilename($uploadedName);        // strips separators / null bytes
+
+Helper::exists('/srv/app/.env');                // bool — safe path + File::exists
+Helper::size('/srv/app/dump.sql');              // int bytes (0 if missing/unsafe)
+Helper::lastModified('/srv/app/dump.sql');      // int UNIX ts (0 if missing/unsafe)
+Helper::hasAllowedExtension('db.sqlite', ['sql', 'sqlite', 'db']); // true
+Helper::fileInfo('/srv/app/dump.sql');          // path/size/extension/name/… or []
 ```
 
 `sanitizeFilename()` cleans a file **name** (apply after `basename()`, before
 storing an uploaded name) — it is not a path sanitizer.
+
+The probes (`exists`, `size`, `lastModified`, `fileInfo`) are read-only and
+exception-safe: each rejects `..` traversal segments and null bytes via the
+canonical `Support\FilePathGuard` (returning `false`/`0`/`[]` rather than
+throwing). `hasAllowedExtension()` is generic — pass whatever allow-list you
+need; it lower-cases and strips a leading dot before comparing. Plain
+read/write/copy/move/delete are deliberately not wrapped — use the `Storage` /
+`File` facades or `Traits\FileProcessingTrait` directly.
 
 ## Database
 

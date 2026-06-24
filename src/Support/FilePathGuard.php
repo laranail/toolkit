@@ -27,9 +27,13 @@ trait FilePathGuard
         }
 
         // Normalise separators, then reject any `..` segment.
-        $segments = preg_split('#[\\\\/]+#', $path) ?: [];
+        $segments = preg_split('#[\\\\/]+#', $path);
 
-        return array_all($segments, fn ($segment) => !($segment === '..'));
+        if ($segments === false) {
+            return false;
+        }
+
+        return array_all($segments, fn ($segment) => $segment !== '..');
     }
 
     /**

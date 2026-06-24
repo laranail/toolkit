@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Simtabi\Laranail\Toolkit\Facades;
+
+use Illuminate\Support\Facades\Facade;
+use Simtabi\Laranail\Toolkit\ToolkitManager;
+
+/**
+ * The familiar `Laranail` entry point, re-introduced as a clean alias.
+ *
+ * This resolves the SAME {@see ToolkitManager} as the {@see Toolkit} facade —
+ * one manager, two facade names — so `Laranail::route()` is identical to
+ * `Toolkit::route()` with no duplicated logic. It is NOT the legacy 48-method
+ * service-locator; it exposes only the toolkit's typed module accessors.
+ *
+ * @method static \Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface                   avatar()
+ * @method static \Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface               gravatar()
+ * @method static \Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService                          captcha()
+ * @method static \Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface               archiver()
+ * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface                route()
+ * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface           validation()
+ * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface             db()
+ * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface             database()
+ * @method static \Simtabi\Laranail\Toolkit\Services\ModelService                                   model()
+ * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface    http()
+ * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface auth()
+ * @method static \Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface                     atlas()
+ * @method static \Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface               livewire()
+ *
+ * @see ToolkitManager
+ * @see Toolkit
+ */
+class Laranail extends Facade
+{
+    protected static function getFacadeAccessor(): string
+    {
+        return ToolkitManager::class;
+    }
+}

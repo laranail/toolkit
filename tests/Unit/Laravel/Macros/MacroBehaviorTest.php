@@ -56,6 +56,48 @@ class MacroBehaviorTest extends TestCase
         $this->assertSame([[1, 3], [2, 4]], $result);
     }
 
+    public function test_str_matches_tests_a_full_pcre_pattern(): void
+    {
+        $this->assertTrue(Str::matches('abc-123', '/^[a-z]+-\d+$/'));
+        $this->assertFalse(Str::matches('abc 123', '/^[a-z]+-\d+$/'));
+        // Stringable mirror returns the bool directly, not a Stringable.
+        $this->assertTrue(Str::of('hello@example.com')->matches('/@example\.com$/'));
+        $this->assertFalse(Str::of('nope')->matches('/@example\.com$/'));
+    }
+
+    public function test_collection_pluck_many_reduces_each_item_to_given_keys(): void
+    {
+        $rows = new Collection([
+            ['id' => 1, 'name' => 'A', 'secret' => 'x'],
+            ['id' => 2, 'name' => 'B', 'secret' => 'y'],
+        ]);
+
+        $this->assertSame(
+            [['id' => 1, 'name' => 'A'], ['id' => 2, 'name' => 'B']],
+            $rows->pluckMany(['id', 'name'])->all(),
+        );
+
+        // Works on nested Collections and plain objects too.
+        $object = (object) ['id' => 9, 'name' => 'C', 'secret' => 'z'];
+        $reduced = new Collection([$object])->pluckMany(['id', 'name'])->first();
+        $this->assertEquals((object) ['id' => 9, 'name' => 'C'], $reduced);
+    }
+
+    public function test_collection_replace_in_keys_rewrites_keys_and_keeps_values(): void
+    {
+        $result = new Collection(['user_id' => 1, 'user_name' => 'A'])
+            ->replaceInKeys('user_', '')
+            ->all();
+
+        $this->assertSame(['id' => 1, 'name' => 'A'], $result);
+
+        // Edge case: array search/replace and integer keys cast to string.
+        $multi = new Collection(['a-b' => 1, 'c.d' => 2])
+            ->replaceInKeys(['-', '.'], ['_', '_'])
+            ->all();
+        $this->assertSame(['a_b' => 1, 'c_d' => 2], $multi);
+    }
+
     public function test_collection_rotate_left_handles_empty(): void
     {
         $this->assertSame([], new Collection([])->rotateLeft()->all());
