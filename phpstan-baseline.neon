@@ -674,6 +674,12 @@ parameters:
 			path: src/Support/FilePathGuard.php
 
 		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\RunsConditionally is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/RunsConditionally.php
+
+		-
 			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:macro\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 5

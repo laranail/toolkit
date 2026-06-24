@@ -88,6 +88,90 @@ class RequirementsDiagnosticsTest extends TestCase
         $this->assertFalse($result['sufficient']);
     }
 
+    public function test_disk_space_probe_reports_sufficient_space(): void
+    {
+        $result = $this->diagnostics->diskSpace([sys_get_temp_dir()], minMb: 1);
+
+        $this->assertSame(
+            ['healthy', 'warn_at_percent', 'minimum_mb', 'recommended_mb', 'paths'],
+            array_keys($result),
+        );
+        $this->assertTrue($result['healthy']);
+
+        $path = $result['paths'][sys_get_temp_dir()];
+        $this->assertTrue($path['available']);
+        $this->assertTrue($path['meets_minimum']);
+        $this->assertFalse($path['warning']);
+        $this->assertSame('healthy', $path['status']);
+        $this->assertIsFloat($path['used_percent']);
+    }
+
+    public function test_disk_space_probe_flags_insufficient_minimum(): void
+    {
+        // ~1 EB free is unreachable on any test runner, so the floor must fail.
+        $result = $this->diagnostics->diskSpace([sys_get_temp_dir()], minMb: 1_000_000_000_000);
+
+        $this->assertFalse($result['healthy']);
+        $this->assertFalse($result['paths'][sys_get_temp_dir()]['meets_minimum']);
+        $this->assertSame('critical', $result['paths'][sys_get_temp_dir()]['status']);
+    }
+
+    public function test_disk_space_probe_warns_when_usage_exceeds_threshold(): void
+    {
+        // Any non-empty disk is above 0% used, so a 0% warning line trips.
+        $result = $this->diagnostics->diskSpace([sys_get_temp_dir()], warnAtPercent: 0);
+
+        $this->assertFalse($result['healthy']);
+        $this->assertTrue($result['paths'][sys_get_temp_dir()]['warning']);
+        $this->assertSame('warning', $result['paths'][sys_get_temp_dir()]['status']);
+    }
+
+    public function test_disk_space_probe_reports_low_below_recommendation(): void
+    {
+        $result = $this->diagnostics->diskSpace(
+            [sys_get_temp_dir()],
+            minMb: 1,
+            recommendedMb: 1_000_000_000_000,
+        );
+
+        $path = $result['paths'][sys_get_temp_dir()];
+        $this->assertTrue($path['meets_minimum']);
+        $this->assertFalse($path['meets_recommended']);
+        $this->assertSame('low', $path['status']);
+        // "low" alone does not break health; only minimum / warning do.
+        $this->assertTrue($result['healthy']);
+    }
+
+    public function test_disk_space_multipath_probe_degrades_on_unreadable_path(): void
+    {
+        $result = $this->diagnostics->diskSpace(['/this/path/does/not/exist']);
+
+        $this->assertFalse($result['healthy']);
+        $path = $result['paths']['/this/path/does/not/exist'];
+        $this->assertFalse($path['available']);
+        $this->assertNull($path['free']);
+        $this->assertSame('unavailable', $path['status']);
+    }
+
+    public function test_disk_space_probe_handles_multiple_paths(): void
+    {
+        $result = $this->diagnostics->diskSpace(
+            [sys_get_temp_dir(), '/this/path/does/not/exist'],
+            minMb: 1,
+        );
+
+        $this->assertFalse($result['healthy']); // one path is unavailable
+        $this->assertTrue($result['paths'][sys_get_temp_dir()]['available']);
+        $this->assertFalse($result['paths']['/this/path/does/not/exist']['available']);
+    }
+
+    public function test_disk_space_probe_rejects_an_out_of_range_threshold(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->diagnostics->diskSpace([sys_get_temp_dir()], warnAtPercent: 101);
+    }
+
     public function test_about_array_exposes_expected_keys(): void
     {
         $about = $this->diagnostics->toAboutArray();

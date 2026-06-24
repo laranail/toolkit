@@ -166,6 +166,184 @@ final class RequirementsDiagnostics
     }
 
     /**
+     * Probe one or more paths for free disk space, judging each against a
+     * minimum (hard floor), a recommended target, and a usage warning level.
+     *
+     * Extends {@see checkDiskSpace()} (single path, raw bytes) with the
+     * still-useful policy bits from the legacy `DiskSpaceValidator`: MB-based
+     * thresholds, a recommended tier above the minimum, a percent-used warning
+     * line, and a fan-out over several paths with an aggregate health bool.
+     *
+     * `disk_free_space` / `disk_total_space` may return false on an unreadable
+     * path or a restricted SAPI; that path is reported as `available: false`
+     * and drags `healthy` down rather than throwing.
+     *
+     * @param list<string> $paths         paths to probe (defaults to the app base path)
+     * @param int|null     $minMb         hard minimum free space in MB, or null to skip the floor check
+     * @param int|null     $recommendedMb recommended free space in MB, or null to skip the recommendation
+     * @param int          $warnAtPercent emit a warning once used space reaches this percentage (0–100)
+     *
+     * @return array{
+     *     healthy: bool,
+     *     warn_at_percent: int,
+     *     minimum_mb: int|null,
+     *     recommended_mb: int|null,
+     *     paths: array<string, array{
+     *         path: string,
+     *         available: bool,
+     *         free: int|null,
+     *         total: int|null,
+     *         used: int|null,
+     *         used_percent: float|null,
+     *         meets_minimum: bool,
+     *         meets_recommended: bool,
+     *         warning: bool,
+     *         status: string,
+     *     }>,
+     * }
+     */
+    public function diskSpace(
+        array $paths = [],
+        ?int $minMb = null,
+        ?int $recommendedMb = null,
+        int $warnAtPercent = 90,
+    ): array {
+        if ($paths === []) {
+            $paths = [$this->basePath()];
+        }
+
+        if ($warnAtPercent < 0 || $warnAtPercent > 100) {
+            throw new \InvalidArgumentException('warnAtPercent must be between 0 and 100.');
+        }
+
+        $minimumBytes = $minMb === null ? null : $this->mbToBytes($minMb);
+        $recommendedBytes = $recommendedMb === null ? null : $this->mbToBytes($recommendedMb);
+
+        $results = [];
+        $healthy = true;
+
+        foreach ($paths as $path) {
+            $report = $this->probePath($path, $minimumBytes, $recommendedBytes, $warnAtPercent);
+            $results[$path] = $report;
+
+            if (!$report['available'] || !$report['meets_minimum'] || $report['warning']) {
+                $healthy = false;
+            }
+        }
+
+        return [
+            'healthy' => $healthy,
+            'warn_at_percent' => $warnAtPercent,
+            'minimum_mb' => $minMb,
+            'recommended_mb' => $recommendedMb,
+            'paths' => $results,
+        ];
+    }
+
+    /**
+     * Probe a single path against the supplied byte thresholds.
+     *
+     * @param int $warnAtPercent the warning line as a percentage (0–100)
+     *
+     * @return array{
+     *     path: string,
+     *     available: bool,
+     *     free: int|null,
+     *     total: int|null,
+     *     used: int|null,
+     *     used_percent: float|null,
+     *     meets_minimum: bool,
+     *     meets_recommended: bool,
+     *     warning: bool,
+     *     status: string,
+     * }
+     */
+    private function probePath(
+        string $path,
+        ?int $minimumBytes,
+        ?int $recommendedBytes,
+        int $warnAtPercent,
+    ): array {
+        $free = is_dir($path) ? disk_free_space($path) : false;
+        $total = is_dir($path) ? disk_total_space($path) : false;
+
+        $freeBytes = $free === false ? null : (int) $free;
+        $totalBytes = $total === false ? null : (int) $total;
+        $available = $freeBytes !== null;
+
+        $usedBytes = null;
+        $usedPercent = null;
+
+        if ($freeBytes !== null && $totalBytes !== null) {
+            $usedBytes = max(0, $totalBytes - $freeBytes);
+
+            if ($totalBytes > 0) {
+                $usedPercent = round(($usedBytes / $totalBytes) * 100, 2);
+            }
+        }
+
+        $meetsMinimum = $available
+            && ($minimumBytes === null || $freeBytes >= $minimumBytes);
+
+        $meetsRecommended = $available
+            && ($recommendedBytes === null || $freeBytes >= $recommendedBytes);
+
+        $warning = $usedPercent !== null && $usedPercent >= $warnAtPercent;
+
+        return [
+            'path' => $path,
+            'available' => $available,
+            'free' => $freeBytes,
+            'total' => $totalBytes,
+            'used' => $usedBytes,
+            'used_percent' => $usedPercent,
+            'meets_minimum' => $meetsMinimum,
+            'meets_recommended' => $meetsRecommended,
+            'warning' => $warning,
+            'status' => $this->diskStatus($available, $meetsMinimum, $meetsRecommended, $warning),
+        ];
+    }
+
+    /**
+     * Reduce a path's probe flags to a single status label.
+     */
+    private function diskStatus(
+        bool $available,
+        bool $meetsMinimum,
+        bool $meetsRecommended,
+        bool $warning,
+    ): string {
+        return match (true) {
+            !$available => 'unavailable',
+            !$meetsMinimum => 'critical',
+            $warning => 'warning',
+            !$meetsRecommended => 'low',
+            default => 'healthy',
+        };
+    }
+
+    /**
+     * Convert a megabyte figure to bytes (binary, 1 MB = 1024^2 bytes).
+     */
+    private function mbToBytes(int $megabytes): int
+    {
+        return $megabytes * 1024 ** 2;
+    }
+
+    /**
+     * Resolve the application base path, falling back to the working directory
+     * when the Laravel helper is unavailable.
+     */
+    private function basePath(): string
+    {
+        if (function_exists('base_path')) {
+            return base_path();
+        }
+
+        return (string) getcwd();
+    }
+
+    /**
      * Build the array surfaced under `php artisan about`.
      *
      * @return array<string, string>

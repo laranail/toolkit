@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 126 | direct + 52 merged |
+| **MIGRATED** | 129 | direct + 53 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 136 | native / out-of-scope (see rows) |
+| **DROPPED** | 133 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -941,7 +941,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `HasErrorStorage` | MIGRATED | `Simtabi\Laranail\Toolkit\Traits\HasErrorStorage` |
 | `HasGuzzleConfig` | MIGRATED | `Simtabi\Laranail\Toolkit\Traits\HasGuzzleConfig` |
 | `HasPackageTools` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `RunsConditionally` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `RunsConditionally` | MIGRATED | `Simtabi\Laranail\Toolkit\Traits\RunsConditionally` |
 
 ### Simtabi\Laranail\Support\Traits\Livewire
 
@@ -969,13 +969,13 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `ConditionalRunner` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `ConditionalRunner` | MIGRATED | `Simtabi\Laranail\Toolkit\Support\ConditionalRunner` |
 
 ### Simtabi\Laranail\Support\Utilities\SystemIO
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `DiskSpaceValidator` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `DiskSpaceValidator` | MERGED | `Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics` |
 | `Environment` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\EnvironmentUtil` |
 | `RequirementsChecker` | MERGED | `Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics (useful probes folded, G6c)` |
 

@@ -787,10 +787,6 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
-  "Simtabi\\Laranail\\Support\\Traits\\RunsConditionally": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Support\\Utilities\\Auth": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\AuthUtil"
@@ -799,13 +795,9 @@
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Providers\\BladeServiceProvider"
   },
-  "Simtabi\\Laranail\\Support\\Utilities\\Runners\\ConditionalRunner": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\DiskSpaceValidator": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\Environment": {
     "status": "merged",
