@@ -113,4 +113,63 @@ class CaptchaServiceTest extends TestCase
             new CaptchaService()->getProviderNames(),
         );
     }
+
+    public function test_register_provider_overrides_an_allow_listed_name(): void
+    {
+        $service = new CaptchaService();
+        $turnstile = new TurnstileProvider(siteKey: 'k', secretKey: 's', timeout: 30);
+
+        $service->registerProvider($turnstile);
+
+        $this->assertSame($turnstile, $service->getProvider('turnstile'));
+    }
+
+    #[Group('security')]
+    public function test_register_provider_rejects_a_disallowed_name(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        new CaptchaService()->registerProvider(
+            new TurnstileProvider(siteKey: 'k', secretKey: 's', timeout: 30),
+            'evil',
+        );
+    }
+
+    public function test_set_and_get_default_provider_round_trip(): void
+    {
+        $service = new CaptchaService()->setDefaultProvider('hcaptcha');
+
+        $this->assertSame('hcaptcha', $service->getDefaultProvider());
+        $this->assertInstanceOf(HcaptchaProvider::class, $service->getProvider());
+    }
+
+    public function test_has_provider_reports_allow_list_membership(): void
+    {
+        $service = new CaptchaService();
+
+        $this->assertTrue($service->hasProvider('recaptcha'));
+        $this->assertFalse($service->hasProvider('whatever'));
+    }
+
+    public function test_get_site_key_returns_the_configured_key(): void
+    {
+        $this->assertSame('hc-site', new CaptchaService()->getSiteKey('hcaptcha'));
+    }
+
+    public function test_has_configured_provider_is_true_when_secrets_present(): void
+    {
+        $this->assertTrue(new CaptchaService()->hasConfiguredProvider());
+    }
+
+    public function test_verify_with_all_providers_runs_every_driver(): void
+    {
+        Http::fake([
+            '*' => Http::response(['success' => true], 200),
+        ]);
+
+        $results = new CaptchaService()->verifyWithAllProviders('token', [], '198.51.100.7');
+
+        $this->assertSame(['recaptcha', 'turnstile', 'hcaptcha'], array_keys($results));
+        $this->assertTrue($results['hcaptcha']->isSuccess());
+    }
 }

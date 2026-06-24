@@ -216,6 +216,85 @@ class CachingUtilTest extends TestCase
         $this->assertSame('fallback', $result);
         $this->assertNotEmpty($logger->errors);
     }
+
+    public function test_cache_uses_non_taggable_store_path(): void
+    {
+        // A non-taggable store (and/or no tags) falls through to Cache::put().
+        $util = new CachingUtil(60, []);
+
+        $this->assertSame('plain', $util->cache('ck', 'plain'));
+        $this->assertSame('plain', $util->get('ck'));
+    }
+
+    public function test_remember_forever_falls_back_and_logs_on_store_failure(): void
+    {
+        $logger = new CollectingTestLogger();
+        $util = new CachingUtil(60, [], $logger);
+
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
+        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+
+        $this->assertSame('fb', $util->rememberForever('rf', fn () => 'fb'));
+        $this->assertNotEmpty($logger->errors);
+    }
+
+    public function test_put_returns_false_and_logs_on_store_failure(): void
+    {
+        $logger = new CollectingTestLogger();
+        $util = new CachingUtil(60, [], $logger);
+
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
+        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+
+        $this->assertFalse($util->put('pk', 'pv'));
+        $this->assertNotEmpty($logger->errors);
+    }
+
+    public function test_many_returns_defaults_and_logs_on_store_failure(): void
+    {
+        $logger = new CollectingTestLogger();
+        $util = new CachingUtil(60, [], $logger);
+
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
+        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+
+        $this->assertSame(['a' => null, 'b' => null], $util->many(['a', 'b']));
+        $this->assertNotEmpty($logger->errors);
+    }
+
+    public function test_increment_returns_false_and_logs_on_store_failure(): void
+    {
+        $logger = new CollectingTestLogger();
+        $util = new CachingUtil(60, [], $logger);
+
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
+        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+
+        $this->assertFalse($util->increment('ck'));
+        $this->assertNotEmpty($logger->errors);
+    }
+
+    public function test_decrement_returns_false_and_logs_on_store_failure(): void
+    {
+        $logger = new CollectingTestLogger();
+        $util = new CachingUtil(60, [], $logger);
+
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
+        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+
+        $this->assertFalse($util->decrement('ck'));
+        $this->assertNotEmpty($logger->errors);
+    }
+
+    public function test_tagged_clone_uses_taggable_store_for_namespaced_writes(): void
+    {
+        // The array driver IS taggable, so a tagged clone routes through
+        // Cache::tags() inside store() and round-trips under the tag group.
+        $tagged = new CachingUtil(60, [])->tags(['group-a']);
+
+        $this->assertTrue($tagged->put('tk', 'tv'));
+        $this->assertSame('tv', $tagged->remember('tk', fn () => 'recomputed'));
+    }
 }
 
 /**

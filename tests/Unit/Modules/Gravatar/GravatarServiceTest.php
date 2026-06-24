@@ -100,4 +100,67 @@ class GravatarServiceTest extends TestCase
         $this->assertTrue($resolution->isAppropriate());
         $this->assertSame('secure.gravatar.com', $resolution->domain());
     }
+
+    public function test_http_base_url_is_used_when_https_disabled(): void
+    {
+        $url = $this->service()->setEmail('user@example.com')->setHttps(false)->generate();
+
+        $this->assertStringStartsWith('http://www.gravatar.com/avatar/', $url);
+        $this->assertFalse($this->service()->setHttps(false)->isHttps());
+    }
+
+    public function test_force_default_adds_the_f_parameter(): void
+    {
+        $service = $this->service()->setEmail('user@example.com')->setForceDefault(true);
+
+        $this->assertTrue($service->isForceDefault());
+        $this->assertStringContainsString('f=y', $service->generate());
+    }
+
+    public function test_custom_default_url_overrides_the_default_image(): void
+    {
+        $service = $this->service()
+            ->setEmail('user@example.com')
+            ->setCustomDefaultUrl('https://cdn.example.com/fallback.png');
+
+        $this->assertSame('https://cdn.example.com/fallback.png', $service->getCustomDefaultUrl());
+        $this->assertStringContainsString(rawurlencode('https://cdn.example.com/fallback.png'), $service->generate());
+    }
+
+    public function test_custom_default_url_rejects_invalid_urls(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->service()->setCustomDefaultUrl('not a url');
+    }
+
+    public function test_custom_default_url_accepts_null_to_clear(): void
+    {
+        $this->assertNull($this->service()->setCustomDefaultUrl(null)->getCustomDefaultUrl());
+    }
+
+    public function test_to_string_returns_the_generated_url(): void
+    {
+        $service = $this->service()->setEmail('user@example.com');
+
+        $this->assertStringContainsString('gravatar.com/avatar/', (string) $service);
+    }
+
+    public function test_to_string_is_empty_when_email_missing(): void
+    {
+        $this->assertSame('', (string) $this->service());
+    }
+
+    public function test_is_valid_email_validates_addresses(): void
+    {
+        $this->assertTrue($this->service()->isValidEmail('a@b.com'));
+        $this->assertFalse($this->service()->isValidEmail('nope'));
+    }
+
+    public function test_available_ratings_and_default_images_are_exposed(): void
+    {
+        $service = $this->service();
+
+        $this->assertContains('g', $service->availableRatings());
+        $this->assertContains('robohash', $service->availableDefaultImages());
+    }
 }
