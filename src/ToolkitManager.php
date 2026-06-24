@@ -6,9 +6,12 @@ namespace Simtabi\Laranail\Toolkit;
 
 use Illuminate\Contracts\Foundation\Application;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
@@ -94,5 +97,29 @@ class ToolkitManager
     public function http(): HttpConfigurationServiceInterface
     {
         return $this->app->make(HttpConfigurationServiceInterface::class);
+    }
+
+    /**
+     * Guard-aware authentication helpers (typed accessor over native auth()).
+     */
+    public function auth(): AuthenticationHelperServiceInterface
+    {
+        return $this->app->make(AuthenticationHelperServiceInterface::class);
+    }
+
+    /**
+     * Geographic / country / language dataset helpers (Atlas module).
+     */
+    public function atlas(): AtlasServiceInterface
+    {
+        return $this->app->make(AtlasServiceInterface::class);
+    }
+
+    /**
+     * Livewire component helpers (key generation, registration support).
+     */
+    public function livewire(): LivewireServiceInterface
+    {
+        return $this->app->make(LivewireServiceInterface::class);
     }
 }

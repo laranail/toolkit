@@ -6,12 +6,15 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules;
 
 use Simtabi\Laranail\Toolkit\Facades\Toolkit;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\Avatar;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Captcha;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
@@ -66,5 +69,12 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(DatabaseServiceInterface::class, Toolkit::database());
         $this->assertInstanceOf(ModelService::class, Toolkit::model());
         $this->assertInstanceOf(HttpConfigurationServiceInterface::class, Toolkit::http());
+    }
+
+    public function test_toolkit_facade_fronts_auth_atlas_and_livewire(): void
+    {
+        $this->assertInstanceOf(AuthenticationHelperServiceInterface::class, Toolkit::auth());
+        $this->assertInstanceOf(AtlasServiceInterface::class, Toolkit::atlas());
+        $this->assertInstanceOf(LivewireServiceInterface::class, Toolkit::livewire());
     }
 }

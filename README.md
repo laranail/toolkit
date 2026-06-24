@@ -218,6 +218,7 @@ class Post extends Model
 | [Configuration](docs/configuration.md) | `laranail.toolkit.*` config reference |
 | [Architecture](docs/architecture.md) | Modules, deferred providers, layout, migration record |
 | [Migration ledger](docs/migration/MIGRATION.md) | Every legacy symbol: migrated / relocated / dropped |
+| [Laranail → Toolkit map](docs/migration/laranail-to-toolkit.md) | Every legacy `Laranail::` method → its `Toolkit::` / `Helper::` / native home |
 | [LLM providers](docs/llm-providers.md) | OpenAI / Claude / Gemini abstraction |
 | [make-crud](docs/make-crud.md) | API CRUD generator command |
 | [CrudController](docs/crud-controller.md) | Secure base controller |
