@@ -6,6 +6,7 @@ namespace Simtabi\Laranail\Toolkit\Utilities;
 
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Contracts\Cache\Repository;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 class RateLimiterUtil
 {
@@ -43,7 +44,7 @@ class RateLimiterUtil
      */
     public function attempts(string $key): int
     {
-        return $this->rateLimiter->attempts($key);
+        return Cast::toInt($this->rateLimiter->attempts($key));
     }
 
     /**

@@ -8,6 +8,7 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Registers the toolkit's general-purpose Str and Stringable macros.
@@ -84,7 +85,7 @@ final class StringMacros extends ServiceProvider
         // the result is always safe HTML — returned as an HtmlString.
         Str::macro('highlightWords', function (string $string, string|array $words): HtmlString {
             $terms = array_filter(
-                array_map(static fn (mixed $word): string => trim((string) $word), (array) $words),
+                array_map(static fn (mixed $word): string => trim(Cast::toString($word)), (array) $words),
                 static fn (string $word): bool => $word !== '',
             );
 

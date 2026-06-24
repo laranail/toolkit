@@ -6,6 +6,7 @@ namespace Simtabi\Laranail\Toolkit\Exceptions;
 
 use Exception;
 use JsonSerializable;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 use Stringable;
 use Throwable;
 
@@ -58,14 +59,14 @@ class LaranailException extends Exception implements JsonSerializable, Stringabl
      */
     public static function fromArray(array $payload): static
     {
-        $message = (string) ($payload['message'] ?? 'Unexpected error');
-        $code = (int) ($payload['code'] ?? 0);
+        $message = Cast::toString($payload['message'] ?? 'Unexpected error', 'Unexpected error');
+        $code = Cast::toInt($payload['code'] ?? 0);
         /** @var array<string, mixed> $context */
         $context = (array) ($payload['context'] ?? []);
         /** @var array<string, mixed> $meta */
         $meta = (array) ($payload['meta'] ?? []);
-        $userMessage = isset($payload['userMessage']) ? (string) $payload['userMessage'] : null;
-        $status = isset($payload['status']) ? (int) $payload['status'] : null;
+        $userMessage = isset($payload['userMessage']) ? Cast::toString($payload['userMessage']) : null;
+        $status = isset($payload['status']) ? Cast::toInt($payload['status']) : null;
         $previous = ($payload['previous'] ?? null) instanceof Throwable ? $payload['previous'] : null;
 
         $reserved = ['message', 'code', 'context', 'meta', 'userMessage', 'status', 'previous'];

@@ -80,7 +80,7 @@ final class ArrMacros extends ServiceProvider
             static fn (mixed $item): bool => !in_array($item, $values, true),
         )));
 
-        Arr::macro('renameKey', function (array $array, mixed $oldKey, mixed $newKey): array {
+        Arr::macro('renameKey', function (array $array, int|string $oldKey, int|string $newKey): array {
             if (!array_key_exists($oldKey, $array)) {
                 return $array;
             }
@@ -151,7 +151,13 @@ final class ArrMacros extends ServiceProvider
             $result = [];
 
             foreach ($array as $item) {
-                $result[Arr::get($item, $key)][] = $item;
+                $groupKey = Arr::get($item, $key);
+
+                if (!is_int($groupKey) && !is_string($groupKey)) {
+                    continue;
+                }
+
+                $result[$groupKey][] = $item;
             }
 
             return $result;

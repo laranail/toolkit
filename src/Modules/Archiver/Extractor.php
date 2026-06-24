@@ -6,6 +6,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Archiver;
 
 use PharData;
 use RecursiveIteratorIterator;
+use SplFileInfo;
 
 abstract class Extractor
 {
@@ -52,6 +53,10 @@ abstract class Extractor
         $total = 0;
 
         foreach ($iterator as $file) {
+            if (!$file instanceof SplFileInfo) {
+                continue;
+            }
+
             $relative = $iterator->getSubPathName();
 
             $this->assertWithinDestination($destination, $relative);
@@ -60,7 +65,7 @@ abstract class Extractor
                 throw ArchiveException::unsafeEntry($relative);
             }
 
-            $total += (int) $file->getSize();
+            $total += $file->getSize();
             $this->assertWithinLimits(++$count, $total);
         }
     }

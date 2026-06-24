@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaProviderInterface;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaVerificationResult;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Google reCAPTCHA driver, supporting both v2 (no score) and v3 (score + action).
@@ -82,12 +83,12 @@ final readonly class RecaptchaProvider implements CaptchaProviderInterface
         }
 
         $hasScore = array_key_exists('score', $data);
-        $score = $hasScore ? (float) $data['score'] : 0.0;
-        $action = isset($data['action']) ? (string) $data['action'] : '';
+        $score = $hasScore ? Cast::toFloat($data['score']) : 0.0;
+        $action = isset($data['action']) ? Cast::toString($data['action']) : '';
 
         // Action and score checks only apply to v3 (a response carrying a score).
         if ($hasScore) {
-            $expectedAction = isset($options['action']) ? (string) $options['action'] : null;
+            $expectedAction = isset($options['action']) ? Cast::toString($options['action']) : null;
 
             if ($expectedAction !== null && $expectedAction !== '' && $action !== $expectedAction) {
                 return CaptchaVerificationResult::failure(

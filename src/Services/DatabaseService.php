@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 use SplFileInfo;
 use Throwable;
 
@@ -96,7 +97,7 @@ final readonly class DatabaseService implements DatabaseServiceInterface
 
     public function handleViewCount(Model $object, string $sessionName): bool
     {
-        $sessionKey = $sessionName . '.' . $object->getKey();
+        $sessionKey = $sessionName . '.' . Cast::toString($object->getKey());
 
         if ($this->session->has($sessionKey)) {
             return false;
@@ -141,15 +142,23 @@ final readonly class DatabaseService implements DatabaseServiceInterface
         $out = [];
 
         foreach ($ids as $id) {
-            $id = trim($id);
+            $id = trim(Cast::toString($id));
 
             if ($id === '') {
                 continue;
             }
 
-            $out[$id] = Arr::where(array_unique(array_merge([
+            $merged = array_merge([
                 $columnName => Str::uuid()->toString(),
-            ], $data)), static fn ($value): bool => $value !== null);
+            ], $data);
+
+            // Drop null values, then de-duplicate the remaining scalar values.
+            $filtered = Arr::where($merged, static fn (mixed $value): bool => $value !== null);
+
+            $out[$id] = array_unique(array_map(
+                static fn (mixed $value): string => Cast::toString($value),
+                $filtered,
+            ));
         }
 
         return $out;

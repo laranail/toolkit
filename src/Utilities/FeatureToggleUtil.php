@@ -24,10 +24,10 @@ class FeatureToggleUtil
         $isOverridden = Config::get($overrideKey, null);
 
         if ($isOverridden !== null) {
-            return $isOverridden;
+            return (bool) $isOverridden;
         }
 
-        return $isEnabledInConfig;
+        return (bool) $isEnabledInConfig;
     }
 
     /**

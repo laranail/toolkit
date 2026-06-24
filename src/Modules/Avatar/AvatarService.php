@@ -20,6 +20,7 @@ use Intervention\Image\Typography\FontFactory;
 use InvalidArgumentException;
 use RuntimeException;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 use Throwable;
 
 /**
@@ -724,7 +725,7 @@ class AvatarService implements AvatarServiceInterface
     public function getAvatarCached(string|Model|callable $source, array $options = [], ?int $ttl = null): AvatarResolution
     {
         $cacheKey = $this->getAvatarCacheKey($source, $options);
-        $ttl ??= isset($options['cache_ttl']) ? (int) $options['cache_ttl'] : 3600;
+        $ttl ??= isset($options['cache_ttl']) ? Cast::toInt($options['cache_ttl'], 3600) : 3600;
 
         return $this->cache->remember(
             $cacheKey,
@@ -988,7 +989,7 @@ class AvatarService implements AvatarServiceInterface
         if (is_string($source)) {
             $key .= 'string_' . md5($source);
         } elseif ($source instanceof Model) {
-            $key .= 'model_' . $source->getMorphClass() . '_' . ((string) $source->getKey());
+            $key .= 'model_' . $source->getMorphClass() . '_' . Cast::toString($source->getKey());
         } else {
             $key .= 'callback_' . spl_object_hash(\Closure::fromCallable($source));
         }

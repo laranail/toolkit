@@ -55,7 +55,7 @@ class AccessLogMiddleware
                 // Drop the query string so secrets passed as query params are not stored.
                 'url' => $request->url(),
                 'user_agent' => $request->userAgent(),
-                'request_data' => $this->redact($request->input()),
+                'request_data' => $this->redact($request->all()),
             ]);
         } catch (Throwable $e) {
             report($e);
@@ -63,9 +63,9 @@ class AccessLogMiddleware
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param array<array-key, mixed> $data
      *
-     * @return array<string, mixed>
+     * @return array<array-key, mixed>
      */
     private function redact(array $data): array
     {
@@ -89,9 +89,11 @@ class AccessLogMiddleware
     {
         $configured = config('laranail.toolkit.access_log.redact', self::DEFAULT_REDACT);
 
+        $values = is_array($configured) ? $configured : self::DEFAULT_REDACT;
+
         return array_values(array_map(
-            strtolower(...),
-            is_array($configured) ? $configured : self::DEFAULT_REDACT,
+            static fn (mixed $value): string => strtolower(is_string($value) ? $value : ''),
+            $values,
         ));
     }
 }

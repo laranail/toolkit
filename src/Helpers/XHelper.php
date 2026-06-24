@@ -10,6 +10,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use RuntimeException;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 class XHelper
 {
@@ -194,7 +195,7 @@ class XHelper
         }
 
         $value = is_array($dirty)
-            ? implode('', array_map(static fn (mixed $item): string => (string) $item, $dirty))
+            ? implode('', array_map(static fn (mixed $item): string => Cast::toString($item), $dirty))
             : $dirty;
 
         return new HtmlString(e($value));

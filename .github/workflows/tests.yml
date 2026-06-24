@@ -51,7 +51,7 @@ jobs:
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/pest --coverage --min=80
+        run: vendor/bin/pest --coverage --coverage-clover=coverage.xml --min=85
 
       - name: Run security regression suite
         run: vendor/bin/pest --group=security
@@ -92,6 +92,32 @@ jobs:
 
       - name: Run Rector (dry-run)
         run: vendor/bin/rector process --dry-run
+
+  mutation:
+    runs-on: ubuntu-latest
+    name: Mutation Testing
+    # Non-blocking: surfaces weak tests over the pure-logic scope without gating
+    # the merge. The MSI threshold is enforced inside infection.json5.
+    continue-on-error: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, fileinfo, gd
+          coverage: xdebug
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Run Infection (mutation testing)
+        run: vendor/bin/infection --threads=max --no-progress --logger-github
+        env:
+          XDEBUG_MODE: coverage
 
   security:
     runs-on: ubuntu-latest

@@ -6,6 +6,7 @@ namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Fluent builder for Guzzle/HTTP client configuration.
@@ -26,10 +27,10 @@ class HttpConfigurationService implements HttpConfigurationServiceInterface
 
     public function __construct(ConfigRepository $config)
     {
-        $this->persistConnection = (bool) $config->get('laranail.toolkit.http.persist_connection', true);
-        $this->requestTimeout = (int) $config->get('laranail.toolkit.http.request_timeout', 60);
-        $this->maxRetries = (int) $config->get('laranail.toolkit.http.max_retries', 10);
-        $this->cacheTtl = (int) $config->get('laranail.toolkit.http.cache_ttl', 10);
+        $this->persistConnection = Cast::toBool($config->get('laranail.toolkit.http.persist_connection', true), true);
+        $this->requestTimeout = Cast::toInt($config->get('laranail.toolkit.http.request_timeout', 60), 60);
+        $this->maxRetries = Cast::toInt($config->get('laranail.toolkit.http.max_retries', 10), 10);
+        $this->cacheTtl = Cast::toInt($config->get('laranail.toolkit.http.cache_ttl', 10), 10);
     }
 
     public function setPersistConnection(bool $persist): self

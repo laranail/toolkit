@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use RuntimeException;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Registers the toolkit's general-purpose Collection macros.
@@ -28,7 +30,11 @@ final class CollectionMacros extends ServiceProvider
                 return new Collection([]);
             }
 
-            return new Collection(array_map(null, ...array_values($array)));
+            // Transpose operates on a collection of rows; coerce each row to an
+            // array so the variadic spread into array_map() is well-typed.
+            $rows = array_map(static fn (mixed $row): array => is_array($row) ? $row : [$row], array_values($array));
+
+            return new Collection(array_map(null, ...$rows));
         });
 
         Collection::macro('recursive', function (): Collection {
@@ -76,7 +82,7 @@ final class CollectionMacros extends ServiceProvider
             return $result;
         });
 
-        Collection::macro('sumRecursive', function (mixed $key = null): mixed {
+        Collection::macro('sumRecursive', function (callable|string|null $key = null): mixed {
             /** @var Collection<array-key, mixed> $this */
             return $this->flatten()->sum($key);
         });
@@ -94,7 +100,7 @@ final class CollectionMacros extends ServiceProvider
                 $row = is_array($item) ? $item : (array) $item;
                 $rows[] = implode($delimiter, array_map(
                     static fn (mixed $value): string => $enclosure
-                        . str_replace($enclosure, $escape . $enclosure, (string) $value)
+                        . str_replace($enclosure, $escape . $enclosure, Cast::toString($value))
                         . $enclosure,
                     $row,
                 ));
@@ -111,7 +117,10 @@ final class CollectionMacros extends ServiceProvider
         Collection::macro('rotateLeft', function (int $count = 1): Collection {
             /** @var Collection<array-key, mixed> $this */
             if ($this->isEmpty()) {
-                return new Collection([]);
+                /** @var Collection<array-key, mixed> $empty */
+                $empty = new Collection([]);
+
+                return $empty;
             }
 
             $count %= $this->count();
@@ -132,7 +141,7 @@ final class CollectionMacros extends ServiceProvider
             /** @var Collection<array-key, mixed> $this */
             $grouped = $this->groupBy($parentKey);
 
-            $buildTree = function (mixed $parentId) use ($grouped, $childrenKey, &$buildTree): Collection {
+            $buildTree = function (int|string|null $parentId) use ($grouped, $childrenKey, &$buildTree): Collection {
                 $children = $grouped->get($parentId);
 
                 if (!$children instanceof Collection) {
@@ -140,7 +149,12 @@ final class CollectionMacros extends ServiceProvider
                 }
 
                 return $children->map(function (mixed $item) use ($childrenKey, $buildTree): mixed {
-                    $item[$childrenKey] = $buildTree($item['id'] ?? null);
+                    if (!is_array($item)) {
+                        return $item;
+                    }
+
+                    $childId = $item['id'] ?? null;
+                    $item[$childrenKey] = $buildTree(is_int($childId) || is_string($childId) ? $childId : null);
 
                     return $item;
                 });
@@ -149,7 +163,7 @@ final class CollectionMacros extends ServiceProvider
             return $buildTree(null);
         });
 
-        Collection::macro('insertAfter', function (mixed $key, mixed $value): Collection {
+        Collection::macro('insertAfter', function (int|string $key, mixed $value): Collection {
             /** @var Collection<array-key, mixed> $this */
             $index = $this->keys()->search($key);
 
@@ -165,7 +179,7 @@ final class CollectionMacros extends ServiceProvider
             return new Collection($start)->merge([$key => $value])->merge($end);
         });
 
-        Collection::macro('insertBefore', function (mixed $key, mixed $value): Collection {
+        Collection::macro('insertBefore', function (int|string $key, mixed $value): Collection {
             /** @var Collection<array-key, mixed> $this */
             $index = $this->keys()->search($key);
 
@@ -199,7 +213,7 @@ final class CollectionMacros extends ServiceProvider
 
         // Insert $item at a positional $index (optionally keyed). Returns a new
         // collection — unlike the legacy version it does not mutate in place.
-        Collection::macro('insertAt', function (int $index, mixed $item, mixed $key = null): Collection {
+        Collection::macro('insertAt', function (int $index, mixed $item, int|string|null $key = null): Collection {
             /** @var Collection<array-key, mixed> $this */
             $head = $this->slice(0, $index);
             $tail = $this->slice($index);
@@ -315,8 +329,8 @@ final class CollectionMacros extends ServiceProvider
         // [model, items].
         Collection::macro('groupByModel', function (
             callable|string $callback,
-            mixed $modelKey = 0,
-            mixed $itemsKey = 1,
+            int|string $modelKey = 0,
+            int|string $itemsKey = 1,
         ): Collection {
             /** @var Collection<array-key, mixed> $this */
             $resolver = is_string($callback)
@@ -324,7 +338,12 @@ final class CollectionMacros extends ServiceProvider
                 : $callback;
 
             return $this
-                ->groupBy(static fn (mixed $item): int|string => $resolver($item)->getKey())
+                ->groupBy(static function (mixed $item) use ($resolver): int|string {
+                    $model = $resolver($item);
+                    $modelId = $model instanceof Model ? $model->getKey() : null;
+
+                    return is_int($modelId) ? $modelId : Cast::toString($modelId);
+                })
                 ->map(static fn (Collection $items): array => [
                     $modelKey => $resolver($items->first()),
                     $itemsKey => $items,
@@ -342,9 +361,9 @@ final class CollectionMacros extends ServiceProvider
         Collection::macro('forSelectBox', function (string $key, string $value, bool $addEmpty = true): array {
             /** @var Collection<array-key, mixed> $this */
             $options = $this
-                ->sortBy(static fn (mixed $item): string => mb_strtolower((string) data_get($item, $value)))
+                ->sortBy(static fn (mixed $item): string => mb_strtolower(Cast::toString(data_get($item, $value))))
                 ->mapWithKeys(static fn (mixed $item): array => [
-                    data_get($item, $key) => data_get($item, $value),
+                    Cast::toString(data_get($item, $key)) => data_get($item, $value),
                 ])
                 ->all();
 
@@ -358,7 +377,10 @@ final class CollectionMacros extends ServiceProvider
             $keys = is_array($keys) ? $keys : func_get_args();
 
             return new Collection(array_map(
-                fn (mixed $key): mixed => data_get($this->all(), $key),
+                fn (mixed $key): mixed => data_get(
+                    $this->all(),
+                    is_array($key) || is_int($key) || is_string($key) ? $key : null,
+                ),
                 $keys,
             ));
         });
@@ -381,7 +403,16 @@ final class CollectionMacros extends ServiceProvider
             $assoc = [];
 
             foreach ($this as $pair) {
+                if (!is_array($pair)) {
+                    continue;
+                }
+
                 [$key, $value] = $pair;
+
+                if (!is_int($key) && !is_string($key)) {
+                    continue;
+                }
+
                 $assoc[$key] = $value;
             }
 
@@ -428,7 +459,7 @@ final class CollectionMacros extends ServiceProvider
                 ->all();
 
             return $this->sortByDesc(static function (mixed $item) use ($terms, $column): float {
-                $value = mb_strtolower((string) data_get($item, $column, ''));
+                $value = mb_strtolower(Cast::toString(data_get($item, $column, '')));
                 $score = 0.0;
 
                 foreach ($terms as $term) {

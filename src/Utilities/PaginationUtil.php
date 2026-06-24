@@ -39,7 +39,7 @@ class PaginationUtil
      */
     public static function paginateQuery($query, int $perPage, ?int $page = null, array $options = [])
     {
-        $page = $page ?: (request()->input('page', 1));
+        $page ??= request()->integer('page', 1);
 
         return $query->paginate($perPage, ['*'], 'page', $page)->appends($options);
     }

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Deferred service provider for the self-contained Captcha module.
@@ -25,7 +26,7 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
         $this->app->singleton(CaptchaService::class, static function (Application $app): CaptchaService {
             /** @var Repository $config */
             $config = $app->make('config');
-            $default = (string) $config->get('laranail.toolkit.captcha.default_provider', 'recaptcha');
+            $default = Cast::toString($config->get('laranail.toolkit.captcha.default_provider', 'recaptcha'), 'recaptcha');
 
             return new CaptchaService($default);
         });

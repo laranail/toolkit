@@ -325,12 +325,6 @@ parameters:
 			path: src/Macros/QueryBuilderMacros.php
 
 		-
-			message: '#^Casting to string something that''s already string\.$#'
-			identifier: cast.useless
-			count: 1
-			path: src/Modules/AccessLog/AccessLogMiddleware.php
-
-		-
 			message: '#^Call to method RecursiveDirectoryIterator\:\:getSubPathname\(\) with incorrect case\: getSubPathName$#'
 			identifier: method.nameCase
 			count: 1
@@ -612,7 +606,6 @@ parameters:
 			count: 1
 			path: src/Modules/Llm/OpenAI/OpenAIResponse.php
 
-
 		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadCachingUtility\(\) has no return type specified\.$#'
 			identifier: missingType.return
@@ -668,16 +661,58 @@ parameters:
 			path: src/Rules/RejectCommonPasswords.php
 
 		-
+			message: '#^Access to an undefined property object\:\:\$depth\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$parent_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:addSelect\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:orderBy\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:select\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Parameter \#1 \$value of method Illuminate\\Database\\Connection\:\:raw\(\) expects float\|int\|literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Services/ModelService.php
+
+		-
+			message: '#^Variable property access on Illuminate\\Database\\Eloquent\\Model\.$#'
+			identifier: property.dynamicName
+			count: 2
+			path: src/Services/ModelService.php
+
+		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Support\\FilePathGuard is used zero times and is not analysed\.$#'
 			identifier: trait.unused
 			count: 1
 			path: src/Support/FilePathGuard.php
-
-		-
-			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\RunsConditionally is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Traits/RunsConditionally.php
 
 		-
 			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:macro\(\)\.$#'
@@ -752,20 +787,20 @@ parameters:
 			path: src/Traits/HasFormatters.php
 
 		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasGuzzleConfig is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/HasGuzzleConfig.php
+
+		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\RunsConditionally is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Traits/RunsConditionally.php
+
+		-
 			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
 			identifier: empty.notAllowed
-			count: 1
-			path: src/Utilities/CachingUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil\:\:__construct\(\) has parameter \$defaultTags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/CachingUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil\:\:cache\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/Utilities/CachingUtil.php
 
@@ -854,12 +889,6 @@ parameters:
 			path: src/Utilities/PaginationUtil.php
 
 		-
-			message: '#^Short ternary operator is not allowed\. Use null coalesce operator if applicable or consider using long ternary\.$#'
-			identifier: ternary.shortNotAllowed
-			count: 1
-			path: src/Utilities/PaginationUtil.php
-
-		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\QueryParameterUtil\:\:parse\(\) has parameter \$allowedParameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -870,57 +899,3 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Utilities/QueryParameterUtil.php
-
-		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:orderBy\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Services/ModelService.php
-
-		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:select\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Services/ModelService.php
-
-		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:addSelect\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Services/ModelService.php
-
-		-
-			message: '#^Variable property access on Illuminate\\Database\\Eloquent\\Model\.$#'
-			identifier: property.dynamicName
-			count: 2
-			path: src/Services/ModelService.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$parent_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Services/ModelService.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$depth\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Services/ModelService.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Services/ModelService.php
-
-		-
-			message: '#^Parameter \#1 \$value of method Illuminate\\Database\\Connection\:\:raw\(\) expects float\|int\|literal\-string, non\-falsy\-string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Services/ModelService.php
-
-		-
-			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasGuzzleConfig is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Traits/HasGuzzleConfig.php

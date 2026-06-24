@@ -7,6 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Utilities;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 
 /**
  * A small, typed runtime settings store backed by a single JSON file on a
@@ -22,7 +23,7 @@ class ConfigUtil
 
     public function __construct(private ?Filesystem $disk = null, ?string $path = null)
     {
-        $this->path = $path ?? (string) config('laranail.toolkit.settings.path', 'laranail/settings.json');
+        $this->path = $path ?? ToolkitConfig::string('laranail.toolkit.settings.path', 'laranail/settings.json');
     }
 
     /**
@@ -89,6 +90,6 @@ class ConfigUtil
 
     private function disk(): Filesystem
     {
-        return $this->disk ??= Storage::disk((string) config('laranail.toolkit.settings.disk', 'local'));
+        return $this->disk ??= Storage::disk(ToolkitConfig::string('laranail.toolkit.settings.disk', 'local'));
     }
 }

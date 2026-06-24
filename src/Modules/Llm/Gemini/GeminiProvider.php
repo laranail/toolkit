@@ -82,7 +82,8 @@ class GeminiProvider implements LLMProviderInterface
             if (!$response->successful()) {
                 $status = $response->status();
                 $body = $response->json();
-                $message = (is_array($body) ? ($body['error']['message'] ?? null) : null) ?? 'Gemini API request failed';
+                $errorMessage = is_array($body) ? data_get($body, 'error.message') : null;
+                $message = is_string($errorMessage) ? $errorMessage : 'Gemini API request failed';
 
                 throw new LlmRequestException(
                     "Gemini API request failed (HTTP {$status}): {$message}",
@@ -92,21 +93,26 @@ class GeminiProvider implements LLMProviderInterface
             }
 
             $data = $response->json();
+            $data = is_array($data) ? $data : [];
 
             $text = '';
-            if (isset($data['candidates'][0]['content']['parts'])) {
-                foreach ($data['candidates'][0]['content']['parts'] as $part) {
-                    if (isset($part['text'])) {
-                        $text .= $part['text'];
+            $parts = data_get($data, 'candidates.0.content.parts');
+            if (is_iterable($parts)) {
+                foreach ($parts as $part) {
+                    $partText = is_array($part) ? ($part['text'] ?? null) : null;
+                    if (is_string($partText)) {
+                        $text .= $partText;
                     }
                 }
             }
+
+            $usage = $data['usageMetadata'] ?? [];
 
             return new GeminiResponse(
                 // Gemini does not echo the model; report the requested model.
                 content: $text,
                 model: $modelName,
-                usage: (object) ($data['usageMetadata'] ?? []),
+                usage: (object) (is_array($usage) ? $usage : []),
                 rawResponse: $fullResponse ? (object) $data : null
             );
         }, 'Gemini');
@@ -123,11 +129,13 @@ class GeminiProvider implements LLMProviderInterface
     private function mapMessages(array $messages): array
     {
         $contents = [];
+        /** @var list<string> $system */
         $system = [];
 
         foreach ($messages as $message) {
             $role = $message['role'] ?? 'user';
-            $text = $message['content'] ?? '';
+            $rawText = $message['content'] ?? '';
+            $text = is_string($rawText) ? $rawText : '';
 
             if ($role === 'system') {
                 $system[] = $text;

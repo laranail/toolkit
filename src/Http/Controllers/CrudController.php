@@ -7,6 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Http\Controllers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 abstract class CrudController extends BaseController
 {
@@ -36,7 +37,7 @@ abstract class CrudController extends BaseController
 
         if (!empty($this->searchableFields) && $request->filled('search')) {
             // Escape LIKE wildcards so user input can't broaden the match.
-            $term = addcslashes((string) $request->get('search'), '%_\\');
+            $term = addcslashes(Cast::toString($request->get('search')), '%_\\');
             $query->where(function ($q) use ($term) {
                 foreach ($this->searchableFields as $field) {
                     $q->orWhere($field, 'LIKE', "%{$term}%");
@@ -50,7 +51,7 @@ abstract class CrudController extends BaseController
         }
 
         if ($request->filled('sort_by') && in_array($request->get('sort_by'), $this->sortableFields, true)) {
-            $direction = strtolower((string) $request->get('sort_direction', 'asc')) === 'desc' ? 'desc' : 'asc';
+            $direction = strtolower(Cast::toString($request->get('sort_direction', 'asc'))) === 'desc' ? 'desc' : 'asc';
             $query->orderBy($request->get('sort_by'), $direction);
         }
 
@@ -126,7 +127,7 @@ abstract class CrudController extends BaseController
 
     protected function resolvePerPage(Request $request): int
     {
-        $perPage = (int) $request->get('per_page', $this->perPage);
+        $perPage = Cast::toInt($request->get('per_page', $this->perPage), $this->perPage);
 
         // Clamp to [1, maxPerPage] so a client cannot request an unbounded page.
         return max(1, min($perPage, $this->maxPerPage));

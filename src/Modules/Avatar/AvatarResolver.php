@@ -107,8 +107,8 @@ class AvatarResolver
             if ($email !== null) {
                 $gravatarUrl = $this->gravatarService
                     ->setEmail($email)
-                    ->setSize((int) $config['default_size'])
-                    ->setHttps((bool) $config['default_https'])
+                    ->setSize($this->sizeOf($config))
+                    ->setHttps($this->httpsOf($config))
                     ->generate();
 
                 return new AvatarResolution($gravatarUrl, 'model', 'gravatar');
@@ -120,7 +120,7 @@ class AvatarResolver
             if ($name !== null) {
                 $initialsAvatar = $this->avatarService
                     ->setName($name)
-                    ->setSize((int) $config['default_size'], (int) $config['default_size'])
+                    ->setSize($this->sizeOf($config), $this->sizeOf($config))
                     ->generate();
 
                 return new AvatarResolution($initialsAvatar, 'model', 'initials');
@@ -128,7 +128,7 @@ class AvatarResolver
         }
 
         return new AvatarResolution(
-            $this->getFallbackInitialsAvatar((int) $config['default_size'], $config),
+            $this->getFallbackInitialsAvatar($this->sizeOf($config), $config),
             'model',
             'fallback',
         );
@@ -154,8 +154,8 @@ class AvatarResolver
         if ($config['prefer_gravatar']) {
             $gravatarUrl = $this->gravatarService
                 ->setEmail($email)
-                ->setSize((int) $config['default_size'])
-                ->setHttps((bool) $config['default_https'])
+                ->setSize($this->sizeOf($config))
+                ->setHttps($this->httpsOf($config))
                 ->generate();
 
             return new AvatarResolution($gravatarUrl, 'email', 'gravatar');
@@ -164,14 +164,14 @@ class AvatarResolver
         if ($config['fallback_to_initials']) {
             $initialsAvatar = $this->avatarService
                 ->setName($email)
-                ->setSize((int) $config['default_size'], (int) $config['default_size'])
+                ->setSize($this->sizeOf($config), $this->sizeOf($config))
                 ->generate();
 
             return new AvatarResolution($initialsAvatar, 'email', 'initials');
         }
 
         return new AvatarResolution(
-            $this->getFallbackInitialsAvatar((int) $config['default_size'], $config),
+            $this->getFallbackInitialsAvatar($this->sizeOf($config), $config),
             'email',
             'fallback',
         );
@@ -184,7 +184,7 @@ class AvatarResolver
     {
         $initialsAvatar = $this->avatarService
             ->setName($name)
-            ->setSize((int) $config['default_size'], (int) $config['default_size'])
+            ->setSize($this->sizeOf($config), $this->sizeOf($config))
             ->generate();
 
         return new AvatarResolution($initialsAvatar, 'name', 'initials');
@@ -272,6 +272,24 @@ class AvatarResolver
         }
 
         return $avatar->generate();
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function sizeOf(array $config): int
+    {
+        $size = $config['default_size'] ?? null;
+
+        return is_numeric($size) ? (int) $size : 200;
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function httpsOf(array $config): bool
+    {
+        return (bool) ($config['default_https'] ?? true);
     }
 
     /**

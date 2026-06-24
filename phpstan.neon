@@ -7,7 +7,7 @@ includes:
     - phpstan-baseline.neon
 
 parameters:
-    level: 8
+    level: 9
 
     paths:
         - src
@@ -22,7 +22,6 @@ parameters:
         # Macroable __callStatic shim, so the static analyser cannot see them.
         - '#Call to an undefined static method Illuminate\\Support\\Str::.*#'
         - '#Access to an undefined property Illuminate\\.*#'
-        - '#Access to an undefined property stdClass::\$.*#'
 
         # Inside a Factory mixin the returned closure is rebound to the factory by
         # the Macroable trait; without Larastan loaded the analyser still sees the

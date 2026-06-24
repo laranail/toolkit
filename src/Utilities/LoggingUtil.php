@@ -7,6 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Utilities;
 use Illuminate\Log\LogManager;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Throwable;
 
 /**
@@ -30,7 +31,7 @@ class LoggingUtil
     {
         $context += [
             'timestamp' => now()->toDateTimeString(),
-            'env' => (string) config('app.env'),
+            'env' => ToolkitConfig::string('app.env'),
         ];
 
         $this->logger($channel)->log($level->value, $message, $context);

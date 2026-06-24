@@ -153,6 +153,10 @@ class ApiResponseMiddleware extends ApiMiddleware
         $paginator = $this->extractPaginator($response);
 
         if ($paginator instanceof LengthAwarePaginator) {
+            if (!isset($payload[$metaTag]) || !is_array($payload[$metaTag])) {
+                $payload[$metaTag] = [];
+            }
+
             $payload[$metaTag][$pageTag] = $this->getPaginationBlock($paginator);
 
             return $paginator->items();

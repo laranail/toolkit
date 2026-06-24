@@ -51,23 +51,23 @@ readonly class AvatarResolutionContextData
 
         if (isset($options['size'])) {
             $size = is_array($options['size']) ? $options['size'] : [$options['size'], $options['size']];
-            $avatar = $avatar->setSize((int) $size[0], (int) $size[1]);
+            $avatar = $avatar->setSize(self::toInt($size[0] ?? null), self::toInt($size[1] ?? null));
         }
 
         if (isset($options['shape'])) {
-            $avatar = $avatar->setShape((string) $options['shape']);
+            $avatar = $avatar->setShape(self::toString($options['shape']));
         }
 
         if (isset($options['background'])) {
-            $avatar = $avatar->setBackgroundColor((string) $options['background']);
+            $avatar = $avatar->setBackgroundColor(self::toString($options['background']));
         }
 
         if (isset($options['foreground'])) {
-            $avatar = $avatar->setForegroundColor((string) $options['foreground']);
+            $avatar = $avatar->setForegroundColor(self::toString($options['foreground']));
         }
 
         if (isset($options['font'])) {
-            $avatar = $avatar->useFontByName((string) $options['font']);
+            $avatar = $avatar->useFontByName(self::toString($options['font']));
         }
 
         return $avatar->generate();
@@ -129,6 +129,20 @@ readonly class AvatarResolutionContextData
     public function getAllConfig(): array
     {
         return $this->config;
+    }
+
+    private static function toInt(mixed $value): int
+    {
+        return is_numeric($value) ? (int) $value : 0;
+    }
+
+    private static function toString(mixed $value): string
+    {
+        if (is_string($value)) {
+            return $value;
+        }
+
+        return is_int($value) || is_float($value) ? (string) $value : '';
     }
 
     /**

@@ -31,6 +31,18 @@ final readonly class ModelService
     ) {}
 
     /**
+     * Coerce a (possibly null/mixed) model attribute to a string for display.
+     */
+    private function stringAttr(mixed $value): string
+    {
+        if (is_string($value)) {
+            return $value;
+        }
+
+        return is_int($value) || is_float($value) ? (string) $value : '';
+    }
+
+    /**
      * Build an `id => display-name` list from a users model.
      *
      * @return array<int|string, string>
@@ -46,11 +58,15 @@ final readonly class ModelService
         }
 
         foreach ($rows as $item) {
-            $username = filled($item->getAttribute('username'))
-                ? Str::ucfirst((string) $item->getAttribute('username'))
-                : Str::lower((string) $item->getAttribute('email'));
+            $usernameAttr = $item->getAttribute('username');
+            $username = filled($usernameAttr)
+                ? Str::ucfirst($this->stringAttr($usernameAttr))
+                : Str::lower($this->stringAttr($item->getAttribute('email')));
 
-            $results[$item->getKey()] = $username;
+            $key = $item->getKey();
+            if (is_int($key) || is_string($key)) {
+                $results[$key] = $username;
+            }
         }
 
         return $results;
@@ -68,7 +84,7 @@ final readonly class ModelService
             ->addSelect($this->concatNameExpression($model));
 
         $form = $query->get()
-            ->keyBy(static fn ($item): string => Str::title(Str::lower((string) $item->getAttribute('name'))))
+            ->keyBy(fn ($item): string => Str::title(Str::lower($this->stringAttr($item->getAttribute('name')))))
             ->pluck('name', $model->getKeyName());
 
         $data = $form->map(static fn ($item, $key): array => [
@@ -78,8 +94,8 @@ final readonly class ModelService
 
         if ($keyed) {
             return collect($data)
-                ->mapWithKeys(static fn (array $item): array => [
-                    $item['id'] => Str::title(Str::lower((string) $item['name'])),
+                ->mapWithKeys(fn (array $item): array => [
+                    $item['id'] => Str::title(Str::lower($this->stringAttr($item['name']))),
                 ])
                 ->toArray();
         }

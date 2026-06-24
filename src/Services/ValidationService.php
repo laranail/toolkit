@@ -10,6 +10,7 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\MessageBag;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 use Throwable;
 
 /**
@@ -93,7 +94,7 @@ final readonly class ValidationService implements ValidationServiceInterface
         }
 
         if ($returnBool) {
-            return (bool) (int) $value;
+            return (bool) Cast::toInt($value);
         }
 
         return $value;

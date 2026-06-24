@@ -10,6 +10,8 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\Auth\UserProvider;
 use InvalidArgumentException;
+use Simtabi\Laranail\Toolkit\Support\Cast;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 
 /**
  * Typed accessor for a single named guard.
@@ -46,7 +48,7 @@ final readonly class AuthUtil
      */
     public static function authHelper(?string $guard = null): self
     {
-        return self::for($guard ?? (string) config('auth.defaults.guard', 'web'));
+        return self::for($guard ?? ToolkitConfig::string('auth.defaults.guard', 'web'));
     }
 
     /**
@@ -94,7 +96,7 @@ final readonly class AuthUtil
 
         $email = data_get($user, 'email');
 
-        return $email === null ? null : (string) $email;
+        return $email === null ? null : Cast::toString($email);
     }
 
     /**
@@ -111,7 +113,7 @@ final readonly class AuthUtil
 
         $username = data_get($user, 'username') ?? data_get($user, 'email');
 
-        return $username === null ? null : (string) $username;
+        return $username === null ? null : Cast::toString($username);
     }
 
     /**

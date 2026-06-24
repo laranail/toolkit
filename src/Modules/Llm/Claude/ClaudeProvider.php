@@ -65,7 +65,8 @@ class ClaudeProvider implements LLMProviderInterface
             if (!$response->successful()) {
                 $status = $response->status();
                 $body = $response->json();
-                $message = (is_array($body) ? ($body['error']['message'] ?? null) : null) ?? 'Claude API request failed';
+                $errorMessage = is_array($body) ? data_get($body, 'error.message') : null;
+                $message = is_string($errorMessage) ? $errorMessage : 'Claude API request failed';
 
                 throw new LlmRequestException(
                     "Claude API request failed (HTTP {$status}): {$message}",
@@ -75,16 +76,18 @@ class ClaudeProvider implements LLMProviderInterface
             }
 
             $data = $response->json();
+            $data = is_array($data) ? $data : [];
 
-            $content = '';
-            if (isset($data['content'][0]['text'])) {
-                $content = $data['content'][0]['text'];
-            }
+            $text = data_get($data, 'content.0.text');
+            $content = is_string($text) ? $text : '';
+
+            $model = $data['model'] ?? null;
+            $usage = $data['usage'] ?? [];
 
             return new ClaudeResponse(
                 content: $content,
-                model: $data['model'] ?? null,
-                usage: (object) ($data['usage'] ?? []),
+                model: is_string($model) ? $model : null,
+                usage: (object) (is_array($usage) ? $usage : []),
                 rawResponse: $fullResponse ? (object) $data : null
             );
         }, 'Claude');

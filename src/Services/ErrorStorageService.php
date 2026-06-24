@@ -6,6 +6,7 @@ namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Support\Arr;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Fluent, key-based error storage.
@@ -83,7 +84,7 @@ class ErrorStorageService implements ErrorStorageServiceInterface
             $first = Arr::first($first);
         }
 
-        return $first === null ? null : (string) $first;
+        return $first === null ? null : Cast::toString($first);
     }
 
     /** Create a fresh instance. */

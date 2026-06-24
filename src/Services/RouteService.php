@@ -9,6 +9,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Throwable;
 
 /**
@@ -28,7 +29,7 @@ final readonly class RouteService implements RouteServiceInterface
     {
         $host = $this->request->getSchemeAndHttpHost();
 
-        return $host !== '' ? $host : (string) config('app.url', 'http://localhost');
+        return $host !== '' ? $host : ToolkitConfig::string('app.url', 'http://localhost');
     }
 
     public function getActiveCssClassForRoute(string $routeName, string $class = 'active'): string

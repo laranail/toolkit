@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Query-string "filter key" helpers, recovered from the legacy SessionService.
@@ -27,7 +28,7 @@ final class SessionHelper
      */
     public static function existsInFilterKey(string $key, mixed $value = null): bool
     {
-        return Collection::make(explode('&', $key))->contains($value);
+        return Collection::make(explode('&', $key))->contains(Cast::toString($value));
     }
 
     /**
@@ -48,7 +49,7 @@ final class SessionHelper
     public static function removeFromFilterKey(string $oldValues, mixed $value): ?string
     {
         $remaining = Collection::make(explode('&', $oldValues))
-            ->reject(static fn (string $token): bool => $token === (string) $value || $token === 'page')
+            ->reject(static fn (string $token): bool => $token === Cast::toString($value) || $token === 'page')
             ->values();
 
         return $remaining->isEmpty() ? null : $remaining->implode('&');
@@ -68,6 +69,6 @@ final class SessionHelper
         }
 
         Session::put($cookieName, $value);
-        Cookie::queue($cookieName, (string) $value, $duration);
+        Cookie::queue($cookieName, Cast::toString($value), $duration);
     }
 }

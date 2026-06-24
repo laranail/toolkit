@@ -39,6 +39,7 @@ use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Services\RouteService;
 use Simtabi\Laranail\Toolkit\Services\ValidationService;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
@@ -113,26 +114,26 @@ class ToolkitServiceProvider extends ServiceProvider
 
             if ($default === 'gemini') {
                 return new GeminiProvider(
-                    apiKey: config('laranail.toolkit.gemini.api_key'),
-                    maxRetries: (int) config('laranail.toolkit.gemini.max_retries', 3),
-                    retryDelay: (int) config('laranail.toolkit.gemini.retry_delay', 2),
-                    baseUrl: (string) config('laranail.toolkit.gemini.base_url', 'https://generativelanguage.googleapis.com/v1beta')
+                    apiKey: ToolkitConfig::string('laranail.toolkit.gemini.api_key'),
+                    maxRetries: ToolkitConfig::int('laranail.toolkit.gemini.max_retries', 3),
+                    retryDelay: ToolkitConfig::int('laranail.toolkit.gemini.retry_delay', 2),
+                    baseUrl: ToolkitConfig::string('laranail.toolkit.gemini.base_url', 'https://generativelanguage.googleapis.com/v1beta')
                 );
             }
 
             if ($default === 'claude') {
                 return new ClaudeProvider(
-                    apiKey: config('laranail.toolkit.claude.api_key'),
-                    maxRetries: (int) config('laranail.toolkit.claude.max_retries', 3),
-                    retryDelay: (int) config('laranail.toolkit.claude.retry_delay', 2),
-                    baseUrl: (string) config('laranail.toolkit.claude.base_url', 'https://api.anthropic.com')
+                    apiKey: ToolkitConfig::string('laranail.toolkit.claude.api_key'),
+                    maxRetries: ToolkitConfig::int('laranail.toolkit.claude.max_retries', 3),
+                    retryDelay: ToolkitConfig::int('laranail.toolkit.claude.retry_delay', 2),
+                    baseUrl: ToolkitConfig::string('laranail.toolkit.claude.base_url', 'https://api.anthropic.com')
                 );
             }
 
             return new OpenAIProvider(
-                apiKey: config('laranail.toolkit.openai.api_key'),
-                maxRetries: (int) config('laranail.toolkit.openai.max_retries', 3),
-                retryDelay: (int) config('laranail.toolkit.openai.retry_delay', 2)
+                apiKey: ToolkitConfig::string('laranail.toolkit.openai.api_key'),
+                maxRetries: ToolkitConfig::int('laranail.toolkit.openai.max_retries', 3),
+                retryDelay: ToolkitConfig::int('laranail.toolkit.openai.retry_delay', 2)
             );
         });
 
@@ -299,13 +300,11 @@ class ToolkitServiceProvider extends ServiceProvider
      */
     private function loadCachingUtility()
     {
-        $config = config('laranail.toolkit.cache');
-
         $this->app->bind(CachingUtil::class, fn ($app): CachingUtil => new CachingUtil(
-            $config['default_expiration'],
-            $config['default_tags'],
+            ToolkitConfig::int('laranail.toolkit.cache.default_expiration'),
+            ToolkitConfig::stringList('laranail.toolkit.cache.default_tags'),
             $app->make(LoggerInterface::class),
-            (string) ($config['namespace'] ?? ''),
+            ToolkitConfig::string('laranail.toolkit.cache.namespace'),
         ));
     }
 
