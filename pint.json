@@ -54,6 +54,7 @@
     "exclude": [
         "src/Examples",
         "tests/Fixtures",
+        "ide-helper",
         "vendor",
         "node_modules"
     ]

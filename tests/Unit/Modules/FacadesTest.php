@@ -12,6 +12,11 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\Captcha;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class FacadesTest extends TestCase
@@ -51,5 +56,15 @@ class FacadesTest extends TestCase
         $url = Toolkit::gravatar()->setEmail('user@example.com')->setSize(64)->generate();
 
         $this->assertStringContainsString('gravatar.com/avatar/', $url);
+    }
+
+    public function test_toolkit_facade_fronts_each_cross_cutting_service(): void
+    {
+        $this->assertInstanceOf(RouteServiceInterface::class, Toolkit::route());
+        $this->assertInstanceOf(ValidationServiceInterface::class, Toolkit::validation());
+        $this->assertInstanceOf(DatabaseServiceInterface::class, Toolkit::db());
+        $this->assertInstanceOf(DatabaseServiceInterface::class, Toolkit::database());
+        $this->assertInstanceOf(ModelService::class, Toolkit::model());
+        $this->assertInstanceOf(HttpConfigurationServiceInterface::class, Toolkit::http());
     }
 }

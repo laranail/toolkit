@@ -7,6 +7,8 @@ The toolkit ships a small, **opt-in** API layer for JSON endpoints:
 | `Http\Middleware\ApiRequestMiddleware` | `api.request` | Recursively rewrites **incoming** request keys to `snake_case`. |
 | `Http\Middleware\ApiResponseMiddleware` | `api.response` | Wraps the **outgoing** JSON in a standard envelope and rewrites data keys to `camelCase`. |
 | `Http\Requests\BaseRequest` | — | A `FormRequest` base that sanitizes every string input before validation. |
+| `Http\Requests\ApiRequest` | — | `BaseRequest` subtype that returns a JSON 422 envelope on validation failure. |
+| `Http\Middleware\EmailObfuscatorMiddleware` | `email.obfuscate` | HTML-entity–encodes email addresses in non-JSON responses (anti-harvesting). |
 | `Http\Middleware\ApiMiddleware` | — | Abstract base shared by the two middleware (the recursive key walker). |
 | `Http\Concerns\MutatesPayloadKeys` | — | Reusable trait for the `snake_case ⇄ camelCase` key conversion. |
 | `Http\Contracts\ShovelHttpInterface` | — | HTTP status-code constants + reason-phrase map used for `meta`. |
@@ -101,5 +103,53 @@ class StoreUserRequest extends BaseRequest
 > used `[^a-zA-Z\s'-]` for names, which corrupted accented/non-Latin names. Both
 > are fixed here. For a JSON-error envelope on failed validation (the legacy
 > `ApiRequest`), override `failedValidation()` or use `ApiResponseTrait`.
+
+## `ApiRequest`
+
+`ApiRequest extends BaseRequest` — it inherits **all** of `BaseRequest`'s
+always-on input sanitization and adds one thing: a JSON error envelope. Where
+`BaseRequest` falls back to Laravel's default (redirect / HTML) flow on a failed
+validation, `ApiRequest` overrides `failedValidation()` to throw a
+`ValidationException` carrying a **JSON response at HTTP 422**:
+
+```json
+{
+  "success": false,
+  "message": "The provided data failed validation.",
+  "errors": { "email": ["The email field is required."] }
+}
+```
+
+Reach for it on JSON API endpoints; use the plain `BaseRequest` for HTML forms.
+
+```php
+use Simtabi\Laranail\Toolkit\Http\Requests\ApiRequest;
+
+class StoreUserRequest extends ApiRequest
+{
+    public function rules(): array
+    {
+        return ['email' => 'required|email', 'full_name' => 'required|string'];
+    }
+}
+```
+
+## `email.obfuscate` middleware
+
+`EmailObfuscatorMiddleware` (alias `email.obfuscate`) is a lightweight
+anti-harvesting measure: on the way out it replaces every email address in the
+response body with its HTML-entity encoding (each character as `&#<codepoint>;`).
+Browsers render the entities as the original text, but naive scrapers see only
+entity noise.
+
+```php
+Route::middleware('email.obfuscate')->group(function () {
+    Route::get('/team', [TeamController::class, 'index']);
+});
+```
+
+It is **opt-in** and reads no config. JSON responses are skipped (the
+`Content-Type` is checked for `json`) so structured API payloads are never
+mangled — only HTML/text responses are rewritten.
 
 [← Docs index](../README.md#documentation)

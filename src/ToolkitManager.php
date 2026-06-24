@@ -9,6 +9,11 @@ use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\ModelService;
 
 /**
  * Unified, typed entry point to the toolkit's feature modules.
@@ -41,5 +46,53 @@ class ToolkitManager
     public function archiver(): ArchiverServiceInterface
     {
         return $this->app->make(ArchiverServiceInterface::class);
+    }
+
+    /**
+     * Request-scoped route helpers (current name, parameters, active checks).
+     */
+    public function route(): RouteServiceInterface
+    {
+        return $this->app->make(RouteServiceInterface::class);
+    }
+
+    /**
+     * View-layer validation helpers (e()-escaped error/old-input output).
+     */
+    public function validation(): ValidationServiceInterface
+    {
+        return $this->app->make(ValidationServiceInterface::class);
+    }
+
+    /**
+     * Database introspection + maintenance helpers (confined to the base path).
+     */
+    public function db(): DatabaseServiceInterface
+    {
+        return $this->app->make(DatabaseServiceInterface::class);
+    }
+
+    /**
+     * Alias of {@see self::db()} for callers preferring the long name.
+     */
+    public function database(): DatabaseServiceInterface
+    {
+        return $this->db();
+    }
+
+    /**
+     * Eloquent model helpers (resolved by its concrete class — no contract).
+     */
+    public function model(): ModelService
+    {
+        return $this->app->make(ModelService::class);
+    }
+
+    /**
+     * HTTP client configuration builder (seeded from laranail.toolkit.http.*).
+     */
+    public function http(): HttpConfigurationServiceInterface
+    {
+        return $this->app->make(HttpConfigurationServiceInterface::class);
     }
 }

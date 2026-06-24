@@ -1,6 +1,6 @@
 # Utilities
 
-Eleven focused utility classes under
+Twelve focused utility classes under
 `Simtabi\Laranail\Toolkit\Utilities`. Instance-based utilities are bound in the
 container (resolve with `app(...)` or constructor injection); the others expose
 static methods. Each can also be published into `app/Utilities/` — see
@@ -132,5 +132,24 @@ $auth->id();      // int|string|null
 $auth->email();   // ?string
 $auth->guard();   // 'web'
 ```
+
+## SessionHelper (static)
+
+Session-backed helpers for `&`-joined filter keys (the query-string filter
+tokens used by list/search screens) and JavaScript-readable cookies.
+
+```php
+use Simtabi\Laranail\Toolkit\Utilities\SessionHelper;
+
+$key = SessionHelper::joinInFilterKey('status', 'active'); // 'status&active'
+SessionHelper::existsInFilterKey($key, 'active');          // true
+SessionHelper::removeFromFilterKey($key, 'active');        // 'status' (null if empty)
+
+// Persist a request input into the session + queue a cookie (minutes) for JS.
+SessionHelper::saveJavaScriptCookies('theme', duration: 60);
+```
+
+`removeFromFilterKey()` also strips the reserved `page` token; the cookie helper
+is a no-op when the named input is absent.
 
 [← Docs index](../README.md#documentation)

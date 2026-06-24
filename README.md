@@ -223,8 +223,10 @@ class Post extends Model
 | [CrudController](docs/crud-controller.md) | Secure base controller |
 | [Access log](docs/access-log.md) | `access.log` middleware + redaction |
 | [API middleware](docs/api-middleware.md) | `api.request` / `api.response` envelope + `BaseRequest` sanitization |
-| [Utilities](docs/utilities.md) | The nine utility classes |
-| [Macros](docs/macros.md) | Str/Arr/Collection/Query/Blueprint macros + Blade directives |
+| [Utilities](docs/utilities.md) | The twelve utility classes |
+| [Static helpers](docs/helpers.md) | `XHelper`, `SystemHelper`, `FileHelper`, `DbHelper`, `GeoHelper`, `ConsoleHelper` |
+| [Base classes](docs/base-classes.md) | Reusable controller / job / listener / observer / event bases |
+| [Macros](docs/macros.md) | Str/Arr/Collection/Query/Blueprint macros + Blade directives + IDE stub |
 | [Traits](docs/traits.md) | Model & controller traits |
 | [Avatar module](docs/modules/avatar.md) | Generated initials avatars |
 | [Gravatar module](docs/modules/gravatar.md) | Gravatar URL builder |
