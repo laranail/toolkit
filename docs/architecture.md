@@ -82,6 +82,31 @@ Two things must register eagerly and so run in `boot()`, not deferred:
 The middleware alias `access.log`, the `reject_common_passwords` validator, and
 the `php artisan about` diagnostics are also wired in `boot()`.
 
+## Exceptions
+
+All toolkit exceptions extend `Exceptions\LaranailException` — a structured base
+carrying context, metadata, a user-facing message and an optional HTTP status.
+`Exceptions\AuthenticationException` adds auth factories (`missingGuard()`,
+`invalidGuard()`, `unauthenticated()`) and a `render()` method that emits a JSON
+`401` envelope for JSON requests (Laravel 11+ calls `render()` directly on the
+exception, so no `Handler` subclass is needed) while deferring to the default
+rendering for web requests.
+
+Because L11+ apps own exception configuration in `bootstrap/app.php`, the toolkit
+does **not** ship a competing handler. Instead the
+`Exceptions\Concerns\RendersApiExceptions` trait exposes the reusable logic
+(throttled Slack alerts + a JSON `405` renderer) as opt-in registrars:
+
+```php
+use Illuminate\Foundation\Configuration\Exceptions;
+use Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions;
+
+->withExceptions(function (Exceptions $exceptions): void {
+    RendersApiExceptions::register($exceptions);
+    // or just one: ::registerSlackReporter(...) / ::registerMethodNotAllowedRenderer(...)
+})
+```
+
 ## LLM provider selection
 
 `Modules\Llm\LLMProviderInterface` is bound to a single driver chosen at

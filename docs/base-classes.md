@@ -124,4 +124,25 @@ class OrderShipped extends BaseEvent
 OrderShipped::dispatch($order);
 ```
 
+### CacheEvents
+
+`class CacheEvents extends BaseEvent` — a ready-made cache-lifecycle event built
+on the base. It carries a typed `CacheAction` (`Clearing` / `Cleared` /
+`Failed`) plus free-form metadata, with named constructors:
+
+```php
+use Simtabi\Laranail\Toolkit\Events\CacheEvents;
+
+event(CacheEvents::clearing());
+event(CacheEvents::cleared(['tags' => ['users']]));
+event(CacheEvents::failed('store unreachable'));
+
+// or build it from constructor args via the Dispatchable static helper:
+CacheEvents::dispatch(\Simtabi\Laranail\Toolkit\Events\CacheAction::Cleared);
+```
+
+Each instance exposes `getDisplayName()`, `getDescription()`,
+`getPriorityLevel()` (`low`/`medium`/`high`), `getResult()`
+(`in_progress`/`success`/`failure`) and `isSuccessful()`.
+
 [← Docs index](../README.md#documentation)

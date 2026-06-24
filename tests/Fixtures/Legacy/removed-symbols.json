@@ -220,8 +220,8 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Commands\\MacrosCommand": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Commands\\IdeHelperMacros"
   },
   "Simtabi\\Laranail\\Laravel\\Commands\\MaintenanceCommand": {
     "status": "dropped",
@@ -719,10 +719,6 @@
     "status": "relocated",
     "target": "laranail/notifications"
   },
-  "Simtabi\\Laranail\\Shared\\Events\\CacheEvents": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
   "Simtabi\\Laranail\\Shared\\Events\\EnvironmentEvents": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -732,10 +728,6 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Shared\\Events\\RequirementsEvents": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Shared\\Exceptions\\AuthenticationException": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },

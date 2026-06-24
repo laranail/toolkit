@@ -9,6 +9,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
+use Simtabi\Laranail\Toolkit\Commands\IdeHelperMacros;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware;
@@ -240,7 +241,7 @@ class ToolkitServiceProvider extends ServiceProvider
 
         // Register Artisan commands
         if ($this->app->runningInConsole()) {
-            $this->commands([MakeCrud::class]);
+            $this->commands([MakeCrud::class, IdeHelperMacros::class]);
 
             $this->publishes([
                 __DIR__ . '/../../stubs' => base_path('stubs/vendor/laranail-toolkit'),

@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 137 | direct + 59 merged |
+| **MIGRATED** | 140 | direct + 60 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 125 | native / out-of-scope (see rows) |
+| **DROPPED** | 122 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -683,7 +683,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `DatabaseCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `InitializeApplication` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `LicenseCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `MacrosCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `MacrosCommand` | MERGED | `Simtabi\Laranail\Toolkit\Commands\IdeHelperMacros` |
 | `MaintenanceCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `SetAppNamespace` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `TidyCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
@@ -878,7 +878,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | Legacy type | Status | New target / reason |
 |---|---|---|
 | `BaseEvent` | MIGRATED | `Simtabi\Laranail\Toolkit\Events\BaseEvent` |
-| `CacheEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `CacheEvents` | MIGRATED | `Simtabi\Laranail\Toolkit\Events\CacheEvents` |
 | `EnvironmentEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `LicenseEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `RequirementsEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
@@ -887,7 +887,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `AuthenticationException` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `AuthenticationException` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\AuthenticationException` |
 | `CollectionItemNotFound` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\CollectionItemNotFound` |
 | `ImmutableDataException` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\ImmutableDataException` |
 | `MissingUuidColumnException` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\MissingUuidColumnException` |

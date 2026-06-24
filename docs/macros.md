@@ -118,6 +118,29 @@ re-opens each Illuminate namespace and declares every macro as a `@method` /
 **merge** those tags onto the framework class when indexing, restoring full
 autocomplete and signatures.
 
+### Regenerating the stub
+
+The stub is generated from the **live, registered** macros by the
+`laranail::toolkit.ide-helper-macros` command (alias `ide-helper:macros`). Run
+it after adding, renaming or removing a macro to refresh the committed file:
+
+```bash
+php artisan laranail::toolkit.ide-helper-macros
+# alias:
+php artisan ide-helper:macros
+
+# write to a custom location (absolute, or relative to the base path):
+php artisan ide-helper:macros --path=ide-helper/_ide_helper_macros.php
+```
+
+Unlike the legacy `ide-helper:macros` (which walked a static class list), this
+reflects the macros actually registered at boot on every macroable target
+(`Str`, `Stringable`, `Collection`, `Arr`, the query / Eloquent builders,
+`Blueprint`, `Request`, `Carbon`) plus the `Factory::withoutEvents()` mixin, so
+the stub can never list a macro the toolkit does not register. The
+`IdeHelperStubTest` drift test still guards the committed file in both
+directions.
+
 The stub is a **static aid only** — it is deliberately **not** loaded at runtime:
 
 - it is **not** listed in `composer.json` `autoload.files`;
