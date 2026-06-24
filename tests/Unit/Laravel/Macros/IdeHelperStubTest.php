@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -72,6 +73,10 @@ class IdeHelperStubTest extends TestCase
                 'class' => Request::class,
                 'has' => Request::hasMacro(...),
             ],
+            'ResponseFactory' => [
+                'class' => ResponseFactory::class,
+                'has' => ResponseFactory::hasMacro(...),
+            ],
         ];
     }
 
@@ -90,11 +95,13 @@ class IdeHelperStubTest extends TestCase
                 'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
                 'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'replaceMany',
                 'matches', 'reverseString', 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
+                'stripTags', 'linesCount', 'interpolate',
             ],
             'Stringable' => [
                 'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
                 'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'matches', 'reverseString',
                 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
+                'linesCount', 'interpolate',
             ],
             'Collection' => [
                 'transpose', 'recursive', 'mapToKey', 'filterRecursive', 'firstOrFail',
@@ -105,6 +112,8 @@ class IdeHelperStubTest extends TestCase
                 'forSelectBox', 'extract', 'tail', 'toPairs', 'fromPairs', 'ifEmpty',
                 'mapKeyValuePairs', 'sortSearchResults',
                 'pluckMany', 'replaceInKeys',
+                'collectBy', 'filterMap', 'ifAny', 'none', 'pluckToArray',
+                'withSize', 'insertAfterKey', 'insertBeforeKey', 'sectionBy',
             ],
             'Arr' => [
                 'filterNulls', 'filterEmpty', 'mapKeys', 'insertAfter', 'insertBefore', 'removeValue',
@@ -126,6 +135,9 @@ class IdeHelperStubTest extends TestCase
             'Request' => [
                 'expectsJsonOrAjax', 'isBot', 'isFromMobile', 'hasFiles', 'hasValidFile', 'getReferer',
                 'isFromDomain', 'isJsonRequest', 'onlyFilled', 'hasAny', 'mergeIfMissing',
+            ],
+            'ResponseFactory' => [
+                'success', 'error', 'message', 'pdf',
             ],
             'Carbon' => [
                 'fromDateTimeLocalString', 'addBusinessDays', 'subBusinessDays',

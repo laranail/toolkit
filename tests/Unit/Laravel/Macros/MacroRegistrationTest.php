@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
@@ -31,11 +32,15 @@ class MacroRegistrationTest extends TestCase
             'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
             'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'replaceMany',
             'matches', 'reverseString', 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
+            // Restored legacy string utilities (no native Str equivalent).
+            'stripTags', 'linesCount', 'interpolate',
         ],
         'Stringable' => [
             'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
             'stripWhitespace', 'normalizeWhitespace', 'toBool', 'wrapWith', 'matches', 'reverseString',
             'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
+            // stripTags/fromBase64 are native Stringable methods — no macro.
+            'linesCount', 'interpolate',
         ],
         'Collection' => [
             'transpose', 'recursive', 'mapToKey', 'filterRecursive', 'firstOrFail',
@@ -52,6 +57,10 @@ class MacroRegistrationTest extends TestCase
             'mapKeyValuePairs', 'sortSearchResults',
             // Restored borderline macros (legacy PluckMany / ReplaceInKeys).
             'pluckMany', 'replaceInKeys',
+            // Restored legacy Collection micro-classes (filter / lookup / insert).
+            // (after is native in this Laravel version — not re-registered.)
+            'collectBy', 'filterMap', 'ifAny', 'none', 'pluckToArray',
+            'withSize', 'insertAfterKey', 'insertBeforeKey', 'sectionBy',
         ],
         'Arr' => [
             'filterNulls', 'filterEmpty', 'mapKeys', 'insertAfter', 'insertBefore', 'removeValue',
@@ -74,6 +83,10 @@ class MacroRegistrationTest extends TestCase
         'Request' => [
             'expectsJsonOrAjax', 'isBot', 'isFromMobile', 'hasFiles', 'hasValidFile', 'getReferer',
             'isFromDomain', 'isJsonRequest', 'onlyFilled', 'hasAny', 'mergeIfMissing',
+        ],
+        // Response macros delegate to the canonical ApiResponseTrait envelope.
+        'Response' => [
+            'success', 'error', 'message', 'pdf',
         ],
         'Carbon' => [
             // General-purpose date / business-day helpers that are NOT native in
@@ -152,13 +165,13 @@ class MacroRegistrationTest extends TestCase
         'Carbon::nextWeekday / previousWeekday' => 'Native Carbon mutating modifiers; legacy macros shadowed them.',
         'Carbon::toDateTimeLocalString' => 'Native Carbon method (with a $precision arg); the legacy macro shadowed it.',
 
-        // Response HTML/JSON macros — superseded by ApiResponseTrait.
-        'ResponseMacroProvider' => 'Superseded by ApiResponseTrait; legacy HTML helpers emit unescaped markup (XSS risk).',
-        'ResponseMacros' => 'HTML response helper; XSS risk; ApiResponseTrait is the canonical API.',
-        'Error' => 'HTML response helper; XSS risk; dropped with ResponseMacros.',
-        'Success' => 'HTML response helper; XSS risk; dropped with ResponseMacros.',
-        'Pdf' => 'HTML/PDF response helper; out of scope and unsafe; dropped with ResponseMacros.',
-        'Message' => 'Response message helper; dropped with ResponseMacros.',
+        // Response macros — RESTORED into Macros\ResponseMacros, delegating to
+        // the canonical ApiResponseTrait envelope (see KEPT['Response']). The
+        // legacy ResponseMacroProvider/ResponseMacros wiring classes stay dropped
+        // (replaced by the grouped provider); their behaviour lives on as the
+        // success/error/message/pdf macros.
+        'ResponseMacroProvider' => 'Replaced by Macros\\ResponseMacros (grouped provider); legacy wiring class no longer needed.',
+        'ResponseMacros (legacy wiring class)' => 'Replaced by Macros\\ResponseMacros; the success/error/message/pdf macros are restored there.',
 
         // Dropped individual macros from kept providers.
         'Str::wrap / Stringable::wrap' => 'Native in Laravel; kept as wrapWith to avoid overriding core.',
@@ -193,8 +206,42 @@ class MacroRegistrationTest extends TestCase
         'Macros\\Matches' => 'Folded into Macros\\StringMacros as the Str/Stringable matches() macro (native preg_match wrapper, returns bool).',
         'Macros\\PluckMany / ReplaceInKeys' => 'Folded into Macros\\CollectionMacros as registered Collection macros (pluckMany / replaceInKeys).',
 
-        // Orphaned invokable micro-classes (unreferenced by any grouped provider).
-        'Orphaned Macros/* micro-classes (After, At, Bind, Decrement, Nth-ordinals, FilterMap, FromBase64/Json, Glob, Head, Human, IfMacro, Interpolate, Initials, Ksort/Krsort/Rsort, Paginate*, ParallelMap, Recursive, Round5, SectionBy, StripTags, ToBase64, Transpose, TryCatch, Validate, WhenEquals, Where*, WithSize, WordsCount, etc.)' => 'Unreferenced by any provider; dead code, or redundant with kept inline macros.',
+        // RESTORED legacy Collection micro-classes → Macros\CollectionMacros.
+        'Macros\\CollectBy / FilterMap / IfAny / None / PluckToArray / WithSize / InsertAfterKey / InsertBeforeKey / SectionBy' => 'Restored as registered Collection macros in Macros\\CollectionMacros (insert-by-key now key-preserving and non-mutating).',
+        'Macros\\After' => 'Collection::after() is native in this Laravel version; the legacy After macro would be shadowed, so kept dropped.',
+
+        // RESTORED legacy Str micro-classes → Macros\StringMacros.
+        'Macros\\LinesCount / Interpolate' => 'Restored as Str + Stringable macros in Macros\\StringMacros (Interpolate re-implemented as :placeholder interpolation, longest-key-first).',
+        'Macros\\StripTags' => 'Restored as the Str::stripTags macro only; Stringable::stripTags is native in Laravel (a macro there would be shadowed).',
+        'Macros\\FromBase64' => 'Str::fromBase64 / Stringable::fromBase64 are native in Laravel (strictly-better for the bare-payload case); the data-URI variant cannot override the native method, so kept dropped.',
+
+        // RESTORED legacy file/util micro-classes → Helpers\Helper (file domain).
+        'Macros\\GenerateName / ToBase64 / FromJson' => 'Restored as Helper::generateName / Helper::toDataUri / Helper::fromJson (path-guarded; decode errors handled).',
+
+        // Native-strictly-better legacy micro-classes, kept dropped.
+        'Macros\\At / Second..Tenth (ordinals) / GetNth' => 'Positional access is the native $c->slice($n, 1)->first() / values()->get($n) / nth(); no macro adds value.',
+        'Macros\\Head' => 'Trivial alias of the native Collection::first().',
+        'Macros\\Ksort / Krsort / Rsort' => 'Native Collection::sortKeys() / sortKeysDesc() / sortDesc() are strictly better (immutable, keyed).',
+        'Macros\\Path' => 'Native data_get()/Arr::get() dot-notation is strictly better.',
+        'Macros\\Recursive / Transpose' => 'Already registered as inline Collection macros (recursive / transpose); legacy classes are redundant.',
+        'Macros\\Increment / Decrement' => 'Mutated $this->items in place (anti-pattern); no clean immutable intent worth a macro.',
+        'Macros\\CapitalizeWords' => 'Native Str::headline() does proper title-case and is strictly better; legacy called a nonexistent Str::capitalizeWords.',
+        'Macros\\Human / Bind' => 'Broken: called nonexistent Str::human()/Str::bind(); no salvageable intent.',
+        'Macros\\Round5' => 'Native round($n / 5) * 5 is a strictly simpler, correct one-liner (the legacy version mishandled negatives).',
+        'Macros\\GetFile / Glob' => 'Trivial new SplFileInfo() / glob() wrappers; call PHP/File directly (per the InteractsWithFiles I/O policy).',
+        'Macros\\FirstOrFail (legacy)' => 'Already registered as the inline Collection::firstOrFail() macro; legacy class is redundant.',
+        'Macros\\Prioritize (legacy)' => 'Already registered as the inline Collection::prioritize() macro; legacy class is redundant.',
+        'Macros\\InsertAfter / InsertBefore (legacy)' => 'Already registered as inline Collection::insertAfter()/insertBefore() macros.',
+        'Macros\\WordsCount' => 'Already registered as the Str::countWords() macro (returns int, not a string).',
+        'Macros\\WhereContains / WhereStartsWith / WhereEndsWith' => 'Native Collection::filter() with Str::contains/startsWith/endsWith over data_get() is strictly better; the legacy macros tripped strict types on non-string column values.',
+
+        // Anti-patterns / dependency-locked, kept dropped.
+        'Macros\\CatchableProxy / TryCatch' => 'try/catch-over-collections anti-pattern; TryCatch also depends on spatie/laravel-collection-macros.',
+        'Macros\\MacroSupport' => 'JSON round-trip "variable" coercion helper; lossy and not a Macroable target; dropped.',
+        'Macros\\IfMacro' => 'value()-based conditional with no Macroable target; native when()/unless() cover it.',
+        'Macros\\IsEquals / WhenEquals' => 'Request equality anti-pattern (loose == in WhenEquals); native $request->input() comparison is clearer.',
+        'Macros\\Validate' => 'Resolves the validator per item inside a Collection predicate; heavyweight anti-pattern, dropped.',
+        'Macros\\Paginate / Paginator / SimplePaginate / PaginateFirstDifferent / PaginateWithPrevious / FirstDifferentLengthAwarePaginator' => 'Bespoke paginators; native Collection paginate helpers / LengthAwarePaginator supersede them.',
     ];
 
     public function test_dropped_inventory_is_documented(): void
@@ -270,6 +317,13 @@ class MacroRegistrationTest extends TestCase
     {
         foreach (self::KEPT['Carbon'] as $macro) {
             $this->assertTrue(Carbon::hasMacro($macro), "Carbon::{$macro} should be registered.");
+        }
+    }
+
+    public function test_response_macros_are_registered(): void
+    {
+        foreach (self::KEPT['Response'] as $macro) {
+            $this->assertTrue(Response::hasMacro($macro), "Response::{$macro} should be registered.");
         }
     }
 }

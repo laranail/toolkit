@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Macros;
 
 use ArrayAccess;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -199,6 +200,156 @@ final class CollectionMacros extends ServiceProvider
         $this->registerNavigationMacros();
         $this->registerChunkingMacros();
         $this->registerReshapeMacros();
+        $this->registerFilterMacros();
+    }
+
+    /**
+     * Predicate/lookup macros folded from the legacy invokable micro-classes.
+     */
+    private function registerFilterMacros(): void
+    {
+        // Note: Collection::after() / before() are native in this Laravel
+        // version, so the legacy After macro is not re-registered (a macro would
+        // be shadowed by the core method).
+
+        // A new collection built from the value stored at $key (the legacy
+        // CollectBy: get-then-wrap). An iterable/Arrayable value becomes the new
+        // collection's items; any other scalar/object is wrapped as a single
+        // item, so the return type is always a Collection.
+        Collection::macro('collectBy', function (int|string $key, mixed $default = null): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $value = $this->get($key, $default);
+
+            if ($value === null) {
+                return new Collection([]);
+            }
+
+            if (is_iterable($value) || $value instanceof Arrayable) {
+                return new Collection($value);
+            }
+
+            return new Collection([$value]);
+        });
+
+        // Map then drop falsy results (the legacy FilterMap). filter() with no
+        // callback removes empty/null/false entries after mapping.
+        Collection::macro('filterMap', function (callable $callback): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->map($callback)->filter();
+        });
+
+        // Run $callback (and return self) only when the collection is NOT empty
+        // — the complement of the kept ifEmpty() macro.
+        Collection::macro('ifAny', function (callable $callback): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            if ($this->isNotEmpty()) {
+                $callback($this);
+            }
+
+            return $this;
+        });
+
+        // The logical inverse of contains(): true when NO item matches. Mirrors
+        // contains()'s flexible signature (value, key+value, or truth-test).
+        Collection::macro('none', function (mixed $key, mixed $value = null): bool {
+            /** @var Collection<array-key, mixed> $this */
+            if (func_num_args() === 2) {
+                return !$this->contains($key, $value);
+            }
+
+            return !$this->contains($key);
+        });
+
+        // pluck() returning a plain array rather than a Collection.
+        Collection::macro('pluckToArray', function (string|array $value, ?string $key = null): array {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->pluck($value, $key)->all();
+        });
+
+        // A collection with $size sequential integers [1..$size]; empty when
+        // $size < 1.
+        Collection::macro('withSize', function (int $size): Collection {
+            if ($size < 1) {
+                return new Collection([]);
+            }
+
+            return new Collection(range(1, $size));
+        });
+
+        // Insert $item after the entry whose KEY equals $afterKey, preserving all
+        // existing keys (unlike insertAt, which re-indexes). The inserted value
+        // is keyed by $key when given. Appends when $afterKey is absent.
+        Collection::macro('insertAfterKey', function (int|string $afterKey, mixed $item, int|string|null $key = null): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $items = $this->all();
+            $position = array_search($afterKey, array_keys($items), true);
+            $inserted = $key !== null ? [$key => $item] : [$item];
+
+            if ($position === false) {
+                return new Collection($items)->merge($inserted);
+            }
+
+            $offset = $position + 1;
+
+            return new Collection(array_slice($items, 0, $offset, true))
+                ->merge($inserted)
+                ->merge(array_slice($items, $offset, null, true));
+        });
+
+        // Insert $item before the entry whose KEY equals $beforeKey, preserving
+        // existing keys. Prepends when $beforeKey is absent.
+        Collection::macro('insertBeforeKey', function (int|string $beforeKey, mixed $item, int|string|null $key = null): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $items = $this->all();
+            $position = array_search($beforeKey, array_keys($items), true);
+            $inserted = $key !== null ? [$key => $item] : [$item];
+
+            $offset = $position === false ? 0 : $position;
+
+            return new Collection(array_slice($items, 0, $offset, true))
+                ->merge($inserted)
+                ->merge(array_slice($items, $offset, null, true));
+        });
+
+        // Split into consecutive sections, starting a new section each time the
+        // value resolved by $key changes. Each section is [sectionKey => name,
+        // itemsKey => Collection].
+        Collection::macro('sectionBy', function (
+            callable|string $key,
+            bool $preserveKeys = false,
+            int|string $sectionKey = 0,
+            int|string $itemsKey = 1,
+        ): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            $resolver = is_string($key)
+                ? static fn (mixed $item): mixed => data_get($item, $key)
+                : $key;
+
+            $results = new Collection([]);
+            $current = null;
+            $currentName = null;
+
+            foreach ($this as $itemKey => $value) {
+                $name = $resolver($value);
+
+                if ($current === null || $currentName !== $name) {
+                    $current = new Collection([]);
+                    $currentName = $name;
+                    $results->push(new Collection([
+                        $sectionKey => $name,
+                        $itemsKey => $current,
+                    ]));
+                }
+
+                if ($preserveKeys) {
+                    $current->put($itemKey, $value);
+                } else {
+                    $current->push($value);
+                }
+            }
+
+            return $results;
+        });
     }
 
     /**

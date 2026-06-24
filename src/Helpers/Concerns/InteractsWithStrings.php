@@ -129,6 +129,42 @@ trait InteractsWithStrings
         return array_values(array_unique($candidates));
     }
 
+    /**
+     * Generate a random, handle-style username.
+     *
+     * Unlike {@see usernameFromEmail()} / {@see nameToUsernames()} (which derive
+     * a username from existing identity data), this produces a fresh anonymous
+     * handle — a lowercase alphabetic prefix followed by a numeric suffix
+     * (e.g. "user4821"), suitable for placeholder/guest accounts. The result is
+     * always a valid identifier: it starts with a letter and contains only
+     * `[a-z0-9]`.
+     *
+     * @param string $prefix Leading word; sanitised to `[a-z]`, falling back to
+     *                       `user` when nothing usable remains.
+     * @param int    $digits Number of trailing random digits (clamped to 1..10).
+     */
+    public static function generateUsername(string $prefix = 'user', int $digits = 4): string
+    {
+        $prefix = (string) preg_replace('/[^a-z]/', '', Str::lower($prefix));
+
+        if ($prefix === '') {
+            $prefix = 'user';
+        }
+
+        $digits = max(1, min(10, $digits));
+
+        // Build the suffix one digit at a time: the first digit is 1..9 (so the
+        // overall length is exactly $digits), the rest are 0..9. This avoids any
+        // large 10**$digits arithmetic and keeps the result a fixed-width handle.
+        $suffix = (string) random_int(1, 9);
+
+        for ($i = 1; $i < $digits; $i++) {
+            $suffix .= (string) random_int(0, 9);
+        }
+
+        return $prefix . $suffix;
+    }
+
     public static function uuid(): string
     {
         return Str::uuid()->toString();

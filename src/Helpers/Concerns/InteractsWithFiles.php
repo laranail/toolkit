@@ -161,6 +161,56 @@ trait InteractsWithFiles
     }
 
     /**
+     * Generate a random file name with the given extension, e.g.
+     * generateName('pdf') → "Xa9...q2.pdf". The leading dot on the extension is
+     * optional. Restores the legacy GenerateName macro as a static helper.
+     */
+    public static function generateName(string $extension, int $length = 25): string
+    {
+        $length = max(1, $length);
+        $extension = ltrim(trim($extension), '.');
+        $name = Str::random($length);
+
+        return $extension === '' ? $name : $name . '.' . $extension;
+    }
+
+    /**
+     * Encode an existing file as a base64 `data:` URI
+     * ("data:<mime>;base64,<payload>"), or an empty string when the file is
+     * missing or the path is unsafe. Restores the legacy ToBase64 macro safely.
+     */
+    public static function toDataUri(string $path): string
+    {
+        if (!self::exists($path) || !File::isFile($path)) {
+            return '';
+        }
+
+        $mime = File::mimeType($path);
+        $contents = File::get($path);
+
+        return sprintf('data:%s;base64,%s', $mime === false ? 'application/octet-stream' : $mime, base64_encode($contents));
+    }
+
+    /**
+     * Read JSON from a file path (when one exists at $pathOrContent) or treat the
+     * argument as a raw JSON string, decoding to an associative array. Returns
+     * null on a missing/unsafe path or invalid JSON. Restores the legacy FromJson
+     * macro with proper error handling (the legacy version ignored decode errors).
+     *
+     * @return array<int|string, mixed>|null
+     */
+    public static function fromJson(string $pathOrContent): ?array
+    {
+        $content = self::exists($pathOrContent) && File::isFile($pathOrContent)
+            ? File::get($pathOrContent)
+            : $pathOrContent;
+
+        $decoded = json_decode($content, true);
+
+        return is_array($decoded) ? $decoded : null;
+    }
+
+    /**
      * Whether a path is free of `..` traversal segments and null bytes.
      *
      * Reuses (does not re-implement) the canonical {@see FilePathGuard}; the

@@ -111,6 +111,39 @@ final class StringMacros extends ServiceProvider
 
             return new HtmlString($highlighted ?? $escaped);
         });
+
+        // Strip HTML/PHP tags, optionally keeping an allow-list (passed straight
+        // to strip_tags()). Str has no native equivalent.
+        Str::macro('stripTags', fn (string $string, string|array|null $allowedTags = null): string => $allowedTags === null
+            ? strip_tags($string)
+            : strip_tags($string, $allowedTags));
+
+        // Number of lines in a string (1 for a non-empty string with no newline,
+        // 0 for the empty string). Counts \n, \r\n and bare \r uniformly.
+        Str::macro('linesCount', function (string $string): int {
+            if ($string === '') {
+                return 0;
+            }
+
+            $breaks = preg_match_all('/\r\n|\r|\n/', $string);
+
+            return ($breaks === false ? 0 : $breaks) + 1;
+        });
+
+        // Interpolate `:placeholder` tokens from an associative replacement map,
+        // longest key first so :foo_bar is replaced before :foo. This is the
+        // corrected intent of the broken legacy Interpolate macro (which called a
+        // nonexistent Str::interpolate).
+        Str::macro('interpolate', function (string $string, array $replacements): string {
+            $keys = array_keys($replacements);
+            usort($keys, static fn (mixed $a, mixed $b): int => strlen((string) $b) <=> strlen((string) $a));
+
+            foreach ($keys as $key) {
+                $string = str_replace(':' . $key, Cast::toString($replacements[$key]), $string);
+            }
+
+            return $string;
+        });
     }
 
     private function registerStringableMacros(): void
@@ -188,6 +221,20 @@ final class StringMacros extends ServiceProvider
         Stringable::macro('highlightWords', function (string|array $words): HtmlString {
             /** @var Stringable $this */
             return Str::highlightWords((string) $this, $words);
+        });
+
+        // Note: Stringable::stripTags() and Stringable::fromBase64() are native
+        // Laravel methods, so no Stringable macro is registered for them (a macro
+        // would be shadowed by the core method). Str::stripTags has no native
+        // equivalent, so it is kept above.
+        Stringable::macro('linesCount', function (): int {
+            /** @var Stringable $this */
+            return Str::linesCount((string) $this);
+        });
+
+        Stringable::macro('interpolate', function (array $replacements): Stringable {
+            /** @var Stringable $this */
+            return new Stringable(Str::interpolate((string) $this, $replacements));
         });
     }
 }

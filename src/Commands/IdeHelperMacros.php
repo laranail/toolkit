@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -67,6 +68,7 @@ class IdeHelperMacros extends Command
         'EloquentBuilder' => ['class' => EloquentBuilder::class, 'static' => false],
         'Blueprint' => ['class' => Blueprint::class, 'static' => false],
         'Request' => ['class' => Request::class, 'static' => false],
+        'ResponseFactory' => ['class' => ResponseFactory::class, 'static' => false],
     ];
 
     public function handle(): int

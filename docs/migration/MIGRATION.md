@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 140 | direct + 60 merged |
+| **MIGRATED** | 160 | direct + 79 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 122 | native / out-of-scope (see rows) |
+| **DROPPED** | 102 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -736,17 +736,17 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `CapitalizeWords` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `CatchableProxy` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ChunkBy` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
-| `CollectBy` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `CollectBy` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::collectBy macro)` |
 | `Decrement` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `DistanceBetween` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (native Haversine distanceBetween, G8b)` |
 | `DutchHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `EachCons` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `Eighth` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `Error` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `Error` | MERGED | `Simtabi\Laranail\Toolkit\Macros\ResponseMacros (restored as Response::error macro (delegates to ApiResponseTrait))` |
 | `Extract` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `FactoryBuilderMixin` | MIGRATED | `Simtabi\Laranail\Toolkit\Macros\FactoryBuilderMixin` |
 | `Fifth` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `FilterMap` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `FilterMap` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::filterMap macro)` |
 | `FirstDifferentLengthAwarePaginator` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `FirstOrFail` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `FirstOrPush` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
@@ -754,9 +754,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `Fourth` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `FrenchHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `FromBase64` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `FromJson` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `FromJson` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (restored as Helper::fromJson)` |
 | `FromPairs` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
-| `GenerateName` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `GenerateName` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (restored as Helper::generateName)` |
 | `GermanHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `GetFile` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `GetNth` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
@@ -765,7 +765,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `Head` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `HighlightWords` | MERGED | `Simtabi\Laranail\Toolkit\Macros\StringMacros (folded as a Str/Stringable macro, G6a)` |
 | `Human` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `IfAny` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `IfAny` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::ifAny macro)` |
 | `IfEmpty` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `IfMacro` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Increment` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
@@ -773,54 +773,54 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `IndonesianHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `Initials` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `InsertAfter` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `InsertAfterKey` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `InsertAfterKey` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::insertAfterKey macro (key-preserving))` |
 | `InsertAt` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `InsertBefore` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `InsertBeforeKey` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `Interpolate` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `InsertBeforeKey` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::insertBeforeKey macro (key-preserving))` |
+| `Interpolate` | MERGED | `Simtabi\Laranail\Toolkit\Macros\StringMacros (restored as Str/Stringable interpolate macro (:placeholder))` |
 | `IsEquals` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ItalianHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `KenyanHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `Krsort` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Ksort` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `LinesCount` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `LinesCount` | MERGED | `Simtabi\Laranail\Toolkit\Macros\StringMacros (restored as Str/Stringable linesCount macro)` |
 | `MacroSupport` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Matches` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `Message` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `Message` | MERGED | `Simtabi\Laranail\Toolkit\Macros\ResponseMacros (restored as Response::message macro (delegates to ApiResponseTrait))` |
 | `MultiNationalDates` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `Ninth` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `None` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `None` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::none macro)` |
 | `Paginate` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `PaginateFirstDifferent` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `PaginateWithPrevious` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Paginator` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ParallelMap` | DROPPED | `Requires amphp/parallel-functions; native Laravel concurrency supersedes it (G3).` |
 | `Path` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `Pdf` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `Pdf` | MERGED | `Simtabi\Laranail\Toolkit\Macros\ResponseMacros (restored as Response::pdf macro (streams bytes, no unescaped HTML))` |
 | `PluckMany` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `PluckToArray` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `PluckToArray` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::pluckToArray macro)` |
 | `Prioritize` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ReadingMinutes` | MERGED | `Simtabi\Laranail\Toolkit\Macros\StringMacros (folded as a Str/Stringable macro, G6a)` |
 | `Recursive` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `RenameKeys` | MERGED | `Simtabi\Laranail\Toolkit\Macros\ArrMacros (folded as the Arr::renameKeys macro, G6a)` |
 | `ReplaceInKeys` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `ResponseMacros` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `ResponseMacros` | MIGRATED | `Simtabi\Laranail\Toolkit\Macros\ResponseMacros` |
 | `Rotate` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `Round5` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Rsort` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Second` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `SectionBy` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `SectionBy` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::sectionBy macro)` |
 | `Seventh` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `SimplePaginate` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Sixth` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `SliceBefore` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
-| `StripTags` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `Success` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `StripTags` | MERGED | `Simtabi\Laranail\Toolkit\Macros\StringMacros (restored as Str::stripTags macro)` |
+| `Success` | MERGED | `Simtabi\Laranail\Toolkit\Macros\ResponseMacros (restored as Response::success macro (delegates to ApiResponseTrait))` |
 | `SwedishHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `Tail` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `Tenth` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `Third` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `ToBase64` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `ToBase64` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (restored as Helper::toDataUri)` |
 | `ToPairs` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (folded as a registered Collection macro, G6a)` |
 | `Transpose` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `TryCatch` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
@@ -831,7 +831,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `WhereContains` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `WhereEndsWith` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `WhereStartsWith` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `WithSize` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `WithSize` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::withSize macro)` |
 | `WordsCount` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ZambianHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 

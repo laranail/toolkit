@@ -12,7 +12,9 @@ $middle = '...')`, `isEmail`, `stripWhitespace`, `normalizeWhitespace`, `toBool`
 `wrapWith($wrapper = '"')`, `replaceMany($replacements)` (Str only),
 `matches($pattern)` (whole-string PCRE test → bool), `reverseString`,
 `countWords`, `removeAccents`, `readingMinutes($wordsPerMinute = 200)`,
-`highlightWords($words)`.
+`highlightWords($words)`, `linesCount`, `interpolate($replacements)`
+(`:placeholder` interpolation), and `stripTags($allowedTags = null)` (Str only —
+`Stringable::stripTags` is native).
 
 ```php
 Str::camelToTitle('helloWorld');          // "Hello World"
@@ -20,11 +22,15 @@ Str::truncateMiddle('a-very-long-name');  // "a-very-...name"
 str('Café')->removeAccents();             // "Cafe"
 Str::readingMinutes($article);            // 4
 Str::highlightWords('the quick fox', 'quick'); // HtmlString: "the <mark>quick</mark> fox"
+Str::interpolate('Hi :name', ['name' => 'Ada']); // "Hi Ada"
+Str::linesCount("a\nb\nc");               // 3
+Str::stripTags('<p>Hello <b>x</b></p>', '<b>'); // "Hello <b>x</b>"
 ```
 
 `highlightWords` is XSS-safe: the input text is `e()`-escaped, only matched terms
 are wrapped in `<mark>…</mark>`, and the result is returned as an
-`Illuminate\Support\HtmlString`.
+`Illuminate\Support\HtmlString`. `interpolate` replaces the longest placeholder
+first, so `:foo_bar` is never partially matched by `:foo`.
 
 ## Arr macros
 
@@ -58,7 +64,17 @@ Arr::average($rows, 'score');
 `sortSearchResults($searchTerms, $column)` (relevance sort: exact +100,
 starts-with +50, contains +25, else a `similar_text()` weight),
 `pluckMany($keys)` (reduce each item to only the given keys),
-`replaceInKeys($search, $replace)` (`str_replace` over every key, values kept).
+`replaceInKeys($search, $replace)` (`str_replace` over every key, values kept),
+`collectBy($key, $default = null)` (wrap the value at `$key` in a new
+collection), `filterMap($cb)` (map then drop falsy results),
+`ifAny($cb)` (run `$cb` only when not empty — complement of `ifEmpty`),
+`none($key, $value = null)` (inverse of `contains`), `pluckToArray($value, $key =
+null)` (`pluck` returning a plain array), `withSize($size)` (a `[1..$size]`
+range), `insertAfterKey($afterKey, $item, $key = null)` /
+`insertBeforeKey($beforeKey, $item, $key = null)` (key-preserving positional
+insert by key), and `sectionBy($key, $preserveKeys = false, $sectionKey = 0,
+$itemsKey = 1)` (split into consecutive sections each time the resolved key
+changes).
 
 ```php
 collect($flatRows)->toTree('parent_id'); // nested children tree
@@ -66,6 +82,8 @@ collect($items)->prioritize(fn ($i) => $i->pinned);
 collect([1, 1, 2, 3, 3])->chunkBy(fn ($n) => $n); // [[1,1],[2],[3,3]]
 collect($rows)->forSelectBox('id', 'name');       // ['' => '', 5 => 'Apple', ...]
 collect($posts)->sortSearchResults('laravel api', 'title'); // most relevant first
+collect([1, 2, 3, 4])->filterMap(fn ($n) => $n % 2 ? false : $n * 10); // [1 => 20, 3 => 40]
+collect(['a' => 1, 'b' => 2])->insertAfterKey('a', 99, 'x'); // ['a'=>1,'x'=>99,'b'=>2]
 ```
 
 ## Query builder macros
@@ -103,6 +121,29 @@ Schema::create('posts', function (Blueprint $table) {
 });
 ```
 
+## Response macros
+
+Registered on the response factory (callable via the `response()` helper or the
+`Response` facade). `success`, `error` and `message` delegate to the canonical
+`ApiResponseTrait` envelope (one place shapes the JSON), and `pdf` streams raw
+PDF bytes with the correct headers — never echoing unescaped HTML.
+
+- `response()->success($data = null, $message = 'Request successful.', $status =
+  200, $meta = [])` → `{ success: true, message, data, meta }`.
+- `response()->error($message = 'Bad Request', $status = 400, $errors = [],
+  $debug = null)` → `{ success: false, message, errors }` (with `debug` only when
+  `app.debug` is on).
+- `response()->message($message, $status = 200)` → a bodyless acknowledgement
+  (the success envelope with `data: null`).
+- `response()->pdf($pdf, $fileName = 'document.pdf', $download = false)` →
+  `application/pdf` with an `inline`/`attachment` `Content-Disposition`.
+
+```php
+return response()->success($user, 'Created', 201);
+return response()->error('Validation failed', 422, $errors);
+return response()->pdf($binary, 'invoice.pdf', download: true);
+```
+
 ## Factory macro
 
 `withoutEvents()` — flush model event listeners for the factory chain.
@@ -136,7 +177,8 @@ php artisan ide-helper:macros --path=ide-helper/_ide_helper_macros.php
 Unlike the legacy `ide-helper:macros` (which walked a static class list), this
 reflects the macros actually registered at boot on every macroable target
 (`Str`, `Stringable`, `Collection`, `Arr`, the query / Eloquent builders,
-`Blueprint`, `Request`, `Carbon`) plus the `Factory::withoutEvents()` mixin, so
+`Blueprint`, `Request`, `Carbon`, the response factory) plus the
+`Factory::withoutEvents()` mixin, so
 the stub can never list a macro the toolkit does not register. The
 `IdeHelperStubTest` drift test still guards the committed file in both
 directions.

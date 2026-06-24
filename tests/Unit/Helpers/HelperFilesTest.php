@@ -104,6 +104,58 @@ class HelperFilesTest extends TestCase
         }
     }
 
+    // --- Restored legacy file/util helpers ---
+
+    public function test_generate_name_appends_a_clean_extension(): void
+    {
+        $this->assertMatchesRegularExpression('/^[A-Za-z0-9]{25}\.pdf$/', Helper::generateName('pdf'));
+        // A leading/surrounding dot+whitespace on the extension is normalised.
+        $this->assertMatchesRegularExpression('/^[A-Za-z0-9]{25}\.png$/', Helper::generateName('  .png '));
+        // An empty extension yields just the random name (no trailing dot).
+        $this->assertMatchesRegularExpression('/^[A-Za-z0-9]{10}$/', Helper::generateName('', 10));
+    }
+
+    public function test_to_data_uri_encodes_an_existing_file(): void
+    {
+        $path = $this->tempFile('hello', '.txt');
+
+        try {
+            $uri = Helper::toDataUri($path);
+
+            $this->assertStringStartsWith('data:', $uri);
+            $this->assertStringContainsString(';base64,', $uri);
+            $this->assertSame('hello', base64_decode(substr($uri, (int) strpos($uri, ',') + 1)));
+        } finally {
+            @unlink($path);
+        }
+    }
+
+    public function test_to_data_uri_returns_empty_for_missing_or_unsafe_paths(): void
+    {
+        $this->assertSame('', Helper::toDataUri(sys_get_temp_dir() . '/laranail-missing-' . uniqid()));
+        $this->assertSame('', Helper::toDataUri('../../etc/passwd'));
+    }
+
+    public function test_from_json_reads_a_file_or_a_raw_string(): void
+    {
+        $this->assertSame(['a' => 1, 'b' => 2], Helper::fromJson('{"a":1,"b":2}'));
+
+        $path = $this->tempFile('{"x":true}', '.json');
+
+        try {
+            $this->assertSame(['x' => true], Helper::fromJson($path));
+        } finally {
+            @unlink($path);
+        }
+    }
+
+    public function test_from_json_returns_null_for_invalid_json(): void
+    {
+        $this->assertNull(Helper::fromJson('not json'));
+        // A scalar JSON value is not an array, so it is rejected.
+        $this->assertNull(Helper::fromJson('42'));
+    }
+
     private function tempFile(string $contents, string $suffix = '.txt'): string
     {
         $path = sys_get_temp_dir() . '/laranail-helper-' . uniqid() . $suffix;

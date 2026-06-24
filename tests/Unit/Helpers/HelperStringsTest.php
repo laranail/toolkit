@@ -151,6 +151,32 @@ class HelperStringsTest extends TestCase
         $this->assertInstanceOf(Generator::class, Helper::faker());
     }
 
+    // --- Random handle-style username generation ---
+
+    public function test_generate_username_is_a_handle_with_a_numeric_suffix(): void
+    {
+        $username = Helper::generateUsername();
+
+        $this->assertMatchesRegularExpression('/^user[0-9]{4}$/', $username);
+        // Always a valid identifier: starts with a letter, alphanumeric only.
+        $this->assertMatchesRegularExpression('/^[a-z][a-z0-9]*$/', $username);
+    }
+
+    public function test_generate_username_honours_prefix_and_digits(): void
+    {
+        $this->assertMatchesRegularExpression('/^guest[0-9]{2}$/', Helper::generateUsername('guest', 2));
+        // Non-alphabetic prefix characters are stripped; an empty prefix falls back to "user".
+        $this->assertMatchesRegularExpression('/^user[0-9]{4}$/', Helper::generateUsername('123!@#'));
+        $this->assertMatchesRegularExpression('/^abc[0-9]$/', Helper::generateUsername('a1b2c3', 1));
+    }
+
+    public function test_generate_username_clamps_digit_count(): void
+    {
+        // digits below 1 clamps to 1, above 10 clamps to 10.
+        $this->assertMatchesRegularExpression('/^user[0-9]$/', Helper::generateUsername('user', 0));
+        $this->assertMatchesRegularExpression('/^user[0-9]{10}$/', Helper::generateUsername('user', 99));
+    }
+
     // --- Folded-in date helpers (carbonParse / carbonHumanDiff) ---
 
     public function test_carbon_parse_formats_a_date(): void
