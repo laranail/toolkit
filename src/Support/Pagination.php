@@ -34,10 +34,8 @@ class Pagination
      * Paginate an Eloquent or Query Builder instance.
      *
      * @param Builder|\Illuminate\Database\Eloquent\Builder $query
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function paginateQuery($query, int $perPage, ?int $page = null, array $options = [])
+    public static function paginateQuery($query, int $perPage, ?int $page = null, array $options = []): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $page ??= request()->integer('page', 1);
 
