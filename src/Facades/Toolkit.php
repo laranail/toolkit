@@ -26,6 +26,9 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface auth()
  * @method static \Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface                      atlas()
  * @method static \Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface                livewire()
+ * @method static \Simtabi\Laranail\Toolkit\Support\Security\Token                                   token()
+ * @method static \Simtabi\Laranail\Toolkit\Support\Security\Password                                password()
+ * @method static \Simtabi\Laranail\Toolkit\Support\Security\Passphrase                              passphrase()
  *
  * @see ToolkitManager
  */

@@ -20,6 +20,9 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
+use Simtabi\Laranail\Toolkit\Support\Security\Passphrase;
+use Simtabi\Laranail\Toolkit\Support\Security\Password;
+use Simtabi\Laranail\Toolkit\Support\Security\Token;
 
 /**
  * Unified, typed entry point to the toolkit's feature modules.
@@ -149,5 +152,29 @@ class ToolkitManager
     public function livewire(): LivewireServiceInterface
     {
         return $this->app->make(LivewireServiceInterface::class);
+    }
+
+    /**
+     * A fresh CSPRNG secure-token / OTP-code builder (signed or unsigned).
+     */
+    public function token(): Token
+    {
+        return Token::unsigned();
+    }
+
+    /**
+     * A fresh random-password builder (defaults to the `strong` preset).
+     */
+    public function password(): Password
+    {
+        return Password::strong();
+    }
+
+    /**
+     * A fresh EFF-diceware passphrase builder (defaults to the `memorable` preset).
+     */
+    public function passphrase(): Passphrase
+    {
+        return Passphrase::memorable();
     }
 }

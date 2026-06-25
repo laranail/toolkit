@@ -1,8 +1,27 @@
 # Security helpers
 
-Security-focused validation and credential helpers. This page documents the
-`RejectCommonPasswords` validation rule today; the `Token`, `Password`, and
-`Passphrase` helpers are documented in a later batch.
+Security-focused validation and credential helpers: the `RejectCommonPasswords`
+validation rule plus three fluent, immutable CSPRNG generators under
+`Simtabi\Laranail\Toolkit\Support\Security` — `Token`, `Password` and
+`Passphrase`.
+
+All three generators draw randomness **only** from PHP's native cryptographically
+secure primitives — `random_bytes()` / `random_int()` for entropy, `hash_hmac()`
+(SHA-256) for signing, and `hash_equals()` for constant-time comparison. They
+never touch `rand`, `mt_rand`, `uniqid` or `Str::random` for the security core.
+Each follows the same clone-and-mutate builder shape as `Username`, so a
+configured builder is immutable and reusable, and each implements `Stringable`.
+
+They are usable as static-fluent builders directly, or via the `Toolkit` /
+`Laranail` facades, which return fresh builders:
+
+```php
+use Simtabi\Laranail\Toolkit\Support\Security\Token;
+use Simtabi\Laranail\Toolkit\Facades\Toolkit;
+
+$token = Token::unsigned()->encoding('base64url')->length(32)->generate();
+$token = Toolkit::token()->encoding('base64url')->length(32)->generate(); // same builder
+```
 
 ## `RejectCommonPasswords`
 
@@ -98,5 +117,140 @@ $rule = new RejectCommonPasswords(checkHibp: true);
 // Offline / API down -> password is accepted (fail open).
 // API reachable + suffix matches a breached hash -> password is rejected.
 ```
+
+## `Token` — secure tokens, API keys & OTP codes
+
+`Simtabi\Laranail\Toolkit\Support\Security\Token` generates opaque, high-entropy
+tokens (API keys, password-reset / verification tokens, CSRF nonces) and numeric
+OTP codes. The random body comes from `random_bytes()`; signed tokens are
+authenticated with `hash_hmac('sha256', …)` and verified in constant time with
+`hash_equals()`.
+
+```php
+use Simtabi\Laranail\Toolkit\Support\Security\Token;
+
+// Unsigned, opaque key (Stripe-style prefix, RFC 4648 base64url body):
+$key = Token::unsigned()->prefix('sk_live_')->encoding('base64url')->length(32)->generate();
+
+// A 6-digit OTP:
+$otp = Token::unsigned()->encoding('numeric')->length(6)->generate();
+
+// A self-verifying, typed, expiring reset token:
+$builder = Token::signed($appSecret)->type('reset')->expiresIn(3600)->encoding('hex')->length(32);
+$token   = $builder->generate();
+$builder->verify($token);          // true within the hour, false after / if tampered
+```
+
+### Entry points & chain
+
+| Method | Effect |
+|---|---|
+| `Token::unsigned()` | Opaque token, no integrity tag. `verify()` throws on it. |
+| `Token::signed(string $secret)` | HMAC-SHA256 signed; throws on an empty secret. |
+| `prefix(string)` | Stripe-style identifier; signed into the MAC. |
+| `length(int $bytes)` | Random body size, guarded to **8..1024** bytes. |
+| `encoding(string)` | `hex`, `base64url`, `base32`, `alphanum` or `numeric` (OTP). |
+| `expiresIn(int $seconds)` | Bind an expiry into a signed token (`0` = none). |
+| `type(string)` | Purpose label (e.g. `reset`); signed into the MAC. |
+| `generate(): string` / `verify(string): bool` / `__toString()` | Terminals. |
+
+The encodings map to fixed alphabets: `hex` → `[0-9a-f]`, `base64url` → RFC 4648
+§5 URL-safe with no `=` padding (`[A-Za-z0-9_-]`), `base32` → RFC 4648 §6
+(`[A-Z2-7]`), `alphanum` → `[A-Za-z0-9]`, `numeric` → `[0-9]`. The `alphanum` and
+`numeric` encodings fold bytes onto their alphabet with an **unbiased** modulo —
+bytes in the skewed tail are redrawn with `random_int()` so the distribution
+stays uniform.
+
+### Token format
+
+A signed token is the dot-joined:
+
+```
+prefix . encoded [ . expiry ] [ . type ] . hmac
+```
+
+- `prefix` — optional identifier (covered by the MAC, so it can't be swapped).
+- `encoded` — the random body in the chosen encoding.
+- `expiry` — Unix timestamp, present only when `expiresIn()` was set.
+- `type` — present only when `type()` was set.
+- `hmac` — base64url of `hash_hmac('sha256', signedBody, secret, raw)`, where
+  `signedBody` is everything before the final `.`.
+
+An **unsigned** token is just `prefix . encoded`. `verify()` re-derives the HMAC
+over the presented `signedBody`, compares with `hash_equals()` (constant time),
+then checks any embedded expiry. Any tampering — to the prefix, body, type or
+expiry — breaks the MAC and yields `false`; an elapsed expiry also yields
+`false`. Verifying on an `unsigned()` builder throws a `LogicException`. Store
+tokens **hashed**, never log a full token (OWASP Cryptographic Storage).
+
+## `Password` — random passwords
+
+`Simtabi\Laranail\Toolkit\Support\Security\Password` builds random passwords from
+a configurable character-class pool using `random_int()`. Defaults follow NIST SP
+800-63B / OWASP ASVS: prefer length and draw uniformly, with optional class
+coverage and an entropy floor.
+
+```php
+use Simtabi\Laranail\Toolkit\Support\Security\Password;
+
+Password::strong()->generate();                       // 20 chars, all 4 classes, no ambiguous glyphs
+Password::alphanumeric()->length(24)->generate();     // [A-Za-z0-9], 24 chars
+Password::numeric()->generate();                      // 6-digit PIN
+Password::basic()->generate();                        // 12 chars, lowercase + digits
+
+$meta = Password::strong()->generateWithMetadata();
+// ['password' => '…', 'entropy' => 127.15, 'charset_size' => 82, 'length' => 20]
+```
+
+| Method | Effect |
+|---|---|
+| `strong()` / `alphanumeric()` / `numeric()` / `basic()` | Presets. |
+| `length(int)` | Password length (≥ 1). |
+| `uppercase()` / `lowercase()` / `digits()` / `symbols()` | Toggle each class. |
+| `excludeAmbiguous(bool = true)` | Remove confusable glyphs `0 O 1 l I`. |
+| `requireEachClass(bool = true)` | Guarantee ≥ 1 char from each selected class. |
+| `minEntropy(float $bits)` | Require a minimum estimated entropy. |
+| `generate()` / `generateWithMetadata()` / `__toString()` | Terminals. |
+
+**Entropy** is the worst-case `length * log2(poolSize)` (bits) — the information
+content of a uniform draw. `requireEachClass` and `minEntropy` are enforced by a
+bounded retry loop. If the entropy target is **mathematically unreachable** for
+the configured pool and length (e.g. `minEntropy(128)` on eight lowercase-only
+chars, which caps at `8 * log2(26) ≈ 37.6` bits), `generate()` throws a
+`RuntimeException` immediately rather than spinning. Selecting **no** character
+class throws a `LogicException`.
+
+## `Passphrase` — EFF diceware
+
+`Simtabi\Laranail\Toolkit\Support\Security\Passphrase` builds memorable,
+high-entropy passphrases by drawing words uniformly (`random_int()`) from the
+**EFF Large Wordlist** — 7776 public-domain (CC0) words shipped at
+`resources/data/security/eff-large-wordlist.php`. The list is **static-cached**:
+loaded once per process and asserted to contain exactly 7776 entries, never
+re-read per `generate()`.
+
+```php
+use Simtabi\Laranail\Toolkit\Support\Security\Passphrase;
+
+Passphrase::memorable()->generate();                  // correct-horse-battery-staple-…  (6 words)
+Passphrase::default()->wordCount(4)->separator('_')->capitalize('title')->generate();
+Passphrase::memorable()->withNumber(2)->withSymbol('!')->generate();
+
+$meta = Passphrase::memorable()->generateWithMetadata();
+// ['passphrase' => '…', 'entropy' => 77.55, 'word_count' => 6, 'words' => [...]]
+```
+
+| Method | Effect |
+|---|---|
+| `memorable()` / `default()` | Presets (6 hyphenated words). |
+| `wordCount(int)` | Number of words, guarded to **1..20**. |
+| `separator(string)` | `-`, `_`, ` ` (space) or `''` (none). |
+| `capitalize(string)` | `none`, `first`, `all` or `title`. |
+| `withNumber(int $digits)` | Append a random decimal token. |
+| `withSymbol(?string)` | Append a symbol (`null` = random from a safe set). |
+| `generate()` / `generateWithMetadata()` / `__toString()` | Terminals. |
+
+**Entropy** is `wordCount * log2(7776) ≈ 12.925 bits/word` — so the 6-word
+default scores ≈ **77.5 bits**, the EFF's recommended memorable-but-strong point.
 
 [← Docs index](../README.md#documentation)
