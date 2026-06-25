@@ -115,6 +115,7 @@
         }
     },
     "suggest": {
-        "livewire/livewire": "^3.0 — for the Livewire component-registration module"
+        "livewire/livewire": "^3.0 — for the Livewire component-registration module",
+        "spatie/db-dumper": "^3.0 — portable multi-driver dumps for laranail::toolkit.database export (mysql/mariadb/postgres/sqlite); guarded by class_exists, never hard-required"
     }
 }

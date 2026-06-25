@@ -64,6 +64,20 @@ interface FileServiceInterface
     public function hasAllowedExtension(string $path, array $allowed): bool;
 
     /**
+     * Whether a file exists and is no larger than $maxMb megabytes. Path-guarded;
+     * a non-positive $maxMb means "no upper bound" (existence only).
+     */
+    public function validateSize(string $path, int $maxMb): bool;
+
+    /**
+     * Combined existence + extension + optional size validation. Returns false
+     * for an unsafe/missing path, a disallowed extension, or an oversize file.
+     *
+     * @param list<string> $allowedExtensions
+     */
+    public function validate(string $path, array $allowedExtensions, ?int $maxMb = null): bool;
+
+    /**
      * Inspect a file, returning its path/size/extension/name metadata.
      *
      * @return array{path: string, size: int, extension: string, name: string, basename: string, last_modified: int, is_readable: bool, is_writable: bool}|array{}

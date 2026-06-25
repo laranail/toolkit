@@ -221,6 +221,7 @@ class Post extends Model
 | [Laranail → Toolkit map](docs/migration/laranail-to-toolkit.md) | Every legacy `Laranail::` method → its `Toolkit::` / `Helper::` / native home |
 | [LLM providers](docs/llm-providers.md) | OpenAI / Claude / Gemini abstraction |
 | [make-crud](docs/make-crud.md) | API CRUD generator command |
+| [Maintenance commands](docs/commands.md) | `laranail::toolkit.database` + `laranail::toolkit.tidy` (shell-safe, path-confined) |
 | [CrudController](docs/crud-controller.md) | Secure base controller |
 | [Access log](docs/access-log.md) | `access.log` middleware + redaction |
 | [API middleware](docs/api-middleware.md) | `api.request` / `api.response` envelope + `BaseRequest` sanitization |

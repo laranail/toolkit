@@ -1,762 +1,762 @@
 {
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AbstractNotificationChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AppleBusinessMessagesChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\CacheChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\ConsoleChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\DatabaseChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\DiscordChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\EmailChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\FileChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\LogChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\PushChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\SlackChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\SmsChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Channels\\WebhookChannel": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Contracts\\NotificationChannelInterface": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Services\\NotificationService": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Features\\Notifications\\Support\\NotificationResult": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\AuthenticationServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\CacheServiceInterface": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ClassHelperServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\CollectionHelperServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\DatabaseFileServiceInterface": {
-    "status": "merged",
-    "target": "Merged into Simtabi\\Laranail\\Toolkit\\Services\\DatabaseService (+ Services\\FileService for the file-side helpers)."
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\FakerHelperServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\FileHelperServiceInterface": {
-    "status": "merged",
-    "target": "Merged into Simtabi\\Laranail\\Toolkit\\Services\\Contracts\\FileServiceInterface."
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\LivewireComponentServiceInterface": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\LivewireServiceInterface"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ModelFormatterServiceInterface": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters (working formatters folded, G6d)"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\PackageServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\StringHelperServiceInterface": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\SessionServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\UtilityServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Exceptions\\LaranailExceptionHandler": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Providers\\LaranailEventServiceProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Providers\\LaranailHookServiceProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Providers\\LaranailServiceProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\AuthUtil (auth context + username/userExists folded, G8a)"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\CacheService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\ClassHelperService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (classBasename folded, G8a)"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\CollectionHelperService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (mapKeyValuePairs + sortSearchResults folded, G8a)"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\DatabaseFileService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\FakerHelperService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (faker + randomIntExcept folded, G8a)"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\FileHelperService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (useful static file helpers recovered, restore-candidates)"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\LivewireComponentService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\LivewireService"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\ModelFormatterService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters (working formatters folded, G6d)"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\PackageService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\SessionService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\SessionHelper (query-string filter-key helpers folded, G8a)"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\StringHelperService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\UtilityService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Commands\\AssetCommand": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Commands\\CronJobCommand": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Commands\\DatabaseCommand": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Commands\\InitializeApplication": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Commands\\LicenseCommand": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Commands\\MacrosCommand": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Commands\\IdeHelperMacros"
-  },
-  "Simtabi\\Laranail\\Laravel\\Commands\\MaintenanceCommand": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Commands\\SetAppNamespace": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Commands\\TidyCommand": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Listeners\\LicenseListener": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\After": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\At": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Before": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Bind": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\BrazilianHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\CanadianDates": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\CapitalizeWords": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\CatchableProxy": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\ChunkBy": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\CollectBy": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::collectBy macro)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Decrement": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\DistanceBetween": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (native Haversine distanceBetween, G8b)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\DutchHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\EachCons": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Eighth": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Error": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ResponseMacros (restored as Response::error macro (delegates to ApiResponseTrait))"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Extract": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Fifth": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\FilterMap": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::filterMap macro)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\FirstDifferentLengthAwarePaginator": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\FirstOrFail": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\FirstOrPush": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\ForSelectBox": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Fourth": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\FrenchHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\FromBase64": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\FromJson": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (restored as Helper::fromJson)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\FromPairs": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\GenerateName": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (restored as Helper::generateName)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\GermanHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\GetFile": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\GetNth": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Glob": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\GroupByModel": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Head": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\HighlightWords": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (folded as a Str/Stringable macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Human": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\IfAny": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::ifAny macro)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\IfEmpty": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\IfMacro": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Increment": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\IndianHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\IndonesianHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Initials": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\InsertAfter": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\InsertAfterKey": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::insertAfterKey macro (key-preserving))"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\InsertAt": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\InsertBefore": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\InsertBeforeKey": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::insertBeforeKey macro (key-preserving))"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Interpolate": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (restored as Str/Stringable interpolate macro (:placeholder))"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\IsEquals": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\ItalianHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\KenyanHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Krsort": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Ksort": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\LinesCount": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (restored as Str/Stringable linesCount macro)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\MacroSupport": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Matches": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Message": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ResponseMacros (restored as Response::message macro (delegates to ApiResponseTrait))"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\MultiNationalDates": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Ninth": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\None": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::none macro)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Paginate": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\PaginateFirstDifferent": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\PaginateWithPrevious": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Paginator": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\ParallelMap": {
-    "status": "dropped",
-    "target": "Requires amphp/parallel-functions; native Laravel concurrency supersedes it (G3)."
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Path": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Pdf": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ResponseMacros (restored as Response::pdf macro (streams bytes, no unescaped HTML))"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\PluckMany": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\PluckToArray": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::pluckToArray macro)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Prioritize": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\ReadingMinutes": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (folded as a Str/Stringable macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Recursive": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\RenameKeys": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ArrMacros (folded as the Arr::renameKeys macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\ReplaceInKeys": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Rotate": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Round5": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Rsort": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Second": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\SectionBy": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::sectionBy macro)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Seventh": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\SimplePaginate": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Sixth": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\SliceBefore": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\StripTags": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (restored as Str::stripTags macro)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Success": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ResponseMacros (restored as Response::success macro (delegates to ApiResponseTrait))"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\SwedishHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Tail": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Tenth": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Third": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\ToBase64": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (restored as Helper::toDataUri)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\ToPairs": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Transpose": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\TryCatch": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\UkrainianHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\UsDates": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\Validate": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\WhenEquals": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\WhereContains": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\WhereEndsWith": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\WhereStartsWith": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\WithSize": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::withSize macro)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\WordsCount": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Macros\\ZambianHolidays": {
-    "status": "merged",
-    "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\ArrMacroProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\BlueprintMacroProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\CarbonMacroProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\CollectionMacroProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\LaravelMiddlewareServiceProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\MacrosServiceProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\QueryBuilderMacroProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\RequestMacroProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\ResponseMacroProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Providers\\StringMacroProvider": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Laravel\\Services\\ResponseBuilderService": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": {
-    "status": "relocated",
-    "target": "laranail/notifications"
-  },
-  "Simtabi\\Laranail\\Shared\\Events\\EnvironmentEvents": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Shared\\Events\\LicenseEvents": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Shared\\Events\\RequirementsEvents": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Support\\Contracts\\CacheHelperInterface": {
-    "status": "merged",
-    "target": "Merged into Simtabi\\Laranail\\Toolkit\\Utilities\\Contracts\\CacheRepositoryInterface."
-  },
-  "Simtabi\\Laranail\\Support\\Contracts\\ResponseBuilderServiceInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Support\\Contracts\\ResponseMacroInterface": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Support\\Facades\\LanguagesFacade": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas"
-  },
-  "Simtabi\\Laranail\\Support\\Services\\Atlas\\Countries": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasService"
-  },
-  "Simtabi\\Laranail\\Support\\Services\\Atlas\\Languages": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasService"
-  },
-  "Simtabi\\Laranail\\Support\\Traits\\HasPackageTools": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
-  },
-  "Simtabi\\Laranail\\Support\\Traits\\Livewire\\HasLivewire": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\HasLivewireComponents"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\Auth": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\AuthUtil"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\BladeDirectives": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Providers\\BladeServiceProvider"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\DiskSpaceValidator": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\Environment": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\EnvironmentUtil"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\RequirementsChecker": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics (useful probes folded, G6c)"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\Username": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters"
-  }
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AbstractNotificationChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AppleBusinessMessagesChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\CacheChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\ConsoleChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\DatabaseChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\DiscordChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\EmailChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\FileChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\LogChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\PushChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\SlackChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\SmsChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\WebhookChannel": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Contracts\\NotificationChannelInterface": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Services\\NotificationService": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Features\\Notifications\\Support\\NotificationResult": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\AuthenticationServiceInterface": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\CacheServiceInterface": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ClassHelperServiceInterface": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\CollectionHelperServiceInterface": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\DatabaseFileServiceInterface": {
+        "status": "merged",
+        "target": "Merged into Simtabi\\Laranail\\Toolkit\\Services\\Contracts\\FileServiceInterface (validate/validateSize) + DatabaseService (the .sql import side)."
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\FakerHelperServiceInterface": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\FileHelperServiceInterface": {
+        "status": "merged",
+        "target": "Merged into Simtabi\\Laranail\\Toolkit\\Services\\Contracts\\FileServiceInterface."
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\LivewireComponentServiceInterface": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\LivewireServiceInterface"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ModelFormatterServiceInterface": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters (working formatters folded, G6d)"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\PackageServiceInterface": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\StringHelperServiceInterface": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\SessionServiceInterface": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Contracts\\UtilityServiceInterface": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Exceptions\\LaranailExceptionHandler": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Providers\\LaranailEventServiceProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Providers\\LaranailHookServiceProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Providers\\LaranailServiceProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\AuthUtil (auth context + username/userExists folded, G8a)"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\CacheService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\ClassHelperService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (classBasename folded, G8a)"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\CollectionHelperService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (mapKeyValuePairs + sortSearchResults folded, G8a)"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\DatabaseFileService": {
+        "status": "merged",
+        "target": "Merged into Simtabi\\Laranail\\Toolkit\\Services\\FileService (validate/validateSize) + ImportDatabaseService (transactional .sql import)."
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\FakerHelperService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (faker + randomIntExcept folded, G8a)"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\FileHelperService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (useful static file helpers recovered, restore-candidates)"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\LivewireComponentService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\LivewireService"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\ModelFormatterService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters (working formatters folded, G6d)"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\PackageService": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\SessionService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\SessionHelper (query-string filter-key helpers folded, G8a)"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\StringHelperService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper"
+    },
+    "Simtabi\\Laranail\\Foundation\\Services\\UtilityService": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Commands\\AssetCommand": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Commands\\CronJobCommand": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Commands\\DatabaseCommand": {
+        "status": "merged",
+        "target": "Merged + hardened into Simtabi\\Laranail\\Toolkit\\Commands\\DatabaseManager (laranail::toolkit.database; array-arg Process, Schema-validated truncate)."
+    },
+    "Simtabi\\Laranail\\Laravel\\Commands\\InitializeApplication": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Commands\\LicenseCommand": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Commands\\MacrosCommand": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Commands\\IdeHelperMacros"
+    },
+    "Simtabi\\Laranail\\Laravel\\Commands\\MaintenanceCommand": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Commands\\SetAppNamespace": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Commands\\TidyCommand": {
+        "status": "merged",
+        "target": "Merged + hardened into Simtabi\\Laranail\\Toolkit\\Commands\\Tidy (laranail::toolkit.tidy; storage-confined deletion, gated migrate:fresh)."
+    },
+    "Simtabi\\Laranail\\Laravel\\Listeners\\LicenseListener": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\After": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\At": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Before": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Bind": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\BrazilianHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\CanadianDates": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\CapitalizeWords": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\CatchableProxy": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\ChunkBy": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\CollectBy": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::collectBy macro)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Decrement": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\DistanceBetween": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (native Haversine distanceBetween, G8b)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\DutchHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\EachCons": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Eighth": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Error": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ResponseMacros (restored as Response::error macro (delegates to ApiResponseTrait))"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Extract": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Fifth": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\FilterMap": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::filterMap macro)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\FirstDifferentLengthAwarePaginator": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\FirstOrFail": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\FirstOrPush": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\ForSelectBox": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Fourth": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\FrenchHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\FromBase64": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\FromJson": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (restored as Helper::fromJson)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\FromPairs": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\GenerateName": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (restored as Helper::generateName)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\GermanHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\GetFile": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\GetNth": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Glob": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\GroupByModel": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Head": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\HighlightWords": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (folded as a Str/Stringable macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Human": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\IfAny": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::ifAny macro)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\IfEmpty": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\IfMacro": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Increment": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\IndianHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\IndonesianHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Initials": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertAfter": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertAfterKey": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::insertAfterKey macro (key-preserving))"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertAt": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertBefore": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertBeforeKey": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::insertBeforeKey macro (key-preserving))"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Interpolate": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (restored as Str/Stringable interpolate macro (:placeholder))"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\IsEquals": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\ItalianHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\KenyanHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Krsort": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Ksort": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\LinesCount": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (restored as Str/Stringable linesCount macro)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\MacroSupport": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Matches": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Message": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ResponseMacros (restored as Response::message macro (delegates to ApiResponseTrait))"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\MultiNationalDates": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Ninth": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\None": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::none macro)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Paginate": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\PaginateFirstDifferent": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\PaginateWithPrevious": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Paginator": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\ParallelMap": {
+        "status": "dropped",
+        "target": "Requires amphp/parallel-functions; native Laravel concurrency supersedes it (G3)."
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Path": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Pdf": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ResponseMacros (restored as Response::pdf macro (streams bytes, no unescaped HTML))"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\PluckMany": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\PluckToArray": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::pluckToArray macro)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Prioritize": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\ReadingMinutes": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (folded as a Str/Stringable macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Recursive": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\RenameKeys": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ArrMacros (folded as the Arr::renameKeys macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\ReplaceInKeys": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Rotate": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Round5": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Rsort": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Second": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\SectionBy": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::sectionBy macro)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Seventh": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\SimplePaginate": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Sixth": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\SliceBefore": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\StripTags": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\StringMacros (restored as Str::stripTags macro)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Success": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\ResponseMacros (restored as Response::success macro (delegates to ApiResponseTrait))"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\SwedishHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Tail": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Tenth": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Third": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\ToBase64": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper (restored as Helper::toDataUri)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\ToPairs": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (folded as a registered Collection macro, G6a)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Transpose": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\TryCatch": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\UkrainianHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\UsDates": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\Validate": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\WhenEquals": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\WhereContains": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\WhereEndsWith": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\WhereStartsWith": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\WithSize": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::withSize macro)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\WordsCount": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Macros\\ZambianHolidays": {
+        "status": "merged",
+        "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\ArrMacroProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\BlueprintMacroProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\CarbonMacroProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\CollectionMacroProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\LaravelMiddlewareServiceProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\MacrosServiceProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\QueryBuilderMacroProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\RequestMacroProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\ResponseMacroProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Providers\\StringMacroProvider": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Laravel\\Services\\ResponseBuilderService": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": {
+        "status": "relocated",
+        "target": "laranail/notifications"
+    },
+    "Simtabi\\Laranail\\Shared\\Events\\EnvironmentEvents": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Shared\\Events\\LicenseEvents": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Shared\\Events\\RequirementsEvents": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Support\\Contracts\\CacheHelperInterface": {
+        "status": "merged",
+        "target": "Merged into Simtabi\\Laranail\\Toolkit\\Utilities\\Contracts\\CacheRepositoryInterface."
+    },
+    "Simtabi\\Laranail\\Support\\Contracts\\ResponseBuilderServiceInterface": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Support\\Contracts\\ResponseMacroInterface": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Support\\Facades\\LanguagesFacade": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas"
+    },
+    "Simtabi\\Laranail\\Support\\Services\\Atlas\\Countries": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasService"
+    },
+    "Simtabi\\Laranail\\Support\\Services\\Atlas\\Languages": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasService"
+    },
+    "Simtabi\\Laranail\\Support\\Traits\\HasPackageTools": {
+        "status": "dropped",
+        "target": "see docs/migration/MIGRATION.md + dropped.md"
+    },
+    "Simtabi\\Laranail\\Support\\Traits\\Livewire\\HasLivewire": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\HasLivewireComponents"
+    },
+    "Simtabi\\Laranail\\Support\\Utilities\\Auth": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\AuthUtil"
+    },
+    "Simtabi\\Laranail\\Support\\Utilities\\BladeDirectives": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Providers\\BladeServiceProvider"
+    },
+    "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\DiskSpaceValidator": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics"
+    },
+    "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\Environment": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\EnvironmentUtil"
+    },
+    "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\RequirementsChecker": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics (useful probes folded, G6c)"
+    },
+    "Simtabi\\Laranail\\Support\\Utilities\\Username": {
+        "status": "merged",
+        "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters"
+    }
 }

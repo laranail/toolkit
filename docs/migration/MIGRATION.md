@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 169 | direct + 80 merged |
+| **MIGRATED** | 172 | direct + 83 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 93 | native / out-of-scope (see rows) |
+| **DROPPED** | 90 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -614,7 +614,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `AuthenticationHelperServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface` |
 | `ClassHelperServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `CollectionHelperServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `DatabaseFileServiceInterface` | MERGED | `Merged into Simtabi\Laranail\Toolkit\Services\DatabaseService (+ Services\FileService for the file-side helpers).` |
+| `DatabaseFileServiceInterface` | MERGED | `Merged into Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface (validate/validateSize) + DatabaseService (the .sql import side).` |
 | `ErrorStorageServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface` |
 | `FakerHelperServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `FileHelperServiceInterface` | MERGED | `Merged into Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface.` |
@@ -656,7 +656,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `CacheService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\CachingUtil` |
 | `ClassHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (classBasename folded, G8a)` |
 | `CollectionHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (mapKeyValuePairs + sortSearchResults folded, G8a)` |
-| `DatabaseFileService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `DatabaseFileService` | MERGED | `Merged into Simtabi\Laranail\Toolkit\Services\FileService (validate/validateSize) + ImportDatabaseService (transactional .sql import).` |
 | `DatabaseService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\DatabaseService` |
 | `ErrorStorageService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ErrorStorageService` |
 | `FakerHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (faker + randomIntExcept folded, G8a)` |
@@ -680,13 +680,13 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 |---|---|---|
 | `AssetCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `CronJobCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `DatabaseCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `DatabaseCommand` | MERGED | `Merged + hardened into Simtabi\Laranail\Toolkit\Commands\DatabaseManager (laranail::toolkit.database; array-arg Process, Schema-validated truncate).` |
 | `InitializeApplication` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `LicenseCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `MacrosCommand` | MERGED | `Simtabi\Laranail\Toolkit\Commands\IdeHelperMacros` |
 | `MaintenanceCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `SetAppNamespace` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `TidyCommand` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `TidyCommand` | MERGED | `Merged + hardened into Simtabi\Laranail\Toolkit\Commands\Tidy (laranail::toolkit.tidy; storage-confined deletion, gated migrate:fresh).` |
 
 ### Simtabi\Laranail\Laravel\Http\Controllers
 

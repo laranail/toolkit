@@ -116,6 +116,51 @@ final class FileService implements FileServiceInterface
     }
 
     /**
+     * Whether a file exists and is no larger than $maxMb megabytes.
+     *
+     * Path-guarded (unsafe/missing paths return false). Folds in the legacy
+     * `DatabaseFileService::validateFileSize` size check as a generic,
+     * megabyte-based validator. A non-positive $maxMb means "no upper bound" —
+     * the file need only exist.
+     */
+    public function validateSize(string $path, int $maxMb): bool
+    {
+        if (!$this->exists($path) || !File::isFile($path)) {
+            return false;
+        }
+
+        if ($maxMb <= 0) {
+            return true;
+        }
+
+        return $this->size($path) <= $maxMb * 1024 * 1024;
+    }
+
+    /**
+     * Combined existence + extension + optional size validation.
+     *
+     * Generic, path-guarded replacement for the legacy
+     * `DatabaseFileService::validateDatabaseFile`/`isValidDatabaseFile` pair:
+     * pass whatever allow-list (and optional MB cap) the caller needs rather than
+     * a hard-coded DB-file set. Returns false for an unsafe/missing path, a
+     * disallowed extension, or an oversize file.
+     *
+     * @param list<string> $allowedExtensions
+     */
+    public function validate(string $path, array $allowedExtensions, ?int $maxMb = null): bool
+    {
+        if (!$this->exists($path) || !File::isFile($path)) {
+            return false;
+        }
+
+        if ($allowedExtensions !== [] && !$this->hasAllowedExtension($path, $allowedExtensions)) {
+            return false;
+        }
+
+        return $maxMb === null || $this->validateSize($path, $maxMb);
+    }
+
+    /**
      * Inspect a file, returning its path/size/extension/name metadata.
      *
      * Generic replacement for the legacy DB-specific getFileInfo(): returns an

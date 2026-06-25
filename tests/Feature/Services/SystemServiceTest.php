@@ -75,6 +75,16 @@ class SystemServiceTest extends TestCase
                 return false;
             }
 
+            public function validateSize(string $path, int $maxMb): bool
+            {
+                return false;
+            }
+
+            public function validate(string $path, array $allowedExtensions, ?int $maxMb = null): bool
+            {
+                return false;
+            }
+
             public function fileInfo(string $path): array
             {
                 return [];
