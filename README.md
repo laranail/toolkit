@@ -48,6 +48,14 @@ see [installation](docs/installation.md) for the full tag list.
 - **`make-crud` command** — generate a Model, API Controller, and Migration from
   a single field spec, with relationships, search, soft deletes, and route
   registration.
+- **Artisan commands on `laranail/console`** — all four commands (`make-crud`,
+  `ide-helper-macros`, `database`, `tidy`) extend the
+  [`laranail/console`](https://opensource.simtabi.com/console/) `^2.5.0` base and
+  use its **full feature set**: the fluent `consoleWriter()` (success/error/
+  warning/info/note statuses + styling) and the `$this->services` lifecycle —
+  performance timing, signal-safe destructive loops, non-interactive-safe
+  confirmations, structured + **credential-redacting** logging, and per-run
+  metadata. See [Artisan commands](docs/commands.md).
 - **`CrudController`** — an abstract base controller with secure pagination,
   search, sorting, and validation out of the box.
 - **`access.log` middleware** — terminate-phase request logging with recursive,
@@ -221,7 +229,7 @@ class Post extends Model
 | [Laranail → Toolkit map](docs/migration/laranail-to-toolkit.md) | Every legacy `Laranail::` method → its `Toolkit::` / `Helper::` / native home |
 | [LLM providers](docs/llm-providers.md) | OpenAI / Claude / Gemini abstraction |
 | [make-crud](docs/make-crud.md) | API CRUD generator command |
-| [Maintenance commands](docs/commands.md) | `laranail::toolkit.database` + `laranail::toolkit.tidy` (shell-safe, path-confined) |
+| [Artisan commands](docs/commands.md) | The four `laranail::toolkit.*` commands + the full `laranail/console` lifecycle (signal-safe, redacting, shell-safe, path-confined) |
 | [CrudController](docs/crud-controller.md) | Secure base controller |
 | [Access log](docs/access-log.md) | `access.log` middleware + redaction |
 | [API middleware](docs/api-middleware.md) | `api.request` / `api.response` envelope + `BaseRequest` sanitization |

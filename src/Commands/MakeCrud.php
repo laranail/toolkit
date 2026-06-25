@@ -40,6 +40,14 @@ class MakeCrud extends Command
 
     private array $fields = [];
 
+    /**
+     * Relative paths of the files this run actually created (recorded in
+     * command metadata so the lifecycle completion log reports them).
+     *
+     * @var list<string>
+     */
+    private array $generated = [];
+
     public function handle(): int
     {
         $this->modelName = Str::studly($this->argument('name'));
@@ -47,15 +55,24 @@ class MakeCrud extends Command
         $this->tableName = Str::snake(Str::plural($this->modelName));
         $this->fields = $this->parseFields($this->option('fields') ?? '');
 
-        $this->components->info("Generating CRUD for [{$this->modelName}]...");
+        // Record the scaffold target up front so the lifecycle log + any failure
+        // capture carry the model/table this run is generating for.
+        $this->services->metadata()->addMany([
+            'model' => $this->modelName,
+            'table' => $this->tableName,
+            'fields' => count($this->fields),
+        ]);
+
+        $writer = $this->consoleWriter();
+        $writer->info("Generating CRUD for [{$this->modelName}]...");
 
         $this->generateMigration();
         $this->generateModel();
         $this->generateController();
 
-        $this->newLine();
-        $this->components->info('CRUD scaffold generated successfully.');
-        $this->newLine();
+        $writer->newLine();
+        $writer->success('CRUD scaffold generated successfully.');
+        $writer->newLine();
 
         if ($this->option('migrate')) {
             $this->call('migrate');
@@ -65,11 +82,15 @@ class MakeCrud extends Command
             $this->registerRoute();
         } else {
             $routeUri = Str::kebab(Str::plural($this->modelName));
-            $this->line('  <fg=gray>Add to</> <fg=yellow>routes/api.php</>:');
-            $this->line("  <fg=cyan>Route::apiResource</>(<fg=green>'{$routeUri}'</>, \\App\\Http\\Controllers\\{$this->modelName}Controller::class);");
+            $writer->line('  <fg=gray>Add to</> <fg=yellow>routes/api.php</>:');
+            $writer->line("  <fg=cyan>Route::apiResource</>(<fg=green>'{$routeUri}'</>, \\App\\Http\\Controllers\\{$this->modelName}Controller::class);");
         }
 
         $this->warnAboutRelationships();
+
+        // Surface the files this run actually created (skipped/overwrite-guarded
+        // generators do not record one) for the lifecycle completion log.
+        $this->services->metadata()->add('generated', $this->generated);
 
         return self::SUCCESS;
     }
@@ -83,7 +104,7 @@ class MakeCrud extends Command
         $apiRoutesPath = base_path('routes/api.php');
 
         if (!file_exists($apiRoutesPath)) {
-            $this->components->error('routes/api.php not found.');
+            $this->consoleWriter()->error('routes/api.php not found.');
 
             return;
         }
@@ -94,7 +115,7 @@ class MakeCrud extends Command
         $contents = file_get_contents($apiRoutesPath);
 
         if (str_contains($contents, $routeLine)) {
-            $this->components->warn("Route for [{$this->modelName}] is already registered in routes/api.php.");
+            $this->consoleWriter()->warning("Route for [{$this->modelName}] is already registered in routes/api.php.");
 
             return;
         }
@@ -104,7 +125,7 @@ class MakeCrud extends Command
 
         file_put_contents($apiRoutesPath, $contents);
 
-        $this->components->info("Registered route in <fg=cyan>routes/api.php</>: <fg=green>{$routeLine}</>");
+        $this->consoleWriter()->success("Registered route in <fg=cyan>routes/api.php</>: <fg=green>{$routeLine}</>");
     }
 
     // -----------------------------------------------------------------------
@@ -168,7 +189,7 @@ class MakeCrud extends Command
         $existing = $this->findExistingMigration();
 
         if ($existing) {
-            $this->components->warn("Migration already exists: [database/migrations/{$existing}]. Skipping.");
+            $this->consoleWriter()->warning("Migration already exists: [database/migrations/{$existing}]. Skipping.");
 
             return;
         }
@@ -185,7 +206,8 @@ class MakeCrud extends Command
         ]);
 
         file_put_contents($path, $content);
-        $this->components->info("Created migration: <fg=cyan>database/migrations/{$filename}</>");
+        $this->generated[] = "database/migrations/{$filename}";
+        $this->consoleWriter()->success("Created migration: <fg=cyan>database/migrations/{$filename}</>");
     }
 
     private function findExistingMigration(): ?string
@@ -263,7 +285,7 @@ class MakeCrud extends Command
         $path = app_path("Models/{$this->modelName}.php");
 
         if (file_exists($path) && !$this->option('force')) {
-            $this->components->warn("Model [{$this->modelName}] already exists. Use --force to overwrite.");
+            $this->consoleWriter()->warning("Model [{$this->modelName}] already exists. Use --force to overwrite.");
 
             return;
         }
@@ -282,7 +304,8 @@ class MakeCrud extends Command
 
         $this->ensureDirectoryExists(app_path('Models'));
         file_put_contents($path, $content);
-        $this->components->info("Created model: <fg=cyan>app/Models/{$this->modelName}.php</>");
+        $this->generated[] = "app/Models/{$this->modelName}.php";
+        $this->consoleWriter()->success("Created model: <fg=cyan>app/Models/{$this->modelName}.php</>");
     }
 
     private function buildFillable(): string
@@ -379,7 +402,7 @@ PHP;
         $path = app_path("Http/Controllers/{$this->modelName}Controller.php");
 
         if (file_exists($path) && !$this->option('force')) {
-            $this->components->warn("Controller [{$this->modelName}Controller] already exists. Use --force to overwrite.");
+            $this->consoleWriter()->warning("Controller [{$this->modelName}Controller] already exists. Use --force to overwrite.");
 
             return;
         }
@@ -402,7 +425,8 @@ PHP;
 
         $this->ensureDirectoryExists(app_path('Http/Controllers'));
         file_put_contents($path, $content);
-        $this->components->info("Created controller: <fg=cyan>app/Http/Controllers/{$this->modelName}Controller.php</>");
+        $this->generated[] = "app/Http/Controllers/{$this->modelName}Controller.php";
+        $this->consoleWriter()->success("Created controller: <fg=cyan>app/Http/Controllers/{$this->modelName}Controller.php</>");
     }
 
     private function buildIndexBody(array $relationships): string
@@ -665,12 +689,13 @@ PHP;
             return;
         }
 
-        $this->newLine();
-        $this->components->warn('The following related tables do not exist yet. Eager loading and FK validation will fail until their migrations are run:');
+        $writer = $this->consoleWriter();
+        $writer->newLine();
+        $writer->warning('The following related tables do not exist yet. Eager loading and FK validation will fail until their migrations are run:');
 
         foreach ($missing as $item) {
-            $this->line("  <fg=yellow>  {$item['model']}</> → table <fg=red>{$item['table']}</> not found");
-            $this->line("    Run: <fg=cyan>php artisan make:model {$item['model']} -m</>");
+            $writer->line("  <fg=yellow>  {$item['model']}</> → table <fg=red>{$item['table']}</> not found");
+            $writer->line("    Run: <fg=cyan>php artisan make:model {$item['model']} -m</>");
         }
     }
 

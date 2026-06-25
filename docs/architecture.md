@@ -40,8 +40,20 @@ src/
 ```
 
 > The command base (`Command` + `SupportsNamespacedNames`) is **not** local — it
-> comes from [`laranail/console`](https://opensource.simtabi.com/console/), the
-> org-canonical command base. `MakeCrud` extends it.
+> comes from [`laranail/console`](https://opensource.simtabi.com/console/) `^2.5.0`,
+> the org-canonical command base. All four toolkit commands — `MakeCrud`,
+> `IdeHelperMacros`, `DatabaseManager`, `Tidy` — extend it and use its **full
+> feature set**: the fluent `$this->consoleWriter()` (context statuses
+> success/error/warning/info/note, styling, emoji) and the `$this->services`
+> lifecycle (`performance`, `signals`, `interaction`, `logger`, `error`,
+> `metadata`, `display`). The heavy commands (`DatabaseManager`, `Tidy`) make
+> their destructive loops **signal-safe** (`signals()->shouldKeepRunning()`),
+> confirm through `interaction()->confirmAction()` (safe default in
+> non-interactive mode), and capture failures via the **auto-redacting**
+> `error()->logError()` — so credentials never reach a log channel. The existing
+> G10 security hardening (mysqldump array-args + chmod-600 defaults-file,
+> Schema-validated grammar-quoted truncate, FilePathGuard storage confinement,
+> `db` gating) is untouched.
 
 ## Adding a feature / tool / module
 

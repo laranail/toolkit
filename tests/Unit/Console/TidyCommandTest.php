@@ -152,6 +152,20 @@ class TidyCommandTest extends TestCase
             ->assertExitCode(0);
     }
 
+    public function test_db_action_with_force_runs_migrate_fresh(): void
+    {
+        // The in-memory sqlite test DB makes migrate:fresh safe to actually run.
+        // --force satisfies the gate and confirmToProceed() is a no-op outside
+        // production, so the real refresh path executes and reports success.
+        $this->artisan('laranail::toolkit.tidy', ['action' => 'db', '--force' => true])
+            ->expectsOutputToContain('Database refreshed')
+            ->assertExitCode(0);
+
+        // migrate:fresh re-runs the package's own filesystem migrations, so its
+        // tables exist after the refresh.
+        $this->assertTrue(\Schema::hasTable('access_logs'));
+    }
+
     public function test_all_excludes_db_action(): void
     {
         // `all` must not drop tables: the users table (from loadLaravelMigrations)
@@ -178,6 +192,54 @@ class TidyCommandTest extends TestCase
         $this->artisan('laranail::toolkit.tidy', ['action' => 'cache', '--dry-run' => true])
             ->expectsOutputToContain('[dry-run]')
             ->assertExitCode(0);
+    }
+
+    public function test_cache_optimize_flag_also_clears_optimized_caches(): void
+    {
+        // --optimize runs optimize:clear alongside the cache flush.
+        $this->artisan('laranail::toolkit.tidy', ['action' => 'cache', '--optimize' => true, '--force' => true])
+            ->assertExitCode(0);
+    }
+
+    public function test_cache_dry_run_optimize_is_previewed_in_message(): void
+    {
+        $this->artisan('laranail::toolkit.tidy', ['action' => 'cache', '--optimize' => true, '--dry-run' => true])
+            ->expectsOutputToContain('optimize:clear')
+            ->assertExitCode(0);
+    }
+
+    // -----------------------------------------------------------------------
+    // non-interactive confirmation (declines without --force)
+    // -----------------------------------------------------------------------
+
+    public function test_logs_without_force_in_non_interactive_mode_deletes_nothing(): void
+    {
+        // --no-interaction (no --force): the interaction service is put in
+        // non-interactive mode and confirmAction() returns the default (false),
+        // so the destructive sweep is declined and the file survives — a piped/CI
+        // run never silently deletes.
+        $keep = $this->makeStorageFile('logs/noforce_' . uniqid() . '.log', 'keep');
+
+        $this->artisan('laranail::toolkit.tidy', ['action' => 'logs', '--no-interaction' => true])
+            ->assertExitCode(0);
+
+        $this->assertFileExists($keep);
+    }
+
+    // -----------------------------------------------------------------------
+    // combined age + size filter
+    // -----------------------------------------------------------------------
+
+    public function test_age_filter_deletes_files_older_than_threshold(): void
+    {
+        $old = $this->makeStorageFile('logs/aged_' . uniqid() . '.log', 'old');
+        // Backdate well beyond the threshold so the age branch deletes it.
+        touch($old, time() - (40 * 86400));
+
+        $this->artisan('laranail::toolkit.tidy', ['action' => 'logs', '--days' => '30', '--force' => true])
+            ->assertExitCode(0);
+
+        $this->assertFileDoesNotExist($old);
     }
 
     // -----------------------------------------------------------------------

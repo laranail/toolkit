@@ -75,13 +75,46 @@ class Tidy extends Command
         $argument = $this->argument('action');
         $action = is_string($argument) && $argument !== '' ? $argument : 'all';
 
-        return match ($action) {
+        // Wire SIGTERM/SIGINT graceful-stop handlers (no-op without ext-pcntl)
+        // so the file sweep can stop between files on Ctrl-C. Time the whole run
+        // so the completion summary carries a real execution-time figure.
+        $this->services->signals()->setupSignalHandling();
+        $this->services->performance()->startTimer();
+        $this->services->metadata()->addMany([
+            'action' => $action,
+            'dry_run' => $this->isDryRun(),
+        ]);
+
+        $result = match ($action) {
             'cache' => $this->tidyCache(),
             'logs', 'temp', 'storage' => $this->tidyFiles($action),
             'db' => $this->tidyDatabase(),
             'all' => $this->tidyAll(),
             default => $this->invalidAction($action),
         };
+
+        $this->logSummary($action, $result);
+
+        return $result;
+    }
+
+    /**
+     * Record a structured completion summary (files processed, bytes freed,
+     * execution time) via the logger service after every run.
+     */
+    private function logSummary(string $action, int $exitCode): void
+    {
+        $performance = $this->services->performance();
+        $performance->endTimer();
+
+        $this->services->metadata()->addMany([
+            'files_processed' => $this->filesProcessed,
+            'space_freed' => $this->services->display()->formatBytes($this->spaceFreed),
+        ]);
+
+        $this->services->logger()->logCompletion($exitCode, [
+            'execution_time' => $performance->getFormattedExecutionTime(),
+        ], $this->services->metadata()->all());
     }
 
     // -----------------------------------------------------------------------
@@ -90,8 +123,10 @@ class Tidy extends Command
 
     private function tidyCache(): int
     {
+        $writer = $this->consoleWriter();
+
         if ($this->isDryRun()) {
-            $this->components->info('[dry-run] Would flush the application cache' . ($this->boolOption('optimize') ? ' and run optimize:clear' : '') . '.');
+            $writer->info('[dry-run] Would flush the application cache' . ($this->boolOption('optimize') ? ' and run optimize:clear' : '') . '.');
 
             return self::SUCCESS;
         }
@@ -114,7 +149,7 @@ class Tidy extends Command
             $this->call('optimize:clear');
         }
 
-        $this->components->info('Cache tidied.');
+        $writer->success('Cache tidied.');
 
         return self::SUCCESS;
     }
@@ -131,7 +166,7 @@ class Tidy extends Command
         $base = realpath(storage_path());
 
         if ($base === false) {
-            $this->components->error('storage_path() does not resolve — nothing to tidy.');
+            $this->consoleWriter()->error('storage_path() does not resolve — nothing to tidy.');
 
             return self::FAILURE;
         }
@@ -142,12 +177,21 @@ class Tidy extends Command
             return self::SUCCESS;
         }
 
+        $signals = $this->services->signals();
+
         foreach (self::ROOTS[$action] as $relative) {
+            // Stop sweeping further roots if a termination signal arrived.
+            // shouldKeepRunning() defaults true (and without pcntl), so a normal
+            // run sweeps every root.
+            if (!$signals->shouldKeepRunning()) {
+                break;
+            }
+
             $this->sweep($base, $relative);
         }
 
         $verb = $this->isDryRun() ? 'Would free' : 'Freed';
-        $this->components->info(sprintf(
+        $this->consoleWriter()->success(sprintf(
             '%s: %d file(s), %s%s.',
             $this->isDryRun() ? '[dry-run] ' . $verb : $verb,
             $this->filesProcessed,
@@ -183,8 +227,16 @@ class Tidy extends Command
             new \RecursiveDirectoryIterator($root, \FilesystemIterator::SKIP_DOTS),
         );
 
+        $signals = $this->services->signals();
+
         /** @var SplFileInfo $file */
         foreach ($iterator as $file) {
+            // Signal-safe sweep: stop deleting mid-directory on Ctrl-C/SIGTERM.
+            // Defaults true (and without pcntl), so a normal run is unaffected.
+            if (!$signals->shouldKeepRunning()) {
+                break;
+            }
+
             if (!$file->isFile()) {
                 continue;
             }
@@ -210,7 +262,7 @@ class Tidy extends Command
             $this->filesProcessed++;
 
             if ($this->isDryRun()) {
-                $this->line("  <fg=gray>would delete</> {$real}");
+                $this->consoleWriter()->line("  <fg=gray>would delete</> {$real}");
 
                 continue;
             }
@@ -245,14 +297,16 @@ class Tidy extends Command
 
     private function tidyDatabase(): int
     {
+        $writer = $this->consoleWriter();
+
         if ($this->isDryRun()) {
-            $this->components->info('[dry-run] Would run migrate:fresh' . ($this->boolOption('seed') ? ' --seed' : '') . ' (skipped in dry-run).');
+            $writer->info('[dry-run] Would run migrate:fresh' . ($this->boolOption('seed') ? ' --seed' : '') . ' (skipped in dry-run).');
 
             return self::SUCCESS;
         }
 
         if (!$this->boolOption('force')) {
-            $this->components->error('The db action runs migrate:fresh and DROPS ALL TABLES — re-run with --force.');
+            $writer->error('The db action runs migrate:fresh and DROPS ALL TABLES — re-run with --force.');
 
             return self::FAILURE;
         }
@@ -268,7 +322,7 @@ class Tidy extends Command
             $this->call('db:seed', ['--force' => true]);
         }
 
-        $this->components->info('Database refreshed.');
+        $writer->success('Database refreshed.');
 
         return self::SUCCESS;
     }
@@ -285,11 +339,17 @@ class Tidy extends Command
 
         $this->tidyCacheQuietly();
 
+        $signals = $this->services->signals();
+
         foreach (['logs', 'temp', 'storage'] as $action) {
+            if (!$signals->shouldKeepRunning()) {
+                break;
+            }
+
             $this->tidyFiles($action, confirm: false);
         }
 
-        $this->components->info('All tidied (db excluded — run the db action explicitly).');
+        $this->consoleWriter()->success('All tidied (db excluded — run the db action explicitly).');
 
         return self::SUCCESS;
     }
@@ -297,7 +357,7 @@ class Tidy extends Command
     private function tidyCacheQuietly(): void
     {
         if ($this->isDryRun()) {
-            $this->components->info('[dry-run] Would flush the application cache.');
+            $this->consoleWriter()->info('[dry-run] Would flush the application cache.');
 
             return;
         }
@@ -351,7 +411,10 @@ class Tidy extends Command
             return true;
         }
 
-        return $this->confirm($message, false);
+        // Routed through the interaction service: Laravel Prompts on a TTY, and
+        // the default (false) in non-interactive mode — a piped/CI run never
+        // silently proceeds with a destructive delete.
+        return $this->services->interaction()->confirmAction($message, false);
     }
 
     private function isWithin(string $path, string $root): bool
@@ -363,7 +426,7 @@ class Tidy extends Command
 
     private function invalidAction(string $action): int
     {
-        $this->components->error("Invalid action [{$action}]. Available: cache, logs, temp, storage, db, all.");
+        $this->consoleWriter()->error("Invalid action [{$action}]. Available: cache, logs, temp, storage, db, all.");
 
         return self::FAILURE;
     }

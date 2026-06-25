@@ -71,6 +71,16 @@ class DatabaseManager extends Command
         $action = $this->argument('action');
         $action = is_string($action) ? $action : '';
 
+        // Wire SIGTERM/SIGINT graceful-stop handlers (no-op without ext-pcntl, e.g.
+        // on Windows) so the clean loop can bail between truncates on Ctrl-C.
+        $this->services->signals()->setupSignalHandling();
+
+        $this->services->metadata()->addMany([
+            'action' => $action,
+            'connection' => $this->connectionLabel(),
+            'dry_run' => $this->isDryRun(),
+        ]);
+
         return match ($action) {
             'import' => $this->handleImport(),
             'restore' => $this->handleRestore(),
@@ -104,22 +114,23 @@ class DatabaseManager extends Command
 
     private function runImport(string $label, string $warning): int
     {
+        $writer = $this->consoleWriter();
         $file = $this->fileOption();
 
         if ($file === null) {
-            $this->components->error('A --file=<path.sql> is required for this action.');
+            $writer->error('A --file=<path.sql> is required for this action.');
 
             return self::FAILURE;
         }
 
         if (!$this->files->exists($file)) {
-            $this->components->error("SQL file not found or unsafe path: [{$file}].");
+            $writer->error("SQL file not found or unsafe path: [{$file}].");
 
             return self::FAILURE;
         }
 
         if ($this->isDryRun()) {
-            $this->components->info("[dry-run] Would {$label} <fg=cyan>{$file}</> into connection <fg=cyan>{$this->connectionLabel()}</>.");
+            $writer->info("[dry-run] Would {$label} <fg=cyan>{$file}</> into connection <fg=cyan>{$this->connectionLabel()}</>.");
 
             return self::SUCCESS;
         }
@@ -131,12 +142,21 @@ class DatabaseManager extends Command
         try {
             $count = $this->importer->import($file, $this->connectionName());
         } catch (Throwable $e) {
-            $this->components->error("{$label} failed: " . $e->getMessage());
+            // Structured, auto-redacting capture: the connection config (and any
+            // credentials inside it) never reaches the log — the error service
+            // scrubs password/secret/token/key keys.
+            $this->services->error()->logError($e, [
+                'action' => strtolower($label),
+                'connection' => $this->connectionLabel(),
+                'file' => $file,
+            ]);
+            $writer->error("{$label} failed: " . $e->getMessage());
 
             return self::FAILURE;
         }
 
-        $this->components->info("{$label} complete: executed <fg=cyan>{$count}</> statement(s) on <fg=cyan>{$this->connectionLabel()}</>.");
+        $this->services->metadata()->add('statements', $count);
+        $writer->success("{$label} complete: executed <fg=cyan>{$count}</> statement(s) on <fg=cyan>{$this->connectionLabel()}</>.");
 
         return self::SUCCESS;
     }
@@ -147,17 +167,18 @@ class DatabaseManager extends Command
 
     private function handleClean(): int
     {
+        $writer = $this->consoleWriter();
         $connection = $this->connection();
         $tables = $this->resolveTablesToClean($connection);
 
         if ($tables === []) {
-            $this->components->error('No existing tables resolved to clean. Pass --tables=a,b or ensure the connection has tables.');
+            $writer->error('No existing tables resolved to clean. Pass --tables=a,b or ensure the connection has tables.');
 
             return self::FAILURE;
         }
 
         if ($this->isDryRun()) {
-            $this->components->info('[dry-run] Would TRUNCATE: <fg=cyan>' . implode('</>, <fg=cyan>', $tables) . '</>.');
+            $writer->info('[dry-run] Would TRUNCATE: <fg=cyan>' . implode('</>, <fg=cyan>', $tables) . '</>.');
 
             return self::SUCCESS;
         }
@@ -170,7 +191,18 @@ class DatabaseManager extends Command
             return self::SUCCESS;
         }
 
+        $signals = $this->services->signals();
+        $cleaned = 0;
+
         foreach ($tables as $table) {
+            // Bail out gracefully between truncates if a SIGTERM/SIGINT arrived.
+            // shouldKeepRunning() defaults true (and stays true without pcntl),
+            // so this never blocks a normal run.
+            if (!$signals->shouldKeepRunning()) {
+                $writer->warning('Termination requested — stopping after ' . $cleaned . ' table(s).');
+                break;
+            }
+
             // The query builder compiles a grammar-quoted, driver-correct
             // truncate (a real `TRUNCATE` on MySQL/Postgres, `DELETE` + sequence
             // reset on SQLite). The identifier is wrapped by the connection's
@@ -179,10 +211,12 @@ class DatabaseManager extends Command
             // proven to exist via Schema::hasTable, so only real tables reach
             // here. This is why no raw `TRUNCATE TABLE "$table"` SQL is built.
             $connection->table($table)->truncate();
+            $cleaned++;
             $this->components->task("Truncated {$table}");
         }
 
-        $this->components->info('Cleaned <fg=cyan>' . count($tables) . '</> table(s).');
+        $this->services->metadata()->add('truncated', $cleaned);
+        $writer->success('Cleaned <fg=cyan>' . $cleaned . '</> table(s).');
 
         return self::SUCCESS;
     }
@@ -212,7 +246,7 @@ class DatabaseManager extends Command
                 continue;
             }
 
-            $this->components->warn("Skipping unknown table [{$table}] (not found on connection).");
+            $this->consoleWriter()->warning("Skipping unknown table [{$table}] (not found on connection).");
         }
 
         return array_values(array_unique($valid));
@@ -242,12 +276,13 @@ class DatabaseManager extends Command
 
     private function handleExport(): int
     {
+        $writer = $this->consoleWriter();
         $connection = $this->connection();
         $driver = $connection->getDriverName();
 
         if (!in_array($driver, ['mysql', 'mariadb'], true)) {
-            $this->components->warn("Native export is mysql/mariadb only (this connection is [{$driver}]).");
-            $this->line('  Install <fg=yellow>spatie/db-dumper</> for portable, multi-driver dumps, or use that driver\'s own tooling.');
+            $writer->warning("Native export is mysql/mariadb only (this connection is [{$driver}]).");
+            $writer->line('  Install <fg=yellow>spatie/db-dumper</> for portable, multi-driver dumps, or use that driver\'s own tooling.');
 
             return self::FAILURE;
         }
@@ -255,7 +290,7 @@ class DatabaseManager extends Command
         $target = $this->exportTargetPath($connection);
 
         if ($this->isDryRun()) {
-            $this->components->info("[dry-run] Would export <fg=cyan>{$this->connectionLabel()}</> to <fg=cyan>{$target}</> via mysqldump.");
+            $writer->info("[dry-run] Would export <fg=cyan>{$this->connectionLabel()}</> to <fg=cyan>{$target}</> via mysqldump.");
 
             return self::SUCCESS;
         }
@@ -263,13 +298,21 @@ class DatabaseManager extends Command
         try {
             $this->runMysqlDump($connection, $target);
         } catch (Throwable $e) {
-            $this->components->error('Export failed: ' . $e->getMessage());
+            // Auto-redacting capture: connection name only; credentials never
+            // appear in argv or context, so nothing sensitive is logged.
+            $this->services->error()->logError($e, [
+                'action' => 'export',
+                'connection' => $this->connectionLabel(),
+                'target' => $target,
+            ]);
+            $writer->error('Export failed: ' . $e->getMessage());
 
             return self::FAILURE;
         }
 
         $size = $this->files->formatFileSize($this->files->size($target));
-        $this->components->info("Exported to <fg=cyan>{$target}</> ({$size}).");
+        $this->services->metadata()->addMany(['target' => $target, 'size' => $size]);
+        $writer->success("Exported to <fg=cyan>{$target}</> ({$size}).");
 
         return self::SUCCESS;
     }
@@ -410,7 +453,7 @@ class DatabaseManager extends Command
         $connection = $this->connection();
 
         if (!in_array($connection->getDriverName(), ['mysql', 'mariadb'], true)) {
-            $this->components->warn('Skipping --backup: native backup is mysql/mariadb only.');
+            $this->consoleWriter()->warning('Skipping --backup: native backup is mysql/mariadb only.');
 
             return true;
         }
@@ -420,12 +463,18 @@ class DatabaseManager extends Command
         try {
             $this->runMysqlDump($connection, $target);
         } catch (Throwable $e) {
-            $this->components->error('Backup failed, aborting: ' . $e->getMessage());
+            $this->services->error()->logError($e, [
+                'action' => 'backup',
+                'connection' => $this->connectionLabel(),
+                'target' => $target,
+            ]);
+            $this->consoleWriter()->error('Backup failed, aborting: ' . $e->getMessage());
 
             return false;
         }
 
-        $this->components->info("Backup written to <fg=cyan>{$target}</>.");
+        $this->services->metadata()->add('backup', $target);
+        $this->consoleWriter()->success("Backup written to <fg=cyan>{$target}</>.");
 
         return true;
     }
@@ -510,7 +559,10 @@ class DatabaseManager extends Command
             return true;
         }
 
-        return $this->confirm($message, false);
+        // The interaction service drives Laravel Prompts when a TTY is present and
+        // returns the default (false) in non-interactive mode — so a piped/CI run
+        // never silently proceeds with a destructive action.
+        return $this->services->interaction()->confirmAction($message, false);
     }
 
     /**
@@ -533,7 +585,7 @@ class DatabaseManager extends Command
 
     private function invalidAction(string $action): int
     {
-        $this->components->error("Invalid action [{$action}]. Available: import, clean, restore, export.");
+        $this->consoleWriter()->error("Invalid action [{$action}]. Available: import, clean, restore, export.");
 
         return self::FAILURE;
     }

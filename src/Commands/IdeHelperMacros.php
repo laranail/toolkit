@@ -77,17 +77,58 @@ class IdeHelperMacros extends Command
 
         $this->ensureDirectoryExists(dirname($path));
 
+        // Time the reflection-heavy stub build through the performance service so
+        // the lifecycle completion log carries an honest execution-time figure.
+        $performance = $this->services->performance();
+        $performance->startTimer();
         $contents = $this->buildStub();
+        $performance->endTimer();
 
         if (file_put_contents($path, $contents) === false) {
-            $this->components->error("Unable to write the IDE-helper stub to [{$path}].");
+            $this->consoleWriter()->error("Unable to write the IDE-helper stub to [{$path}].");
 
             return self::FAILURE;
         }
 
-        $this->components->info("Regenerated IDE-helper macro stub: <fg=cyan>{$path}</>");
+        $macroCount = $this->macrosDocumented($contents);
+        $byteCount = strlen($contents);
+
+        $this->services->metadata()->addMany([
+            'path' => $path,
+            'macros' => $macroCount,
+            'bytes' => $byteCount,
+        ]);
+
+        // Structured completion record: how many macros were documented and the
+        // stub size, alongside the timed build above.
+        $this->services->logger()->logCompletion(self::SUCCESS, [
+            'execution_time' => $performance->getFormattedExecutionTime(),
+        ], [
+            'macros' => $macroCount,
+            'stub_size' => $this->services->display()->formatBytes($byteCount),
+        ]);
+
+        $this->consoleWriter()
+            ->success("Regenerated IDE-helper macro stub: <fg=cyan>{$path}</>")
+            ->note(sprintf(
+                'Documented %d macro(s) across %d target(s) (%s).',
+                $macroCount,
+                count(self::TARGETS) + 1,
+                $this->services->display()->formatBytes($byteCount),
+            ));
 
         return self::SUCCESS;
+    }
+
+    /**
+     * Count the `@method` tags written into the generated stub (the number of
+     * macros actually documented this run).
+     */
+    private function macrosDocumented(string $contents): int
+    {
+        $count = preg_match_all('/^\s*\*\s+@method\b/m', $contents);
+
+        return $count === false ? 0 : $count;
     }
 
     private function resolvePath(): string

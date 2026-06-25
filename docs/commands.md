@@ -1,14 +1,76 @@
-# Maintenance commands
+# Artisan commands
 
-Two security-hardened Artisan commands for database and filesystem maintenance.
-Both extend the laranail console base, register under the org-namespaced name
-`laranail::toolkit.<command>` (with a short retained alias), and inject their
-collaborators — no facades in the core logic.
+Every Artisan command the toolkit ships extends the laranail console base
+(`Simtabi\Laranail\Console\Tools\Commands\Command` from
+[`laranail/console`](https://opensource.simtabi.com/console/) `^2.5.0`), registers
+under the org-namespaced name `laranail::toolkit.<command>` (with a short retained
+alias), and injects its collaborators — no facades in the core logic.
 
-| Command | Namespaced name | Alias |
-|---|---|---|
-| Database manager | `laranail::toolkit.database` | `laranail:database` |
-| Tidy | `laranail::toolkit.tidy` | `tidy` |
+| Command | Namespaced name | Alias | Page |
+|---|---|---|---|
+| CRUD generator | `laranail::toolkit.make-crud` | `make:crud` | [make-crud](make-crud.md) |
+| IDE-helper macros | `laranail::toolkit.ide-helper-macros` | `ide-helper:macros` | [macros](macros.md) |
+| Database manager | `laranail::toolkit.database` | `laranail:database` | below |
+| Tidy | `laranail::toolkit.tidy` | `tidy` | below |
+
+---
+
+## The console toolkit lifecycle
+
+Extending the console base gives each command a managed lifecycle and a rich
+output layer, exposed through two access points:
+
+- **`$this->consoleWriter()`** — a fluent, immutable `ConsoleWriter` bound to the
+  command's output. Beyond styling (`style`/`color`/`bold`/`underline`,
+  `emoji`/`symbol`/`prefix`, `when`) it offers ready-to-use **context statuses**
+  — `success()` / `error()` / `warning()` / `info()` / `note()` (`error` routes to
+  stderr) — rendered as a coloured glyph + message, plus `line()` / `lines()` /
+  `newLine()`.
+- **`$this->services`** — a `CommandServiceManager` coordinating nine discrete
+  services. The toolkit commands lean on:
+  - **`performance()`** — execution-time + memory timing (`startTimer()` /
+    `endTimer()`, `getFormattedExecutionTime()`).
+  - **`signals()`** — graceful-shutdown signal handling. `setupSignalHandling()`
+    traps `SIGTERM` / `SIGINT` via ext-pcntl (a **no-op on Windows / without
+    pcntl**); a long loop polls `shouldKeepRunning()` (defaults `true`) and bails
+    cleanly between units of work on Ctrl-C.
+  - **`interaction()`** — confirmations via Laravel Prompts. `confirmAction()`
+    drives a real prompt on a TTY and returns the **default in non-interactive
+    mode** (so a piped/CI run never silently proceeds with a destructive action).
+  - **`logger()`** — structured `logStart()` / `logCompletion()` records.
+  - **`error()`** — structured exception capture that **auto-redacts** any
+    context key matching `password` / `secret` / `token` / `key` /
+    `authorization`, so credentials never reach a log channel.
+  - **`metadata()`** — a per-run key/value bag (`add()` / `addMany()`) folded into
+    the lifecycle log and any failure capture.
+  - **`display()`** — `formatBytes()`, tables and progress bars.
+
+The base wraps `run()` so `startCommand()` / `endCommand()` (timing + a
+`logStart` / `logCompletion` pair) fire automatically, and any uncaught exception
+is captured through the redacting `error()` service before the command exits
+non-zero. The non-interactive flag is read from the input, so `--no-interaction`
+(or a non-TTY) flips every `interaction()` call to its safe default.
+
+### Per-command adoption
+
+- **`make-crud`** (light) — writes all status output through `consoleWriter()`
+  (`info` for progress, `success` for each generated file, `warning` for skips)
+  and records the model/table/field count plus the list of **generated files** in
+  `metadata()` for the completion log.
+- **`ide-helper-macros`** (mid) — `consoleWriter()` output; wraps the
+  reflection-heavy stub build in `performance()` timing; on success writes a
+  structured `logger()->logCompletion()` carrying the documented-macro count and
+  the stub size via `display()->formatBytes(strlen(...))`.
+- **`database`** (heavy) — `consoleWriter()` throughout; `signals()` make the
+  `clean` truncate loop interruptible; every confirmation goes through
+  `interaction()->confirmAction()`; failures are captured with
+  `error()->logError()` (credentials stay redacted); each action records its
+  parameters + result in `metadata()`.
+- **`tidy`** (heavy) — `consoleWriter()` throughout; the file sweep is
+  **signal-safe** (`shouldKeepRunning()` is polled per root and per file);
+  destructive prompts route through `interaction()->confirmAction()` (the existing
+  `db` gating is preserved); each run is timed with `performance()` and logged via
+  `logger()->logCompletion()` with files-processed + space-freed `metadata()`.
 
 ---
 
@@ -63,6 +125,12 @@ php artisan laranail::toolkit.database <action> [options]
 - **SQL-injection-safe `clean`.** A crafted `--tables` value (e.g.
   `legit; DROP TABLE legit;--`) is rejected by `Schema::hasTable()` (it is not a
   real table) and skipped — it never reaches a statement.
+- **Interruptible & auto-redacting.** The `clean` truncate loop polls
+  `signals()->shouldKeepRunning()` and stops cleanly between tables on
+  `SIGTERM` / `SIGINT`. On failure the exception is logged through
+  `services->error()->logError()`, which redacts any `password` / `secret` /
+  `token` / `key` context key — so even if the connection config were attached, no
+  credential would reach the log.
 
 ---
 
@@ -110,6 +178,12 @@ php artisan laranail::toolkit.tidy [action] [options]
   space that *would* be freed.
 - **`db` is hard-gated** behind `--force` + `confirmToProceed()` and excluded
   from `all`, so a bulk tidy can never drop your tables.
+- **Signal-safe sweep.** The deletion loop polls
+  `signals()->shouldKeepRunning()` per root and per file, so a `SIGTERM` /
+  `SIGINT` stops the sweep cleanly mid-directory rather than leaving it half-run.
+  Without ext-pcntl (e.g. Windows) the check defaults `true`, so a normal run is
+  unaffected. Every run is timed and a `logger()->logCompletion()` summary records
+  files-processed and space-freed.
 
 ---
 
