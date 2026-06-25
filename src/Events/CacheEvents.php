@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Events;
 
+use Simtabi\Laranail\Toolkit\Enums\CacheAction;
+
 /**
  * Dispatchable cache-lifecycle event.
  *

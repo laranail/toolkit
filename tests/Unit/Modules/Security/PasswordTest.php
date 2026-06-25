@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support\Security;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 
 use InvalidArgumentException;
 use LogicException;
 use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
-use Simtabi\Laranail\Toolkit\Support\Security\Password;
+use Simtabi\Laranail\Toolkit\Modules\Security\Password;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class PasswordTest extends TestCase

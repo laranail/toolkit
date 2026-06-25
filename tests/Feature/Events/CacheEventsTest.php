@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Feature\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Support\Facades\Event;
+use Simtabi\Laranail\Toolkit\Enums\CacheAction;
 use Simtabi\Laranail\Toolkit\Events\BaseEvent;
-use Simtabi\Laranail\Toolkit\Events\CacheAction;
 use Simtabi\Laranail\Toolkit\Events\CacheEvents;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 

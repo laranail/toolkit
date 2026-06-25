@@ -46,16 +46,16 @@ or `app/Support/`:
 
 | Tag | Class |
 |-----|-------|
-| `laranail-toolkit-caching` | `Services\CacheService` |
-| `laranail-toolkit-config-util` | `Services\SettingsStore` |
+| `laranail-toolkit-cache` | `Services\CacheService` |
+| `laranail-toolkit-settings` | `Services\SettingsStore` |
 | `laranail-toolkit-scheduler` | `Services\SchedulerService` |
 | `laranail-toolkit-rate-limiter` | `Services\RateLimiterService` |
-| `laranail-toolkit-logging` | `Services\LogService` |
-| `laranail-toolkit-query-parameter` | `Support\QueryParameters` |
-| `laranail-toolkit-paginator` | `Support\Pagination` |
-| `laranail-toolkit-filtering` | `Support\CollectionFilter` |
+| `laranail-toolkit-log` | `Services\LogService` |
+| `laranail-toolkit-query-parameters` | `Support\QueryParameters` |
+| `laranail-toolkit-pagination` | `Support\Pagination` |
+| `laranail-toolkit-collection-filter` | `Support\CollectionFilter` |
 | `laranail-toolkit-environment` | `Support\Environment` |
-| `laranail-toolkit-auth-util` | `Support\AuthHelper` |
+| `laranail-toolkit-auth` | `Support\AuthHelper` |
 
 Example:
 

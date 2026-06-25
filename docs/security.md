@@ -2,7 +2,7 @@
 
 Security-focused validation and credential helpers: the `RejectCommonPasswords`
 validation rule plus three fluent, immutable CSPRNG generators under
-`Simtabi\Laranail\Toolkit\Support\Security` — `Token`, `Password` and
+`Simtabi\Laranail\Toolkit\Modules\Security` — `Token`, `Password` and
 `Passphrase`.
 
 All three generators draw randomness **only** from PHP's native cryptographically
@@ -16,7 +16,7 @@ They are usable as static-fluent builders directly, or via the `Toolkit` /
 `Laranail` facades, which return fresh builders:
 
 ```php
-use Simtabi\Laranail\Toolkit\Support\Security\Token;
+use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 use Simtabi\Laranail\Toolkit\Facades\Toolkit;
 
 $token = Token::unsigned()->encoding('base64url')->length(32)->generate();
@@ -120,14 +120,14 @@ $rule = new RejectCommonPasswords(checkHibp: true);
 
 ## `Token` — secure tokens, API keys & OTP codes
 
-`Simtabi\Laranail\Toolkit\Support\Security\Token` generates opaque, high-entropy
+`Simtabi\Laranail\Toolkit\Modules\Security\Token` generates opaque, high-entropy
 tokens (API keys, password-reset / verification tokens, CSRF nonces) and numeric
 OTP codes. The random body comes from `random_bytes()`; signed tokens are
 authenticated with `hash_hmac('sha256', …)` and verified in constant time with
 `hash_equals()`.
 
 ```php
-use Simtabi\Laranail\Toolkit\Support\Security\Token;
+use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 
 // Unsigned, opaque key (Stripe-style prefix, RFC 4648 base64url body):
 $key = Token::unsigned()->prefix('sk_live_')->encoding('base64url')->length(32)->generate();
@@ -185,13 +185,13 @@ tokens **hashed**, never log a full token (OWASP Cryptographic Storage).
 
 ## `Password` — random passwords
 
-`Simtabi\Laranail\Toolkit\Support\Security\Password` builds random passwords from
+`Simtabi\Laranail\Toolkit\Modules\Security\Password` builds random passwords from
 a configurable character-class pool using `random_int()`. Defaults follow NIST SP
 800-63B / OWASP ASVS: prefer length and draw uniformly, with optional class
 coverage and an entropy floor.
 
 ```php
-use Simtabi\Laranail\Toolkit\Support\Security\Password;
+use Simtabi\Laranail\Toolkit\Modules\Security\Password;
 
 Password::strong()->generate();                       // 20 chars, all 4 classes, no ambiguous glyphs
 Password::alphanumeric()->length(24)->generate();     // [A-Za-z0-9], 24 chars
@@ -222,7 +222,7 @@ class throws a `LogicException`.
 
 ## `Passphrase` — EFF diceware
 
-`Simtabi\Laranail\Toolkit\Support\Security\Passphrase` builds memorable,
+`Simtabi\Laranail\Toolkit\Modules\Security\Passphrase` builds memorable,
 high-entropy passphrases by drawing words uniformly (`random_int()`) from the
 **EFF Large Wordlist** — 7776 public-domain (CC0) words shipped at
 `resources/data/security/eff-large-wordlist.php`. The list is **static-cached**:
@@ -230,7 +230,7 @@ loaded once per process and asserted to contain exactly 7776 entries, never
 re-read per `generate()`.
 
 ```php
-use Simtabi\Laranail\Toolkit\Support\Security\Passphrase;
+use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
 
 Passphrase::memorable()->generate();                  // correct-horse-battery-staple-…  (6 words)
 Passphrase::default()->wordCount(4)->separator('_')->capitalize('title')->generate();

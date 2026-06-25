@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Facade;
  *
  * @see LLMProviderInterface
  */
-class Llm extends Facade
+class LLM extends Facade
 {
     protected static function getFacadeAccessor(): string
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Support\Security;
+namespace Simtabi\Laranail\Toolkit\Modules\Security;
 
 use InvalidArgumentException;
 use RuntimeException;

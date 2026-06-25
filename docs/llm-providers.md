@@ -53,13 +53,13 @@ echo $response->getContent();
 ```
 
 The module is wired by the deferred `Modules\Llm\LlmServiceProvider`, which binds
-`LLMProviderInterface` to the configured default driver. A `Llm` facade
-(alias `Llm`) fronts the same resolved provider for quick, non-injected calls:
+`LLMProviderInterface` to the configured default driver. A `LLM` facade
+(alias `LLM`) fronts the same resolved provider for quick, non-injected calls:
 
 ```php
-use Simtabi\Laranail\Toolkit\Modules\Llm\Llm;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLM;
 
-$response = Llm::generateResponse(modelName: 'gpt-4o-mini', messages: [
+$response = LLM::generateResponse(modelName: 'gpt-4o-mini', messages: [
     ['role' => 'user', 'content' => 'Summarize Laravel queues.'],
 ]);
 ```

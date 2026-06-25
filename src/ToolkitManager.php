@@ -11,6 +11,9 @@ use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
+use Simtabi\Laranail\Toolkit\Modules\Security\Password;
+use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
@@ -20,9 +23,6 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
-use Simtabi\Laranail\Toolkit\Support\Security\Passphrase;
-use Simtabi\Laranail\Toolkit\Support\Security\Password;
-use Simtabi\Laranail\Toolkit\Support\Security\Token;
 
 /**
  * Unified, typed entry point to the toolkit's feature modules.

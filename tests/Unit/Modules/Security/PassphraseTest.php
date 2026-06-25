@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support\Security;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
-use Simtabi\Laranail\Toolkit\Support\Security\Passphrase;
+use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class PassphraseTest extends TestCase

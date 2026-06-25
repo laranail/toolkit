@@ -225,16 +225,16 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->loadClass(FileProcessingTrait::class);
 
         // Publish the relocated Services / Support classes (formerly Utilities).
-        $this->publishComponent('Services/CacheService', 'caching');
-        $this->publishComponent('Services/SettingsStore', 'config-util');
+        $this->publishComponent('Services/CacheService', 'cache');
+        $this->publishComponent('Services/SettingsStore', 'settings');
         $this->publishComponent('Services/SchedulerService', 'scheduler');
-        $this->publishComponent('Support/QueryParameters', 'query-parameter');
+        $this->publishComponent('Support/QueryParameters', 'query-parameters');
         $this->publishComponent('Services/RateLimiterService', 'rate-limiter');
-        $this->publishComponent('Support/Pagination', 'paginator');
-        $this->publishComponent('Support/CollectionFilter', 'filtering');
-        $this->publishComponent('Services/LogService', 'logging');
+        $this->publishComponent('Support/Pagination', 'pagination');
+        $this->publishComponent('Support/CollectionFilter', 'collection-filter');
+        $this->publishComponent('Services/LogService', 'log');
         $this->publishComponent('Support/Environment', 'environment');
-        $this->publishComponent('Support/AuthHelper', 'auth-util');
+        $this->publishComponent('Support/AuthHelper', 'auth');
 
         // Bind the relocated stateful services by their concrete class so
         // `app(...)` keeps resolving them (parity with the legacy utilities).

@@ -7,7 +7,7 @@ declare(strict_types=1);
  *
  * Source: Electronic Frontier Foundation 'eff_large_wordlist.txt' (2016).
  * <https://www.eff.org/dice> — released into the public domain (CC0).
- * Used by Simtabi\Laranail\Toolkit\Support\Security\Passphrase to build
+ * Used by Simtabi\Laranail\Toolkit\Modules\Security\Passphrase to build
  * memorable, high-entropy diceware passphrases (log2(7776) ≈ 12.925 bits/word).
  *
  * The list has exactly 7776 entries (6^5); Passphrase asserts this on load.

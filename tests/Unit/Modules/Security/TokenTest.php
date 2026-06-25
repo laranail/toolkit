@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support\Security;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 
 use InvalidArgumentException;
 use LogicException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Support\Security\Token;
+use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class TokenTest extends TestCase

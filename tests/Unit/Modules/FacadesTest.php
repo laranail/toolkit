@@ -15,7 +15,7 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Llm\Llm;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLM;
 use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
@@ -47,7 +47,7 @@ class FacadesTest extends TestCase
 
     public function test_llm_facade_resolves_the_default_provider(): void
     {
-        $this->assertInstanceOf(LLMProviderInterface::class, Llm::getFacadeRoot());
+        $this->assertInstanceOf(LLMProviderInterface::class, LLM::getFacadeRoot());
     }
 
     public function test_llm_provider_is_registered_exactly_once(): void

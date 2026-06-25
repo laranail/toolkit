@@ -16,9 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   **single, publishable `config/atlas.php`** (publish tag
   `laranail-toolkit-atlas`, merged under `laranail.toolkit.atlas`).
 - **Llm module provider + facade.** A dedicated deferred `LlmServiceProvider`
-  binds `LLMProviderInterface` (alias `laranail.llm`) and registers a `Llm`
-  facade (`Llm::generateResponse(...)`) alongside constructor injection.
-- **Security credential generators** — CSPRNG `Support\Security\{Token, Password,
+  binds `LLMProviderInterface` (alias `laranail.llm`) and registers a `LLM`
+  facade (`LLM::generateResponse(...)`) alongside constructor injection.
+- **Security credential generators** — CSPRNG `Modules\Security\{Token, Password,
   Passphrase}` (fluent, immutable), backed by `resources/data/security/*` (the
   EFF large wordlist + common-password list). See
   [docs/security.md](docs/security.md).

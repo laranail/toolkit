@@ -138,7 +138,7 @@ event(CacheEvents::cleared(['tags' => ['users']]));
 event(CacheEvents::failed('store unreachable'));
 
 // or build it from constructor args via the Dispatchable static helper:
-CacheEvents::dispatch(\Simtabi\Laranail\Toolkit\Events\CacheAction::Cleared);
+CacheEvents::dispatch(\Simtabi\Laranail\Toolkit\Enums\CacheAction::Cleared);
 ```
 
 Each instance exposes `getDisplayName()`, `getDescription()`,
