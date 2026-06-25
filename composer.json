@@ -112,7 +112,7 @@
                 "Archiver": "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Archiver",
                 "Atlas": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas",
                 "Livewire": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\Livewire",
-                "LLM": "Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\LLM"
+                "LLM": "Simtabi\\Laranail\\Toolkit\\Modules\\LLM\\LLM"
             }
         }
     },

@@ -43,7 +43,7 @@ src/
     ├── Atlas/         AtlasService, …, Atlas facade, provider (single config/atlas.php)
     ├── Livewire/      LivewireServiceProvider, component registration
     ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (lazy config/security.php loader), AccessLog/{AccessLogMiddleware, AccessLog (model)}
-    └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, LLM facade, LlmServiceProvider
+    └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, LLM facade, LLMServiceProvider
 ```
 
 > The command base (`Command` + `SupportsNamespacedNames`) is **not** local — it
@@ -132,7 +132,7 @@ use Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions;
 
 ## LLM provider selection
 
-`Modules\Llm\LLMProviderInterface` is bound to a single driver chosen at
+`Modules\LLM\LLMProviderInterface` is bound to a single driver chosen at
 resolution time from `config('laranail.toolkit.llm.default_provider')` — `openai`
 (default), `claude`, or `gemini`. See [LLM providers](llm-providers.md).
 

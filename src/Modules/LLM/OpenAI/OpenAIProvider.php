@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Modules\Llm\OpenAI;
+namespace Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI;
 
 use Illuminate\Support\Facades\Log;
 use OpenAI\Contracts\ClientContract;
 use OpenAI\Exceptions\ErrorException;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
 class OpenAIProvider implements LLMProviderInterface
 {

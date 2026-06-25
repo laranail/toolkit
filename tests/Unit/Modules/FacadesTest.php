@@ -15,8 +15,8 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLM;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLM;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
@@ -52,7 +52,7 @@ class FacadesTest extends TestCase
 
     public function test_llm_provider_is_registered_exactly_once(): void
     {
-        // The LLM binding lives solely in the deferred LlmServiceProvider; the
+        // The LLM binding lives solely in the deferred LLMServiceProvider; the
         // root ToolkitServiceProvider must not also register the contract.
         $this->assertTrue($this->app->bound(LLMProviderInterface::class));
         $this->assertInstanceOf(LLMProviderInterface::class, $this->app->make('laranail.llm'));

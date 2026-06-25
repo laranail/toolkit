@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Modules\Llm;
+namespace Simtabi\Laranail\Toolkit\Modules\LLM;
 
 use Illuminate\Support\Facades\Facade;
 

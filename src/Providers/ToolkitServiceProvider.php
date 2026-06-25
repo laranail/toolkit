@@ -24,7 +24,7 @@ use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LlmServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLog;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLogMiddleware;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
@@ -80,7 +80,7 @@ class ToolkitServiceProvider extends ServiceProvider
         ArchiverServiceProvider::class,
         AtlasServiceProvider::class,
         LivewireServiceProvider::class,
-        LlmServiceProvider::class,
+        LLMServiceProvider::class,
     ];
 
     public function register(): void

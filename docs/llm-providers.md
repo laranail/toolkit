@@ -7,7 +7,7 @@ Claude, and Gemini. The driver bound in the container is chosen by
 ## Contract
 
 ```php
-namespace Simtabi\Laranail\Toolkit\Modules\Llm;
+namespace Simtabi\Laranail\Toolkit\Modules\LLM;
 
 interface LLMProviderInterface
 {
@@ -35,7 +35,7 @@ interface LLMProviderInterface
 Inject the contract; the configured provider is resolved for you:
 
 ```php
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
 public function __construct(private LLMProviderInterface $llm) {}
 
@@ -52,12 +52,12 @@ $response = $this->llm->generateResponse(
 echo $response->getContent();
 ```
 
-The module is wired by the deferred `Modules\Llm\LlmServiceProvider`, which binds
+The module is wired by the deferred `Modules\LLM\LLMServiceProvider`, which binds
 `LLMProviderInterface` to the configured default driver. A `LLM` facade
 (alias `LLM`) fronts the same resolved provider for quick, non-injected calls:
 
 ```php
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLM;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLM;
 
 $response = LLM::generateResponse(modelName: 'gpt-4o-mini', messages: [
     ['role' => 'user', 'content' => 'Summarize Laravel queues.'],
@@ -96,7 +96,7 @@ You can also resolve a specific driver directly when you need to bypass the
 configured default:
 
 ```php
-use Simtabi\Laranail\Toolkit\Modules\Llm\Claude\ClaudeProvider;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
 
 $claude = new ClaudeProvider(apiKey: config('laranail.toolkit.claude.api_key'));
 ```

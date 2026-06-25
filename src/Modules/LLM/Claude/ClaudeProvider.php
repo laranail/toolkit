@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Modules\Llm\Claude;
+namespace Simtabi\Laranail\Toolkit\Modules\LLM\Claude;
 
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLMRequestException;
-use Simtabi\Laranail\Toolkit\Modules\Llm\RetriesHttpRequests;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
+use Simtabi\Laranail\Toolkit\Modules\LLM\RetriesHttpRequests;
 
 class ClaudeProvider implements LLMProviderInterface
 {

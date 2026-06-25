@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 
-use Simtabi\Laranail\Toolkit\Modules\Llm\Claude\ClaudeResponse;
-use Simtabi\Laranail\Toolkit\Modules\Llm\Gemini\GeminiResponse;
-use Simtabi\Laranail\Toolkit\Modules\Llm\OpenAI\OpenAIResponse;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeResponse;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiResponse;
+use Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI\OpenAIResponse;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class ResponseDtosTest extends TestCase

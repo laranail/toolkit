@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Modules\Llm\Claude\ClaudeProvider;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLMRequestException;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class ClaudeProviderTest extends TestCase

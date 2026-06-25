@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Modules\Llm\Gemini;
+namespace Simtabi\Laranail\Toolkit\Modules\LLM\Gemini;
 
 use JsonSerializable;
 
