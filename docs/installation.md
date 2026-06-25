@@ -31,6 +31,7 @@ need.
 |-----|--------------|
 | `laranail-toolkit-config` | `config/laranail-toolkit.php` |
 | `laranail-toolkit-feature-toggles` | `config/feature-toggles.php` |
+| `laranail-toolkit-security` | `config/laranail-toolkit-security.php` (merged common passwords + EFF wordlist + redaction keys) |
 | `laranail-toolkit-atlas` | `config/laranail-toolkit-atlas.php` (countries / continents / locales) |
 | `laranail-toolkit-captcha` | `config/laranail-toolkit-captcha.php` |
 | `laranail-toolkit-migrations` | `database/migrations/*` |

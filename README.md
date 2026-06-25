@@ -66,7 +66,7 @@ see [installation](docs/installation.md) for the full tag list.
   case-insensitive redaction of secrets.
 - **Feature modules** (deferred, contract-bound): Avatar, Gravatar, Captcha
   (reCAPTCHA / hCaptcha / Turnstile / Friendly Captcha / Null), Archiver, Atlas,
-  Livewire, Llm.
+  Livewire, LLM.
 - **Utilities** — `Services\*` (caching, logging, settings store, rate limiting,
   scheduler inspection) plus `Support\*` (auth, environment, feature toggles,
   filtering, pagination, query-parameter parsing).
@@ -86,7 +86,7 @@ see [installation](docs/installation.md) for the full tag list.
 ### LLM providers
 
 ```php
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
 // Provider chosen by config('laranail.toolkit.llm.default_provider')
 public function __construct(private LLMProviderInterface $llm) {}

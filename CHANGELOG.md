@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   The Laravel-locale registry moved under `atlas.languages` so Atlas now owns a
   **single, publishable `config/atlas.php`** (publish tag
   `laranail-toolkit-atlas`, merged under `laranail.toolkit.atlas`).
-- **Llm module provider + facade.** A dedicated deferred `LlmServiceProvider`
+- **LLM module provider + facade.** A dedicated deferred `LLMServiceProvider`
   binds `LLMProviderInterface` (alias `laranail.llm`) and registers a `LLM`
   facade (`LLM::generateResponse(...)`) alongside constructor injection.
 - **Security credential generators** — CSPRNG `Modules\Security\{Token, Password,
@@ -90,10 +90,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Modules/<Feature>/` now holds its files directly (the `Services/`, `Contracts/`,
   `DataTransferObjects/`, `Facades/`, `Enums/`, `Support/`, `Results/` sub-folders
   were flattened up one level; only multi-file groups like `Captcha/Providers/` keep
-  a sub-folder). `src/LLMProviders/` moved to `src/Modules/Llm/` (per-driver folders
+  a sub-folder). `src/LLMProviders/` moved to `src/Modules/LLM/` (per-driver folders
   kept). Namespaces follow: e.g. `…\Modules\Avatar\Services\AvatarService` →
   `…\Modules\Avatar\AvatarService`, `…\LLMProviders\Claude\ClaudeProvider` →
-  `…\Modules\Llm\Claude\ClaudeProvider`.
+  `…\Modules\LLM\Claude\ClaudeProvider`.
+- **`Modules\Llm` renamed to `Modules\LLM`** (and `LlmServiceProvider` →
+  `LLMServiceProvider`), so the namespace casing matches the `LLM` facade and the
+  `LLMProviderInterface` contract.
+- **Events + Listeners folded into the `Modules\Eventing` module.** The top-level
+  `Events\` / `Listeners\` moved to `Modules\Eventing\Events\` /
+  `Modules\Eventing\Listeners\`, and the abstract event base was renamed
+  `Events` → `Event` (now `Modules\Eventing\Events\Event`; `CacheEvents extends
+  Event`). The listener base is `Modules\Eventing\Listeners\Listener`. See
+  [docs/base-classes.md](docs/base-classes.md).
+- **`ArchiveScope` moved to `Modules\Model\Scopes\ArchiveScope`** (from the
+  top-level `Scopes\`), and the database-session read model to
+  `Modules\Security\Session\DatabaseSession`.
 - **`laranail/console` bumped to `^2.5.0`** (the release carrying the first-class
   `ConsoleWriter` + the nine command services), and the four commands rewritten to
   consume its full feature set (see _Added_).
@@ -119,13 +131,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   | `PaginationUtil` | `Support\Pagination` |
   | `QueryParameterUtil` | `Support\QueryParameters` |
 
-- **Structure moves.** `Support\Scopes\ArchiveScope` → `Scopes\ArchiveScope`;
-  `Support\Models\DatabaseSession` → `Models\DatabaseSession`;
+- **Structure moves.** `Support\Scopes\ArchiveScope` → `Modules\Model\Scopes\ArchiveScope`;
+  `Support\Models\DatabaseSession` → `Modules\Security\Session\DatabaseSession`;
   `Support\FilePathGuard` → `Traits\FilePathGuard`;
   `Support\Diagnostics\RequirementsDiagnostics` → `Support\RequirementsDiagnostics`;
   `Observers\BaseObserver` → `Observers\Observer`;
-  `Modules\AccessLog\*` → `Modules\Security\AccessLog\*`.
-- **PSR / contract renames.** `Llm\LlmRequestException` → `Modules\Llm\LLMRequestException`;
+  `Modules\AccessLog\*` → `Modules\Security\AccessLog\*`;
+  the top-level `Events\` / `Listeners\` (base `Events` / `Listener`) moved into the
+  `Modules\Eventing` module — `Modules\Eventing\Events\Event` (base renamed
+  `Events` → `Event`) and `Modules\Eventing\Listeners\Listener`.
+- **PSR / contract renames.** `Llm\LlmRequestException` → `Modules\LLM\LLMRequestException`;
   `Http\Contracts\ShovelHttpInterface` → `Http\Contracts\HttpStatusInterface`;
   `Services\AuthenticationHelperService` → `Services\AuthenticationContextService`
   (+`AuthenticationContextServiceInterface`).

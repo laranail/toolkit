@@ -28,9 +28,7 @@ src/
 ├── Support/                                # pure/static helpers: ApiResponder, Cast, Config, AuthHelper,
 │   │                                       #   Environment, CollectionFilter, Pagination, QueryParameters,
 │                                           #   FeatureToggle, RequirementsDiagnostics, Username, ...
-├── Scopes/ArchiveScope.php                 # archived_at global scope (paired with Traits/HasArchiver)
 ├── Observers/Observer.php                  # abstract model observer base
-├── Models/DatabaseSession.php              # read model over the database session table
 ├── Enums/{LogLevel, CacheAction}
 ├── Rules/RejectCommonPasswords.php
 ├── Helpers/Helper.php                       # static PURE-function facade (arrays/strings/dates/geo/console); Concerns/InteractsWith* traits
@@ -42,9 +40,10 @@ src/
     ├── Archiver/      ArchiverService, ArchiveManager, Zip/Tar/TarGz/Extractor, Archiver facade, provider
     ├── Atlas/         AtlasService, …, Atlas facade, provider (single config/atlas.php)
     ├── Eventing/      Events/{Event (abstract event base), CacheEvents}, Listeners/Listener (abstract listener base)
+    ├── Model/         Scopes/ArchiveScope (archived_at global scope, paired with Traits/HasArchiver)
     ├── Livewire/      LivewireServiceProvider, component registration
-    ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (lazy config/security.php loader), AccessLog/{AccessLogMiddleware, AccessLog (model)}
-    └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, LLM facade, LLMServiceProvider
+    ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (lazy config/security.php loader), AccessLog/{AccessLogMiddleware, AccessLog (model)}, Session/DatabaseSession (read model over the database session table)
+    └── LLM/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, LLM facade, LLMServiceProvider
 ```
 
 > The command base (`Command` + `SupportsNamespacedNames`) is **not** local — it
@@ -90,7 +89,7 @@ Each module provider:
 | Captcha | `CaptchaProviderInterface` / `CaptchaService` | `laranail.captcha` | `Captcha` |
 | Archiver | `ArchiverServiceInterface` | `laranail.archiver` | `Archiver` |
 | Atlas | `AtlasService` | `laranail.atlas` | `Atlas` |
-| Llm | `LLMProviderInterface` | `laranail.llm` | `LLM` |
+| LLM | `LLMProviderInterface` | `laranail.llm` | `LLM` |
 
 Resolve any module by its contract (preferred, for testability), its own facade,
 or the unified `Toolkit` facade (`Toolkit::avatar()`, …).
