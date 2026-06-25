@@ -30,13 +30,24 @@ class AtlasServiceProviderTest extends TestCase
         $this->assertSame(1440, (int) config('laranail.toolkit.atlas.cache_ttl'));
     }
 
+    public function test_languages_config_is_merged_under_the_module_namespace(): void
+    {
+        /** @var array<string, mixed> $languages */
+        $languages = (array) config('laranail.toolkit.languages', []);
+
+        $this->assertNotEmpty($languages);
+        $this->assertArrayHasKey('en_US', $languages);
+        $this->assertSame('English', $languages['en_US']['native_name']);
+    }
+
     public function test_config_publish_group_is_registered(): void
     {
         $groups = AtlasServiceProvider::pathsToPublish(AtlasServiceProvider::class, 'laranail-toolkit-atlas');
 
         $this->assertNotEmpty($groups);
-        $target = config_path('laranail-toolkit-atlas.php');
-        $this->assertContains($target, array_values($groups));
+        $targets = array_values($groups);
+        $this->assertContains(config_path('laranail-toolkit-atlas.php'), $targets);
+        $this->assertContains(config_path('laranail-toolkit-languages.php'), $targets);
     }
 
     public function test_default_label_config_drives_for_select_box(): void

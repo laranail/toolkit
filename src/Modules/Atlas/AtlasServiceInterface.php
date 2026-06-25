@@ -9,8 +9,8 @@ namespace Simtabi\Laranail\Toolkit\Modules\Atlas;
  * package (rinvex/countries) plus a slim Laravel-locale registry.
  *
  * Countries, currencies and timezones are sourced from the data package;
- * languages/locales come from the package's bundled `data/languages.php`
- * resource (the data package is country-centric, not locale-centric).
+ * languages/locales come from the package's `config/languages.php` config
+ * (the data package is country-centric, not locale-centric).
  *
  * @phpstan-type CountrySummary array{name: string, official_name: string, native_name: string, iso2: string, iso3: string, currency: string, calling_code: string, emoji: string}
  * @phpstan-type LanguageEntry array{iso639_1: string, locale: string, native_name: string, dir: string, flag: string}

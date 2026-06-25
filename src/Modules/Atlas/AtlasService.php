@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Modules\Atlas;
 
 use DateTimeZone;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Rinvex\Country\CountryLoader;
 use Rinvex\Country\CurrencyLoader;
 use Simtabi\Laranail\Toolkit\Support\Cast;
@@ -29,23 +30,23 @@ class AtlasService implements AtlasServiceInterface
     private const LABEL_KEYS = ['name', 'official_name', 'native_name'];
 
     /**
-     * In-process memo for the language registry (loaded from the data file).
+     * In-process memo for the language registry (loaded from config).
      *
      * @var array<string, LanguageEntry>|null
      */
     private ?array $languages = null;
 
     /**
-     * @param CachingUtil $cache         Cache wrapper for the expensive list builds.
-     * @param string      $defaultLabel  Default `forSelectBox()` label key.
-     * @param int         $cacheTtl      Cache TTL in minutes for derived lists.
-     * @param string      $languagesPath Absolute path to the language registry resource.
+     * @param CachingUtil      $cache        Cache wrapper for the expensive list builds.
+     * @param ConfigRepository $config       Config repository holding the language registry.
+     * @param string           $defaultLabel Default `forSelectBox()` label key.
+     * @param int              $cacheTtl     Cache TTL in minutes for derived lists.
      */
     public function __construct(
         private readonly CachingUtil $cache,
+        private readonly ConfigRepository $config,
         private readonly string $defaultLabel = 'name',
         private readonly int $cacheTtl = 1440,
-        private readonly string $languagesPath = __DIR__ . '/data/languages.php',
     ) {}
 
     public function countries(): array
@@ -230,7 +231,7 @@ class AtlasService implements AtlasServiceInterface
     }
 
     /**
-     * Load (and memo) the language registry from the data resource.
+     * Load (and memo) the language registry from config.
      *
      * @return array<string, LanguageEntry>
      */
@@ -241,7 +242,7 @@ class AtlasService implements AtlasServiceInterface
         }
 
         /** @var array<string, LanguageEntry> $data */
-        $data = is_file($this->languagesPath) ? (array) require $this->languagesPath : [];
+        $data = (array) $this->config->get('laranail.toolkit.languages', []);
 
         return $this->languages = $data;
     }

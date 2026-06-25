@@ -23,7 +23,9 @@ class AtlasServiceProvider extends ServiceProvider implements DeferrableProvider
     public function register(): void
     {
         // The module owns its config namespace under `laranail.toolkit.atlas`.
-        $this->mergeConfigFrom($this->configPath(), 'laranail.toolkit.atlas');
+        $this->mergeConfigFrom($this->configPath('atlas.php'), 'laranail.toolkit.atlas');
+        // The Laravel-locale registry merges under `laranail.toolkit.languages`.
+        $this->mergeConfigFrom($this->configPath('languages.php'), 'laranail.toolkit.languages');
 
         $this->app->singleton(AtlasService::class, static function (Application $app): AtlasService {
             /** @var Repository $config */
@@ -34,6 +36,7 @@ class AtlasServiceProvider extends ServiceProvider implements DeferrableProvider
 
             return new AtlasService(
                 cache: $app->make(CachingUtil::class),
+                config: $config,
                 defaultLabel: $defaultLabel,
                 cacheTtl: $cacheTtl,
             );
@@ -50,7 +53,8 @@ class AtlasServiceProvider extends ServiceProvider implements DeferrableProvider
     public function boot(): void
     {
         $this->publishes([
-            $this->configPath() => config_path('laranail-toolkit-atlas.php'),
+            $this->configPath('atlas.php') => config_path('laranail-toolkit-atlas.php'),
+            $this->configPath('languages.php') => config_path('laranail-toolkit-languages.php'),
         ], 'laranail-toolkit-atlas');
     }
 
@@ -67,13 +71,13 @@ class AtlasServiceProvider extends ServiceProvider implements DeferrableProvider
     }
 
     /**
-     * Absolute path to the package's atlas config file.
+     * Absolute path to a config file in the package's config/ directory.
      *
      * Provider lives at src/Modules/Atlas/, so the package config/ dir is three
      * levels up.
      */
-    private function configPath(): string
+    private function configPath(string $file): string
     {
-        return __DIR__ . '/../../../config/atlas.php';
+        return __DIR__ . '/../../../config/' . $file;
     }
 }

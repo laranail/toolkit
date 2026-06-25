@@ -115,15 +115,28 @@ class AtlasServiceTest extends TestCase
 
     public function test_languages_and_locales_have_a_known_entry(): void
     {
-        $languages = $this->service()->languages();
+        $service = $this->service();
+        $languages = $service->languages();
+
+        // Full registry is read from `laranail.toolkit.languages` config.
+        $this->assertCount(89, $languages);
 
         $this->assertArrayHasKey('en_US', $languages);
         $this->assertSame('en', $languages['en_US']['iso639_1']);
         $this->assertSame('English', $languages['en_US']['native_name']);
         $this->assertSame('ltr', $languages['en_US']['dir']);
+        $this->assertSame('us', $languages['en_US']['flag']);
 
-        $this->assertContains('en_US', $this->service()->locales());
-        $this->assertContains('ar', $this->service()->locales());
+        // A couple of known RTL / endonym entries stay byte-identical.
+        $this->assertSame('العربية', $languages['ar']['native_name']);
+        $this->assertSame('rtl', $languages['ar']['dir']);
+        $this->assertSame('中文 (台灣)', $languages['zh_TW']['native_name']);
+
+        $locales = $service->locales();
+        $this->assertCount(89, $locales);
+        $this->assertSame(array_keys($languages), $locales);
+        $this->assertContains('en_US', $locales);
+        $this->assertContains('ar', $locales);
     }
 
     public function test_results_are_cached_between_calls(): void
