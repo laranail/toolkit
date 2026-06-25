@@ -67,8 +67,8 @@ channels, and a serializable queue job. `composer require laranail/notifications
 >   reusable abstract base (`AuthorizesRequests` + `ValidatesRequests` + `Traits\ApiResponseTrait`) that
 >   `Http\Controllers\CrudController` extends; `Http\Requests\ApiRequest` (JSON-envelope validation failures)
 >   extends `BaseRequest`; `Http\Middleware\EmailObfuscatorMiddleware` rebuilt **natively** (no pheg, opt-in alias `email.obfuscate`).
-> - **Reusable base classes** added for future reuse: `Jobs\BaseJob`, `Listeners\BaseListener`,
->   `Observers\Observer`, `Events\BaseEvent` (real shared code, not stubs).
+> - **Reusable base classes** added for future reuse: `Jobs\BaseJob`, `Listeners\Listener`,
+>   `Observers\Observer`, `Events\Events` (real shared code, not stubs).
 > - **Traits:** `HasAuth` and `HasErrorStorage` are already MIGRATED + improved (`Traits\*`).
 >   `HasPackageTools` (ServiceProvider / `laranail/package-tools` concern) and `HasLivewire` (Livewire-specific)
 >   stay out of the core toolkit's scope.
@@ -445,7 +445,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 176 | direct + 86 merged |
+| **MIGRATED** | 176 | direct + 88 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
 | **DROPPED** | 86 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
@@ -720,7 +720,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseListener` | MIGRATED | `Simtabi\Laranail\Toolkit\Listeners\BaseListener` |
+| `BaseListener` | MERGED | `Simtabi\Laranail\Toolkit\Listeners\Listener (renamed from BaseListener; reusable listener base, G12c)` |
 | `LicenseListener` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 
 ### Simtabi\Laranail\Laravel\Macros
@@ -877,7 +877,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseEvent` | MIGRATED | `Simtabi\Laranail\Toolkit\Events\BaseEvent` |
+| `BaseEvent` | MERGED | `Simtabi\Laranail\Toolkit\Events\Events (renamed from BaseEvent; reusable event base, G12c)` |
 | `CacheEvents` | MIGRATED | `Simtabi\Laranail\Toolkit\Events\CacheEvents` |
 | `EnvironmentEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `LicenseEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
@@ -962,7 +962,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 |---|---|---|
 | `Auth` | MERGED | `Simtabi\Laranail\Toolkit\Support\AuthHelper` |
 | `BladeDirectives` | MERGED | `Simtabi\Laranail\Toolkit\Providers\BladeServiceProvider` |
-| `DatabaseSession` | MIGRATED | `Simtabi\Laranail\Toolkit\Models\DatabaseSession` |
+| `DatabaseSession` | MIGRATED | `Simtabi\Laranail\Toolkit\Modules\Security\Session\DatabaseSession` |
 | `Username` | MIGRATED | `Simtabi\Laranail\Toolkit\Support\Username` |
 
 ### Simtabi\Laranail\Support\Utilities\Runners

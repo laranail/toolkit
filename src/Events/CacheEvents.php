@@ -19,10 +19,10 @@ use Simtabi\Laranail\Toolkit\Enums\CacheAction;
  * CacheEvents::failed('store unreachable')->dispatch();
  * ```
  *
- * Being a {@see BaseEvent}, it is dispatchable, broadcastable and
+ * Being a {@see Events}, it is dispatchable, broadcastable and
  * queue-serializable out of the box.
  */
-class CacheEvents extends BaseEvent
+class CacheEvents extends Events
 {
     /**
      * @param CacheAction          $action   The lifecycle phase this event represents.

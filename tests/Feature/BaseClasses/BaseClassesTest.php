@@ -10,9 +10,9 @@ use Illuminate\Log\LogManager;
 use Illuminate\Support\Facades\Event;
 use Mockery;
 use RuntimeException;
-use Simtabi\Laranail\Toolkit\Events\BaseEvent;
+use Simtabi\Laranail\Toolkit\Events\Events;
 use Simtabi\Laranail\Toolkit\Jobs\BaseJob;
-use Simtabi\Laranail\Toolkit\Listeners\BaseListener;
+use Simtabi\Laranail\Toolkit\Listeners\Listener;
 use Simtabi\Laranail\Toolkit\Observers\Observer;
 use Simtabi\Laranail\Toolkit\Services\LogService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
@@ -22,12 +22,12 @@ class FixtureJob extends BaseJob
     public function handle(): void {}
 }
 
-class FixtureEvent extends BaseEvent
+class FixtureEvent extends Events
 {
     public function __construct(public readonly string $payload = 'hi') {}
 }
 
-class FixtureListener extends BaseListener
+class FixtureListener extends Listener
 {
     public bool $handled = false;
 
@@ -72,7 +72,7 @@ class BaseClassesTest extends TestCase
 
     public function test_base_event_is_dispatchable(): void
     {
-        $this->assertContains(Dispatchable::class, array_values(class_uses_recursive(BaseEvent::class)));
+        $this->assertContains(Dispatchable::class, array_values(class_uses_recursive(Events::class)));
 
         Event::fake();
 

@@ -15,7 +15,7 @@ use Illuminate\Queue\SerializesModels;
  * (`MyEvent::dispatch(...)`), broadcast, and safely serialized for the queue
  * without re-declaring the boilerplate on every event.
  */
-abstract class BaseEvent
+abstract class Events
 {
     use Dispatchable;
     use InteractsWithSockets;

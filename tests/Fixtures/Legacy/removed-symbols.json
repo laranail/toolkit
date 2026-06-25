@@ -215,6 +215,10 @@
     "status": "merged",
     "target": "Merged + hardened into Simtabi\\Laranail\\Toolkit\\Commands\\Tidy (laranail::toolkit.tidy; storage-confined deletion, gated migrate:fresh)."
   },
+  "Simtabi\\Laranail\\Laravel\\Listeners\\BaseListener": {
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Listeners\\Listener (renamed from BaseListener; reusable listener base, G12c)"
+  },
   "Simtabi\\Laranail\\Laravel\\Listeners\\LicenseListener": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -690,6 +694,10 @@
   "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": {
     "status": "relocated",
     "target": "laranail/notifications"
+  },
+  "Simtabi\\Laranail\\Shared\\Events\\BaseEvent": {
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Events\\Events (renamed from BaseEvent; reusable event base, G12c)"
   },
   "Simtabi\\Laranail\\Shared\\Events\\EnvironmentEvents": {
     "status": "dropped",

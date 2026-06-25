@@ -8,9 +8,9 @@ controllers, jobs, listeners, observers, and events only carry their own logic.
 |------------|---------------|
 | `Http\Controllers\BaseController` | …build a controller with auth + validation + API responses ready. |
 | `Jobs\BaseJob` | …queue work with retries, backoff, timeout, and failure logging. |
-| `Listeners\BaseListener` | …handle an event with a built-in "should I run?" gate. |
+| `Listeners\Listener` | …handle an event with a built-in "should I run?" gate. |
 | `Observers\Observer` | …observe only the model events you care about. |
-| `Events\BaseEvent` | …dispatch/broadcast an event without re-declaring trait boilerplate. |
+| `Events\Events` | …dispatch/broadcast an event without re-declaring trait boilerplate. |
 
 ## BaseController
 
@@ -61,9 +61,9 @@ class ImportFeed extends BaseJob
 ImportFeed::dispatch(); // 3 tries, 10s backoff, 120s timeout, auto-logged on failure
 ```
 
-## BaseListener
+## Listener
 
-`abstract class BaseListener`
+`abstract class Listener`
 
 Centralises the "should this listener run?" decision. `handle()` consults
 `shouldHandle()` (defaults to `true`) and short-circuits when it returns `false`;
@@ -72,9 +72,9 @@ flags, environment, or payload gating without repeating the guard in every
 listener.
 
 ```php
-use Simtabi\Laranail\Toolkit\Listeners\BaseListener;
+use Simtabi\Laranail\Toolkit\Listeners\Listener;
 
-class SendWelcome extends BaseListener
+class SendWelcome extends Listener
 {
     protected function shouldHandle(object $event): bool
     {
@@ -106,17 +106,17 @@ class PostObserver extends Observer
 }
 ```
 
-## BaseEvent
+## Events
 
-`abstract class BaseEvent`
+`abstract class Events`
 
 Uses `Dispatchable`, `InteractsWithSockets`, and `SerializesModels` — the standard
 event trait trio — so a concrete event only carries its payload.
 
 ```php
-use Simtabi\Laranail\Toolkit\Events\BaseEvent;
+use Simtabi\Laranail\Toolkit\Events\Events;
 
-class OrderShipped extends BaseEvent
+class OrderShipped extends Events
 {
     public function __construct(public readonly Order $order) {}
 }
@@ -126,7 +126,7 @@ OrderShipped::dispatch($order);
 
 ### CacheEvents
 
-`class CacheEvents extends BaseEvent` — a ready-made cache-lifecycle event built
+`class CacheEvents extends Events` — a ready-made cache-lifecycle event built
 on the base. It carries a typed `CacheAction` (`Clearing` / `Cleared` /
 `Failed`) plus free-form metadata, with named constructors:
 

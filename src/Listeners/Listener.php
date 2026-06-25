@@ -13,7 +13,7 @@ namespace Simtabi\Laranail\Toolkit\Listeners;
  * conditionally enabled (feature flags, environment, payload checks) without
  * repeating the guard in every listener.
  */
-abstract class BaseListener
+abstract class Listener
 {
     /**
      * Dispatch entry point. Skips {@see handleEvent()} when {@see shouldHandle()}
