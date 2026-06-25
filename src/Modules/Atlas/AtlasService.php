@@ -8,8 +8,8 @@ use DateTimeZone;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Rinvex\Country\CountryLoader;
 use Rinvex\Country\CurrencyLoader;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Support\Cast;
-use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
 
 /**
  * Clean façade over the rinvex/countries data package and a slim Laravel-locale
@@ -37,13 +37,13 @@ class AtlasService implements AtlasServiceInterface
     private ?array $languages = null;
 
     /**
-     * @param CachingUtil      $cache        Cache wrapper for the expensive list builds.
+     * @param CacheService     $cache        Cache wrapper for the expensive list builds.
      * @param ConfigRepository $config       Config repository holding the language registry.
      * @param string           $defaultLabel Default `forSelectBox()` label key.
      * @param int              $cacheTtl     Cache TTL in minutes for derived lists.
      */
     public function __construct(
-        private readonly CachingUtil $cache,
+        private readonly CacheService $cache,
         private readonly ConfigRepository $config,
         private readonly string $defaultLabel = 'name',
         private readonly int $cacheTtl = 1440,

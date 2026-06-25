@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Simtabi\Laranail\Toolkit\Support\Pagination;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Utilities\PaginationUtil;
 
-class PaginationUtilTest extends TestCase
+class PaginationTest extends TestCase
 {
     public function test_can_paginate_array()
     {
@@ -18,7 +18,7 @@ class PaginationUtilTest extends TestCase
         $perPage = 10;
         $currentPage = 1;
 
-        $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
+        $paginator = Pagination::paginate($items, $perPage, $currentPage);
 
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
         $this->assertEquals(25, $paginator->total());
@@ -34,7 +34,7 @@ class PaginationUtilTest extends TestCase
         $perPage = 10;
         $currentPage = 2;
 
-        $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
+        $paginator = Pagination::paginate($items, $perPage, $currentPage);
 
         $this->assertEquals(2, $paginator->currentPage());
         $this->assertCount(10, $paginator->items());
@@ -47,7 +47,7 @@ class PaginationUtilTest extends TestCase
         $perPage = 10;
         $currentPage = 3;
 
-        $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
+        $paginator = Pagination::paginate($items, $perPage, $currentPage);
 
         $this->assertEquals(3, $paginator->currentPage());
         $this->assertCount(5, $paginator->items());
@@ -61,7 +61,7 @@ class PaginationUtilTest extends TestCase
         $currentPage = 1;
         $options = ['path' => '/test', 'pageName' => 'p'];
 
-        $paginator = PaginationUtil::paginate($items, $perPage, $currentPage, $options);
+        $paginator = Pagination::paginate($items, $perPage, $currentPage, $options);
 
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
         $this->assertEquals(10, $paginator->total());
@@ -73,7 +73,7 @@ class PaginationUtilTest extends TestCase
         $perPage = 10;
         $currentPage = 1;
 
-        $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
+        $paginator = Pagination::paginate($items, $perPage, $currentPage);
 
         $this->assertEquals(0, $paginator->total());
         $this->assertCount(0, $paginator->items());
@@ -85,7 +85,7 @@ class PaginationUtilTest extends TestCase
         $perPage = 10;
         $currentPage = 2;
 
-        $paginator = PaginationUtil::paginate($items, $perPage, $currentPage);
+        $paginator = Pagination::paginate($items, $perPage, $currentPage);
 
         $this->assertEquals(5, $paginator->total());
         $this->assertCount(0, $paginator->items());
@@ -107,7 +107,7 @@ class PaginationUtilTest extends TestCase
         $page = 1;
         $options = ['path' => '/test'];
 
-        $paginator = PaginationUtil::paginateQuery($query, $perPage, $page, $options);
+        $paginator = Pagination::paginateQuery($query, $perPage, $page, $options);
 
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
     }
@@ -130,7 +130,7 @@ class PaginationUtilTest extends TestCase
         $perPage = 2;
         $options = ['path' => '/test'];
 
-        $paginator = PaginationUtil::paginateQuery($query, $perPage, null, $options);
+        $paginator = Pagination::paginateQuery($query, $perPage, null, $options);
 
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
     }
@@ -153,7 +153,7 @@ class PaginationUtilTest extends TestCase
         $perPage = 2;
         $options = ['path' => '/test'];
 
-        $paginator = PaginationUtil::paginateQuery($query, $perPage, null, $options);
+        $paginator = Pagination::paginateQuery($query, $perPage, null, $options);
 
         $this->assertInstanceOf(LengthAwarePaginator::class, $paginator);
     }

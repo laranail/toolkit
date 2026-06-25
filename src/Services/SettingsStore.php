@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 
 /**
@@ -17,7 +18,7 @@ use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
  * across requests) — it is deliberately separate from Laravel's `config()` (the
  * static, deploy-time configuration). Keys use dot notation.
  */
-class ConfigUtil
+class SettingsStore implements SettingsStoreInterface
 {
     private readonly string $path;
 

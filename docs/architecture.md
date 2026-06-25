@@ -21,11 +21,13 @@ src/
 ├── ToolkitManager.php                      # Toolkit::avatar()/gravatar()/...
 ├── Commands/MakeCrud.php                   # make-crud (extends the laranail/console base)
 ├── Http/Controllers/CrudController.php     # abstract base controller
-├── Services/                               # injectable, interface-backed services (File, System, Database, ...)
+├── Services/                               # injectable, interface-backed services (File, System, Database,
+│                                           #   Cache, Log, SettingsStore, RateLimiter, Scheduler, ...)
 ├── Macros/                                 # grouped macro providers + MacroServiceProvider
 ├── Traits/                                 # ApiResponse, Auditable, HasAvatar, FilePathGuard, ...
-├── Utilities/                              # 9 utility classes (Caching/Logging now interface-backed)
-├── Support/                                # ApiResponder, Cast, Config, RequirementsDiagnostics, Username, ...
+├── Support/                                # pure/static helpers: ApiResponder, Cast, Config, AuthHelper,
+│                                           #   Environment, CollectionFilter, Pagination, QueryParameters,
+│                                           #   FeatureToggle, RequirementsDiagnostics, Username, ...
 ├── Scopes/ArchiveScope.php                 # archived_at global scope (paired with Traits/HasArchiver)
 ├── Models/DatabaseSession.php              # read model over the database session table
 ├── Enums/LogLevel.php

@@ -23,9 +23,9 @@ column is one of:
 
 | Legacy | New home |
 |--------|----------|
-| `Laranail::authHelper($guard)` | `Toolkit::auth()->setGuard($guard)` (typed `AuthenticationContextService`; or `Utilities\AuthUtil::for($guard)`). |
-| `Laranail::username()` | `Toolkit::auth()->getUser()?->username` / `Utilities\AuthUtil::authHelper()->username()`. |
-| `Laranail::isUserExists($value, $model, $key)` | `Utilities\AuthUtil::for($guard)->userExists($value, $key)` — native `Model::query()->where()->exists()`. |
+| `Laranail::authHelper($guard)` | `Toolkit::auth()->setGuard($guard)` (typed `AuthenticationContextService`; or `Support\AuthHelper::for($guard)`). |
+| `Laranail::username()` | `Toolkit::auth()->getUser()?->username` / `Support\AuthHelper::authHelper()->username()`. |
+| `Laranail::isUserExists($value, $model, $key)` | `Support\AuthHelper::for($guard)->userExists($value, $key)` — native `Model::query()->where()->exists()`. |
 
 ## Files
 
@@ -85,7 +85,7 @@ column is one of:
 | `Laranail::getSystemEnv()` | `Helper::systemInfo()`. |
 | `Laranail::isSslIsInstalled()` | `Helper::isSslInstalled()`. |
 | `Laranail::getServerEnv()` | `Helper::serverEnv()`. |
-| `Laranail::environment()` | native `app()->environment()` / `Utilities\EnvironmentUtil`. |
+| `Laranail::environment()` | native `app()->environment()` / `Support\Environment`. |
 
 ## Utility / string / array
 
@@ -111,7 +111,7 @@ column is one of:
 | `Laranail::getModelItem($key, $model, $default)` | `Toolkit::model()->getModelItem($model, $key, $default)` (`ModelService`). |
 | `Laranail::eloquent2selectbox($data, ...)` | `Toolkit::model()->eloquent2selectbox($data, ...)`. |
 | `Laranail::getClassNameFromClass($class)` | `Helper::classBasename($class)`, or native `class_basename($class)`. |
-| `Laranail::logError($exception)` | `Utilities\LoggingUtil::exception($exception)`, or native `Log::error(...)`. |
+| `Laranail::logError($exception)` | `Services\LogService::exception($exception)`, or native `Log::error(...)`. |
 
 ## Sub-service accessors (returned the injected service)
 

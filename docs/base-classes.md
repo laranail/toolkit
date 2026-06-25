@@ -47,7 +47,7 @@ class ReportController extends BaseController
 Uses `Dispatchable`, `InteractsWithQueue`, `Queueable`, and `SerializesModels`,
 and ships resilient defaults: `$tries = 3`, `$backoff = 10` (seconds),
 `$timeout = 120` (seconds). `failed(Throwable $e)` logs the exhausted job via
-`LoggingUtil` — override it for bespoke cleanup (call `parent::failed($e)` to keep
+`LogService` — override it for bespoke cleanup (call `parent::failed($e)` to keep
 the logging).
 
 ```php

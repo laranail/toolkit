@@ -88,7 +88,7 @@ return [
     ],
 
     /*
-     * Runtime settings store (Utilities\ConfigUtil) — a JSON file of dynamic,
+     * Runtime settings store (Services\SettingsStore) — a JSON file of dynamic,
      * persisted-at-runtime values, kept separate from this static config.
      */
     'settings' => [

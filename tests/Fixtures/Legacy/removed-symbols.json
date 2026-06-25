@@ -65,7 +65,7 @@
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\AuthenticationServiceInterface": {
     "status": "dropped",
-    "target": "covered by Utilities\\AuthUtil + Services\\AuthenticationContextService"
+    "target": "covered by Support\\AuthHelper + Services\\AuthenticationContextService"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\AuthenticationHelperServiceInterface": {
     "status": "merged",
@@ -73,7 +73,7 @@
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\CacheServiceInterface": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil"
+    "target": "Simtabi\\Laranail\\Toolkit\\Services\\CacheService"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ClassHelperServiceInterface": {
     "status": "dropped",
@@ -113,7 +113,7 @@
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\UtilityServiceInterface": {
     "status": "dropped",
-    "target": "grab-bag anti-pattern; split across Helper/macros/FilteringUtil"
+    "target": "grab-bag anti-pattern; split across Helper/macros/Support\\CollectionFilter"
   },
   "Simtabi\\Laranail\\Foundation\\Exceptions\\LaranailExceptionHandler": {
     "status": "dropped",
@@ -137,11 +137,7 @@
   },
   "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationService": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\AuthUtil (auth context + username/userExists folded, G8a)"
-  },
-  "Simtabi\\Laranail\\Foundation\\Services\\CacheService": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\CachingUtil"
+    "target": "Simtabi\\Laranail\\Toolkit\\Support\\AuthHelper (auth context + username/userExists folded, G8a)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\ClassHelperService": {
     "status": "merged",
@@ -705,7 +701,7 @@
   },
   "Simtabi\\Laranail\\Support\\Contracts\\CacheHelperInterface": {
     "status": "merged",
-    "target": "Merged into Simtabi\\Laranail\\Toolkit\\Utilities\\Contracts\\CacheRepositoryInterface."
+    "target": "Merged into Simtabi\\Laranail\\Toolkit\\Services\\Contracts\\CacheRepositoryInterface."
   },
   "Simtabi\\Laranail\\Support\\Contracts\\ShovelHttpInterface": {
     "status": "merged",
@@ -741,7 +737,7 @@
   },
   "Simtabi\\Laranail\\Support\\Utilities\\Auth": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\AuthUtil"
+    "target": "Simtabi\\Laranail\\Toolkit\\Support\\AuthHelper"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\BladeDirectives": {
     "status": "merged",
@@ -750,10 +746,6 @@
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\DiskSpaceValidator": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Support\\RequirementsDiagnostics"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\Environment": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\EnvironmentUtil"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\RequirementsChecker": {
     "status": "merged",

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Log;
+use Simtabi\Laranail\Toolkit\Services\SchedulerService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Utilities\SchedulerUtil;
 
-class SchedulerUtilTest extends TestCase
+class SchedulerServiceTest extends TestCase
 {
-    protected SchedulerUtil $schedulerUtil;
+    protected SchedulerService $schedulerService;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->schedulerUtil = new SchedulerUtil();
+        $this->schedulerService = new SchedulerService();
     }
 
     public function test_can_get_schedule_summary()
@@ -27,7 +27,7 @@ class SchedulerUtilTest extends TestCase
 
         $this->app->instance(Schedule::class, $schedule);
 
-        $summary = $this->schedulerUtil->getScheduleSummary();
+        $summary = $this->schedulerService->getScheduleSummary();
 
         $this->assertIsArray($summary);
         $this->assertEmpty($summary);
@@ -40,12 +40,12 @@ class SchedulerUtilTest extends TestCase
         $schedule = $this->app->make(Schedule::class);
         $schedule->command('inspire')->everyMinute();
 
-        $summary = $this->schedulerUtil->getScheduleSummary();
+        $summary = $this->schedulerService->getScheduleSummary();
 
         $this->assertCount(1, $summary);
         $this->assertArrayHasKey('is_due', $summary[0]);
         $this->assertArrayHasKey('next_run', $summary[0]);
-        $this->assertIsBool($this->schedulerUtil->hasOverdueTasks());
+        $this->assertIsBool($this->schedulerService->hasOverdueTasks());
     }
 
     public function test_can_check_for_overdue_tasks()
@@ -56,7 +56,7 @@ class SchedulerUtilTest extends TestCase
 
         $this->app->instance(Schedule::class, $schedule);
 
-        $hasOverdue = $this->schedulerUtil->hasOverdueTasks();
+        $hasOverdue = $this->schedulerService->hasOverdueTasks();
 
         $this->assertIsBool($hasOverdue);
     }
@@ -69,7 +69,7 @@ class SchedulerUtilTest extends TestCase
 
         $this->app->instance(Schedule::class, $schedule);
 
-        $hasOverdue = $this->schedulerUtil->hasOverdueTasks();
+        $hasOverdue = $this->schedulerService->hasOverdueTasks();
 
         $this->assertFalse($hasOverdue);
     }
@@ -82,7 +82,7 @@ class SchedulerUtilTest extends TestCase
 
         $this->app->instance(Schedule::class, $schedule);
 
-        $hasOverdue = $this->schedulerUtil->hasOverdueTasks();
+        $hasOverdue = $this->schedulerService->hasOverdueTasks();
 
         $this->assertFalse($hasOverdue);
     }
@@ -95,8 +95,8 @@ class SchedulerUtilTest extends TestCase
 
         $this->app->instance(Schedule::class, $schedule);
 
-        $summary = $this->schedulerUtil->getScheduleSummary();
-        $hasOverdue = $this->schedulerUtil->hasOverdueTasks();
+        $summary = $this->schedulerService->getScheduleSummary();
+        $hasOverdue = $this->schedulerService->hasOverdueTasks();
 
         $this->assertIsArray($summary);
         $this->assertEmpty($summary);
@@ -116,7 +116,7 @@ class SchedulerUtilTest extends TestCase
             ->with(\Mockery::type('string'))
             ->once();
 
-        $this->schedulerUtil->getScheduleSummary();
+        $this->schedulerService->getScheduleSummary();
     }
 
     public function test_handles_multiple_events()
@@ -127,7 +127,7 @@ class SchedulerUtilTest extends TestCase
 
         $this->app->instance(Schedule::class, $schedule);
 
-        $summary = $this->schedulerUtil->getScheduleSummary();
+        $summary = $this->schedulerService->getScheduleSummary();
 
         $this->assertIsArray($summary);
         $this->assertEmpty($summary);

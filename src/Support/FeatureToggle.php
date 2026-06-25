@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Support;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 
-class FeatureToggleUtil
+class FeatureToggle
 {
     /**
      * Check if a feature is enabled.

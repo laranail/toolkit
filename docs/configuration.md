@@ -17,7 +17,7 @@ Read any value with `config('laranail.toolkit.<key>')`.
 
 ## `laranail.toolkit.cache`
 
-Defaults applied to `CachingUtil`.
+Defaults applied to `CacheService`.
 
 | Key | Default |
 |-----|---------|
@@ -33,7 +33,7 @@ Defaults applied to `CachingUtil`.
 
 ## `laranail.toolkit.rate_limiting`
 
-Defaults for `RateLimiterUtil` and named profiles.
+Defaults for `RateLimiterService` and named profiles.
 
 | Key | Default |
 |-----|---------|
@@ -89,7 +89,7 @@ The feature modules merge their own config files under the same namespace:
 ## Feature toggles
 
 `config/feature-toggles.php` (publish tag
-`laranail-toolkit-feature-toggles`) defines flags read by `FeatureToggleUtil`:
+`laranail-toolkit-feature-toggles`) defines flags read by `FeatureToggle`:
 
 ```php
 return [

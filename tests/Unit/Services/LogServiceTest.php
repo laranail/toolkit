@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Log\LogManager;
 use Mockery;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
+use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\LogService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Utilities\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Utilities\LoggingUtil;
 
-class LoggingUtilTest extends TestCase
+class LogServiceTest extends TestCase
 {
     public function test_logger_service_contract_resolves_to_the_logging_util(): void
     {
         $this->assertInstanceOf(
-            LoggingUtil::class,
+            LogService::class,
             $this->app->make(LoggerServiceInterface::class),
         );
     }
@@ -34,7 +34,7 @@ class LoggingUtilTest extends TestCase
                 && array_key_exists('env', $context)
         );
 
-        new LoggingUtil($logs)->info('hello', ['key' => 'value']);
+        new LogService($logs)->info('hello', ['key' => 'value']);
     }
 
     /**
@@ -57,7 +57,7 @@ class LoggingUtilTest extends TestCase
             fn (string $psrLevel): bool => $psrLevel === $level->value
         );
 
-        new LoggingUtil($logs)->{$level->value}('msg');
+        new LogService($logs)->{$level->value}('msg');
     }
 
     public function test_a_named_channel_is_routed_through_channel(): void
@@ -69,12 +69,12 @@ class LoggingUtilTest extends TestCase
         $logs->shouldReceive('channel')->with('slack')->once()->andReturn($channelLogger);
         $logs->shouldNotReceive('log');
 
-        new LoggingUtil($logs)->error('boom', [], 'slack');
+        new LogService($logs)->error('boom', [], 'slack');
     }
 
     public function test_is_resolvable_from_the_container(): void
     {
-        $this->assertInstanceOf(LoggingUtil::class, $this->app->make(LoggingUtil::class));
+        $this->assertInstanceOf(LogService::class, $this->app->make(LogService::class));
     }
 
     public function test_exception_logs_at_error_level_with_structured_context(): void
@@ -88,6 +88,6 @@ class LoggingUtilTest extends TestCase
                 && array_key_exists('line', $context)
         );
 
-        new LoggingUtil($logs)->exception(new \RuntimeException('boom'));
+        new LogService($logs)->exception(new \RuntimeException('boom'));
     }
 }

@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Utilities\Contracts;
+namespace Simtabi\Laranail\Toolkit\Services\Contracts;
+
+use Simtabi\Laranail\Toolkit\Services\CacheService;
 
 /**
- * Public surface of the toolkit's {@see \Simtabi\Laranail\Toolkit\Utilities\CachingUtil}.
+ * Public surface of the toolkit's {@see CacheService}.
  *
  * Named to avoid colliding with Illuminate's
  * `Illuminate\Contracts\Cache\Repository`: this is the toolkit's own resilient
  * (log-and-fall-back), namespaced, optionally-tagged cache helper, not a drop-in
- * for the framework repository. Bound interface→{@see CachingUtil}.
+ * for the framework repository. Bound interface→{@see CacheService}.
  */
 interface CacheRepositoryInterface
 {

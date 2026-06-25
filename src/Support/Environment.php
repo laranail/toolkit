@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Support;
 
 use Illuminate\Support\Arr;
 
@@ -14,7 +14,7 @@ use Illuminate\Support\Arr;
  * alpha/…) and the `isNonProduction()` aggregate that the framework does not
  * ship out of the box.
  */
-final class EnvironmentUtil
+final class Environment
 {
     /**
      * Whether the app is running in a local-ish environment (local, staging, or

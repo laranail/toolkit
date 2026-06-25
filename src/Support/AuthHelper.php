@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Support;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
@@ -10,17 +10,16 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\Auth\UserProvider;
 use InvalidArgumentException;
-use Simtabi\Laranail\Toolkit\Support\Cast;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 
 /**
  * Typed accessor for a single named guard.
  *
- * Named `AuthUtil` (not `Auth`) to avoid colliding with the framework's `Auth`
+ * Named `AuthHelper` (not `Auth`) to avoid colliding with the framework's `Auth`
  * facade. It wraps the resolved {@see Guard} so callers get a typed `user()` /
  * `id()` / `email()` surface for one guard without re-resolving it each call.
  */
-final readonly class AuthUtil
+final readonly class AuthHelper
 {
     private function __construct(
         private string $guard,

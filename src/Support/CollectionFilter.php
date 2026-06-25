@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Support;
 
 use Illuminate\Support\Collection;
 
-class FilteringUtil
+class CollectionFilter
 {
     /**
      * Filter a collection by a given key value pair.

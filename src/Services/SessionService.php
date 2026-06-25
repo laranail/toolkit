@@ -20,7 +20,7 @@ use Simtabi\Laranail\Toolkit\Support\Cast;
  * injected session store and cookie jar rather than the Session/Cookie facades,
  * so the service is testable without booting the full HTTP kernel.
  *
- * Kept distinct from FilteringUtil (which filters in-memory collections)
+ * Kept distinct from CollectionFilter (which filters in-memory collections)
  * because this operates on the query-string/session layer.
  */
 final readonly class SessionService implements SessionServiceInterface

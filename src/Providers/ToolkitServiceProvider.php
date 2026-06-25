@@ -29,14 +29,20 @@ use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Llm\LlmServiceProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ImportDatabaseServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\DatabaseService;
@@ -44,9 +50,13 @@ use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
 use Simtabi\Laranail\Toolkit\Services\FileService;
 use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
 use Simtabi\Laranail\Toolkit\Services\ImportDatabaseService;
+use Simtabi\Laranail\Toolkit\Services\LogService;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
+use Simtabi\Laranail\Toolkit\Services\RateLimiterService;
 use Simtabi\Laranail\Toolkit\Services\RouteService;
+use Simtabi\Laranail\Toolkit\Services\SchedulerService;
 use Simtabi\Laranail\Toolkit\Services\SessionService;
+use Simtabi\Laranail\Toolkit\Services\SettingsStore;
 use Simtabi\Laranail\Toolkit\Services\SystemService;
 use Simtabi\Laranail\Toolkit\Services\ValidationService;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
@@ -54,18 +64,6 @@ use Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
-use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
-use Simtabi\Laranail\Toolkit\Utilities\ConfigUtil;
-use Simtabi\Laranail\Toolkit\Utilities\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Utilities\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Utilities\EnvironmentUtil;
-use Simtabi\Laranail\Toolkit\Utilities\FeatureToggleUtil;
-use Simtabi\Laranail\Toolkit\Utilities\FilteringUtil;
-use Simtabi\Laranail\Toolkit\Utilities\LoggingUtil;
-use Simtabi\Laranail\Toolkit\Utilities\PaginationUtil;
-use Simtabi\Laranail\Toolkit\Utilities\QueryParameterUtil;
-use Simtabi\Laranail\Toolkit\Utilities\RateLimiterUtil;
-use Simtabi\Laranail\Toolkit\Utilities\SchedulerUtil;
 
 class ToolkitServiceProvider extends ServiceProvider
 {
@@ -143,9 +141,14 @@ class ToolkitServiceProvider extends ServiceProvider
             $app->make(LoggerInterface::class),
         ));
 
-        // Restore the Cache/Logger utility contracts (interface→concrete util).
-        $this->app->bind(CacheRepositoryInterface::class, CachingUtil::class);
-        $this->app->bind(LoggerServiceInterface::class, LoggingUtil::class);
+        // Bind the Cache/Logger service contracts (interface→concrete service).
+        $this->app->bind(CacheRepositoryInterface::class, CacheService::class);
+        $this->app->bind(LoggerServiceInterface::class, LogService::class);
+
+        // Settings store, rate limiter and scheduler service contracts.
+        $this->app->bind(SettingsStoreInterface::class, SettingsStore::class);
+        $this->app->bind(RateLimiterServiceInterface::class, RateLimiterService::class);
+        $this->app->bind(SchedulerServiceInterface::class, SchedulerService::class);
 
         // Eloquent model helpers (no contract in the legacy surface).
         $this->app->bind(ModelService::class, fn ($app): ModelService => new ModelService(
@@ -221,33 +224,27 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->loadClass(ApiResponseTrait::class);
         $this->loadClass(FileProcessingTrait::class);
 
-        // Publish utilities
-        $this->publishUtility('CachingUtil', 'caching');
-        $this->publishUtility('ConfigUtil', 'config-util');
-        $this->publishUtility('SchedulerUtil', 'scheduler');
-        $this->publishUtility('QueryParameterUtil', 'query-parameter');
-        $this->publishUtility('RateLimiterUtil', 'rate-limiter');
-        $this->publishUtility('PaginationUtil', 'paginator');
-        $this->publishUtility('FilteringUtil', 'filtering');
-        $this->publishUtility('LoggingUtil', 'logging');
-        $this->publishUtility('EnvironmentUtil', 'environment');
-        $this->publishUtility('AuthUtil', 'auth-util');
+        // Publish the relocated Services / Support classes (formerly Utilities).
+        $this->publishComponent('Services/CacheService', 'caching');
+        $this->publishComponent('Services/SettingsStore', 'config-util');
+        $this->publishComponent('Services/SchedulerService', 'scheduler');
+        $this->publishComponent('Support/QueryParameters', 'query-parameter');
+        $this->publishComponent('Services/RateLimiterService', 'rate-limiter');
+        $this->publishComponent('Support/Pagination', 'paginator');
+        $this->publishComponent('Support/CollectionFilter', 'filtering');
+        $this->publishComponent('Services/LogService', 'logging');
+        $this->publishComponent('Support/Environment', 'environment');
+        $this->publishComponent('Support/AuthHelper', 'auth-util');
 
-        // Load utilities
-        $classes = [
-            ConfigUtil::class,
-            SchedulerUtil::class,
-            QueryParameterUtil::class,
-            RateLimiterUtil::class,
-            PaginationUtil::class,
-            FilteringUtil::class,
-            FeatureToggleUtil::class,
-            LoggingUtil::class,
-            EnvironmentUtil::class,
-        ];
-
-        $this->loadUtilityClasses($classes);
-        $this->loadCachingUtility();
+        // Bind the relocated stateful services by their concrete class so
+        // `app(...)` keeps resolving them (parity with the legacy utilities).
+        $this->loadServiceClasses([
+            SettingsStore::class,
+            SchedulerService::class,
+            LogService::class,
+        ]);
+        $this->loadRateLimiterService();
+        $this->loadCacheService();
 
         // Register Artisan commands
         if ($this->app->runningInConsole()) {
@@ -294,15 +291,17 @@ class ToolkitServiceProvider extends ServiceProvider
     }
 
     /**
-     * Dynamically load the given utility classes.
+     * Bind the relocated service classes by their concrete class so `app(...)`
+     * resolution is preserved. {@see LogService} stays a singleton (it is
+     * injectable — let the container autowire its LogManager); the rest are
+     * fresh-instance binds, matching the legacy utility wiring.
+     *
+     * @param list<class-string> $classes
      */
-    private function loadUtilityClasses(array $classes)
+    private function loadServiceClasses(array $classes)
     {
         foreach ($classes as $class) {
-            if ($class === RateLimiterUtil::class) {
-                $this->loadRateLimiterUtility();
-            } elseif ($class === LoggingUtil::class) {
-                // LoggingUtil is injectable — let the container autowire its LogManager.
+            if ($class === LogService::class) {
                 $this->app->singleton($class);
             } else {
                 $this->app->bind($class, fn () => new $class());
@@ -311,11 +310,11 @@ class ToolkitServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load the caching utility with configured options.
+     * Load the cache service with configured options.
      */
-    private function loadCachingUtility()
+    private function loadCacheService()
     {
-        $this->app->bind(CachingUtil::class, fn ($app): CachingUtil => new CachingUtil(
+        $this->app->bind(CacheService::class, fn ($app): CacheService => new CacheService(
             ToolkitConfig::int('laranail.toolkit.cache.default_expiration'),
             ToolkitConfig::stringList('laranail.toolkit.cache.default_tags'),
             $app->make(LoggerInterface::class),
@@ -324,17 +323,17 @@ class ToolkitServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load the rate limiter utility with dependency injection.
+     * Load the rate limiter service with dependency injection.
      */
-    private function loadRateLimiterUtility()
+    private function loadRateLimiterService()
     {
-        $this->app->bind(RateLimiterUtil::class, fn ($app) => new RateLimiterUtil($app->make('cache.store')));
+        $this->app->bind(RateLimiterService::class, fn ($app) => new RateLimiterService($app->make('cache.store')));
     }
 
-    private function publishUtility(string $utility, string $name)
+    private function publishComponent(string $relativePath, string $name)
     {
         $this->publishes([
-            __DIR__ . '/../Utilities/' . $utility . '.php' => app_path('Utilities/' . $utility . '.php'),
+            __DIR__ . '/../' . $relativePath . '.php' => app_path($relativePath . '.php'),
         ], 'laranail-toolkit-' . $name);
     }
 

@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Services;
 
 use Carbon\Carbon;
 use Cron\CronExpression;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Log;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
 
-class SchedulerUtil
+class SchedulerService implements SchedulerServiceInterface
 {
     /**
      * Get a summary of the scheduled tasks.

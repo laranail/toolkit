@@ -1,86 +1,73 @@
 # Utilities
 
-Eleven focused utility classes under
-`Simtabi\Laranail\Toolkit\Utilities`. Instance-based utilities are bound in the
-container (resolve with `app(...)` or constructor injection); the others expose
-static methods. Each can also be published into `app/Utilities/` — see
+The toolkit's eleven focused helper classes are split by responsibility:
+
+- **Services** (`Simtabi\Laranail\Toolkit\Services`) — stateful, interface-backed
+  helpers bound in the container. Resolve them with `app(...)`, constructor
+  injection, or their contract interface.
+- **Support** (`Simtabi\Laranail\Toolkit\Support`) — pure, static helpers with no
+  container binding; call their static methods directly.
+
+Each can also be published into `app/Services/` or `app/Support/` — see
 [installation](installation.md).
 
-## CachingUtil (instance)
+## Services (stateful, interface-backed)
 
-Taggable-store caching with a configured default expiration.
+### CacheService
+
+Taggable-store caching with a configured default expiration, key namespacing and
+a resilient (log-and-fall-back) failure mode. Bound to
+`Services\Contracts\CacheRepositoryInterface`.
 
 ```php
-$cache = app(CachingUtil::class);
+$cache = app(CacheService::class);
 $value = $cache->cache('key', $data, minutes: 30, tags: ['reports']);
 $cache->get('key', default: null);
 $cache->forget('key');
+$cache->remember('key', fn () => compute(), minutes: 30);
 ```
 
-Constructor: `__construct(int $defaultExpiration, array $defaultTags)` — wired
-from `config('laranail.toolkit.cache')`.
+Constructor: `__construct(int $defaultExpiration, array $defaultTags, ?LoggerInterface $logger = null, string $namespace = '')`
+— wired from `config('laranail.toolkit.cache')`.
 
-## ConfigUtil (instance)
-
-Read/write dynamic settings stored in JSON files or app config.
-
-```php
-$config = app(ConfigUtil::class);
-$config->getAllSettings($path, $key);
-$config->getSetting('feature.enabled');
-$config->setSetting('feature.enabled', true);
-$config->getAllAppSettings();
-```
-
-## FeatureToggleUtil (static)
-
-```php
-FeatureToggleUtil::isEnabled('example_feature'); // bool
-```
-
-Honours per-user and per-environment overrides — see [configuration](configuration.md).
-
-## FilteringUtil (static)
-
-Filter a collection by operator (`equals`, `contains`, `starts_with`,
-`ends_with`).
-
-```php
-$matches = FilteringUtil::filter($collection, 'name', 'contains', 'lara');
-```
-
-## LoggingUtil (static)
+### LogService
 
 Structured logging with context, keyed off the `LogLevel` enum
-(`Debug`, `Info`, `Warning`, `Error`, `Critical`).
+(`Debug`, `Info`, `Warning`, `Error`, `Critical`). Each record is enriched with a
+timestamp and the current environment. Bound to
+`Services\Contracts\LoggerServiceInterface` (and registered as a singleton).
 
 ```php
-LoggingUtil::info('User registered', ['id' => $user->id]);
-LoggingUtil::error('Import failed', ['file' => $name], channel: 'imports');
-LoggingUtil::log(LogLevel::Warning, 'Low disk');
+$log = app(LogService::class);
+$log->info('User registered', ['id' => $user->id]);
+$log->error('Import failed', ['file' => $name], channel: 'imports');
+$log->log(LogLevel::Warning, 'Low disk');
+$log->exception($throwable);
 ```
 
-## PaginationUtil (static)
+### SettingsStore
+
+Read/write dynamic settings persisted as a JSON file on a configured disk — a
+runtime store, deliberately separate from Laravel's static `config()`. Keys use
+dot notation. Bound to `Services\Contracts\SettingsStoreInterface`.
 
 ```php
-$page  = PaginationUtil::paginate($items, perPage: 15, currentPage: 1);
-$query = PaginationUtil::paginateQuery(Post::query(), perPage: 25);
+$settings = app(SettingsStore::class);
+$settings->all();
+$settings->get('feature.enabled', false);
+$settings->has('feature.enabled');
+$settings->set('feature.enabled', true);
+$settings->forget('feature.enabled');
 ```
 
-## QueryParameterUtil (static)
+### RateLimiterService
 
-Parse and filter request query params against an allow-list.
-
-```php
-$params = QueryParameterUtil::parse($request, ['status', 'sort', 'page']);
-```
-
-## RateLimiterUtil (instance)
-
-Thin wrapper over Laravel's rate limiter.
+Thin wrapper over Laravel's rate limiter. Bound to
+`Services\Contracts\RateLimiterServiceInterface` (named `RateLimiterService` to
+avoid colliding with Illuminate's `RateLimiter`).
 
 ```php
-$limiter = app(RateLimiterUtil::class);
+$limiter = app(RateLimiterService::class);
 
 if ($limiter->attempt("login:{$ip}", maxAttempts: 5, decayMinutes: 15)) {
     // allowed
@@ -93,38 +80,26 @@ $limiter->hit($key, decaySeconds: 60);
 $limiter->clear($key);
 ```
 
-## SchedulerUtil (instance)
+### SchedulerService
 
-Inspect the scheduler and find overdue tasks.
+Inspect the scheduler and find overdue tasks. Bound to
+`Services\Contracts\SchedulerServiceInterface`.
 
 ```php
-$scheduler = app(SchedulerUtil::class);
+$scheduler = app(SchedulerService::class);
 $summary   = $scheduler->getScheduleSummary();
 $overdue   = $scheduler->hasOverdueTasks();
 ```
 
-## EnvironmentUtil (static)
+## Support (pure, static)
 
-Environment predicates over the app's own resolver — adds the named buckets and
-`isNonProduction()` aggregate the framework does not ship.
+### AuthHelper (per guard)
 
-```php
-EnvironmentUtil::isLocal();            // local / staging / development
-EnvironmentUtil::isProduction();
-EnvironmentUtil::isNonProduction();
-EnvironmentUtil::isTesting();
-EnvironmentUtil::isEnvironment(['beta', 'alpha']);
-EnvironmentUtil::isRunningUnitTests();
-EnvironmentUtil::current();            // 'testing'
-```
-
-## AuthUtil (instance, per guard)
-
-Typed accessor for a single named guard (named `AuthUtil` to avoid the `Auth`
+Typed accessor for a single named guard (named `AuthHelper` to avoid the `Auth`
 facade collision). Built via the `for()` factory, not the container.
 
 ```php
-$auth = AuthUtil::for('web');
+$auth = AuthHelper::for('web');
 
 $auth->check();   // bool
 $auth->user();    // ?Authenticatable
@@ -136,5 +111,52 @@ $auth->guard();   // 'web'
 > Session-backed filter-key + JavaScript-cookie helpers now live in the
 > injectable `SessionService` (see [helpers.md](helpers.md#session-service)),
 > not in a static utility.
+
+### Environment
+
+Environment predicates over the app's own resolver — adds the named buckets and
+`isNonProduction()` aggregate the framework does not ship.
+
+```php
+Environment::isLocal();            // local / staging / development
+Environment::isProduction();
+Environment::isNonProduction();
+Environment::isTesting();
+Environment::isEnvironment(['beta', 'alpha']);
+Environment::isRunningUnitTests();
+Environment::current();            // 'testing'
+```
+
+### CollectionFilter
+
+Filter a collection by operator (`equals`, `contains`, `starts_with`,
+`ends_with`).
+
+```php
+$matches = CollectionFilter::filter($collection, 'name', 'contains', 'lara');
+```
+
+### Pagination
+
+```php
+$page  = Pagination::paginate($items, perPage: 15, currentPage: 1);
+$query = Pagination::paginateQuery(Post::query(), perPage: 25);
+```
+
+### QueryParameters
+
+Parse and filter request query params against an allow-list.
+
+```php
+$params = QueryParameters::parse($request, ['status', 'sort', 'page']);
+```
+
+### FeatureToggle
+
+```php
+FeatureToggle::isEnabled('example_feature'); // bool
+```
+
+Honours per-user and per-environment overrides — see [configuration](configuration.md).
 
 [← Docs index](../README.md#documentation)

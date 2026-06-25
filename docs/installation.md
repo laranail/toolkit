@@ -39,18 +39,21 @@ need.
 | `laranail-toolkit-api-response-trait` | `app/Traits/ApiResponseTrait.php` |
 | `laranail-toolkit-validation-rules` | `app/Rules/RejectCommonPasswords.php` |
 
-Utility classes can each be copied into `app/Utilities/`:
+The relocated Services / Support helpers can each be copied into `app/Services/`
+or `app/Support/`:
 
-| Tag | Utility |
-|-----|---------|
-| `laranail-toolkit-caching` | `CachingUtil` |
-| `laranail-toolkit-config-util` | `ConfigUtil` |
-| `laranail-toolkit-scheduler` | `SchedulerUtil` |
-| `laranail-toolkit-query-parameter` | `QueryParameterUtil` |
-| `laranail-toolkit-rate-limiter` | `RateLimiterUtil` |
-| `laranail-toolkit-paginator` | `PaginationUtil` |
-| `laranail-toolkit-filtering` | `FilteringUtil` |
-| `laranail-toolkit-logging` | `LoggingUtil` |
+| Tag | Class |
+|-----|-------|
+| `laranail-toolkit-caching` | `Services\CacheService` |
+| `laranail-toolkit-config-util` | `Services\SettingsStore` |
+| `laranail-toolkit-scheduler` | `Services\SchedulerService` |
+| `laranail-toolkit-rate-limiter` | `Services\RateLimiterService` |
+| `laranail-toolkit-logging` | `Services\LogService` |
+| `laranail-toolkit-query-parameter` | `Support\QueryParameters` |
+| `laranail-toolkit-paginator` | `Support\Pagination` |
+| `laranail-toolkit-filtering` | `Support\CollectionFilter` |
+| `laranail-toolkit-environment` | `Support\Environment` |
+| `laranail-toolkit-auth-util` | `Support\AuthHelper` |
 
 Example:
 

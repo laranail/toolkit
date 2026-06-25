@@ -9,14 +9,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Simtabi\Laranail\Toolkit\Utilities\LoggingUtil;
+use Simtabi\Laranail\Toolkit\Services\LogService;
 use Throwable;
 
 /**
  * Reusable queued-job base.
  *
  * Wires the standard queue traits and sensible retry/back-off/timeout defaults,
- * and logs any final failure through {@see LoggingUtil::exception()}. Subclasses
+ * and logs any final failure through {@see LogService::exception()}. Subclasses
  * implement their own `handle()`; they may override the public retry properties.
  */
 abstract class BaseJob implements ShouldQueue
@@ -41,6 +41,6 @@ abstract class BaseJob implements ShouldQueue
      */
     public function failed(Throwable $e): void
     {
-        app(LoggingUtil::class)->exception($e);
+        app(LogService::class)->exception($e);
     }
 }

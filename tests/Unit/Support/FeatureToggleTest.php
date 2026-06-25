@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
+use Simtabi\Laranail\Toolkit\Support\FeatureToggle;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Utilities\FeatureToggleUtil;
 
-class FeatureToggleUtilTest extends TestCase
+class FeatureToggleTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -38,7 +38,7 @@ class FeatureToggleUtilTest extends TestCase
     {
         Config::set('feature-toggles.test_feature', true);
 
-        $result = FeatureToggleUtil::isEnabled('test_feature');
+        $result = FeatureToggle::isEnabled('test_feature');
 
         $this->assertTrue($result);
     }
@@ -47,14 +47,14 @@ class FeatureToggleUtilTest extends TestCase
     {
         Config::set('feature-toggles.test_feature', false);
 
-        $result = FeatureToggleUtil::isEnabled('test_feature');
+        $result = FeatureToggle::isEnabled('test_feature');
 
         $this->assertFalse($result);
     }
 
     public function test_feature_is_disabled_by_default()
     {
-        $result = FeatureToggleUtil::isEnabled('non_existent_feature');
+        $result = FeatureToggle::isEnabled('non_existent_feature');
 
         $this->assertFalse($result);
     }
@@ -72,7 +72,7 @@ class FeatureToggleUtilTest extends TestCase
         // Set user override to true
         Config::set('feature-toggles.test_feature.user.123', true);
 
-        $result = FeatureToggleUtil::isEnabled('test_feature');
+        $result = FeatureToggle::isEnabled('test_feature');
 
         $this->assertTrue($result);
     }
@@ -88,7 +88,7 @@ class FeatureToggleUtilTest extends TestCase
         // Set environment override to false
         Config::set('feature-toggles.test_feature.environment.testing', false);
 
-        $result = FeatureToggleUtil::isEnabled('test_feature');
+        $result = FeatureToggle::isEnabled('test_feature');
 
         $this->assertFalse($result);
     }
@@ -105,7 +105,7 @@ class FeatureToggleUtilTest extends TestCase
         $this->assertFalse(File::exists($configPath));
 
         // Call isEnabled which should create the config file
-        FeatureToggleUtil::isEnabled('test_feature');
+        FeatureToggle::isEnabled('test_feature');
 
         $this->assertTrue(File::exists($configPath));
     }

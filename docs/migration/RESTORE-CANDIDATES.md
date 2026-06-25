@@ -66,7 +66,7 @@ all `ValidationService` HTML/checkbox/old-input helpers (→ `Services\Validatio
 `ConditionalRunner::*` (console-task runner), `Atlas\Countries`/`Languages` (→ `rinvex/countries`),
 `DiskSpaceValidator` (≈ `RequirementsDiagnostics` + `disk_free_space()`),
 `generateRandomSalutation`/`generateLivewireComponentKey` (domain/framework-specific),
-`AuthenticationService::*` (→ `Utilities\AuthUtil`).
+`AuthenticationService::*` (→ `Support\AuthHelper`).
 
 ---
 
@@ -82,8 +82,8 @@ they conflict** (G8 reversed several earlier "native one-liner" / "broken" calls
 - [x] `Helpers\SystemHelper`: `composer`, `composerPackageVersion`, `systemInfo`, `isSslInstalled` (alias of `isHttps`).
 - [x] `Helpers\DbHelper`: `canConnectWith` — **safe** ephemeral-connection probe (replaces the unsafe `setDatabaseCredentials`; no `config()` mutation, no credential logging).
 - [x] `Services\SessionService` (injectable, interface-backed, `Toolkit::session()`): `existsInFilterKey`, `joinInFilterKey`, `removeFromFilterKey`, `saveJavaScriptCookies` (session/cookie writes via injected store + jar).
-- [x] `Utilities\LoggingUtil`: `exception()` (legacy `logError`).
-- [x] `Utilities\AuthUtil`: `username`, `userExists`, `authHelper` alias.
+- [x] `Services\LogService`: `exception()` (legacy `logError`).
+- [x] `Support\AuthHelper`: `username`, `userExists`, `authHelper` alias.
 - [x] `Services\ModelService`: `getModelItem` (`data_get`).
 - [x] `Macros\CollectionMacros`: `mapKeyValuePairs` (fixes the broken legacy `Collection->select`), `sortSearchResults` (relevance scoring).
 - [x] `Helpers\GeoHelper` (new): `distanceBetween` — native Haversine (restores `DistanceBetween`, no pheg).

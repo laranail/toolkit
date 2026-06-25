@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\HasLivewireComponents is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Modules/Livewire/HasLivewireComponents.php
-
-		-
 			message: '#^Argument of an invalid type array\|bool\|float\|int\|string\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 13
@@ -379,6 +373,12 @@ parameters:
 			path: src/Modules/Gravatar/GravatarService.php
 
 		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\HasLivewireComponents is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Modules/Livewire/HasLivewireComponents.php
+
+		-
 			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
 			identifier: empty.notAllowed
 			count: 1
@@ -583,7 +583,7 @@ parameters:
 			path: src/Modules/Llm/OpenAI/OpenAIResponse.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadCachingUtility\(\) has no return type specified\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadCacheService\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/Providers/ToolkitServiceProvider.php
@@ -595,25 +595,19 @@ parameters:
 			path: src/Providers/ToolkitServiceProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadRateLimiterUtility\(\) has no return type specified\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadRateLimiterService\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/Providers/ToolkitServiceProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadUtilityClasses\(\) has no return type specified\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadServiceClasses\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/Providers/ToolkitServiceProvider.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadUtilityClasses\(\) has parameter \$classes with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Providers/ToolkitServiceProvider.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:publishUtility\(\) has no return type specified\.$#'
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:publishComponent\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/Providers/ToolkitServiceProvider.php
@@ -635,6 +629,42 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/Rules/RejectCommonPasswords.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:macro\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 5
+			path: src/Scopes/ArchiveScope.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:whereNull\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Scopes/ArchiveScope.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNotNull\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Scopes/ArchiveScope.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNull\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Scopes/ArchiveScope.php
+
+		-
+			message: '#^Variable method call on \$this\(Simtabi\\Laranail\\Toolkit\\Scopes\\ArchiveScope\)\.$#'
+			identifier: method.dynamicName
+			count: 1
+			path: src/Scopes/ArchiveScope.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Services/CacheService.php
 
 		-
 			message: '#^Access to an undefined property object\:\:\$depth\.$#'
@@ -685,34 +715,100 @@ parameters:
 			path: src/Services/ModelService.php
 
 		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:macro\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 5
-			path: src/Scopes/ArchiveScope.php
+			message: '#^Casting to string something that''s already string\.$#'
+			identifier: cast.useless
+			count: 1
+			path: src/Support/CollectionFilter.php
 
 		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:whereNull\(\)\.$#'
-			identifier: staticMethod.dynamicCall
+			message: '#^Loose comparison via "\!\=" is not allowed\.$#'
+			identifier: notEqual.notAllowed
 			count: 1
-			path: src/Scopes/ArchiveScope.php
+			path: src/Support/CollectionFilter.php
 
 		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNotNull\(\)\.$#'
-			identifier: staticMethod.dynamicCall
+			message: '#^Loose comparison via "\=\=" is not allowed\.$#'
+			identifier: equal.notAllowed
 			count: 1
-			path: src/Scopes/ArchiveScope.php
+			path: src/Support/CollectionFilter.php
 
 		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNull\(\)\.$#'
-			identifier: staticMethod.dynamicCall
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\CollectionFilter\:\:filter\(\) has parameter \$items with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
-			path: src/Scopes/ArchiveScope.php
+			path: src/Support/CollectionFilter.php
 
 		-
-			message: '#^Variable method call on \$this\(Simtabi\\Laranail\\Toolkit\\Scopes\\ArchiveScope\)\.$#'
-			identifier: method.dynamicName
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\CollectionFilter\:\:filter\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
-			path: src/Scopes/ArchiveScope.php
+			path: src/Support/CollectionFilter.php
+
+		-
+			message: '#^Dynamic call to static method Illuminate\\Contracts\\Auth\\Guard\:\:user\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: src/Support/FeatureToggle.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\FeatureToggle\:\:ensureConfigFileExists\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/Support/FeatureToggle.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, Illuminate\\Foundation\\Auth\\User\|null given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: src/Support/FeatureToggle.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginate\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Support/Pagination.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginate\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Support/Pagination.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginate\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Support/Pagination.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginateQuery\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Support/Pagination.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginateQuery\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Support/Pagination.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginateQuery\(\) return type with generic interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Support/Pagination.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\QueryParameters\:\:parse\(\) has parameter \$allowedParameters with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Support/QueryParameters.php
+
+		-
+			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\QueryParameters\:\:parse\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Support/QueryParameters.php
 
 		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\Auditable is used zero times and is not analysed\.$#'
@@ -767,105 +863,3 @@ parameters:
 			identifier: trait.unused
 			count: 1
 			path: src/Traits/RunsConditionally.php
-
-		-
-			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
-			identifier: empty.notAllowed
-			count: 1
-			path: src/Utilities/CachingUtil.php
-
-		-
-			message: '#^Dynamic call to static method Illuminate\\Contracts\\Auth\\Guard\:\:user\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Utilities/FeatureToggleUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\FeatureToggleUtil\:\:ensureConfigFileExists\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/Utilities/FeatureToggleUtil.php
-
-		-
-			message: '#^Only booleans are allowed in a ternary operator condition, Illuminate\\Foundation\\Auth\\User\|null given\.$#'
-			identifier: ternary.condNotBoolean
-			count: 1
-			path: src/Utilities/FeatureToggleUtil.php
-
-		-
-			message: '#^Casting to string something that''s already string\.$#'
-			identifier: cast.useless
-			count: 1
-			path: src/Utilities/FilteringUtil.php
-
-		-
-			message: '#^Loose comparison via "\!\=" is not allowed\.$#'
-			identifier: notEqual.notAllowed
-			count: 1
-			path: src/Utilities/FilteringUtil.php
-
-		-
-			message: '#^Loose comparison via "\=\=" is not allowed\.$#'
-			identifier: equal.notAllowed
-			count: 1
-			path: src/Utilities/FilteringUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\FilteringUtil\:\:filter\(\) has parameter \$items with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Utilities/FilteringUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\FilteringUtil\:\:filter\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Utilities/FilteringUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\PaginationUtil\:\:paginate\(\) has parameter \$items with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/PaginationUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\PaginationUtil\:\:paginate\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/PaginationUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\PaginationUtil\:\:paginate\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Utilities/PaginationUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\PaginationUtil\:\:paginateQuery\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/PaginationUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\PaginationUtil\:\:paginateQuery\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Utilities/PaginationUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\PaginationUtil\:\:paginateQuery\(\) return type with generic interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Utilities/PaginationUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\QueryParameterUtil\:\:parse\(\) has parameter \$allowedParameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/QueryParameterUtil.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Utilities\\QueryParameterUtil\:\:parse\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Utilities/QueryParameterUtil.php

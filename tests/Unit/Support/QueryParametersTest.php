@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
 use Illuminate\Http\Request;
+use Simtabi\Laranail\Toolkit\Support\QueryParameters;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Utilities\QueryParameterUtil;
 
-class QueryParameterUtilTest extends TestCase
+class QueryParametersTest extends TestCase
 {
     public function test_can_parse_allowed_parameters()
     {
@@ -21,7 +21,7 @@ class QueryParameterUtilTest extends TestCase
 
         $allowedParameters = ['name', 'email', 'age'];
 
-        $result = QueryParameterUtil::parse($request, $allowedParameters);
+        $result = QueryParameters::parse($request, $allowedParameters);
 
         $this->assertArrayHasKey('name', $result);
         $this->assertArrayHasKey('email', $result);
@@ -43,7 +43,7 @@ class QueryParameterUtilTest extends TestCase
 
         $allowedParameters = ['allowed_param'];
 
-        $result = QueryParameterUtil::parse($request, $allowedParameters);
+        $result = QueryParameters::parse($request, $allowedParameters);
 
         $this->assertCount(1, $result);
         $this->assertArrayHasKey('allowed_param', $result);
@@ -60,7 +60,7 @@ class QueryParameterUtilTest extends TestCase
 
         $allowedParameters = [];
 
-        $result = QueryParameterUtil::parse($request, $allowedParameters);
+        $result = QueryParameters::parse($request, $allowedParameters);
 
         $this->assertEmpty($result);
     }
@@ -71,7 +71,7 @@ class QueryParameterUtilTest extends TestCase
 
         $allowedParameters = ['name', 'email', 'age'];
 
-        $result = QueryParameterUtil::parse($request, $allowedParameters);
+        $result = QueryParameters::parse($request, $allowedParameters);
 
         $this->assertEmpty($result);
     }
@@ -85,7 +85,7 @@ class QueryParameterUtilTest extends TestCase
 
         $allowedParameters = ['name', 'email', 'age'];
 
-        $result = QueryParameterUtil::parse($request, $allowedParameters);
+        $result = QueryParameters::parse($request, $allowedParameters);
 
         $this->assertCount(1, $result);
         $this->assertArrayHasKey('name', $result);
@@ -103,7 +103,7 @@ class QueryParameterUtilTest extends TestCase
 
         $allowedParameters = ['string_param', 'int_param', 'bool_param', 'array_param'];
 
-        $result = QueryParameterUtil::parse($request, $allowedParameters);
+        $result = QueryParameters::parse($request, $allowedParameters);
 
         $this->assertIsString($result['string_param']);
         $this->assertIsString($result['int_param']); // Request parameters are always strings
@@ -119,7 +119,7 @@ class QueryParameterUtilTest extends TestCase
 
         $allowedParameters = ['param', 'param']; // Duplicate in allowed list
 
-        $result = QueryParameterUtil::parse($request, $allowedParameters);
+        $result = QueryParameters::parse($request, $allowedParameters);
 
         $this->assertCount(1, $result);
         $this->assertArrayHasKey('param', $result);
@@ -135,7 +135,7 @@ class QueryParameterUtilTest extends TestCase
 
         $allowedParameters = ['empty_param', 'normal_param'];
 
-        $result = QueryParameterUtil::parse($request, $allowedParameters);
+        $result = QueryParameters::parse($request, $allowedParameters);
 
         $this->assertCount(2, $result);
         $this->assertEquals('', $result['empty_param']);

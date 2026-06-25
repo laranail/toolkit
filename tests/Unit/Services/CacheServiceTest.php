@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Support\Facades\Cache;
 use Psr\Log\AbstractLogger;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
-use Simtabi\Laranail\Toolkit\Utilities\Contracts\CacheRepositoryInterface;
 
-class CachingUtilTest extends TestCase
+class CacheServiceTest extends TestCase
 {
-    private CachingUtil $cachingUtil;
+    private CacheService $cacheService;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->cachingUtil = new CachingUtil(60, ['default']);
+        $this->cacheService = new CacheService(60, ['default']);
         Cache::flush();
     }
 
@@ -26,7 +26,7 @@ class CachingUtilTest extends TestCase
     {
         $resolved = $this->app->make(CacheRepositoryInterface::class);
 
-        $this->assertInstanceOf(CachingUtil::class, $resolved);
+        $this->assertInstanceOf(CacheService::class, $resolved);
     }
 
     public function test_can_cache_data_with_default_expiration()
@@ -40,7 +40,7 @@ class CachingUtilTest extends TestCase
         Cache::shouldReceive('get')->with($key, null)->andReturn($data);
         Cache::shouldReceive('get')->with($key)->andReturn($data);
 
-        $result = $this->cachingUtil->cache($key, $data);
+        $result = $this->cacheService->cache($key, $data);
 
         $this->assertEquals($data, $result);
         $this->assertEquals($data, Cache::get($key));
@@ -58,7 +58,7 @@ class CachingUtilTest extends TestCase
         Cache::shouldReceive('get')->with($key, null)->andReturn($data);
         Cache::shouldReceive('get')->with($key)->andReturn($data);
 
-        $result = $this->cachingUtil->cache($key, $data, $minutes);
+        $result = $this->cacheService->cache($key, $data, $minutes);
 
         $this->assertEquals($data, $result);
         $this->assertEquals($data, Cache::get($key));
@@ -70,7 +70,7 @@ class CachingUtilTest extends TestCase
         $data = ['test' => 'data'];
         $tags = ['custom', 'test'];
 
-        $result = $this->cachingUtil->cache($key, $data, null, $tags);
+        $result = $this->cacheService->cache($key, $data, null, $tags);
 
         $this->assertEquals($data, $result);
     }
@@ -85,8 +85,8 @@ class CachingUtilTest extends TestCase
         Cache::shouldReceive('put')->with($key, $data, \Mockery::any())->andReturn(true);
         Cache::shouldReceive('get')->with($key, null)->andReturn($data);
 
-        $this->cachingUtil->cache($key, $data);
-        $result = $this->cachingUtil->get($key);
+        $this->cacheService->cache($key, $data);
+        $result = $this->cacheService->get($key);
 
         $this->assertEquals($data, $result);
     }
@@ -99,7 +99,7 @@ class CachingUtilTest extends TestCase
         // Mock Cache facade
         Cache::shouldReceive('get')->with($key, $default)->andReturn($default);
 
-        $result = $this->cachingUtil->get($key, $default);
+        $result = $this->cacheService->get($key, $default);
 
         $this->assertEquals($default, $result);
     }
@@ -116,11 +116,11 @@ class CachingUtilTest extends TestCase
         Cache::shouldReceive('forget')->with($key)->andReturn(true);
         Cache::shouldReceive('get')->with($key, null)->andReturn(null)->once();
 
-        $this->cachingUtil->cache($key, $data);
-        $this->assertEquals($data, $this->cachingUtil->get($key));
+        $this->cacheService->cache($key, $data);
+        $this->assertEquals($data, $this->cacheService->get($key));
 
-        $this->cachingUtil->forget($key);
-        $this->assertNull($this->cachingUtil->get($key));
+        $this->cacheService->forget($key);
+        $this->assertNull($this->cacheService->get($key));
     }
 
     public function test_handles_taggable_store_gracefully()
@@ -133,7 +133,7 @@ class CachingUtilTest extends TestCase
         Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
         Cache::shouldReceive('put')->andReturn(true);
 
-        $result = $this->cachingUtil->cache($key, $data, null, $tags);
+        $result = $this->cacheService->cache($key, $data, null, $tags);
 
         $this->assertEquals($data, $result);
     }
@@ -149,48 +149,48 @@ class CachingUtilTest extends TestCase
             return 'computed';
         };
 
-        $this->assertSame('computed', $this->cachingUtil->remember('rk', $compute));
+        $this->assertSame('computed', $this->cacheService->remember('rk', $compute));
         // Second call hits the cache; the callback must not run again.
-        $this->assertSame('computed', $this->cachingUtil->remember('rk', $compute));
+        $this->assertSame('computed', $this->cacheService->remember('rk', $compute));
         $this->assertSame(1, $calls);
     }
 
     public function test_remember_forever_caches_value(): void
     {
-        $value = $this->cachingUtil->rememberForever('rfk', fn () => 'forever');
+        $value = $this->cacheService->rememberForever('rfk', fn () => 'forever');
 
         $this->assertSame('forever', $value);
-        $this->assertSame('forever', $this->cachingUtil->get('rfk'));
+        $this->assertSame('forever', $this->cacheService->get('rfk'));
     }
 
     public function test_put_writes_value_and_returns_true(): void
     {
-        $this->assertTrue($this->cachingUtil->put('pk', 'pv'));
-        $this->assertSame('pv', $this->cachingUtil->get('pk'));
+        $this->assertTrue($this->cacheService->put('pk', 'pv'));
+        $this->assertSame('pv', $this->cacheService->get('pk'));
     }
 
     public function test_many_returns_values_keyed_by_original_keys(): void
     {
-        $this->cachingUtil->put('a', 1);
-        $this->cachingUtil->put('b', 2);
+        $this->cacheService->put('a', 1);
+        $this->cacheService->put('b', 2);
 
         $this->assertSame(
             ['a' => 1, 'b' => 2, 'missing' => 'def'],
-            $this->cachingUtil->many(['a', 'b', 'missing'], 'def'),
+            $this->cacheService->many(['a', 'b', 'missing'], 'def'),
         );
     }
 
     public function test_increment_and_decrement(): void
     {
-        $this->cachingUtil->put('counter', 5);
+        $this->cacheService->put('counter', 5);
 
-        $this->assertSame(6, $this->cachingUtil->increment('counter'));
-        $this->assertSame(4, $this->cachingUtil->decrement('counter', 2));
+        $this->assertSame(6, $this->cacheService->increment('counter'));
+        $this->assertSame(4, $this->cacheService->decrement('counter', 2));
     }
 
     public function test_namespace_prefix_is_applied_to_namespaced_writes(): void
     {
-        $namespaced = new CachingUtil(60, [], null, 'app1');
+        $namespaced = new CacheService(60, [], null, 'app1');
         $namespaced->put('shared', 'one');
 
         // put() prefixes the key; the value lands under "app1:shared", not "shared".
@@ -203,16 +203,16 @@ class CachingUtilTest extends TestCase
 
     public function test_tags_returns_a_distinct_clone(): void
     {
-        $tagged = $this->cachingUtil->tags(['x', 'y']);
+        $tagged = $this->cacheService->tags(['x', 'y']);
 
-        $this->assertInstanceOf(CachingUtil::class, $tagged);
-        $this->assertNotSame($this->cachingUtil, $tagged);
+        $this->assertInstanceOf(CacheService::class, $tagged);
+        $this->assertNotSame($this->cacheService, $tagged);
     }
 
     public function test_remember_falls_back_to_callback_and_logs_on_store_failure(): void
     {
         $logger = new CollectingTestLogger();
-        $util = new CachingUtil(60, [], $logger);
+        $util = new CacheService(60, [], $logger);
 
         // Force the underlying store to throw on remember().
         Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
@@ -228,7 +228,7 @@ class CachingUtilTest extends TestCase
     public function test_cache_uses_non_taggable_store_path(): void
     {
         // A non-taggable store (and/or no tags) falls through to Cache::put().
-        $util = new CachingUtil(60, []);
+        $util = new CacheService(60, []);
 
         $this->assertSame('plain', $util->cache('ck', 'plain'));
         $this->assertSame('plain', $util->get('ck'));
@@ -237,7 +237,7 @@ class CachingUtilTest extends TestCase
     public function test_remember_forever_falls_back_and_logs_on_store_failure(): void
     {
         $logger = new CollectingTestLogger();
-        $util = new CachingUtil(60, [], $logger);
+        $util = new CacheService(60, [], $logger);
 
         Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
         Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
@@ -249,7 +249,7 @@ class CachingUtilTest extends TestCase
     public function test_put_returns_false_and_logs_on_store_failure(): void
     {
         $logger = new CollectingTestLogger();
-        $util = new CachingUtil(60, [], $logger);
+        $util = new CacheService(60, [], $logger);
 
         Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
         Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
@@ -261,7 +261,7 @@ class CachingUtilTest extends TestCase
     public function test_many_returns_defaults_and_logs_on_store_failure(): void
     {
         $logger = new CollectingTestLogger();
-        $util = new CachingUtil(60, [], $logger);
+        $util = new CacheService(60, [], $logger);
 
         Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
         Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
@@ -273,7 +273,7 @@ class CachingUtilTest extends TestCase
     public function test_increment_returns_false_and_logs_on_store_failure(): void
     {
         $logger = new CollectingTestLogger();
-        $util = new CachingUtil(60, [], $logger);
+        $util = new CacheService(60, [], $logger);
 
         Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
         Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
@@ -285,7 +285,7 @@ class CachingUtilTest extends TestCase
     public function test_decrement_returns_false_and_logs_on_store_failure(): void
     {
         $logger = new CollectingTestLogger();
-        $util = new CachingUtil(60, [], $logger);
+        $util = new CacheService(60, [], $logger);
 
         Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
         Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
@@ -298,7 +298,7 @@ class CachingUtilTest extends TestCase
     {
         // The array driver IS taggable, so a tagged clone routes through
         // Cache::tags() inside store() and round-trips under the tag group.
-        $tagged = new CachingUtil(60, [])->tags(['group-a']);
+        $tagged = new CacheService(60, [])->tags(['group-a']);
 
         $this->assertTrue($tagged->put('tk', 'tv'));
         $this->assertSame('tv', $tagged->remember('tk', fn () => 'recomputed'));

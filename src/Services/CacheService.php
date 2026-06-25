@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Services;
 
 use Closure;
 use Illuminate\Cache\TaggableStore;
@@ -10,7 +10,7 @@ use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Cache;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Simtabi\Laranail\Toolkit\Utilities\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
 use Throwable;
 
 /**
@@ -22,7 +22,7 @@ use Throwable;
  * the capability folded in from the legacy `Foundation\Services\CacheService`
  * (namespacing prefix + injected-logger fallback included).
  */
-class CachingUtil implements CacheRepositoryInterface
+class CacheService implements CacheRepositoryInterface
 {
     /**
      * Tag group applied by the fluent {@see tags()} helper (separate from the

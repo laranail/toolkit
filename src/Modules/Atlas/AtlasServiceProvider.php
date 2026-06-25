@@ -8,8 +8,8 @@ use Illuminate\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Support\Cast;
-use Simtabi\Laranail\Toolkit\Utilities\CachingUtil;
 
 /**
  * Deferred service provider for the self-contained Atlas module.
@@ -35,7 +35,7 @@ class AtlasServiceProvider extends ServiceProvider implements DeferrableProvider
             $cacheTtl = Cast::toInt($config->get('laranail.toolkit.atlas.cache_ttl', 1440), 1440);
 
             return new AtlasService(
-                cache: $app->make(CachingUtil::class),
+                cache: $app->make(CacheService::class),
                 config: $config,
                 defaultLabel: $defaultLabel,
                 cacheTtl: $cacheTtl,

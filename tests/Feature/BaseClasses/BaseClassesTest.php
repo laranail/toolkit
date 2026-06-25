@@ -14,8 +14,8 @@ use Simtabi\Laranail\Toolkit\Events\BaseEvent;
 use Simtabi\Laranail\Toolkit\Jobs\BaseJob;
 use Simtabi\Laranail\Toolkit\Listeners\BaseListener;
 use Simtabi\Laranail\Toolkit\Observers\BaseObserver;
+use Simtabi\Laranail\Toolkit\Services\LogService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Utilities\LoggingUtil;
 
 class FixtureJob extends BaseJob
 {
@@ -58,14 +58,14 @@ class BaseClassesTest extends TestCase
         $this->assertSame(120, $job->timeout);
     }
 
-    public function test_base_job_failed_logs_through_logging_util(): void
+    public function test_base_job_failed_logs_through_log_service(): void
     {
         $logs = Mockery::mock(LogManager::class);
         $logs->shouldReceive('log')->once()->withArgs(
             fn (string $level, string $message): bool => $level === 'error' && $message === 'kaboom'
         );
 
-        $this->app->instance(LoggingUtil::class, new LoggingUtil($logs));
+        $this->app->instance(LogService::class, new LogService($logs));
 
         new FixtureJob()->failed(new RuntimeException('kaboom'));
     }

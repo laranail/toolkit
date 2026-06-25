@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Contracts\Cache\Repository;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Support\Cast;
 
-class RateLimiterUtil
+class RateLimiterService implements RateLimiterServiceInterface
 {
     /**
      * The rate limiter instance.

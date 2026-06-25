@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Utilities;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Support\Facades\Storage;
+use Simtabi\Laranail\Toolkit\Services\SettingsStore;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Utilities\ConfigUtil;
 
-class ConfigUtilTest extends TestCase
+class SettingsStoreTest extends TestCase
 {
-    private ConfigUtil $config;
+    private SettingsStore $config;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         Storage::fake('local');
-        $this->config = new ConfigUtil(Storage::disk('local'), 'settings.json');
+        $this->config = new SettingsStore(Storage::disk('local'), 'settings.json');
     }
 
     public function test_all_is_empty_before_anything_is_written(): void
@@ -39,7 +39,7 @@ class ConfigUtilTest extends TestCase
         Storage::disk('local')->assertExists('settings.json');
 
         // A fresh instance reads the same persisted store.
-        $fresh = new ConfigUtil(Storage::disk('local'), 'settings.json');
+        $fresh = new SettingsStore(Storage::disk('local'), 'settings.json');
         $this->assertSame('a@b.com', $fresh->get('mail.from'));
     }
 
