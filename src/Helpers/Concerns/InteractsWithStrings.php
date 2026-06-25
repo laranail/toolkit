@@ -126,11 +126,6 @@ trait InteractsWithStrings
         return Username::random($prefix, $digits)->minLength(1)->generate();
     }
 
-    public static function uuid(): string
-    {
-        return Str::uuid()->toString();
-    }
-
     /**
      * Escape a dirty string (or array of strings, joined) into an
      * XSS-safe {@see HtmlString} via Laravel's `e()` helper. Null yields an

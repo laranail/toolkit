@@ -1,6 +1,6 @@
 # Utilities
 
-The toolkit's eleven focused helper classes are split by responsibility:
+The toolkit's focused helper classes are split by responsibility:
 
 - **Services** (`Simtabi\Laranail\Toolkit\Services`) — stateful, interface-backed
   helpers bound in the container. Resolve them with `app(...)`, constructor
@@ -119,6 +119,91 @@ $models->concatName('users');                               // CONCAT(first_name
 | `registerModelObserver(string $modelClass, string $observerClass): void` | Register an observer when both classes exist. |
 | `concatName(string $table, ?string $connection = null): Expression` | `CONCAT(first_name,' ',last_name) AS name` for a table. |
 
+### AuthenticationContextService
+
+Fluent, per-instance authentication context across guards — set/read the active
+user email, id and guard, and resolve the current user. Bound to
+`Services\Contracts\AuthenticationContextServiceInterface`; also reachable via
+`Toolkit::auth()` or the [`HasAuth`](traits.md#hasauth) trait.
+
+```php
+$auth = app(AuthenticationContextServiceInterface::class);
+
+$auth->setGuard('web')->setUserId(42);
+$auth->getUser();                  // Authenticatable|Model|null
+$auth->isAuthenticated('web');     // bool
+$auth->getCurrentUserId();         // int|string|null (live, from the guard)
+```
+
+### ErrorStorageService
+
+Fluent, key-based error bag for non-validation flows (importers, batch jobs,
+domain services). Bound to `Services\Contracts\ErrorStorageServiceInterface`;
+also reachable via the [`HasErrorStorage`](traits.md#haserrorstorage) trait.
+
+```php
+$errors = app(ErrorStorageServiceInterface::class);
+
+$errors->addError('row.5', 'Missing email')->setErrors(['file' => 'unreadable']);
+$errors->hasErrors();        // true
+$errors->getErrors('row.5'); // ['Missing email']
+$errors->getErrorCount();    // 2
+$errors->getFirstError();    // 'Missing email'
+$errors->clearErrors();
+```
+
+### HttpConfigurationService
+
+Fluent builder for Guzzle/HTTP-client configuration, seeded once from
+`config('laranail.toolkit.http.*')`. Bound to
+`Services\Contracts\HttpConfigurationServiceInterface`; also reachable via the
+[`HasGuzzleConfig`](traits.md#hasguzzleconfig) trait.
+
+```php
+$http = app(HttpConfigurationServiceInterface::class);
+
+$config = $http
+    ->setPersistConnection(true)
+    ->setRequestTimeout(10)
+    ->setMaxRetries(3)
+    ->setCacheTtl(60)
+    ->toGuzzleConfig();        // array ready for new GuzzleHttp\Client(...)
+```
+
+### RouteService
+
+Request-scoped routing helpers — current-route checks, active-CSS-class
+resolution for nav menus, URL-segment inspection and query-string reads. Bound
+to `Services\Contracts\RouteServiceInterface`; also reachable via `Toolkit::route()`.
+
+```php
+$route = app(RouteServiceInterface::class);
+
+$route->isCurrentRoute('dashboard');                 // bool
+$route->getActiveCssClassForRoute('dashboard');      // 'active' on a match, else ''
+$route->getActiveMenuClassName(['users.*', 'roles.*']); // active for a group
+$route->isUrlSegment('admin', position: 0);
+$route->getInputValueFromQueryString('q');           // escaped query value
+$route->getCurrentRouteInfo();                        // object {name, parameters, ...}
+```
+
+### ValidationService
+
+View-layer validation helpers — escaped error-bag messages, error CSS classes,
+old-input / model-value fallbacks for re-populating forms. Bound to
+`Services\Contracts\ValidationServiceInterface`; also reachable via
+`Toolkit::validation()`.
+
+```php
+$v = app(ValidationServiceInterface::class);
+
+$v->getErrorBagMessage('email');         // e()-escaped first error or ''
+$v->getHasErrorCssClass('email');        // 'is-invalid' style class when errored
+$v->oldInput('email', $user);            // old() → model → default fallback
+$v->getCheckboxStatus($model->active, 'active'); // 'checked' | null
+$v->isValidDatabaseConnection('settings');
+```
+
 ## Support (pure, static)
 
 ### AuthHelper (per guard)
@@ -162,13 +247,6 @@ Filter a collection by operator (`equals`, `contains`, `starts_with`,
 
 ```php
 $matches = CollectionFilter::filter($collection, 'name', 'contains', 'lara');
-```
-
-### Pagination
-
-```php
-$page  = Pagination::paginate($items, perPage: 15, currentPage: 1);
-$query = Pagination::paginateQuery(Post::query(), perPage: 25);
 ```
 
 ### QueryParameters
@@ -220,5 +298,68 @@ $diag->toAboutArray();                        // the `php artisan about` payload
 The toolkit registers this under `php artisan about` automatically, surfacing
 **PHP Version**, **Minimum PHP**, **PHP Supported**, **Required Extensions**,
 **Storage Writable**, and **Storage Free Space** rows.
+
+### Cast
+
+Safe scalar coercion for `mixed` values (config, request input, decoded JSON)
+that strict static analysis refuses to cast directly. Each helper narrows the
+value and falls back to the supplied default when it is of an unusable type.
+
+```php
+Cast::toString($value, default: '');
+Cast::toInt($value, default: 0);
+Cast::toFloat($value, default: 0.0);
+Cast::toBool($value, default: false);
+```
+
+### Config
+
+Typed accessors over Laravel's `mixed`-returning `config()` helper — narrow once,
+here, instead of at every call site.
+
+```php
+Config::string('app.name', 'Laravel');
+Config::int('laranail.toolkit.cache.default_expiration', 60);
+Config::bool('app.debug', false);
+Config::float('services.rate', 0.0);
+Config::array('laranail.toolkit.cache.default_tags', []);
+Config::stringList('laranail.toolkit.redaction.keys', []); // drops non-string members
+```
+
+### ConditionalRunner
+
+Chainable, context-aware execution: queue callbacks against context predicates
+then `run()` them all, collecting the results of the predicates that held. For a
+single predicate on a host class, the [`RunsConditionally`](traits.md#runsconditionally)
+trait is the shorthand.
+
+```php
+$results = ConditionalRunner::make()
+    ->whenApi(fn () => 'api')
+    ->whenWeb(fn () => 'web')
+    ->whenConsole(fn () => 'cli')
+    ->whenAuthenticated(fn () => 'user', guard: 'web')
+    ->whenRole('admin', fn () => 'admin')
+    ->whenRoleIsNot('admin', fn () => 'non-admin')
+    ->when($flag, fn () => 'flagged')
+    ->run();   // list of results for the predicates that matched
+```
+
+### ApiResponder
+
+Public adapter exposing the canonical [`ApiResponseTrait`](traits.md#apiresponsetrait)
+JSON envelope so non-controller code (notably the Response macros) can build the
+same `{ success, message, data, errors, meta }` shape. Every method forwards to
+the trait — there is no duplicate JSON shaping.
+
+```php
+$responder = new ApiResponder();
+
+$responder->success($data, 'Fetched.', status: 200, meta: ['page' => 1]);
+$responder->error('Validation failed.', status: 422, errors: $bag->toArray());
+```
+
+It backs the `response()->success(...)` / `response()->error(...)` /
+`response()->message(...)` macros — see [macros](macros.md).
 
 [← Docs index](../README.md#documentation)

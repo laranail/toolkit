@@ -34,14 +34,14 @@ column is one of:
 | `Laranail::checkIfFileExistsInStorage($path)` | native `Storage::exists($path)`. |
 | `Laranail::getFileAsObject($path)` | native `new Illuminate\Http\File($path)` (or `Traits\FileProcessingTrait`). |
 | `Laranail::pathToUploadedFileInstance($path, $test)` | native `new Illuminate\Http\UploadedFile($path, basename($path), null, null, $test)`. |
-| `Laranail::clearLogFiles()` | `Toolkit::db()->clearLogFiles()` (`DatabaseServiceInterface`). |
-| `Laranail::deleteStorageSymlink()` | `Toolkit::db()->deleteStorageSymlink()` (`DatabaseServiceInterface`). |
+| `Laranail::clearLogFiles()` | ↗ **`laranail/database-tools`** — `DatabaseService::clearLogFiles()`. |
+| `Laranail::deleteStorageSymlink()` | ↗ **`laranail/database-tools`** — `DatabaseService::deleteStorageSymlink()`. |
 
 ## Cache
 
 | Legacy | New home |
 |--------|----------|
-| `Laranail::clearCache()` | `Toolkit::db()->clearCache()` (`DatabaseServiceInterface`), or native `Cache::flush()`. |
+| `Laranail::clearCache()` | native `Cache::flush()` (or `laranail/database-tools`' `DatabaseService::clearCache()`). |
 | `Laranail::cache($name, $cb, $ttl)` | native `Cache::remember($name, $ttl, $cb)`. |
 
 ## Routes
@@ -64,8 +64,8 @@ column is one of:
 
 | Legacy | New home |
 |--------|----------|
-| `Laranail::isValidDatabaseConnection($table)` | `Toolkit::validation()->isValidDatabaseConnection($table)` (`Schema::hasTable`), or `Helper::tableExists($table)`. |
-| `Laranail::setDatabaseCredentials($creds)` | **DROPPED** — mutated live `config()` globally + raw `SHOW TABLES` (credential-leak-prone). Probe safely with `Helper::canConnectWith($config)` instead. |
+| `Laranail::isValidDatabaseConnection($table)` | `Toolkit::validation()->isValidDatabaseConnection($table)` (`Schema::hasTable`), or `laranail/database-tools`' `DatabaseService::tableExists($table)`. |
+| `Laranail::setDatabaseCredentials($creds)` | **DROPPED** — mutated live `config()` globally + raw `SHOW TABLES` (credential-leak-prone). Probe safely with `laranail/database-tools`' `DatabaseService::canConnectWith($config)` instead. |
 | `Laranail::registerModelObserver($model, $observer)` | native `#[ObservedBy]` attribute, or `Toolkit::model()->registerModelObserver($model, $observer)`. |
 
 ## Session / query-string filters

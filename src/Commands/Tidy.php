@@ -25,7 +25,7 @@ use Throwable;
  *
  *  - confines EVERY file deletion to `storage_path()` (resolved real path) with
  *    {@see FilePathGuard} + a realpath-containment check that rejects `..` and
- *    symlink escapes — the same approach as `DatabaseService::clearLogFiles`;
+ *    symlink escapes;
  *  - keeps the destructive `db` action (`migrate:fresh`) OUT of `all`, gated
  *    behind --force AND the production-safety `confirmToProceed()`, and a no-op
  *    under --dry-run;

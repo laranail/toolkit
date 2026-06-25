@@ -10,7 +10,6 @@ alias), and injects its collaborators — no facades in the core logic.
 |---|---|---|---|
 | CRUD generator | `laranail::toolkit.make-crud` | `make:crud` | [make-crud](make-crud.md) |
 | IDE-helper macros | `laranail::toolkit.ide-helper-macros` | `ide-helper:macros` | [macros](macros.md) |
-| Database manager | `laranail::toolkit.database` | `laranail:database` | below |
 | Tidy | `laranail::toolkit.tidy` | `tidy` | below |
 
 ---
@@ -61,76 +60,11 @@ non-zero. The non-interactive flag is read from the input, so `--no-interaction`
   reflection-heavy stub build in `performance()` timing; on success writes a
   structured `logger()->logCompletion()` carrying the documented-macro count and
   the stub size via `display()->formatBytes(strlen(...))`.
-- **`database`** (heavy) — `consoleWriter()` throughout; `signals()` make the
-  `clean` truncate loop interruptible; every confirmation goes through
-  `interaction()->confirmAction()`; failures are captured with
-  `error()->logError()` (credentials stay redacted); each action records its
-  parameters + result in `metadata()`.
 - **`tidy`** (heavy) — `consoleWriter()` throughout; the file sweep is
   **signal-safe** (`shouldKeepRunning()` is polled per root and per file);
   destructive prompts route through `interaction()->confirmAction()` (the existing
   `db` gating is preserved); each run is timed with `performance()` and logged via
   `logger()->logCompletion()` with files-processed + space-freed `metadata()`.
-
----
-
-## `laranail::toolkit.database` — database manager
-
-Consolidated `import` / `clean` / `restore` / `export` for a connection.
-
-```bash
-php artisan laranail::toolkit.database <action> [options]
-```
-
-| Option | Description |
-|---|---|
-| `action` (argument) | `import`, `clean`, `restore`, or `export`. |
-| `--file=` | SQL file path (import / restore; export target). |
-| `--connection=` | Connection name (defaults to the app default). |
-| `--tables=` | Comma-separated tables for `clean`. |
-| `--force` | Skip confirmation prompts. |
-| `--backup` | Run an export backup before a destructive action. |
-| `--dry-run` | Show what would happen without changing anything. |
-
-### Actions
-
-- **`import`** — delegates to the transactional, path-guarded
-  `ImportDatabaseServiceInterface`. The `.sql` file is validated (no `..` /
-  null-byte path, must be a readable `.sql`) and every statement runs inside one
-  transaction that rolls back on any failure.
-- **`restore`** — a backup-aware import: with `--backup` it exports the current
-  state first, then imports (REPLACE semantics).
-- **`clean`** — truncates the given `--tables` (or every table on the
-  connection). Each name is validated via `Schema::hasTable()`; the truncate is
-  compiled by the query builder (`$connection->table($table)->truncate()`), so
-  the identifier is grammar-quoted and driver-correct — never string-interpolated
-  into raw SQL. Requires `--force` (or an interactive confirm) and honours
-  `--dry-run`.
-- **`export`** — **mysql / mariadb only.** Runs `mysqldump` via Symfony Process.
-  For other drivers it prints a clear message suggesting `spatie/db-dumper`
-  (a soft `suggest` dependency, guarded by `class_exists` — never hard-required).
-
-### Safety notes
-
-- **No shell strings.** `export` builds `mysqldump` from an **array of
-  arguments** passed to `Symfony\Component\Process\Process` — host, port, user
-  and database are discrete elements, so nothing is re-parsed by a shell and no
-  value can inject a flag or command. There is no `shell_exec`, `exec`,
-  backtick, `proc_open`, or `Process::fromShellCommandline` anywhere.
-- **Credentials never hit the command line.** The DB password is passed to
-  `mysqldump` through a chmod-600 `--defaults-extra-file` (preferred) or the
-  `MYSQL_PWD` environment variable scoped to the child process — never as an
-  argv element, so it never appears in `ps` or any log line. On failure only the
-  connection name and exit code are logged, never credentials.
-- **SQL-injection-safe `clean`.** A crafted `--tables` value (e.g.
-  `legit; DROP TABLE legit;--`) is rejected by `Schema::hasTable()` (it is not a
-  real table) and skipped — it never reaches a statement.
-- **Interruptible & auto-redacting.** The `clean` truncate loop polls
-  `signals()->shouldKeepRunning()` and stops cleanly between tables on
-  `SIGTERM` / `SIGINT`. On failure the exception is logged through
-  `services->error()->logError()`, which redacts any `password` / `secret` /
-  `token` / `key` context key — so even if the connection config were attached, no
-  credential would reach the log.
 
 ---
 
@@ -171,9 +105,8 @@ php artisan laranail::toolkit.tidy [action] [options]
   storage-relative; each is realpath-resolved and proven to sit inside
   `realpath(storage_path())` before any delete. Each candidate file is
   realpath-resolved and re-checked for containment, so a `..` path or a symlink
-  pointing **outside** storage is skipped, never followed — the same containment
-  approach as `DatabaseService::clearLogFiles`. Paths are additionally screened
-  by the `FilePathGuard` (`..` / null-byte rejection).
+  pointing **outside** storage is skipped, never followed. Paths are additionally
+  screened by the `FilePathGuard` (`..` / null-byte rejection).
 - **`--dry-run` deletes nothing** — it previews each candidate and reports the
   space that *would* be freed.
 - **`db` is hard-gated** behind `--force` + `confirmToProceed()` and excluded

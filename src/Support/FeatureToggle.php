@@ -37,13 +37,13 @@ class FeatureToggle
     {
         $user = auth()->user();
 
-        return $user ? 'user.' . $user->id : 'environment.' . app()->environment();
+        return $user !== null ? 'user.' . $user->id : 'environment.' . app()->environment();
     }
 
     /**
      * Ensure the feature-toggles.php configuration file exists, if not, create it.
      */
-    private static function ensureConfigFileExists()
+    private static function ensureConfigFileExists(): void
     {
         $configPath = config_path('feature-toggles.php');
 

@@ -9,7 +9,6 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -130,7 +129,6 @@ class IdeHelperMacrosCommandTest extends TestCase
             'Arr' => ['class' => Arr::class, 'macros' => $this->macroReader(Arr::class, 'macros')],
             'QueryBuilder' => ['class' => QueryBuilder::class, 'macros' => $this->macroReader(QueryBuilder::class, 'macros')],
             'EloquentBuilder' => ['class' => EloquentBuilder::class, 'macros' => $this->macroReader(EloquentBuilder::class, 'macros')],
-            'Blueprint' => ['class' => Blueprint::class, 'macros' => $this->macroReader(Blueprint::class, 'macros')],
             'Request' => ['class' => Request::class, 'macros' => $this->macroReader(Request::class, 'macros')],
             'Carbon' => ['class' => Carbon::class, 'macros' => fn (): array => array_keys(
                 FactoryImmutable::getDefaultInstance()->getSettings()['macros'] ?? [],

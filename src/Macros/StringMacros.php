@@ -144,6 +144,112 @@ final class StringMacros extends ServiceProvider
 
             return $string;
         });
+
+        // --- String similarity (native, no third-party / pheg dependency) ---
+
+        // Levenshtein edit distance (byte-based, like PHP's native levenshtein()).
+        Str::macro('levenshtein', fn (string $string, string $other): int => levenshtein($string, $other));
+
+        // Similarity as a percentage (0–100) via PHP's similar_text().
+        Str::macro('similarText', function (string $string, string $other): float {
+            similar_text($string, $other, $percent);
+
+            return round($percent, 2);
+        });
+
+        // Jaro–Winkler similarity (0–1), a pure-PHP implementation favouring a
+        // common prefix — useful for fuzzy name/handle matching.
+        Str::macro('jaroWinkler', function (string $string, string $other): float {
+            $len1 = strlen($string);
+            $len2 = strlen($other);
+
+            if ($len1 === 0 && $len2 === 0) {
+                return 1.0;
+            }
+
+            if ($len1 === 0 || $len2 === 0) {
+                return 0.0;
+            }
+
+            $matchDistance = max(0, (int) floor(max($len1, $len2) / 2) - 1);
+            $s1Matches = array_fill(0, $len1, false);
+            $s2Matches = array_fill(0, $len2, false);
+            $matches = 0;
+
+            for ($i = 0; $i < $len1; $i++) {
+                $start = max(0, $i - $matchDistance);
+                $end = min($i + $matchDistance + 1, $len2);
+
+                for ($j = $start; $j < $end; $j++) {
+                    if ($s2Matches[$j] || $string[$i] !== $other[$j]) {
+                        continue;
+                    }
+
+                    $s1Matches[$i] = true;
+                    $s2Matches[$j] = true;
+                    $matches++;
+                    break;
+                }
+            }
+
+            if ($matches === 0) {
+                return 0.0;
+            }
+
+            $transpositions = 0;
+            $k = 0;
+
+            for ($i = 0; $i < $len1; $i++) {
+                if (!$s1Matches[$i]) {
+                    continue;
+                }
+
+                while (!$s2Matches[$k]) {
+                    $k++;
+                }
+
+                if ($string[$i] !== $other[$k]) {
+                    $transpositions++;
+                }
+
+                $k++;
+            }
+
+            $transpositions = (int) ($transpositions / 2);
+            $jaro = ($matches / $len1 + $matches / $len2 + ($matches - $transpositions) / $matches) / 3;
+
+            $prefix = 0;
+            $maxPrefix = min(4, $len1, $len2);
+
+            for ($i = 0; $i < $maxPrefix; $i++) {
+                if ($string[$i] !== $other[$i]) {
+                    break;
+                }
+
+                $prefix++;
+            }
+
+            return round($jaro + $prefix * 0.1 * (1 - $jaro), 4);
+        });
+
+        // The closest match among $candidates by Levenshtein distance (ties go to
+        // the first candidate). Returns null for an empty candidate list.
+        Str::macro('closest', function (string $string, array $candidates): ?string {
+            $closest = null;
+            $shortest = PHP_INT_MAX;
+
+            foreach ($candidates as $candidate) {
+                $candidate = Cast::toString($candidate);
+                $distance = levenshtein($string, $candidate);
+
+                if ($distance < $shortest) {
+                    $shortest = $distance;
+                    $closest = $candidate;
+                }
+            }
+
+            return $closest;
+        });
     }
 
     private function registerStringableMacros(): void
@@ -235,6 +341,26 @@ final class StringMacros extends ServiceProvider
         Stringable::macro('interpolate', function (array $replacements): Stringable {
             /** @var Stringable $this */
             return new Stringable(Str::interpolate((string) $this, $replacements));
+        });
+
+        Stringable::macro('levenshtein', function (string $other): int {
+            /** @var Stringable $this */
+            return Str::levenshtein((string) $this, $other);
+        });
+
+        Stringable::macro('similarText', function (string $other): float {
+            /** @var Stringable $this */
+            return Str::similarText((string) $this, $other);
+        });
+
+        Stringable::macro('jaroWinkler', function (string $other): float {
+            /** @var Stringable $this */
+            return Str::jaroWinkler((string) $this, $other);
+        });
+
+        Stringable::macro('closest', function (array $candidates): ?string {
+            /** @var Stringable $this */
+            return Str::closest((string) $this, $candidates);
         });
     }
 }

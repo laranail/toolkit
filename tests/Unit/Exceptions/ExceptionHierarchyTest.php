@@ -11,9 +11,7 @@ use Simtabi\Laranail\Toolkit\Exceptions\FileTooLargeException;
 use Simtabi\Laranail\Toolkit\Exceptions\ImmutableDataException;
 use Simtabi\Laranail\Toolkit\Exceptions\InvalidPathException;
 use Simtabi\Laranail\Toolkit\Exceptions\LaranailException;
-use Simtabi\Laranail\Toolkit\Exceptions\MissingUuidColumnException;
 use Simtabi\Laranail\Toolkit\Exceptions\ModelException;
-use Simtabi\Laranail\Toolkit\Exceptions\UuidException;
 
 class ExceptionHierarchyTest extends TestCase
 {
@@ -66,22 +64,13 @@ class ExceptionHierarchyTest extends TestCase
         $this->assertSame(['id' => 1], $exception->getContext()['identifier']);
     }
 
-    public function test_uuid_exception_factories(): void
-    {
-        $this->assertSame(1001, UuidException::missingValue('uuid')->getCode());
-        $this->assertSame(1002, UuidException::invalidFormat('nope')->getCode());
-        $this->assertSame(1003, UuidException::generationFailed()->getCode());
-    }
-
     public function test_domain_exceptions_extend_laranail_exception(): void
     {
         $this->assertInstanceOf(LaranailException::class, ModelException::invalidState('M', 'r'));
-        $this->assertInstanceOf(LaranailException::class, UuidException::missingValue('c'));
     }
 
     public function test_trivial_marker_exceptions_have_helpful_factories(): void
     {
-        $this->assertStringContainsString('UUID column', MissingUuidColumnException::forModel('M')->getMessage());
         $this->assertStringContainsString('immutable', ImmutableDataException::forProperty('name')->getMessage());
         $this->assertStringContainsString('key: 9', CollectionItemNotFound::forKey(9)->getMessage());
     }

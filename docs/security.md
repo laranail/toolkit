@@ -387,37 +387,4 @@ The redaction deny-list is resolved in this order:
 
 Set `access_log.enabled => false` to disable persistence entirely.
 
-## Database session read model
-
-`Modules\Security\Session\DatabaseSession` is a **read model** over Laravel's
-own `sessions` table (`SESSION_DRIVER=database`). The package ships **no
-migration** for it — it reads the table the framework's session driver already
-creates. Use it to inspect or relate session rows ("who is online", per-user
-session lists); **writes still go through the session driver, not this model**.
-
-```php
-use Simtabi\Laranail\Toolkit\Modules\Security\Session\DatabaseSession;
-use App\Models\User;
-
-$sessions = DatabaseSession::query()
-    ->usingUserModel(User::class)   // wire up the user() relation
-    ->where('last_activity', '>=', now()->subMinutes(5)->timestamp)
-    ->get();
-
-$session->getUnserializedPayloadAttribute(); // safely decoded payload (allowed_classes: false)
-$session->getLastActivityAtAttribute();      // last_activity as a Carbon instance
-$session->user;                              // BelongsTo the configured user model
-```
-
-| Member | Effect |
-|---|---|
-| `usingTable(string $table)` | Override the table name (defaults to `sessions`). |
-| `usingUserModel(class-string $userModelClass)` | Set the related model for `user()`. |
-| `getUnserializedPayloadAttribute(): array` | Decode Laravel's `base64(serialize(...))` payload **with `allowed_classes: false`** (no object injection). |
-| `getLastActivityAtAttribute(): Carbon` | `last_activity` (Unix ts) as Carbon. |
-| `user(): BelongsTo` | The owning user, when a user model is configured. |
-
-The model is a string-keyed, non-incrementing, timestamp-less read model
-(`$table = 'sessions'`).
-
 [← Docs index](../README.md#documentation)

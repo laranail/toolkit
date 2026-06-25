@@ -32,6 +32,37 @@ are wrapped in `<mark>…</mark>`, and the result is returned as an
 `Illuminate\Support\HtmlString`. `interpolate` replaces the longest placeholder
 first, so `:foo_bar` is never partially matched by `:foo`.
 
+### String similarity
+
+Native (no third-party / pheg dependency) fuzzy-matching helpers — also on
+`Stringable`:
+
+| Macro | Returns | Notes |
+|---|---|---|
+| `levenshtein($other)` | `int` | Edit distance (PHP's native `levenshtein`, byte-based). |
+| `similarText($other)` | `float` | Similarity as a **percentage** (0–100) via `similar_text`. |
+| `jaroWinkler($other)` | `float` | Jaro–Winkler similarity (0–1), pure-PHP, favours a common prefix. |
+| `closest($candidates)` | `?string` | The nearest candidate by Levenshtein distance (ties → first; `null` for an empty list). |
+
+```php
+Str::levenshtein('kitten', 'sitting');               // 3
+Str::similarText('World', 'word');                   // 80.0
+Str::jaroWinkler('MARTHA', 'MARHTA');                // 0.9611
+Str::closest('appel', ['apple', 'grape', 'apply']);  // "apple"
+str('appel')->closest(['apple', 'grape']);           // "apple"
+```
+
+## Carbon macros
+
+Date helpers and ~90 national-calendar predicates (15 countries + multinational
+feasts) are registered on `Carbon` / `CarbonImmutable`. See the dedicated
+**[Carbon macros](carbon-macros.md)** reference.
+
+```php
+Carbon::parse('2026-06-25')->addBusinessDays(3);   // skips weekends
+Carbon::now()->isFrenchNationalDay();              // bool
+```
+
 ## Arr macros
 
 `filterNulls`, `filterEmpty`, `mapKeys($cb)`, `insertAfter($key, $insert)`,
@@ -110,26 +141,6 @@ Post::query()
     ->get();
 ```
 
-## Blueprint macros
-
-Schema-building shortcuts: `addCommonFields()` (timestamps + soft deletes),
-`addUserFields()` (created_by/updated_by/deleted_by), `addPublishingFields()`,
-`addStatusField($default = 'active')`, `addSortingField($default = 0)`,
-`addSlugField($nullable = false)`, `dropForeignIfExists($index)`,
-`dropColumnIfExists($columns)`, `addMetaFields()`, `addSeoFields()` (alias of
-meta), `addLocationFields()`, `addImageFields($prefix = '')`, `addPriceFields()`,
-`addActivationFields()`, `addExpiryFields()`, `addUuidPrimaryKey($column = 'id')`,
-`addNullableMorphs($name, $indexName = null)`.
-
-```php
-Schema::create('posts', function (Blueprint $table) {
-    $table->id();
-    $table->addSlugField();
-    $table->addPublishingFields();
-    $table->addCommonFields();
-});
-```
-
 ## Response macros
 
 Registered on the response factory (callable via the `response()` helper or the
@@ -186,7 +197,7 @@ php artisan ide-helper:macros --path=ide-helper/_ide_helper_macros.php
 Unlike the legacy `ide-helper:macros` (which walked a static class list), this
 reflects the macros actually registered at boot on every macroable target
 (`Str`, `Stringable`, `Collection`, `Arr`, the query / Eloquent builders,
-`Blueprint`, `Request`, `Carbon`, the response factory) plus the
+`Request`, `Carbon`, the response factory) plus the
 `Factory::withoutEvents()` mixin, so
 the stub can never list a macro the toolkit does not register. The
 `IdeHelperStubTest` drift test still guards the committed file in both

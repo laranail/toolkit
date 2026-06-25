@@ -9,7 +9,6 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
-use Simtabi\Laranail\Toolkit\Commands\DatabaseManager;
 use Simtabi\Laranail\Toolkit\Commands\IdeHelperMacros;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Commands\Tidy;
@@ -32,11 +31,9 @@ use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\ImportDatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
@@ -45,11 +42,9 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\DatabaseService;
 use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
 use Simtabi\Laranail\Toolkit\Services\FileService;
 use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
-use Simtabi\Laranail\Toolkit\Services\ImportDatabaseService;
 use Simtabi\Laranail\Toolkit\Services\LogService;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Services\RateLimiterService;
@@ -118,13 +113,6 @@ class ToolkitServiceProvider extends ServiceProvider
             $app->make(LoggerInterface::class),
         ));
 
-        // Database helpers + maintenance, confined to the application base path.
-        $this->app->bind(DatabaseServiceInterface::class, fn ($app): DatabaseService => new DatabaseService(
-            $app->make(LoggerInterface::class),
-            $app->make('session.store'),
-            $app->basePath(),
-        ));
-
         // File-domain service (primary, injectable; formerly static Helper::*).
         $this->app->singleton(FileServiceInterface::class, FileService::class);
 
@@ -132,13 +120,6 @@ class ToolkitServiceProvider extends ServiceProvider
         // FileService so there is a single byte-formatter implementation).
         $this->app->singleton(SystemServiceInterface::class, fn ($app): SystemService => new SystemService(
             $app->make(FileServiceInterface::class),
-        ));
-
-        // Generic, safe SQL importer (path-guarded, transactional, no credential
-        // logging).
-        $this->app->bind(ImportDatabaseServiceInterface::class, fn ($app): ImportDatabaseService => new ImportDatabaseService(
-            $app->make('db'),
-            $app->make(LoggerInterface::class),
         ));
 
         // Bind the Cache/Logger service contracts (interface→concrete service).
@@ -237,7 +218,6 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->publishComponent('Services/SchedulerService', 'scheduler');
         $this->publishComponent('Support/QueryParameters', 'query-parameters');
         $this->publishComponent('Services/RateLimiterService', 'rate-limiter');
-        $this->publishComponent('Support/Pagination', 'pagination');
         $this->publishComponent('Support/CollectionFilter', 'collection-filter');
         $this->publishComponent('Services/LogService', 'log');
         $this->publishComponent('Support/Environment', 'environment');
@@ -255,7 +235,7 @@ class ToolkitServiceProvider extends ServiceProvider
 
         // Register Artisan commands
         if ($this->app->runningInConsole()) {
-            $this->commands([MakeCrud::class, IdeHelperMacros::class, DatabaseManager::class, Tidy::class]);
+            $this->commands([MakeCrud::class, IdeHelperMacros::class, Tidy::class]);
 
             $this->publishes([
                 __DIR__ . '/../../stubs' => base_path('stubs/vendor/laranail-toolkit'),

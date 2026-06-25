@@ -20,10 +20,8 @@ factories so the call site reads intent-first.
 | `LaranailException` | `\Exception` (`JsonSerializable`, `Stringable`) | Base — structured, loggable, JSON-renderable error. |
 | `AuthenticationException` | `LaranailException` | An authentication operation fails (missing/invalid guard, unauthenticated). Self-renders a JSON `401`. |
 | `ModelException` | `LaranailException` | An Eloquent model operation fails (missing PK, not found, invalid state). |
-| `UuidException` | `LaranailException` | A UUID operation fails (missing value, bad format, generation failure). |
 | `CollectionItemNotFound` | `\Exception` | A collection lookup finds no item for a key. |
 | `ImmutableDataException` | `\Exception` | Code mutates a value object meant to be immutable. |
-| `MissingUuidColumnException` | `\Exception` | A model is expected to expose a UUID column but none is configured. |
 | `FileTooLargeException` | `\RuntimeException` | A file read exceeds the configured size limit. |
 | `InvalidPathException` | `\RuntimeException` | An invalid / unsafe path is detected (traversal, null byte, outside allowed dir, bad chars). |
 
@@ -114,16 +112,6 @@ throw ModelException::invalidState(Post::class, 'draft'); // code 3003
 `notFound()` carries a `404` status and a safe, stringified identifier in the
 message; `context` always includes the `model` (and `identifier` / `reason`).
 
-## `UuidException`
-
-```php
-use Simtabi\Laranail\Toolkit\Exceptions\UuidException;
-
-throw UuidException::missingValue('uuid');           // code 1001
-throw UuidException::invalidFormat($value);          // code 1002
-throw UuidException::generationFailed('no entropy'); // code 1003
-```
-
 ## SPL-based exceptions
 
 These extend plain SPL classes (so they are *not* caught by
@@ -132,13 +120,11 @@ These extend plain SPL classes (so they are *not* caught by
 ```php
 use Simtabi\Laranail\Toolkit\Exceptions\CollectionItemNotFound;
 use Simtabi\Laranail\Toolkit\Exceptions\ImmutableDataException;
-use Simtabi\Laranail\Toolkit\Exceptions\MissingUuidColumnException;
 use Simtabi\Laranail\Toolkit\Exceptions\FileTooLargeException;
 use Simtabi\Laranail\Toolkit\Exceptions\InvalidPathException;
 
 throw CollectionItemNotFound::forKey('missing');           // \Exception
 throw ImmutableDataException::forProperty('id');           // \Exception
-throw MissingUuidColumnException::forModel(Post::class);   // \Exception
 throw FileTooLargeException::create($path, $size, $max);   // \RuntimeException, human-readable byte sizes
 throw InvalidPathException::directoryTraversal($path);     // \RuntimeException
 ```

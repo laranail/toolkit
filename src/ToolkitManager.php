@@ -16,7 +16,6 @@ use Simtabi\Laranail\Toolkit\Modules\Security\Password;
 use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
@@ -84,22 +83,6 @@ class ToolkitManager
     public function session(): SessionServiceInterface
     {
         return $this->app->make(SessionServiceInterface::class);
-    }
-
-    /**
-     * Database introspection + maintenance helpers (confined to the base path).
-     */
-    public function db(): DatabaseServiceInterface
-    {
-        return $this->app->make(DatabaseServiceInterface::class);
-    }
-
-    /**
-     * Alias of {@see self::db()} for callers preferring the long name.
-     */
-    public function database(): DatabaseServiceInterface
-    {
-        return $this->db();
     }
 
     /**

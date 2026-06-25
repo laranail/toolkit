@@ -39,14 +39,6 @@ class HelperStringsTest extends TestCase
         $this->assertSame('hello-world', Helper::strSlugify('Hello, World!'));
     }
 
-    public function test_uuid_is_a_valid_v4_uuid(): void
-    {
-        $this->assertMatchesRegularExpression(
-            '/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/',
-            Helper::uuid(),
-        );
-    }
-
     // --- Folded-in StringHelperService delta ---
 
     public function test_uc_words_title_cases_multibyte(): void

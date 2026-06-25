@@ -22,7 +22,6 @@ use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
@@ -94,8 +93,6 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(RouteServiceInterface::class, Toolkit::route());
         $this->assertInstanceOf(ValidationServiceInterface::class, Toolkit::validation());
         $this->assertInstanceOf(SessionServiceInterface::class, Toolkit::session());
-        $this->assertInstanceOf(DatabaseServiceInterface::class, Toolkit::db());
-        $this->assertInstanceOf(DatabaseServiceInterface::class, Toolkit::database());
         $this->assertInstanceOf(ModelService::class, Toolkit::model());
         $this->assertInstanceOf(HttpConfigurationServiceInterface::class, Toolkit::http());
         $this->assertInstanceOf(FileServiceInterface::class, Toolkit::file());
@@ -157,7 +154,6 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(AvatarServiceInterface::class, Laranail::avatar());
         $this->assertInstanceOf(RouteServiceInterface::class, Laranail::route());
         $this->assertInstanceOf(SessionServiceInterface::class, Laranail::session());
-        $this->assertInstanceOf(DatabaseServiceInterface::class, Laranail::database());
         $this->assertInstanceOf(AtlasServiceInterface::class, Laranail::atlas());
     }
 

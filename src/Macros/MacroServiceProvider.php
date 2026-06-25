@@ -26,7 +26,6 @@ final class MacroServiceProvider extends ServiceProvider
         CollectionMacros::class,
         ArrMacros::class,
         QueryBuilderMacros::class,
-        BlueprintMacros::class,
         RequestMacros::class,
         CarbonMacros::class,
         ResponseMacros::class,

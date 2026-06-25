@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **String-similarity macros** on `Str`/`Stringable` — `levenshtein`,
+  `similarText` (percentage), `jaroWinkler` (pure-PHP), and `closest`. Native, no
+  third-party dependency; restores the legacy `laravel-string-similarities` doc.
+- **Carbon macros documentation** (`docs/carbon-macros.md`) — the ~90
+  national-calendar predicates (15 countries) + date helpers in `CarbonMacros`
+  were previously undocumented. Expanded the Avatar module docs (font enum,
+  resolution fallback order, field mappings, callback context) and recorded the
+  disposition of every legacy `docs/` topic in the migration ledger.
+- **Documentation completeness pass.** Every shipped public class now has a doc
+  page or section: `docs/traits.md` gains `HasAuth`, `HasErrorStorage`,
+  `HasGuzzleConfig`, `RunsConditionally`, and a standalone `FilePathGuard`;
+  `docs/utilities.md` gains the `AuthenticationContextService`,
+  `ErrorStorageService`, `HttpConfigurationService`,
+  `RouteService`, and `ValidationService` services plus the `Cast`, `Config`,
+  `ConditionalRunner`, and `ApiResponder` Support helpers. The LLM provider docs
+  moved to `docs/modules/llm.md` for module-pattern consistency.
+- **Tests** for the previously-untested `Support\Cast`, `Support\Config`,
+  `Support\ApiResponder`, and the `HasGuzzleConfig` trait (4 new suites).
 - **Atlas continent & region API + single config.** New `Atlas::continents()`,
   `countriesByContinent()`, `countriesInContinent()` (by ISO code or English
   name), `continentForCountry()` (ISO2/ISO3), `regions()`, and `subregions()`.
@@ -103,15 +121,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Events` → `Event` (now `Modules\Eventing\Events\Event`; `CacheEvents extends
   Event`). The listener base is `Modules\Eventing\Listeners\Listener`. See
   [docs/base-classes.md](docs/base-classes.md).
-- **`ArchiveScope` moved to `Modules\Model\Scopes\ArchiveScope`** (from the
-  top-level `Scopes\`), and the database-session read model to
-  `Modules\Security\Session\DatabaseSession`.
 - **`laranail/console` bumped to `^2.5.0`** (the release carrying the first-class
   `ConsoleWriter` + the nine command services), and the four commands rewritten to
   consume its full feature set (see _Added_).
 
 ### BREAKING
 
+- **BREAKING: relocated all UUID & database tooling to `laranail/database-tools`.**
+  The toolkit no longer ships UUID or low-level database features — they now live
+  in the sibling
+  [`laranail/database-tools`](https://opensource.simtabi.com/database-tools/)
+  package. Moved out: `Traits\HasUuid`; `Exceptions\UuidException` /
+  `MissingUuidColumnException`; `Services\DatabaseService` and
+  `Services\ImportDatabaseService` (+ their contracts); the
+  `laranail::toolkit.database` (`laranail:database`) Artisan command
+  (`Commands\DatabaseManager`); the `Macros\BlueprintMacros` schema macros
+  (`addCommonFields` / `addUserFields` / `addUuidPrimaryKey` / `addNullableMorphs` /
+  `addSlugField` / …); `Support\Pagination`; `Traits\HasArchiver` +
+  `Modules\Model\Scopes\ArchiveScope` (soft-archive `archived_at`);
+  `Modules\Security\Session\DatabaseSession`; `Helper::uuid()`; and the
+  `using_uuids_for_id` / `using_ulids_for_id` / `type_id` config keys.
+  **Migrate:** `composer require laranail/database-tools` and use its
+  `Concerns\HasUuid` / `Services\DatabaseService` / `Schema\BlueprintMacros` and
+  the `laranail::database-tools.db` command.
 - **The `Utilities\` namespace was removed.** Every `*Util` class was split by
   responsibility into injectable, interface-backed `Services\*` and pure static
   `Support\*`. Update imports as follows:
@@ -128,12 +160,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   | `EnvironmentUtil` | `Support\Environment` |
   | `FeatureToggleUtil` | `Support\FeatureToggle` |
   | `FilteringUtil` | `Support\CollectionFilter` |
-  | `PaginationUtil` | `Support\Pagination` |
   | `QueryParameterUtil` | `Support\QueryParameters` |
 
-- **Structure moves.** `Support\Scopes\ArchiveScope` → `Modules\Model\Scopes\ArchiveScope`;
-  `Support\Models\DatabaseSession` → `Modules\Security\Session\DatabaseSession`;
-  `Support\FilePathGuard` → `Traits\FilePathGuard`;
+- **Structure moves.** `Support\FilePathGuard` → `Traits\FilePathGuard`;
   `Support\Diagnostics\RequirementsDiagnostics` → `Support\RequirementsDiagnostics`;
   `Observers\BaseObserver` → `Observers\Observer`;
   `Modules\AccessLog\*` → `Modules\Security\AccessLog\*`;

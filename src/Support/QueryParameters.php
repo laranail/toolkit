@@ -11,7 +11,9 @@ class QueryParameters
     /**
      * Parse query parameters from request.
      *
-     * @return array
+     * @param list<string> $allowedParameters
+     *
+     * @return array<string, mixed>
      */
     public static function parse(Request $request, array $allowedParameters)
     {

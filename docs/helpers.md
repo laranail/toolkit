@@ -4,15 +4,14 @@ The toolkit splits its day-to-day helpers along a single line:
 
 - **Pure-function domains stay static** on `Simtabi\Laranail\Toolkit\Helpers\Helper`
   (arrays, strings & identity, dates, geo, console). Every method is `static`
-  and side-effect free — call them directly (`Helper::uuid()`), no container
-  resolution required. `Helper` is a `final` class composed of per-domain
+  and side-effect free — call them directly (`Helper::ucWords('jane doe')`), no
+  container resolution required. `Helper` is a `final` class composed of per-domain
   `InteractsWith*` traits under `Simtabi\Laranail\Toolkit\Helpers\Concerns`; the
   trait split is an internal organising detail — the public surface is `Helper::`.
 - **Stateful / swappable domains are injectable services** (the primary API),
   resolved from the container or fronted by the `Toolkit` facade:
   - **Files** → `Services\Contracts\FileServiceInterface` (`Toolkit::file()`)
   - **System** → `Services\Contracts\SystemServiceInterface` (`Toolkit::system()`)
-  - **Database** → `Services\Contracts\DatabaseServiceInterface` (`Toolkit::db()`)
   - **Session** → `Services\Contracts\SessionServiceInterface` (`Toolkit::session()`)
 
 ```php
@@ -22,7 +21,7 @@ use Simtabi\Laranail\Toolkit\Facades\Toolkit;         // service accessors
 
 > The static `Helper::` methods are deliberately **not** fronted by the
 > [`Toolkit` facade](../README.md#unified-entry--the-toolkit-facade) — they are
-> pure utilities, so call them on `Helper` directly. The file/system/database
+> pure utilities, so call them on `Helper` directly. The file/system
 > services ARE on the facade (and injectable by interface).
 
 ## Arrays
@@ -43,7 +42,6 @@ Helper::usernameFromEmail('Jane.Doe@x.io');     // 'Jane.Doe'  (delegates to Sup
 Helper::emailFromUsername('jane', 'acme.test'); // 'jane@acme.test'
 Helper::nameToUsernames('Imani', 'Manyara');    // suggestion list (Username::candidates)
 Helper::generateUsername('guest', 4);           // 'guest4821'  (Username::random)
-Helper::uuid();                                 // a UUID string
 Helper::escapeHtml($dirty);                     // XSS-safe HtmlString
 Helper::classBasename($model);                  // short class name
 Helper::randomIntExcept(1, 6, [3]);             // 1,2,4,5 or 6 (bounded; throws if impossible)
@@ -125,38 +123,6 @@ generic — pass whatever allow-list you need; it lower-cases and strips a leadi
 dot before comparing. Plain read/write/copy/move/delete are deliberately not
 wrapped — use the `Storage` / `File` facades or `Traits\FileProcessingTrait`
 directly.
-
-## Database (service)
-
-Safe, **read-only** database introspection (folded onto the existing
-`DatabaseService`) — every method is exception-safe and never mutates the
-application's connections. Resolve via the container or `Toolkit::db()`.
-
-```php
-use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
-
-$db = app(DatabaseServiceInterface::class);      // or Toolkit::db()
-
-$db->canConnect();                               // bool — default connection reachable?
-$db->tableExists('users');                       // bool
-$db->columnExists('users', 'email');             // bool
-$db->connectionNames();                          // ['mysql', 'sqlite', …]
-
-$db->canConnectWith([                            // probe an ad-hoc config safely
-    'driver' => 'mysql',
-    'host' => '127.0.0.1',
-    'database' => 'probe',
-    'username' => 'root',
-    'password' => '',
-]);
-```
-
-> **`canConnectWith()` safety:** it is the safe replacement for the dropped
-> `setDatabaseCredentials`. It registers a throwaway, **uniquely-named** temporary
-> connection, opens its PDO inside a `try`/`catch`, and **always** purges and
-> unsets the temp config in a `finally` — so the default connection is never
-> mutated and credentials are never logged. Failure is returned as `false`, never
-> thrown.
 
 ## Session (service)
 

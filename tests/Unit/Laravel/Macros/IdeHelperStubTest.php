@@ -7,7 +7,6 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Arr;
@@ -64,10 +63,6 @@ class IdeHelperStubTest extends TestCase
             'EloquentBuilder' => [
                 'class' => EloquentBuilder::class,
                 'has' => EloquentBuilder::hasGlobalMacro(...),
-            ],
-            'Blueprint' => [
-                'class' => Blueprint::class,
-                'has' => Blueprint::hasMacro(...),
             ],
             'Request' => [
                 'class' => Request::class,
@@ -126,12 +121,6 @@ class IdeHelperStubTest extends TestCase
             ],
             'EloquentBuilder' => [
                 'whenFilled', 'whereBetweenDates', 'existsOr', 'doesntExistOr',
-            ],
-            'Blueprint' => [
-                'addCommonFields', 'addUserFields', 'addPublishingFields', 'addStatusField',
-                'addSortingField', 'addSlugField', 'dropForeignIfExists', 'dropColumnIfExists',
-                'addMetaFields', 'addSeoFields', 'addLocationFields', 'addImageFields', 'addPriceFields',
-                'addActivationFields', 'addExpiryFields', 'addUuidPrimaryKey', 'addNullableMorphs',
             ],
             'Request' => [
                 'expectsJsonOrAjax', 'isBot', 'isFromMobile', 'hasFiles', 'hasValidFile', 'getReferer',

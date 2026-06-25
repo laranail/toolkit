@@ -21,18 +21,18 @@ src/
 ├── ToolkitManager.php                      # Toolkit::avatar()/gravatar()/...
 ├── Commands/MakeCrud.php                   # make-crud (extends the laranail/console base)
 ├── Http/Controllers/CrudController.php     # abstract base controller
-├── Services/                               # injectable, interface-backed services (File, System, Database,
+├── Services/                               # injectable, interface-backed services (File, System,
 │                                           #   Cache, Log, SettingsStore, RateLimiter, Scheduler, ...)
 ├── Macros/                                 # grouped macro providers + MacroServiceProvider
 ├── Traits/                                 # ApiResponse, Auditable, HasAvatar, FilePathGuard, ...
 ├── Support/                                # pure/static helpers: ApiResponder, Cast, Config, AuthHelper,
-│   │                                       #   Environment, CollectionFilter, Pagination, QueryParameters,
+│   │                                       #   Environment, CollectionFilter, QueryParameters,
 │                                           #   FeatureToggle, RequirementsDiagnostics, Username, ...
 ├── Observers/Observer.php                  # abstract model observer base
 ├── Enums/{LogLevel, CacheAction}
 ├── Rules/RejectCommonPasswords.php
 ├── Helpers/Helper.php                       # static PURE-function facade (arrays/strings/dates/geo/console); Concerns/InteractsWith* traits
-                                             #   (file/system/database domains moved to injectable Services/*)
+                                             #   (file/system domains moved to injectable Services/*)
 └── Modules/                                # self-contained feature modules (flat inside)
     ├── Avatar/        AvatarService, AvatarServiceInterface, AvatarFont, DTOs, Avatar facade, provider
     ├── Gravatar/      GravatarService, …, Gravatar facade, provider
@@ -40,27 +40,24 @@ src/
     ├── Archiver/      ArchiverService, ArchiveManager, Zip/Tar/TarGz/Extractor, Archiver facade, provider
     ├── Atlas/         AtlasService, …, Atlas facade, provider (single config/atlas.php)
     ├── Eventing/      Events/{Event (abstract event base), CacheEvents}, Listeners/Listener (abstract listener base)
-    ├── Model/         Scopes/ArchiveScope (archived_at global scope, paired with Traits/HasArchiver)
     ├── Livewire/      LivewireServiceProvider, component registration
-    ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (lazy config/security.php loader), AccessLog/{AccessLogMiddleware, AccessLog (model)}, Session/DatabaseSession (read model over the database session table)
+    ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (lazy config/security.php loader), AccessLog/{AccessLogMiddleware, AccessLog (model)}
     └── LLM/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, LLM facade, LLMServiceProvider
 ```
 
 > The command base (`Command` + `SupportsNamespacedNames`) is **not** local — it
 > comes from [`laranail/console`](https://opensource.simtabi.com/console/) `^2.5.0`,
-> the org-canonical command base. All four toolkit commands — `MakeCrud`,
-> `IdeHelperMacros`, `DatabaseManager`, `Tidy` — extend it and use its **full
+> the org-canonical command base. All three toolkit commands — `MakeCrud`,
+> `IdeHelperMacros`, `Tidy` — extend it and use its **full
 > feature set**: the fluent `$this->consoleWriter()` (context statuses
 > success/error/warning/info/note, styling, emoji) and the `$this->services`
 > lifecycle (`performance`, `signals`, `interaction`, `logger`, `error`,
-> `metadata`, `display`). The heavy commands (`DatabaseManager`, `Tidy`) make
-> their destructive loops **signal-safe** (`signals()->shouldKeepRunning()`),
-> confirm through `interaction()->confirmAction()` (safe default in
-> non-interactive mode), and capture failures via the **auto-redacting**
-> `error()->logError()` — so credentials never reach a log channel. The existing
-> G10 security hardening (mysqldump array-args + chmod-600 defaults-file,
-> Schema-validated grammar-quoted truncate, FilePathGuard storage confinement,
-> `db` gating) is untouched.
+> `metadata`, `display`). The heavy `Tidy` command makes its destructive sweep
+> **signal-safe** (`signals()->shouldKeepRunning()`), confirms through
+> `interaction()->confirmAction()` (safe default in non-interactive mode), and
+> captures failures via the **auto-redacting** `error()->logError()` — so
+> credentials never reach a log channel. The existing security hardening
+> (FilePathGuard storage confinement, `db` action gating) is untouched.
 
 ## Adding a feature / tool / module
 
@@ -111,7 +108,7 @@ accessors**:
 | `Toolkit::rateLimiter()` | `Services\Contracts\RateLimiterServiceInterface` |
 | `Toolkit::scheduler()` | `Services\Contracts\SchedulerServiceInterface` |
 
-plus `file()`, `system()`, `db()` / `database()`, `session()`, `route()`,
+plus `file()`, `system()`, `session()`, `route()`,
 `validation()`, `http()`, `auth()`, and `model()`. (The pure static `Helper::`
 methods are intentionally **not** on the facade — see [helpers](helpers.md).)
 
@@ -120,7 +117,7 @@ methods are intentionally **not** on the facade — see [helpers](helpers.md).)
 Two things must register eagerly and so run in `boot()`, not deferred:
 
 - **Macros** — `MacroServiceProvider` registers all Str/Arr/Collection/Query/
-  Request/Blueprint/Factory macros globally.
+  Request/Factory macros globally.
 - **Blade directives** — `BladeServiceProvider` registers custom directives.
 
 The middleware alias `access.log`, the `reject_common_passwords` validator, and
@@ -155,7 +152,7 @@ use Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions;
 
 `Modules\LLM\LLMProviderInterface` is bound to a single driver chosen at
 resolution time from `config('laranail.toolkit.llm.default_provider')` — `openai`
-(default), `claude`, or `gemini`. See [LLM providers](llm-providers.md).
+(default), `claude`, or `gemini`. See [LLM providers](modules/llm.md).
 
 ## Migration / removal record
 

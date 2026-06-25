@@ -12,9 +12,10 @@ class CollectionFilter
     /**
      * Filter a collection by a given key value pair.
      *
-     * @param string $value
+     * @param Collection<array-key, mixed> $items
+     * @param mixed                        $value
      *
-     * @return Collection
+     * @return Collection<array-key, mixed>
      */
     public static function filter(Collection $items, string $name, string $operator, $value)
     {
@@ -31,7 +32,7 @@ class CollectionFilter
 
             // String operators: compare case-insensitively, guarding non-scalars.
             $haystack = is_scalar($actual) ? Str::lower((string) $actual) : '';
-            $needle = Str::lower((string) $value);
+            $needle = is_scalar($value) ? Str::lower((string) $value) : '';
 
             return match ($operator) {
                 'contains' => str_contains($haystack, $needle),

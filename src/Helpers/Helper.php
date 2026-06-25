@@ -9,7 +9,6 @@ use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithConsole;
 use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithDates;
 use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithGeo;
 use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithStrings;
-use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 
@@ -18,17 +17,17 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
  * domains, composed of per-domain traits.
  *
  * Every method here is `static` and side-effect free — call them directly
- * (`Helper::uuid()`), no container resolution or injection required. The
- * STATEFUL / swappable domains that used to live here (files, system,
- * database) are now injectable, interface-backed services and are NO LONGER
- * on this class:
+ * (`Helper::ucWords()`), no container resolution or injection required. The
+ * STATEFUL / swappable domains that used to live here (files, system) are now
+ * injectable, interface-backed services and are NO LONGER on this class:
  *
  * - File domain   → {@see FileServiceInterface}
  *                   (`app(FileServiceInterface::class)` / `Toolkit::file()`)
  * - System domain → {@see SystemServiceInterface}
  *                   (`app(SystemServiceInterface::class)` / `Toolkit::system()`)
- * - DB connection → folded onto {@see DatabaseServiceInterface}
- *                   (`Toolkit::db()`)
+ *
+ * Database tooling (connection probes, UUID model traits, schema macros, the
+ * `db` console command) lives in the dedicated `laranail/database-tools` package.
  *
  * What remains here (genuinely pure, regrouped by concern into the {@see Concerns}
  * `InteractsWith*` traits):
@@ -36,7 +35,7 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
  * - {@see InteractsWithArrays}  — arrayTrim, arrayFlatten, arrayToDotNotation
  * - {@see InteractsWithStrings} — strBetween, strSlugify, ucWords, usernameFromEmail,
  *                                 emailFromUsername, nameToUsernames, generateUsername,
- *                                 uuid, escapeHtml, classBasename, randomIntExcept,
+ *                                 escapeHtml, classBasename, randomIntExcept,
  *                                 faker, interpolate, stripTags, linesCount
  * - {@see InteractsWithDates}   — carbonParse, carbonHumanDiff
  * - {@see InteractsWithGeo}     — distanceBetween

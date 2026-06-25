@@ -1,6 +1,9 @@
 /.phpunit.cache
 /.infection
 /infection.log
+/infection-*.txt
+/infection-*.log
+/infection-summary.json
 /coverage.xml
 /node_modules
 /public/build

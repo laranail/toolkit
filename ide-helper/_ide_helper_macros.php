@@ -9,7 +9,7 @@ declare(strict_types=1);
  * (alias `ide-helper:macros`). Do NOT edit by hand — regenerate instead.
  *
  * The toolkit registers many macros on Illuminate's macroable targets
- * (Str, Stringable, Collection, Arr, the query/Eloquent builders, Blueprint,
+ * (Str, Stringable, Collection, Arr, the query/Eloquent builders,
  * Request, Carbon) plus a Factory mixin. Those are added at boot via
  * `Macroable::macro()` / `Factory::mixin()`, so a static analyser / IDE cannot
  * see them and will not autocomplete or type them.
@@ -268,29 +268,6 @@ namespace Illuminate\Database\Eloquent {
      * @method \Illuminate\Database\Eloquent\Builder whereBetweenDates(string $column, mixed $startDate, mixed $endDate)
      */
     class Builder {}
-}
-
-namespace Illuminate\Database\Schema {
-    /**
-     * @method void                                  addActivationFields()
-     * @method void                                  addCommonFields()
-     * @method void                                  addExpiryFields()
-     * @method void                                  addImageFields(string $prefix = '')
-     * @method void                                  addLocationFields()
-     * @method void                                  addMetaFields()
-     * @method void                                  addNullableMorphs(string $name, ?string $indexName = null)
-     * @method void                                  addPriceFields()
-     * @method void                                  addPublishingFields()
-     * @method void                                  addSeoFields()
-     * @method \Illuminate\Database\Schema\Blueprint addSlugField(bool $nullable = false)
-     * @method void                                  addSortingField(int $default = 0)
-     * @method void                                  addStatusField(string $default = 'active')
-     * @method void                                  addUserFields()
-     * @method void                                  addUuidPrimaryKey(string $column = 'id')
-     * @method void                                  dropColumnIfExists(mixed $columns)
-     * @method void                                  dropForeignIfExists(string $index)
-     */
-    class Blueprint {}
 }
 
 namespace Illuminate\Http {

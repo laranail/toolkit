@@ -159,22 +159,6 @@ class MacroBehaviorTest extends TestCase
         Schema::dropIfExists('macro_gadgets');
     }
 
-    public function test_blueprint_column_group_macros_apply(): void
-    {
-        Schema::create('macro_articles', static function (Blueprint $table): void {
-            $table->id();
-            $table->addStatusField();
-            $table->addPublishingFields();
-            $table->addMetaFields();
-        });
-
-        $this->assertTrue(Schema::hasColumn('macro_articles', 'status'));
-        $this->assertTrue(Schema::hasColumn('macro_articles', 'is_published'));
-        $this->assertTrue(Schema::hasColumn('macro_articles', 'meta_title'));
-
-        Schema::dropIfExists('macro_articles');
-    }
-
     public function test_request_is_bot_detects_known_agents(): void
     {
         $request = Request::create('/', 'GET', server: ['HTTP_USER_AGENT' => 'Googlebot/2.1']);

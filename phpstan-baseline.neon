@@ -73,12 +73,6 @@ parameters:
 			path: src/Commands/MakeCrud.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Commands\\MakeCrud\:\:loadStub\(\) should return string but returns string\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/Commands/MakeCrud.php
-
-		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Commands\\MakeCrud\:\:migrationColumnLine\(\) has parameter \$field with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -139,19 +133,7 @@ parameters:
 			path: src/Commands/MakeCrud.php
 
 		-
-			message: '#^Parameter \#1 \$haystack of function str_contains expects string, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Commands/MakeCrud.php
-
-		-
 			message: '#^Parameter \#1 \$raw of method Simtabi\\Laranail\\Toolkit\\Commands\\MakeCrud\:\:parseFields\(\) expects string, array\|bool\|float\|int\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Commands/MakeCrud.php
-
-		-
-			message: '#^Parameter \#1 \$string of function rtrim expects string, string\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Commands/MakeCrud.php
@@ -373,12 +355,6 @@ parameters:
 			path: src/Modules/Gravatar/GravatarService.php
 
 		-
-			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\HasLivewireComponents is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Modules/Livewire/HasLivewireComponents.php
-
-		-
 			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
 			identifier: empty.notAllowed
 			count: 1
@@ -583,6 +559,12 @@ parameters:
 			path: src/Modules/LLM/OpenAI/OpenAIResponse.php
 
 		-
+			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\HasLivewireComponents is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Modules/Livewire/HasLivewireComponents.php
+
+		-
 			message: '#^Method Simtabi\\Laranail\\Toolkit\\Providers\\ToolkitServiceProvider\:\:loadCacheService\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -617,48 +599,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/Providers/ToolkitServiceProvider.php
-
-		-
-			message: '#^Call to function in_array\(\) requires parameter \#3 to be set\.$#'
-			identifier: function.strict
-			count: 1
-			path: src/Rules/RejectCommonPasswords.php
-
-		-
-			message: '#^Property Simtabi\\Laranail\\Toolkit\\Rules\\RejectCommonPasswords\:\:\$commonPasswords type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Rules/RejectCommonPasswords.php
-
-		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:macro\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 5
-			path: src/Modules/Model/Scopes/ArchiveScope.php
-
-		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:whereNull\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Modules/Model/Scopes/ArchiveScope.php
-
-		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNotNull\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Modules/Model/Scopes/ArchiveScope.php
-
-		-
-			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNull\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: src/Modules/Model/Scopes/ArchiveScope.php
-
-		-
-			message: '#^Variable method call on \$this\(Simtabi\\Laranail\\Toolkit\\Modules\\Model\\Scopes\\ArchiveScope\)\.$#'
-			identifier: method.dynamicName
-			count: 1
-			path: src/Modules/Model/Scopes/ArchiveScope.php
 
 		-
 			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
@@ -715,12 +655,6 @@ parameters:
 			path: src/Services/ModelService.php
 
 		-
-			message: '#^Casting to string something that''s already string\.$#'
-			identifier: cast.useless
-			count: 1
-			path: src/Support/CollectionFilter.php
-
-		-
 			message: '#^Loose comparison via "\!\=" is not allowed\.$#'
 			identifier: notEqual.notAllowed
 			count: 1
@@ -733,82 +667,10 @@ parameters:
 			path: src/Support/CollectionFilter.php
 
 		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\CollectionFilter\:\:filter\(\) has parameter \$items with generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Support/CollectionFilter.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\CollectionFilter\:\:filter\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Support/CollectionFilter.php
-
-		-
 			message: '#^Dynamic call to static method Illuminate\\Contracts\\Auth\\Guard\:\:user\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 1
 			path: src/Support/FeatureToggle.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\FeatureToggle\:\:ensureConfigFileExists\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/Support/FeatureToggle.php
-
-		-
-			message: '#^Only booleans are allowed in a ternary operator condition, Illuminate\\Foundation\\Auth\\User\|null given\.$#'
-			identifier: ternary.condNotBoolean
-			count: 1
-			path: src/Support/FeatureToggle.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginate\(\) has parameter \$items with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Support/Pagination.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginate\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Support/Pagination.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginate\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Support/Pagination.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginateQuery\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Support/Pagination.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginateQuery\(\) has parameter \$query with generic class Illuminate\\Database\\Eloquent\\Builder but does not specify its types\: TModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Support/Pagination.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\Pagination\:\:paginateQuery\(\) return type with generic interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Support/Pagination.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\QueryParameters\:\:parse\(\) has parameter \$allowedParameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Support/QueryParameters.php
-
-		-
-			message: '#^Method Simtabi\\Laranail\\Toolkit\\Support\\QueryParameters\:\:parse\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Support/QueryParameters.php
 
 		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\Auditable is used zero times and is not analysed\.$#'
@@ -821,12 +683,6 @@ parameters:
 			identifier: trait.unused
 			count: 1
 			path: src/Traits/FileProcessingTrait.php
-
-		-
-			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasArchiver is used zero times and is not analysed\.$#'
-			identifier: trait.unused
-			count: 1
-			path: src/Traits/HasArchiver.php
 
 		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\HasAuth is used zero times and is not analysed\.$#'

@@ -240,55 +240,6 @@ class MacroBehaviorExtraTest extends TestCase
         Schema::dropIfExists('macro_things');
     }
 
-    // ----- Blueprint macros -----
-
-    public function test_blueprint_macros_create_expected_columns(): void
-    {
-        Schema::create('macro_full', static function (Blueprint $table): void {
-            $table->addUuidPrimaryKey('uuid');
-            $table->addCommonFields();
-            $table->addUserFields();
-            $table->addSortingField();
-            $table->addSlugField(true);
-            $table->addSeoFields();
-            $table->addLocationFields();
-            $table->addImageFields('hero');
-            $table->addPriceFields();
-            $table->addActivationFields();
-            $table->addExpiryFields();
-            $table->addNullableMorphs('owner');
-        });
-
-        $expectedColumns = [
-            'uuid', 'created_at', 'deleted_at', 'created_by', 'sort_order', 'slug',
-            'meta_title', 'latitude', 'hero_image', 'price', 'is_active', 'expires_at',
-            'owner_type', 'owner_id',
-        ];
-
-        foreach ($expectedColumns as $column) {
-            $this->assertTrue(Schema::hasColumn('macro_full', $column), "missing {$column}");
-        }
-
-        Schema::dropIfExists('macro_full');
-    }
-
-    public function test_blueprint_drop_macros_are_safe(): void
-    {
-        Schema::create('macro_drop', static function (Blueprint $table): void {
-            $table->id();
-            $table->string('removable');
-        });
-
-        Schema::table('macro_drop', static function (Blueprint $table): void {
-            $table->dropColumnIfExists(['removable', 'never_existed']);
-            $table->dropForeignIfExists('never_existed');
-        });
-
-        $this->assertFalse(Schema::hasColumn('macro_drop', 'removable'));
-
-        Schema::dropIfExists('macro_drop');
-    }
-
     // ----- Request macros -----
 
     public function test_request_detection_macros(): void

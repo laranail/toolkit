@@ -53,7 +53,6 @@ or `app/Support/`:
 | `laranail-toolkit-rate-limiter` | `Services\RateLimiterService` |
 | `laranail-toolkit-log` | `Services\LogService` |
 | `laranail-toolkit-query-parameters` | `Support\QueryParameters` |
-| `laranail-toolkit-pagination` | `Support\Pagination` |
 | `laranail-toolkit-collection-filter` | `Support\CollectionFilter` |
 | `laranail-toolkit-environment` | `Support\Environment` |
 | `laranail-toolkit-auth` | `Support\AuthHelper` |

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use Simtabi\Laranail\Toolkit\Commands\DatabaseManager;
 use Simtabi\Laranail\Toolkit\Commands\Tidy;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Symfony\Component\Console\Application;
@@ -42,28 +41,6 @@ class CommandConsoleFeaturesTest extends TestCase
     // -----------------------------------------------------------------------
     // metadata is populated through the lifecycle
     // -----------------------------------------------------------------------
-
-    public function test_database_clean_records_action_and_truncated_metadata(): void
-    {
-        \DB::statement('CREATE TABLE meta_clean (id integer primary key)');
-        \DB::table('meta_clean')->insert(['id' => 1]);
-
-        /** @var DatabaseManager $command */
-        $command = $this->app->make(DatabaseManager::class);
-
-        $exit = $this->runCommand($command, [
-            'action' => 'clean',
-            '--tables' => 'meta_clean',
-            '--force' => true,
-        ]);
-
-        $this->assertSame(0, $exit);
-
-        $metadata = $command->getServices()->metadata();
-        $this->assertSame('clean', $metadata->get('action'));
-        $this->assertSame(1, $metadata->get('truncated'));
-        $this->assertSame(0, \DB::table('meta_clean')->count());
-    }
 
     public function test_tidy_records_files_processed_and_space_freed_metadata(): void
     {
@@ -130,27 +107,5 @@ class CommandConsoleFeaturesTest extends TestCase
         $this->assertFileExists($upload);
 
         @unlink($upload);
-    }
-
-    public function test_database_clean_stops_when_termination_requested(): void
-    {
-        \DB::statement('CREATE TABLE sig_clean (id integer primary key)');
-        \DB::table('sig_clean')->insert(['id' => 1]);
-
-        /** @var DatabaseManager $command */
-        $command = $this->app->make(DatabaseManager::class);
-
-        $exit = $this->runCommand($command, [
-            'action' => 'clean',
-            '--tables' => 'sig_clean',
-            '--force' => true,
-        ], static function (DatabaseManager $c): void {
-            $c->getServices()->signals()->stop();
-        });
-
-        $this->assertSame(0, $exit);
-        // The row survives — the truncate loop bailed before touching the table.
-        $this->assertSame(1, \DB::table('sig_clean')->count());
-        $this->assertSame(0, $command->getServices()->metadata()->get('truncated'));
     }
 }

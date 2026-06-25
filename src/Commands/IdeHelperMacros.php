@@ -9,7 +9,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Arr;
@@ -67,7 +66,6 @@ class IdeHelperMacros extends Command
         'Carbon' => ['class' => Carbon::class, 'static' => false],
         'QueryBuilder' => ['class' => QueryBuilder::class, 'static' => false],
         'EloquentBuilder' => ['class' => EloquentBuilder::class, 'static' => false],
-        'Blueprint' => ['class' => Blueprint::class, 'static' => false],
         'Request' => ['class' => Request::class, 'static' => false],
         'ResponseFactory' => ['class' => ResponseFactory::class, 'static' => false],
     ];
@@ -440,7 +438,7 @@ class IdeHelperMacros extends Command
             ' * (alias `ide-helper:macros`). Do NOT edit by hand — regenerate instead.',
             ' *',
             " * The toolkit registers many macros on Illuminate's macroable targets",
-            ' * (Str, Stringable, Collection, Arr, the query/Eloquent builders, Blueprint,',
+            ' * (Str, Stringable, Collection, Arr, the query/Eloquent builders,',
             ' * Request, Carbon) plus a Factory mixin. Those are added at boot via',
             ' * `Macroable::macro()` / `Factory::mixin()`, so a static analyser / IDE cannot',
             ' * see them and will not autocomplete or type them.',

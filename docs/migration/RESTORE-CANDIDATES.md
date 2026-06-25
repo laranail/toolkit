@@ -11,6 +11,18 @@ Rules carried over: never duplicate something the toolkit already ships, never
 re-introduce a security hazard (no `config()` mutation, no credential logging), fix
 legacy bugs on the way, test everything. Source method bodies were read directly.
 
+> **Historical note — final homes differ from this worklist.** The interim
+> per-domain helper classes named below (`XHelper`, `SystemHelper`, `DbHelper`,
+> `GeoHelper`, `ConsoleHelper`, `FileHelper`) were a planning device. In the final
+> layout they were **consolidated**: the pure static methods (array/string/date/
+> geo/console) live on the single `Helpers\Helper` facade (via its `Concerns\*`
+> traits), while the stateful ones moved to injectable services —
+> `Services\SystemService` (system/composer/env), `Services\DatabaseService`
+> (`canConnectWith`; since ↗ **relocated to `laranail/database-tools`**), and
+> `Services\FileService` (file probes). Read the class
+> names below as *capabilities*, not as shipped types; the authoritative current
+> homes are in [`MIGRATION.md`](MIGRATION.md).
+
 ---
 
 ## RESTORE — grouped by target helper
@@ -31,6 +43,10 @@ legacy bugs on the way, test everything. Source method bodies were read directly
 - [x] `extension(string $path): string` / `filenameWithoutExtension(string $path): string` — `pathinfo` wrappers.
 
 ### `Helpers\DbHelper` (new)  — safe DB checks (motivated by "checking db connection")
+
+> **↗ Relocated.** These DB-check capabilities (and `DatabaseService`) now ship in
+> the sibling **`laranail/database-tools`** package, not the toolkit.
+
 - [x] `canConnect(?string $connection = null): bool` — opens the PDO in try/catch; **never mutates `config()`, never logs credentials**.
 - [x] `tableExists(string, ?string $connection = null): bool` / `columnExists(...)` — `Schema` wrappers, exception-safe.
 - [x] `connectionNames(): array` — configured connection names.
@@ -44,10 +60,10 @@ legacy bugs on the way, test everything. Source method bodies were read directly
 ## SKIP — stays dropped (with reason)
 
 **Already in the toolkit** (no restore): `ucWords`, `usernameFromEmail`/`generateUsername`,
-`emailFromUsername` (→ `Helpers\XHelper`); `sortItemWithChildren` (→ `Services\ModelService`);
+`emailFromUsername` (→ `Helpers\Helper`); `sortItemWithChildren` (→ `Services\ModelService`);
 `sortSearchResults`, `mapKeyValuePairArray` (→ `Services\*` / superior versions);
 `clearLogFiles`, `deleteStorageSymlink` (→ `Services\DatabaseService`, with containment guards);
-`formatBytes`, disk/extension/writable probes (→ `Support\Diagnostics\RequirementsDiagnostics`);
+`formatBytes`, disk/extension/writable probes (→ `Support\RequirementsDiagnostics`);
 all `ValidationService` HTML/checkbox/old-input helpers (→ `Services\ValidationService`).
 
 **Native one-liners** (use the primitive): `arrayToDotNotation` (`Arr::dot`),
@@ -78,7 +94,7 @@ same-named restorations), verifier stays green. **This section supersedes the SK
 they conflict** (G8 reversed several earlier "native one-liner" / "broken" calls per owner).
 
 ### Convenience methods (enhanced existing classes)
-- [x] `Helpers\XHelper`: `arrayToDotNotation`, `escapeHtml` (legacy `html`), `classBasename`, `randomIntExcept` (bounded — fixes legacy unbounded recursion), `faker`.
+- [x] `Helpers\Helper`: `arrayToDotNotation`, `escapeHtml` (legacy `html`), `classBasename`, `randomIntExcept` (bounded — fixes legacy unbounded recursion), `faker`.
 - [x] `Helpers\SystemHelper`: `composer`, `composerPackageVersion`, `systemInfo`, `isSslInstalled` (alias of `isHttps`).
 - [x] `Helpers\DbHelper`: `canConnectWith` — **safe** ephemeral-connection probe (replaces the unsafe `setDatabaseCredentials`; no `config()` mutation, no credential logging).
 - [x] `Services\SessionService` (injectable, interface-backed, `Toolkit::session()`): `existsInFilterKey`, `joinInFilterKey`, `removeFromFilterKey`, `saveJavaScriptCookies` (session/cookie writes via injected store + jar).
@@ -95,7 +111,7 @@ they conflict** (G8 reversed several earlier "native one-liner" / "broken" calls
 
 ### Reusable base classes (real shared code, for future reuse)
 - [x] `Http\Controllers\BaseController` — abstract base (`AuthorizesRequests`+`ValidatesRequests`+`ApiResponseTrait`); `CrudController` now extends it.
-- [x] `Jobs\BaseJob` (queue defaults + `failed()` logging), `Listeners\Listener` (`shouldHandle()` gate), `Observers\Observer`, `Events\Events`.
+- [x] `Jobs\BaseJob` (queue defaults + `failed()` logging), `Modules\Eventing\Listeners\Listener` (`shouldHandle()` gate), `Observers\Observer`, `Modules\Eventing\Events\Event`.
 
 ### Still dropped (with reason)
 `setDatabaseCredentials` as-is (security → `DbHelper::canConnectWith`); `HasPackageTools`

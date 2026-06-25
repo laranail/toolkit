@@ -35,10 +35,10 @@ $url = app(GravatarServiceInterface::class)
 | Setter | |
 |--------|---|
 | `setEmail(string $email)` | The e-mail to hash. |
-| `setSize(int $size)` | Pixel size. |
-| `setHttps(bool $https)` | Secure vs. plain host. |
-| `setRating(string $rating)` | `g`, `pg`, `r`, `x`. |
-| `setDefaultImage(string $image)` | Fallback image style (e.g. `monsterid`, `mp`). |
+| `setSize(int $size)` | Pixel size, **clamped to 1–2048**. |
+| `setHttps(bool $https)` | Secure (`secure.gravatar.com`) vs. plain host. |
+| `setRating(string $rating)` | `g`, `pg`, `r`, `x` (validated). |
+| `setDefaultImage(string $image)` | Fallback style — one of `404`, `mp`, `identicon`, `monsterid`, `wavatar`, `retro`, `robohash`, `blank` (validated). |
 | `setForceDefault(bool $force)` | Always show the default image. |
 | `setCustomDefaultUrl(?string $url)` | Custom fallback image URL. |
 

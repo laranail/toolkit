@@ -16,8 +16,4 @@ return [
     'package' => [
         'publishing_tag_id' => env('LARANAIL_PACKAGE_PUBLISHING_TAG_ID', 'lrn'),
     ],
-
-    'using_uuids_for_id' => env('LARANAIL_USING_UUIDS_FOR_ID', false),
-    'using_ulids_for_id' => env('LARANAIL_USING_ULIDS_FOR_ID', false),
-    'type_id' => env('LARANAIL_USING_TYPE_ID', 'BIGINT'),
 ];

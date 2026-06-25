@@ -58,15 +58,22 @@ widget), `hasProvider(string $name)`, `setDefaultProvider(string $name)`,
 ## Configuration
 
 ```php
-// config/laranail-toolkit.php → laranail.toolkit.captcha
+// config/captcha.php → laranail.toolkit.captcha
 'default_provider' => env('LARANAIL_CAPTCHA_DEFAULT_PROVIDER', 'recaptcha'),
-'recaptcha' => ['site_key' => ..., 'secret_key' => ..., 'min_score' => 0.5, 'timeout' => 30],
-'turnstile' => ['site_key' => ..., 'secret_key' => ..., 'timeout' => 30],
-'hcaptcha'  => ['site_key' => ..., 'secret_key' => ..., 'timeout' => 30],
-'friendly_captcha' => ['site_key' => ..., 'secret_key' => ..., 'use_eu_endpoint' => false, 'timeout' => 30],
-'null'      => ['site_key' => 'null-site-key'],
-'behavior'  => ['allow_unconfigured' => ..., 'log_failures' => ..., 'cache_duration' => ..., 'max_attempts_per_hour' => ...],
+'recaptcha' => ['site_key' => env('RECAPTCHA_SITE_KEY'), 'secret_key' => env('RECAPTCHA_SECRET_KEY'), 'min_score' => 0.5, 'timeout' => 30],
+'turnstile' => ['site_key' => env('TURNSTILE_SITE_KEY'), 'secret_key' => env('TURNSTILE_SECRET_KEY'), 'timeout' => 30],
+'hcaptcha'  => ['site_key' => env('HCAPTCHA_SITE_KEY'), 'secret_key' => env('HCAPTCHA_SECRET_KEY'), 'timeout' => 30],
+'friendly_captcha' => ['site_key' => env('FRIENDLY_CAPTCHA_SITE_KEY'), 'secret_key' => env('FRIENDLY_CAPTCHA_API_KEY'), 'use_eu_endpoint' => false, 'timeout' => 30],
+'null'      => ['site_key' => env('NULL_CAPTCHA_SITE_KEY', 'null-site-key')],
+'behavior'  => ['allow_unconfigured' => false, 'log_failures' => true, 'cache_duration' => 0, 'max_attempts_per_hour' => 100],
 ```
+
+Per-provider env keys: `{RECAPTCHA,TURNSTILE,HCAPTCHA}_SITE_KEY` /
+`_SECRET_KEY` (+ `_TIMEOUT`, and `RECAPTCHA_MIN_SCORE`); Friendly Captcha uses
+`FRIENDLY_CAPTCHA_SITE_KEY` / `FRIENDLY_CAPTCHA_API_KEY` /
+`FRIENDLY_CAPTCHA_USE_EU_ENDPOINT` / `FRIENDLY_CAPTCHA_TIMEOUT`; behaviour gates
+use `CAPTCHA_ALLOW_UNCONFIGURED`, `CAPTCHA_LOG_FAILURES`,
+`CAPTCHA_CACHE_DURATION`, `CAPTCHA_MAX_ATTEMPTS_PER_HOUR`.
 
 ### Friendly Captcha
 

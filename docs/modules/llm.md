@@ -140,12 +140,12 @@ rejects non-HTTP(S) base URLs.
 
 ## Configuration
 
-See [configuration](configuration.md) for the full key reference. At minimum set
-the API key and (optionally) the default provider:
+See [configuration](../configuration.md) for the full key reference. At minimum
+set the API key and (optionally) the default provider:
 
 ```dotenv
 LLM_DEFAULT_PROVIDER=openai
 OPENAI_API_KEY=sk-...
 ```
 
-[← Docs index](../README.md#documentation)
+[← Docs index](../../README.md#documentation)

@@ -52,8 +52,8 @@ see [installation](docs/installation.md) for the full tag list.
 - **`make-crud` command** — generate a Model, API Controller, and Migration from
   a single field spec, with relationships, search, soft deletes, and route
   registration.
-- **Artisan commands on `laranail/console`** — all four commands (`make-crud`,
-  `ide-helper-macros`, `database`, `tidy`) extend the
+- **Artisan commands on `laranail/console`** — all three commands (`make-crud`,
+  `ide-helper-macros`, `tidy`) extend the
   [`laranail/console`](https://opensource.simtabi.com/console/) `^2.5.0` base and
   use its **full feature set**: the fluent `consoleWriter()` (success/error/
   warning/info/note statuses + styling) and the `$this->services` lifecycle —
@@ -69,10 +69,10 @@ see [installation](docs/installation.md) for the full tag list.
   Livewire, LLM.
 - **Utilities** — `Services\*` (caching, logging, settings store, rate limiting,
   scheduler inspection) plus `Support\*` (auth, environment, feature toggles,
-  filtering, pagination, query-parameter parsing).
+  filtering, query-parameter parsing).
 - **Traits** — `ApiResponseTrait`, `Auditable`, `FileProcessingTrait`,
-  `HasAvatar`, `HasArchiver`, `HasFormatters`.
-- **Macros & Blade** — Str/Arr/Collection/Query/Request/Blueprint macros and a
+  `HasAvatar`, `HasFormatters`.
+- **Macros & Blade** — Str/Arr/Collection/Query/Request macros and a
   set of custom-only Blade directives.
 - **Security** — the `reject_common_passwords` validation rule, the immutable
   `Support\Username` builder, and CSPRNG `Modules\Security\{Token,Password,Passphrase}`
@@ -205,9 +205,9 @@ Archiver::extract(storage_path('app/release.zip'), storage_path('app/release'));
 ### Utilities
 
 ```php
-use Simtabi\Laranail\Toolkit\Support\Pagination;
+use Simtabi\Laranail\Toolkit\Support\Environment;
 
-$page = Pagination::paginate($items, perPage: 15, currentPage: 1);
+if (Environment::isNonProduction()) { /* local / staging / development */ }
 ```
 
 ### Macros
@@ -215,7 +215,6 @@ $page = Pagination::paginate($items, perPage: 15, currentPage: 1);
 ```php
 Str::camelToTitle('helloWorld');          // "Hello World"
 collect($rows)->toTree('parent_id');      // nested tree
-$table->addCommonFields();                // timestamps + soft deletes
 ```
 
 ### Traits
@@ -238,28 +237,28 @@ class Post extends Model
 | [Architecture](docs/architecture.md) | Modules, deferred providers, layout, migration record |
 | [Migration ledger](docs/migration/MIGRATION.md) | Every legacy symbol: migrated / relocated / dropped |
 | [Laranail → Toolkit map](docs/migration/laranail-to-toolkit.md) | Every legacy `Laranail::` method → its `Toolkit::` / `Helper::` / native home |
-| [LLM providers](docs/llm-providers.md) | OpenAI / Claude / Gemini abstraction |
 | [make-crud](docs/make-crud.md) | API CRUD generator command |
-| [Artisan commands](docs/commands.md) | The four `laranail::toolkit.*` commands + the full `laranail/console` lifecycle (signal-safe, redacting, shell-safe, path-confined) |
+| [Artisan commands](docs/commands.md) | The three `laranail::toolkit.*` commands + the full `laranail/console` lifecycle (signal-safe, redacting, path-confined) |
 | [CrudController](docs/crud-controller.md) | Secure base controller |
 | [Access log](docs/access-log.md) | `access.log` middleware + redaction |
 | [API middleware](docs/api-middleware.md) | `api.request` / `api.response` envelope + `BaseRequest` sanitization |
-| [Utilities](docs/utilities.md) | The eleven utility classes (Services + Support) |
-| [Static helpers](docs/helpers.md) | `Helper` — one static facade (array, string, date, system, file, db, geo, console) |
+| [Utilities](docs/utilities.md) | Stateful services (auth context, error storage, HTTP config, route, validation, cache, log, …) + static Support helpers (Cast, Config, ConditionalRunner, ApiResponder, …) |
+| [Static helpers](docs/helpers.md) | `Helper` — one static facade (array, string, date, system, file, geo, console) |
 | [Username builder](docs/username.md) | `Support\Username` — fluent, immutable username / handle generator |
-| [Security helpers](docs/security.md) | `RejectCommonPasswords` rule + CSPRNG `Modules\Security\Token`/`Password`/`Passphrase` generators + access-log redaction, `SecurityData`, session read model |
+| [Security helpers](docs/security.md) | `RejectCommonPasswords` rule + CSPRNG `Modules\Security\Token`/`Password`/`Passphrase` generators + access-log redaction, `SecurityData` |
 | [Exceptions](docs/exceptions.md) | The `LaranailException` hierarchy + `RendersApiExceptions` app-side registrar |
 | [Base classes](docs/base-classes.md) | Reusable controller / job / listener / observer / event bases |
-| [Macros](docs/macros.md) | Str/Arr/Collection/Query/Blueprint macros + Blade directives + IDE stub (`ide-helper:macros` regenerator) |
+| [Macros](docs/macros.md) | Str/Arr/Collection/Query macros + string-similarity + Blade directives + IDE stub (`ide-helper:macros` regenerator) |
+| [Carbon macros](docs/carbon-macros.md) | Date helpers + ~90 national-calendar predicates (15 countries) |
 | [Traits](docs/traits.md) | Model & controller traits |
 | [Eventing module](docs/modules/eventing.md) | `Event` / `Listener` bases + `CacheEvents` (provider-less) |
-| [Model module](docs/modules/model.md) | `ArchiveScope` + `HasArchiver` soft-archive (`archived_at`) |
 | [Avatar module](docs/modules/avatar.md) | Generated initials avatars |
 | [Gravatar module](docs/modules/gravatar.md) | Gravatar URL builder |
 | [Captcha module](docs/modules/captcha.md) | reCAPTCHA / hCaptcha / Turnstile / Friendly Captcha / Null |
 | [Archiver module](docs/modules/archiver.md) | Safe tar/zip extraction |
 | [Atlas module](docs/modules/atlas.md) | Country / currency / timezone / locale data |
 | [Livewire module](docs/modules/livewire.md) | Livewire component registration |
+| [LLM module](docs/modules/llm.md) | OpenAI / Claude / Gemini provider abstraction |
 
 ## License
 

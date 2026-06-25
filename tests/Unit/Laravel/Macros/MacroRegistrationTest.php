@@ -6,7 +6,6 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -34,6 +33,8 @@ class MacroRegistrationTest extends TestCase
             'matches', 'reverseString', 'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
             // Restored legacy string utilities (no native Str equivalent).
             'stripTags', 'linesCount', 'interpolate',
+            // Native string-similarity (restores laravel-string-similarities, no pheg).
+            'levenshtein', 'similarText', 'jaroWinkler', 'closest',
         ],
         'Stringable' => [
             'kebabToTitle', 'snakeToTitle', 'camelToTitle', 'truncateMiddle', 'isEmail',
@@ -41,6 +42,7 @@ class MacroRegistrationTest extends TestCase
             'countWords', 'removeAccents', 'readingMinutes', 'highlightWords',
             // stripTags/fromBase64 are native Stringable methods — no macro.
             'linesCount', 'interpolate',
+            'levenshtein', 'similarText', 'jaroWinkler', 'closest',
         ],
         'Collection' => [
             'transpose', 'recursive', 'mapToKey', 'filterRecursive', 'firstOrFail',
@@ -76,12 +78,6 @@ class MacroRegistrationTest extends TestCase
         ],
         'EloquentBuilder' => [
             'whenFilled', 'whereBetweenDates', 'existsOr', 'doesntExistOr',
-        ],
-        'Blueprint' => [
-            'addCommonFields', 'addUserFields', 'addPublishingFields', 'addStatusField',
-            'addSortingField', 'addSlugField', 'dropForeignIfExists', 'dropColumnIfExists',
-            'addMetaFields', 'addSeoFields', 'addLocationFields', 'addImageFields', 'addPriceFields',
-            'addActivationFields', 'addExpiryFields', 'addUuidPrimaryKey', 'addNullableMorphs',
         ],
         'Request' => [
             'expectsJsonOrAjax', 'isBot', 'isFromMobile', 'hasFiles', 'hasValidFile', 'getReferer',
@@ -296,13 +292,6 @@ class MacroRegistrationTest extends TestCase
     {
         foreach (self::KEPT['EloquentBuilder'] as $macro) {
             $this->assertTrue(EloquentBuilder::hasGlobalMacro($macro), "EloquentBuilder::{$macro} should be registered.");
-        }
-    }
-
-    public function test_blueprint_macros_are_registered(): void
-    {
-        foreach (self::KEPT['Blueprint'] as $macro) {
-            $this->assertTrue(Blueprint::hasMacro($macro), "Blueprint::{$macro} should be registered.");
         }
     }
 

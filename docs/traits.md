@@ -83,32 +83,6 @@ $user->generateAvatar(size: 128);      // initials avatar data URI
 $user->getAvatarWithFallback(128, preferGravatar: true);
 ```
 
-## HasArchiver
-
-Soft-archive on an `archived_at` column — independent of Laravel's `deleted_at`
-soft deletes. Registers the `ArchiveScope` global scope (hiding archived rows by
-default) and builder helpers `withArchived()`, `onlyArchived()`,
-`withoutArchived()`. Fires `archiving` / `archived` / `unArchiving` /
-`unArchived` events.
-
-```php
-use Simtabi\Laranail\Toolkit\Traits\HasArchiver;
-
-class Document extends Model
-{
-    use HasArchiver; // requires an `archived_at` timestamp column
-}
-
-$document->archive();
-$document->isArchived();   // true
-$document->unArchive();
-
-Document::onlyArchived()->get();
-```
-
-The trait also exposes `archiver()` — the file `ArchiverServiceInterface` (tar /
-zip) resolved from the container (see [archiver module](modules/archiver.md)).
-
 ## HasFormatters
 
 Presentation helpers built on native `Carbon` / `Str`.
@@ -122,5 +96,141 @@ $model->formattedFullName();           // first_name + last_name
 $model->formattedUsername();           // "@handle" or false
 $model->excerpt(150);                  // truncated `content`
 ```
+
+## HasAuth
+
+Thin accessor that delegates authentication context to a per-instance
+[`AuthenticationContextService`](utilities.md#authenticationcontextservice)
+resolved (and memoised) from the container — useful on a service object that
+needs to read the current user/guard without pulling in the `Auth` facade.
+
+```php
+use Simtabi\Laranail\Toolkit\Traits\HasAuth;
+
+class ReportBuilder
+{
+    use HasAuth;
+
+    public function build(): void
+    {
+        if ($this->isAuthenticated('web')) {
+            $userId = $this->getUserId();      // int|string|null
+            $email  = $this->getUserEmail();   // ?string
+            $user   = $this->getUserProperty(); // resolved Authenticatable|Model|null
+        }
+    }
+}
+
+// Override the context fluently (each setter returns $this):
+$builder->setGuard('api')->setUserId(42)->setUserEmail('a@b.test');
+```
+
+## HasErrorStorage
+
+Thin accessor over a per-instance
+[`ErrorStorageService`](utilities.md#errorstorageservice) — a fluent, key-based
+error bag for non-validation flows (importers, batch jobs, domain services).
+
+```php
+use Simtabi\Laranail\Toolkit\Traits\HasErrorStorage;
+
+class ImportRunner
+{
+    use HasErrorStorage;
+
+    public function run(): bool
+    {
+        $this->addError('row.5', 'Missing email');
+        // ... setErrors([...]) | getErrors('row.5') | getErrorCount()
+
+        if ($this->hasErrors()) {
+            report($this->getFirstError());
+            $this->clearErrors();
+
+            return false;
+        }
+
+        return true;
+    }
+}
+```
+
+## HasGuzzleConfig
+
+One-method accessor exposing a fresh
+[`HttpConfigurationService`](utilities.md#httpconfigurationservice) so a class
+can build a Guzzle/HTTP-client config seeded from `config('laranail.toolkit.http.*')`.
+
+```php
+use Simtabi\Laranail\Toolkit\Traits\HasGuzzleConfig;
+
+class WeatherClient
+{
+    use HasGuzzleConfig;
+
+    public function client(): \GuzzleHttp\Client
+    {
+        return new \GuzzleHttp\Client(
+            $this->httpConfig()->setRequestTimeout(10)->toGuzzleConfig()
+        );
+    }
+}
+```
+
+## RunsConditionally
+
+Context-aware conditional execution without instantiating
+[`ConditionalRunner`](utilities.md#conditionalrunner) by hand. Each helper queues
+one callback against a context predicate, runs it immediately, and returns the
+callback's result (or `null` when the context does not hold).
+
+```php
+use Simtabi\Laranail\Toolkit\Traits\RunsConditionally;
+
+class Notifier
+{
+    use RunsConditionally;
+
+    public function ping(): void
+    {
+        $this->runForApi(fn () => $this->jsonPing());
+        $this->runForWeb(fn () => $this->flashPing());
+        $this->runInConsole(fn () => $this->line('pinged'));
+        $this->runWhenAuthenticated(fn () => $this->logUserPing(), guard: 'web');
+        $this->runForRole('admin', fn () => $this->auditPing());
+    }
+}
+```
+
+For multiple chained predicates, drive the runner directly via
+`$this->conditional()` (see [ConditionalRunner](utilities.md#conditionalrunner)).
+
+## FilePathGuard
+
+Dependency-free path-shape guard rejecting directory-traversal segments (`..`)
+and null bytes before a path string reaches a lower-level file API. Used by
+[`FileProcessingTrait`](#fileprocessingtrait); mix it in directly where you
+handle caller-supplied paths.
+
+```php
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
+
+class ExportWriter
+{
+    use FilePathGuard;
+
+    public function write(string $relativePath, string $body): void
+    {
+        $safe = $this->assertSafePath($relativePath); // throws on ".." / null byte
+        Storage::put($safe, $body);
+    }
+}
+
+// Or probe without throwing:
+$this->isSafePath('../../etc/passwd'); // false
+```
+
+It validates the *shape* of a path only — it does not touch the filesystem or
+re-implement Laravel's `Storage` abstraction.
 
 [← Docs index](../README.md#documentation)

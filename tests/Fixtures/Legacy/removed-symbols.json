@@ -1,4 +1,36 @@
 {
+  "Simtabi\\Laranail\\Foundation\\Contracts\\DatabaseServiceInterface": {
+    "status": "relocated",
+    "target": "laranail/database-tools"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\DatabaseService": {
+    "status": "relocated",
+    "target": "laranail/database-tools"
+  },
+  "Simtabi\\Laranail\\Laravel\\Services\\ImportDatabaseService": {
+    "status": "relocated",
+    "target": "laranail/database-tools"
+  },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\MissingUuidColumnException": {
+    "status": "relocated",
+    "target": "laranail/database-tools"
+  },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\UuidException": {
+    "status": "relocated",
+    "target": "laranail/database-tools"
+  },
+  "Simtabi\\Laranail\\Support\\Eloquent\\Scopes\\ArchiveScope": {
+    "status": "relocated",
+    "target": "laranail/database-tools"
+  },
+  "Simtabi\\Laranail\\Support\\Traits\\HasArchiver": {
+    "status": "relocated",
+    "target": "laranail/database-tools"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\DatabaseSession": {
+    "status": "relocated",
+    "target": "laranail/database-tools"
+  },
   "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AbstractNotificationChannel": {
     "status": "relocated",
     "target": "laranail/notifications"

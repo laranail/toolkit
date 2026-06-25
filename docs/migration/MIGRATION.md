@@ -11,7 +11,7 @@ current package surfaces, and curated below. The cited drop rationale lives in
 
 | Status | Count | Meaning |
 |---|---:|---|
-| **MIGRATED** | 109 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). Includes 42 **MIGRATED(merged)** symbols folded into an existing class (the short name changes — see note): the original 5, the **14 Carbon holiday/date calendar traits** folded into `Macros\CarbonMacros` in G3, `Support\Utilities\BladeDirectives` folded into `Providers\BladeServiceProvider` in G4, and the **22 G6 folds** — 17 Collection/Arr/Str micro-macros into the grouped macro providers, plus `SystemIO\Environment`→`Support\Environment`, `SystemIO\RequirementsChecker`→`Support\Diagnostics\RequirementsDiagnostics`, `Support\Utilities\Auth`→`Support\AuthHelper`, and `Foundation\Services\ModelFormatterService` (+ its contract)→`Traits\HasFormatters`. `DatabaseSession` is a plain MIGRATED (ported under the same short name to `Support\Models\`). |
+| **MIGRATED** | 109 | Carried into `laranail/toolkit` (often renamed — `…DTO`/`…Facade`/`…Resource` suffixes dropped in the flat layout). Includes 42 **MIGRATED(merged)** symbols folded into an existing class (the short name changes — see note): the original 5, the **14 Carbon holiday/date calendar traits** folded into `Macros\CarbonMacros` in G3, `Support\Utilities\BladeDirectives` folded into `Providers\BladeServiceProvider` in G4, and the **22 G6 folds** — 17 Collection/Arr/Str micro-macros into the grouped macro providers, plus `SystemIO\Environment`→`Support\Environment`, `SystemIO\RequirementsChecker`→`Support\RequirementsDiagnostics`, `Support\Utilities\Auth`→`Support\AuthHelper`, and `Foundation\Services\ModelFormatterService` (+ its contract)→`Traits\HasFormatters`. `DatabaseSession` is a plain MIGRATED (ported under the same short name to `Modules\Security\Session\`). |
 | **RELOCATED** | 17 | Moved to a sibling package: **16** notification classes → `laranail/notifications`, the `NotificationChannel` enum → same. |
 | **DROPPED** | 153 | Not carried over — native-duplicative, consolidated, or out-of-scope. See the buckets below. |
 | **Total** | 279 | |
@@ -22,7 +22,7 @@ current package surfaces, and curated below. The cited drop rationale lives in
 > `removed-symbols.json` entry with `status: "merged"` + a `target` (any
 > allowlist entry counts as accounted-for). The original five (G2-3):
 > `CacheService` / `CacheServiceInterface` → `Services\CacheService`;
-> `StringHelperService` / `StringHelperServiceInterface` → `Helpers\XHelper`;
+> `StringHelperService` / `StringHelperServiceInterface` → `Helpers\Helper`;
 > `Support\Utilities\Username` → `Traits\HasFormatters` (name→username, pheg
 > inlined to native `Str`). Plus the **14 Carbon holiday/date calendar traits**
 > (G3) — `MultiNationalDates`, `BrazilianHolidays`, `CanadianDates`,
@@ -55,14 +55,14 @@ channels, and a serializable queue job. `composer require laranail/notifications
 > convenient quick-access wrappers, so the items below were **restored/enhanced** (native Laravel
 > under the hood, no duplication). Full checklist in `RESTORE-CANDIDATES.md`; final statuses are in
 > the generated per-symbol table at the end of this file.
-> - **DistanceBetween** → restored natively as `Helpers\GeoHelper::distanceBetween` (Haversine, no pheg).
+> - **DistanceBetween** → restored natively as `Helpers\Helper::distanceBetween` (Haversine, no pheg).
 >   All `Laravel\Macros\*` re-verified: every macro is registered in a grouped provider or in
 >   `Macros\CarbonMacros` (14 national calendars + date helpers, the `=`/`===`/octal bugs fixed) — **none lost**.
 > - **Helper services** (`Session`/`System`/`Class`/`Collection`/`Utility`/`Faker`/`Authentication`) → their
->   useful convenience methods folded into `Helpers\{XHelper,SystemHelper,DbHelper,GeoHelper,ConsoleHelper}`,
+>   useful convenience methods folded into the single `Helpers\Helper` facade (array/string/date/geo/console concerns),
 >   `Services\SessionService` (injectable), `Services\LogService + Support\AuthHelper`, `Services\ModelService`, and `Macros\CollectionMacros`.
->   `CacheService`/`FileService`/`ValidationService` were already covered (`CacheService` / `FileHelper`+`FilePathGuard` / `Services\ValidationService`).
->   The **unsafe** DB-credential mutation became the safe `Helpers\DbHelper::canConnectWith()` (ephemeral connection, no `config()` mutation, no credential logging).
+>   `CacheService`/`FileService`/`ValidationService` were already covered (`CacheService` / `Services\FileService`+`Traits\FilePathGuard` / `Services\ValidationService`).
+>   The **unsafe** DB-credential mutation became the safe `Services\DatabaseService::canConnectWith()` (ephemeral connection, no `config()` mutation, no credential logging).
 > - **BaseController / ApiRequest / EmailObfuscatorMiddleware** → all restored. `BaseController` is now a
 >   reusable abstract base (`AuthorizesRequests` + `ValidatesRequests` + `Traits\ApiResponseTrait`) that
 >   `Http\Controllers\CrudController` extends; `Http\Requests\ApiRequest` (JSON-envelope validation failures)
@@ -142,16 +142,16 @@ wire them.
 > | getErrorBagMessage, getCheckboxStatus, isValidDatabaseConnection | `Services\ValidationService` |
 > | registerModelObserver, eloquent2selectbox, sortItemWithChildren, getModelItem | `Services\ModelService` |
 > | existsInFilterKey, joinInFilterKey, removeFromFilterKey, saveJavaScriptCookies | `Services\SessionService` (injectable, `Toolkit::session()`) |
-> | getComposerArray→`composer`, getSystemEnv→`systemInfo`, getServerEnv→`serverEnv`, isSslInstalled | `Helpers\SystemHelper` (G8) |
+> | getComposerArray→`composer`, getSystemEnv→`systemInfo`, getServerEnv→`serverEnv`, isSslInstalled | `Services\SystemService` (G8) |
 > | environment | `Support\Environment` |
-> | arrayToDotNotation, html→`escapeHtml`, ucWords, generateUsername→`usernameFromEmail`, generateEmailFromUsername→`emailFromUsername`, getClassNameFromClass→`classBasename`, random→`randomIntExcept`, faker | `Helpers\XHelper` (G8) |
+> | arrayToDotNotation, html→`escapeHtml`, ucWords, generateUsername→`usernameFromEmail`, generateEmailFromUsername→`emailFromUsername`, getClassNameFromClass→`classBasename`, random→`randomIntExcept`, faker | `Helpers\Helper` (G8) |
 > | mapKeyValuePairArray→`mapKeyValuePairs`, sortSearchResults | `Macros\CollectionMacros` (G8) |
 > | username, authHelper, isUserExists→`userExists` | `Support\AuthHelper` (G8) |
 > | httpConfig | `Services\HttpConfigurationService` + `Traits\HasGuzzleConfig` |
 > | formatter | `Traits\HasFormatters` |
 > | logError | `Services\LogService::exception/error` (G8) |
-> | writeToConsoleOutput | `Helpers\ConsoleHelper::write` (G8) |
-> | setDatabaseCredentials | **dropped (unsafe config mutation)** → safe `Helpers\DbHelper::canConnectWith` |
+> | writeToConsoleOutput | `Helpers\Helper::write` (G8) |
+> | setDatabaseCredentials | **dropped (unsafe config mutation)** → safe `Services\DatabaseService::canConnectWith` |
 > | generateLivewireComponentKey, livewire | **dropped** — Livewire-specific, out of the core toolkit's scope |
 
 <!-- generated; do not hand-edit -->
@@ -215,7 +215,7 @@ wire them.
 | `Foundation\Contracts\Services\LivewireComponentServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\Services\ModelFormatterServiceInterface` | MIGRATED(merged) | Contract dropped; the working formatters live on `Traits\HasFormatters` (G6d). |
 | `Foundation\Contracts\Services\PackageServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Contracts\Services\StringHelperServiceInterface` | MIGRATED(merged) | Folded into `Toolkit\Helpers\XHelper` (`ucWords`, `usernameFromEmail`, `emailFromUsername`). |
+| `Foundation\Contracts\Services\StringHelperServiceInterface` | MIGRATED(merged) | Folded into `Toolkit\Helpers\Helper` (`ucWords`, `usernameFromEmail`, `emailFromUsername`). |
 | `Foundation\Contracts\SessionServiceInterface` | MIGRATED | Revived as the injectable `Toolkit\Services\Contracts\SessionServiceInterface` (filter-key + JS-cookie helpers), implemented by `Toolkit\Services\SessionService` and fronted by `Toolkit::session()`. |
 | `Foundation\Contracts\SystemServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\UtilityServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
@@ -247,7 +247,7 @@ wire them.
 | `Foundation\Services\PackageService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\RouteService` | MIGRATED | Toolkit\Services\RouteService |
 | `Foundation\Services\SessionService` | MIGRATED | Revived as the injectable `Toolkit\Services\SessionService` (filter-key + JS-cookie helpers, session/cookie writes via injected store + jar), bound by `SessionServiceInterface` and fronted by `Toolkit::session()`. |
-| `Foundation\Services\StringHelperService` | MIGRATED(merged) | Folded into `Toolkit\Helpers\XHelper` (`ucWords`, `usernameFromEmail`, `emailFromUsername`) — de-faceted to static helpers. |
+| `Foundation\Services\StringHelperService` | MIGRATED(merged) | Folded into `Toolkit\Helpers\Helper` (`ucWords`, `usernameFromEmail`, `emailFromUsername`) — de-faceted to static helpers. |
 | `Foundation\Services\SystemService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\UtilityService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\ValidationService` | MIGRATED | `Toolkit\Services\ValidationService` (hardened, de-faceted, bound by contract). Error-bag HTML, conditional CSS classes, checkbox status, old-input resolution ported; **every** interpolated value `e()`-escaped + returned as `HtmlString`. **DROPPED-with-reason:** `isValidDbCredentials` / `setDatabaseCredentials` — the legacy pair mutated live `config()` globally and ran a raw `SHOW TABLES`; rebuilding it safely (isolated on-demand connection) is a different, credential-leak-prone feature for negligible benefit. The reachability check `isValidDatabaseConnection()` (via `Schema::hasTable`) is kept. |
@@ -412,7 +412,7 @@ wire them.
 | `Support\Contracts\ResponseMacroInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
 | `Support\Contracts\ShovelHttpInterface` | MIGRATED | Toolkit\Http\Contracts\ShovelHttpInterface (HTTP status code constants + reason-phrase map; backs `ApiResponseMiddleware`). |
 | `Support\Contracts\SystemServiceInterface` | DROPPED | Interfaces for dropped service-locator services; gone with their implementations. |
-| `Support\Eloquent\Scopes\ArchiveScope` | MIGRATED | Toolkit\Support\Scopes\ArchiveScope |
+| `Support\Eloquent\Scopes\ArchiveScope` | MIGRATED | Toolkit\Modules\Model\Scopes\ArchiveScope |
 | `Support\Facades\LanguagesFacade` | DROPPED | Not carried over; superseded by native Laravel or the kept toolkit surface. |
 | `Support\Resources\AvatarGenerationResource` | MIGRATED | Toolkit\Modules\Avatar\AvatarGeneration |
 | `Support\Resources\AvatarResolutionResource` | MIGRATED | Toolkit\Modules\Avatar\AvatarResolution |
@@ -430,12 +430,12 @@ wire them.
 | `Support\Traits\RunsConditionally` | DROPPED | Service-specific/out-of-scope traits (auth, livewire, guzzle-config, package-tools, error-storage) — native Laravel or out of the toolkit's scope. |
 | `Support\Utilities\Auth` | MIGRATED(merged) | Ported to `Support\AuthHelper` (typed per-guard accessor; renamed to avoid the `Auth` facade collision) (G6d). |
 | `Support\Utilities\BladeDirectives` | MIGRATED(merged) | Portable custom directives folded into `Toolkit\Providers\BladeServiceProvider` (G4): `@addstyle`/`@addscript`/`@inline`/`@dataAttributes`/`@haserror`/`@nl2br`/`@returnifempty`/`@selectedif`/`@inputvalue`/`@optionvalue`/`@checkboxvalue`/`@checkboxvaluefromarray`. Native-duplicative/broken directives dropped (`@dump`,`@dd`,`@pushonce`,`@mix`,`@kebab`/`@snake`/`@camel`,`@count`,`@javascript`); value-echoing ports XSS-hardened with `e()`; legacy bugs fixed (`endscript`→`</style>`, `@inline` missing return). |
-| `Support\Utilities\DatabaseSession` | MIGRATED | Ported to `Support\Models\DatabaseSession` (read model over the `sessions` table; no migration shipped) (G6d). |
+| `Support\Utilities\DatabaseSession` | MIGRATED | Ported to `Modules\Security\Session\DatabaseSession` (read model over the `sessions` table; no migration shipped) (G6d). |
 | `Support\Utilities\Runners\ConditionalRunner` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
 | `Support\Utilities\SystemIO\DiskSpaceValidator` | DROPPED | Native replacement (Blade directives are native; `Environment` via native helpers) — cited in `dropped.md`. |
 | `Support\Utilities\SystemIO\Environment` | MIGRATED(merged) | Ported to `Support\Environment` (static predicates over the app's environment resolver) (G6b). |
-| `Support\Utilities\SystemIO\RequirementsChecker` | MIGRATED(merged) | Useful probes (extensions, writable dirs, disk space) folded into `Support\Diagnostics\RequirementsDiagnostics`; apache/nested-config probes dropped (G6c). |
-| `Support\Utilities\Username` | MIGRATED(merged) | Name→username suggestion folded into `Toolkit\Traits\HasFormatters::suggestUsername()` + the native generator `XHelper::nameToUsernames()`. The legacy `pheg()->name()->name2username()` dependency was **inlined to native `Str`** (slug/substr-based candidates); availability checked via the model's own query. |
+| `Support\Utilities\SystemIO\RequirementsChecker` | MIGRATED(merged) | Useful probes (extensions, writable dirs, disk space) folded into `Support\RequirementsDiagnostics`; apache/nested-config probes dropped (G6c). |
+| `Support\Utilities\Username` | MIGRATED(merged) | Name→username suggestion folded into `Toolkit\Traits\HasFormatters::suggestUsername()` + the native generator `Helper::nameToUsernames()`. The legacy `pheg()->name()->name2username()` dependency was **inlined to native `Str`** (slug/substr-based candidates); availability checked via the model's own query. |
 
 <!-- LEDGER:START (generated by tests/Fixtures/Legacy/build-ledger.php — do not hand-edit) -->
 ## Verified per-namespace ledger (generated)
@@ -445,8 +445,8 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 176 | direct + 88 merged |
-| **RELOCATED** | 17 | → laranail/notifications |
+| **MIGRATED** | 168 | direct + 88 merged |
+| **RELOCATED** | 25 | → laranail/notifications |
 | **DROPPED** | 86 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
@@ -599,7 +599,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 |---|---|---|
 | `AuthenticationServiceInterface` | DROPPED | `covered by Support\AuthHelper + Services\AuthenticationContextService` |
 | `CacheServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Services\CacheService` |
-| `DatabaseServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface` |
+| `DatabaseServiceInterface` | RELOCATED | `laranail/database-tools` |
 | `FileServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface` |
 | `RouteServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface` |
 | `SessionServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface` |
@@ -657,7 +657,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `ClassHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (classBasename folded, G8a)` |
 | `CollectionHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (mapKeyValuePairs + sortSearchResults folded, G8a)` |
 | `DatabaseFileService` | MERGED | `Merged into Simtabi\Laranail\Toolkit\Services\FileService (validate/validateSize) + ImportDatabaseService (transactional .sql import).` |
-| `DatabaseService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\DatabaseService` |
+| `DatabaseService` | RELOCATED | `laranail/database-tools` |
 | `ErrorStorageService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ErrorStorageService` |
 | `FakerHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (faker + randomIntExcept folded, G8a)` |
 | `FileHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (useful static file helpers recovered, restore-candidates)` |
@@ -862,7 +862,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `ImportDatabaseService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ImportDatabaseService` |
+| `ImportDatabaseService` | RELOCATED | `laranail/database-tools` |
 | `ResponseBuilderService` | DROPPED | `returns arrays; superseded by ApiResponseTrait (JsonResponse) + ResponseMacros` |
 | `SystemService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\SystemService` |
 
@@ -890,9 +890,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `AuthenticationException` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\AuthenticationException` |
 | `CollectionItemNotFound` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\CollectionItemNotFound` |
 | `ImmutableDataException` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\ImmutableDataException` |
-| `MissingUuidColumnException` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\MissingUuidColumnException` |
+| `MissingUuidColumnException` | RELOCATED | `laranail/database-tools` |
 | `ModelException` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\ModelException` |
-| `UuidException` | MIGRATED | `Simtabi\Laranail\Toolkit\Exceptions\UuidException` |
+| `UuidException` | RELOCATED | `laranail/database-tools` |
 
 ### Simtabi\Laranail\Support\Contracts
 
@@ -909,7 +909,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `ArchiveScope` | MIGRATED | `Simtabi\Laranail\Toolkit\Modules\Model\Scopes\ArchiveScope` |
+| `ArchiveScope` | RELOCATED | `laranail/database-tools` |
 
 ### Simtabi\Laranail\Support\Facades
 
@@ -936,7 +936,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `HasArchiver` | MIGRATED | `Simtabi\Laranail\Toolkit\Traits\HasArchiver` |
+| `HasArchiver` | RELOCATED | `laranail/database-tools` |
 | `HasAuth` | MIGRATED | `Simtabi\Laranail\Toolkit\Traits\HasAuth` |
 | `HasErrorStorage` | MIGRATED | `Simtabi\Laranail\Toolkit\Traits\HasErrorStorage` |
 | `HasGuzzleConfig` | MIGRATED | `Simtabi\Laranail\Toolkit\Traits\HasGuzzleConfig` |
@@ -962,7 +962,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 |---|---|---|
 | `Auth` | MERGED | `Simtabi\Laranail\Toolkit\Support\AuthHelper` |
 | `BladeDirectives` | MERGED | `Simtabi\Laranail\Toolkit\Providers\BladeServiceProvider` |
-| `DatabaseSession` | MIGRATED | `Simtabi\Laranail\Toolkit\Modules\Security\Session\DatabaseSession` |
+| `DatabaseSession` | RELOCATED | `laranail/database-tools` |
 | `Username` | MIGRATED | `Simtabi\Laranail\Toolkit\Support\Username` |
 
 ### Simtabi\Laranail\Support\Utilities\Runners
