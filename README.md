@@ -194,6 +194,15 @@ Multi-channel notifications moved to a dedicated package —
 (`composer require laranail/notifications`). It ships the hardened, SSRF-guarded
 channels, the typed message DTO, and the channel allow-list.
 
+### Database & UUID tooling
+
+UUID/ULID/NanoID model traits, the database service, schema (Blueprint)
+field-group macros, soft-archiving, backup/restore, a session read-model, offset
+pagination, and the database CLI moved to a dedicated package —
+[`laranail/database-tools`](https://opensource.simtabi.com/database-tools/)
+(`composer require laranail/database-tools`). Reach for it for anything
+database-shaped; the toolkit no longer ships those.
+
 ### Archiver (Zip-Slip hardened)
 
 ```php

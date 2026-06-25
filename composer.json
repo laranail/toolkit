@@ -118,6 +118,6 @@
     },
     "suggest": {
         "livewire/livewire": "^3.0 — for the Livewire component-registration module",
-        "spatie/db-dumper": "^3.0 — portable multi-driver dumps for laranail::toolkit.database export (mysql/mariadb/postgres/sqlite); guarded by class_exists, never hard-required"
+        "laranail/database-tools": "for UUID/ULID model traits, schema macros, soft-archive, backup/restore and the database CLI (relocated out of this package)"
     }
 }
