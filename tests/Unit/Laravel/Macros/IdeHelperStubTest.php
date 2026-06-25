@@ -114,6 +114,7 @@ class IdeHelperStubTest extends TestCase
                 'pluckMany', 'replaceInKeys',
                 'collectBy', 'filterMap', 'ifAny', 'none', 'pluckToArray',
                 'withSize', 'insertAfterKey', 'insertBeforeKey', 'sectionBy',
+                'whereContains', 'whereStartsWith', 'whereEndsWith',
             ],
             'Arr' => [
                 'filterNulls', 'filterEmpty', 'mapKeys', 'insertAfter', 'insertBefore', 'removeValue',

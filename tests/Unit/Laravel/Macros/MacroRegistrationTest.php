@@ -61,6 +61,9 @@ class MacroRegistrationTest extends TestCase
             // (after is native in this Laravel version — not re-registered.)
             'collectBy', 'filterMap', 'ifAny', 'none', 'pluckToArray',
             'withSize', 'insertAfterKey', 'insertBeforeKey', 'sectionBy',
+            // Restored legacy deep-path string filters (no native equivalent;
+            // strict non-string guard fixes the loose legacy versions).
+            'whereContains', 'whereStartsWith', 'whereEndsWith',
         ],
         'Arr' => [
             'filterNulls', 'filterEmpty', 'mapKeys', 'insertAfter', 'insertBefore', 'removeValue',
@@ -233,7 +236,7 @@ class MacroRegistrationTest extends TestCase
         'Macros\\Prioritize (legacy)' => 'Already registered as the inline Collection::prioritize() macro; legacy class is redundant.',
         'Macros\\InsertAfter / InsertBefore (legacy)' => 'Already registered as inline Collection::insertAfter()/insertBefore() macros.',
         'Macros\\WordsCount' => 'Already registered as the Str::countWords() macro (returns int, not a string).',
-        'Macros\\WhereContains / WhereStartsWith / WhereEndsWith' => 'Native Collection::filter() with Str::contains/startsWith/endsWith over data_get() is strictly better; the legacy macros tripped strict types on non-string column values.',
+        'Macros\\WhereContains / WhereStartsWith / WhereEndsWith' => 'RESTORED as Collection::whereContains/whereStartsWith/whereEndsWith macros in Macros\\CollectionMacros — ergonomic deep-path string filters with no native equal; the strict non-string guard fixes the legacy versions that tripped on non-string column values.',
 
         // Anti-patterns / dependency-locked, kept dropped.
         'Macros\\CatchableProxy / TryCatch' => 'try/catch-over-collections anti-pattern; TryCatch also depends on spatie/laravel-collection-macros.',

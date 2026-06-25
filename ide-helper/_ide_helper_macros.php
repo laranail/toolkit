@@ -116,6 +116,9 @@ namespace Illuminate\Support {
      * @method \Illuminate\Support\Collection toPairs()
      * @method \Illuminate\Support\Collection toTree(string $parentKey = 'parent_id', string $childrenKey = 'children')
      * @method \Illuminate\Support\Collection transpose()
+     * @method \Illuminate\Support\Collection whereContains(string $key, string $value, bool $caseSensitive = true)
+     * @method \Illuminate\Support\Collection whereEndsWith(string $key, string $value, bool $caseSensitive = true)
+     * @method \Illuminate\Support\Collection whereStartsWith(string $key, string $value, bool $caseSensitive = true)
      * @method \Illuminate\Support\Collection withSize(int $size)
      */
     class Collection {}

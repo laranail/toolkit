@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 173 | direct + 82 merged |
+| **MIGRATED** | 176 | direct + 85 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 89 | native / out-of-scope (see rows) |
+| **DROPPED** | 86 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -828,9 +828,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `UsDates` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |
 | `Validate` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `WhenEquals` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `WhereContains` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `WhereEndsWith` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
-| `WhereStartsWith` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `WhereContains` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::whereContains macro; strict non-string guard)` |
+| `WhereEndsWith` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::whereEndsWith macro; strict non-string guard)` |
+| `WhereStartsWith` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::whereStartsWith macro; strict non-string guard)` |
 | `WithSize` | MERGED | `Simtabi\Laranail\Toolkit\Macros\CollectionMacros (restored as Collection::withSize macro)` |
 | `WordsCount` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ZambianHolidays` | MERGED | `Macros\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)` |

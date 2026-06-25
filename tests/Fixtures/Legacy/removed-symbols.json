@@ -612,16 +612,16 @@
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\WhereContains": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::whereContains macro; strict non-string guard)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\WhereEndsWith": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::whereEndsWith macro; strict non-string guard)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\WhereStartsWith": {
-    "status": "dropped",
-    "target": "see docs/migration/MIGRATION.md + dropped.md"
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Macros\\CollectionMacros (restored as Collection::whereStartsWith macro; strict non-string guard)"
   },
   "Simtabi\\Laranail\\Laravel\\Macros\\WithSize": {
     "status": "merged",

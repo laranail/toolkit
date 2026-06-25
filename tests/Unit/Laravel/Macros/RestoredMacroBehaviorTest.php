@@ -151,6 +151,85 @@ class RestoredMacroBehaviorTest extends TestCase
         $this->assertSame([12 => 'banana'], $sections[1]->get(1)->all());
     }
 
+    // ---- Collection::whereContains / whereStartsWith / whereEndsWith ------
+
+    public function test_where_contains_filters_on_a_deep_path(): void
+    {
+        $rows = collect([
+            ['user' => ['email' => 'ada@example.com']],
+            ['user' => ['email' => 'grace@test.org']],
+        ]);
+
+        $result = $rows->whereContains('user.email', 'example');
+
+        $this->assertCount(1, $result);
+        $this->assertSame('ada@example.com', $result->first()['user']['email']);
+    }
+
+    public function test_where_contains_is_case_sensitive_by_default_and_toggles(): void
+    {
+        $rows = collect([['name' => 'Apple'], ['name' => 'banana']]);
+
+        // Case-sensitive: 'apple' does not match 'Apple'.
+        $this->assertCount(0, $rows->whereContains('name', 'apple'));
+        // Case-insensitive: it does.
+        $this->assertCount(1, $rows->whereContains('name', 'apple', false));
+    }
+
+    public function test_where_contains_excludes_non_string_values(): void
+    {
+        $rows = collect([
+            ['v' => 'hello world'],
+            ['v' => 12345],
+            ['v' => null],
+            ['v' => ['hello']],
+            ['missing' => 'x'],
+        ]);
+
+        // Only the genuine string is considered; ints/null/arrays/missing keys
+        // are excluded outright rather than coerced into a match.
+        $result = $rows->whereContains('v', 'hello');
+
+        $this->assertCount(1, $result);
+        $this->assertSame('hello world', $result->first()['v']);
+    }
+
+    public function test_where_starts_with_matches_prefix_with_case_toggle(): void
+    {
+        $rows = collect([['code' => 'PROD-1'], ['code' => 'prod-2'], ['code' => 'DEV-3']]);
+
+        $this->assertSame(['PROD-1'], $rows->whereStartsWith('code', 'PROD')->pluck('code')->all());
+        $this->assertSame(
+            ['PROD-1', 'prod-2'],
+            $rows->whereStartsWith('code', 'prod', false)->pluck('code')->values()->all(),
+        );
+    }
+
+    public function test_where_starts_with_excludes_non_string_values(): void
+    {
+        $rows = collect([['code' => 'PRO'], ['code' => 100], ['code' => null]]);
+
+        $this->assertCount(1, $rows->whereStartsWith('code', 'PR'));
+    }
+
+    public function test_where_ends_with_matches_suffix_with_case_toggle(): void
+    {
+        $rows = collect([['file' => 'report.PDF'], ['file' => 'image.png'], ['file' => 'notes.pdf']]);
+
+        $this->assertSame(['notes.pdf'], $rows->whereEndsWith('file', '.pdf')->pluck('file')->all());
+        $this->assertSame(
+            ['report.PDF', 'notes.pdf'],
+            $rows->whereEndsWith('file', '.pdf', false)->pluck('file')->values()->all(),
+        );
+    }
+
+    public function test_where_ends_with_excludes_non_string_values(): void
+    {
+        $rows = collect([['file' => 'a.txt'], ['file' => 42], ['file' => ['a.txt']]]);
+
+        $this->assertCount(1, $rows->whereEndsWith('file', '.txt'));
+    }
+
     // ---- Str::stripTags ---------------------------------------------------
 
     public function test_strip_tags_removes_markup_with_optional_allow_list(): void

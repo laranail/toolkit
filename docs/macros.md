@@ -72,9 +72,16 @@ collection), `filterMap($cb)` (map then drop falsy results),
 null)` (`pluck` returning a plain array), `withSize($size)` (a `[1..$size]`
 range), `insertAfterKey($afterKey, $item, $key = null)` /
 `insertBeforeKey($beforeKey, $item, $key = null)` (key-preserving positional
-insert by key), and `sectionBy($key, $preserveKeys = false, $sectionKey = 0,
+insert by key), `sectionBy($key, $preserveKeys = false, $sectionKey = 0,
 $itemsKey = 1)` (split into consecutive sections each time the resolved key
-changes).
+changes), and the deep-path string filters
+`whereContains($key, $value, $caseSensitive = true)` /
+`whereStartsWith($key, $value, $caseSensitive = true)` /
+`whereEndsWith($key, $value, $caseSensitive = true)` (keep items whose value
+resolved at the dot-path `$key` is a **string** matching the substring test).
+The string filters guard strictly: a non-string value at `$key`
+(int / null / array / missing key) is **excluded**, never coerced, and the
+case-insensitive form lowercases multibyte-safely via `Str::lower`.
 
 ```php
 collect($flatRows)->toTree('parent_id'); // nested children tree
@@ -84,6 +91,8 @@ collect($rows)->forSelectBox('id', 'name');       // ['' => '', 5 => 'Apple', ..
 collect($posts)->sortSearchResults('laravel api', 'title'); // most relevant first
 collect([1, 2, 3, 4])->filterMap(fn ($n) => $n % 2 ? false : $n * 10); // [1 => 20, 3 => 40]
 collect(['a' => 1, 'b' => 2])->insertAfterKey('a', 99, 'x'); // ['a'=>1,'x'=>99,'b'=>2]
+collect($users)->whereContains('user.email', 'example');       // deep-path substring
+collect($files)->whereEndsWith('name', '.pdf', caseSensitive: false); // 'A.PDF' matches
 ```
 
 ## Query builder macros

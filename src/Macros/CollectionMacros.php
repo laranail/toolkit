@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use RuntimeException;
 use Simtabi\Laranail\Toolkit\Support\Cast;
 
@@ -349,6 +350,81 @@ final class CollectionMacros extends ServiceProvider
             }
 
             return $results;
+        });
+
+        $this->registerDeepPathStringFilters();
+    }
+
+    /**
+     * Deep-path string-filter macros — keep only items whose value resolved at a
+     * dot-path $key is a STRING matching the substring test. Restored (and fixed)
+     * from the legacy WhereContains / WhereStartsWith / WhereEndsWith invokables.
+     *
+     * Two deliberate departures from the loose legacy versions:
+     *   - Non-string resolved values are EXCLUDED rather than coerced, so a
+     *     numeric/null/array column never silently stringifies into a match.
+     *   - Case-insensitivity lowercases via Str::lower (multibyte-safe) instead
+     *     of strtolower / strncasecmp, and the comparisons use the native
+     *     str_contains / str_starts_with / str_ends_with rather than strrev or
+     *     strncmp tricks.
+     */
+    private function registerDeepPathStringFilters(): void
+    {
+        // Items whose value at $key (a string) CONTAINS $value.
+        Collection::macro('whereContains', function (string $key, string $value, bool $caseSensitive = true): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->filter(static function (mixed $item) use ($key, $value, $caseSensitive): bool {
+                $haystack = data_get($item, $key);
+
+                if (!is_string($haystack)) {
+                    return false;
+                }
+
+                if (!$caseSensitive) {
+                    $haystack = Str::lower($haystack);
+                    $value = Str::lower($value);
+                }
+
+                return str_contains($haystack, $value);
+            });
+        });
+
+        // Items whose value at $key (a string) STARTS WITH $value.
+        Collection::macro('whereStartsWith', function (string $key, string $value, bool $caseSensitive = true): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->filter(static function (mixed $item) use ($key, $value, $caseSensitive): bool {
+                $haystack = data_get($item, $key);
+
+                if (!is_string($haystack)) {
+                    return false;
+                }
+
+                if (!$caseSensitive) {
+                    $haystack = Str::lower($haystack);
+                    $value = Str::lower($value);
+                }
+
+                return str_starts_with($haystack, $value);
+            });
+        });
+
+        // Items whose value at $key (a string) ENDS WITH $value.
+        Collection::macro('whereEndsWith', function (string $key, string $value, bool $caseSensitive = true): Collection {
+            /** @var Collection<array-key, mixed> $this */
+            return $this->filter(static function (mixed $item) use ($key, $value, $caseSensitive): bool {
+                $haystack = data_get($item, $key);
+
+                if (!is_string($haystack)) {
+                    return false;
+                }
+
+                if (!$caseSensitive) {
+                    $haystack = Str::lower($haystack);
+                    $value = Str::lower($value);
+                }
+
+                return str_ends_with($haystack, $value);
+            });
         });
     }
 
