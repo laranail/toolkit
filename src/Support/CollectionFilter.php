@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Support;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class CollectionFilter
 {
@@ -29,8 +30,8 @@ class CollectionFilter
             }
 
             // String operators: compare case-insensitively, guarding non-scalars.
-            $haystack = is_scalar($actual) ? strtolower((string) $actual) : '';
-            $needle = strtolower((string) $value);
+            $haystack = is_scalar($actual) ? Str::lower((string) $actual) : '';
+            $needle = Str::lower((string) $value);
 
             return match ($operator) {
                 'contains' => str_contains($haystack, $needle),

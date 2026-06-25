@@ -15,6 +15,7 @@ use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use ReflectionClass;
@@ -84,7 +85,7 @@ class IdeHelperMacros extends Command
         $contents = $this->buildStub();
         $performance->endTimer();
 
-        if (file_put_contents($path, $contents) === false) {
+        if (File::put($path, $contents) === false) {
             $this->consoleWriter()->error("Unable to write the IDE-helper stub to [{$path}].");
 
             return self::FAILURE;
@@ -149,9 +150,7 @@ class IdeHelperMacros extends Command
 
     private function ensureDirectoryExists(string $directory): void
     {
-        if (!is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
+        File::ensureDirectoryExists($directory);
     }
 
     /**

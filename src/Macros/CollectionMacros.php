@@ -590,7 +590,7 @@ final class CollectionMacros extends ServiceProvider
         Collection::macro('forSelectBox', function (string $key, string $value, bool $addEmpty = true): array {
             /** @var Collection<array-key, mixed> $this */
             $options = $this
-                ->sortBy(static fn (mixed $item): string => mb_strtolower(Cast::toString(data_get($item, $value))))
+                ->sortBy(static fn (mixed $item): string => Str::lower(Cast::toString(data_get($item, $value))))
                 ->mapWithKeys(static fn (mixed $item): array => [
                     Cast::toString(data_get($item, $key)) => data_get($item, $value),
                 ])
@@ -727,12 +727,12 @@ final class CollectionMacros extends ServiceProvider
         // starts-with +50, contains +25, otherwise a similar_text() weight.
         Collection::macro('sortSearchResults', function (string $searchTerms, string $column): Collection {
             /** @var Collection<array-key, mixed> $this */
-            $terms = Collection::make(explode(' ', mb_strtolower(trim($searchTerms))))
+            $terms = Collection::make(explode(' ', Str::lower(trim($searchTerms))))
                 ->filter(static fn (string $term): bool => $term !== '')
                 ->all();
 
             return $this->sortByDesc(static function (mixed $item) use ($terms, $column): float {
-                $value = mb_strtolower(Cast::toString(data_get($item, $column, '')));
+                $value = Str::lower(Cast::toString(data_get($item, $column, '')));
                 $score = 0.0;
 
                 foreach ($terms as $term) {

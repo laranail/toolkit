@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Commands;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Simtabi\Laranail\Console\Tools\Commands\Command;
@@ -103,7 +104,7 @@ class MakeCrud extends Command
     {
         $apiRoutesPath = base_path('routes/api.php');
 
-        if (!file_exists($apiRoutesPath)) {
+        if (!File::exists($apiRoutesPath)) {
             $this->consoleWriter()->error('routes/api.php not found.');
 
             return;
@@ -112,7 +113,7 @@ class MakeCrud extends Command
         $routeUri = Str::kebab(Str::plural($this->modelName));
         $routeLine = "Route::apiResource('{$routeUri}', \\App\\Http\\Controllers\\{$this->modelName}Controller::class);";
 
-        $contents = file_get_contents($apiRoutesPath);
+        $contents = File::get($apiRoutesPath);
 
         if (str_contains($contents, $routeLine)) {
             $this->consoleWriter()->warning("Route for [{$this->modelName}] is already registered in routes/api.php.");
@@ -123,7 +124,7 @@ class MakeCrud extends Command
         // Append after the last line, with a trailing newline
         $contents = rtrim($contents) . "\n\n" . $routeLine . "\n";
 
-        file_put_contents($apiRoutesPath, $contents);
+        File::put($apiRoutesPath, $contents);
 
         $this->consoleWriter()->success("Registered route in <fg=cyan>routes/api.php</>: <fg=green>{$routeLine}</>");
     }
@@ -138,9 +139,9 @@ class MakeCrud extends Command
         $published = base_path("stubs/vendor/laranail-toolkit/{$name}");
         $default = __DIR__ . '/../../stubs/' . $name;
 
-        $path = file_exists($published) ? $published : $default;
+        $path = File::exists($published) ? $published : $default;
 
-        return file_get_contents($path);
+        return File::get($path);
     }
 
     private function fillStub(string $stub, array $replacements): string
@@ -205,7 +206,7 @@ class MakeCrud extends Command
             'soft_deletes' => $this->option('soft-deletes') ? "\n            \$table->softDeletes();" : '',
         ]);
 
-        file_put_contents($path, $content);
+        File::put($path, $content);
         $this->generated[] = "database/migrations/{$filename}";
         $this->consoleWriter()->success("Created migration: <fg=cyan>database/migrations/{$filename}</>");
     }
@@ -284,7 +285,7 @@ class MakeCrud extends Command
     {
         $path = app_path("Models/{$this->modelName}.php");
 
-        if (file_exists($path) && !$this->option('force')) {
+        if (File::exists($path) && !$this->option('force')) {
             $this->consoleWriter()->warning("Model [{$this->modelName}] already exists. Use --force to overwrite.");
 
             return;
@@ -303,7 +304,7 @@ class MakeCrud extends Command
         ]);
 
         $this->ensureDirectoryExists(app_path('Models'));
-        file_put_contents($path, $content);
+        File::put($path, $content);
         $this->generated[] = "app/Models/{$this->modelName}.php";
         $this->consoleWriter()->success("Created model: <fg=cyan>app/Models/{$this->modelName}.php</>");
     }
@@ -401,7 +402,7 @@ PHP;
     {
         $path = app_path("Http/Controllers/{$this->modelName}Controller.php");
 
-        if (file_exists($path) && !$this->option('force')) {
+        if (File::exists($path) && !$this->option('force')) {
             $this->consoleWriter()->warning("Controller [{$this->modelName}Controller] already exists. Use --force to overwrite.");
 
             return;
@@ -424,7 +425,7 @@ PHP;
         ]);
 
         $this->ensureDirectoryExists(app_path('Http/Controllers'));
-        file_put_contents($path, $content);
+        File::put($path, $content);
         $this->generated[] = "app/Http/Controllers/{$this->modelName}Controller.php";
         $this->consoleWriter()->success("Created controller: <fg=cyan>app/Http/Controllers/{$this->modelName}Controller.php</>");
     }
@@ -710,8 +711,6 @@ PHP;
 
     private function ensureDirectoryExists(string $path): void
     {
-        if (!is_dir($path)) {
-            mkdir($path, 0755, true);
-        }
+        File::ensureDirectoryExists($path);
     }
 }
