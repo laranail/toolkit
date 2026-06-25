@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Support;
+namespace Simtabi\Laranail\Toolkit\Traits;
 
 use InvalidArgumentException;
 

@@ -110,7 +110,8 @@
                 "Captcha": "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Captcha",
                 "Archiver": "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Archiver",
                 "Atlas": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas",
-                "Livewire": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\Livewire"
+                "Livewire": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\Livewire",
+                "Llm": "Simtabi\\Laranail\\Toolkit\\Modules\\Llm\\Llm"
             }
         }
     },

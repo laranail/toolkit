@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Llm;
 use RuntimeException;
 use Throwable;
 
-class LlmRequestException extends RuntimeException
+class LLMRequestException extends RuntimeException
 {
     public function __construct(
         string $message,

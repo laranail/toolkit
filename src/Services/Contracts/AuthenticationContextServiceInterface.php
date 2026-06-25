@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Fluent authentication helper for managing user context across guards.
  */
-interface AuthenticationHelperServiceInterface
+interface AuthenticationContextServiceInterface
 {
     /** Set the tracked user email. */
     public function setUserEmail(?string $email): self;

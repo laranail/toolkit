@@ -11,7 +11,7 @@ The toolkit ships a small, **opt-in** API layer for JSON endpoints:
 | `Http\Middleware\EmailObfuscatorMiddleware` | `email.obfuscate` | HTML-entity–encodes email addresses in non-JSON responses (anti-harvesting). |
 | `Http\Middleware\ApiMiddleware` | — | Abstract base shared by the two middleware (the recursive key walker). |
 | `Http\Concerns\MutatesPayloadKeys` | — | Reusable trait for the `snake_case ⇄ camelCase` key conversion. |
-| `Http\Contracts\ShovelHttpInterface` | — | HTTP status-code constants + reason-phrase map used for `meta`. |
+| `Http\Contracts\HttpStatusInterface` | — | HTTP status-code constants + reason-phrase map used for `meta`. |
 
 None of these is registered on the global middleware stack — you attach them per
 route or group.

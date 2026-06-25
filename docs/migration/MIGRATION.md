@@ -445,7 +445,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 176 | direct + 84 merged |
+| **MIGRATED** | 176 | direct + 87 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
 | **DROPPED** | 86 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
@@ -597,7 +597,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `AuthenticationServiceInterface` | DROPPED | `covered by Utilities\AuthUtil + Services\AuthenticationHelperService` |
+| `AuthenticationServiceInterface` | DROPPED | `covered by Utilities\AuthUtil + Services\AuthenticationContextService` |
 | `CacheServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\CachingUtil` |
 | `DatabaseServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface` |
 | `FileServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface` |
@@ -611,7 +611,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `AuthenticationHelperServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface` |
+| `AuthenticationHelperServiceInterface` | MERGED | `Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface (renamed from AuthenticationHelperServiceInterface, G12c)` |
 | `ClassHelperServiceInterface` | DROPPED | `covered by Helpers\Helper::classBasename (pure static, no interface)` |
 | `CollectionHelperServiceInterface` | DROPPED | `covered by Collection macros (sortSearchResults/mapKeyValuePairs) + Services\ModelService::sortItemWithChildren` |
 | `DatabaseFileServiceInterface` | MERGED | `Merged into Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface (validate/validateSize) + DatabaseService (the .sql import side).` |
@@ -651,7 +651,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `AuthenticationHelperService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\AuthenticationHelperService` |
+| `AuthenticationHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Services\AuthenticationContextService (renamed from AuthenticationHelperService, G12c)` |
 | `AuthenticationService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\AuthUtil (auth context + username/userExists folded, G8a)` |
 | `CacheService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\CachingUtil` |
 | `ClassHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (classBasename folded, G8a)` |
@@ -902,14 +902,14 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `LoggerServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Utilities\Contracts\LoggerServiceInterface` |
 | `ResponseBuilderServiceInterface` | DROPPED | `covered by Traits\ApiResponseTrait + Support\ApiResponder` |
 | `ResponseMacroInterface` | DROPPED | `marker interface; covered by Macros\ResponseMacros` |
-| `ShovelHttpInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Http\Contracts\ShovelHttpInterface` |
+| `ShovelHttpInterface` | MERGED | `Simtabi\Laranail\Toolkit\Http\Contracts\HttpStatusInterface (renamed from ShovelHttpInterface, G12c)` |
 | `SystemServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface` |
 
 ### Simtabi\Laranail\Support\Eloquent\Scopes
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `ArchiveScope` | MIGRATED | `Simtabi\Laranail\Toolkit\Support\Scopes\ArchiveScope` |
+| `ArchiveScope` | MIGRATED | `Simtabi\Laranail\Toolkit\Scopes\ArchiveScope` |
 
 ### Simtabi\Laranail\Support\Facades
 
@@ -962,7 +962,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 |---|---|---|
 | `Auth` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\AuthUtil` |
 | `BladeDirectives` | MERGED | `Simtabi\Laranail\Toolkit\Providers\BladeServiceProvider` |
-| `DatabaseSession` | MIGRATED | `Simtabi\Laranail\Toolkit\Support\Models\DatabaseSession` |
+| `DatabaseSession` | MIGRATED | `Simtabi\Laranail\Toolkit\Models\DatabaseSession` |
 | `Username` | MIGRATED | `Simtabi\Laranail\Toolkit\Support\Username` |
 
 ### Simtabi\Laranail\Support\Utilities\Runners
@@ -975,8 +975,8 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `DiskSpaceValidator` | MERGED | `Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics` |
+| `DiskSpaceValidator` | MERGED | `Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics` |
 | `Environment` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\EnvironmentUtil` |
-| `RequirementsChecker` | MERGED | `Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics (useful probes folded, G6c)` |
+| `RequirementsChecker` | MERGED | `Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics (useful probes folded, G6c)` |
 
 <!-- LEDGER:END -->

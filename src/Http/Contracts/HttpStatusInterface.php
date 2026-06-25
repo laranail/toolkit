@@ -13,7 +13,7 @@ use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
  * so the middleware can resolve a human-readable status message for the `meta`
  * block of a wrapped response.
  */
-interface ShovelHttpInterface
+interface HttpStatusInterface
 {
     public const int CONTINUE = 100;
 

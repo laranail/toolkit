@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Modules\Llm\Claude\ClaudeProvider;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LlmRequestException;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class ClaudeProviderTest extends TestCase
@@ -47,8 +47,8 @@ class ClaudeProviderTest extends TestCase
 
         try {
             $this->provider()->generateResponse('claude-3-5-sonnet', [['role' => 'user', 'content' => 'Hi']]);
-            $this->fail('Expected LlmRequestException.');
-        } catch (LlmRequestException $e) {
+            $this->fail('Expected LLMRequestException.');
+        } catch (LLMRequestException $e) {
             $this->assertStringContainsString('401', $e->getMessage());
         }
 
@@ -62,7 +62,7 @@ class ClaudeProviderTest extends TestCase
             '*' => Http::response(['error' => ['message' => 'overloaded']], 503),
         ]);
 
-        $this->expectException(LlmRequestException::class);
+        $this->expectException(LLMRequestException::class);
 
         try {
             $this->provider()->generateResponse('claude-3-5-sonnet', [['role' => 'user', 'content' => 'Hi']]);

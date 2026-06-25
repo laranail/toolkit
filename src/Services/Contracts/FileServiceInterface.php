@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services\Contracts;
 
-use Simtabi\Laranail\Toolkit\Support\FilePathGuard;
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
 
 /**
  * File-name / size inspection plus thin, path-guarded filesystem probes.

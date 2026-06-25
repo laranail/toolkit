@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Support\Diagnostics;
+namespace Simtabi\Laranail\Toolkit\Support;
 
 /**
  * Thin diagnostics surface for the toolkit's runtime requirements.

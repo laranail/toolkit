@@ -9,7 +9,7 @@ use Simtabi\Laranail\Console\Tools\Commands\Command;
 use Simtabi\Laranail\Console\Tools\Commands\Concerns\SupportsNamespacedNames;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
-use Simtabi\Laranail\Toolkit\Support\FilePathGuard;
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
 use Simtabi\Laranail\Toolkit\Utilities\Contracts\CacheRepositoryInterface;
 use Simtabi\Laranail\Toolkit\Utilities\Contracts\LoggerServiceInterface;
 use SplFileInfo;

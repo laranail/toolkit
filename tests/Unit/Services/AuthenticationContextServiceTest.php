@@ -8,9 +8,9 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Contracts\Auth\Guard;
 use PHPUnit\Framework\TestCase;
-use Simtabi\Laranail\Toolkit\Services\AuthenticationHelperService;
+use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
 
-class AuthenticationHelperServiceTest extends TestCase
+class AuthenticationContextServiceTest extends TestCase
 {
     public function test_fluent_setters_and_getters(): void
     {
@@ -62,9 +62,9 @@ class AuthenticationHelperServiceTest extends TestCase
         $this->assertNull($service->getCurrentUserId());
     }
 
-    private function makeService(AuthFactory $factory): AuthenticationHelperService
+    private function makeService(AuthFactory $factory): AuthenticationContextService
     {
-        return new AuthenticationHelperService($factory);
+        return new AuthenticationContextService($factory);
     }
 
     private function factoryReturning(string $guardName, Authenticatable $user, bool $check): AuthFactory

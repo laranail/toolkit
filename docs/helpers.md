@@ -119,7 +119,7 @@ storing an uploaded name) — it is not a path sanitizer.
 
 The probes (`exists`, `size`, `lastModified`, `fileInfo`, `toDataUri`,
 `fromJson`) are read-only and exception-safe: each rejects `..` traversal
-segments and null bytes via the canonical `Support\FilePathGuard` (returning
+segments and null bytes via the canonical `Traits\FilePathGuard` (returning
 `false`/`0`/`[]`/`null` rather than throwing). `hasAllowedExtension()` is
 generic — pass whatever allow-list you need; it lower-cases and strips a leading
 dot before comparing. Plain read/write/copy/move/delete are deliberately not

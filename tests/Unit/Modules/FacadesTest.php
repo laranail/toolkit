@@ -15,7 +15,9 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Llm\Llm;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
@@ -41,6 +43,20 @@ class FacadesTest extends TestCase
     public function test_captcha_facade_resolves_its_root(): void
     {
         $this->assertInstanceOf(CaptchaService::class, Captcha::getFacadeRoot());
+    }
+
+    public function test_llm_facade_resolves_the_default_provider(): void
+    {
+        $this->assertInstanceOf(LLMProviderInterface::class, Llm::getFacadeRoot());
+    }
+
+    public function test_llm_provider_is_registered_exactly_once(): void
+    {
+        // The LLM binding lives solely in the deferred LlmServiceProvider; the
+        // root ToolkitServiceProvider must not also register the contract.
+        $this->assertTrue($this->app->bound(LLMProviderInterface::class));
+        $this->assertInstanceOf(LLMProviderInterface::class, $this->app->make('laranail.llm'));
+        $this->assertInstanceOf(LLMProviderInterface::class, $this->app->make(LLMProviderInterface::class));
     }
 
     public function test_gravatar_facade_proxies_a_method_call(): void
@@ -80,7 +96,7 @@ class FacadesTest extends TestCase
 
     public function test_toolkit_facade_fronts_auth_atlas_and_livewire(): void
     {
-        $this->assertInstanceOf(AuthenticationHelperServiceInterface::class, Toolkit::auth());
+        $this->assertInstanceOf(AuthenticationContextServiceInterface::class, Toolkit::auth());
         $this->assertInstanceOf(AtlasServiceInterface::class, Toolkit::atlas());
         $this->assertInstanceOf(LivewireServiceInterface::class, Toolkit::livewire());
     }

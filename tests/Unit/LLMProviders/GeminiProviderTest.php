@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Modules\Llm\Gemini\GeminiProvider;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LlmRequestException;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class GeminiProviderTest extends TestCase
@@ -75,7 +75,7 @@ class GeminiProviderTest extends TestCase
 
     public function test_invalid_base_url_scheme_is_rejected(): void
     {
-        $this->expectException(LlmRequestException::class);
+        $this->expectException(LLMRequestException::class);
 
         new GeminiProvider('k', baseUrl: 'file:///etc/passwd');
     }

@@ -688,31 +688,31 @@ parameters:
 			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:macro\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 5
-			path: src/Support/Scopes/ArchiveScope.php
+			path: src/Scopes/ArchiveScope.php
 
 		-
 			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<\*\>\:\:whereNull\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 1
-			path: src/Support/Scopes/ArchiveScope.php
+			path: src/Scopes/ArchiveScope.php
 
 		-
 			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNotNull\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 1
-			path: src/Support/Scopes/ArchiveScope.php
+			path: src/Scopes/ArchiveScope.php
 
 		-
 			message: '#^Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:whereNull\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 1
-			path: src/Support/Scopes/ArchiveScope.php
+			path: src/Scopes/ArchiveScope.php
 
 		-
-			message: '#^Variable method call on \$this\(Simtabi\\Laranail\\Toolkit\\Support\\Scopes\\ArchiveScope\)\.$#'
+			message: '#^Variable method call on \$this\(Simtabi\\Laranail\\Toolkit\\Scopes\\ArchiveScope\)\.$#'
 			identifier: method.dynamicName
 			count: 1
-			path: src/Support/Scopes/ArchiveScope.php
+			path: src/Scopes/ArchiveScope.php
 
 		-
 			message: '#^Trait Simtabi\\Laranail\\Toolkit\\Traits\\Auditable is used zero times and is not analysed\.$#'

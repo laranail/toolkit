@@ -6,7 +6,6 @@ namespace Simtabi\Laranail\Toolkit\Traits;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Simtabi\Laranail\Toolkit\Support\FilePathGuard;
 
 trait FileProcessingTrait
 {

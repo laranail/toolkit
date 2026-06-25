@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
+namespace Simtabi\Laranail\Toolkit\Tests\Unit\Traits;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Support\FilePathGuard;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
 
 class FilePathGuardHost
 {

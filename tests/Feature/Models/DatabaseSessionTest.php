@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Feature\Support;
+namespace Simtabi\Laranail\Toolkit\Tests\Feature\Models;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Support\Models\DatabaseSession;
+use Simtabi\Laranail\Toolkit\Models\DatabaseSession;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 #[Group('support')]

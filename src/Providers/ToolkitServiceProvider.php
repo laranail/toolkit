@@ -26,13 +26,10 @@ use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Llm\Claude\ClaudeProvider;
-use Simtabi\Laranail\Toolkit\Modules\Llm\Gemini\GeminiProvider;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
-use Simtabi\Laranail\Toolkit\Modules\Llm\OpenAI\OpenAIProvider;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LlmServiceProvider;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
-use Simtabi\Laranail\Toolkit\Services\AuthenticationHelperService;
-use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
@@ -53,7 +50,7 @@ use Simtabi\Laranail\Toolkit\Services\SessionService;
 use Simtabi\Laranail\Toolkit\Services\SystemService;
 use Simtabi\Laranail\Toolkit\Services\ValidationService;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
-use Simtabi\Laranail\Toolkit\Support\Diagnostics\RequirementsDiagnostics;
+use Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
@@ -85,6 +82,7 @@ class ToolkitServiceProvider extends ServiceProvider
         ArchiverServiceProvider::class,
         AtlasServiceProvider::class,
         LivewireServiceProvider::class,
+        LlmServiceProvider::class,
     ];
 
     public function register(): void
@@ -98,7 +96,7 @@ class ToolkitServiceProvider extends ServiceProvider
         // Foundation services (stateful — fresh instance per resolve so each
         // consuming object gets its own error/auth context).
         $this->app->bind(ErrorStorageServiceInterface::class, ErrorStorageService::class);
-        $this->app->bind(AuthenticationHelperServiceInterface::class, AuthenticationHelperService::class);
+        $this->app->bind(AuthenticationContextServiceInterface::class, AuthenticationContextService::class);
 
         // Request-scoped route helpers (Router + Request are container-resolved).
         $this->app->bind(RouteServiceInterface::class, RouteService::class);
@@ -153,35 +151,6 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->app->bind(ModelService::class, fn ($app): ModelService => new ModelService(
             $app->make(LoggerInterface::class),
         ));
-
-        // Register base LLM Provider interface with provider selection
-        $this->app->bind(LLMProviderInterface::class, function ($app) {
-            $default = config('laranail.toolkit.llm.default_provider', 'openai');
-
-            if ($default === 'gemini') {
-                return new GeminiProvider(
-                    apiKey: ToolkitConfig::string('laranail.toolkit.gemini.api_key'),
-                    maxRetries: ToolkitConfig::int('laranail.toolkit.gemini.max_retries', 3),
-                    retryDelay: ToolkitConfig::int('laranail.toolkit.gemini.retry_delay', 2),
-                    baseUrl: ToolkitConfig::string('laranail.toolkit.gemini.base_url', 'https://generativelanguage.googleapis.com/v1beta')
-                );
-            }
-
-            if ($default === 'claude') {
-                return new ClaudeProvider(
-                    apiKey: ToolkitConfig::string('laranail.toolkit.claude.api_key'),
-                    maxRetries: ToolkitConfig::int('laranail.toolkit.claude.max_retries', 3),
-                    retryDelay: ToolkitConfig::int('laranail.toolkit.claude.retry_delay', 2),
-                    baseUrl: ToolkitConfig::string('laranail.toolkit.claude.base_url', 'https://api.anthropic.com')
-                );
-            }
-
-            return new OpenAIProvider(
-                apiKey: ToolkitConfig::string('laranail.toolkit.openai.api_key'),
-                maxRetries: ToolkitConfig::int('laranail.toolkit.openai.max_retries', 3),
-                retryDelay: ToolkitConfig::int('laranail.toolkit.openai.retry_delay', 2)
-            );
-        });
 
         $this->app->singleton('helper', fn () => new Helper());
 

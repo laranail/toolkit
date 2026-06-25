@@ -23,7 +23,7 @@ column is one of:
 
 | Legacy | New home |
 |--------|----------|
-| `Laranail::authHelper($guard)` | `Toolkit::auth()->setGuard($guard)` (typed `AuthenticationHelperService`; or `Utilities\AuthUtil::for($guard)`). |
+| `Laranail::authHelper($guard)` | `Toolkit::auth()->setGuard($guard)` (typed `AuthenticationContextService`; or `Utilities\AuthUtil::for($guard)`). |
 | `Laranail::username()` | `Toolkit::auth()->getUser()?->username` / `Utilities\AuthUtil::authHelper()->username()`. |
 | `Laranail::isUserExists($value, $model, $key)` | `Utilities\AuthUtil::for($guard)->userExists($value, $key)` — native `Model::query()->where()->exists()`. |
 

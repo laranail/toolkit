@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Simtabi\Laranail\Toolkit\Exceptions\InvalidPathException;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ImportDatabaseServiceInterface;
-use Simtabi\Laranail\Toolkit\Support\FilePathGuard;
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
 use Throwable;
 
 /**

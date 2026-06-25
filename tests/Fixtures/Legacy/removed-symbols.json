@@ -65,7 +65,11 @@
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\AuthenticationServiceInterface": {
     "status": "dropped",
-    "target": "covered by Utilities\\AuthUtil + Services\\AuthenticationHelperService"
+    "target": "covered by Utilities\\AuthUtil + Services\\AuthenticationContextService"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\AuthenticationHelperServiceInterface": {
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Services\\Contracts\\AuthenticationContextServiceInterface (renamed from AuthenticationHelperServiceInterface, G12c)"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\CacheServiceInterface": {
     "status": "merged",
@@ -126,6 +130,10 @@
   "Simtabi\\Laranail\\Foundation\\Providers\\LaranailServiceProvider": {
     "status": "dropped",
     "target": "consolidated into Providers\\ToolkitServiceProvider"
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationHelperService": {
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Services\\AuthenticationContextService (renamed from AuthenticationHelperService, G12c)"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationService": {
     "status": "merged",
@@ -699,6 +707,10 @@
     "status": "merged",
     "target": "Merged into Simtabi\\Laranail\\Toolkit\\Utilities\\Contracts\\CacheRepositoryInterface."
   },
+  "Simtabi\\Laranail\\Support\\Contracts\\ShovelHttpInterface": {
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Http\\Contracts\\HttpStatusInterface (renamed from ShovelHttpInterface, G12c)"
+  },
   "Simtabi\\Laranail\\Support\\Contracts\\ResponseBuilderServiceInterface": {
     "status": "dropped",
     "target": "covered by Traits\\ApiResponseTrait + Support\\ApiResponder"
@@ -737,7 +749,7 @@
   },
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\DiskSpaceValidator": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics"
+    "target": "Simtabi\\Laranail\\Toolkit\\Support\\RequirementsDiagnostics"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\Environment": {
     "status": "merged",
@@ -745,6 +757,6 @@
   },
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\RequirementsChecker": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics (useful probes folded, G6c)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Support\\RequirementsDiagnostics (useful probes folded, G6c)"
   }
 }

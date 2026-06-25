@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Services;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Database\Eloquent\Model;
-use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
@@ -16,7 +16,7 @@ use Simtabi\Laranail\Toolkit\Support\Cast;
  * The auth resolver is injected (no `Auth` facade), so the service is testable
  * without the global container.
  */
-class AuthenticationHelperService implements AuthenticationHelperServiceInterface
+class AuthenticationContextService implements AuthenticationContextServiceInterface
 {
     private ?string $userEmail = null;
 

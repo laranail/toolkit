@@ -51,7 +51,7 @@ are masked as `[REDACTED]` before being persisted to the audit table.
 ## FileProcessingTrait
 
 Upload / fetch / delete files on the configured filesystem with
-directory-traversal protection (via `Support\FilePathGuard`).
+directory-traversal protection (via `Traits\FilePathGuard`).
 
 ```php
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;

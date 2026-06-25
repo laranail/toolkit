@@ -52,6 +52,18 @@ $response = $this->llm->generateResponse(
 echo $response->getContent();
 ```
 
+The module is wired by the deferred `Modules\Llm\LlmServiceProvider`, which binds
+`LLMProviderInterface` to the configured default driver. A `Llm` facade
+(alias `Llm`) fronts the same resolved provider for quick, non-injected calls:
+
+```php
+use Simtabi\Laranail\Toolkit\Modules\Llm\Llm;
+
+$response = Llm::generateResponse(modelName: 'gpt-4o-mini', messages: [
+    ['role' => 'user', 'content' => 'Summarize Laravel queues.'],
+]);
+```
+
 Pass `jsonMode: true` to request a JSON object (OpenAI sets
 `response_format = {type: json_object}`), and `fullResponse: true` to populate
 the response object's `model`, `usage`, and raw payload.
@@ -94,7 +106,7 @@ $claude = new ClaudeProvider(apiKey: config('laranail.toolkit.claude.api_key'));
 Requests are retried on transient failures up to `max_retries`, sleeping
 `retry_delay` seconds between attempts. The shared HTTP concern retries only on
 retryable statuses (HTTP 429 and 5xx) and fails fast on 4xx. A non-retryable or
-exhausted failure surfaces as `LlmRequestException`, whose `isRetryable()`
+exhausted failure surfaces as `LLMRequestException`, whose `isRetryable()`
 reports whether the failure was transient. `RetriesHttpRequests::sanitizeBaseUrl()`
 rejects non-HTTP(S) base URLs.
 

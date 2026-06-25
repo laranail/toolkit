@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Services;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
-use Simtabi\Laranail\Toolkit\Support\FilePathGuard;
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
 
 /**
  * File-name / size inspection plus thin, path-guarded filesystem probes.

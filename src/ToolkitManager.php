@@ -11,7 +11,7 @@ use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
@@ -130,9 +130,9 @@ class ToolkitManager
     /**
      * Guard-aware authentication helpers (typed accessor over native auth()).
      */
-    public function auth(): AuthenticationHelperServiceInterface
+    public function auth(): AuthenticationContextServiceInterface
     {
-        return $this->app->make(AuthenticationHelperServiceInterface::class);
+        return $this->app->make(AuthenticationContextServiceInterface::class);
     }
 
     /**

@@ -6,25 +6,25 @@ namespace Simtabi\Laranail\Toolkit\Traits;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 
 /**
  * Convenience trait that delegates authentication context to a single,
- * per-instance {@see AuthenticationHelperServiceInterface} resolved from the
+ * per-instance {@see AuthenticationContextServiceInterface} resolved from the
  * container.
  *
  * All business logic lives in the service; this trait is a thin accessor.
  */
 trait HasAuth
 {
-    private ?AuthenticationHelperServiceInterface $authHelper = null;
+    private ?AuthenticationContextServiceInterface $authHelper = null;
 
     /**
      * Resolve (and memoise) the auth-helper service for this instance.
      */
-    protected function authHelper(): AuthenticationHelperServiceInterface
+    protected function authHelper(): AuthenticationContextServiceInterface
     {
-        return $this->authHelper ??= app(AuthenticationHelperServiceInterface::class);
+        return $this->authHelper ??= app(AuthenticationContextServiceInterface::class);
     }
 
     public function setUserEmail(?string $userEmail): static

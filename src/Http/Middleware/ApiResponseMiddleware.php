@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
-use Simtabi\Laranail\Toolkit\Http\Contracts\ShovelHttpInterface;
+use Simtabi\Laranail\Toolkit\Http\Contracts\HttpStatusInterface;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -212,7 +212,7 @@ class ApiResponseMiddleware extends ApiMiddleware
      */
     private function getStatusMessage(int $code): string
     {
-        return ShovelHttpInterface::CODES[$code] ?? 'Unknown';
+        return HttpStatusInterface::CODES[$code] ?? 'Unknown';
     }
 
     /**

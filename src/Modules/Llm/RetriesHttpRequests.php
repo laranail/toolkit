@@ -32,7 +32,7 @@ trait RetriesHttpRequests
         while ($attempt < $max) {
             try {
                 return $callback();
-            } catch (LlmRequestException $e) {
+            } catch (LLMRequestException $e) {
                 $lastException = $e;
                 $attempt++;
 
@@ -72,7 +72,7 @@ trait RetriesHttpRequests
         $scheme = strtolower((string) parse_url($baseUrl, PHP_URL_SCHEME));
 
         if (!in_array($scheme, ['http', 'https'], true)) {
-            throw new LlmRequestException("Invalid LLM base URL scheme: [{$scheme}].");
+            throw new LLMRequestException("Invalid LLM base URL scheme: [{$scheme}].");
         }
 
         return rtrim($baseUrl, '/');

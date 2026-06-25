@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Llm\Gemini;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LlmRequestException;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Modules\Llm\RetriesHttpRequests;
 
 class GeminiProvider implements LLMProviderInterface
@@ -76,7 +76,7 @@ class GeminiProvider implements LLMProviderInterface
                     'x-goog-api-key' => $this->apiKey,
                 ])->post($endpoint, $payload);
             } catch (ConnectionException $e) {
-                throw new LlmRequestException('Gemini API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
+                throw new LLMRequestException('Gemini API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
             }
 
             if (!$response->successful()) {
@@ -85,7 +85,7 @@ class GeminiProvider implements LLMProviderInterface
                 $errorMessage = is_array($body) ? data_get($body, 'error.message') : null;
                 $message = is_string($errorMessage) ? $errorMessage : 'Gemini API request failed';
 
-                throw new LlmRequestException(
+                throw new LLMRequestException(
                     "Gemini API request failed (HTTP {$status}): {$message}",
                     retryable: $this->isRetryableStatus($status),
                     status: $status,

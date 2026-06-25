@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Llm\Claude;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
-use Simtabi\Laranail\Toolkit\Modules\Llm\LlmRequestException;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Modules\Llm\RetriesHttpRequests;
 
 class ClaudeProvider implements LLMProviderInterface
@@ -59,7 +59,7 @@ class ClaudeProvider implements LLMProviderInterface
                     'anthropic-version' => '2023-06-01',
                 ])->post($endpoint, $payload);
             } catch (ConnectionException $e) {
-                throw new LlmRequestException('Claude API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
+                throw new LLMRequestException('Claude API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
             }
 
             if (!$response->successful()) {
@@ -68,7 +68,7 @@ class ClaudeProvider implements LLMProviderInterface
                 $errorMessage = is_array($body) ? data_get($body, 'error.message') : null;
                 $message = is_string($errorMessage) ? $errorMessage : 'Claude API request failed';
 
-                throw new LlmRequestException(
+                throw new LLMRequestException(
                     "Claude API request failed (HTTP {$status}): {$message}",
                     retryable: $this->isRetryableStatus($status),
                     status: $status,

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Traits;
 
-use Simtabi\Laranail\Toolkit\Services\AuthenticationHelperService;
-use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationHelperServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\HasAuth;
 
@@ -22,8 +22,8 @@ class HasAuthTest extends TestCase
     public function test_interface_is_bound_to_the_concrete_service(): void
     {
         $this->assertInstanceOf(
-            AuthenticationHelperService::class,
-            app(AuthenticationHelperServiceInterface::class),
+            AuthenticationContextService::class,
+            app(AuthenticationContextServiceInterface::class),
         );
     }
 

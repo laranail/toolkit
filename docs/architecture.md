@@ -23,9 +23,11 @@ src/
 ├── Http/Controllers/CrudController.php     # abstract base controller
 ├── Services/                               # injectable, interface-backed services (File, System, Database, ...)
 ├── Macros/                                 # grouped macro providers + MacroServiceProvider
-├── Traits/                                 # ApiResponse, Auditable, HasAvatar, ...
+├── Traits/                                 # ApiResponse, Auditable, HasAvatar, FilePathGuard, ...
 ├── Utilities/                              # 9 utility classes (Caching/Logging now interface-backed)
-├── Support/                                # FilePathGuard, Scopes/ArchiveScope, Diagnostics/
+├── Support/                                # ApiResponder, Cast, Config, RequirementsDiagnostics, Username, ...
+├── Scopes/ArchiveScope.php                 # archived_at global scope (paired with Traits/HasArchiver)
+├── Models/DatabaseSession.php              # read model over the database session table
 ├── Enums/LogLevel.php
 ├── Rules/RejectCommonPasswords.php
 ├── Helpers/Helper.php                       # static PURE-function facade (arrays/strings/dates/geo/console); Concerns/InteractsWith* traits
@@ -36,7 +38,7 @@ src/
     ├── Captcha/       CaptchaService, …, Providers/{Recaptcha,Hcaptcha,Turnstile}, Captcha facade, provider
     ├── Archiver/      ArchiverService, ArchiveManager, Zip/Tar/TarGz/Extractor, Archiver facade, provider
     ├── AccessLog/     AccessLogMiddleware, AccessLog (model)
-    └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests
+    └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, Llm facade, provider
 ```
 
 > The command base (`Command` + `SupportsNamespacedNames`) is **not** local — it
