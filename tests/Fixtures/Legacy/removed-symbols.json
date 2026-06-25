@@ -107,10 +107,6 @@
         "status": "merged",
         "target": "Simtabi\\Laranail\\Toolkit\\Helpers\\Helper"
     },
-    "Simtabi\\Laranail\\Foundation\\Contracts\\SessionServiceInterface": {
-        "status": "dropped",
-        "target": "see docs/migration/MIGRATION.md + dropped.md"
-    },
     "Simtabi\\Laranail\\Foundation\\Contracts\\UtilityServiceInterface": {
         "status": "dropped",
         "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -170,10 +166,6 @@
     "Simtabi\\Laranail\\Foundation\\Services\\PackageService": {
         "status": "dropped",
         "target": "see docs/migration/MIGRATION.md + dropped.md"
-    },
-    "Simtabi\\Laranail\\Foundation\\Services\\SessionService": {
-        "status": "merged",
-        "target": "Simtabi\\Laranail\\Toolkit\\Utilities\\SessionHelper (query-string filter-key helpers folded, G8a)"
     },
     "Simtabi\\Laranail\\Foundation\\Services\\StringHelperService": {
         "status": "merged",

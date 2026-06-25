@@ -72,10 +72,10 @@ column is one of:
 
 | Legacy | New home |
 |--------|----------|
-| `Laranail::existsInFilterKey($key, $value)` | `Utilities\SessionHelper::existsInFilterKey($key, $value)`. |
-| `Laranail::joinInFilterKey(...$value)` | `Utilities\SessionHelper::joinInFilterKey(...$value)`. |
-| `Laranail::removeFromFilterKey($key, $old, $value)` | `Utilities\SessionHelper::removeFromFilterKey($old, $value)`. |
-| `Laranail::saveJavaScriptCookies($name, $duration)` | `Utilities\SessionHelper::saveJavaScriptCookies($name, $duration)`. |
+| `Laranail::existsInFilterKey($key, $value)` | `Toolkit::session()->existsInFilterKey($key, $value)` (or inject `SessionServiceInterface`). |
+| `Laranail::joinInFilterKey(...$value)` | `Toolkit::session()->joinInFilterKey(...$value)`. |
+| `Laranail::removeFromFilterKey($key, $old, $value)` | `Toolkit::session()->removeFromFilterKey($old, $value)`. |
+| `Laranail::saveJavaScriptCookies($name, $duration)` | `Toolkit::session()->saveJavaScriptCookies($name, $duration)`. |
 
 ## System / environment
 

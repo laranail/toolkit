@@ -13,6 +13,7 @@ The toolkit splits its day-to-day helpers along a single line:
   - **Files** → `Services\Contracts\FileServiceInterface` (`Toolkit::file()`)
   - **System** → `Services\Contracts\SystemServiceInterface` (`Toolkit::system()`)
   - **Database** → `Services\Contracts\DatabaseServiceInterface` (`Toolkit::db()`)
+  - **Session** → `Services\Contracts\SessionServiceInterface` (`Toolkit::session()`)
 
 ```php
 use Simtabi\Laranail\Toolkit\Helpers\Helper;          // pure static helpers
@@ -149,6 +150,32 @@ $db->canConnectWith([                            // probe an ad-hoc config safel
 > unsets the temp config in a `finally` — so the default connection is never
 > mutated and credentials are never logged. Failure is returned as `false`, never
 > thrown.
+
+## Session (service)
+
+Session / query-string **filter-key** helpers (the `&`-joined filter tokens
+list/search screens carry in the query string) plus a JavaScript-readable cookie
+bridge. The three filter-key methods are pure string ops; `saveJavaScriptCookies`
+is the genuinely stateful one — it writes through the **injected** session store
+and cookie jar (no `session()`/`Cookie::` facades). Resolve via the container or
+`Toolkit::session()`.
+
+```php
+use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
+
+$session = app(SessionServiceInterface::class);          // or Toolkit::session()
+
+$key = $session->joinInFilterKey('status', 'active');    // 'status&active'
+$session->existsInFilterKey($key, 'active');             // true
+$session->removeFromFilterKey($key, 'active');           // 'status' (null if empty)
+
+// Persist a request input into the session + queue a cookie (minutes) for JS.
+$session->saveJavaScriptCookies('theme', duration: 60);
+```
+
+> `removeFromFilterKey()` also strips the reserved `page` token; the cookie helper
+> is a no-op when the named request input is absent. The cookie duration is in
+> **minutes** (Laravel's `CookieJar::queue` convention).
 
 ## Geo
 

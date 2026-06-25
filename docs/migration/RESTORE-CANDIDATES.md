@@ -81,7 +81,7 @@ they conflict** (G8 reversed several earlier "native one-liner" / "broken" calls
 - [x] `Helpers\XHelper`: `arrayToDotNotation`, `escapeHtml` (legacy `html`), `classBasename`, `randomIntExcept` (bounded — fixes legacy unbounded recursion), `faker`.
 - [x] `Helpers\SystemHelper`: `composer`, `composerPackageVersion`, `systemInfo`, `isSslInstalled` (alias of `isHttps`).
 - [x] `Helpers\DbHelper`: `canConnectWith` — **safe** ephemeral-connection probe (replaces the unsafe `setDatabaseCredentials`; no `config()` mutation, no credential logging).
-- [x] `Utilities\SessionHelper` (new): `existsInFilterKey`, `joinInFilterKey`, `removeFromFilterKey`, `saveJavaScriptCookies` (clean idiomatic re-implementation).
+- [x] `Services\SessionService` (injectable, interface-backed, `Toolkit::session()`): `existsInFilterKey`, `joinInFilterKey`, `removeFromFilterKey`, `saveJavaScriptCookies` (session/cookie writes via injected store + jar).
 - [x] `Utilities\LoggingUtil`: `exception()` (legacy `logError`).
 - [x] `Utilities\AuthUtil`: `username`, `userExists`, `authHelper` alias.
 - [x] `Services\ModelService`: `getModelItem` (`data_get`).

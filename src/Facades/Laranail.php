@@ -21,6 +21,7 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
  * @method static \Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface               archiver()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface                route()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface           validation()
+ * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface              session()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface             db()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface             database()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface                 file()

@@ -16,6 +16,7 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
@@ -67,6 +68,14 @@ class ToolkitManager
     public function validation(): ValidationServiceInterface
     {
         return $this->app->make(ValidationServiceInterface::class);
+    }
+
+    /**
+     * Session / query-string filter-key helpers (stateful cookie/session write).
+     */
+    public function session(): SessionServiceInterface
+    {
+        return $this->app->make(SessionServiceInterface::class);
     }
 
     /**

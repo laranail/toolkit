@@ -60,7 +60,7 @@ channels, and a serializable queue job. `composer require laranail/notifications
 >   `Macros\CarbonMacros` (14 national calendars + date helpers, the `=`/`===`/octal bugs fixed) — **none lost**.
 > - **Helper services** (`Session`/`System`/`Class`/`Collection`/`Utility`/`Faker`/`Authentication`) → their
 >   useful convenience methods folded into `Helpers\{XHelper,SystemHelper,DbHelper,GeoHelper,ConsoleHelper}`,
->   `Utilities\{SessionHelper,LoggingUtil,AuthUtil}`, `Services\ModelService`, and `Macros\CollectionMacros`.
+>   `Services\SessionService` (injectable), `Utilities\{LoggingUtil,AuthUtil}`, `Services\ModelService`, and `Macros\CollectionMacros`.
 >   `CacheService`/`FileService`/`ValidationService` were already covered (`CachingUtil` / `FileHelper`+`FilePathGuard` / `Services\ValidationService`).
 >   The **unsafe** DB-credential mutation became the safe `Helpers\DbHelper::canConnectWith()` (ephemeral connection, no `config()` mutation, no credential logging).
 > - **BaseController / ApiRequest / EmailObfuscatorMiddleware** → all restored. `BaseController` is now a
@@ -141,7 +141,7 @@ wire them.
 > | getAppUrl, getCurrentRouteInfo, isCurrentRoute, getActiveCssClassForRoute | `Services\RouteService` |
 > | getErrorBagMessage, getCheckboxStatus, isValidDatabaseConnection | `Services\ValidationService` |
 > | registerModelObserver, eloquent2selectbox, sortItemWithChildren, getModelItem | `Services\ModelService` |
-> | existsInFilterKey, joinInFilterKey, removeFromFilterKey, saveJavaScriptCookies | `Utilities\SessionHelper` (G8) |
+> | existsInFilterKey, joinInFilterKey, removeFromFilterKey, saveJavaScriptCookies | `Services\SessionService` (injectable, `Toolkit::session()`) |
 > | getComposerArray→`composer`, getSystemEnv→`systemInfo`, getServerEnv→`serverEnv`, isSslInstalled | `Helpers\SystemHelper` (G8) |
 > | environment | `Utilities\EnvironmentUtil` |
 > | arrayToDotNotation, html→`escapeHtml`, ucWords, generateUsername→`usernameFromEmail`, generateEmailFromUsername→`emailFromUsername`, getClassNameFromClass→`classBasename`, random→`randomIntExcept`, faker | `Helpers\XHelper` (G8) |
@@ -216,7 +216,7 @@ wire them.
 | `Foundation\Contracts\Services\ModelFormatterServiceInterface` | MIGRATED(merged) | Contract dropped; the working formatters live on `Traits\HasFormatters` (G6d). |
 | `Foundation\Contracts\Services\PackageServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\Services\StringHelperServiceInterface` | MIGRATED(merged) | Folded into `Toolkit\Helpers\XHelper` (`ucWords`, `usernameFromEmail`, `emailFromUsername`). |
-| `Foundation\Contracts\SessionServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Contracts\SessionServiceInterface` | MIGRATED | Revived as the injectable `Toolkit\Services\Contracts\SessionServiceInterface` (filter-key + JS-cookie helpers), implemented by `Toolkit\Services\SessionService` and fronted by `Toolkit::session()`. |
 | `Foundation\Contracts\SystemServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\UtilityServiceInterface` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Contracts\ValidationServiceInterface` | MIGRATED | `Toolkit\Services\Contracts\ValidationServiceInterface` (DB-credential methods dropped — see ValidationService row). |
@@ -246,7 +246,7 @@ wire them.
 | `Foundation\Services\ModelService` | MIGRATED | Toolkit\Services\ModelService (schema-validated + grammar-quoted raw SQL) |
 | `Foundation\Services\PackageService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\RouteService` | MIGRATED | Toolkit\Services\RouteService |
-| `Foundation\Services\SessionService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
+| `Foundation\Services\SessionService` | MIGRATED | Revived as the injectable `Toolkit\Services\SessionService` (filter-key + JS-cookie helpers, session/cookie writes via injected store + jar), bound by `SessionServiceInterface` and fronted by `Toolkit::session()`. |
 | `Foundation\Services\StringHelperService` | MIGRATED(merged) | Folded into `Toolkit\Helpers\XHelper` (`ucWords`, `usernameFromEmail`, `emailFromUsername`) — de-faceted to static helpers. |
 | `Foundation\Services\SystemService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\UtilityService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
@@ -445,9 +445,9 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 172 | direct + 83 merged |
+| **MIGRATED** | 173 | direct + 82 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
-| **DROPPED** | 90 | native / out-of-scope (see rows) |
+| **DROPPED** | 89 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
 
 ### Simtabi\Laranail\Features\Archiver\Contracts
@@ -602,7 +602,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `DatabaseServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface` |
 | `FileServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface` |
 | `RouteServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface` |
-| `SessionServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
+| `SessionServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface` |
 | `SystemServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface` |
 | `UtilityServiceInterface` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `ValidationServiceInterface` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface` |
@@ -668,7 +668,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `ModelService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\ModelService` |
 | `PackageService` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `RouteService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\RouteService` |
-| `SessionService` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\SessionHelper (query-string filter-key helpers folded, G8a)` |
+| `SessionService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\SessionService` |
 | `StringHelperService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper` |
 | `SystemService` | MIGRATED | `Simtabi\Laranail\Toolkit\Services\SystemService` |
 | `UtilityService` | MERGED | `Simtabi\Laranail\Toolkit\Helpers\Helper (arrayToDotNotation/escapeHtml/random/faker folded; sortSearchResults via CollectionMacros, G8a)` |

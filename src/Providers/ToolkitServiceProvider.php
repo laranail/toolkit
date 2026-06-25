@@ -39,6 +39,7 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ImportDatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\DatabaseService;
@@ -48,6 +49,7 @@ use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
 use Simtabi\Laranail\Toolkit\Services\ImportDatabaseService;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Services\RouteService;
+use Simtabi\Laranail\Toolkit\Services\SessionService;
 use Simtabi\Laranail\Toolkit\Services\SystemService;
 use Simtabi\Laranail\Toolkit\Services\ValidationService;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
@@ -100,6 +102,15 @@ class ToolkitServiceProvider extends ServiceProvider
 
         // Request-scoped route helpers (Router + Request are container-resolved).
         $this->app->bind(RouteServiceInterface::class, RouteService::class);
+
+        // Session / query-string filter-key helpers. The stateful method writes
+        // through the injected session store + cookie jar (no facades). Singleton
+        // so a single instance fronts the session/cookie write path.
+        $this->app->singleton(SessionServiceInterface::class, fn ($app): SessionService => new SessionService(
+            $app->make('session.store'),
+            $app->make('cookie'),
+            $app->make('request'),
+        ));
 
         // HTTP client config builder (seeded from laranail.toolkit.http.*).
         $this->app->bind(HttpConfigurationServiceInterface::class, HttpConfigurationService::class);
