@@ -22,6 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Passphrase}` (fluent, immutable), backed by `resources/data/security/*` (the
   EFF large wordlist + common-password list). See
   [docs/security.md](docs/security.md).
+- **zxcvbn password-strength support** (via `bjeavons/zxcvbn-php ^1.4`). `Password`
+  gains `minStrength(int $score)` (regenerate until the zxcvbn 0–4 score is met),
+  a static `Password::strength()` estimator, and `zxcvbn_*` keys in
+  `generateWithMetadata()`; `RejectCommonPasswords` gains an opt-in
+  `minZxcvbnScore` gate (constructor + builder). All zxcvbn calls are guarded by
+  `class_exists(\ZxcvbnPhp\Zxcvbn::class)`, so the feature degrades gracefully if
+  the dependency is removed. See [docs/security.md](docs/security.md).
 - **Two more captcha providers** — Friendly Captcha and a no-op Null provider,
   bringing the captcha module to **five** providers (reCAPTCHA, hCaptcha,
   Turnstile, Friendly Captcha, Null) behind one `CaptchaProviderInterface`.

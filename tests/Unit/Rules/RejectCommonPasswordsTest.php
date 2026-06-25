@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator as ValidatorFacade;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use ZxcvbnPhp\Zxcvbn;
 
 #[Group('security')]
 class RejectCommonPasswordsTest extends TestCase
@@ -302,6 +303,56 @@ class RejectCommonPasswordsTest extends TestCase
         $rule = (new RejectCommonPasswords(checkHibp: true));
 
         $this->assertTrue($this->fails($rule, $password));
+    }
+
+    public function test_min_zxcvbn_score_invalid_throws(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new RejectCommonPasswords(minZxcvbnScore: 5);
+    }
+
+    public function test_min_zxcvbn_builder_invalid_throws(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        RejectCommonPasswords::config()->minZxcvbnScore(-1);
+    }
+
+    public function test_min_zxcvbn_score_rejects_weak_and_passes_strong(): void
+    {
+        if (!class_exists(Zxcvbn::class)) {
+            $this->markTestSkipped('bjeavons/zxcvbn-php is not installed.');
+        }
+
+        $rule = RejectCommonPasswords::config()->minZxcvbnScore(4)->rule();
+
+        // 'Summer2024' clears the denylist but zxcvbn scores it low.
+        $this->assertTrue($this->fails($rule, 'Summer2024'));
+        $this->assertFalse($this->fails($rule, 'Tr0ub4dor&3xtraLong'));
+    }
+
+    public function test_min_zxcvbn_message_carries_feedback(): void
+    {
+        if (!class_exists(Zxcvbn::class)) {
+            $this->markTestSkipped('bjeavons/zxcvbn-php is not installed.');
+        }
+
+        $rule = RejectCommonPasswords::config()->minZxcvbnScore(4)->rule();
+
+        $validator = ValidatorFacade::make(['password' => 'Summer2024'], ['password' => [$rule]]);
+
+        $this->assertTrue($validator->fails());
+        $this->assertStringContainsString('too weak', $validator->errors()->first('password'));
+    }
+
+    public function test_min_zxcvbn_off_by_default_does_not_change_behaviour(): void
+    {
+        $rule = new RejectCommonPasswords();
+
+        // Denylist still catches 'password'; a weak-but-not-listed value passes.
+        $this->assertTrue($this->fails($rule, 'password'));
+        $this->assertFalse($this->fails($rule, 'Summer2024'));
     }
 
     public function test_hibp_never_transmits_the_full_password_only_the_sha1_prefix(): void

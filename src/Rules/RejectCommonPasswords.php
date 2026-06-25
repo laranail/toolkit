@@ -9,6 +9,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Throwable;
+use ZxcvbnPhp\Zxcvbn;
 
 /**
  * Reject weak passwords: a large common-password denylist, optional minimum
@@ -46,17 +47,27 @@ final class RejectCommonPasswords implements ValidationRule
     private static ?array $commonPasswords = null;
 
     /**
-     * @param int         $minLength  Minimum length gate (0 = off).
-     * @param int         $minEntropy Minimum Shannon-entropy gate in bits (0 = off).
-     * @param bool        $checkHibp  Enable the opt-in HIBP k-anonymity breach check.
-     * @param string|null $hibpApiKey Optional HIBP API key (sent as `hibp-api-key`; not required for the range API).
+     * @param int         $minLength      Minimum length gate (0 = off).
+     * @param int         $minEntropy     Minimum Shannon-entropy gate in bits (0 = off).
+     * @param bool        $checkHibp      Enable the opt-in HIBP k-anonymity breach check.
+     * @param string|null $hibpApiKey     Optional HIBP API key (sent as `hibp-api-key`; not needed for the range API).
+     * @param int         $minZxcvbnScore Minimum zxcvbn strength score 0–4 (0 = off; skipped when zxcvbn is absent).
+     *
+     * @throws \InvalidArgumentException when `$minZxcvbnScore` is outside 0–4
      */
     public function __construct(
         private readonly int $minLength = 0,
         private readonly int $minEntropy = 0,
         private readonly bool $checkHibp = false,
         private readonly ?string $hibpApiKey = null,
-    ) {}
+        private readonly int $minZxcvbnScore = 0,
+    ) {
+        if ($minZxcvbnScore < 0 || $minZxcvbnScore > 4) {
+            throw new \InvalidArgumentException(
+                "minZxcvbnScore must be between 0 and 4, got [{$minZxcvbnScore}].",
+            );
+        }
+    }
 
     /**
      * Fluent factory entry point: `RejectCommonPasswords::config()->minLength(12)->rule()`.
@@ -98,7 +109,41 @@ final class RejectCommonPasswords implements ValidationRule
 
         if ($this->checkHibp && $this->isPwned($trimmed)) {
             $fail('The :attribute has appeared in a known data breach and cannot be used.');
+
+            return;
         }
+
+        if ($this->minZxcvbnScore > 0 && class_exists(Zxcvbn::class)) {
+            /**
+             * @var array{score: int, feedback: array{warning: string, suggestions: list<string>}} $result
+             */
+            $result = new Zxcvbn()->passwordStrength($trimmed);
+
+            if ($result['score'] < $this->minZxcvbnScore) {
+                $fail($this->strengthMessage($result['feedback']));
+            }
+        }
+    }
+
+    /**
+     * Build a human-readable failure message from the zxcvbn feedback, folding in
+     * the warning and any suggestions when present.
+     *
+     * @param array{warning: string, suggestions: list<string>} $feedback
+     */
+    private function strengthMessage(array $feedback): string
+    {
+        $message = 'The :attribute is too weak.';
+
+        if ($feedback['warning'] !== '') {
+            $message .= ' ' . rtrim($feedback['warning'], '.') . '.';
+        }
+
+        if ($feedback['suggestions'] !== []) {
+            $message .= ' ' . implode(' ', $feedback['suggestions']);
+        }
+
+        return $message;
     }
 
     /**

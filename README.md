@@ -72,7 +72,10 @@ see [installation](docs/installation.md) for the full tag list.
   set of custom-only Blade directives.
 - **Security** — the `reject_common_passwords` validation rule, the immutable
   `Support\Username` builder, and CSPRNG `Modules\Security\{Token,Password,Passphrase}`
-  generators.
+  generators. Realistic password-strength scoring (zxcvbn `minStrength` /
+  `Password::strength()` / `RejectCommonPasswords::minZxcvbnScore`) ships via the
+  `bjeavons/zxcvbn-php` dependency, guarded by `class_exists` so it degrades
+  gracefully.
 
 ## Quick start
 

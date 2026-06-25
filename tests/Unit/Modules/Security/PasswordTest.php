@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 use Simtabi\Laranail\Toolkit\Modules\Security\Password;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use ZxcvbnPhp\Zxcvbn;
 
 class PasswordTest extends TestCase
 {
@@ -164,5 +165,97 @@ class PasswordTest extends TestCase
         }
 
         $this->assertCount(2000, $seen);
+    }
+
+    #[Group('security')]
+    public function test_min_strength_invalid_score_throws(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        Password::strong()->minStrength(5);
+    }
+
+    #[Group('security')]
+    public function test_min_strength_negative_score_throws(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        Password::strong()->minStrength(-1);
+    }
+
+    #[Group('security')]
+    public function test_min_strength_regenerates_to_meet_score(): void
+    {
+        $this->skipWithoutZxcvbn();
+
+        $password = Password::strong()->length(20)->minStrength(4)->generate();
+
+        $this->assertGreaterThanOrEqual(4, Password::strength($password)['score']);
+    }
+
+    #[Group('security')]
+    public function test_min_strength_throws_when_unreachable(): void
+    {
+        $this->skipWithoutZxcvbn();
+
+        $this->expectException(RuntimeException::class);
+
+        // A 6-digit numeric PIN cannot reach zxcvbn's top score of 4.
+        Password::numeric()->minStrength(4)->generate();
+    }
+
+    #[Group('security')]
+    public function test_generate_with_metadata_carries_zxcvbn_keys(): void
+    {
+        $this->skipWithoutZxcvbn();
+
+        $meta = Password::strong()->generateWithMetadata();
+
+        $this->assertArrayHasKey('zxcvbn_score', $meta);
+        $this->assertArrayHasKey('zxcvbn_guesses', $meta);
+        $this->assertArrayHasKey('zxcvbn_crack_times_seconds', $meta);
+        $this->assertArrayHasKey('zxcvbn_feedback', $meta);
+        $this->assertIsInt($meta['zxcvbn_score']);
+        $this->assertGreaterThanOrEqual(0, $meta['zxcvbn_score']);
+        $this->assertLessThanOrEqual(4, $meta['zxcvbn_score']);
+        $this->assertIsFloat($meta['zxcvbn_guesses']);
+        $this->assertIsArray($meta['zxcvbn_crack_times_seconds']);
+        $this->assertArrayHasKey('warning', $meta['zxcvbn_feedback']);
+        $this->assertArrayHasKey('suggestions', $meta['zxcvbn_feedback']);
+    }
+
+    #[Group('security')]
+    public function test_strength_returns_score_and_feedback(): void
+    {
+        $this->skipWithoutZxcvbn();
+
+        $result = Password::strength('password');
+
+        $this->assertGreaterThanOrEqual(0, $result['score']);
+        $this->assertLessThanOrEqual(4, $result['score']);
+        $this->assertArrayHasKey('warning', $result['feedback']);
+        $this->assertArrayHasKey('suggestions', $result['feedback']);
+
+        $strong = Password::strength(Password::strong()->generate());
+        $this->assertGreaterThan($result['score'], $strong['score']);
+    }
+
+    #[Group('security')]
+    public function test_strength_throws_when_zxcvbn_not_installed(): void
+    {
+        if (class_exists(Zxcvbn::class)) {
+            $this->markTestSkipped('bjeavons/zxcvbn-php is installed; the not-installed path cannot be exercised.');
+        }
+
+        $this->expectException(LogicException::class);
+
+        Password::strength('whatever');
+    }
+
+    private function skipWithoutZxcvbn(): void
+    {
+        if (!class_exists(Zxcvbn::class)) {
+            $this->markTestSkipped('bjeavons/zxcvbn-php is not installed.');
+        }
     }
 }

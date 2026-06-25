@@ -61,10 +61,11 @@ The constructor takes opt-in flags; all default to the original behaviour:
 
 ```php
 new RejectCommonPasswords(
-    minLength:  12,      // 0 = off  — reject shorter than N characters
-    minEntropy: 60,      // 0 = off  — reject below N bits of estimated entropy
-    checkHibp:  false,   //          — opt into the HIBP breach check (see below)
-    hibpApiKey: null,    //          — optional HIBP API key for the range request
+    minLength:      12,      // 0 = off  — reject shorter than N characters
+    minEntropy:     60,      // 0 = off  — reject below N bits of estimated entropy
+    checkHibp:      false,   //          — opt into the HIBP breach check (see below)
+    hibpApiKey:     null,    //          — optional HIBP API key for the range request
+    minZxcvbnScore: 0,       // 0 = off  — reject below this zxcvbn score 0–4 (see below)
 );
 ```
 
@@ -74,9 +75,18 @@ Or via the fluent factory:
 $rule = RejectCommonPasswords::config()
     ->minLength(12)
     ->minEntropy(60)
-    ->withHibp($apiKey) // pass null/omit to skip the key — the range API needs none
+    ->withHibp($apiKey)   // pass null/omit to skip the key — the range API needs none
+    ->minZxcvbnScore(3)   // require at least a zxcvbn "good" rating
     ->rule();
 ```
+
+**`minZxcvbnScore` (opt-in, off by default).** When set to `1–4` *and*
+`bjeavons/zxcvbn-php` is installed, the rule additionally rejects any password
+whose realistic zxcvbn strength score falls below the threshold, surfacing the
+zxcvbn warning and suggestions in the failure message. If the optional package
+is **absent** the gate is silently skipped (no behaviour change); a value
+outside `0–4` throws `InvalidArgumentException`. See
+[zxcvbn strength estimation](#zxcvbn-strength-estimation) below.
 
 **Entropy estimate.** The entropy gate uses a Shannon-style estimate:
 
@@ -199,7 +209,8 @@ Password::numeric()->generate();                      // 6-digit PIN
 Password::basic()->generate();                        // 12 chars, lowercase + digits
 
 $meta = Password::strong()->generateWithMetadata();
-// ['password' => '…', 'entropy' => 127.15, 'charset_size' => 82, 'length' => 20]
+// ['password' => '…', 'entropy' => 127.15, 'charset_size' => 82, 'length' => 20,
+//  'zxcvbn_score' => 4, 'zxcvbn_guesses' => 1.0e16, …]   ← zxcvbn keys present only when installed
 ```
 
 | Method | Effect |
@@ -210,7 +221,9 @@ $meta = Password::strong()->generateWithMetadata();
 | `excludeAmbiguous(bool = true)` | Remove confusable glyphs `0 O 1 l I`. |
 | `requireEachClass(bool = true)` | Guarantee ≥ 1 char from each selected class. |
 | `minEntropy(float $bits)` | Require a minimum estimated entropy. |
+| `minStrength(int $score)` | Require a minimum zxcvbn score `0–4` (opt-in; see below). |
 | `generate()` / `generateWithMetadata()` / `__toString()` | Terminals. |
+| `Password::strength(string, array $userInputs = [])` | Static zxcvbn estimator. |
 
 **Entropy** is the worst-case `length * log2(poolSize)` (bits) — the information
 content of a uniform draw. `requireEachClass` and `minEntropy` are enforced by a
@@ -219,6 +232,43 @@ the configured pool and length (e.g. `minEntropy(128)` on eight lowercase-only
 chars, which caps at `8 * log2(26) ≈ 37.6` bits), `generate()` throws a
 `RuntimeException` immediately rather than spinning. Selecting **no** character
 class throws a `LogicException`.
+
+### zxcvbn strength estimation
+
+The optional [`bjeavons/zxcvbn-php`](https://github.com/bjeavons/zxcvbn-php)
+package adds **realistic, guess-based** password-strength estimation (Dropbox's
+zxcvbn) on top of the worst-case Shannon entropy above. Every call is guarded by
+`class_exists(\ZxcvbnPhp\Zxcvbn::class)`, so the package is a soft dependency —
+nothing breaks when it is absent; the zxcvbn features simply turn off.
+
+**`minStrength(int $score)`** — require the *generated* password to reach a
+minimum zxcvbn score on the `0–4` scale (`0` = trivially guessable, `4` = very
+strong). When the gate is on and zxcvbn is installed, `generate()` regenerates
+candidates (bounded at 50 attempts, as zxcvbn is comparatively slow) until the
+score is met, throwing `RuntimeException` if the target is effectively
+unreachable (e.g. `Password::numeric()->minStrength(4)` — a 6-digit PIN can
+never score 4). A score outside `0–4` throws `InvalidArgumentException`. When
+zxcvbn is **absent** the gate is a no-op.
+
+```php
+Password::strong()->minStrength(4)->generate();   // regenerates until zxcvbn score ≥ 4
+```
+
+**`generateWithMetadata()`** adds four extra keys **only when zxcvbn is
+installed**: `zxcvbn_score` (int 0–4), `zxcvbn_guesses` (float),
+`zxcvbn_crack_times_seconds` (array), and `zxcvbn_feedback`
+(`['warning' => string, 'suggestions' => string[]]`).
+
+**`Password::strength(string $password, array $userInputs = [])`** is a static
+estimator returning the full zxcvbn result (`score`, `guesses`,
+`crack_times_seconds`, `feedback`). Pass `$userInputs` (names, email, etc.) to
+penalise site-specific tokens. It throws a `LogicException` with the
+`composer require bjeavons/zxcvbn-php` hint when the package is not installed.
+
+```php
+$result = Password::strength('correct horse battery staple');
+// $result['score'] (0–4), $result['feedback']['suggestions'], …
+```
 
 ## `Passphrase` — EFF diceware
 

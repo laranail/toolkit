@@ -7,6 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Security;
 use InvalidArgumentException;
 use LogicException;
 use RuntimeException;
+use ZxcvbnPhp\Zxcvbn;
 
 /**
  * Fluent, immutable random-password generator.
@@ -42,6 +43,12 @@ final class Password implements \Stringable
     /** Bound on retries for the requireEachClass / minEntropy constraints. */
     private const MAX_ATTEMPTS = 1000;
 
+    /**
+     * Bound on retries for the (comparatively slow) zxcvbn `minStrength` gate.
+     * Lower than {@see MAX_ATTEMPTS} because each attempt runs a full estimation.
+     */
+    private const MAX_STRENGTH_ATTEMPTS = 50;
+
     private int $length = 16;
 
     private bool $uppercase = true;
@@ -57,6 +64,9 @@ final class Password implements \Stringable
     private bool $requireEachClass = true;
 
     private float $minEntropy = 0.0;
+
+    /** Minimum zxcvbn score (0–4) the generated password must reach; 0 = off. */
+    private int $minStrengthScore = 0;
 
     // --- Presets -------------------------------------------------------------
 
@@ -173,6 +183,26 @@ final class Password implements \Stringable
         return $this->with(fn (self $c) => $c->minEntropy = $bits);
     }
 
+    /**
+     * Require the generated password to reach a minimum zxcvbn strength score.
+     *
+     * Scores are zxcvbn's 0–4 scale (0 = trivially guessable, 4 = very strong).
+     * The gate is a no-op unless `bjeavons/zxcvbn-php` is installed; when present,
+     * {@see generate()} regenerates (bounded by {@see MAX_STRENGTH_ATTEMPTS}) until
+     * the score is met, throwing {@see RuntimeException} if the target is
+     * effectively unreachable (e.g. `numeric()->minStrength(4)`).
+     *
+     * @throws InvalidArgumentException when `$score` is outside 0–4
+     */
+    public function minStrength(int $score): self
+    {
+        if ($score < 0 || $score > 4) {
+            throw new InvalidArgumentException("minStrength score must be between 0 and 4, got [{$score}].");
+        }
+
+        return $this->with(fn (self $c) => $c->minStrengthScore = $score);
+    }
+
     // --- Terminals -----------------------------------------------------------
 
     /**
@@ -181,7 +211,10 @@ final class Password implements \Stringable
      * @throws LogicException   when no character class is selected
      * @throws RuntimeException when the requireEachClass / minEntropy constraints
      *                          cannot be satisfied within {@see MAX_ATTEMPTS}
-     *                          (e.g. minEntropy(128) on a short lowercase-only pool)
+     *                          (e.g. minEntropy(128) on a short lowercase-only pool),
+     *                          or when the zxcvbn `minStrength` score cannot be met
+     *                          within {@see MAX_STRENGTH_ATTEMPTS} (e.g.
+     *                          `numeric()->minStrength(4)`)
      */
     public function generate(): string
     {
@@ -194,6 +227,33 @@ final class Password implements \Stringable
 
         $this->guardEntropyAchievable($combined);
 
+        $strengthGate = $this->minStrengthScore > 0 && class_exists(Zxcvbn::class);
+
+        for ($strengthAttempt = 0; $strengthAttempt < self::MAX_STRENGTH_ATTEMPTS; $strengthAttempt++) {
+            $password = $this->drawConstrained($pools, $combined);
+
+            if (!$strengthGate || $this->meetsStrength($password)) {
+                return $password;
+            }
+        }
+
+        throw new RuntimeException(sprintf(
+            'Could not reach a zxcvbn strength score of %d within %d attempts.',
+            $this->minStrengthScore,
+            self::MAX_STRENGTH_ATTEMPTS,
+        ));
+    }
+
+    /**
+     * Draw a single password satisfying the requireEachClass constraint, retrying
+     * up to {@see MAX_ATTEMPTS} times.
+     *
+     * @param array<string, string> $pools
+     *
+     * @throws RuntimeException when the constraints cannot be satisfied
+     */
+    private function drawConstrained(array $pools, string $combined): string
+    {
         for ($attempt = 0; $attempt < self::MAX_ATTEMPTS; $attempt++) {
             $password = $this->draw($pools, $combined);
 
@@ -209,22 +269,93 @@ final class Password implements \Stringable
         );
     }
 
+    /** True when `$password` reaches the configured zxcvbn `minStrengthScore`. */
+    private function meetsStrength(string $password): bool
+    {
+        return self::strength($password)['score'] >= $this->minStrengthScore;
+    }
+
     /**
      * Generate the password together with its entropy metadata.
      *
-     * @return array{password: string, entropy: float, charset_size: int, length: int}
+     * When `bjeavons/zxcvbn-php` is installed the result additionally carries the
+     * zxcvbn estimation (`zxcvbn_score`, `zxcvbn_guesses`,
+     * `zxcvbn_crack_times_seconds`, `zxcvbn_feedback`); those keys are absent when
+     * the optional dependency is not present.
+     *
+     * @return array{
+     *     password: string,
+     *     entropy: float,
+     *     charset_size: int,
+     *     length: int,
+     *     zxcvbn_score?: int,
+     *     zxcvbn_guesses?: float,
+     *     zxcvbn_crack_times_seconds?: array<string, float|int>,
+     *     zxcvbn_feedback?: array{warning: string, suggestions: list<string>}
+     * }
      */
     public function generateWithMetadata(): array
     {
         $password = $this->generate();
         $charsetSize = strlen(implode('', $this->pools()));
 
-        return [
+        $metadata = [
             'password' => $password,
             'entropy' => $this->entropyBits($charsetSize),
             'charset_size' => $charsetSize,
             'length' => $this->length,
         ];
+
+        if (class_exists(Zxcvbn::class)) {
+            $result = self::strength($password);
+
+            $metadata['zxcvbn_score'] = $result['score'];
+            $metadata['zxcvbn_guesses'] = $result['guesses'];
+            $metadata['zxcvbn_crack_times_seconds'] = $result['crack_times_seconds'];
+            $metadata['zxcvbn_feedback'] = $result['feedback'];
+        }
+
+        return $metadata;
+    }
+
+    /**
+     * Estimate a password's strength with zxcvbn (realistic guess-based scoring).
+     *
+     * Returns the full zxcvbn result, including `score` (int 0–4), `guesses`
+     * (float), `crack_times_seconds` (array), and `feedback`
+     * (`['warning' => string, 'suggestions' => string[]]`).
+     *
+     * @param list<string> $userInputs Site/user-specific tokens to penalise (names, email, etc.)
+     *
+     * @throws LogicException when `bjeavons/zxcvbn-php` is not installed
+     *
+     * @return array{
+     *     score: int,
+     *     guesses: float,
+     *     crack_times_seconds: array<string, float|int>,
+     *     feedback: array{warning: string, suggestions: list<string>}
+     * }
+     */
+    public static function strength(string $password, array $userInputs = []): array
+    {
+        if (!class_exists(Zxcvbn::class)) {
+            throw new LogicException(
+                'zxcvbn strength estimation requires the optional "bjeavons/zxcvbn-php" package. '
+                . 'Install it with: composer require bjeavons/zxcvbn-php',
+            );
+        }
+
+        /**
+         * @var array{
+         *     score: int,
+         *     guesses: float,
+         *     crack_times_seconds: array<string, float|int>,
+         *     feedback: array{warning: string, suggestions: list<string>}
+         * } $result
+         */
+        $result = new Zxcvbn()->passwordStrength($password, $userInputs);
+
+        return $result;
     }
 
     /** Convenience: a {@see generate()}d password. */
