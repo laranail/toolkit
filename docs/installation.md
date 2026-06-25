@@ -31,6 +31,8 @@ need.
 |-----|--------------|
 | `laranail-toolkit-config` | `config/laranail-toolkit.php` |
 | `laranail-toolkit-feature-toggles` | `config/feature-toggles.php` |
+| `laranail-toolkit-atlas` | `config/laranail-toolkit-atlas.php` (countries / continents / locales) |
+| `laranail-toolkit-captcha` | `config/laranail-toolkit-captcha.php` |
 | `laranail-toolkit-migrations` | `database/migrations/*` |
 | `laranail-toolkit-views` | `resources/views/vendor/laranail-toolkit` |
 | `laranail-toolkit-lang` | `lang/vendor/laranail-toolkit` |

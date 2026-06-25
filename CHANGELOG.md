@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Atlas continent & region API + single config.** New `Atlas::continents()`,
+  `countriesByContinent()`, `countriesInContinent()` (by ISO code or English
+  name), `continentForCountry()` (ISO2/ISO3), `regions()`, and `subregions()`.
+  The Laravel-locale registry moved under `atlas.languages` so Atlas now owns a
+  **single, publishable `config/atlas.php`** (publish tag
+  `laranail-toolkit-atlas`, merged under `laranail.toolkit.atlas`).
+- **Llm module provider + facade.** A dedicated deferred `LlmServiceProvider`
+  binds `LLMProviderInterface` (alias `laranail.llm`) and registers a `Llm`
+  facade (`Llm::generateResponse(...)`) alongside constructor injection.
+- **Security credential generators** — CSPRNG `Support\Security\{Token, Password,
+  Passphrase}` (fluent, immutable), backed by `resources/data/security/*` (the
+  EFF large wordlist + common-password list). See
+  [docs/security.md](docs/security.md).
+- **Two more captcha providers** — Friendly Captcha and a no-op Null provider,
+  bringing the captcha module to **five** providers (reCAPTCHA, hCaptcha,
+  Turnstile, Friendly Captcha, Null) behind one `CaptchaProviderInterface`.
 - **Fluent `Support\Username` builder.** A native, immutable, chainable
   username / handle generator (`Username::for()` / `fromEmail()` / `fromName()` /
   `random()`) that replaces the legacy pheg-bound `name2username()`. Supports
@@ -32,7 +48,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   G10 security hardening (mysqldump array-args + chmod-600 defaults-file, the
   Schema-validated grammar-quoted truncate, the FilePathGuard storage confinement and
   the `db` gating) is preserved.
-
 - **API-surface regression proof** — a `tests/Regression/ApiSurfaceTest` diffs the
   frozen legacy public-API snapshot against the current toolkit and fails on any
   *unplanned* lost symbol; intentional removals/relocations live in
@@ -45,6 +60,64 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Module facade aliases** registered for `Avatar`, `Gravatar`, `Captcha`, and
   `Archiver`, so `Avatar::…` etc. work out of the box.
 
+### Changed
+
+- **Hardened `RejectCommonPasswords`** (larger curated common-password list,
+  case-insensitive matching) and **`Support\Username` now rejects spaces** so
+  generated handles are always whitespace-free.
+- **Judicious Str/Arr/File helper sweep** across `Helpers\Helper` and its
+  `Concerns\InteractsWith*` traits — replacing hand-rolled logic with the
+  Laravel 13 / PHP 8.4 natives where they are an exact behavioural match.
+- **Restructured to a flat, feature-first `src/`** (behaviour-preserving): each
+  `Modules/<Feature>/` now holds its files directly (the `Services/`, `Contracts/`,
+  `DataTransferObjects/`, `Facades/`, `Enums/`, `Support/`, `Results/` sub-folders
+  were flattened up one level; only multi-file groups like `Captcha/Providers/` keep
+  a sub-folder). `src/LLMProviders/` moved to `src/Modules/Llm/` (per-driver folders
+  kept). Namespaces follow: e.g. `…\Modules\Avatar\Services\AvatarService` →
+  `…\Modules\Avatar\AvatarService`, `…\LLMProviders\Claude\ClaudeProvider` →
+  `…\Modules\Llm\Claude\ClaudeProvider`.
+- **`laranail/console` bumped to `^2.5.0`** (the release carrying the first-class
+  `ConsoleWriter` + the nine command services), and the four commands rewritten to
+  consume its full feature set (see _Added_).
+
+### BREAKING
+
+- **The `Utilities\` namespace was removed.** Every `*Util` class was split by
+  responsibility into injectable, interface-backed `Services\*` and pure static
+  `Support\*`. Update imports as follows:
+
+  | Removed (`Toolkit\Utilities\…`) | New home |
+  |---|---|
+  | `CachingUtil` | `Services\CacheService` (`Services\Contracts\CacheRepositoryInterface`) |
+  | `LoggingUtil` | `Services\LogService` (`Services\Contracts\LoggerServiceInterface`) |
+  | `ConfigUtil` | `Support\Config` |
+  | `SettingsStore` | `Services\SettingsStore` (`Services\Contracts\SettingsStoreInterface`) |
+  | `RateLimiterUtil` | `Services\RateLimiterService` (`Services\Contracts\RateLimiterServiceInterface`) |
+  | `SchedulerUtil` | `Services\SchedulerService` (`Services\Contracts\SchedulerServiceInterface`) |
+  | `AuthUtil` | `Support\AuthHelper` |
+  | `EnvironmentUtil` | `Support\Environment` |
+  | `FeatureToggleUtil` | `Support\FeatureToggle` |
+  | `FilteringUtil` | `Support\CollectionFilter` |
+  | `PaginationUtil` | `Support\Pagination` |
+  | `QueryParameterUtil` | `Support\QueryParameters` |
+
+- **Structure moves.** `Support\Scopes\ArchiveScope` → `Scopes\ArchiveScope`;
+  `Support\Models\DatabaseSession` → `Models\DatabaseSession`;
+  `Support\FilePathGuard` → `Traits\FilePathGuard`;
+  `Support\Diagnostics\RequirementsDiagnostics` → `Support\RequirementsDiagnostics`;
+  `Observers\BaseObserver` → `Observers\Observer`;
+  `Modules\AccessLog\*` → `Modules\Security\AccessLog\*`.
+- **PSR / contract renames.** `Llm\LlmRequestException` → `Modules\Llm\LLMRequestException`;
+  `Http\Contracts\ShovelHttpInterface` → `Http\Contracts\HttpStatusInterface`;
+  `Services\AuthenticationHelperService` → `Services\AuthenticationContextService`
+  (+`AuthenticationContextServiceInterface`).
+- **The command base now comes from `laranail/console`** — the toolkit no longer
+  ships its own `Commands\Command` + `SupportsNamespacedNames` (the unique
+  `$commandAliases` convenience was merged upstream into console). `MakeCrud`
+  extends `Simtabi\Laranail\Console\Tools\Commands\Command`.
+- **PHP floor raised to `^8.4.1`** (drop 8.3) — mandated by the `laranail/console`
+  dependency. CI matrix is now `8.4 / 8.5 × Laravel 13`.
+
 ### Removed
 
 - **BREAKING:** the **Notifications** module was extracted into the dedicated
@@ -53,26 +126,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   serializable queue job). The toolkit no longer ships notifications — install
   `laranail/notifications` instead. Removed `src/Modules/Notifications/**`,
   `config/notifications.php`, and the `Notifications` provider/facade.
-
-### Changed
-
-- **Restructured to a flat, feature-first `src/`** (behaviour-preserving): each
-  `Modules/<Feature>/` now holds its files directly (the `Services/`, `Contracts/`,
-  `DataTransferObjects/`, `Facades/`, `Enums/`, `Support/`, `Results/` sub-folders
-  were flattened up one level; only multi-file groups like `Captcha/Providers/` keep
-  a sub-folder). `src/LLMProviders/` moved to `src/Modules/Llm/` (per-driver folders
-  kept), and `AccessLog` flattened to `src/Modules/AccessLog/`. Namespaces follow:
-  e.g. `…\Modules\Avatar\Services\AvatarService` → `…\Modules\Avatar\AvatarService`,
-  `…\LLMProviders\Claude\ClaudeProvider` → `…\Modules\Llm\Claude\ClaudeProvider`.
-- **BREAKING:** the command base now comes from **`laranail/console`** — the toolkit
-  no longer ships its own `Commands\Command` + `SupportsNamespacedNames` (the unique
-  `$commandAliases` convenience was merged upstream into console). `MakeCrud` extends
-  `Simtabi\Laranail\Console\Tools\Commands\Command`.
-- **BREAKING:** PHP floor raised to **`^8.4.1`** (drop 8.3) — mandated by the
-  `laranail/console` dependency. CI matrix is now `8.4 / 8.5 × Laravel 13`.
-- **`laranail/console` bumped to `^2.5.0`** (the release carrying the first-class
-  `ConsoleWriter` + the nine command services), and the four commands rewritten to
-  consume its full feature set (see _Added_).
+- The standalone `config/languages.php` was **deleted** — its Laravel-locale map
+  now lives under `atlas.languages` in `config/atlas.php`.
 
 > Note: `laranail/console` is pinned to `^2.5.0`. Local development resolves it via
 > the `path` repository (`../../tools/console`), whose checkout currently reports

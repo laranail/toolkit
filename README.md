@@ -60,22 +60,26 @@ see [installation](docs/installation.md) for the full tag list.
   search, sorting, and validation out of the box.
 - **`access.log` middleware** — terminate-phase request logging with recursive,
   case-insensitive redaction of secrets.
-- **Feature modules** (deferred, contract-bound): Avatar, Gravatar, Captcha,
-  Archiver.
-- **Utilities** — caching, config, feature toggles, filtering, logging,
-  pagination, query-parameter parsing, rate limiting, scheduler inspection.
+- **Feature modules** (deferred, contract-bound): Avatar, Gravatar, Captcha
+  (reCAPTCHA / hCaptcha / Turnstile / Friendly Captcha / Null), Archiver, Atlas,
+  Livewire, Llm.
+- **Utilities** — `Services\*` (caching, logging, settings store, rate limiting,
+  scheduler inspection) plus `Support\*` (auth, environment, feature toggles,
+  filtering, pagination, query-parameter parsing).
 - **Traits** — `ApiResponseTrait`, `Auditable`, `FileProcessingTrait`,
   `HasAvatar`, `HasArchiver`, `HasFormatters`.
 - **Macros & Blade** — Str/Arr/Collection/Query/Request/Blueprint macros and a
   set of custom-only Blade directives.
-- **Validation** — `reject_common_passwords` rule.
+- **Security** — the `reject_common_passwords` validation rule, the immutable
+  `Support\Username` builder, and CSPRNG `Support\Security\{Token,Password,Passphrase}`
+  generators.
 
 ## Quick start
 
 ### LLM providers
 
 ```php
-use Simtabi\Laranail\Toolkit\LLMProviders\Contracts\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\Llm\LLMProviderInterface;
 
 // Provider chosen by config('laranail.toolkit.llm.default_provider')
 public function __construct(private LLMProviderInterface $llm) {}
@@ -194,9 +198,9 @@ Archiver::extract(storage_path('app/release.zip'), storage_path('app/release'));
 ### Utilities
 
 ```php
-use Simtabi\Laranail\Toolkit\Utilities\PaginationUtil;
+use Simtabi\Laranail\Toolkit\Support\Pagination;
 
-$page = PaginationUtil::paginate($items, perPage: 15, currentPage: 1);
+$page = Pagination::paginate($items, perPage: 15, currentPage: 1);
 ```
 
 ### Macros
@@ -233,7 +237,7 @@ class Post extends Model
 | [CrudController](docs/crud-controller.md) | Secure base controller |
 | [Access log](docs/access-log.md) | `access.log` middleware + redaction |
 | [API middleware](docs/api-middleware.md) | `api.request` / `api.response` envelope + `BaseRequest` sanitization |
-| [Utilities](docs/utilities.md) | The twelve utility classes |
+| [Utilities](docs/utilities.md) | The eleven utility classes (Services + Support) |
 | [Static helpers](docs/helpers.md) | `Helper` — one static facade (array, string, date, system, file, db, geo, console) |
 | [Username builder](docs/username.md) | `Support\Username` — fluent, immutable username / handle generator |
 | [Security helpers](docs/security.md) | `RejectCommonPasswords` rule + CSPRNG `Support\Security\Token`/`Password`/`Passphrase` generators |
@@ -242,7 +246,7 @@ class Post extends Model
 | [Traits](docs/traits.md) | Model & controller traits |
 | [Avatar module](docs/modules/avatar.md) | Generated initials avatars |
 | [Gravatar module](docs/modules/gravatar.md) | Gravatar URL builder |
-| [Captcha module](docs/modules/captcha.md) | reCAPTCHA / hCaptcha / Turnstile |
+| [Captcha module](docs/modules/captcha.md) | reCAPTCHA / hCaptcha / Turnstile / Friendly Captcha / Null |
 | [Archiver module](docs/modules/archiver.md) | Safe tar/zip extraction |
 | [Atlas module](docs/modules/atlas.md) | Country / currency / timezone / locale data |
 | [Livewire module](docs/modules/livewire.md) | Livewire component registration |

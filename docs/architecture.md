@@ -26,9 +26,11 @@ src/
 ├── Macros/                                 # grouped macro providers + MacroServiceProvider
 ├── Traits/                                 # ApiResponse, Auditable, HasAvatar, FilePathGuard, ...
 ├── Support/                                # pure/static helpers: ApiResponder, Cast, Config, AuthHelper,
-│                                           #   Environment, CollectionFilter, Pagination, QueryParameters,
-│                                           #   FeatureToggle, RequirementsDiagnostics, Username, ...
+│   │                                       #   Environment, CollectionFilter, Pagination, QueryParameters,
+│   │                                       #   FeatureToggle, RequirementsDiagnostics, Username, ...
+│   └── Security/      Token, Password, Passphrase  # CSPRNG generators (resources/data/security/*)
 ├── Scopes/ArchiveScope.php                 # archived_at global scope (paired with Traits/HasArchiver)
+├── Observers/Observer.php                  # abstract model observer base
 ├── Models/DatabaseSession.php              # read model over the database session table
 ├── Enums/LogLevel.php
 ├── Rules/RejectCommonPasswords.php
@@ -37,10 +39,12 @@ src/
 └── Modules/                                # self-contained feature modules (flat inside)
     ├── Avatar/        AvatarService, AvatarServiceInterface, AvatarFont, DTOs, Avatar facade, provider
     ├── Gravatar/      GravatarService, …, Gravatar facade, provider
-    ├── Captcha/       CaptchaService, …, Providers/{Recaptcha,Hcaptcha,Turnstile}, Captcha facade, provider
+    ├── Captcha/       CaptchaService, …, Providers/{Recaptcha,Hcaptcha,Turnstile,FriendlyCaptcha,Null}, Captcha facade, provider
     ├── Archiver/      ArchiverService, ArchiveManager, Zip/Tar/TarGz/Extractor, Archiver facade, provider
-    ├── AccessLog/     AccessLogMiddleware, AccessLog (model)
-    └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, Llm facade, provider
+    ├── Atlas/         AtlasService, …, Atlas facade, provider (single config/atlas.php)
+    ├── Livewire/      LivewireServiceProvider, component registration
+    ├── Security/      AccessLog/{AccessLogMiddleware, AccessLog (model)}
+    └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, Llm facade, LlmServiceProvider
 ```
 
 > The command base (`Command` + `SupportsNamespacedNames`) is **not** local — it
@@ -85,6 +89,8 @@ Each module provider:
 | Avatar | `AvatarServiceInterface` | `laranail.avatar` | `Avatar` |
 | Captcha | `CaptchaProviderInterface` / `CaptchaService` | `laranail.captcha` | `Captcha` |
 | Archiver | `ArchiverServiceInterface` | `laranail.archiver` | `Archiver` |
+| Atlas | `AtlasService` | `laranail.atlas` | `Atlas` |
+| Llm | `LLMProviderInterface` | `laranail.llm` | `Llm` |
 
 Resolve any module by its contract (preferred, for testability), its own facade,
 or the unified `Toolkit` facade (`Toolkit::avatar()`, …).
