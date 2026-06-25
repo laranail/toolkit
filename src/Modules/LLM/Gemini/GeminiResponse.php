@@ -6,13 +6,13 @@ namespace Simtabi\Laranail\Toolkit\Modules\LLM\Gemini;
 
 use JsonSerializable;
 
-class GeminiResponse implements JsonSerializable
+final readonly class GeminiResponse implements JsonSerializable
 {
     public function __construct(
-        public readonly string $content,
-        public readonly ?string $model = null,
-        public readonly ?object $usage = null,
-        public readonly ?object $rawResponse = null
+        public string $content,
+        public ?string $model = null,
+        public ?object $usage = null,
+        public ?object $rawResponse = null
     ) {}
 
     public function getContent(): string

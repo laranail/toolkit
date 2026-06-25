@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLog;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLogMiddleware;
+use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 #[Group('security')]
@@ -39,6 +40,67 @@ class AccessLogMiddlewareTest extends TestCase
         $this->assertSame('[REDACTED]', $log->request_data['profile']['api_key']);
         $this->assertSame('user@example.com', $log->request_data['email']);
         $this->assertSame('Jane', $log->request_data['profile']['name']);
+    }
+
+    public function test_deeply_nested_secrets_are_redacted_recursively(): void
+    {
+        $request = Request::create('/deep', 'POST', [
+            'wrapper' => [
+                'inner' => [
+                    'password' => 'deep-secret',
+                    'safe' => 'keep',
+                ],
+            ],
+        ]);
+
+        $this->logRequest($request);
+
+        $log = AccessLog::firstOrFail();
+
+        $this->assertSame('[REDACTED]', $log->request_data['wrapper']['inner']['password']);
+        $this->assertSame('keep', $log->request_data['wrapper']['inner']['safe']);
+    }
+
+    public function test_default_deny_list_comes_from_security_data(): void
+    {
+        // The middleware's default keys derive from SecurityData::redactKeys();
+        // every key it reports must therefore be redacted by the middleware.
+        $keys = SecurityData::redactKeys();
+
+        $this->assertNotSame([], $keys, 'SecurityData must publish a redaction deny-list');
+
+        $payload = [];
+        foreach ($keys as $key) {
+            $payload[$key] = 'leak-' . $key;
+        }
+        $payload['public'] = 'visible';
+
+        $this->logRequest(Request::create('/keys', 'POST', $payload));
+
+        $log = AccessLog::firstOrFail();
+
+        foreach ($keys as $key) {
+            $this->assertSame('[REDACTED]', $log->request_data[$key], "key not redacted: {$key}");
+        }
+        $this->assertSame('visible', $log->request_data['public']);
+    }
+
+    public function test_config_override_replaces_the_default_deny_list(): void
+    {
+        config()->set('laranail.toolkit.access_log.redact', ['custom_field']);
+
+        $request = Request::create('/override', 'POST', [
+            'custom_field' => 'hide-me',
+            'password' => 'no-longer-in-deny-list',
+        ]);
+
+        $this->logRequest($request);
+
+        $log = AccessLog::firstOrFail();
+
+        $this->assertSame('[REDACTED]', $log->request_data['custom_field']);
+        // password is not in the overriding list, so it is stored verbatim.
+        $this->assertSame('no-longer-in-deny-list', $log->request_data['password']);
     }
 
     public function test_query_string_secrets_are_not_stored_in_url(): void

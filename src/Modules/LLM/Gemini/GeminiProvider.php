@@ -10,7 +10,7 @@ use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\RetriesHttpRequests;
 
-class GeminiProvider implements LLMProviderInterface
+final class GeminiProvider implements LLMProviderInterface
 {
     use RetriesHttpRequests;
 

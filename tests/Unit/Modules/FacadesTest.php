@@ -15,14 +15,22 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiProvider;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLM;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
+use Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
@@ -99,6 +107,49 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(AuthenticationContextServiceInterface::class, Toolkit::auth());
         $this->assertInstanceOf(AtlasServiceInterface::class, Toolkit::atlas());
         $this->assertInstanceOf(LivewireServiceInterface::class, Toolkit::livewire());
+    }
+
+    public function test_toolkit_facade_fronts_the_newly_exposed_services(): void
+    {
+        $this->assertInstanceOf(CacheRepositoryInterface::class, Toolkit::cache());
+        $this->assertInstanceOf(LoggerServiceInterface::class, Toolkit::log());
+        $this->assertInstanceOf(SettingsStoreInterface::class, Toolkit::settings());
+        $this->assertInstanceOf(RateLimiterServiceInterface::class, Toolkit::rateLimiter());
+        $this->assertInstanceOf(SchedulerServiceInterface::class, Toolkit::scheduler());
+
+        // The same accessors are reachable through the Laranail alias facade.
+        $this->assertInstanceOf(CacheRepositoryInterface::class, Laranail::cache());
+        $this->assertInstanceOf(LoggerServiceInterface::class, Laranail::log());
+        $this->assertInstanceOf(SettingsStoreInterface::class, Laranail::settings());
+        $this->assertInstanceOf(RateLimiterServiceInterface::class, Laranail::rateLimiter());
+        $this->assertInstanceOf(SchedulerServiceInterface::class, Laranail::scheduler());
+    }
+
+    public function test_llm_binding_selects_openai_by_default(): void
+    {
+        $this->app->forgetInstance(LLMProviderInterface::class);
+        $this->app['config']->set('laranail.toolkit.llm.default_provider', 'openai');
+        $this->app['config']->set('laranail.toolkit.llm.openai.api_key', 'sk-test');
+
+        $this->assertInstanceOf(OpenAIProvider::class, $this->app->make(LLMProviderInterface::class));
+    }
+
+    public function test_llm_binding_selects_gemini_when_configured(): void
+    {
+        $this->app->forgetInstance(LLMProviderInterface::class);
+        $this->app['config']->set('laranail.toolkit.llm.default_provider', 'gemini');
+        $this->app['config']->set('laranail.toolkit.llm.gemini.api_key', 'gemini-test');
+
+        $this->assertInstanceOf(GeminiProvider::class, $this->app->make(LLMProviderInterface::class));
+    }
+
+    public function test_llm_binding_selects_claude_when_configured(): void
+    {
+        $this->app->forgetInstance(LLMProviderInterface::class);
+        $this->app['config']->set('laranail.toolkit.llm.default_provider', 'claude');
+        $this->app['config']->set('laranail.toolkit.llm.claude.api_key', 'claude-test');
+
+        $this->assertInstanceOf(ClaudeProvider::class, $this->app->make(LLMProviderInterface::class));
     }
 
     public function test_laranail_facade_fronts_each_module(): void

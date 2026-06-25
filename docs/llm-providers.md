@@ -98,7 +98,7 @@ configured default:
 ```php
 use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
 
-$claude = new ClaudeProvider(apiKey: config('laranail.toolkit.claude.api_key'));
+$claude = new ClaudeProvider(apiKey: config('laranail.toolkit.llm.claude.api_key'));
 ```
 
 ## Retries & errors

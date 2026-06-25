@@ -9,14 +9,14 @@ use OpenAI\Contracts\ClientContract;
 use OpenAI\Exceptions\ErrorException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
-class OpenAIProvider implements LLMProviderInterface
+final readonly class OpenAIProvider implements LLMProviderInterface
 {
-    private readonly ClientContract $client;
+    private ClientContract $client;
 
     public function __construct(
         string $apiKey,
-        private readonly int $maxRetries = 3,
-        private readonly int $retryDelay = 2,
+        private int $maxRetries = 3,
+        private int $retryDelay = 2,
         ?ClientContract $client = null
     ) {
         $this->client = $client ?? \OpenAI::client($apiKey);

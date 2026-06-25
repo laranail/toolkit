@@ -6,13 +6,13 @@ namespace Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI;
 
 use JsonSerializable;
 
-class OpenAIResponse implements JsonSerializable
+final readonly class OpenAIResponse implements JsonSerializable
 {
     public function __construct(
-        public readonly string $content,
-        public readonly ?string $model = null,
-        public readonly ?object $usage = null,
-        public readonly ?object $rawResponse = null
+        public string $content,
+        public ?string $model = null,
+        public ?object $usage = null,
+        public ?object $rawResponse = null
     ) {}
 
     /**

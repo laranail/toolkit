@@ -3,8 +3,46 @@
 declare(strict_types=1);
 
 return [
+    /*
+     * Self-contained LLM module (Modules\LLM). One consistent prefix:
+     * `laranail.toolkit.llm.*` — `default_provider` selects the driver bound to
+     * LLMProviderInterface, and each provider's credentials/tuning live nested
+     * under `llm.<provider>` (NOT as siblings of `llm`).
+     */
     'llm' => [
         'default_provider' => env('LLM_DEFAULT_PROVIDER', 'openai'), // openai | gemini | claude
+
+        'openai' => [
+            'api_key' => env('OPENAI_API_KEY'),
+            'max_retries' => env('OPENAI_MAX_RETRIES', 3),
+            'retry_delay' => env('OPENAI_RETRY_DELAY', 2),
+            'default_model' => env('OPENAI_DEFAULT_MODEL', 'gpt-3.5-turbo'),
+            'default_temperature' => env('OPENAI_DEFAULT_TEMPERATURE', 0.7),
+            'default_max_tokens' => env('OPENAI_DEFAULT_MAX_TOKENS', 300),
+            'default_top_p' => env('OPENAI_DEFAULT_TOP_P', 1.0),
+        ],
+
+        'gemini' => [
+            'api_key' => env('GEMINI_API_KEY'),
+            'max_retries' => env('GEMINI_MAX_RETRIES', 3),
+            'retry_delay' => env('GEMINI_RETRY_DELAY', 2),
+            'base_url' => env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com/v1beta'),
+            'default_model' => env('GEMINI_DEFAULT_MODEL', 'gemini-2.0-flash'),
+            'default_temperature' => env('GEMINI_DEFAULT_TEMPERATURE', 0.7),
+            'default_max_tokens' => env('GEMINI_DEFAULT_MAX_TOKENS', 300),
+            'default_top_p' => env('GEMINI_DEFAULT_TOP_P', 1.0),
+        ],
+
+        'claude' => [
+            'api_key' => env('CLAUDE_API_KEY'),
+            'max_retries' => env('CLAUDE_MAX_RETRIES', 3),
+            'retry_delay' => env('CLAUDE_RETRY_DELAY', 2),
+            'base_url' => env('CLAUDE_BASE_URL', 'https://api.anthropic.com'),
+            'default_model' => env('CLAUDE_DEFAULT_MODEL', 'claude-3-5-sonnet-20241022'),
+            'default_temperature' => env('CLAUDE_DEFAULT_TEMPERATURE', 1.0),
+            'default_max_tokens' => env('CLAUDE_DEFAULT_MAX_TOKENS', 1024),
+            'default_top_p' => env('CLAUDE_DEFAULT_TOP_P', 1.0),
+        ],
     ],
 
     'cache' => [
@@ -53,38 +91,6 @@ return [
                 'decay_minutes' => 1,
             ],
         ],
-    ],
-
-    'openai' => [
-        'api_key' => env('OPENAI_API_KEY'),
-        'max_retries' => env('OPENAI_MAX_RETRIES', 3),
-        'retry_delay' => env('OPENAI_RETRY_DELAY', 2),
-        'default_model' => env('OPENAI_DEFAULT_MODEL', 'gpt-3.5-turbo'),
-        'default_temperature' => env('OPENAI_DEFAULT_TEMPERATURE', 0.7),
-        'default_max_tokens' => env('OPENAI_DEFAULT_MAX_TOKENS', 300),
-        'default_top_p' => env('OPENAI_DEFAULT_TOP_P', 1.0),
-    ],
-
-    'gemini' => [
-        'api_key' => env('GEMINI_API_KEY'),
-        'max_retries' => env('GEMINI_MAX_RETRIES', 3),
-        'retry_delay' => env('GEMINI_RETRY_DELAY', 2),
-        'base_url' => env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com/v1beta'),
-        'default_model' => env('GEMINI_DEFAULT_MODEL', 'gemini-2.0-flash'),
-        'default_temperature' => env('GEMINI_DEFAULT_TEMPERATURE', 0.7),
-        'default_max_tokens' => env('GEMINI_DEFAULT_MAX_TOKENS', 300),
-        'default_top_p' => env('GEMINI_DEFAULT_TOP_P', 1.0),
-    ],
-
-    'claude' => [
-        'api_key' => env('CLAUDE_API_KEY'),
-        'max_retries' => env('CLAUDE_MAX_RETRIES', 3),
-        'retry_delay' => env('CLAUDE_RETRY_DELAY', 2),
-        'base_url' => env('CLAUDE_BASE_URL', 'https://api.anthropic.com'),
-        'default_model' => env('CLAUDE_DEFAULT_MODEL', 'claude-3-5-sonnet-20241022'),
-        'default_temperature' => env('CLAUDE_DEFAULT_TEMPERATURE', 1.0),
-        'default_max_tokens' => env('CLAUDE_DEFAULT_MAX_TOKENS', 1024),
-        'default_top_p' => env('CLAUDE_DEFAULT_TOP_P', 1.0),
     ],
 
     /*

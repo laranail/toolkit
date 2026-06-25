@@ -15,11 +15,16 @@ use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
 use Simtabi\Laranail\Toolkit\Modules\Security\Password;
 use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\DatabaseServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
@@ -152,6 +157,46 @@ class ToolkitManager
     public function livewire(): LivewireServiceInterface
     {
         return $this->app->make(LivewireServiceInterface::class);
+    }
+
+    /**
+     * Tag-aware cache repository (get/put/remember/forget, namespaced keys).
+     */
+    public function cache(): CacheRepositoryInterface
+    {
+        return $this->app->make(CacheRepositoryInterface::class);
+    }
+
+    /**
+     * Structured application logger (channel/level helpers over the log stack).
+     */
+    public function log(): LoggerServiceInterface
+    {
+        return $this->app->make(LoggerServiceInterface::class);
+    }
+
+    /**
+     * Runtime settings store (dynamic, persisted-at-runtime key/value JSON).
+     */
+    public function settings(): SettingsStoreInterface
+    {
+        return $this->app->make(SettingsStoreInterface::class);
+    }
+
+    /**
+     * Named-profile rate limiter (attempts/decay over the cache store).
+     */
+    public function rateLimiter(): RateLimiterServiceInterface
+    {
+        return $this->app->make(RateLimiterServiceInterface::class);
+    }
+
+    /**
+     * Task scheduler helpers (cron/interval registration support).
+     */
+    public function scheduler(): SchedulerServiceInterface
+    {
+        return $this->app->make(SchedulerServiceInterface::class);
     }
 
     /**

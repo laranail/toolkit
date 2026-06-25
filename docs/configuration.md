@@ -11,6 +11,9 @@ Read any value with `config('laranail.toolkit.<key>')`.
 
 ## `laranail.toolkit.llm`
 
+One consistent prefix: `default_provider` plus a nested block per provider
+(`llm.openai`, `llm.gemini`, `llm.claude`).
+
 | Key | Default | Notes |
 |-----|---------|-------|
 | `default_provider` | `openai` | `openai` \| `gemini` \| `claude` — chooses the driver bound to `LLMProviderInterface`. Env: `LLM_DEFAULT_PROVIDER`. |
@@ -49,20 +52,20 @@ Defaults for `RateLimiterService` and named profiles.
 Each provider has its own block. Keys are read when the matching driver is
 resolved.
 
-### `laranail.toolkit.openai`
+### `laranail.toolkit.llm.openai`
 
 `api_key` (`OPENAI_API_KEY`), `max_retries` (3), `retry_delay` (2),
 `default_model` (`gpt-3.5-turbo`), `default_temperature` (0.7),
 `default_max_tokens` (300), `default_top_p` (1.0).
 
-### `laranail.toolkit.gemini`
+### `laranail.toolkit.llm.gemini`
 
 `api_key` (`GEMINI_API_KEY`), `max_retries` (3), `retry_delay` (2),
 `base_url` (`https://generativelanguage.googleapis.com/v1beta`),
 `default_model` (`gemini-2.0-flash`), and matching temperature/tokens/top-p
 defaults.
 
-### `laranail.toolkit.claude`
+### `laranail.toolkit.llm.claude`
 
 `api_key` (`CLAUDE_API_KEY`), `max_retries` (3), `retry_delay` (2),
 `base_url` (`https://api.anthropic.com`),
