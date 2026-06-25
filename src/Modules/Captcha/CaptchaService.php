@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Modules\Captcha;
 
 use InvalidArgumentException;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\FriendlyCaptchaProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\HcaptchaProvider;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\NullProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\RecaptchaProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\TurnstileProvider;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
@@ -28,6 +30,8 @@ class CaptchaService
         'recaptcha',
         'turnstile',
         'hcaptcha',
+        'friendly_captcha',
+        'null',
     ];
 
     /**
@@ -198,6 +202,15 @@ class CaptchaService
                 siteKey: $siteKey,
                 secretKey: $secretKey,
                 timeout: $timeout,
+            ),
+            'friendly_captcha' => new FriendlyCaptchaProvider(
+                siteKey: $siteKey,
+                apiKey: $secretKey,
+                useEuEndpoint: ToolkitConfig::bool('laranail.toolkit.captcha.friendly_captcha.use_eu_endpoint', false),
+                timeout: $timeout,
+            ),
+            'null' => new NullProvider(
+                siteKey: $siteKey,
             ),
             default => throw new InvalidArgumentException("Unknown CAPTCHA provider '{$name}'."),
         };

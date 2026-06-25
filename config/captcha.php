@@ -11,7 +11,7 @@ return [
     | This option controls the default CAPTCHA provider that will be used
     | when no specific provider is requested.
     |
-    | Supported: "recaptcha", "turnstile", "hcaptcha"
+    | Supported: "recaptcha", "turnstile", "hcaptcha", "friendly_captcha", "null"
     |
     */
 
@@ -61,6 +61,42 @@ return [
         'site_key' => env('HCAPTCHA_SITE_KEY', ''),
         'secret_key' => env('HCAPTCHA_SECRET_KEY', ''),
         'timeout' => env('HCAPTCHA_TIMEOUT', 30),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Friendly Captcha Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for Friendly Captcha (privacy-first, proof-of-work). The
+    | `secret_key` carries the API key sent via the `X-API-Key` header. Set
+    | `use_eu_endpoint` to verify against the EU-resident endpoint.
+    |
+    */
+
+    'friendly_captcha' => [
+        'site_key' => env('FRIENDLY_CAPTCHA_SITE_KEY', ''),
+        'secret_key' => env('FRIENDLY_CAPTCHA_API_KEY', ''),
+        'use_eu_endpoint' => env('FRIENDLY_CAPTCHA_USE_EU_ENDPOINT', false),
+        'timeout' => env('FRIENDLY_CAPTCHA_TIMEOUT', 30),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Null Provider Configuration
+    |--------------------------------------------------------------------------
+    |
+    | A no-op driver that performs no external verification and always passes.
+    | Useful for local development, testing, and honeypot-style flows.
+    |
+    | WARNING: this provider offers no bot protection. Never use it in
+    | production unless another control (rate-limiting, a honeypot field, etc.)
+    | actually guards the request.
+    |
+    */
+
+    'null' => [
+        'site_key' => env('NULL_CAPTCHA_SITE_KEY', 'null-site-key'),
     ],
 
     /*

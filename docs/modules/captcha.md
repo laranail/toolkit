@@ -1,8 +1,9 @@
 # Captcha module
 
-Verify CAPTCHA tokens against reCAPTCHA, hCaptcha, or Cloudflare Turnstile
-behind a single `CaptchaProviderInterface`. Bound through a deferred provider
-(alias `laranail.captcha`, facade `Captcha`). The provider used is chosen by
+Verify CAPTCHA tokens against reCAPTCHA, hCaptcha, Cloudflare Turnstile,
+Friendly Captcha, or a no-op Null provider behind a single
+`CaptchaProviderInterface`. Bound through a deferred provider (alias
+`laranail.captcha`, facade `Captcha`). The provider used is chosen by
 `config('laranail.toolkit.captcha.default_provider')` (`recaptcha` by default).
 
 ```php
@@ -62,14 +63,46 @@ widget), `hasProvider(string $name)`, `setDefaultProvider(string $name)`,
 'recaptcha' => ['site_key' => ..., 'secret_key' => ..., 'min_score' => 0.5, 'timeout' => 30],
 'turnstile' => ['site_key' => ..., 'secret_key' => ..., 'timeout' => 30],
 'hcaptcha'  => ['site_key' => ..., 'secret_key' => ..., 'timeout' => 30],
+'friendly_captcha' => ['site_key' => ..., 'secret_key' => ..., 'use_eu_endpoint' => false, 'timeout' => 30],
+'null'      => ['site_key' => 'null-site-key'],
 'behavior'  => ['allow_unconfigured' => ..., 'log_failures' => ..., 'cache_duration' => ..., 'max_attempts_per_hour' => ...],
 ```
+
+### Friendly Captcha
+
+A privacy-first, proof-of-work CAPTCHA. Verification posts the solution as JSON
+to `https://global.frcapi.com/api/v2/captcha/siteverify` (or the EU-resident
+`https://eu.frcapi.com/...` when `use_eu_endpoint` is set), authenticating with
+the API key via the `X-API-Key` header. It returns no score, so a pass yields
+`1.0`. `isConfigured()` requires both the site key and the API key. The
+`secret_key` config slot carries the **API key**.
+
+Env keys: `FRIENDLY_CAPTCHA_SITE_KEY`, `FRIENDLY_CAPTCHA_API_KEY`,
+`FRIENDLY_CAPTCHA_USE_EU_ENDPOINT`, `FRIENDLY_CAPTCHA_TIMEOUT`.
+
+### Null provider
+
+A no-op driver that performs **no external verification** and **always passes**
+with a score of `1.0` and a `note` of `no external verification`. It is always
+"configured" and makes no HTTP calls. Useful for local development, testing, and
+honeypot-style flows that gate on another control.
+
+> **WARNING:** the `null` provider offers no bot protection. Never use it in
+> production unless another control (rate-limiting, a honeypot field, etc.)
+> actually guards the request — otherwise every submission passes unchecked.
+
+Env keys: `NULL_CAPTCHA_SITE_KEY` (defaults to `null-site-key`).
+
+> Not shipped: GeeTest, Arkose Labs, and AWS WAF are intentionally skipped
+> (non-REST / SDK-only / enterprise / infra-bound). mCaptcha is reCAPTCHA-API
+> compatible and could reuse the reCAPTCHA driver shape if ever needed.
 
 ## Security: fails closed
 
 Provider resolution is restricted to a fixed allow-list (`recaptcha`,
-`turnstile`, `hcaptcha`) — a name from config or user input can never
-instantiate an arbitrary class; an unknown name throws `InvalidArgumentException`.
+`turnstile`, `hcaptcha`, `friendly_captcha`, `null`) — a name from config or
+user input can never instantiate an arbitrary class; an unknown name throws
+`InvalidArgumentException`.
 
 Verification **fails closed**: any transport error, non-2xx response,
 malformed body, or unconfigured provider yields a *failed*

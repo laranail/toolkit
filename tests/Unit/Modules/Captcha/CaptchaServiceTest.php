@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\FriendlyCaptchaProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\HcaptchaProvider;
+use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\NullProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\RecaptchaProvider;
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Providers\TurnstileProvider;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
@@ -34,6 +36,15 @@ class CaptchaServiceTest extends TestCase
             'site_key' => 'hc-site',
             'secret_key' => 'hc-secret',
             'timeout' => 30,
+        ]);
+        config()->set('laranail.toolkit.captcha.friendly_captcha', [
+            'site_key' => 'fc-site',
+            'secret_key' => 'fc-api-key',
+            'use_eu_endpoint' => false,
+            'timeout' => 30,
+        ]);
+        config()->set('laranail.toolkit.captcha.null', [
+            'site_key' => 'null-site',
         ]);
     }
 
@@ -64,6 +75,8 @@ class CaptchaServiceTest extends TestCase
 
         $this->assertInstanceOf(TurnstileProvider::class, $service->getProvider('turnstile'));
         $this->assertInstanceOf(HcaptchaProvider::class, $service->getProvider('hcaptcha'));
+        $this->assertInstanceOf(FriendlyCaptchaProvider::class, $service->getProvider('friendly_captcha'));
+        $this->assertInstanceOf(NullProvider::class, $service->getProvider('null'));
     }
 
     #[Group('security')]
@@ -109,7 +122,7 @@ class CaptchaServiceTest extends TestCase
     public function test_get_provider_names_returns_allow_list(): void
     {
         $this->assertSame(
-            ['recaptcha', 'turnstile', 'hcaptcha'],
+            ['recaptcha', 'turnstile', 'hcaptcha', 'friendly_captcha', 'null'],
             new CaptchaService()->getProviderNames(),
         );
     }
@@ -169,7 +182,8 @@ class CaptchaServiceTest extends TestCase
 
         $results = new CaptchaService()->verifyWithAllProviders('token', [], '198.51.100.7');
 
-        $this->assertSame(['recaptcha', 'turnstile', 'hcaptcha'], array_keys($results));
+        $this->assertSame(['recaptcha', 'turnstile', 'hcaptcha', 'friendly_captcha', 'null'], array_keys($results));
         $this->assertTrue($results['hcaptcha']->isSuccess());
+        $this->assertTrue($results['null']->isSuccess());
     }
 }
