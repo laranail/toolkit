@@ -247,10 +247,13 @@ class Post extends Model
 | [Utilities](docs/utilities.md) | The eleven utility classes (Services + Support) |
 | [Static helpers](docs/helpers.md) | `Helper` — one static facade (array, string, date, system, file, db, geo, console) |
 | [Username builder](docs/username.md) | `Support\Username` — fluent, immutable username / handle generator |
-| [Security helpers](docs/security.md) | `RejectCommonPasswords` rule + CSPRNG `Modules\Security\Token`/`Password`/`Passphrase` generators |
+| [Security helpers](docs/security.md) | `RejectCommonPasswords` rule + CSPRNG `Modules\Security\Token`/`Password`/`Passphrase` generators + access-log redaction, `SecurityData`, session read model |
+| [Exceptions](docs/exceptions.md) | The `LaranailException` hierarchy + `RendersApiExceptions` app-side registrar |
 | [Base classes](docs/base-classes.md) | Reusable controller / job / listener / observer / event bases |
 | [Macros](docs/macros.md) | Str/Arr/Collection/Query/Blueprint macros + Blade directives + IDE stub (`ide-helper:macros` regenerator) |
 | [Traits](docs/traits.md) | Model & controller traits |
+| [Eventing module](docs/modules/eventing.md) | `Event` / `Listener` bases + `CacheEvents` (provider-less) |
+| [Model module](docs/modules/model.md) | `ArchiveScope` + `HasArchiver` soft-archive (`archived_at`) |
 | [Avatar module](docs/modules/avatar.md) | Generated initials avatars |
 | [Gravatar module](docs/modules/gravatar.md) | Gravatar URL builder |
 | [Captcha module](docs/modules/captcha.md) | reCAPTCHA / hCaptcha / Turnstile / Friendly Captcha / Null |

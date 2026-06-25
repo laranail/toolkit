@@ -91,6 +91,34 @@ $summary   = $scheduler->getScheduleSummary();
 $overdue   = $scheduler->hasOverdueTasks();
 ```
 
+### ModelService
+
+Eloquent convenience helpers — building select-box / display lists from models,
+sorting a flat parent/child list into a depth-annotated tree, safe model reads,
+and observer registration. Reachable via `Toolkit::model()` or `app(ModelService::class)`.
+
+```php
+$models = app(ModelService::class);
+
+$models->getFormableUsersList($usersModel);                 // ['id' => 'display-name', ...]
+$models->getUsersFromModel($model, keyed: true, asJson: false);
+$models->eloquent2selectbox($posts, columnName: 'title', idColumnName: 'id');
+$models->sortItemWithChildren($flatNodes);                  // depth-annotated parent→child order
+$models->getModelItem($model, 'profile.phone', default: null); // dot-path read
+$models->registerModelObserver(Post::class, PostObserver::class);
+$models->concatName('users');                               // CONCAT(first_name,' ',last_name) AS name expression
+```
+
+| Method | Effect |
+|---|---|
+| `getFormableUsersList(Model $usersModel): array` | `id => display-name` list from a users model. |
+| `getUsersFromModel(Model $model, bool $keyed = true, bool $asJson = false): array` | Users with a SQL-concatenated `name` column. |
+| `eloquent2selectbox(Collection\|Model $data, string $columnName = 'name', string $idColumnName = 'id', ?string $placeholderText = 'Select something', string $emptyDataText = 'Nothing to select'): array` | Collection/model → select-box array. |
+| `sortItemWithChildren(array\|Collection $list, array &$result = [], int\|string\|null $parent = null, int $depth = 0): array` | Flat nodes → depth-annotated parent→child order. |
+| `getModelItem(object $model, string $key, mixed $default = null): mixed` | Dot-path read with default fallback. |
+| `registerModelObserver(string $modelClass, string $observerClass): void` | Register an observer when both classes exist. |
+| `concatName(string $table, ?string $connection = null): Expression` | `CONCAT(first_name,' ',last_name) AS name` for a table. |
+
 ## Support (pure, static)
 
 ### AuthHelper (per guard)
@@ -158,5 +186,39 @@ FeatureToggle::isEnabled('example_feature'); // bool
 ```
 
 Honours per-user and per-environment overrides — see [configuration](configuration.md).
+
+### RequirementsDiagnostics
+
+Environment / requirements probes that also back the toolkit's
+`php artisan about` section (wired in `boot()`). Use it to check PHP version,
+extensions, writable storage and free disk space.
+
+```php
+$diag = new RequirementsDiagnostics();
+
+$diag->checkPhpVersion();                     // ['version' => '8.3.x', 'meets' => true, ...]
+$diag->checkExtensions(['pdo', 'mbstring']);  // which of the given extensions are loaded
+$diag->missingExtensions(['gd', 'imagick']);  // which are missing
+$diag->checkWritableDirectories([storage_path()]);
+$diag->isDirectoryWritable(storage_path('logs'));
+$diag->checkDiskSpace(base_path(), minimumBytes: 100 * 1024 * 1024);
+$diag->diskSpace([storage_path()], minMb: 200, recommendedMb: 1024, warnAtPercent: 90);
+$diag->toAboutArray();                        // the `php artisan about` payload
+```
+
+| Method | Effect |
+|---|---|
+| `checkPhpVersion(?string $minimumVersion = null): array` | PHP version vs. the (default) floor. |
+| `checkExtensions(?array $extensions = null): array` | Which of the given extensions are loaded. |
+| `missingExtensions(?array $extensions = null): array` | Which of the given extensions are missing. |
+| `checkWritableDirectories(array $paths): array` | Writability of each directory. |
+| `isDirectoryWritable(string $path): bool` | Whether a directory (or where it would be created) is writable. |
+| `checkDiskSpace(?string $path = null, ?int $minimumBytes = null): array` | Free disk space vs. an optional minimum. |
+| `diskSpace(array $paths = [], ?int $minMb = null, ?int $recommendedMb = null, int $warnAtPercent = 90): array` | Free space with minimum / recommended / warning thresholds. |
+| `toAboutArray(): array` | The `php artisan about` payload (PHP version, minimum/supported PHP, required extensions, storage writability, free space). |
+
+The toolkit registers this under `php artisan about` automatically, surfacing
+**PHP Version**, **Minimum PHP**, **PHP Supported**, **Required Extensions**,
+**Storage Writable**, and **Storage Free Space** rows.
 
 [← Docs index](../README.md#documentation)

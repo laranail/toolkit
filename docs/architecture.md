@@ -94,6 +94,27 @@ Each module provider:
 Resolve any module by its contract (preferred, for testability), its own facade,
 or the unified `Toolkit` facade (`Toolkit::avatar()`, …).
 
+### The `Toolkit` facade accessors
+
+`Facades\Toolkit` (proxying `ToolkitManager`) fronts every module **and** the
+injectable core services with typed `@method` accessors. Alongside the module
+accessors (`avatar()`, `gravatar()`, `captcha()`, `archiver()`, `atlas()`,
+`livewire()`) and the security generators (`token()`, `password()`,
+`passphrase()`), it exposes the core services — including the **five service
+accessors**:
+
+| Accessor | Returns (contract) |
+|---|---|
+| `Toolkit::cache()` | `Services\Contracts\CacheRepositoryInterface` |
+| `Toolkit::log()` | `Services\Contracts\LoggerServiceInterface` |
+| `Toolkit::settings()` | `Services\Contracts\SettingsStoreInterface` |
+| `Toolkit::rateLimiter()` | `Services\Contracts\RateLimiterServiceInterface` |
+| `Toolkit::scheduler()` | `Services\Contracts\SchedulerServiceInterface` |
+
+plus `file()`, `system()`, `db()` / `database()`, `session()`, `route()`,
+`validation()`, `http()`, `auth()`, and `model()`. (The pure static `Helper::`
+methods are intentionally **not** on the facade — see [helpers](helpers.md).)
+
 ## Eager vs. deferred
 
 Two things must register eagerly and so run in `boot()`, not deferred:

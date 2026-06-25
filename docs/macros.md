@@ -212,16 +212,44 @@ fails until the provider, the registration inventory, and the stub all agree.
 
 ## Blade directives
 
+Registered eagerly by `Providers\BladeServiceProvider`. Only directives with
+**no native Laravel equivalent** are included. Conditional directives ship with
+their matching `@end…` close tag.
+
+### Conditionals & control flow
+
 | Directive | Purpose |
 |-----------|---------|
-| `@istrue` / `@isfalse` / `@isnull` / `@isnotnull` (+ `@end…`) | Null-safe truthiness / null checks. |
+| `@istrue($v)` / `@isfalse($v)` / `@isnull($v)` / `@isnotnull($v)` (+ `@end…`) | Null-safe truthiness / null checks. |
 | `@routeis('pattern')` / `@routeisnot('pattern')` (+ `@end…`) | `fnmatch` current-route-name checks. |
-| `@activeifroute('pattern')` | Echo `active` when the current route name starts with the pattern. |
-| `@instanceof($var, Class)` / `@typeof($var, 'type')` (+ `@end…`) | Type / `gettype` assertions. |
+| `@activeifroute('pattern')` | Echo `active` when the current route name matches the pattern. |
+| `@instanceof($var, Class)` / `@typeof($var, 'type')` (+ `@end…`) | `instanceof` / `gettype` assertions. |
+| `@haserror('field') … @endhaserror` | Block shown only when the field has a validation error. |
 | `@repeat(n) … @endrepeat` | Loop N times. |
-| `@fa` `@fas` `@far` `@fal` `@fab` `@fad` `@mdi` `@glyph` `@bi` | Icon shorthands (Font Awesome, Material Design, Glyphicons, Bootstrap Icons), each `('icon'[, 'extra-classes'])`. |
-| `@window('name', $value)` | Expose a PHP value onto `window` in JS. |
+| `@returnifempty($value)` | Bail out of the view when the value is empty. |
+
+### Form value helpers
+
+| Directive | Purpose |
+|-----------|---------|
+| `@inputvalue('field'[, $default])` | Echo the `old()` / model value, escaped with `e()`. |
+| `@optionvalue('field', $value)` | Echo `selected` when the old/model value matches `$value`. |
+| `@selectedif($condition)` | Echo `selected` when the condition is truthy. |
+| `@checkboxvalue($value)` | Echo `checked` when truthy. |
+| `@checkboxvaluefromarray($id, $array)` | Echo `checked` when the model id is present in the array. |
+
+### Assets, icons & output
+
+| Directive | Purpose |
+|-----------|---------|
+| `@fa` `@fas` `@far` `@fal` `@fab` `@fad` `@mdi` `@glyph` `@bi` | Icon shorthands (Font Awesome variants, Material Design, Glyphicons, Bootstrap Icons), each `('icon'[, 'extra-classes'])` rendering an `<i>` tag. |
+| `@addstyle('href') … @endaddstyle` | Emit a `<link>` for a stylesheet URL, or wrap an inline `<style>` block. |
+| `@addscript('src') … @endaddscript` | Emit a `<script src>`, or wrap an inline `<script>` block. |
+| `@inline('file')` | Inline a file read from `public_path()`. |
 | `@base64image($path)` | Inline an image file as a base64 data URI. |
+| `@window('name', $value)` | Expose a PHP value onto `window` in JS. |
+| `@nl2br($text)` | Convert newlines to `<br>`. |
+| `@dataAttributes($array)` | Render an array as `data-key="value"` attributes. |
 
 ```blade
 @routeis('admin.*')
@@ -229,6 +257,9 @@ fails until the provider, the registration inventory, and the stub all agree.
 @endrouteis
 
 <i class="@activeifroute('posts.*')">@fa('rss')</i>
+
+<input name="title" value="@inputvalue('title')">
+@haserror('title') <span class="error">@enderror @endhaserror</span>
 ```
 
 [← Docs index](../README.md#documentation)

@@ -70,16 +70,22 @@ the response object's `model`, `usage`, and raw payload.
 
 ## Response objects
 
-Each driver returns its own response object — `OpenAIResponse`,
-`ClaudeResponse`, `GeminiResponse` — all with the same shape:
+Each driver returns its own response DTO — `OpenAI\OpenAIResponse`,
+`Claude\ClaudeResponse`, `Gemini\GeminiResponse` — all **`final readonly`**
+classes implementing `JsonSerializable`, with an identical constructor
+(`string $content, ?string $model = null, ?object $usage = null, ?object
+$rawResponse = null`) and the same shape:
 
 | Member | |
 |--------|---|
 | `getContent(): string` | The generated text. |
-| `getModel(): ?string` | Model id (when `fullResponse`). |
-| `getUsage(): ?object` | Token usage (when `fullResponse`). |
+| `getModel(): ?string` | Model id (populated when `fullResponse`). |
+| `getUsage(): ?object` | Token usage (populated when `fullResponse`). |
 | `getRawResponse(): ?object` | The underlying SDK/HTTP payload. |
-| `toArray()` / `toJson()` / `jsonSerialize()` | Serialization helpers. |
+| `toArray()` / `toJson()` / `jsonSerialize()` | Serialization helpers (`toArray()` emits `content` / `model` / `usage`). |
+
+The public `content` / `model` / `usage` / `rawResponse` promoted properties are
+also readable directly. As `readonly` DTOs they are immutable once constructed.
 
 ## Drivers
 
@@ -90,7 +96,29 @@ Each driver returns its own response object — `OpenAIResponse`,
 | Gemini | `__construct(string $apiKey, int $maxRetries = 3, int $retryDelay = 2, string $baseUrl = 'https://generativelanguage.googleapis.com/v1beta')` | `gemini-2.0-flash` |
 
 OpenAI uses the `openai-php/client` SDK. Claude and Gemini call their HTTP APIs
-directly through the shared `RetriesHttpRequests` concern.
+directly through the shared `RetriesHttpRequests` concern. Each provider class
+(`OpenAIProvider`, `ClaudeProvider`, `GeminiProvider`) and each response DTO is
+declared **`final`** — extend the behaviour by composing a new
+`LLMProviderInterface` implementation rather than subclassing a driver.
+
+### Configuration keys
+
+The G14a alignment nests **every** provider's credentials and tuning under its
+own key beneath `laranail.toolkit.llm.<provider>` (NOT as siblings of `llm`):
+
+```php
+// config/laranail-toolkit.php → laranail.toolkit.llm
+'default_provider' => env('LLM_DEFAULT_PROVIDER', 'openai'),   // openai | gemini | claude
+'openai' => ['api_key' => env('OPENAI_API_KEY'), 'max_retries' => 3, 'retry_delay' => 2,
+             'default_model' => 'gpt-3.5-turbo', 'default_temperature' => 0.7,
+             'default_max_tokens' => 300, 'default_top_p' => 1.0],
+'gemini' => ['api_key' => env('GEMINI_API_KEY'), 'max_retries' => 3, 'retry_delay' => 2,
+             'base_url' => 'https://generativelanguage.googleapis.com/v1beta',
+             'default_model' => 'gemini-2.0-flash', ...],
+'claude' => ['api_key' => env('CLAUDE_API_KEY'), 'max_retries' => 3, 'retry_delay' => 2,
+             'base_url' => 'https://api.anthropic.com',
+             'default_model' => 'claude-3-5-sonnet-20241022', ...],
+```
 
 You can also resolve a specific driver directly when you need to bypass the
 configured default:

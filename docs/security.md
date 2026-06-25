@@ -345,4 +345,79 @@ php artisan vendor:publish --tag=laranail-toolkit-security
 which writes `config/laranail-toolkit-security.php`. When present, `SecurityData`
 prefers it over the package default.
 
+> **`SecurityData` is static-by-design.** It is a `final` class with only
+> **static** accessors (`commonPasswords()`, `passphraseWords()`,
+> `redactKeys()`) and is **deliberately NOT fronted by the `Toolkit` facade** —
+> the generators that consume it are pure value objects with standalone unit
+> tests that must run without a booted app, so the accessor never calls
+> `config()` or `config_path()` unguarded. Call it statically.
+
+## Access log
+
+`Modules\Security\AccessLog` holds the terminate-phase request-logging
+middleware and its Eloquent model. The middleware is registered under the
+`access.log` alias; the full request-lifecycle and configuration walkthrough
+lives in [access-log.md](access-log.md). The security-relevant pieces:
+
+### `AccessLog` model
+
+`Modules\Security\AccessLog\AccessLog` is the Eloquent model the middleware
+writes to. Fillable: `ip`, `method`, `url`, `user_agent`, `request_data`
+(cast to `array`). The migration ships under the `laranail-toolkit-migrations`
+publish tag.
+
+### `AccessLogMiddleware` redaction
+
+`Modules\Security\AccessLog\AccessLogMiddleware` persists the request **after**
+the response is sent (`terminate()`), wrapped in a `try/catch` so logging never
+adds latency to — nor breaks — the request. Before storing, it **recursively,
+case-insensitively redacts** sensitive request keys to `[REDACTED]`, and drops
+the query string from the stored URL so secrets passed as query params are never
+persisted.
+
+The redaction deny-list is resolved in this order:
+
+1. `config('laranail.toolkit.access_log.redact')` when set;
+2. otherwise `SecurityData::redactKeys()` (the publishable
+   [`redact_keys`](#merged-security-data-configsecurityphp) section); and
+3. a built-in `DEFAULT_REDACT` const fallback (`password`,
+   `password_confirmation`, `current_password`, `token`, `_token`, `secret`,
+   `authorization`, `api_key`, `access_token`, `refresh_token`, `credit_card`,
+   `card_number`, `cvv`, `ssn`) when the security data is empty.
+
+Set `access_log.enabled => false` to disable persistence entirely.
+
+## Database session read model
+
+`Modules\Security\Session\DatabaseSession` is a **read model** over Laravel's
+own `sessions` table (`SESSION_DRIVER=database`). The package ships **no
+migration** for it — it reads the table the framework's session driver already
+creates. Use it to inspect or relate session rows ("who is online", per-user
+session lists); **writes still go through the session driver, not this model**.
+
+```php
+use Simtabi\Laranail\Toolkit\Modules\Security\Session\DatabaseSession;
+use App\Models\User;
+
+$sessions = DatabaseSession::query()
+    ->usingUserModel(User::class)   // wire up the user() relation
+    ->where('last_activity', '>=', now()->subMinutes(5)->timestamp)
+    ->get();
+
+$session->getUnserializedPayloadAttribute(); // safely decoded payload (allowed_classes: false)
+$session->getLastActivityAtAttribute();      // last_activity as a Carbon instance
+$session->user;                              // BelongsTo the configured user model
+```
+
+| Member | Effect |
+|---|---|
+| `usingTable(string $table)` | Override the table name (defaults to `sessions`). |
+| `usingUserModel(class-string $userModelClass)` | Set the related model for `user()`. |
+| `getUnserializedPayloadAttribute(): array` | Decode Laravel's `base64(serialize(...))` payload **with `allowed_classes: false`** (no object injection). |
+| `getLastActivityAtAttribute(): Carbon` | `last_activity` (Unix ts) as Carbon. |
+| `user(): BelongsTo` | The owning user, when a user model is configured. |
+
+The model is a string-keyed, non-incrementing, timestamp-less read model
+(`$table = 'sessions'`).
+
 [← Docs index](../README.md#documentation)

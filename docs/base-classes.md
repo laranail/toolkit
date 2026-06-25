@@ -146,4 +146,8 @@ Each instance exposes `getDisplayName()`, `getDescription()`,
 `getPriorityLevel()` (`low`/`medium`/`high`), `getResult()`
 (`in_progress`/`success`/`failure`) and `isSuccessful()`.
 
+> The `Event`, `Listener` and `CacheEvents` classes live in the **provider-less**
+> [Eventing module](modules/eventing.md) — see that page for the full
+> `CacheAction` enum reference and the native dispatch/listen wiring.
+
 [← Docs index](../README.md#documentation)
