@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
 use Simtabi\Laranail\Toolkit\Support\Username;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
@@ -214,5 +215,52 @@ class UsernameTest extends TestCase
         $this->assertSame('janedoe', $base->generate());
         $this->assertSame('JANEDOE', $upper->generate());
         $this->assertNotSame($base, $upper);
+    }
+
+    #[Group('security')]
+    public function test_generated_handle_never_contains_a_space(): void
+    {
+        $this->assertStringNotContainsString(' ', Username::for('john doe')->generate());
+        $this->assertSame('johndoe', Username::for('john doe')->generate());
+        $this->assertStringNotContainsString(' ', Username::for('  a b  c  ')->generate());
+        $this->assertStringNotContainsString(' ', Username::fromName('John', 'Doe')->generate());
+    }
+
+    #[Group('security')]
+    public function test_allow_rejects_a_space(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        Username::for('x')->allow(' ');
+    }
+
+    #[Group('security')]
+    public function test_reject_spaces_throws_on_a_spaced_source(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        Username::for('john doe')->rejectSpaces()->generate();
+    }
+
+    #[Group('security')]
+    public function test_reject_spaces_throws_on_a_spaced_name_part(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        Username::fromName('john doe', 'smith')->rejectSpaces()->generate();
+    }
+
+    #[Group('security')]
+    public function test_reject_spaces_allows_a_clean_source(): void
+    {
+        $this->assertSame('johndoe', Username::for('johndoe')->rejectSpaces()->generate());
+    }
+
+    #[Group('security')]
+    public function test_alphanumeric_only_strips_all_separators(): void
+    {
+        $this->assertSame('janedoe', Username::for('jane.doe')->alphanumericOnly()->generate());
+        $this->assertSame('janedoe', Username::fromName('Jane', 'Doe')->separator('.')->alphanumericOnly()->generate());
+        $this->assertMatchesRegularExpression('/^[a-z0-9]+$/', Username::for('j.a_n-e')->alphanumericOnly()->generate());
     }
 }

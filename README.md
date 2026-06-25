@@ -236,6 +236,7 @@ class Post extends Model
 | [Utilities](docs/utilities.md) | The twelve utility classes |
 | [Static helpers](docs/helpers.md) | `Helper` — one static facade (array, string, date, system, file, db, geo, console) |
 | [Username builder](docs/username.md) | `Support\Username` — fluent, immutable username / handle generator |
+| [Security helpers](docs/security.md) | `RejectCommonPasswords` rule — denylist + length/entropy gates + opt-in HIBP k-anonymity |
 | [Base classes](docs/base-classes.md) | Reusable controller / job / listener / observer / event bases |
 | [Macros](docs/macros.md) | Str/Arr/Collection/Query/Blueprint macros + Blade directives + IDE stub (`ide-helper:macros` regenerator) |
 | [Traits](docs/traits.md) | Model & controller traits |

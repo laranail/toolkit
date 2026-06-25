@@ -6,233 +6,64 @@ namespace Simtabi\Laranail\Toolkit\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use Throwable;
 
-class RejectCommonPasswords implements ValidationRule
+/**
+ * Reject weak passwords: a large common-password denylist, optional minimum
+ * length / Shannon-entropy gates, and an opt-in, privacy-preserving Have I Been
+ * Pwned (HIBP) breach check.
+ *
+ * Defaults are fully offline and preserve the original behaviour (denylist only,
+ * case-insensitive). All gates are opt-in via the constructor or the fluent
+ * {@see config()} factory.
+ *
+ * Best-practice references:
+ *  - NIST SP 800-63B — screen new passwords against known-compromised values.
+ *  - OWASP ASVS — block common/breached passwords; prefer length over composition.
+ *  - HIBP Pwned Passwords range API — k-anonymity: only the first five hex
+ *    characters of the SHA-1 hash ever leave the process; the suffix is matched
+ *    locally. The plaintext password is NEVER transmitted. The check FAILS OPEN
+ *    on any non-200 / timeout / transport error so the API can never block a sign-up.
+ *
+ * @see https://haveibeenpwned.com/API/v3#PwnedPasswords
+ * @see https://pages.nist.gov/800-63-3/sp800-63b.html
+ */
+final class RejectCommonPasswords implements ValidationRule
 {
-    /**
-     * List of common passwords to reject
-     */
-    private array $commonPasswords = [
-        'password',
-        '123456',
-        '123456789',
-        'qwerty',
-        'abc123',
-        'password123',
-        'admin',
-        'letmein',
-        'welcome',
-        'monkey',
-        '1234567890',
-        'password1',
-        'qwerty123',
-        'dragon',
-        'master',
-        'hello',
-        'freedom',
-        'whatever',
-        'qazwsx',
-        'trustno1',
-        '654321',
-        'jordan23',
-        'harley',
-        'password1',
-        'jordan',
-        'superman',
-        'iloveyou',
-        'welcome123',
-        '123123',
-        'admin123',
-        'root',
-        'toor',
-        'pass',
-        'test',
-        'user',
-        'guest',
-        'login',
-        '1234',
-        '12345',
-        '1234567',
-        '12345678',
-        '123456789',
-        '1234567890',
-        'qwertyuiop',
-        'asdfghjkl',
-        'zxcvbnm',
-        'qwertyui',
-        'asdfghjk',
-        'zxcvbn',
-        'qwertyu',
-        'asdfghj',
-        'zxcvb',
-        'qwerty',
-        'asdfgh',
-        'zxcv',
-        'qwert',
-        'asdfg',
-        'zxc',
-        'qwer',
-        'asdf',
-        'zx',
-        'qwe',
-        'asd',
-        'z',
-        'qw',
-        'as',
-        'q',
-        'a',
-        '1',
-        '12',
-        '123',
-        '111111',
-        '000000',
-        '666666',
-        '888888',
-        '999999',
-        '11111111',
-        '00000000',
-        '123321',
-        '654321',
-        '147258',
-        '159753',
-        '753159',
-        '852741',
-        '963852',
-        '741852',
-        '951753',
-        '357159',
-        '456789',
-        '789456',
-        '147852',
-        '258741',
-        '369852',
-        '741963',
-        '852963',
-        '963741',
-        '159357',
-        '357951',
-        '753951',
-        '951357',
-        '1111',
-        '2222',
-        '3333',
-        '4444',
-        '5555',
-        '6666',
-        '7777',
-        '8888',
-        '9999',
-        '0000',
-        'aaaa',
-        'bbbb',
-        'cccc',
-        'dddd',
-        'eeee',
-        'ffff',
-        'gggg',
-        'hhhh',
-        'iiii',
-        'jjjj',
-        'kkkk',
-        'llll',
-        'mmmm',
-        'nnnn',
-        'oooo',
-        'pppp',
-        'qqqq',
-        'rrrr',
-        'ssss',
-        'tttt',
-        'uuuu',
-        'vvvv',
-        'wwww',
-        'xxxx',
-        'yyyy',
-        'zzzz',
-        'qwerty1',
-        'qwerty12',
-        'qwerty123',
-        'password1',
-        'password12',
-        'password123',
-        'admin1',
-        'admin12',
-        'admin123',
-        'user1',
-        'user12',
-        'user123',
-        'test1',
-        'test12',
-        'test123',
-        'guest1',
-        'guest12',
-        'guest123',
-        'root1',
-        'root12',
-        'root123',
-        'login1',
-        'login12',
-        'login123',
-        'welcome1',
-        'welcome12',
-        'welcome123',
-        'hello1',
-        'hello12',
-        'hello123',
-        'master1',
-        'master12',
-        'master123',
-        'dragon1',
-        'dragon12',
-        'dragon123',
-        'monkey1',
-        'monkey12',
-        'monkey123',
-        'letmein1',
-        'letmein12',
-        'letmein123',
-        'iloveyou1',
-        'iloveyou12',
-        'iloveyou123',
-        'superman1',
-        'superman12',
-        'superman123',
-        'harley1',
-        'harley12',
-        'harley123',
-        'jordan1',
-        'jordan12',
-        'jordan123',
-        'freedom1',
-        'freedom12',
-        'freedom123',
-        'whatever1',
-        'whatever12',
-        'whatever123',
-        'trustno11',
-        'trustno112',
-        'trustno1123',
-        'qazwsx1',
-        'qazwsx12',
-        'qazwsx123',
-        'qwertyuiop1',
-        'qwertyuiop12',
-        'qwertyuiop123',
-        'asdfghjkl1',
-        'asdfghjkl12',
-        'asdfghjkl123',
-        'zxcvbnm1',
-        'zxcvbnm12',
-        'zxcvbnm123',
-    ];
+    /** Endpoint for the HIBP Pwned Passwords k-anonymity range API. */
+    private const HIBP_RANGE_ENDPOINT = 'https://api.pwnedpasswords.com/range/';
+
+    /** Network timeout (seconds) for the HIBP request — short, so we fail open quickly. */
+    private const HIBP_TIMEOUT_SECONDS = 3;
 
     /**
-     * Create a new rule instance.
+     * Process-wide cache of the loaded denylist (loaded once per process).
+     *
+     * @var list<string>|null
      */
-    public function __construct()
+    private static ?array $commonPasswords = null;
+
+    /**
+     * @param int         $minLength  Minimum length gate (0 = off).
+     * @param int         $minEntropy Minimum Shannon-entropy gate in bits (0 = off).
+     * @param bool        $checkHibp  Enable the opt-in HIBP k-anonymity breach check.
+     * @param string|null $hibpApiKey Optional HIBP API key (sent as `hibp-api-key`; not required for the range API).
+     */
+    public function __construct(
+        private readonly int $minLength = 0,
+        private readonly int $minEntropy = 0,
+        private readonly bool $checkHibp = false,
+        private readonly ?string $hibpApiKey = null,
+    ) {}
+
+    /**
+     * Fluent factory entry point: `RejectCommonPasswords::config()->minLength(12)->rule()`.
+     */
+    public static function config(): RejectCommonPasswordsBuilder
     {
-        // Constructor can be used to customize the common passwords list
-        // or load from configuration if needed
+        return new RejectCommonPasswordsBuilder();
     }
 
     /**
@@ -241,13 +72,129 @@ class RejectCommonPasswords implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (!is_string($value)) {
-            return; // Let other validation rules handle non-string values
+            return; // Let other validation rules handle non-string values.
         }
 
-        $password = strtolower(trim($value));
+        $trimmed = trim($value);
+        $normalised = Str::lower($trimmed);
 
-        if (in_array($password, $this->commonPasswords)) {
+        if (in_array($normalised, self::commonPasswords(), true)) {
             $fail('The :attribute contains a common password that is not allowed.');
+
+            return;
         }
+
+        if ($this->minLength > 0 && Str::length($trimmed) < $this->minLength) {
+            $fail("The :attribute must be at least {$this->minLength} characters long.");
+
+            return;
+        }
+
+        if ($this->minEntropy > 0 && self::entropyBits($trimmed) < (float) $this->minEntropy) {
+            $fail('The :attribute is too weak; choose a longer or more varied password.');
+
+            return;
+        }
+
+        if ($this->checkHibp && $this->isPwned($trimmed)) {
+            $fail('The :attribute has appeared in a known data breach and cannot be used.');
+        }
+    }
+
+    /**
+     * Load (once per process) and return the lowercased, deduplicated denylist.
+     *
+     * @return list<string>
+     */
+    private static function commonPasswords(): array
+    {
+        if (self::$commonPasswords !== null) {
+            return self::$commonPasswords;
+        }
+
+        /** @var list<string> $list */
+        $list = require __DIR__ . '/../../resources/data/security/common-passwords.php';
+
+        return self::$commonPasswords = $list;
+    }
+
+    /**
+     * Shannon-style entropy estimate in bits: `length * log2(charsetSize)`, where
+     * the charset size is the sum of the character-class pool sizes that appear in
+     * the password (lowercase 26, uppercase 26, digits 10, the rest 33).
+     */
+    private static function entropyBits(string $password): float
+    {
+        if ($password === '') {
+            return 0.0;
+        }
+
+        $pool = 0;
+        if (preg_match('/[a-z]/', $password) === 1) {
+            $pool += 26;
+        }
+        if (preg_match('/[A-Z]/', $password) === 1) {
+            $pool += 26;
+        }
+        if (preg_match('/[0-9]/', $password) === 1) {
+            $pool += 10;
+        }
+        if (preg_match('/[^a-zA-Z0-9]/', $password) === 1) {
+            $pool += 33; // printable ASCII symbols / everything else.
+        }
+
+        if ($pool <= 1) {
+            return 0.0;
+        }
+
+        return Str::length($password) * log($pool, 2);
+    }
+
+    /**
+     * HIBP k-anonymity breach check. SHA-1 the password locally, send ONLY the
+     * first five hex characters of the hash to the range API, then match the
+     * 35-char suffix locally. The plaintext password is never transmitted.
+     *
+     * FAILS OPEN: any non-200 response, timeout, rate limit, or transport error
+     * returns false (treated as not-pwned) so the API can never block a sign-up.
+     */
+    private function isPwned(string $password): bool
+    {
+        $hash = strtoupper(sha1($password));
+        $prefix = substr($hash, 0, 5);
+        $suffix = substr($hash, 5);
+
+        try {
+            $request = Http::timeout(self::HIBP_TIMEOUT_SECONDS)
+                ->withHeaders(['Add-Padding' => 'true']);
+
+            if ($this->hibpApiKey !== null && $this->hibpApiKey !== '') {
+                $request = $request->withHeaders(['hibp-api-key' => $this->hibpApiKey]);
+            }
+
+            $response = $request->get(self::HIBP_RANGE_ENDPOINT . $prefix);
+        } catch (Throwable) {
+            return false; // Transport error / timeout -> fail open.
+        }
+
+        if (!$response->successful()) {
+            return false; // Non-200 (429, 5xx, ...) -> fail open.
+        }
+
+        $lines = preg_split('/\R/', $response->body());
+        if ($lines === false) {
+            return false;
+        }
+
+        foreach ($lines as $line) {
+            $candidate = substr($line, 0, 35);
+            if (strcasecmp($candidate, $suffix) === 0) {
+                $count = (int) substr($line, 36);
+
+                return $count > 0; // Padded entries report count 0 and are ignored.
+            }
+        }
+
+        return false;
     }
 }

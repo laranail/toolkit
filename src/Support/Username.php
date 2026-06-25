@@ -20,6 +20,13 @@ use RuntimeException;
  * word filtering and a bounded uniqueness loop) follow common handle rules used
  * by GitHub / Instagram / YouTube and the regex-validation literature.
  *
+ * Spaces are NEVER permitted in a generated handle. Whitespace in the source is
+ * silently stripped during sanitisation, and the generated result is guaranteed
+ * to contain no space character. {@see allow()} rejects a space outright, and
+ * {@see rejectSpaces()} opts into hard failure when the SOURCE itself contains a
+ * space (instead of silently stripping it). {@see alphanumericOnly()} narrows the
+ * handle to bare `[a-z0-9]` with no separators at all.
+ *
  * @see https://www.username.dev/username-validation-rules
  * @see https://www.w3tutorials.net/blog/regular-expression-to-validate-username/
  * @see https://www.handlegrab.com/blog/social-media-username-rules-limits
@@ -77,6 +84,9 @@ final class Username implements \Stringable
 
     /** @var list<string> lowercased reserved names a generated handle must avoid */
     private array $reserved = [];
+
+    /** When true, a space in the SOURCE is a hard error instead of being silently stripped. */
+    private bool $rejectSpaces = false;
 
     /** @var (callable(string): bool)|null returns true when a handle is AVAILABLE */
     private $uniquenessChecker = null;
@@ -251,9 +261,21 @@ final class Username implements \Stringable
     /**
      * Restrict which of the safe extra characters (`._-`) survive sanitisation.
      * Passing `''` strips all separators; passing `'.'` keeps only dots, etc.
+     *
+     * A space is never an allowable handle character: passing one (or any other
+     * char outside `._-`) throws, so a space can never sneak into the result.
+     *
+     * @throws InvalidArgumentException when `$extraChars` contains a space or any
+     *                                  character outside the safe set `._-`
      */
     public function allow(string $extraChars): self
     {
+        if (str_contains($extraChars, ' ')) {
+            throw new InvalidArgumentException(
+                'A space is not an allowable username character.',
+            );
+        }
+
         $chars = '';
         foreach (str_split($extraChars) as $char) {
             if (str_contains(self::SAFE_EXTRA_CHARS, $char)) {
@@ -268,6 +290,33 @@ final class Username implements \Stringable
         }
 
         return $this->with(fn (self $c) => $c->allowedExtra = $chars);
+    }
+
+    /**
+     * Opt into strict whitespace handling: instead of silently stripping spaces
+     * from the source, fail loudly if the source string contains any whitespace.
+     *
+     * The check runs at generation time against the resolved source (name parts
+     * or the raw `for()` / `fromEmail()` string). Generated handles are always
+     * space-free regardless of this flag — this only changes silent-strip into
+     * a hard error for callers who want that strictness.
+     */
+    public function rejectSpaces(): self
+    {
+        return $this->with(fn (self $c) => $c->rejectSpaces = true);
+    }
+
+    /**
+     * Strip the handle down to bare `[a-z0-9]`: no separators at all, regardless
+     * of any prior {@see allow()} / {@see separator()} configuration. Equivalent
+     * to `->separator('')->allow('')` but expressed as a single intent.
+     */
+    public function alphanumericOnly(): self
+    {
+        return $this->with(function (self $c): void {
+            $c->separator = '';
+            $c->allowedExtra = '';
+        });
     }
 
     /**
@@ -295,19 +344,21 @@ final class Username implements \Stringable
      */
     public function generate(): string
     {
+        $this->guardSourceSpaces();
+
         $base = $this->buildBase();
 
         $candidate = $this->finalise($base);
 
         if ($this->isAcceptable($candidate)) {
-            return $candidate;
+            return self::assertNoSpaces($candidate);
         }
 
         for ($attempt = 0; $attempt < self::MAX_UNIQUE_ATTEMPTS; $attempt++) {
             $candidate = $this->finalise($base . $this->separator . $this->randomDigitString(4));
 
             if ($this->isAcceptable($candidate)) {
-                return $candidate;
+                return self::assertNoSpaces($candidate);
             }
         }
 
@@ -617,6 +668,47 @@ final class Username implements \Stringable
     private static function clampDigits(int $digits): int
     {
         return max(1, min(10, $digits));
+    }
+
+    /**
+     * In {@see rejectSpaces()} mode, fail loudly when the resolved source string
+     * contains any whitespace instead of silently stripping it.
+     *
+     * @throws InvalidArgumentException when strict mode is on and the source has whitespace
+     */
+    private function guardSourceSpaces(): void
+    {
+        if (!$this->rejectSpaces) {
+            return;
+        }
+
+        $sources = is_array($this->source)
+            ? $this->source
+            : [$this->source ?? ''];
+
+        foreach ($sources as $source) {
+            if (preg_match('/\s/', $source) === 1) {
+                throw new InvalidArgumentException(
+                    'The username source must not contain whitespace.',
+                );
+            }
+        }
+    }
+
+    /**
+     * Hard guarantee: a generated handle never contains a space. This is a
+     * belt-and-braces assertion over the sanitised result — sanitisation already
+     * strips whitespace, so a hit here would indicate a regression.
+     *
+     * @throws RuntimeException if a space somehow survived sanitisation
+     */
+    private static function assertNoSpaces(string $candidate): string
+    {
+        if (str_contains($candidate, ' ')) {
+            throw new RuntimeException('Generated username unexpectedly contained a space.');
+        }
+
+        return $candidate;
     }
 
     /**

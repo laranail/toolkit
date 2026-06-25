@@ -52,12 +52,42 @@ Username::fromName('Jane', 'Doe')
     ->suffix('_v2')         // sanitised suffix
     ->withRandomSuffix(4)   // append N random digits to every handle
     ->allow('._')           // restrict which of '._-' survive (default '._-')
+    ->alphanumericOnly()    // strip to bare [a-z0-9] — no separators at all
+    ->rejectSpaces()        // fail loudly if the SOURCE contains whitespace
     ->reserved(['admin'])   // names to avoid (treated like "taken")
     ->generate();
 ```
 
 Invalid configuration throws `InvalidArgumentException` (bad separator,
 `maxLength < minLength`, a non-`._-` character passed to `allow()`, …).
+
+## Spaces are never allowed
+
+A generated handle is **guaranteed** to contain no space character. Three
+guards back that promise:
+
+1. **Silent strip (default).** Whitespace in the source is removed during
+   sanitisation, so `Username::for('john doe')->generate()` yields `johndoe`.
+2. **`allow(' ')` throws.** A space is never an allowable handle character, so
+   passing one (or any char outside `._-`) to `allow()` raises
+   `InvalidArgumentException` — a space can't be opted back in.
+3. **`rejectSpaces()` — strict mode.** For callers who want to fail loudly
+   instead of silently stripping, `rejectSpaces()` throws
+   `InvalidArgumentException` when the **source** string (or any name part)
+   contains whitespace.
+
+```php
+Username::for('john doe')->generate();              // 'johndoe' (stripped)
+Username::for('x')->allow(' ');                     // throws InvalidArgumentException
+Username::for('john doe')->rejectSpaces()->generate(); // throws InvalidArgumentException
+```
+
+`alphanumericOnly()` is a convenience for `->separator('')->allow('')`: the
+result is restricted to bare `[a-z0-9]` with no separators of any kind.
+
+```php
+Username::for('jane.doe')->alphanumericOnly()->generate(); // 'janedoe'
+```
 
 ## Candidates
 
