@@ -909,7 +909,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `ArchiveScope` | MIGRATED | `Simtabi\Laranail\Toolkit\Scopes\ArchiveScope` |
+| `ArchiveScope` | MIGRATED | `Simtabi\Laranail\Toolkit\Modules\Model\Scopes\ArchiveScope` |
 
 ### Simtabi\Laranail\Support\Facades
 

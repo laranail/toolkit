@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Traits;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
-use Simtabi\Laranail\Toolkit\Scopes\ArchiveScope;
+use Simtabi\Laranail\Toolkit\Modules\Model\Scopes\ArchiveScope;
 
 /**
  * Adds soft-archive support to an Eloquent model, keyed off an `archived_at`
