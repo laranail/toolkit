@@ -8,9 +8,9 @@ controllers, jobs, listeners, observers, and events only carry their own logic.
 |------------|---------------|
 | `Http\Controllers\BaseController` | …build a controller with auth + validation + API responses ready. |
 | `Jobs\BaseJob` | …queue work with retries, backoff, timeout, and failure logging. |
-| `Listeners\Listener` | …handle an event with a built-in "should I run?" gate. |
+| `Modules\Eventing\Listeners\Listener` | …handle an event with a built-in "should I run?" gate. |
 | `Observers\Observer` | …observe only the model events you care about. |
-| `Events\Events` | …dispatch/broadcast an event without re-declaring trait boilerplate. |
+| `Modules\Eventing\Events\Event` | …dispatch/broadcast an event without re-declaring trait boilerplate. |
 
 ## BaseController
 
@@ -72,7 +72,7 @@ flags, environment, or payload gating without repeating the guard in every
 listener.
 
 ```php
-use Simtabi\Laranail\Toolkit\Listeners\Listener;
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Listeners\Listener;
 
 class SendWelcome extends Listener
 {
@@ -106,17 +106,18 @@ class PostObserver extends Observer
 }
 ```
 
-## Events
+## Event
 
-`abstract class Events`
+`abstract class Event`
 
-Uses `Dispatchable`, `InteractsWithSockets`, and `SerializesModels` — the standard
-event trait trio — so a concrete event only carries its payload.
+Lives in the `Modules\Eventing` module. Uses `Dispatchable`,
+`InteractsWithSockets`, and `SerializesModels` — the standard event trait trio —
+so a concrete event only carries its payload.
 
 ```php
-use Simtabi\Laranail\Toolkit\Events\Events;
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\Event;
 
-class OrderShipped extends Events
+class OrderShipped extends Event
 {
     public function __construct(public readonly Order $order) {}
 }
@@ -126,12 +127,12 @@ OrderShipped::dispatch($order);
 
 ### CacheEvents
 
-`class CacheEvents extends Events` — a ready-made cache-lifecycle event built
+`class CacheEvents extends Event` — a ready-made cache-lifecycle event built
 on the base. It carries a typed `CacheAction` (`Clearing` / `Cleared` /
 `Failed`) plus free-form metadata, with named constructors:
 
 ```php
-use Simtabi\Laranail\Toolkit\Events\CacheEvents;
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 
 event(CacheEvents::clearing());
 event(CacheEvents::cleared(['tags' => ['users']]));

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Enums;
 
-use Simtabi\Laranail\Toolkit\Events\CacheEvents;
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 
 /**
  * The lifecycle phase a {@see CacheEvents} instance represents.

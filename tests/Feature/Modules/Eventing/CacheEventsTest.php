@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Tests\Feature\Events;
+namespace Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Support\Facades\Event;
 use Simtabi\Laranail\Toolkit\Enums\CacheAction;
-use Simtabi\Laranail\Toolkit\Events\CacheEvents;
-use Simtabi\Laranail\Toolkit\Events\Events;
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\Event as BaseEvent;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class CacheEventsTest extends TestCase
 {
     public function test_it_extends_the_dispatchable_base_event(): void
     {
-        $this->assertInstanceOf(Events::class, CacheEvents::cleared());
+        $this->assertInstanceOf(BaseEvent::class, CacheEvents::cleared());
         $this->assertContains(Dispatchable::class, array_values(class_uses_recursive(CacheEvents::class)));
     }
 

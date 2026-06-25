@@ -217,7 +217,7 @@
   },
   "Simtabi\\Laranail\\Laravel\\Listeners\\BaseListener": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Listeners\\Listener (renamed from BaseListener; reusable listener base, G12c)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Eventing\\Listeners\\Listener (renamed from BaseListener; reusable listener base, G12c)"
   },
   "Simtabi\\Laranail\\Laravel\\Listeners\\LicenseListener": {
     "status": "dropped",
@@ -697,7 +697,7 @@
   },
   "Simtabi\\Laranail\\Shared\\Events\\BaseEvent": {
     "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Events\\Events (renamed from BaseEvent; reusable event base, G12c)"
+    "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Eventing\\Events\\Event (renamed from BaseEvent; reusable event base, G12c)"
   },
   "Simtabi\\Laranail\\Shared\\Events\\EnvironmentEvents": {
     "status": "dropped",

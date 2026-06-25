@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Listeners;
+namespace Simtabi\Laranail\Toolkit\Modules\Eventing\Listeners;
 
 /**
  * Reusable event-listener base with a gating hook.

@@ -41,6 +41,7 @@ src/
     ├── Captcha/       CaptchaService, …, Providers/{Recaptcha,Hcaptcha,Turnstile,FriendlyCaptcha,Null}, Captcha facade, provider
     ├── Archiver/      ArchiverService, ArchiveManager, Zip/Tar/TarGz/Extractor, Archiver facade, provider
     ├── Atlas/         AtlasService, …, Atlas facade, provider (single config/atlas.php)
+    ├── Eventing/      Events/{Event (abstract event base), CacheEvents}, Listeners/Listener (abstract listener base)
     ├── Livewire/      LivewireServiceProvider, component registration
     ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (lazy config/security.php loader), AccessLog/{AccessLogMiddleware, AccessLog (model)}
     └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, LLM facade, LLMServiceProvider

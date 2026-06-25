@@ -720,7 +720,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseListener` | MERGED | `Simtabi\Laranail\Toolkit\Listeners\Listener (renamed from BaseListener; reusable listener base, G12c)` |
+| `BaseListener` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Eventing\Listeners\Listener (renamed from BaseListener; reusable listener base, G12c)` |
 | `LicenseListener` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 
 ### Simtabi\Laranail\Laravel\Macros
@@ -877,8 +877,8 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseEvent` | MERGED | `Simtabi\Laranail\Toolkit\Events\Events (renamed from BaseEvent; reusable event base, G12c)` |
-| `CacheEvents` | MIGRATED | `Simtabi\Laranail\Toolkit\Events\CacheEvents` |
+| `BaseEvent` | MERGED | `Simtabi\Laranail\Toolkit\Modules\Eventing\Events\Event (renamed from BaseEvent; reusable event base, G12c)` |
+| `CacheEvents` | MIGRATED | `Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents` |
 | `EnvironmentEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `LicenseEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
 | `RequirementsEvents` | DROPPED | `see docs/migration/MIGRATION.md + dropped.md` |
