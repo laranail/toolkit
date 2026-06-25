@@ -61,19 +61,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Helper::usernameFromEmail()` / `nameToUsernames()` / `generateUsername()`
   shortcuts and the `HasFormatters::suggestUsername()` trait now delegate to it.
   See [docs/username.md](docs/username.md).
-- **Commands now use the full `laranail/console` feature set.** All four Artisan
-  commands (`make-crud`, `ide-helper-macros`, `database`, `tidy`) adopt the console
-  base's fluent `consoleWriter()` (success/error/warning/info/note statuses) and the
+- **Commands now use the full `laranail/console` feature set.** All Artisan
+  commands (`make-crud`, `ide-helper-macros`, `tidy`) adopt the console base's
+  fluent `consoleWriter()` (success/error/warning/info/note statuses) and the
   `$this->services` lifecycle: `performance()` timing, `signals()` graceful-shutdown
-  handling (the `database` clean loop and the `tidy` sweep are now **signal-safe**,
-  bailing between units of work on SIGTERM/SIGINT; a no-op without ext-pcntl),
+  handling (the `tidy` sweep is now **signal-safe**, bailing between units of work
+  on SIGTERM/SIGINT; a no-op without ext-pcntl),
   `interaction()->confirmAction()` confirmations (safe default in non-interactive /
   CI runs), `logger()->logCompletion()` summaries, `error()->logError()` failure
   capture that **auto-redacts** `password`/`secret`/`token`/`key`, and per-run
   `metadata()`. Behaviour, signatures and exit codes are unchanged, and the existing
-  G10 security hardening (mysqldump array-args + chmod-600 defaults-file, the
-  Schema-validated grammar-quoted truncate, the FilePathGuard storage confinement and
-  the `db` gating) is preserved.
+  security hardening (the FilePathGuard storage confinement) is preserved.
 - **API-surface regression proof** — a `tests/Regression/ApiSurfaceTest` diffs the
   frozen legacy public-API snapshot against the current toolkit and fails on any
   *unplanned* lost symbol; intentional removals/relocations live in
@@ -122,7 +120,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Event`). The listener base is `Modules\Eventing\Listeners\Listener`. See
   [docs/base-classes.md](docs/base-classes.md).
 - **`laranail/console` bumped to `^2.5.0`** (the release carrying the first-class
-  `ConsoleWriter` + the nine command services), and the four commands rewritten to
+  `ConsoleWriter` + the nine command services), and the commands rewritten to
   consume its full feature set (see _Added_).
 
 ### BREAKING
