@@ -8,6 +8,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 use Throwable;
 use ZxcvbnPhp\Zxcvbn;
 
@@ -153,14 +154,7 @@ final class RejectCommonPasswords implements ValidationRule
      */
     private static function commonPasswords(): array
     {
-        if (self::$commonPasswords !== null) {
-            return self::$commonPasswords;
-        }
-
-        /** @var list<string> $list */
-        $list = require __DIR__ . '/../../resources/data/security/common-passwords.php';
-
-        return self::$commonPasswords = $list;
+        return self::$commonPasswords ??= SecurityData::commonPasswords();
     }
 
     /**

@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
 use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
+use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class PassphraseTest extends TestCase
@@ -176,7 +177,7 @@ class PassphraseTest extends TestCase
     #[Group('security')]
     public function test_words_come_from_the_eff_wordlist(): void
     {
-        $list = require dirname(__DIR__, 4) . '/resources/data/security/eff-large-wordlist.php';
+        $list = SecurityData::passphraseWords();
         $this->assertCount(7776, $list);
 
         $words = Passphrase::memorable()->wordCount(10)->generateWithMetadata()['words'];

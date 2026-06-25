@@ -274,8 +274,8 @@ final class Passphrase implements \Stringable
     }
 
     /**
-     * Load (once) and return the static-cached EFF Large Wordlist.
-     *
+     * Load (once) and return the static-cached EFF Large Wordlist. The exact
+     * 7776-word assertion lives in {@see SecurityData::passphraseWords()}.
      *
      * @throws RuntimeException when the list is missing or not exactly 7776 words
      *
@@ -283,28 +283,7 @@ final class Passphrase implements \Stringable
      */
     private static function wordlist(): array
     {
-        if (self::$wordlist !== null) {
-            return self::$wordlist;
-        }
-
-        $path = dirname(__DIR__, 3) . '/resources/data/security/eff-large-wordlist.php';
-
-        if (!is_file($path)) {
-            throw new RuntimeException("EFF wordlist not found at [{$path}].");
-        }
-
-        /** @var list<string> $list */
-        $list = require $path;
-
-        if (count($list) !== self::WORDLIST_SIZE) {
-            throw new RuntimeException(sprintf(
-                'EFF wordlist must contain exactly %d words, found %d.',
-                self::WORDLIST_SIZE,
-                count($list),
-            ));
-        }
-
-        return self::$wordlist = $list;
+        return self::$wordlist ??= SecurityData::passphraseWords();
     }
 
     /**

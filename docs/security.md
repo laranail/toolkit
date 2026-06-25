@@ -45,15 +45,18 @@ $request->validate([
 
 ### Common-password denylist
 
-The rule ships a denylist of the most common passwords at
-`resources/data/security/common-passwords.php` — a `list<string>` derived from
-the public SecLists `xato-net-10-million-passwords` corpus (HIBP-aligned by
-prevalence), augmented with a few historically common app credentials. Every
-entry is **lowercased and the whole list is deduplicated**; comparison is
-case-insensitive (`Str::lower`) and ignores surrounding whitespace.
+The rule ships a denylist of the most common passwords, served by
+`SecurityData::commonPasswords()` from the merged
+[`config/security.php`](#merged-security-data-configsecurityphp) file
+(section `passwords.common`) — a `list<string>` derived from the public SecLists
+`xato-net-10-million-passwords` corpus (HIBP-aligned by prevalence), augmented
+with a few historically common app credentials. Every entry is **lowercased and
+the whole list is deduplicated**; comparison is case-insensitive (`Str::lower`)
+and ignores surrounding whitespace.
 
-The list is **static-cached** — loaded once per process (`require` on first use,
-then reused) so repeated validations don't re-read the file.
+The list is **static-cached** at two levels — `SecurityData` reads the config
+file once per process, and the rule caches the returned list in its own static
+property — so repeated validations never re-read the file.
 
 ### Optional gates
 
@@ -274,9 +277,11 @@ $result = Password::strength('correct horse battery staple');
 
 `Simtabi\Laranail\Toolkit\Modules\Security\Passphrase` builds memorable,
 high-entropy passphrases by drawing words uniformly (`random_int()`) from the
-**EFF Large Wordlist** — 7776 public-domain (CC0) words shipped at
-`resources/data/security/eff-large-wordlist.php`. The list is **static-cached**:
-loaded once per process and asserted to contain exactly 7776 entries, never
+**EFF Large Wordlist** — 7776 public-domain (CC0) words served by
+`SecurityData::passphraseWords()` from the merged
+[`config/security.php`](#merged-security-data-configsecurityphp) file
+(section `passphrases.wordlist`). The list is **static-cached**: loaded once per
+process and asserted by `SecurityData` to contain exactly 7776 entries, never
 re-read per `generate()`.
 
 ```php
@@ -302,5 +307,42 @@ $meta = Passphrase::memorable()->generateWithMetadata();
 
 **Entropy** is `wordCount * log2(7776) ≈ 12.925 bits/word` — so the 6-word
 default scores ≈ **77.5 bits**, the EFF's recommended memorable-but-strong point.
+
+## Merged security data (`config/security.php`)
+
+All three bundled datasets live in a single, well-organized
+`config/security.php` file:
+
+| Section | Used by | Notes |
+|---|---|---|
+| `passwords.common` | `RejectCommonPasswords` | 560 lowercased, deduplicated entries (SecLists / HIBP-aligned). |
+| `passphrases.wordlist` | `Passphrase` | Exactly 7776 EFF CC0 words (diceware). |
+| `redact_keys` | `AccessLogMiddleware` | Default request-data redaction keys (overridable). |
+
+They are read through a single lazy accessor,
+`Simtabi\Laranail\Toolkit\Modules\Security\SecurityData`:
+
+```php
+use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
+
+SecurityData::commonPasswords(); // list<string> (560)
+SecurityData::passphraseWords(); // list<string> (exactly 7776; throws RuntimeException otherwise)
+SecurityData::redactKeys();      // list<string>
+```
+
+`SecurityData` works **without a booted Laravel app** (the Security generators
+are pure value objects): it always resolves the package default via a
+`__DIR__`-relative path, and only when Laravel is booted (`config_path()` exists)
+and a published override file is present does it prefer that instead. Each
+section is `require`d at most once per process and statically cached.
+
+To customize the data, publish an override copy:
+
+```bash
+php artisan vendor:publish --tag=laranail-toolkit-security
+```
+
+which writes `config/laranail-toolkit-security.php`. When present, `SecurityData`
+prefers it over the package default.
 
 [← Docs index](../README.md#documentation)

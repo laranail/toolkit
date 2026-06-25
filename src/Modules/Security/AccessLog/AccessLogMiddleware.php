@@ -6,6 +6,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Security\AccessLog;
 
 use Closure;
 use Illuminate\Http\Request;
+use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -87,9 +88,16 @@ class AccessLogMiddleware
      */
     private function redactKeys(): array
     {
-        $configured = config('laranail.toolkit.access_log.redact', self::DEFAULT_REDACT);
+        // Default keys come from the merged security data file (publishable /
+        // overridable); fall back to the local const if that data is empty.
+        $default = SecurityData::redactKeys();
+        if ($default === []) {
+            $default = self::DEFAULT_REDACT;
+        }
 
-        $values = is_array($configured) ? $configured : self::DEFAULT_REDACT;
+        $configured = config('laranail.toolkit.access_log.redact', $default);
+
+        $values = is_array($configured) ? $configured : $default;
 
         return array_values(array_map(
             static fn (mixed $value): string => strtolower(is_string($value) ? $value : ''),

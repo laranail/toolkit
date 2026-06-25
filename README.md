@@ -36,6 +36,10 @@ php artisan vendor:publish --tag=laranail-toolkit-migrations
 php artisan vendor:publish --tag=laranail-toolkit-views
 php artisan vendor:publish --tag=laranail-toolkit-lang
 php artisan vendor:publish --tag=laranail-toolkit-stubs
+
+# Merged security data (config/laranail-toolkit-security.php):
+# common passwords + EFF wordlist + redaction keys
+php artisan vendor:publish --tag=laranail-toolkit-security
 ```
 
 Every utility, trait, and rule can also be published into your app namespace —

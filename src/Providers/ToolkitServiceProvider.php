@@ -201,6 +201,13 @@ class ToolkitServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/feature-toggles.php' => config_path('feature-toggles.php'),
         ], 'laranail-toolkit-feature-toggles');
 
+        // Publish the merged security data file (passwords + passphrase
+        // wordlist + redaction keys). SecurityData prefers this override when
+        // present; otherwise it loads the package default.
+        $this->publishes([
+            __DIR__ . '/../../config/security.php' => config_path('laranail-toolkit-security.php'),
+        ], 'laranail-toolkit-security');
+
         $this->mergeConfigFrom(__DIR__ . '/../../config/toolkit.php', 'laranail.toolkit');
 
         // Publish migrations

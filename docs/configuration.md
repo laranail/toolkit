@@ -101,4 +101,27 @@ Per-user and per-environment overrides are supported via
 `feature-toggles.<feature>.user.<id>` and
 `feature-toggles.<feature>.environment.<env>`.
 
+## Security data
+
+`config/security.php` is the single, merged source for the package's bundled
+security datasets, read lazily by
+`Simtabi\Laranail\Toolkit\Modules\Security\SecurityData`:
+
+- `passwords.common` — 560 lowercased, deduplicated common passwords
+  (`RejectCommonPasswords`).
+- `passphrases.wordlist` — exactly 7776 EFF CC0 words (`Passphrase`).
+- `redact_keys` — default request-data redaction keys (`AccessLogMiddleware`).
+
+`SecurityData` loads the package default via a `__DIR__`-relative path and works
+without a booted Laravel app; when Laravel is booted and a published override is
+present, it prefers that file. Publish an override copy with:
+
+```bash
+php artisan vendor:publish --tag=laranail-toolkit-security
+```
+
+which writes `config/laranail-toolkit-security.php`. See the
+[security helpers](security.md#merged-security-data-configsecurityphp) doc for
+details.
+
 [← Docs index](../README.md#documentation)

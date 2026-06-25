@@ -42,7 +42,7 @@ src/
     ├── Archiver/      ArchiverService, ArchiveManager, Zip/Tar/TarGz/Extractor, Archiver facade, provider
     ├── Atlas/         AtlasService, …, Atlas facade, provider (single config/atlas.php)
     ├── Livewire/      LivewireServiceProvider, component registration
-    ├── Security/      Token, Password, Passphrase (CSPRNG generators; resources/data/security/*), AccessLog/{AccessLogMiddleware, AccessLog (model)}
+    ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (lazy config/security.php loader), AccessLog/{AccessLogMiddleware, AccessLog (model)}
     └── Llm/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, LLM facade, LlmServiceProvider
 ```
 

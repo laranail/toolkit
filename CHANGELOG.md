@@ -19,8 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   binds `LLMProviderInterface` (alias `laranail.llm`) and registers a `LLM`
   facade (`LLM::generateResponse(...)`) alongside constructor injection.
 - **Security credential generators** — CSPRNG `Modules\Security\{Token, Password,
-  Passphrase}` (fluent, immutable), backed by `resources/data/security/*` (the
-  EFF large wordlist + common-password list). See
+  Passphrase}` (fluent, immutable), backed by the merged `config/security.php`
+  (the EFF large wordlist + common-password list) via the lazy
+  `Modules\Security\SecurityData` accessor. See
   [docs/security.md](docs/security.md).
 - **zxcvbn password-strength support** (via `bjeavons/zxcvbn-php ^1.4`). `Password`
   gains `minStrength(int $score)` (regenerate until the zxcvbn 0–4 score is met),
@@ -69,6 +70,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Merged security data into a single `config/security.php`** behind the lazy
+  `Modules\Security\SecurityData` accessor (`commonPasswords()`,
+  `passphraseWords()`, `redactKeys()`). The two `resources/data/security/*`
+  files (common-password denylist + EFF wordlist, 560 / 7776 entries verbatim)
+  are removed in favour of the `passwords.common`, `passphrases.wordlist`, and
+  `redact_keys` sections. `SecurityData` loads the package default without a
+  booted app and prefers a published override (publish tag
+  `laranail-toolkit-security` → `config/laranail-toolkit-security.php`);
+  `RejectCommonPasswords`, `Passphrase`, and `AccessLogMiddleware` now read
+  through it (behaviour unchanged).
 - **Hardened `RejectCommonPasswords`** (larger curated common-password list,
   case-insensitive matching) and **`Support\Username` now rejects spaces** so
   generated handles are always whitespace-free.
