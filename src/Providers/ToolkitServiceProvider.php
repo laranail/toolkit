@@ -18,8 +18,6 @@ use Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware;
 use Simtabi\Laranail\Toolkit\Macros\MacroServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLog;
-use Simtabi\Laranail\Toolkit\Modules\AccessLog\AccessLogMiddleware;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
@@ -27,6 +25,8 @@ use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Llm\LlmServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLog;
+use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLogMiddleware;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
@@ -208,9 +208,9 @@ class ToolkitServiceProvider extends ServiceProvider
             __DIR__ . '/../../database/migrations' => database_path('migrations'),
         ], 'laranail-toolkit-migrations');
 
-        // Publish the AccessLog model (now part of the AccessLog module)
+        // Publish the AccessLog model (now part of the Security module)
         $this->publishes([
-            __DIR__ . '/../Modules/AccessLog/AccessLog.php' => app_path('Models/AccessLog.php'),
+            __DIR__ . '/../Modules/Security/AccessLog/AccessLog.php' => app_path('Models/AccessLog.php'),
         ], 'laranail-toolkit-models');
 
         // Publish traits

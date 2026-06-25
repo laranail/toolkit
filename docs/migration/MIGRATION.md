@@ -68,7 +68,7 @@ channels, and a serializable queue job. `composer require laranail/notifications
 >   `Http\Controllers\CrudController` extends; `Http\Requests\ApiRequest` (JSON-envelope validation failures)
 >   extends `BaseRequest`; `Http\Middleware\EmailObfuscatorMiddleware` rebuilt **natively** (no pheg, opt-in alias `email.obfuscate`).
 > - **Reusable base classes** added for future reuse: `Jobs\BaseJob`, `Listeners\BaseListener`,
->   `Observers\BaseObserver`, `Events\BaseEvent` (real shared code, not stubs).
+>   `Observers\Observer`, `Events\BaseEvent` (real shared code, not stubs).
 > - **Traits:** `HasAuth` and `HasErrorStorage` are already MIGRATED + improved (`Traits\*`).
 >   `HasPackageTools` (ServiceProvider / `laranail/package-tools` concern) and `HasLivewire` (Livewire-specific)
 >   stay out of the core toolkit's scope.
@@ -445,7 +445,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 176 | direct + 85 merged |
+| **MIGRATED** | 176 | direct + 86 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
 | **DROPPED** | 86 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
@@ -839,7 +839,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Legacy type | Status | New target / reason |
 |---|---|---|
-| `BaseObserver` | MIGRATED | `Simtabi\Laranail\Toolkit\Observers\BaseObserver` |
+| `BaseObserver` | MERGED | `Simtabi\Laranail\Toolkit\Observers\Observer (renamed from BaseObserver; reusable model-observer base, G12c)` |
 
 ### Simtabi\Laranail\Laravel\Providers
 

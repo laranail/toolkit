@@ -95,7 +95,7 @@ they conflict** (G8 reversed several earlier "native one-liner" / "broken" calls
 
 ### Reusable base classes (real shared code, for future reuse)
 - [x] `Http\Controllers\BaseController` — abstract base (`AuthorizesRequests`+`ValidatesRequests`+`ApiResponseTrait`); `CrudController` now extends it.
-- [x] `Jobs\BaseJob` (queue defaults + `failed()` logging), `Listeners\BaseListener` (`shouldHandle()` gate), `Observers\BaseObserver`, `Events\BaseEvent`.
+- [x] `Jobs\BaseJob` (queue defaults + `failed()` logging), `Listeners\BaseListener` (`shouldHandle()` gate), `Observers\Observer`, `Events\BaseEvent`.
 
 ### Still dropped (with reason)
 `setDatabaseCredentials` as-is (security → `DbHelper::canConnectWith`); `HasPackageTools`

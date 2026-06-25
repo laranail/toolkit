@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Modules\AccessLog;
+namespace Simtabi\Laranail\Toolkit\Modules\Security\AccessLog;
 
 use Closure;
 use Illuminate\Http\Request;

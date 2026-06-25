@@ -13,7 +13,7 @@ use RuntimeException;
 use Simtabi\Laranail\Toolkit\Events\BaseEvent;
 use Simtabi\Laranail\Toolkit\Jobs\BaseJob;
 use Simtabi\Laranail\Toolkit\Listeners\BaseListener;
-use Simtabi\Laranail\Toolkit\Observers\BaseObserver;
+use Simtabi\Laranail\Toolkit\Observers\Observer;
 use Simtabi\Laranail\Toolkit\Services\LogService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
@@ -44,7 +44,7 @@ class FixtureListener extends BaseListener
     }
 }
 
-class FixtureObserver extends BaseObserver {}
+class FixtureObserver extends Observer {}
 
 class BaseClassesTest extends TestCase
 {

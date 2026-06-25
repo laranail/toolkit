@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * concrete observer only overrides the events it cares about (no need to declare
  * empty methods for the rest). Register with `Model::observe(MyObserver::class)`.
  */
-abstract class BaseObserver
+abstract class Observer
 {
     public function retrieved(Model $model): void {}
 

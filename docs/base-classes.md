@@ -9,7 +9,7 @@ controllers, jobs, listeners, observers, and events only carry their own logic.
 | `Http\Controllers\BaseController` | …build a controller with auth + validation + API responses ready. |
 | `Jobs\BaseJob` | …queue work with retries, backoff, timeout, and failure logging. |
 | `Listeners\BaseListener` | …handle an event with a built-in "should I run?" gate. |
-| `Observers\BaseObserver` | …observe only the model events you care about. |
+| `Observers\Observer` | …observe only the model events you care about. |
 | `Events\BaseEvent` | …dispatch/broadcast an event without re-declaring trait boilerplate. |
 
 ## BaseController
@@ -85,9 +85,9 @@ class SendWelcome extends BaseListener
 }
 ```
 
-## BaseObserver
+## Observer
 
-`abstract class BaseObserver`
+`abstract class Observer`
 
 Declares all twelve Eloquent lifecycle hooks (`retrieved`, `creating`, `created`,
 `updating`, `updated`, `saving`, `saved`, `deleting`, `deleted`, `restoring`,
@@ -95,9 +95,9 @@ Declares all twelve Eloquent lifecycle hooks (`retrieved`, `creating`, `created`
 you need — no empty stubs.
 
 ```php
-use Simtabi\Laranail\Toolkit\Observers\BaseObserver;
+use Simtabi\Laranail\Toolkit\Observers\Observer;
 
-class PostObserver extends BaseObserver
+class PostObserver extends Observer
 {
     public function saving(Model $model): void
     {

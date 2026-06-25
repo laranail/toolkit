@@ -67,13 +67,13 @@
     "status": "dropped",
     "target": "covered by Support\\AuthHelper + Services\\AuthenticationContextService"
   },
-  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\AuthenticationHelperServiceInterface": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Services\\Contracts\\AuthenticationContextServiceInterface (renamed from AuthenticationHelperServiceInterface, G12c)"
-  },
   "Simtabi\\Laranail\\Foundation\\Contracts\\CacheServiceInterface": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Services\\CacheService"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\AuthenticationHelperServiceInterface": {
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Services\\Contracts\\AuthenticationContextServiceInterface (renamed from AuthenticationHelperServiceInterface, G12c)"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ClassHelperServiceInterface": {
     "status": "dropped",
@@ -639,6 +639,10 @@
     "status": "merged",
     "target": "Macros\\CarbonMacros (Carbon holiday macros ported, G3; assignment bugs fixed)"
   },
+  "Simtabi\\Laranail\\Laravel\\Observers\\BaseObserver": {
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Observers\\Observer (renamed from BaseObserver; reusable model-observer base, G12c)"
+  },
   "Simtabi\\Laranail\\Laravel\\Providers\\ArrMacroProvider": {
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
@@ -703,10 +707,6 @@
     "status": "merged",
     "target": "Merged into Simtabi\\Laranail\\Toolkit\\Services\\Contracts\\CacheRepositoryInterface."
   },
-  "Simtabi\\Laranail\\Support\\Contracts\\ShovelHttpInterface": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Http\\Contracts\\HttpStatusInterface (renamed from ShovelHttpInterface, G12c)"
-  },
   "Simtabi\\Laranail\\Support\\Contracts\\ResponseBuilderServiceInterface": {
     "status": "dropped",
     "target": "covered by Traits\\ApiResponseTrait + Support\\ApiResponder"
@@ -714,6 +714,10 @@
   "Simtabi\\Laranail\\Support\\Contracts\\ResponseMacroInterface": {
     "status": "dropped",
     "target": "marker interface; covered by Macros\\ResponseMacros"
+  },
+  "Simtabi\\Laranail\\Support\\Contracts\\ShovelHttpInterface": {
+    "status": "merged",
+    "target": "Simtabi\\Laranail\\Toolkit\\Http\\Contracts\\HttpStatusInterface (renamed from ShovelHttpInterface, G12c)"
   },
   "Simtabi\\Laranail\\Support\\Facades\\LanguagesFacade": {
     "status": "merged",
