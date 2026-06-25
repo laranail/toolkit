@@ -76,11 +76,11 @@ The feature modules merge their own config files under the same namespace:
 - `laranail.toolkit.captcha` — providers and behavior (see
   [captcha module](modules/captcha.md)).
 - `laranail.toolkit.archiver` — archiver limits.
-- `laranail.toolkit.atlas` and `laranail.toolkit.languages` — Atlas
-  select-box / cache settings plus the Laravel-locale registry (see
-  [atlas module](modules/atlas.md)). Both publish under the
-  `laranail-toolkit-atlas` tag to `config/laranail-toolkit-atlas.php` and
-  `config/laranail-toolkit-languages.php`.
+- `laranail.toolkit.atlas` — one self-contained file for the Atlas module:
+  select-box / cache settings, the continent display-name map
+  (`atlas.continents`), and the Laravel-locale registry (`atlas.languages`)
+  (see [atlas module](modules/atlas.md)). Publishes under the
+  `laranail-toolkit-atlas` tag to `config/laranail-toolkit-atlas.php`.
 
 > Multi-channel notifications now live in the separate
 > [`laranail/notifications`](https://opensource.simtabi.com/notifications/) package,

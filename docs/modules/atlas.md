@@ -30,6 +30,13 @@ Each country summary:
 | `currency` | ISO 4217 currency code. |
 | `calling_code` | International dialling code. |
 | `emoji` | Flag emoji. |
+| `continent` | Continent code (`AF`, `AN`, `AS`, `EU`, `NA`, `OC`, `SA`). |
+| `continent_name` | Continent English name. |
+| `region` | Geographic region (e.g. `Americas`). |
+| `subregion` | Geographic subregion (e.g. `Northern America`). |
+
+The geographic block (`continent` / `continent_name` / `region` / `subregion`)
+is derived from the data package's long-list `geo` block — never hand-mapped.
 
 ### Select boxes
 
@@ -44,6 +51,22 @@ Atlas::forSelectBox('official_name', iso3: true);   // ['USA' => 'United States 
 Allowed label keys are `name`, `official_name`, `native_name`; an unknown key
 falls back to the configured `default_label` (or `name`).
 
+## Continents & regions
+
+Continent / region grouping is derived from the data package's `geo` block and
+cached like the other lists.
+
+```php
+Atlas::continents();              // ['AF' => 'Africa', 'AN' => 'Antarctica', 'AS' => 'Asia', 'EU' => 'Europe', 'NA' => 'North America', 'OC' => 'Oceania', 'SA' => 'South America']
+Atlas::countriesByContinent();    // ['AF' => [<country>, ...], 'AN' => [...], ..., 'SA' => [...]] — every continent keyed, even if empty
+Atlas::countriesInContinent('EU');     // by code
+Atlas::countriesInContinent('Europe'); // or English name, case-insensitive; [] if unknown
+Atlas::continentForCountry('KE');      // 'AF' — accepts ISO2 or ISO3; null if unknown
+Atlas::continentForCountry('FR');      // 'EU'
+Atlas::regions();                 // ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'] — sorted
+Atlas::subregions();              // ['Australia and New Zealand', 'Caribbean', ..., 'Western Europe'] — sorted
+```
+
 ## Currencies & timezones
 
 ```php
@@ -54,8 +77,8 @@ Atlas::timezones();    // ['Africa/Abidjan', ..., 'UTC', ...] — all IANA ident
 ## Languages & locales
 
 The data package is country-centric, so the Laravel-locale registry lives in the
-publishable `config/languages.php` config — merged under
-`laranail.toolkit.languages` (ported, de-bloated, from the legacy
+single, publishable `config/atlas.php` config under the `languages` key — merged
+under `laranail.toolkit.atlas.languages` (ported, de-bloated, from the legacy
 `Atlas\Languages`):
 
 ```php
@@ -73,18 +96,22 @@ Atlas::availableLocales();   // ['en_US' => ['locale' => 'en_US', 'name' => 'Eng
 
 ## Configuration
 
+Everything lives in **one** config file — `config/atlas.php`, merged under
+`laranail.toolkit.atlas`:
+
 ```php
 // config/laranail-toolkit-atlas.php → laranail.toolkit.atlas
 'default_label' => env('LARANAIL_ATLAS_DEFAULT_LABEL', 'name'),   // 'name' | 'official_name' | 'native_name'
 'cache_ttl'     => env('LARANAIL_ATLAS_CACHE_TTL', 1440),         // minutes; 0 to recompute every call
+'continents'    => ['AF' => 'Africa', ..., 'SA' => 'South America'],  // continent code => English name
+'languages'     => ['en_US' => ['iso639_1' => 'en', ...], ...],       // Laravel-locale registry
 ```
 
-The Laravel-locale registry read by `languages()` / `locales()` /
-`availableLocales()` ships as a second, publishable config file merged under
-`laranail.toolkit.languages` (`config/laranail-toolkit-languages.php` once
-published) — override or extend it there.
+The continent display-name map read by `continents()` and the Laravel-locale
+registry read by `languages()` / `locales()` / `availableLocales()` are both
+sections of this single file — override or extend them there.
 
-Publish both with the same tag:
+Publish it with:
 
 ```bash
 php artisan vendor:publish --tag=laranail-toolkit-atlas

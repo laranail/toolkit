@@ -37,6 +37,12 @@ class AtlasServiceTest extends TestCase
         $this->assertSame('United States', $countries['US']['name']);
         $this->assertSame('USA', $countries['US']['iso3']);
         $this->assertSame('USD', $countries['US']['currency']);
+
+        // Geographic block is derived from the rinvex long-list `geo`.
+        $this->assertSame('NA', $countries['US']['continent']);
+        $this->assertSame('North America', $countries['US']['continent_name']);
+        $this->assertSame('Americas', $countries['US']['region']);
+        $this->assertSame('Northern America', $countries['US']['subregion']);
     }
 
     public function test_country_resolves_by_iso2_and_iso3_case_insensitively(): void
@@ -113,12 +119,105 @@ class AtlasServiceTest extends TestCase
         $this->assertContains('UTC', $timezones);
     }
 
+    public function test_continents_has_seven_entries(): void
+    {
+        $continents = $this->service()->continents();
+
+        $this->assertCount(7, $continents);
+        $this->assertSame('Africa', $continents['AF']);
+        $this->assertSame('Europe', $continents['EU']);
+        $this->assertSame('Asia', $continents['AS']);
+        $this->assertSame('North America', $continents['NA']);
+        $this->assertSame('South America', $continents['SA']);
+        $this->assertSame('Oceania', $continents['OC']);
+        $this->assertSame('Antarctica', $continents['AN']);
+    }
+
+    public function test_countries_by_continent_groups_every_continent(): void
+    {
+        $grouped = $this->service()->countriesByContinent();
+
+        // All seven continent codes are present as keys (even if empty).
+        $this->assertSame(
+            ['AF', 'AN', 'AS', 'EU', 'NA', 'OC', 'SA'],
+            array_keys($grouped),
+        );
+
+        $iso2 = static fn (array $list): array => array_map(
+            static fn (array $country): string => $country['iso2'],
+            $list,
+        );
+
+        $this->assertContains('KE', $iso2($grouped['AF']));
+        $this->assertContains('FR', $iso2($grouped['EU']));
+        $this->assertContains('JP', $iso2($grouped['AS']));
+        $this->assertContains('US', $iso2($grouped['NA']));
+    }
+
+    public function test_countries_in_continent_accepts_code_or_name_case_insensitively(): void
+    {
+        $service = $this->service();
+
+        $byCode = $service->countriesInContinent('EU');
+        $byName = $service->countriesInContinent('Europe');
+        $byMixedCaseName = $service->countriesInContinent('europe');
+        $byLowerCode = $service->countriesInContinent('eu');
+
+        $this->assertSame($byCode, $byName);
+        $this->assertSame($byCode, $byMixedCaseName);
+        $this->assertSame($byCode, $byLowerCode);
+        $this->assertNotEmpty($byCode);
+
+        $iso2 = array_map(static fn (array $c): string => $c['iso2'], $byCode);
+        $this->assertContains('FR', $iso2);
+        $this->assertNotContains('KE', $iso2);
+
+        // Unknown continent yields an empty list.
+        $this->assertSame([], $service->countriesInContinent('Atlantis'));
+        $this->assertSame([], $service->countriesInContinent(''));
+    }
+
+    public function test_continent_for_country_resolves_by_iso2_and_iso3(): void
+    {
+        $service = $this->service();
+
+        $this->assertSame('AF', $service->continentForCountry('KE'));
+        $this->assertSame('AF', $service->continentForCountry('ken'));
+        $this->assertSame('EU', $service->continentForCountry('FR'));
+        $this->assertSame('AS', $service->continentForCountry('JP'));
+        $this->assertSame('NA', $service->continentForCountry('US'));
+
+        $this->assertNull($service->continentForCountry('ZZ'));
+        $this->assertNull($service->continentForCountry(''));
+    }
+
+    public function test_regions_and_subregions_are_sorted_and_non_empty(): void
+    {
+        $service = $this->service();
+
+        $regions = $service->regions();
+        $this->assertNotEmpty($regions);
+        $this->assertContains('Africa', $regions);
+        $this->assertContains('Europe', $regions);
+        $sorted = $regions;
+        sort($sorted);
+        $this->assertSame($sorted, $regions);
+
+        $subregions = $service->subregions();
+        $this->assertNotEmpty($subregions);
+        $this->assertContains('Eastern Africa', $subregions);
+        $this->assertContains('Western Europe', $subregions);
+        $sortedSubs = $subregions;
+        sort($sortedSubs);
+        $this->assertSame($sortedSubs, $subregions);
+    }
+
     public function test_languages_and_locales_have_a_known_entry(): void
     {
         $service = $this->service();
         $languages = $service->languages();
 
-        // Full registry is read from `laranail.toolkit.languages` config.
+        // Full registry is read from `laranail.toolkit.atlas.languages` config.
         $this->assertCount(89, $languages);
 
         $this->assertArrayHasKey('en_US', $languages);

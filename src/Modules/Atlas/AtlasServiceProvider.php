@@ -23,9 +23,9 @@ class AtlasServiceProvider extends ServiceProvider implements DeferrableProvider
     public function register(): void
     {
         // The module owns its config namespace under `laranail.toolkit.atlas`.
+        // A single, self-contained config file carries behaviour knobs, the
+        // continent display-name map, and the Laravel-locale registry.
         $this->mergeConfigFrom($this->configPath('atlas.php'), 'laranail.toolkit.atlas');
-        // The Laravel-locale registry merges under `laranail.toolkit.languages`.
-        $this->mergeConfigFrom($this->configPath('languages.php'), 'laranail.toolkit.languages');
 
         $this->app->singleton(AtlasService::class, static function (Application $app): AtlasService {
             /** @var Repository $config */
@@ -54,7 +54,6 @@ class AtlasServiceProvider extends ServiceProvider implements DeferrableProvider
     {
         $this->publishes([
             $this->configPath('atlas.php') => config_path('laranail-toolkit-atlas.php'),
-            $this->configPath('languages.php') => config_path('laranail-toolkit-languages.php'),
         ], 'laranail-toolkit-atlas');
     }
 
