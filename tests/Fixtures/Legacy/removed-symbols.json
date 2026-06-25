@@ -746,9 +746,5 @@
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\RequirementsChecker": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Support\\Diagnostics\\RequirementsDiagnostics (useful probes folded, G6c)"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\Username": {
-    "status": "merged",
-    "target": "Simtabi\\Laranail\\Toolkit\\Traits\\HasFormatters"
   }
 }

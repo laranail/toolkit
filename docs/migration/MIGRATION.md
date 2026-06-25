@@ -445,7 +445,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 
 | Status | Count | Note |
 |---|---:|---|
-| **MIGRATED** | 176 | direct + 85 merged |
+| **MIGRATED** | 176 | direct + 84 merged |
 | **RELOCATED** | 17 | → laranail/notifications |
 | **DROPPED** | 86 | native / out-of-scope (see rows) |
 | **Total** | 279 | |
@@ -963,7 +963,7 @@ with `php tests/Fixtures/Legacy/build-ledger.php`; gate with `--verify`.
 | `Auth` | MERGED | `Simtabi\Laranail\Toolkit\Utilities\AuthUtil` |
 | `BladeDirectives` | MERGED | `Simtabi\Laranail\Toolkit\Providers\BladeServiceProvider` |
 | `DatabaseSession` | MIGRATED | `Simtabi\Laranail\Toolkit\Support\Models\DatabaseSession` |
-| `Username` | MERGED | `Simtabi\Laranail\Toolkit\Traits\HasFormatters` |
+| `Username` | MIGRATED | `Simtabi\Laranail\Toolkit\Support\Username` |
 
 ### Simtabi\Laranail\Support\Utilities\Runners
 

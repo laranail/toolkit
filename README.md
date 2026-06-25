@@ -235,6 +235,7 @@ class Post extends Model
 | [API middleware](docs/api-middleware.md) | `api.request` / `api.response` envelope + `BaseRequest` sanitization |
 | [Utilities](docs/utilities.md) | The twelve utility classes |
 | [Static helpers](docs/helpers.md) | `Helper` — one static facade (array, string, date, system, file, db, geo, console) |
+| [Username builder](docs/username.md) | `Support\Username` — fluent, immutable username / handle generator |
 | [Base classes](docs/base-classes.md) | Reusable controller / job / listener / observer / event bases |
 | [Macros](docs/macros.md) | Str/Arr/Collection/Query/Blueprint macros + Blade directives + IDE stub (`ide-helper:macros` regenerator) |
 | [Traits](docs/traits.md) | Model & controller traits |

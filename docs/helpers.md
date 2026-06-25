@@ -39,15 +39,22 @@ Helper::arrayToDotNotation('a[b][c]');          // 'a.b.c'
 Helper::strBetween('[tag]hi[/tag]', '[tag]', '[/tag]'); // 'hi'
 Helper::strSlugify('Héllo World');              // 'hello-world'
 Helper::ucWords('śćż leçon');                   // mb-aware title case
-Helper::usernameFromEmail('Jane.Doe@x.io');     // 'Jane.Doe'
+Helper::usernameFromEmail('Jane.Doe@x.io');     // 'Jane.Doe'  (delegates to Support\Username)
 Helper::emailFromUsername('jane', 'acme.test'); // 'jane@acme.test'
-Helper::nameToUsernames('Imani', 'Manyara');    // suggestion list
+Helper::nameToUsernames('Imani', 'Manyara');    // suggestion list (Username::candidates)
+Helper::generateUsername('guest', 4);           // 'guest4821'  (Username::random)
 Helper::uuid();                                 // a UUID string
 Helper::escapeHtml($dirty);                     // XSS-safe HtmlString
 Helper::classBasename($model);                  // short class name
 Helper::randomIntExcept(1, 6, [3]);             // 1,2,4,5 or 6 (bounded; throws if impossible)
 Helper::faker('en_US');                         // a Faker generator
 ```
+
+> The three username generators (`usernameFromEmail`, `nameToUsernames`,
+> `generateUsername`) are thin wrappers over the fluent
+> [`Support\Username`](username.md) builder — reach for `Username` directly when
+> you need separators, casing, ASCII transliteration, reserved lists, length
+> limits, or a pluggable uniqueness check.
 
 ## Dates
 

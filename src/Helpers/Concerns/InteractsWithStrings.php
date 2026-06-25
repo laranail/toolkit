@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use RuntimeException;
 use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Simtabi\Laranail\Toolkit\Support\Cast;
+use Simtabi\Laranail\Toolkit\Support\Username;
 
 /**
  * String / identity / miscellaneous value helpers.
@@ -53,16 +54,27 @@ trait InteractsWithStrings
      * Derive a username from an email address: the local part stripped to
      * `[A-Za-z0-9._]`, prefixed with `user_` when it doesn't start with a
      * letter, and falling back to `user` when nothing usable remains.
+     *
+     * Delegates to {@see Username}; the config below reproduces the legacy
+     * shape (preserve case, no length padding, `_` lead-in, `user` fallback).
      */
     public static function usernameFromEmail(string $email): string
     {
-        $username = (string) preg_replace('/[^a-zA-Z0-9._]/', '', Str::before($email, '@'));
+        $local = (string) preg_replace('/[^a-zA-Z0-9._]/', '', Str::before($email, '@'));
 
-        if ($username !== '' && !ctype_alpha($username[0])) {
-            $username = 'user_' . $username;
+        if ($local === '') {
+            return 'user';
         }
 
-        return $username !== '' ? $username : 'user';
+        if (!ctype_alpha($local[0])) {
+            $local = 'user_' . $local;
+        }
+
+        return Username::for($local)
+            ->preserveCase()
+            ->allow('._')
+            ->minLength(1)
+            ->generate();
     }
 
     /**
@@ -92,41 +104,7 @@ trait InteractsWithStrings
      */
     public static function nameToUsernames(string $firstName, ?string $lastName = null): array
     {
-        $first = Str::lower(Str::slug($firstName, ''));
-        $last = $lastName !== null ? Str::lower(Str::slug($lastName, '')) : '';
-
-        if ($first === '' && $last === '') {
-            return [];
-        }
-
-        $candidates = [];
-
-        if ($last !== '') {
-            $candidates[] = $first . $last;
-            $candidates[] = $first . '.' . $last;
-            $candidates[] = $first . '_' . $last;
-
-            if ($first !== '') {
-                $candidates[] = Str::substr($first, 0, 1) . $last;
-                $candidates[] = $first . Str::substr($last, 0, 1);
-            }
-        }
-
-        if ($first !== '') {
-            $candidates[] = $first;
-        }
-
-        if ($last !== '') {
-            $candidates[] = $last;
-        }
-
-        // Every candidate above is added under a non-empty guard, so the list
-        // holds only non-empty strings; just de-duplicate and re-index.
-        $base = $candidates[0];
-        $candidates[] = $base . random_int(10, 99);
-        $candidates[] = $base . random_int(100, 999);
-
-        return array_values(array_unique($candidates));
+        return Username::fromName($firstName, $lastName)->candidates(10);
     }
 
     /**
@@ -145,24 +123,7 @@ trait InteractsWithStrings
      */
     public static function generateUsername(string $prefix = 'user', int $digits = 4): string
     {
-        $prefix = (string) preg_replace('/[^a-z]/', '', Str::lower($prefix));
-
-        if ($prefix === '') {
-            $prefix = 'user';
-        }
-
-        $digits = max(1, min(10, $digits));
-
-        // Build the suffix one digit at a time: the first digit is 1..9 (so the
-        // overall length is exactly $digits), the rest are 0..9. This avoids any
-        // large 10**$digits arithmetic and keeps the result a fixed-width handle.
-        $suffix = (string) random_int(1, 9);
-
-        for ($i = 1; $i < $digits; $i++) {
-            $suffix .= (string) random_int(0, 9);
-        }
-
-        return $prefix . $suffix;
+        return Username::random($prefix, $digits)->minLength(1)->generate();
     }
 
     public static function uuid(): string

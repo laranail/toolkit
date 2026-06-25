@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Fluent `Support\Username` builder.** A native, immutable, chainable
+  username / handle generator (`Username::for()` / `fromEmail()` / `fromName()` /
+  `random()`) that replaces the legacy pheg-bound `name2username()`. Supports
+  configurable separator / case / length, ASCII transliteration, prefix/suffix,
+  reserved-word filtering, leading-letter enforcement, deterministic
+  `candidates()`, and a backend-agnostic `unique()` checker backed by a
+  **bounded** uniqueness loop (throws instead of recursing forever). The
+  `Helper::usernameFromEmail()` / `nameToUsernames()` / `generateUsername()`
+  shortcuts and the `HasFormatters::suggestUsername()` trait now delegate to it.
+  See [docs/username.md](docs/username.md).
 - **Commands now use the full `laranail/console` feature set.** All four Artisan
   commands (`make-crud`, `ide-helper-macros`, `database`, `tidy`) adopt the console
   base's fluent `consoleWriter()` (success/error/warning/info/note statuses) and the

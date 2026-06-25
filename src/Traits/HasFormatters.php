@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-use Simtabi\Laranail\Toolkit\Helpers\Helper;
+use Simtabi\Laranail\Toolkit\Support\Username;
 
 /**
  * Convenience presentation helpers for common model attributes (timestamps,
@@ -152,29 +152,26 @@ trait HasFormatters
      * Suggest a username derived from a person's name that is not already taken
      * in the given column.
      *
-     * Username candidates come from {@see Helper::nameToUsernames()} (native,
-     * no third-party name library); the first one with no existing row wins.
-     * When every candidate is taken, the base candidate is returned with a
-     * random numeric suffix so the caller still gets a usable value.
+     * Delegates name → handle generation to {@see Username}, with the model's
+     * own {@see usernameIsAvailable()} wired in as the uniqueness checker. The
+     * builder walks its deterministic candidates and, when they are all taken,
+     * appends a bounded random suffix — so the caller always gets a free value.
      */
     public function suggestUsername(
         string $firstName,
         ?string $lastName = null,
         string $column = 'username'
     ): string {
-        $candidates = Helper::nameToUsernames($firstName, $lastName);
+        $builder = Username::fromName($firstName, $lastName)
+            ->unique(fn (string $username): bool => $this->usernameIsAvailable($username, $column));
 
-        if ($candidates === []) {
-            return 'user' . random_int(100, 999);
-        }
-
-        foreach ($candidates as $candidate) {
+        foreach ($builder->candidates() as $candidate) {
             if ($this->usernameIsAvailable($candidate, $column)) {
                 return $candidate;
             }
         }
 
-        return $candidates[0] . random_int(100, 999);
+        return $builder->generate();
     }
 
     /**
