@@ -16,7 +16,7 @@ class AccessLogMiddleware
      *
      * @var list<string>
      */
-    private const DEFAULT_REDACT = [
+    private const array DEFAULT_REDACT = [
         'password',
         'password_confirmation',
         'current_password',
