@@ -606,7 +606,9 @@ class AvatarService implements AvatarServiceInterface
         }
 
         throw new InvalidArgumentException(
-            "Font '{$fontName}' files not found in any location. Please publish package assets using: php artisan vendor:publish --tag=laranail-toolkit-avatar-fonts",
+            "Font '{$fontName}' files not found in any location. Place the .ttf in "
+            . 'public/vendor/laranail/fonts/ or resources/assets/fonts/, or set an absolute '
+            . 'path with setFontPath().',
         );
     }
 
@@ -903,7 +905,7 @@ class AvatarService implements AvatarServiceInterface
             }
         }
 
-        throw new RuntimeException('No suitable font found for avatar generation. Please publish package assets using: php artisan vendor:publish --tag=laranail-toolkit-avatar-fonts');
+        throw new RuntimeException('No suitable font found for avatar generation. The package ships bundled fonts under resources/assets/fonts/ — reinstall the package if they are missing, or set an absolute path with setFontPath().');
     }
 
     protected function getCacheKey(): string

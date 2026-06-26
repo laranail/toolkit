@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Modules\Avatar;
 /**
  * Bundled fonts available for avatar text rendering.
  *
- * A plain, native PHP 8.3 backed enum. Each case is backed by the `.ttf`
+ * A plain, native PHP 8.4 backed enum. Each case is backed by the `.ttf`
  * filename of the bundled font shipped under `resources/assets/fonts/`.
  *
  * All metadata (display name, description, category, unicode support) is

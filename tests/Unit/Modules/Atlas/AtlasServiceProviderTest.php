@@ -39,8 +39,8 @@ class AtlasServiceProviderTest extends TestCase
         $this->assertArrayHasKey('en_US', $languages);
         $this->assertSame('English', $languages['en_US']['native_name']);
 
-        // The legacy standalone languages namespace is gone.
-        $this->assertSame([], config('laranail-toolkit.languages', []));
+        // Languages live only under the atlas namespace, not a top-level key.
+        $this->assertNull(config('laranail.toolkit.languages'));
     }
 
     public function test_continents_config_is_merged_under_the_atlas_namespace(): void

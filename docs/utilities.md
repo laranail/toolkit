@@ -274,7 +274,7 @@ extensions, writable storage and free disk space.
 ```php
 $diag = new RequirementsDiagnostics();
 
-$diag->checkPhpVersion();                     // ['version' => '8.3.x', 'meets' => true, ...]
+$diag->checkPhpVersion();                     // ['version' => '8.4.x', 'meets' => true, ...]
 $diag->checkExtensions(['pdo', 'mbstring']);  // which of the given extensions are loaded
 $diag->missingExtensions(['gd', 'imagick']);  // which are missing
 $diag->checkWritableDirectories([storage_path()]);

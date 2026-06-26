@@ -77,7 +77,7 @@ $system->parseMemoryLimit('256M');               // 268435456 (bytes; -1 = unlim
 $system->memoryLimit();                          // '256M'
 $system->memoryUsage();                          // ['current' => …, 'peak' => …]
 $system->phpVersion();                           // '8.4.3'
-$system->isPhpVersionSupported('8.3');           // bool
+$system->isPhpVersionSupported('8.4');           // bool
 $system->isCli();                                // bool
 $system->isHttps();                              // bool (alias: isSslInstalled())
 $system->composer();                             // app composer.json as array (never throws)

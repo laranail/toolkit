@@ -33,8 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `countriesByContinent()`, `countriesInContinent()` (by ISO code or English
   name), `continentForCountry()` (ISO2/ISO3), `regions()`, and `subregions()`.
   The Laravel-locale registry moved under `atlas.languages` so Atlas now owns a
-  **single, publishable `config/atlas.php`** (publish tag
-  `laranail-toolkit-atlas`, merged under `laranail-toolkit-atlas`).
+  **single `config/atlas.php`**, merged under `laranail.toolkit.atlas` and
+  published with the other configs via `laranail::toolkit-config`.
 - **LLM module provider + facade.** A dedicated deferred `LLMServiceProvider`
   binds `LLMProviderInterface` (alias `laranail.llm`) and registers a `LLM`
   facade (`LLM::generateResponse(...)`) alongside constructor injection.
@@ -93,11 +93,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `passphraseWords()`, `redactKeys()`). The two `resources/data/security/*`
   files (common-password denylist + EFF wordlist, 560 / 7776 entries verbatim)
   are removed in favour of the `passwords.common`, `passphrases.wordlist`, and
-  `redact_keys` sections. `SecurityData` loads the package default without a
-  booted app and prefers a published override (publish tag
-  `laranail-toolkit-security` → `config/laranail-toolkit-security.php`);
-  `RejectCommonPasswords`, `Passphrase`, and `AccessLogMiddleware` now read
-  through it (behaviour unchanged).
+  `redact_keys` sections, merged under `laranail.toolkit.security`. `SecurityData`
+  reads `config('laranail.toolkit.security.*')` (with a `__DIR__` fallback when no
+  app is booted); `RejectCommonPasswords`, `Passphrase`, and `AccessLogMiddleware`
+  now read through it (behaviour unchanged).
 - **Hardened `RejectCommonPasswords`** (larger curated common-password list,
   case-insensitive matching) and **`Support\Username` now rejects spaces** so
   generated handles are always whitespace-free.
@@ -234,10 +233,11 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
   publish-override bridge). The former flat `laranail-toolkit` key + manual alias
   are gone.
 - **Publish tags now use the `laranail::toolkit-*` convention**
-  (`-config`, `-views`, `-translations`, `-migrations`, `-security`, `-stubs`).
-  The utility services/helpers, the `reject_common_passwords` rule, `ApiResponseTrait`
-  and the `AccessLog` model are **no longer publishable** — they are used directly
-  from the package.
+  (`-config`, `-views`, `-translations`, `-migrations`, `-stubs`). Security datasets
+  are part of `-config` (merged under `laranail.toolkit.security`). The utility
+  services/helpers, the `reject_common_passwords` rule, `ApiResponseTrait` and the
+  `AccessLog` model are **no longer publishable** — they are used directly from the
+  package.
 - Realigned tooling to PHP `^8.4.1 || ^8.5` and Laravel `^13.0`
   (Pest, Orchestra Testbench, PHPStan 2, Pint).
 - Artisan commands now use the org-wide naming shape
@@ -246,15 +246,11 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
 
 ### Fixed
 
-- Service provider config wiring: config is merged under the `laranail-toolkit`
-  key from `config/toolkit.php`; corrected publish paths and the cross-platform
-  `Models` path; removed the phantom service-provider publish. Config keys are
-  **flat and aligned with the published filenames** (`laranail-toolkit`,
-  `laranail-toolkit-captcha`, `laranail-toolkit-atlas`,
-  `laranail-toolkit-feature-toggles`) so a published config override actually takes
-  effect — and the package **also mirrors them under the dotted
-  `laranail.toolkit.*` namespace**, so both `config('laranail-toolkit.x')` and
-  `config('laranail.toolkit.x')` resolve.
+- Service provider config wiring: configs are merged under the dotted
+  `laranail.toolkit.*` namespace from `config/toolkit.php` (with `feature-toggles`,
+  `atlas`, `captcha`, and `security` each at their own sub-key); corrected publish
+  paths and the cross-platform `Models` path; removed the phantom service-provider
+  publish. Published overrides take effect via package-tools' config bridge.
 - Corrected autoload-fatal namespace imports in the Claude LLM provider and the
   CRUD generator; fixed the published-stub path.
 - Removed all leftover `LaraUtilX` / `lara-util-x` rename debris (the package
@@ -280,7 +276,7 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
   - **Archiver** — zip/tar/tar.gz extraction, **Zip-Slip hardened** (validate
     entries before extraction; symlink + zip-bomb guards).
 - **LLM providers** — OpenAI/Claude/Gemini behind `LLMProviderInterface`
-  (provider selected via `config('laranail-toolkit.llm.default_provider')`),
+  (provider selected via `config('laranail.toolkit.llm.default_provider')`),
   with retryable-only retries and an SSRF base-URL guard.
 - **Macros** — consolidated grouped providers (String/Collection/Arr/
   QueryBuilder/Blueprint/Request) + `FactoryBuilderMixin`.
