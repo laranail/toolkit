@@ -27,6 +27,10 @@ class AtlasServiceProvider extends ServiceProvider implements DeferrableProvider
         // continent display-name map, and the Laravel-locale registry.
         $this->mergeConfigFrom($this->configPath('atlas.php'), 'laranail-toolkit-atlas');
 
+        // Namespaced read-alias: also expose under `laranail.toolkit.atlas.*`
+        // (see ToolkitServiceProvider). Dot-key set preserves sibling namespaces.
+        config(['laranail.toolkit.atlas' => config('laranail-toolkit-atlas', [])]);
+
         $this->app->singleton(AtlasService::class, static function (Application $app): AtlasService {
             /** @var Repository $config */
             $config = $app->make('config');

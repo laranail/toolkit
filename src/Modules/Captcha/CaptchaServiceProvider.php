@@ -23,6 +23,10 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
         // The module owns its config namespace under `laranail-toolkit-captcha`.
         $this->mergeConfigFrom($this->configPath(), 'laranail-toolkit-captcha');
 
+        // Namespaced read-alias: also expose under `laranail.toolkit.captcha.*`
+        // (see ToolkitServiceProvider). Dot-key set preserves sibling namespaces.
+        config(['laranail.toolkit.captcha' => config('laranail-toolkit-captcha', [])]);
+
         $this->app->singleton(CaptchaService::class, static function (Application $app): CaptchaService {
             /** @var Repository $config */
             $config = $app->make('config');

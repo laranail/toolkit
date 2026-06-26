@@ -214,7 +214,13 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
 
 - Service provider config wiring: config is merged under the `laranail-toolkit`
   key from `config/toolkit.php`; corrected publish paths and the cross-platform
-  `Models` path; removed the phantom service-provider publish.
+  `Models` path; removed the phantom service-provider publish. Config keys are
+  **flat and aligned with the published filenames** (`laranail-toolkit`,
+  `laranail-toolkit-captcha`, `laranail-toolkit-atlas`,
+  `laranail-toolkit-feature-toggles`) so a published config override actually takes
+  effect — and the package **also mirrors them under the dotted
+  `laranail.toolkit.*` namespace**, so both `config('laranail-toolkit.x')` and
+  `config('laranail.toolkit.x')` resolve.
 - Corrected autoload-fatal namespace imports in the Claude LLM provider and the
   CRUD generator; fixed the published-stub path.
 - Removed all leftover `LaraUtilX` / `lara-util-x` rename debris (the package

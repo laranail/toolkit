@@ -9,6 +9,20 @@ php artisan vendor:publish --tag=laranail-toolkit-config
 
 Read any value with `config('laranail-toolkit.<key>')`.
 
+### Namespaced keys
+
+Both key forms resolve to the same values, so use whichever you prefer:
+
+- **Flat** — `config('laranail-toolkit.<key>')` (canonical: this is the key the
+  published `config/laranail-toolkit.php` file maps to, so overrides land here).
+- **Namespaced** — `config('laranail.toolkit.<key>')` (the package mirrors the
+  flat config under the dotted namespace at boot).
+
+The same applies to the module configs: `laranail-toolkit-captcha` ↔
+`laranail.toolkit.captcha`, and `laranail-toolkit-atlas` ↔ `laranail.toolkit.atlas`
+(these modules are deferred, so their namespaced alias is set once the module is
+resolved).
+
 ## `laranail-toolkit.llm`
 
 One consistent prefix: `default_provider` plus a nested block per provider

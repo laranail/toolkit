@@ -191,6 +191,17 @@ class ToolkitServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom(__DIR__ . '/../../config/toolkit.php', 'laranail-toolkit');
 
+        // Namespaced read-alias. The flat `laranail-toolkit` key is canonical
+        // (publishing targets `config/laranail-toolkit.php`, so overrides land
+        // there), but we also mirror it under the dotted `laranail.toolkit.*`
+        // namespace so both forms resolve — restoring the namespaced design while
+        // keeping published overrides working. array_merge preserves any sub-keys
+        // (e.g. laranail.toolkit.captcha) a deferred module may have set already.
+        config(['laranail.toolkit' => array_merge(
+            (array) config('laranail.toolkit', []),
+            (array) config('laranail-toolkit', []),
+        )]);
+
         // Publish migrations
         $this->publishes([
             __DIR__ . '/../../database/migrations' => database_path('migrations'),
