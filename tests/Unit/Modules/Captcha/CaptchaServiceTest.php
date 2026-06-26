@@ -21,29 +21,29 @@ class CaptchaServiceTest extends TestCase
     {
         parent::setUp();
 
-        config()->set('laranail-toolkit-captcha.recaptcha', [
+        config()->set('laranail.toolkit.captcha.recaptcha', [
             'site_key' => 'rc-site',
             'secret_key' => 'rc-secret',
             'min_score' => 0.5,
             'timeout' => 30,
         ]);
-        config()->set('laranail-toolkit-captcha.turnstile', [
+        config()->set('laranail.toolkit.captcha.turnstile', [
             'site_key' => 'ts-site',
             'secret_key' => 'ts-secret',
             'timeout' => 30,
         ]);
-        config()->set('laranail-toolkit-captcha.hcaptcha', [
+        config()->set('laranail.toolkit.captcha.hcaptcha', [
             'site_key' => 'hc-site',
             'secret_key' => 'hc-secret',
             'timeout' => 30,
         ]);
-        config()->set('laranail-toolkit-captcha.friendly_captcha', [
+        config()->set('laranail.toolkit.captcha.friendly_captcha', [
             'site_key' => 'fc-site',
             'secret_key' => 'fc-api-key',
             'use_eu_endpoint' => false,
             'timeout' => 30,
         ]);
-        config()->set('laranail-toolkit-captcha.null', [
+        config()->set('laranail.toolkit.captcha.null', [
             'site_key' => 'null-site',
         ]);
     }
@@ -51,7 +51,7 @@ class CaptchaServiceTest extends TestCase
     public function test_config_merge_exposes_default_provider(): void
     {
         // The module provider merged the package config under laranail-toolkit-captcha.
-        $this->assertNotNull(config('laranail-toolkit-captcha.default_provider'));
+        $this->assertNotNull(config('laranail.toolkit.captcha.default_provider'));
     }
 
     public function test_service_resolves_from_the_container(): void
@@ -62,9 +62,9 @@ class CaptchaServiceTest extends TestCase
 
     public function test_default_provider_from_config_resolves_recaptcha_driver(): void
     {
-        config()->set('laranail-toolkit-captcha.default_provider', 'recaptcha');
+        config()->set('laranail.toolkit.captcha.default_provider', 'recaptcha');
 
-        $service = new CaptchaService((string) config('laranail-toolkit-captcha.default_provider'));
+        $service = new CaptchaService((string) config('laranail.toolkit.captcha.default_provider'));
 
         $this->assertInstanceOf(RecaptchaProvider::class, $service->getProvider());
     }
@@ -112,7 +112,7 @@ class CaptchaServiceTest extends TestCase
     #[Group('security')]
     public function test_verify_returns_failure_when_provider_unconfigured(): void
     {
-        config()->set('laranail-toolkit-captcha.turnstile.secret_key', '');
+        config()->set('laranail.toolkit.captcha.turnstile.secret_key', '');
 
         $result = new CaptchaService()->verify('token', [], 'turnstile');
 

@@ -72,7 +72,7 @@ The generated `index` action is security-conscious by construction:
 Publish the stubs to override the generated output:
 
 ```bash
-php artisan vendor:publish --tag=laranail-toolkit-stubs
+php artisan vendor:publish --tag=laranail::toolkit-stubs
 # edit stubs/vendor/laranail-toolkit/crud.{migration,model,controller}.stub
 ```
 

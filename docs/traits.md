@@ -5,9 +5,8 @@ controllers.
 
 ## ApiResponseTrait
 
-Standardised JSON responses for API controllers. Use it in a controller (or
-publish it into `app/Traits/` with the `laranail-toolkit-api-response-trait`
-tag).
+Standardised JSON responses for API controllers. Use it directly from the
+package (it is not published — `use` it on a controller).
 
 ```php
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
@@ -159,7 +158,7 @@ class ImportRunner
 
 One-method accessor exposing a fresh
 [`HttpConfigurationService`](utilities.md#httpconfigurationservice) so a class
-can build a Guzzle/HTTP-client config seeded from `config('laranail-toolkit.http.*')`.
+can build a Guzzle/HTTP-client config seeded from `config('laranail.toolkit.http.*')`.
 
 ```php
 use Simtabi\Laranail\Toolkit\Traits\HasGuzzleConfig;

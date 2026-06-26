@@ -47,7 +47,7 @@ abstract class TestCase extends OrchestraTestCase
 
         // Seed sane package config under the real key so the provider's
         // caching/llm bindings resolve in tests.
-        $app['config']->set('laranail-toolkit.cache', [
+        $app['config']->set('laranail.toolkit.cache', [
             'default_expiration' => 60,
             'default_tags' => [],
         ]);

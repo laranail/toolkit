@@ -13,10 +13,10 @@ class HttpConfigurationServiceTest extends TestCase
     public function test_defaults_are_seeded_from_the_toolkit_http_config(): void
     {
         $service = new HttpConfigurationService($this->config([
-            'laranail-toolkit.http.persist_connection' => false,
-            'laranail-toolkit.http.request_timeout' => 30,
-            'laranail-toolkit.http.max_retries' => 5,
-            'laranail-toolkit.http.cache_ttl' => 7,
+            'laranail.toolkit.http.persist_connection' => false,
+            'laranail.toolkit.http.request_timeout' => 30,
+            'laranail.toolkit.http.max_retries' => 5,
+            'laranail.toolkit.http.cache_ttl' => 7,
         ]));
 
         $this->assertFalse($service->isPersistConnection());

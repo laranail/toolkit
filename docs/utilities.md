@@ -28,7 +28,7 @@ $cache->remember('key', fn () => compute(), minutes: 30);
 ```
 
 Constructor: `__construct(int $defaultExpiration, array $defaultTags, ?LoggerInterface $logger = null, string $namespace = '')`
-— wired from `config('laranail-toolkit.cache')`.
+— wired from `config('laranail.toolkit.cache')`.
 
 ### LogService
 
@@ -155,7 +155,7 @@ $errors->clearErrors();
 ### HttpConfigurationService
 
 Fluent builder for Guzzle/HTTP-client configuration, seeded once from
-`config('laranail-toolkit.http.*')`. Bound to
+`config('laranail.toolkit.http.*')`. Bound to
 `Services\Contracts\HttpConfigurationServiceInterface`; also reachable via the
 [`HasGuzzleConfig`](traits.md#hasguzzleconfig) trait.
 
@@ -319,11 +319,11 @@ here, instead of at every call site.
 
 ```php
 Config::string('app.name', 'Laravel');
-Config::int('laranail-toolkit.cache.default_expiration', 60);
+Config::int('laranail.toolkit.cache.default_expiration', 60);
 Config::bool('app.debug', false);
 Config::float('services.rate', 0.0);
-Config::array('laranail-toolkit.cache.default_tags', []);
-Config::stringList('laranail-toolkit.redaction.keys', []); // drops non-string members
+Config::array('laranail.toolkit.cache.default_tags', []);
+Config::stringList('laranail.toolkit.redaction.keys', []); // drops non-string members
 ```
 
 ### ConditionalRunner

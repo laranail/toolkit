@@ -13,7 +13,7 @@ declare(strict_types=1);
  *
  * Publish an override copy with:
  *
- *     php artisan vendor:publish --tag=laranail-toolkit-security
+ *     php artisan vendor:publish --tag=laranail::toolkit-security
  *
  * which writes to config_path('laranail-toolkit-security.php'). When the
  * published file exists, SecurityData prefers it over this package default.

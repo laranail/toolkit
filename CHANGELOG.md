@@ -204,11 +204,23 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
 - **BREAKING (identity):** the package is `laranail/toolkit`
   (`Simtabi\Laranail\Toolkit`), realigned to Simtabi/laranail org conventions.
   It supersedes the legacy `laranail/laranail` monolith, which is being merged in.
-- **`ToolkitServiceProvider` now builds on `laranail/package-tools`'
-  `PackageServiceProvider` lifecycle** (`configurePackage()` /
-  `packageRegistered()` / `packageBooted()`) instead of a hand-rolled
-  `register()` / `boot()`. Behaviour is unchanged — every publish tag, config
-  key, namespaced alias, binding, command and middleware alias is preserved.
+- **`ToolkitServiceProvider` is fully declarative on `laranail/package-tools`'
+  (`^1.1`) `configurePackage()` API** — `hasConfigFile`, `hasViews`,
+  `hasTranslations`, `discoversMigrations`/`runsMigrations`, `hasCommands`,
+  `registerRouteMiddleware`, `hasChildProviders`, `hasValidationRule`,
+  `hasAboutSection`, and `publish()` with namespaced tags; bindings live in
+  `packageRegistered()`.
+- **Config is now the standard namespaced `config('laranail.toolkit.*')`** (dotted,
+  collision-free): the main config plus `feature-toggles`, `atlas` and `captcha`
+  each merge at their own sub-key and publish under the **`laranail::toolkit-config`**
+  tag; editing a published file overrides the dotted value (via package-tools'
+  publish-override bridge). The former flat `laranail-toolkit` key + manual alias
+  are gone.
+- **Publish tags now use the `laranail::toolkit-*` convention**
+  (`-config`, `-views`, `-translations`, `-migrations`, `-security`, `-stubs`).
+  The utility services/helpers, the `reject_common_passwords` rule, `ApiResponseTrait`
+  and the `AccessLog` model are **no longer publishable** — they are used directly
+  from the package.
 - Realigned tooling to PHP `^8.3 || ^8.4 || ^8.5` and Laravel `^13.0`
   (Pest 3, Orchestra Testbench 11, PHPStan 2, Pint).
 - Artisan commands now use the org-wide naming shape

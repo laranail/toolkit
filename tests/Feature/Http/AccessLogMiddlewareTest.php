@@ -87,7 +87,7 @@ class AccessLogMiddlewareTest extends TestCase
 
     public function test_config_override_replaces_the_default_deny_list(): void
     {
-        config()->set('laranail-toolkit.access_log.redact', ['custom_field']);
+        config()->set('laranail.toolkit.access_log.redact', ['custom_field']);
 
         $request = Request::create('/override', 'POST', [
             'custom_field' => 'hide-me',
@@ -117,7 +117,7 @@ class AccessLogMiddlewareTest extends TestCase
 
     public function test_logging_can_be_disabled_via_config(): void
     {
-        config()->set('laranail-toolkit.access_log.enabled', false);
+        config()->set('laranail.toolkit.access_log.enabled', false);
 
         $this->logRequest(Request::create('/anything', 'GET'));
 

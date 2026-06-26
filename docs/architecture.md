@@ -151,7 +151,7 @@ use Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions;
 ## LLM provider selection
 
 `Modules\LLM\LLMProviderInterface` is bound to a single driver chosen at
-resolution time from `config('laranail-toolkit.llm.default_provider')` — `openai`
+resolution time from `config('laranail.toolkit.llm.default_provider')` — `openai`
 (default), `claude`, or `gemini`. See [LLM providers](modules/llm.md).
 
 ## Migration / removal record

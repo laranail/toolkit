@@ -13,24 +13,18 @@ use Simtabi\Laranail\Toolkit\Support\Cast;
 /**
  * Deferred service provider for the self-contained Captcha module.
  *
- * Owns its own config merge/publish so the module can later be extracted into
- * its own package without depending on the root toolkit config.
+ * The module config is merged + published centrally by ToolkitServiceProvider
+ * under `laranail.toolkit.captcha.*` (so it shares the package-tools publish
+ * override bridge); this provider only binds the module's services.
  */
 class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register(): void
     {
-        // The module owns its config namespace under `laranail-toolkit-captcha`.
-        $this->mergeConfigFrom($this->configPath(), 'laranail-toolkit-captcha');
-
-        // Namespaced read-alias: also expose under `laranail.toolkit.captcha.*`
-        // (see ToolkitServiceProvider). Dot-key set preserves sibling namespaces.
-        config(['laranail.toolkit.captcha' => config('laranail-toolkit-captcha', [])]);
-
         $this->app->singleton(CaptchaService::class, static function (Application $app): CaptchaService {
             /** @var Repository $config */
             $config = $app->make('config');
-            $default = Cast::toString($config->get('laranail-toolkit-captcha.default_provider', 'recaptcha'), 'recaptcha');
+            $default = Cast::toString($config->get('laranail.toolkit.captcha.default_provider', 'recaptcha'), 'recaptcha');
 
             return new CaptchaService($default);
         });
@@ -44,13 +38,6 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
         $this->app->alias(CaptchaService::class, 'laranail.captcha');
     }
 
-    public function boot(): void
-    {
-        $this->publishes([
-            $this->configPath() => config_path('laranail-toolkit-captcha.php'),
-        ], 'laranail-toolkit-captcha');
-    }
-
     /**
      * @return array<int, string>
      */
@@ -61,16 +48,5 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
             CaptchaProviderInterface::class,
             'laranail.captcha',
         ];
-    }
-
-    /**
-     * Absolute path to the package's captcha config file.
-     *
-     * Provider lives at src/Modules/Captcha/, so the package config/ dir is
-     * three levels up.
-     */
-    private function configPath(): string
-    {
-        return __DIR__ . '/../../../config/captcha.php';
     }
 }

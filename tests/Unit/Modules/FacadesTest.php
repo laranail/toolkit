@@ -125,8 +125,8 @@ class FacadesTest extends TestCase
     public function test_llm_binding_selects_openai_by_default(): void
     {
         $this->app->forgetInstance(LLMProviderInterface::class);
-        $this->app['config']->set('laranail-toolkit.llm.default_provider', 'openai');
-        $this->app['config']->set('laranail-toolkit.llm.openai.api_key', 'sk-test');
+        $this->app['config']->set('laranail.toolkit.llm.default_provider', 'openai');
+        $this->app['config']->set('laranail.toolkit.llm.openai.api_key', 'sk-test');
 
         $this->assertInstanceOf(OpenAIProvider::class, $this->app->make(LLMProviderInterface::class));
     }
@@ -134,8 +134,8 @@ class FacadesTest extends TestCase
     public function test_llm_binding_selects_gemini_when_configured(): void
     {
         $this->app->forgetInstance(LLMProviderInterface::class);
-        $this->app['config']->set('laranail-toolkit.llm.default_provider', 'gemini');
-        $this->app['config']->set('laranail-toolkit.llm.gemini.api_key', 'gemini-test');
+        $this->app['config']->set('laranail.toolkit.llm.default_provider', 'gemini');
+        $this->app['config']->set('laranail.toolkit.llm.gemini.api_key', 'gemini-test');
 
         $this->assertInstanceOf(GeminiProvider::class, $this->app->make(LLMProviderInterface::class));
     }
@@ -143,8 +143,8 @@ class FacadesTest extends TestCase
     public function test_llm_binding_selects_claude_when_configured(): void
     {
         $this->app->forgetInstance(LLMProviderInterface::class);
-        $this->app['config']->set('laranail-toolkit.llm.default_provider', 'claude');
-        $this->app['config']->set('laranail-toolkit.llm.claude.api_key', 'claude-test');
+        $this->app['config']->set('laranail.toolkit.llm.default_provider', 'claude');
+        $this->app['config']->set('laranail.toolkit.llm.claude.api_key', 'claude-test');
 
         $this->assertInstanceOf(ClaudeProvider::class, $this->app->make(LLMProviderInterface::class));
     }

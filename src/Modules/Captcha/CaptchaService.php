@@ -182,15 +182,15 @@ class CaptchaService
      */
     private function makeProvider(string $name): CaptchaProviderInterface
     {
-        $siteKey = ToolkitConfig::string("laranail-toolkit-captcha.{$name}.site_key");
-        $secretKey = ToolkitConfig::string("laranail-toolkit-captcha.{$name}.secret_key");
-        $timeout = ToolkitConfig::int("laranail-toolkit-captcha.{$name}.timeout", 30);
+        $siteKey = ToolkitConfig::string("laranail.toolkit.captcha.{$name}.site_key");
+        $secretKey = ToolkitConfig::string("laranail.toolkit.captcha.{$name}.secret_key");
+        $timeout = ToolkitConfig::int("laranail.toolkit.captcha.{$name}.timeout", 30);
 
         return match ($name) {
             'recaptcha' => new RecaptchaProvider(
                 siteKey: $siteKey,
                 secretKey: $secretKey,
-                minScore: ToolkitConfig::float('laranail-toolkit-captcha.recaptcha.min_score', 0.5),
+                minScore: ToolkitConfig::float('laranail.toolkit.captcha.recaptcha.min_score', 0.5),
                 timeout: $timeout,
             ),
             'turnstile' => new TurnstileProvider(
@@ -206,7 +206,7 @@ class CaptchaService
             'friendly_captcha' => new FriendlyCaptchaProvider(
                 siteKey: $siteKey,
                 apiKey: $secretKey,
-                useEuEndpoint: ToolkitConfig::bool('laranail-toolkit-captcha.friendly_captcha.use_eu_endpoint', false),
+                useEuEndpoint: ToolkitConfig::bool('laranail.toolkit.captcha.friendly_captcha.use_eu_endpoint', false),
                 timeout: $timeout,
             ),
             'null' => new NullProvider(

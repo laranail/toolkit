@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Providers;
 
-use Illuminate\Foundation\Console\AboutCommand;
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Package\Tools\Package;
 use Simtabi\Laranail\Package\Tools\Providers\PackageServiceProvider;
@@ -64,45 +60,71 @@ use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
 
 /**
  * Toolkit service provider, built on the laranail/package-tools
- * {@see PackageServiceProvider} lifecycle: {@see configurePackage()} declares the
- * package identity, {@see packageRegistered()} wires container bindings and the
- * feature-module providers, and {@see packageBooted()} performs the toolkit's
- * bespoke asset wiring (configs + namespaced aliases, views, translations,
- * migrations, the granular publish tags, commands, middleware and validation).
+ * {@see PackageServiceProvider} lifecycle. {@see configurePackage()} declares the
+ * package fully and declaratively — config files (merged + publishable under the
+ * dotted `laranail.toolkit.*` namespace), views, translations, migrations,
+ * commands, route middleware, child providers, a validation rule and an `about`
+ * section. {@see packageRegistered()} wires the container bindings.
  */
 class ToolkitServiceProvider extends PackageServiceProvider
 {
-    /**
-     * Feature-module providers. Each is deferred and self-contained so modules
-     * can later be extracted into their own packages.
-     *
-     * @var list<class-string<ServiceProvider>>
-     */
-    private const array MODULE_PROVIDERS = [
-        GravatarServiceProvider::class,
-        AvatarServiceProvider::class,
-        CaptchaServiceProvider::class,
-        ArchiverServiceProvider::class,
-        AtlasServiceProvider::class,
-        LivewireServiceProvider::class,
-        LLMServiceProvider::class,
-    ];
-
     public function configurePackage(Package $package): void
     {
-        // Only the package identity is declared here; the toolkit's asset wiring
-        // is bespoke (custom granular tags, multiple configs, namespaced aliases,
-        // dynamic per-class publishes) and lives in packageBooted(). The package
-        // basePath is derived from this provider's location by the base.
-        $package->name('laranail/toolkit');
+        $package->name('laranail/toolkit')
+            // Config merged + published under the dotted namespace:
+            //   toolkit          → config('laranail.toolkit.*')
+            //   feature-toggles  → config('laranail.toolkit.feature-toggles.*')
+            //   atlas / captcha  → config('laranail.toolkit.atlas|captcha.*')
+            // (atlas/captcha are centralised here so they get the publish-override
+            // bridge; their deferred modules only bind services.)
+            ->hasConfigFile('toolkit')
+            ->hasConfigFile('feature-toggles')
+            ->hasConfigFile('atlas')
+            ->hasConfigFile('captcha')
+            ->hasViews('laranail-toolkit')
+            ->hasTranslations()
+            ->discoversMigrations()
+            ->runsMigrations()   // load (register) the discovered migrations so `migrate` runs them
+            ->hasCommands([MakeCrud::class, IdeHelperMacros::class, Tidy::class])
+            // Opt-in middleware aliases (none pushed onto the global stack).
+            ->registerRouteMiddleware('access.log', AccessLogMiddleware::class)
+            ->registerRouteMiddleware('api.request', ApiRequestMiddleware::class)
+            ->registerRouteMiddleware('api.response', ApiResponseMiddleware::class)
+            ->registerRouteMiddleware('email.obfuscate', EmailObfuscatorMiddleware::class)
+            // Macro coordinator + Blade directives (eager) and the deferred
+            // feature modules.
+            ->hasChildProviders([
+                MacroServiceProvider::class,
+                BladeServiceProvider::class,
+                GravatarServiceProvider::class,
+                AvatarServiceProvider::class,
+                CaptchaServiceProvider::class,
+                ArchiverServiceProvider::class,
+                AtlasServiceProvider::class,
+                LivewireServiceProvider::class,
+                LLMServiceProvider::class,
+            ])
+            ->hasValidationRule(
+                'reject_common_passwords',
+                RejectCommonPasswords::class,
+                'The :attribute contains a common password that is not allowed.',
+            )
+            ->hasAboutSection('Laranail Toolkit', static fn (): array => new RequirementsDiagnostics()->toAboutArray())
+            // SecurityData reads this file directly (not via config()), so it is
+            // published as a plain file rather than a namespaced config.
+            ->publish(
+                [__DIR__ . '/../../config/security.php' => config_path('laranail-toolkit-security.php')],
+                $package->getNamespacedPublishTag('security'),
+            )
+            // CRUD stubs, consumed by the MakeCrud command when overridden.
+            ->publish(
+                [__DIR__ . '/../../stubs' => base_path('stubs/vendor/laranail-toolkit')],
+                $package->getNamespacedPublishTag('stubs'),
+            );
     }
 
     public function packageRegistered(): void
     {
-        foreach (self::MODULE_PROVIDERS as $provider) {
-            $this->app->register($provider);
-        }
-
         $this->app->bind('AccessLog', AccessLog::class);
 
         // Foundation services (stateful — fresh instance per resolve so each
@@ -122,7 +144,7 @@ class ToolkitServiceProvider extends PackageServiceProvider
             $app->make('request'),
         ));
 
-        // HTTP client config builder (seeded from laranail-toolkit.http.*).
+        // HTTP client config builder (seeded from laranail.toolkit.http.*).
         $this->app->bind(HttpConfigurationServiceInterface::class, HttpConfigurationService::class);
 
         // View-layer validation helpers (session + logger injected; HTML output
@@ -159,147 +181,20 @@ class ToolkitServiceProvider extends PackageServiceProvider
 
         // Unified entry point to the feature modules (the `Toolkit` facade root).
         $this->app->singleton(ToolkitManager::class, fn ($app): ToolkitManager => new ToolkitManager($app));
-    }
 
-    public function packageBooted(): void
-    {
-        // Register the macro coordinator eagerly so all grouped macros load
-        // globally (macro registration must not be deferred).
-        $this->app->register(MacroServiceProvider::class);
-
-        // Register custom Blade directives eagerly (directive registration
-        // must not be deferred).
-        $this->app->register(BladeServiceProvider::class);
-
-        // Surface toolkit runtime diagnostics under `php artisan about`.
-        $this->registerAboutDiagnostics();
-
-        // Load migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
-
-        // Load + publish views and translations (namespace: laranail-toolkit).
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'laranail-toolkit');
-        $this->loadTranslationsFrom(__DIR__ . '/../../resources/assets/lang', 'laranail-toolkit');
-
-        $this->publishes([
-            __DIR__ . '/../../resources/views' => resource_path('views/vendor/laranail-toolkit'),
-        ], 'laranail-toolkit-views');
-
-        $this->publishes([
-            __DIR__ . '/../../resources/assets/lang' => lang_path('vendor/laranail-toolkit'),
-        ], 'laranail-toolkit-lang');
-
-        // Publish configs
-        $this->publishes([
-            __DIR__ . '/../../config/toolkit.php' => config_path('laranail-toolkit.php'),
-        ], 'laranail-toolkit-config');
-
-        $this->publishes([
-            __DIR__ . '/../../config/feature-toggles.php' => config_path('laranail-toolkit-feature-toggles.php'),
-        ], 'laranail-toolkit-feature-toggles');
-
-        // Publish the merged security data file (passwords + passphrase
-        // wordlist + redaction keys). SecurityData prefers this override when
-        // present; otherwise it loads the package default.
-        $this->publishes([
-            __DIR__ . '/../../config/security.php' => config_path('laranail-toolkit-security.php'),
-        ], 'laranail-toolkit-security');
-
-        $this->mergeConfigFrom(__DIR__ . '/../../config/toolkit.php', 'laranail-toolkit');
-
-        // Namespaced read-alias. The flat `laranail-toolkit` key is canonical
-        // (publishing targets `config/laranail-toolkit.php`, so overrides land
-        // there), but we also mirror it under the dotted `laranail.toolkit.*`
-        // namespace so both forms resolve — restoring the namespaced design while
-        // keeping published overrides working. array_merge preserves any sub-keys
-        // (e.g. laranail.toolkit.captcha) a deferred module may have set already.
-        config(['laranail.toolkit' => array_merge(
-            (array) config('laranail.toolkit', []),
-            (array) config('laranail-toolkit', []),
-        )]);
-
-        // Publish migrations
-        $this->publishes([
-            __DIR__ . '/../../database/migrations' => database_path('migrations'),
-        ], 'laranail-toolkit-migrations');
-
-        // Publish the AccessLog model (now part of the Security module)
-        $this->publishes([
-            __DIR__ . '/../Modules/Security/AccessLog/AccessLog.php' => app_path('Models/AccessLog.php'),
-        ], 'laranail-toolkit-models');
-
-        // Publish traits
-        $this->publishes([
-            __DIR__ . '/../Traits/ApiResponseTrait.php' => app_path('Traits/ApiResponseTrait.php'),
-        ], 'laranail-toolkit-api-response-trait');
-
-        // Publish validation rules
-        $this->publishValidationRule();
-
+        // Concrete-class binds for the relocated traits + stateful services so
+        // `app(...)` keeps resolving them (parity with the legacy utilities).
         $this->loadClass(ApiResponseTrait::class);
         $this->loadClass(FileProcessingTrait::class);
-
-        // Publish the relocated Services / Support classes (formerly Utilities).
-        $this->publishComponent('Services/CacheService', 'cache');
-        $this->publishComponent('Services/SettingsStore', 'settings');
-        $this->publishComponent('Services/SchedulerService', 'scheduler');
-        $this->publishComponent('Support/QueryParameters', 'query-parameters');
-        $this->publishComponent('Services/RateLimiterService', 'rate-limiter');
-        $this->publishComponent('Support/CollectionFilter', 'collection-filter');
-        $this->publishComponent('Services/LogService', 'log');
-        $this->publishComponent('Support/Environment', 'environment');
-        $this->publishComponent('Support/AuthHelper', 'auth');
-
-        // Bind the relocated stateful services by their concrete class so
-        // `app(...)` keeps resolving them (parity with the legacy utilities).
-        $this->loadServiceClasses([
-            SettingsStore::class,
-            SchedulerService::class,
-            LogService::class,
-        ]);
+        $this->loadServiceClasses([SettingsStore::class, SchedulerService::class, LogService::class]);
         $this->loadRateLimiterService();
         $this->loadCacheService();
-
-        // Register Artisan commands
-        if ($this->app->runningInConsole()) {
-            $this->commands([MakeCrud::class, IdeHelperMacros::class, Tidy::class]);
-
-            $this->publishes([
-                __DIR__ . '/../../stubs' => base_path('stubs/vendor/laranail-toolkit'),
-            ], 'laranail-toolkit-stubs');
-        }
-
-        // Register middleware. All are opt-in (attach per route/group) — none is
-        // pushed onto the global stack. `api.request` snake_cases incoming keys;
-        // `api.response` envelopes + camelCases outgoing JSON.
-        $router = $this->app->make(Router::class);
-        $router->aliasMiddleware('access.log', AccessLogMiddleware::class);
-        $router->aliasMiddleware('api.request', ApiRequestMiddleware::class);
-        $router->aliasMiddleware('api.response', ApiResponseMiddleware::class);
-        // `email.obfuscate` HTML-entity-encodes email addresses in HTML responses
-        // (JSON is left untouched) — opt-in per route/group.
-        $router->aliasMiddleware('email.obfuscate', EmailObfuscatorMiddleware::class);
-
-        // Register custom validation rules
-        $this->registerValidationRules();
     }
 
     /**
-     * Surface the toolkit's requirements diagnostics under `php artisan about`.
+     * Dynamically bind the given class to a fresh instance.
      */
-    private function registerAboutDiagnostics(): void
-    {
-        if (!class_exists(AboutCommand::class)) {
-            return;
-        }
-
-        AboutCommand::add('Laranail Toolkit', static fn (): array => new RequirementsDiagnostics()->toAboutArray());
-    }
-
-    /**
-     * Dynamically load the given class.
-     */
-    private function loadClass(string $class)
+    private function loadClass(string $class): void
     {
         $this->app->bind($class, fn () => new $class());
     }
@@ -312,7 +207,7 @@ class ToolkitServiceProvider extends PackageServiceProvider
      *
      * @param list<class-string> $classes
      */
-    private function loadServiceClasses(array $classes)
+    private function loadServiceClasses(array $classes): void
     {
         foreach ($classes as $class) {
             if ($class === LogService::class) {
@@ -326,56 +221,21 @@ class ToolkitServiceProvider extends PackageServiceProvider
     /**
      * Load the cache service with configured options.
      */
-    private function loadCacheService()
+    private function loadCacheService(): void
     {
         $this->app->bind(CacheService::class, fn ($app): CacheService => new CacheService(
-            ToolkitConfig::int('laranail-toolkit.cache.default_expiration'),
-            ToolkitConfig::stringList('laranail-toolkit.cache.default_tags'),
+            ToolkitConfig::int('laranail.toolkit.cache.default_expiration'),
+            ToolkitConfig::stringList('laranail.toolkit.cache.default_tags'),
             $app->make(LoggerInterface::class),
-            ToolkitConfig::string('laranail-toolkit.cache.namespace'),
+            ToolkitConfig::string('laranail.toolkit.cache.namespace'),
         ));
     }
 
     /**
      * Load the rate limiter service with dependency injection.
      */
-    private function loadRateLimiterService()
+    private function loadRateLimiterService(): void
     {
         $this->app->bind(RateLimiterService::class, fn ($app) => new RateLimiterService($app->make('cache.store')));
-    }
-
-    private function publishComponent(string $relativePath, string $name)
-    {
-        $this->publishes([
-            __DIR__ . '/../' . $relativePath . '.php' => app_path($relativePath . '.php'),
-        ], 'laranail-toolkit-' . $name);
-    }
-
-    /**
-     * Register custom validation rules.
-     */
-    private function registerValidationRules(): void
-    {
-        Validator::extend('reject_common_passwords', function ($attribute, $value, $parameters, $validator) {
-            $rule = new RejectCommonPasswords();
-            $failed = false;
-            $rule->validate($attribute, $value, function ($message) use (&$failed) {
-                $failed = true;
-            });
-
-            return !$failed;
-        }, 'The :attribute contains a common password that is not allowed.');
-
-        Validator::replacer('reject_common_passwords', fn ($message, $attribute, $rule, $parameters) => str_replace(':attribute', $attribute, $message));
-    }
-
-    /**
-     * Publish validation rules with correct namespace for app directory.
-     */
-    private function publishValidationRule(): void
-    {
-        $this->publishes([
-            __DIR__ . '/../Rules/RejectCommonPasswords.php' => app_path('Rules/RejectCommonPasswords.php'),
-        ], 'laranail-toolkit-validation-rules');
     }
 }

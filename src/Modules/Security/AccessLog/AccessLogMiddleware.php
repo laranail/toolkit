@@ -45,7 +45,7 @@ class AccessLogMiddleware
      */
     public function terminate(Request $request, Response $response): void
     {
-        if (!(bool) config('laranail-toolkit.access_log.enabled', true)) {
+        if (!(bool) config('laranail.toolkit.access_log.enabled', true)) {
             return;
         }
 
@@ -95,7 +95,7 @@ class AccessLogMiddleware
             $default = self::DEFAULT_REDACT;
         }
 
-        $configured = config('laranail-toolkit.access_log.redact', $default);
+        $configured = config('laranail.toolkit.access_log.redact', $default);
 
         $values = is_array($configured) ? $configured : $default;
 

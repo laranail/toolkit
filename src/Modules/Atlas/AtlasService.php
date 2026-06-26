@@ -458,7 +458,7 @@ class AtlasService implements AtlasServiceInterface
         }
 
         /** @var array<string, mixed> $raw */
-        $raw = (array) $this->config->get('laranail-toolkit-atlas.continents', []);
+        $raw = (array) $this->config->get('laranail.toolkit.atlas.continents', []);
         $continents = [];
 
         foreach ($raw as $code => $name) {
@@ -480,7 +480,7 @@ class AtlasService implements AtlasServiceInterface
         }
 
         /** @var array<string, LanguageEntry> $data */
-        $data = (array) $this->config->get('laranail-toolkit-atlas.languages', []);
+        $data = (array) $this->config->get('laranail.toolkit.atlas.languages', []);
 
         return $this->languages = $data;
     }

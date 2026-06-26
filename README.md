@@ -27,25 +27,23 @@ The package auto-registers `ToolkitServiceProvider` via Laravel package
 discovery. Publish only what you need:
 
 ```bash
-# Configs — each publishes to a namespaced config/laranail-toolkit-*.php so the
-# published file's key matches what the package reads (overrides take effect):
-php artisan vendor:publish --tag=laranail-toolkit-config           # config/laranail-toolkit.php
-php artisan vendor:publish --tag=laranail-toolkit-feature-toggles  # config/laranail-toolkit-feature-toggles.php
-php artisan vendor:publish --tag=laranail-toolkit-security         # config/laranail-toolkit-security.php (common passwords + EFF wordlist + redaction keys)
+# All configs — published under the dotted laranail.toolkit.* namespace
+# (config/laranail/toolkit.php, …/feature-toggles.php, …/atlas.php, …/captcha.php);
+# editing a published file overrides the matching config('laranail.toolkit.*') value.
+php artisan vendor:publish --tag=laranail::toolkit-config
 
 # Other assets
-php artisan vendor:publish --tag=laranail-toolkit-migrations
-php artisan vendor:publish --tag=laranail-toolkit-views
-php artisan vendor:publish --tag=laranail-toolkit-lang
-php artisan vendor:publish --tag=laranail-toolkit-stubs
+php artisan vendor:publish --tag=laranail::toolkit-views
+php artisan vendor:publish --tag=laranail::toolkit-translations
+php artisan vendor:publish --tag=laranail::toolkit-migrations
+php artisan vendor:publish --tag=laranail::toolkit-security   # config/laranail-toolkit-security.php
+php artisan vendor:publish --tag=laranail::toolkit-stubs      # CRUD stubs
 ```
 
-> Publish `--tag` values are plain hyphenated slugs (`laranail-toolkit-*`). The
-> `::` separator (e.g. `laranail::toolkit.make-crud`) is the Artisan **command**
-> naming convention — a different mechanism from publish tags.
-
-Every utility, trait, and rule can also be published into your app namespace —
-see [installation](docs/installation.md) for the full tag list.
+> Publish tags use the `laranail::toolkit-*` form (package-tools' namespaced
+> convention). Utilities, the `reject_common_passwords` rule, `ApiResponseTrait`
+> and the `AccessLog` model are **used directly from the package** — no publishing.
+> See [installation](docs/installation.md) for the full list.
 
 ## Feature overview
 
@@ -90,7 +88,7 @@ see [installation](docs/installation.md) for the full tag list.
 ```php
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
-// Provider chosen by config('laranail-toolkit.llm.default_provider')
+// Provider chosen by config('laranail.toolkit.llm.default_provider')
 public function __construct(private LLMProviderInterface $llm) {}
 
 $response = $this->llm->generateResponse(

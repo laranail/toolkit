@@ -339,7 +339,7 @@ section is `require`d at most once per process and statically cached.
 To customize the data, publish an override copy:
 
 ```bash
-php artisan vendor:publish --tag=laranail-toolkit-security
+php artisan vendor:publish --tag=laranail::toolkit-security
 ```
 
 which writes `config/laranail-toolkit-security.php`. When present, `SecurityData`
@@ -363,7 +363,7 @@ lives in [access-log.md](access-log.md). The security-relevant pieces:
 
 `Modules\Security\AccessLog\AccessLog` is the Eloquent model the middleware
 writes to. Fillable: `ip`, `method`, `url`, `user_agent`, `request_data`
-(cast to `array`). The migration ships under the `laranail-toolkit-migrations`
+(cast to `array`). The migration ships under the `laranail::toolkit-migrations`
 publish tag.
 
 ### `AccessLogMiddleware` redaction
@@ -377,7 +377,7 @@ persisted.
 
 The redaction deny-list is resolved in this order:
 
-1. `config('laranail-toolkit.access_log.redact')` when set;
+1. `config('laranail.toolkit.access_log.redact')` when set;
 2. otherwise `SecurityData::redactKeys()` (the publishable
    [`redact_keys`](#merged-security-data-configsecurityphp) section); and
 3. a built-in `DEFAULT_REDACT` const fallback (`password`,

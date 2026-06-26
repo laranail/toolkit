@@ -24,7 +24,7 @@ class SettingsStore implements SettingsStoreInterface
 
     public function __construct(private ?Filesystem $disk = null, ?string $path = null)
     {
-        $this->path = $path ?? ToolkitConfig::string('laranail-toolkit.settings.path', 'laranail/settings.json');
+        $this->path = $path ?? ToolkitConfig::string('laranail.toolkit.settings.path', 'laranail/settings.json');
     }
 
     /**
@@ -91,6 +91,6 @@ class SettingsStore implements SettingsStoreInterface
 
     private function disk(): Filesystem
     {
-        return $this->disk ??= Storage::disk(ToolkitConfig::string('laranail-toolkit.settings.disk', 'local'));
+        return $this->disk ??= Storage::disk(ToolkitConfig::string('laranail.toolkit.settings.disk', 'local'));
     }
 }

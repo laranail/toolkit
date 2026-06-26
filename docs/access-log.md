@@ -31,14 +31,14 @@ Each request persists an `AccessLog` row:
 Run the published migration first:
 
 ```bash
-php artisan vendor:publish --tag=laranail-toolkit-migrations
+php artisan vendor:publish --tag=laranail::toolkit-migrations
 php artisan migrate
 ```
 
 ## Configuration
 
 ```php
-// config/laranail-toolkit.php
+// config/laranail/toolkit.php
 'access_log' => [
     'enabled' => env('LARANAIL_ACCESS_LOG_ENABLED', true),
     'redact'  => null, // null = use the built-in deny-list

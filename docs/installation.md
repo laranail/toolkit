@@ -24,48 +24,36 @@ automatically; you only publish assets you want to own or customize.
 
 ## Publish tags
 
-Each asset has its own `vendor:publish` tag so you can pull in exactly what you
-need.
+Publish tags use package-tools' namespaced `laranail::toolkit-*` convention.
 
 | Tag | Publishes to |
 |-----|--------------|
-| `laranail-toolkit-config` | `config/laranail-toolkit.php` |
-| `laranail-toolkit-feature-toggles` | `config/laranail-toolkit-feature-toggles.php` |
-| `laranail-toolkit-security` | `config/laranail-toolkit-security.php` (merged common passwords + EFF wordlist + redaction keys) |
-| `laranail-toolkit-atlas` | `config/laranail-toolkit-atlas.php` (countries / continents / locales) |
-| `laranail-toolkit-captcha` | `config/laranail-toolkit-captcha.php` |
-| `laranail-toolkit-migrations` | `database/migrations/*` |
-| `laranail-toolkit-views` | `resources/views/vendor/laranail-toolkit` |
-| `laranail-toolkit-lang` | `lang/vendor/laranail-toolkit` |
-| `laranail-toolkit-stubs` | `stubs/vendor/laranail-toolkit` (CRUD stubs) |
-| `laranail-toolkit-models` | `app/Models` (e.g. `AccessLog`) |
-| `laranail-toolkit-api-response-trait` | `app/Traits/ApiResponseTrait.php` |
-| `laranail-toolkit-validation-rules` | `app/Rules/RejectCommonPasswords.php` |
-
-The relocated Services / Support helpers can each be copied into `app/Services/`
-or `app/Support/`:
-
-| Tag | Class |
-|-----|-------|
-| `laranail-toolkit-cache` | `Services\CacheService` |
-| `laranail-toolkit-settings` | `Services\SettingsStore` |
-| `laranail-toolkit-scheduler` | `Services\SchedulerService` |
-| `laranail-toolkit-rate-limiter` | `Services\RateLimiterService` |
-| `laranail-toolkit-log` | `Services\LogService` |
-| `laranail-toolkit-query-parameters` | `Support\QueryParameters` |
-| `laranail-toolkit-collection-filter` | `Support\CollectionFilter` |
-| `laranail-toolkit-environment` | `Support\Environment` |
-| `laranail-toolkit-auth` | `Support\AuthHelper` |
+| `laranail::toolkit-config` | all configs under the dotted namespace — `config/laranail/toolkit.php`, `…/toolkit/feature-toggles.php`, `…/toolkit/atlas.php`, `…/toolkit/captcha.php` (editing them overrides `config('laranail.toolkit.*')`) |
+| `laranail::toolkit-security` | `config/laranail-toolkit-security.php` (merged common passwords + EFF wordlist + redaction keys; read by `SecurityData`, not via `config()`) |
+| `laranail::toolkit-migrations` | `database/migrations/*` |
+| `laranail::toolkit-views` | `resources/views/vendor/laranail-toolkit` |
+| `laranail::toolkit-translations` | `lang/vendor/laranail-toolkit` |
+| `laranail::toolkit-stubs` | `stubs/vendor/laranail-toolkit` (CRUD stubs) |
 
 Example:
 
 ```bash
-php artisan vendor:publish --tag=laranail-toolkit-config
-php artisan vendor:publish --tag=laranail-toolkit-migrations
+php artisan vendor:publish --tag=laranail::toolkit-config
+php artisan vendor:publish --tag=laranail::toolkit-migrations
 php artisan migrate
 ```
 
-You do not need to publish a utility to use it — every utility, trait, and
-module service is already bound in the container and usable directly.
+### Used directly from the package — no publishing
+
+These are resolved from the package and need **no** `vendor:publish`:
+
+- **Services** — `Services\{CacheService, SettingsStore, SchedulerService,
+  RateLimiterService, LogService}` (container-bound by their contracts + concrete
+  class; inject or `app(...)` them).
+- **Support helpers** — `Support\{QueryParameters, CollectionFilter, Environment,
+  AuthHelper}` (static utilities).
+- **`reject_common_passwords`** validation rule (registered via the package).
+- **`ApiResponseTrait`** (`use` it from the package namespace).
+- **`AccessLog`** model (bound as `app('AccessLog')`; extend it in your app if needed).
 
 [← Docs index](../README.md#documentation)
