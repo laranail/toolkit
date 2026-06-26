@@ -36,6 +36,18 @@ Defaults applied to `CacheService`.
 | `default_expiration` | `60` (minutes) |
 | `default_tags` | `[]` |
 
+## `laranail.toolkit.http`
+
+Guzzle client defaults read by `HttpConfigurationService` (and the `HasGuzzleConfig`
+trait).
+
+| Key | Default | Env |
+|-----|---------|-----|
+| `persist_connection` | `true` | `GUZZLE_PERSIST_CONNECTION` |
+| `request_timeout` | `60` (seconds) | `GUZZLE_REQUEST_TIMEOUT` |
+| `max_retries` | `10` | `GUZZLE_MAX_RETRIES` |
+| `cache_ttl` | `10` (seconds) | `GUZZLE_CACHE_TTL` |
+
 ## `laranail.toolkit.access_log`
 
 | Key | Default | Notes |

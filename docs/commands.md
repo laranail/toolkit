@@ -2,7 +2,7 @@
 
 Every Artisan command the toolkit ships extends the laranail console base
 (`Simtabi\Laranail\Console\Tools\Commands\Command` from
-[`laranail/console`](https://opensource.simtabi.com/console/) `^2.5.0`), registers
+[`laranail/console`](https://opensource.simtabi.com/console/) `^1.0`), registers
 under the org-namespaced name `laranail::toolkit.<command>` (with a short retained
 alias), and injects its collaborators — no facades in the core logic.
 

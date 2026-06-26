@@ -57,7 +57,7 @@ php artisan vendor:publish --tag=laranail::toolkit-stubs      # CRUD stubs
   registration.
 - **Artisan commands on `laranail/console`** — all three commands (`make-crud`,
   `ide-helper-macros`, `tidy`) extend the
-  [`laranail/console`](https://opensource.simtabi.com/console/) `^2.5.0` base and
+  [`laranail/console`](https://opensource.simtabi.com/console/) `^1.0` base and
   use its **full feature set**: the fluent `consoleWriter()` (success/error/
   warning/info/note statuses + styling) and the `$this->services` lifecycle —
   performance timing, signal-safe destructive loops, non-interactive-safe

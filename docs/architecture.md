@@ -41,12 +41,12 @@ src/
     ├── Atlas/         AtlasService, …, Atlas facade, provider (single config/atlas.php)
     ├── Eventing/      Events/{Event (abstract event base), CacheEvents}, Listeners/Listener (abstract listener base)
     ├── Livewire/      LivewireServiceProvider, component registration
-    ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (lazy config/security.php loader), AccessLog/{AccessLogMiddleware, AccessLog (model)}
+    ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (reads config('laranail.toolkit.security'), framework-free fallback), AccessLog/{AccessLogMiddleware, AccessLog (model)}
     └── LLM/           LLMProviderInterface, Claude/, Gemini/, OpenAI/, RetriesHttpRequests, LLM facade, LLMServiceProvider
 ```
 
 > The command base (`Command` + `SupportsNamespacedNames`) is **not** local — it
-> comes from [`laranail/console`](https://opensource.simtabi.com/console/) `^2.5.0`,
+> comes from [`laranail/console`](https://opensource.simtabi.com/console/) `^1.0`,
 > the org-canonical command base. All three toolkit commands — `MakeCrud`,
 > `IdeHelperMacros`, `Tidy` — extend it and use its **full
 > feature set**: the fluent `$this->consoleWriter()` (context statuses
@@ -66,7 +66,8 @@ The layout is designed so a new feature is a drop-in folder:
 1. Create `src/Modules/<Name>/` with `<Name>Service.php`, `<Name>ServiceInterface.php`,
    a `<Name>Facade.php`, and a deferred `<Name>ServiceProvider.php` (plus DTOs/enums
    as needed). Keep a sub-folder only for a genuinely multi-file group.
-2. Register the provider in `ToolkitServiceProvider::MODULE_PROVIDERS`.
+2. Register the provider in `ToolkitServiceProvider::configurePackage()` via
+   `->hasChildProviders([... ModuleServiceProvider::class])`.
 3. (Optional) add a `Toolkit::<name>()` accessor on `ToolkitManager` and a Laravel
    alias in `composer.json` `extra.laravel.aliases`.
 
