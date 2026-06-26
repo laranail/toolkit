@@ -58,6 +58,22 @@ Route::apiResource('posts', PostController::class);
 | `updateRecord(Request $request, $id): JsonResponse` | update | Validates, updates, reloads relationships. |
 | `deleteRecord($id): JsonResponse` | destroy | Deletes, returns `204`. |
 
+### Index query parameters
+
+`getAllRecords()` reads these from the request:
+
+| Param | Effect |
+|-------|--------|
+| `search` | Matches (LIKE, wildcard-escaped) against `$searchableFields`; ignored if that list is empty. |
+| `sort_by` | Column to order by — applied **only** if it is in `$sortableFields`. |
+| `sort_direction` | `asc` (default) or `desc`; any other value falls back to `asc`. Only honoured when `sort_by` is valid. |
+| `per_page` | Page size, clamped to `[1, $maxPerPage]` (default `$perPage`). |
+
+> The index `meta` block uses `current_page, last_page, per_page, total`. This differs
+> from the `api.response` middleware / `ApiResponseTrait` pagination block, which uses
+> `total, count, per_page, current_page, total_pages` — wrap `CrudController` responses in
+> `api.response` only if you want the latter shape.
+
 ## Security
 
 The base controller is hardened the same way the generated controller is:

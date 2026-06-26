@@ -29,9 +29,21 @@ php artisan make:crud Post
 ## What is generated
 
 - **Migration** — `database/migrations/*_create_<table>_table.php`. Column types
-  are mapped from the field `type` (string, text, integer, decimal, boolean,
-  json, uuid, …); `nullable`/`unique` are read from the validation segment;
-  `--belongs-to` adds `foreignId()->constrained()->cascadeOnDelete()`.
+  are mapped from the field `type`; `nullable`/`unique` are read from the
+  validation segment; `--belongs-to` adds `foreignId()->constrained()->cascadeOnDelete()`.
+  Supported `type` values (anything else falls back to `string`):
+
+  | `type` | Migration column |
+  |--------|------------------|
+  | `string` / `varchar` | `string()` (honours `unique`) |
+  | `text` / `longtext` / `mediumtext` | `text()` / `longText()` / `mediumText()` |
+  | `integer` / `int`, `biginteger` / `bigint`, `unsignedbiginteger` / `unsignedbigint`, `tinyinteger` / `tinyint`, `smallinteger` / `smallint` | the matching integer column |
+  | `float`, `double`, `decimal` | `float()` / `double()` / `decimal(10, 2)` |
+  | `boolean` / `bool` | `boolean()->default(false)` |
+  | `date`, `datetime`, `timestamp` | `date()` / `dateTime()` / `timestamp()` |
+  | `json` | `json()` (cast to `array`) |
+  | `uuid` | `uuid()` |
+  | `enum` | `enum('<col>', [])` — **fill in the allowed values yourself** (generated empty) |
 - **Model** — `app/Models/<Name>.php` with `$fillable`, a `$casts` block derived
   from field types, relationship methods, and optional `SoftDeletes`.
 - **Controller** — `app/Http/Controllers/<Name>Controller.php`, an

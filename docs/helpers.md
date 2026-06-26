@@ -75,7 +75,7 @@ $system = app(SystemServiceInterface::class);    // or Toolkit::system()
 
 $system->parseMemoryLimit('256M');               // 268435456 (bytes; -1 = unlimited)
 $system->memoryLimit();                          // '256M'
-$system->memoryUsage();                          // ['current' => …, 'peak' => …]
+$system->memoryUsage();                          // ['current', 'peak', 'limit', 'current_formatted', 'peak_formatted']
 $system->phpVersion();                           // '8.4.3'
 $system->isPhpVersionSupported('8.4');           // bool
 $system->isCli();                                // bool
@@ -106,6 +106,8 @@ $files->exists('/srv/app/.env');                 // bool — safe path + File::e
 $files->size('/srv/app/dump.sql');               // int bytes (0 if missing/unsafe)
 $files->lastModified('/srv/app/dump.sql');       // int UNIX ts (0 if missing/unsafe)
 $files->hasAllowedExtension('db.sqlite', ['sql', 'sqlite', 'db']); // true
+$files->validateSize('/srv/app/dump.sql', maxMb: 10);             // bool — within size limit
+$files->validate('/srv/app/dump.sql', ['sql'], maxMb: 10);        // bool — extension + size
 $files->fileInfo('/srv/app/dump.sql');           // path/size/extension/name/… or []
 $files->generateName('pdf');                     // 'Xa9…q2.pdf' (random name)
 $files->toDataUri('/srv/app/logo.png');          // 'data:image/png;base64,…' or ''

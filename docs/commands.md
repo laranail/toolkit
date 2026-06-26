@@ -59,7 +59,9 @@ non-zero. The non-interactive flag is read from the input, so `--no-interaction`
 - **`ide-helper-macros`** (mid) — `consoleWriter()` output; wraps the
   reflection-heavy stub build in `performance()` timing; on success writes a
   structured `logger()->logCompletion()` carrying the documented-macro count and
-  the stub size via `display()->formatBytes(strlen(...))`.
+  the stub size via `display()->formatBytes(strlen(...))`. Accepts `--path=` to
+  override the output location (default
+  `ide-helper/_ide_helper_macros.php` under the base path).
 - **`tidy`** (heavy) — `consoleWriter()` throughout; the file sweep is
   **signal-safe** (`shouldKeepRunning()` is polled per root and per file);
   destructive prompts route through `interaction()->confirmAction()` (the existing

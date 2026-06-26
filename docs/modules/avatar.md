@@ -66,7 +66,19 @@ use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarFont;
 
 $svc->useFont(AvatarFont::FREE_SERIF);
 $svc->useFontByName('msyh.ttf');     // by backing filename
+$svc->setFontByName('msyh.ttf');     // alias of useFontByName()
 $svc->useDefaultFont();              // AvatarFont::default() === ROBOTO_BOLD
+
+// Change the default font used when none is chosen:
+$svc->setDefaultFont(AvatarFont::FREE_SERIF);
+$svc->setDefaultFontName('FreeSerif.ttf');
+$svc->getDefaultFont();              // AvatarFont
+$svc->getDefaultFontName();          // 'Roboto-Bold.ttf'
+
+// Enumerate the bundled fonts:
+$svc->getAvailableFontNames();       // ['ROBOTO_BOLD', 'FREE_SERIF', 'MSYH']
+$svc->getAvailableFontValues();      // ['Roboto-Bold.ttf', 'FreeSerif.ttf', 'msyh.ttf']
+$svc->getAvailableFontEnums();       // [AvatarFont::ROBOTO_BOLD, ...]
 
 AvatarFont::MSYH->getDisplayName();       // "Microsoft YaHei"
 AvatarFont::MSYH->getCategory();          // "international"

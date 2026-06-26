@@ -107,7 +107,7 @@ The G14a alignment nests **every** provider's credentials and tuning under its
 own key beneath `laranail.toolkit.llm.<provider>` (NOT as siblings of `llm`):
 
 ```php
-// config/laranail/toolkit.php → laranail.toolkit.llm
+// config/toolkit.php (the package file) → merged into config('laranail.toolkit.llm.*')
 'default_provider' => env('LLM_DEFAULT_PROVIDER', 'openai'),   // openai | gemini | claude
 'openai' => ['api_key' => env('OPENAI_API_KEY'), 'max_retries' => 3, 'retry_delay' => 2,
              'default_model' => 'gpt-3.5-turbo', 'default_temperature' => 0.7,

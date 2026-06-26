@@ -77,9 +77,11 @@ class User extends Authenticatable
 }
 
 $user->getAvatar();                    // stored avatar, else Gravatar fallback
-$user->gravatar(size: 128);            // Gravatar URL or null
+$user->gravatar(size: 128);            // Gravatar URL or null (https default)
+$user->getGravatar(size: 128, default: 'mp', rating: 'g'); // Gravatar URL with options
 $user->generateAvatar(size: 128);      // initials avatar data URI
 $user->getAvatarWithFallback(128, preferGravatar: true);
+$user->resolveAvatarUrl($storedPath);  // absolute URL for a stored avatar path
 ```
 
 ## HasFormatters
@@ -94,6 +96,11 @@ $model->formattedUpdatedAt('Y-m-d');
 $model->formattedFullName();           // first_name + last_name
 $model->formattedUsername();           // "@handle" or false
 $model->excerpt(150);                  // truncated `content`
+$model->formattedContent(['strip_html' => true, 'truncate' => 200]); // cleaned `content`
+$model->formatAddress(['street' => '1 A St', 'city' => 'Town', 'state' => 'ST', 'zip' => '00001']);
+$model->formatAddressLine('1 A St', 'Apt 2');        // "1 A St, Apt 2"
+$model->formatCityStateZip('Town', 'ST', '00001');   // "Town, ST 00001"
+$model->suggestUsername('Imani', 'Manyara', column: 'username'); // unique handle suggestion
 ```
 
 ## HasAuth
@@ -195,7 +202,9 @@ class Notifier
         $this->runForApi(fn () => $this->jsonPing());
         $this->runForWeb(fn () => $this->flashPing());
         $this->runInConsole(fn () => $this->line('pinged'));
+        $this->runOutsideConsole(fn () => $this->flashPing());
         $this->runWhenAuthenticated(fn () => $this->logUserPing(), guard: 'web');
+        $this->runWhenGuest(fn () => $this->promptLogin());
         $this->runForRole('admin', fn () => $this->auditPing());
     }
 }

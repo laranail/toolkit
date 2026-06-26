@@ -141,6 +141,31 @@ Post::query()
     ->get();
 ```
 
+## Request macros
+
+Registered on `Illuminate\Http\Request` (callable on any injected/`request()` instance):
+
+| Macro | Returns | Purpose |
+|-------|---------|---------|
+| `expectsJsonOrAjax()` | `bool` | Request expects JSON or is XHR/AJAX. |
+| `isJsonRequest()` | `bool` | Has a JSON content type. |
+| `isBot()` | `bool` | User-agent looks like a known bot/crawler. |
+| `isFromMobile()` | `bool` | User-agent looks like a mobile device. |
+| `getReferer(?string $default = null)` | `?string` | The HTTP referer, or the default. |
+| `isFromDomain(string $domain)` | `bool` | Referer/origin belongs to `$domain`. |
+| `hasFiles(array $keys)` | `bool` | Every named input is an uploaded file. |
+| `hasValidFile(string $key)` | `bool` | The input at `$key` is a valid upload. |
+| `hasAny(array $keys)` | `bool` | At least one of the named inputs is present. |
+| `onlyFilled(array $keys)` | `array` | The named inputs that are non-empty. |
+| `mergeIfMissing(array $values)` | `Request` | Merge defaults only for absent keys. |
+
+```php
+if ($request->expectsJsonOrAjax() && ! $request->isBot()) {
+    $data = $request->onlyFilled(['name', 'email']);
+    $request->mergeIfMissing(['locale' => 'en']);
+}
+```
+
 ## Response macros
 
 Registered on the response factory (callable via the `response()` helper or the

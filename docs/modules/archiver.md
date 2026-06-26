@@ -44,7 +44,9 @@ is validated:
   the whole extraction with an `ArchiveException`.
 - **Symlinks** — symlinked entries are rejected.
 - **Zip bombs** — total file count and uncompressed size are checked against
-  limits before extraction proceeds.
+  limits before extraction proceeds. The defaults are **10,000 entries** and
+  **1 GiB** uncompressed; adjust them on the `Extractor` with
+  `setLimits(int $maxEntries, int $maxTotalBytes): static` before extracting.
 
 A malformed or unreadable entry aborts the operation rather than partially
 extracting. Always extract untrusted archives into a dedicated, isolated

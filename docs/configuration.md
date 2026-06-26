@@ -31,10 +31,11 @@ One consistent prefix: `default_provider` plus a nested block per provider
 
 Defaults applied to `CacheService`.
 
-| Key | Default |
-|-----|---------|
-| `default_expiration` | `60` (minutes) |
-| `default_tags` | `[]` |
+| Key | Default | Notes |
+|-----|---------|-------|
+| `default_expiration` | `60` (minutes) | |
+| `default_tags` | `[]` | |
+| `namespace` | `''` | Optional key prefix applied to `get`/`forget`/`remember`/`put`/`many`/`increment`/`decrement`. Env: `LARANAIL_CACHE_NAMESPACE`. |
 
 ## `laranail.toolkit.http`
 
@@ -64,9 +65,24 @@ Defaults for `RateLimiterService` and named profiles.
 | `default_max_attempts` | `60` |
 | `default_decay_minutes` | `1` |
 | `cache_prefix` | `rate_limit:` |
-| `defaults.api` | `60 attempts / 1 min` |
-| `defaults.auth` | `5 attempts / 15 min` |
-| `defaults.download` | `3 attempts / 1 min` |
+
+Named profiles live under `defaults.<name>`, each a `{max_attempts, decay_minutes}` pair:
+
+| Profile | `max_attempts` | `decay_minutes` |
+|---------|:--:|:--:|
+| `defaults.api` | `60` | `1` |
+| `defaults.auth` | `5` | `15` |
+| `defaults.download` | `3` | `1` |
+
+## `laranail.toolkit.settings`
+
+The runtime settings store (`SettingsStore`) — a JSON file of dynamic,
+persisted-at-runtime values, kept separate from this static config.
+
+| Key | Default | Notes |
+|-----|---------|-------|
+| `disk` | `local` | Filesystem disk for the settings file. Env: `LARANAIL_SETTINGS_DISK`. |
+| `path` | `laranail/settings.json` | Path on the disk. Env: `LARANAIL_SETTINGS_PATH`. |
 
 ## LLM provider keys
 

@@ -8,8 +8,9 @@ The toolkit's focused helper classes are split by responsibility:
 - **Support** (`Simtabi\Laranail\Toolkit\Support`) — pure, static helpers with no
   container binding; call their static methods directly.
 
-Each can also be published into `app/Services/` or `app/Support/` — see
-[installation](installation.md).
+All of these are used **directly from the package** — there is no publish step;
+resolve a service by its contract (or `Toolkit::*()`), and call a Support helper
+statically.
 
 ## Services (stateful, interface-backed)
 
@@ -25,10 +26,26 @@ $value = $cache->cache('key', $data, minutes: 30, tags: ['reports']);
 $cache->get('key', default: null);
 $cache->forget('key');
 $cache->remember('key', fn () => compute(), minutes: 30);
+$cache->rememberForever('key', fn () => compute());
+$cache->put('key', $data, minutes: 30);
+$cache->many(['a', 'b']);                 // ['a' => ..., 'b' => ...]
+$cache->increment('hits');                // and ->decrement('hits')
+$cache->tags(['reports'])->get('key');    // fluent tag scoping
 ```
 
+| Method | Effect |
+|---|---|
+| `cache(string $key, mixed $value, ?int $minutes = null, array $tags = []): mixed` | Read-through write: store + return `$value`. |
+| `get(string $key, mixed $default = null): mixed` / `put(string $key, mixed $value, ?int $minutes = null): bool` | Read / write a single key. |
+| `remember(string $key, Closure $callback, ?int $minutes = null): mixed` / `rememberForever(string $key, Closure $callback): mixed` | Cache-or-compute, with/without expiry. |
+| `many(array $keys): array` | Fetch several keys at once. |
+| `increment(string $key, int $value = 1): int` / `decrement(string $key, int $value = 1): int` | Atomic counters. |
+| `forget(string $key): bool` | Delete a key. |
+| `tags(array $tags): static` | Return a tag-scoped clone (chain a read/write after it). |
+
 Constructor: `__construct(int $defaultExpiration, array $defaultTags, ?LoggerInterface $logger = null, string $namespace = '')`
-— wired from `config('laranail.toolkit.cache')`.
+— wired from `config('laranail.toolkit.cache')`. All operations log-and-fall-back on a
+store failure; the optional `namespace` is prefixed to every key.
 
 ### LogService
 
@@ -39,11 +56,18 @@ timestamp and the current environment. Bound to
 
 ```php
 $log = app(LogService::class);
+$log->debug('Cache miss', ['key' => $key]);
 $log->info('User registered', ['id' => $user->id]);
+$log->warning('Low disk', ['free' => $bytes]);
 $log->error('Import failed', ['file' => $name], channel: 'imports');
+$log->critical('Payment gateway down');
 $log->log(LogLevel::Warning, 'Low disk');
 $log->exception($throwable);
 ```
+
+Level methods: `debug()`, `info()`, `warning()`, `error()`, `critical()` (each
+`(string $message, array $context = [], ?string $channel = null)`), plus the
+enum-keyed `log(LogLevel $level, ...)` and `exception(Throwable $e, ...)`.
 
 ### SettingsStore
 
@@ -76,8 +100,10 @@ if ($limiter->attempt("login:{$ip}", maxAttempts: 5, decayMinutes: 15)) {
 $limiter->remaining($key, 5);
 $limiter->availableIn($key);
 $limiter->tooManyAttempts($key, 5);
+$limiter->attempts($key);            // current attempt count
 $limiter->hit($key, decaySeconds: 60);
 $limiter->clear($key);
+$limiter->getRateLimiter();          // the underlying Illuminate RateLimiter
 ```
 
 ### SchedulerService
@@ -187,6 +213,19 @@ $route->getInputValueFromQueryString('q');           // escaped query value
 $route->getCurrentRouteInfo();                        // object {name, parameters, ...}
 ```
 
+| Method | Effect |
+|---|---|
+| `getAppUrl(): string` | The configured application URL. |
+| `isCurrentRoute(string $routeName): bool` / `isRoute(string $routeName): bool` | Whether the current request matches a route name. |
+| `getActiveCssClassForRoute(string $routeName, string $class = 'active'): string` / `getActiveCssClass(...)` | The class on a route match, else `''`. |
+| `getActiveMenuClassName(string\|array $route, string $className = 'active'): string` | Active class for a single route or a group of route patterns. |
+| `isUrlSegment(string $segment, int $position = 0): bool` / `isLastUrlSegment(string $segment): bool` / `isUrlRequestSegment(string $segment, int $position = 0): bool` | URL-segment inspection by position / last / request. |
+| `isRequestParameter(string $key, mixed $value): bool` / `getRequestParameterValue(string $key): mixed` | Test / read a route+query parameter. |
+| `getActiveCssClassForUrlParameter(string $key, mixed $value, string $class = 'active'): string` | Active class when a parameter matches. |
+| `isRequestOnPage(string $link, string $type = 'name'): bool` / `isRequest(string $request, string $class = '', bool $returnBool = false): bool\|string` | Page/route matching helpers (by name or URL). |
+| `getCurrentRouteInfo(): object` / `getRouteNameFromUrl(string $url): ?string` | Current-route metadata / resolve a route name from a URL. |
+| `getInputValueFromQueryString(string $name): string` | Escaped query-string value. |
+
 ### ValidationService
 
 View-layer validation helpers — escaped error-bag messages, error CSS classes,
@@ -202,6 +241,8 @@ $v->getHasErrorCssClass('email');        // 'is-invalid' style class when errore
 $v->oldInput('email', $user);            // old() → model → default fallback
 $v->getCheckboxStatus($model->active, 'active'); // 'checked' | null
 $v->isValidDatabaseConnection('settings');
+$v->getErrorBagMessageClass('email', 'text-danger'); // class string when the field errored
+$v->fetchModelData($model, 'email', default: '');    // model attribute with a fallback
 ```
 
 ## Support (pure, static)

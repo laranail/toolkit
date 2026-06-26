@@ -100,7 +100,7 @@ Everything lives in **one** config file — `config/atlas.php`, merged under
 `laranail.toolkit.atlas`:
 
 ```php
-// config/laranail/toolkit/atlas.php → laranail.toolkit.atlas
+// config/atlas.php (the package file) → merged into config('laranail.toolkit.atlas.*')
 'default_label' => env('LARANAIL_ATLAS_DEFAULT_LABEL', 'name'),   // 'name' | 'official_name' | 'native_name'
 'cache_ttl'     => env('LARANAIL_ATLAS_CACHE_TTL', 1440),         // minutes; 0 to recompute every call
 'continents'    => ['AF' => 'Africa', ..., 'SA' => 'South America'],  // continent code => English name

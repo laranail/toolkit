@@ -50,8 +50,9 @@ Set `enabled` to `false` to keep the alias available but skip persistence. Set
 
 ## Security: redaction
 
-Sensitive request keys are redacted before storage. When `redact` is not an
-array, the middleware uses its built-in deny-list:
+Sensitive request keys are redacted before storage. When `redact` is `null` (or
+not an array), the middleware falls back to `SecurityData::redactKeys()` — the
+`redact_keys` set from the merged security data (`config('laranail.toolkit.security')`):
 
 ```
 password, password_confirmation, current_password, token, _token, secret,
