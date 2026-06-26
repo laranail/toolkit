@@ -17,10 +17,10 @@ class FeatureToggle
         self::ensureConfigFileExists();
 
         // Check if the feature is explicitly enabled or disabled in the configuration
-        $isEnabledInConfig = Config::get("feature-toggles.{$feature}", false);
+        $isEnabledInConfig = Config::get("laranail-toolkit-feature-toggles.{$feature}", false);
 
         // Check if there's a per-user or per-environment override
-        $overrideKey = "feature-toggles.{$feature}." . self::getOverrideKey();
+        $overrideKey = "laranail-toolkit-feature-toggles.{$feature}." . self::getOverrideKey();
         $isOverridden = Config::get($overrideKey, null);
 
         if ($isOverridden !== null) {
@@ -41,11 +41,13 @@ class FeatureToggle
     }
 
     /**
-     * Ensure the feature-toggles.php configuration file exists, if not, create it.
+     * Ensure the published config file exists, if not, create it from the
+     * package default. The published file lives at the namespaced path so it
+     * cannot collide with an app- or other-package "feature-toggles" config.
      */
     private static function ensureConfigFileExists(): void
     {
-        $configPath = config_path('feature-toggles.php');
+        $configPath = config_path('laranail-toolkit-feature-toggles.php');
 
         // Create the configuration file if it doesn't exist
         if (!File::exists($configPath)) {

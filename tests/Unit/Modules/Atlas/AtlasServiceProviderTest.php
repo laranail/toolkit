@@ -26,27 +26,27 @@ class AtlasServiceProviderTest extends TestCase
 
     public function test_config_is_merged_under_the_module_namespace(): void
     {
-        $this->assertSame('name', config('laranail.toolkit.atlas.default_label'));
-        $this->assertSame(1440, (int) config('laranail.toolkit.atlas.cache_ttl'));
+        $this->assertSame('name', config('laranail-toolkit-atlas.default_label'));
+        $this->assertSame(1440, (int) config('laranail-toolkit-atlas.cache_ttl'));
     }
 
     public function test_languages_config_is_merged_under_the_atlas_namespace(): void
     {
         /** @var array<string, mixed> $languages */
-        $languages = (array) config('laranail.toolkit.atlas.languages', []);
+        $languages = (array) config('laranail-toolkit-atlas.languages', []);
 
         $this->assertNotEmpty($languages);
         $this->assertArrayHasKey('en_US', $languages);
         $this->assertSame('English', $languages['en_US']['native_name']);
 
         // The legacy standalone languages namespace is gone.
-        $this->assertSame([], config('laranail.toolkit.languages', []));
+        $this->assertSame([], config('laranail-toolkit.languages', []));
     }
 
     public function test_continents_config_is_merged_under_the_atlas_namespace(): void
     {
         /** @var array<string, mixed> $continents */
-        $continents = (array) config('laranail.toolkit.atlas.continents', []);
+        $continents = (array) config('laranail-toolkit-atlas.continents', []);
 
         $this->assertCount(7, $continents);
         $this->assertSame('Africa', $continents['AF']);
@@ -67,7 +67,7 @@ class AtlasServiceProviderTest extends TestCase
 
     public function test_default_label_config_drives_for_select_box(): void
     {
-        config()->set('laranail.toolkit.atlas.default_label', 'official_name');
+        config()->set('laranail-toolkit-atlas.default_label', 'official_name');
         // Re-resolve so the singleton picks up the new config.
         $this->app->forgetInstance(AtlasService::class);
 

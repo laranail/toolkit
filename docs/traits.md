@@ -159,7 +159,7 @@ class ImportRunner
 
 One-method accessor exposing a fresh
 [`HttpConfigurationService`](utilities.md#httpconfigurationservice) so a class
-can build a Guzzle/HTTP-client config seeded from `config('laranail.toolkit.http.*')`.
+can build a Guzzle/HTTP-client config seeded from `config('laranail-toolkit.http.*')`.
 
 ```php
 use Simtabi\Laranail\Toolkit\Traits\HasGuzzleConfig;

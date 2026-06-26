@@ -20,13 +20,13 @@ class CaptchaServiceProvider extends ServiceProvider implements DeferrableProvid
 {
     public function register(): void
     {
-        // The module owns its config namespace under `laranail.toolkit.captcha`.
-        $this->mergeConfigFrom($this->configPath(), 'laranail.toolkit.captcha');
+        // The module owns its config namespace under `laranail-toolkit-captcha`.
+        $this->mergeConfigFrom($this->configPath(), 'laranail-toolkit-captcha');
 
         $this->app->singleton(CaptchaService::class, static function (Application $app): CaptchaService {
             /** @var Repository $config */
             $config = $app->make('config');
-            $default = Cast::toString($config->get('laranail.toolkit.captcha.default_provider', 'recaptcha'), 'recaptcha');
+            $default = Cast::toString($config->get('laranail-toolkit-captcha.default_provider', 'recaptcha'), 'recaptcha');
 
             return new CaptchaService($default);
         });

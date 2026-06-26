@@ -4,7 +4,7 @@ Verify CAPTCHA tokens against reCAPTCHA, hCaptcha, Cloudflare Turnstile,
 Friendly Captcha, or a no-op Null provider behind a single
 `CaptchaProviderInterface`. Bound through a deferred provider (alias
 `laranail.captcha`, facade `Captcha`). The provider used is chosen by
-`config('laranail.toolkit.captcha.default_provider')` (`recaptcha` by default).
+`config('laranail-toolkit-captcha.default_provider')` (`recaptcha` by default).
 
 ```php
 use Simtabi\Laranail\Toolkit\Modules\Captcha\Captcha;
@@ -58,7 +58,7 @@ widget), `hasProvider(string $name)`, `setDefaultProvider(string $name)`,
 ## Configuration
 
 ```php
-// config/captcha.php → laranail.toolkit.captcha
+// config/captcha.php → laranail-toolkit-captcha
 'default_provider' => env('LARANAIL_CAPTCHA_DEFAULT_PROVIDER', 'recaptcha'),
 'recaptcha' => ['site_key' => env('RECAPTCHA_SITE_KEY'), 'secret_key' => env('RECAPTCHA_SECRET_KEY'), 'min_score' => 0.5, 'timeout' => 30],
 'turnstile' => ['site_key' => env('TURNSTILE_SITE_KEY'), 'secret_key' => env('TURNSTILE_SECRET_KEY'), 'timeout' => 30],

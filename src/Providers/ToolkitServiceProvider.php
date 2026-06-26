@@ -103,7 +103,7 @@ class ToolkitServiceProvider extends ServiceProvider
             $app->make('request'),
         ));
 
-        // HTTP client config builder (seeded from laranail.toolkit.http.*).
+        // HTTP client config builder (seeded from laranail-toolkit.http.*).
         $this->app->bind(HttpConfigurationServiceInterface::class, HttpConfigurationService::class);
 
         // View-layer validation helpers (session + logger injected; HTML output
@@ -179,7 +179,7 @@ class ToolkitServiceProvider extends ServiceProvider
         ], 'laranail-toolkit-config');
 
         $this->publishes([
-            __DIR__ . '/../../config/feature-toggles.php' => config_path('feature-toggles.php'),
+            __DIR__ . '/../../config/feature-toggles.php' => config_path('laranail-toolkit-feature-toggles.php'),
         ], 'laranail-toolkit-feature-toggles');
 
         // Publish the merged security data file (passwords + passphrase
@@ -189,7 +189,7 @@ class ToolkitServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/security.php' => config_path('laranail-toolkit-security.php'),
         ], 'laranail-toolkit-security');
 
-        $this->mergeConfigFrom(__DIR__ . '/../../config/toolkit.php', 'laranail.toolkit');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/toolkit.php', 'laranail-toolkit');
 
         // Publish migrations
         $this->publishes([
@@ -302,10 +302,10 @@ class ToolkitServiceProvider extends ServiceProvider
     private function loadCacheService()
     {
         $this->app->bind(CacheService::class, fn ($app): CacheService => new CacheService(
-            ToolkitConfig::int('laranail.toolkit.cache.default_expiration'),
-            ToolkitConfig::stringList('laranail.toolkit.cache.default_tags'),
+            ToolkitConfig::int('laranail-toolkit.cache.default_expiration'),
+            ToolkitConfig::stringList('laranail-toolkit.cache.default_tags'),
             $app->make(LoggerInterface::class),
-            ToolkitConfig::string('laranail.toolkit.cache.namespace'),
+            ToolkitConfig::string('laranail-toolkit.cache.namespace'),
         ));
     }
 

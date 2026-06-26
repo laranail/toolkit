@@ -5,7 +5,7 @@ declare(strict_types=1);
 return [
     /*
      * Self-contained LLM module (Modules\LLM). One consistent prefix:
-     * `laranail.toolkit.llm.*` — `default_provider` selects the driver bound to
+     * `laranail-toolkit.llm.*` — `default_provider` selects the driver bound to
      * LLMProviderInterface, and each provider's credentials/tuning live nested
      * under `llm.<provider>` (NOT as siblings of `llm`).
      */
@@ -55,7 +55,7 @@ return [
     /*
      * Guzzle / HTTP client defaults consumed by Services\HttpConfigurationService.
      * Each value is overridable via its env key; the service reads these under
-     * `laranail.toolkit.http.*` (merged from this file).
+     * `laranail-toolkit.http.*` (merged from this file).
      */
     'http' => [
         'persist_connection' => env('GUZZLE_PERSIST_CONNECTION', true),

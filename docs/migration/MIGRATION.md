@@ -240,7 +240,7 @@ wire them.
 | `Foundation\Services\FakerHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\FileHelperService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\FileService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
-| `Foundation\Services\HttpConfigurationService` | MIGRATED | Toolkit\Services\HttpConfigurationService (reads laranail.toolkit.http.*) |
+| `Foundation\Services\HttpConfigurationService` | MIGRATED | Toolkit\Services\HttpConfigurationService (reads laranail-toolkit.http.*) |
 | `Foundation\Services\LivewireComponentService` | DROPPED | Native-duplicative service layer (fronted by the old `Laranail` facade); superseded by native Laravel + the kept `Utilities\*`. PackageService/Username/Auth/DatabaseSession/ModelFormatter cited in `dropped.md`. |
 | `Foundation\Services\ModelFormatterService` | MIGRATED(merged) | Working formatters (content/address) folded into `Traits\HasFormatters` via native Carbon/Str; stub methods that returned `''` dropped (G6d). |
 | `Foundation\Services\ModelService` | MIGRATED | Toolkit\Services\ModelService (schema-validated + grammar-quoted raw SQL) |

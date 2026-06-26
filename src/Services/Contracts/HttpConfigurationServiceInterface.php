@@ -7,7 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Services\Contracts;
 /**
  * Fluent builder for Guzzle/HTTP client configuration.
  *
- * Defaults are seeded from `config('laranail.toolkit.http.*')` (each backed by
+ * Defaults are seeded from `config('laranail-toolkit.http.*')` (each backed by
  * an env override); the fluent setters let a caller tweak a single config
  * before producing the array consumed by the HTTP client factory.
  */

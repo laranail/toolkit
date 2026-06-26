@@ -377,7 +377,7 @@ persisted.
 
 The redaction deny-list is resolved in this order:
 
-1. `config('laranail.toolkit.access_log.redact')` when set;
+1. `config('laranail-toolkit.access_log.redact')` when set;
 2. otherwise `SecurityData::redactKeys()` (the publishable
    [`redact_keys`](#merged-security-data-configsecurityphp) section); and
 3. a built-in `DEFAULT_REDACT` const fallback (`password`,

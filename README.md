@@ -27,20 +27,22 @@ The package auto-registers `ToolkitServiceProvider` via Laravel package
 discovery. Publish only what you need:
 
 ```bash
-# Main config (config/laranail-toolkit.php)
-php artisan vendor:publish --tag=laranail-toolkit-config
+# Configs — each publishes to a namespaced config/laranail-toolkit-*.php so the
+# published file's key matches what the package reads (overrides take effect):
+php artisan vendor:publish --tag=laranail-toolkit-config           # config/laranail-toolkit.php
+php artisan vendor:publish --tag=laranail-toolkit-feature-toggles  # config/laranail-toolkit-feature-toggles.php
+php artisan vendor:publish --tag=laranail-toolkit-security         # config/laranail-toolkit-security.php (common passwords + EFF wordlist + redaction keys)
 
-# Feature-toggles config, migrations, views, lang, CRUD stubs
-php artisan vendor:publish --tag=laranail-toolkit-feature-toggles
+# Other assets
 php artisan vendor:publish --tag=laranail-toolkit-migrations
 php artisan vendor:publish --tag=laranail-toolkit-views
 php artisan vendor:publish --tag=laranail-toolkit-lang
 php artisan vendor:publish --tag=laranail-toolkit-stubs
-
-# Merged security data (config/laranail-toolkit-security.php):
-# common passwords + EFF wordlist + redaction keys
-php artisan vendor:publish --tag=laranail-toolkit-security
 ```
+
+> Publish `--tag` values are plain hyphenated slugs (`laranail-toolkit-*`). The
+> `::` separator (e.g. `laranail::toolkit.make-crud`) is the Artisan **command**
+> naming convention — a different mechanism from publish tags.
 
 Every utility, trait, and rule can also be published into your app namespace —
 see [installation](docs/installation.md) for the full tag list.
@@ -88,7 +90,7 @@ see [installation](docs/installation.md) for the full tag list.
 ```php
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
-// Provider chosen by config('laranail.toolkit.llm.default_provider')
+// Provider chosen by config('laranail-toolkit.llm.default_provider')
 public function __construct(private LLMProviderInterface $llm) {}
 
 $response = $this->llm->generateResponse(
@@ -242,7 +244,7 @@ class Post extends Model
 | Page | Description |
 |------|-------------|
 | [Installation](docs/installation.md) | Install, publish tags, requirements |
-| [Configuration](docs/configuration.md) | `laranail.toolkit.*` config reference |
+| [Configuration](docs/configuration.md) | `laranail-toolkit.*` config reference |
 | [Architecture](docs/architecture.md) | Modules, deferred providers, layout, migration record |
 | [Migration ledger](docs/migration/MIGRATION.md) | Every legacy symbol: migrated / relocated / dropped |
 | [Laranail → Toolkit map](docs/migration/laranail-to-toolkit.md) | Every legacy `Laranail::` method → its `Toolkit::` / `Helper::` / native home |

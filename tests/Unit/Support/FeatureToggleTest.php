@@ -16,8 +16,8 @@ class FeatureToggleTest extends TestCase
     {
         parent::setUp();
 
-        // Clean up any existing feature-toggles config
-        $configPath = config_path('feature-toggles.php');
+        // Clean up any existing laranail-toolkit-feature-toggles config
+        $configPath = config_path('laranail-toolkit-feature-toggles.php');
         if (File::exists($configPath)) {
             File::delete($configPath);
         }
@@ -26,7 +26,7 @@ class FeatureToggleTest extends TestCase
     protected function tearDown(): void
     {
         // Clean up after each test
-        $configPath = config_path('feature-toggles.php');
+        $configPath = config_path('laranail-toolkit-feature-toggles.php');
         if (File::exists($configPath)) {
             File::delete($configPath);
         }
@@ -36,7 +36,7 @@ class FeatureToggleTest extends TestCase
 
     public function test_feature_is_enabled_when_configured_true()
     {
-        Config::set('feature-toggles.test_feature', true);
+        Config::set('laranail-toolkit-feature-toggles.test_feature', true);
 
         $result = FeatureToggle::isEnabled('test_feature');
 
@@ -45,7 +45,7 @@ class FeatureToggleTest extends TestCase
 
     public function test_feature_is_disabled_when_configured_false()
     {
-        Config::set('feature-toggles.test_feature', false);
+        Config::set('laranail-toolkit-feature-toggles.test_feature', false);
 
         $result = FeatureToggle::isEnabled('test_feature');
 
@@ -62,7 +62,7 @@ class FeatureToggleTest extends TestCase
     public function test_user_override_takes_precedence()
     {
         // Set base feature to false
-        Config::set('feature-toggles.test_feature', false);
+        Config::set('laranail-toolkit-feature-toggles.test_feature', false);
 
         // Mock authenticated user
         $user = new \stdClass();
@@ -70,7 +70,7 @@ class FeatureToggleTest extends TestCase
         Auth::shouldReceive('user')->andReturn($user);
 
         // Set user override to true
-        Config::set('feature-toggles.test_feature.user.123', true);
+        Config::set('laranail-toolkit-feature-toggles.test_feature.user.123', true);
 
         $result = FeatureToggle::isEnabled('test_feature');
 
@@ -80,13 +80,13 @@ class FeatureToggleTest extends TestCase
     public function test_environment_override_takes_precedence()
     {
         // Set base feature to true
-        Config::set('feature-toggles.test_feature', true);
+        Config::set('laranail-toolkit-feature-toggles.test_feature', true);
 
         // Mock no authenticated user
         Auth::shouldReceive('user')->andReturn(null);
 
         // Set environment override to false
-        Config::set('feature-toggles.test_feature.environment.testing', false);
+        Config::set('laranail-toolkit-feature-toggles.test_feature.environment.testing', false);
 
         $result = FeatureToggle::isEnabled('test_feature');
 
@@ -95,7 +95,7 @@ class FeatureToggleTest extends TestCase
 
     public function test_creates_config_file_if_not_exists()
     {
-        $configPath = config_path('feature-toggles.php');
+        $configPath = config_path('laranail-toolkit-feature-toggles.php');
 
         // Ensure file doesn't exist
         if (File::exists($configPath)) {

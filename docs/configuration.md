@@ -1,15 +1,15 @@
 # Configuration
 
 The package's main config ships at `config/toolkit.php` and is merged into the
-`laranail.toolkit.*` namespace. Publish it with:
+`laranail-toolkit.*` namespace. Publish it with:
 
 ```bash
 php artisan vendor:publish --tag=laranail-toolkit-config
 ```
 
-Read any value with `config('laranail.toolkit.<key>')`.
+Read any value with `config('laranail-toolkit.<key>')`.
 
-## `laranail.toolkit.llm`
+## `laranail-toolkit.llm`
 
 One consistent prefix: `default_provider` plus a nested block per provider
 (`llm.openai`, `llm.gemini`, `llm.claude`).
@@ -18,7 +18,7 @@ One consistent prefix: `default_provider` plus a nested block per provider
 |-----|---------|-------|
 | `default_provider` | `openai` | `openai` \| `gemini` \| `claude` — chooses the driver bound to `LLMProviderInterface`. Env: `LLM_DEFAULT_PROVIDER`. |
 
-## `laranail.toolkit.cache`
+## `laranail-toolkit.cache`
 
 Defaults applied to `CacheService`.
 
@@ -27,14 +27,14 @@ Defaults applied to `CacheService`.
 | `default_expiration` | `60` (minutes) |
 | `default_tags` | `[]` |
 
-## `laranail.toolkit.access_log`
+## `laranail-toolkit.access_log`
 
 | Key | Default | Notes |
 |-----|---------|-------|
 | `enabled` | `true` | Toggle persistence of the `access.log` middleware. Env: `LARANAIL_ACCESS_LOG_ENABLED`. |
 | `redact` | `null` | Request keys to redact. `null` uses the middleware's built-in deny-list. |
 
-## `laranail.toolkit.rate_limiting`
+## `laranail-toolkit.rate_limiting`
 
 Defaults for `RateLimiterService` and named profiles.
 
@@ -52,20 +52,20 @@ Defaults for `RateLimiterService` and named profiles.
 Each provider has its own block. Keys are read when the matching driver is
 resolved.
 
-### `laranail.toolkit.llm.openai`
+### `laranail-toolkit.llm.openai`
 
 `api_key` (`OPENAI_API_KEY`), `max_retries` (3), `retry_delay` (2),
 `default_model` (`gpt-3.5-turbo`), `default_temperature` (0.7),
 `default_max_tokens` (300), `default_top_p` (1.0).
 
-### `laranail.toolkit.llm.gemini`
+### `laranail-toolkit.llm.gemini`
 
 `api_key` (`GEMINI_API_KEY`), `max_retries` (3), `retry_delay` (2),
 `base_url` (`https://generativelanguage.googleapis.com/v1beta`),
 `default_model` (`gemini-2.0-flash`), and matching temperature/tokens/top-p
 defaults.
 
-### `laranail.toolkit.llm.claude`
+### `laranail-toolkit.llm.claude`
 
 `api_key` (`CLAUDE_API_KEY`), `max_retries` (3), `retry_delay` (2),
 `base_url` (`https://api.anthropic.com`),
@@ -76,10 +76,10 @@ defaults.
 
 The feature modules merge their own config files under the same namespace:
 
-- `laranail.toolkit.captcha` — providers and behavior (see
+- `laranail-toolkit-captcha` — providers and behavior (see
   [captcha module](modules/captcha.md)).
-- `laranail.toolkit.archiver` — archiver limits.
-- `laranail.toolkit.atlas` — one self-contained file for the Atlas module:
+- `laranail-toolkit.archiver` — archiver limits.
+- `laranail-toolkit-atlas` — one self-contained file for the Atlas module:
   select-box / cache settings, the continent display-name map
   (`atlas.continents`), and the Laravel-locale registry (`atlas.languages`)
   (see [atlas module](modules/atlas.md)). Publishes under the
@@ -91,8 +91,9 @@ The feature modules merge their own config files under the same namespace:
 
 ## Feature toggles
 
-`config/feature-toggles.php` (publish tag
-`laranail-toolkit-feature-toggles`) defines flags read by `FeatureToggle`:
+The feature-toggles config (publish tag `laranail-toolkit-feature-toggles`,
+published to `config/laranail-toolkit-feature-toggles.php`) defines flags read by
+`FeatureToggle`:
 
 ```php
 return [
@@ -101,8 +102,8 @@ return [
 ```
 
 Per-user and per-environment overrides are supported via
-`feature-toggles.<feature>.user.<id>` and
-`feature-toggles.<feature>.environment.<env>`.
+`laranail-toolkit-feature-toggles.<feature>.user.<id>` and
+`laranail-toolkit-feature-toggles.<feature>.environment.<env>`.
 
 ## Security data
 

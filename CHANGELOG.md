@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   name), `continentForCountry()` (ISO2/ISO3), `regions()`, and `subregions()`.
   The Laravel-locale registry moved under `atlas.languages` so Atlas now owns a
   **single, publishable `config/atlas.php`** (publish tag
-  `laranail-toolkit-atlas`, merged under `laranail.toolkit.atlas`).
+  `laranail-toolkit-atlas`, merged under `laranail-toolkit-atlas`).
 - **LLM module provider + facade.** A dedicated deferred `LLMServiceProvider`
   binds `LLMProviderInterface` (alias `laranail.llm`) and registers a `LLM`
   facade (`LLM::generateResponse(...)`) alongside constructor injection.
@@ -212,7 +212,7 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
 
 ### Fixed
 
-- Service provider config wiring: config is merged under the `laranail.toolkit`
+- Service provider config wiring: config is merged under the `laranail-toolkit`
   key from `config/toolkit.php`; corrected publish paths and the cross-platform
   `Models` path; removed the phantom service-provider publish.
 - Corrected autoload-fatal namespace imports in the Claude LLM provider and the
@@ -240,7 +240,7 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
   - **Archiver** — zip/tar/tar.gz extraction, **Zip-Slip hardened** (validate
     entries before extraction; symlink + zip-bomb guards).
 - **LLM providers** — OpenAI/Claude/Gemini behind `LLMProviderInterface`
-  (provider selected via `config('laranail.toolkit.llm.default_provider')`),
+  (provider selected via `config('laranail-toolkit.llm.default_provider')`),
   with retryable-only retries and an SSRF base-URL guard.
 - **Macros** — consolidated grouped providers (String/Collection/Arr/
   QueryBuilder/Blueprint/Request) + `FactoryBuilderMixin`.

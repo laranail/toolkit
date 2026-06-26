@@ -14,7 +14,7 @@ use Simtabi\Laranail\Toolkit\Support\Cast;
 /**
  * Deferred service provider for the self-contained Atlas module.
  *
- * Owns its own config merge/publish (under `laranail.toolkit.atlas`) so the
+ * Owns its own config merge/publish (under `laranail-toolkit-atlas`) so the
  * module can later be extracted into its own package without depending on the
  * root toolkit config.
  */
@@ -22,17 +22,17 @@ class AtlasServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register(): void
     {
-        // The module owns its config namespace under `laranail.toolkit.atlas`.
+        // The module owns its config namespace under `laranail-toolkit-atlas`.
         // A single, self-contained config file carries behaviour knobs, the
         // continent display-name map, and the Laravel-locale registry.
-        $this->mergeConfigFrom($this->configPath('atlas.php'), 'laranail.toolkit.atlas');
+        $this->mergeConfigFrom($this->configPath('atlas.php'), 'laranail-toolkit-atlas');
 
         $this->app->singleton(AtlasService::class, static function (Application $app): AtlasService {
             /** @var Repository $config */
             $config = $app->make('config');
 
-            $defaultLabel = Cast::toString($config->get('laranail.toolkit.atlas.default_label', 'name'), 'name');
-            $cacheTtl = Cast::toInt($config->get('laranail.toolkit.atlas.cache_ttl', 1440), 1440);
+            $defaultLabel = Cast::toString($config->get('laranail-toolkit-atlas.default_label', 'name'), 'name');
+            $cacheTtl = Cast::toInt($config->get('laranail-toolkit-atlas.cache_ttl', 1440), 1440);
 
             return new AtlasService(
                 cache: $app->make(CacheService::class),

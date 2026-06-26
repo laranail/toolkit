@@ -217,7 +217,7 @@ class AtlasServiceTest extends TestCase
         $service = $this->service();
         $languages = $service->languages();
 
-        // Full registry is read from `laranail.toolkit.atlas.languages` config.
+        // Full registry is read from `laranail-toolkit-atlas.languages` config.
         $this->assertCount(89, $languages);
 
         $this->assertArrayHasKey('en_US', $languages);

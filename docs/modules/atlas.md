@@ -78,7 +78,7 @@ Atlas::timezones();    // ['Africa/Abidjan', ..., 'UTC', ...] — all IANA ident
 
 The data package is country-centric, so the Laravel-locale registry lives in the
 single, publishable `config/atlas.php` config under the `languages` key — merged
-under `laranail.toolkit.atlas.languages` (ported, de-bloated, from the legacy
+under `laranail-toolkit-atlas.languages` (ported, de-bloated, from the legacy
 `Atlas\Languages`):
 
 ```php
@@ -97,10 +97,10 @@ Atlas::availableLocales();   // ['en_US' => ['locale' => 'en_US', 'name' => 'Eng
 ## Configuration
 
 Everything lives in **one** config file — `config/atlas.php`, merged under
-`laranail.toolkit.atlas`:
+`laranail-toolkit-atlas`:
 
 ```php
-// config/laranail-toolkit-atlas.php → laranail.toolkit.atlas
+// config/laranail-toolkit-atlas.php → laranail-toolkit-atlas
 'default_label' => env('LARANAIL_ATLAS_DEFAULT_LABEL', 'name'),   // 'name' | 'official_name' | 'native_name'
 'cache_ttl'     => env('LARANAIL_ATLAS_CACHE_TTL', 1440),         // minutes; 0 to recompute every call
 'continents'    => ['AF' => 'Africa', ..., 'SA' => 'South America'],  // continent code => English name

@@ -2,7 +2,7 @@
 
 A single contract, `LLMProviderInterface`, abstracts three drivers — OpenAI,
 Claude, and Gemini. The driver bound in the container is chosen by
-`config('laranail.toolkit.llm.default_provider')` (`openai` by default).
+`config('laranail-toolkit.llm.default_provider')` (`openai` by default).
 
 ## Contract
 
@@ -104,10 +104,10 @@ declared **`final`** — extend the behaviour by composing a new
 ### Configuration keys
 
 The G14a alignment nests **every** provider's credentials and tuning under its
-own key beneath `laranail.toolkit.llm.<provider>` (NOT as siblings of `llm`):
+own key beneath `laranail-toolkit.llm.<provider>` (NOT as siblings of `llm`):
 
 ```php
-// config/laranail-toolkit.php → laranail.toolkit.llm
+// config/laranail-toolkit.php → laranail-toolkit.llm
 'default_provider' => env('LLM_DEFAULT_PROVIDER', 'openai'),   // openai | gemini | claude
 'openai' => ['api_key' => env('OPENAI_API_KEY'), 'max_retries' => 3, 'retry_delay' => 2,
              'default_model' => 'gpt-3.5-turbo', 'default_temperature' => 0.7,
@@ -126,7 +126,7 @@ configured default:
 ```php
 use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
 
-$claude = new ClaudeProvider(apiKey: config('laranail.toolkit.llm.claude.api_key'));
+$claude = new ClaudeProvider(apiKey: config('laranail-toolkit.llm.claude.api_key'));
 ```
 
 ## Retries & errors
