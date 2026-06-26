@@ -9,6 +9,8 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
+use Simtabi\Laranail\Package\Tools\Package;
+use Simtabi\Laranail\Package\Tools\Providers\PackageServiceProvider;
 use Simtabi\Laranail\Toolkit\Commands\IdeHelperMacros;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Commands\Tidy;
@@ -60,7 +62,15 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
 
-class ToolkitServiceProvider extends ServiceProvider
+/**
+ * Toolkit service provider, built on the laranail/package-tools
+ * {@see PackageServiceProvider} lifecycle: {@see configurePackage()} declares the
+ * package identity, {@see packageRegistered()} wires container bindings and the
+ * feature-module providers, and {@see packageBooted()} performs the toolkit's
+ * bespoke asset wiring (configs + namespaced aliases, views, translations,
+ * migrations, the granular publish tags, commands, middleware and validation).
+ */
+class ToolkitServiceProvider extends PackageServiceProvider
 {
     /**
      * Feature-module providers. Each is deferred and self-contained so modules
@@ -68,7 +78,7 @@ class ToolkitServiceProvider extends ServiceProvider
      *
      * @var list<class-string<ServiceProvider>>
      */
-    private const MODULE_PROVIDERS = [
+    private const array MODULE_PROVIDERS = [
         GravatarServiceProvider::class,
         AvatarServiceProvider::class,
         CaptchaServiceProvider::class,
@@ -78,7 +88,16 @@ class ToolkitServiceProvider extends ServiceProvider
         LLMServiceProvider::class,
     ];
 
-    public function register(): void
+    public function configurePackage(Package $package): void
+    {
+        // Only the package identity is declared here; the toolkit's asset wiring
+        // is bespoke (custom granular tags, multiple configs, namespaced aliases,
+        // dynamic per-class publishes) and lives in packageBooted(). The package
+        // basePath is derived from this provider's location by the base.
+        $package->name('laranail/toolkit');
+    }
+
+    public function packageRegistered(): void
     {
         foreach (self::MODULE_PROVIDERS as $provider) {
             $this->app->register($provider);
@@ -142,10 +161,7 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->app->singleton(ToolkitManager::class, fn ($app): ToolkitManager => new ToolkitManager($app));
     }
 
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
+    public function packageBooted(): void
     {
         // Register the macro coordinator eagerly so all grouped macros load
         // globally (macro registration must not be deferred).

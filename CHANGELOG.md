@@ -204,6 +204,11 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
 - **BREAKING (identity):** the package is `laranail/toolkit`
   (`Simtabi\Laranail\Toolkit`), realigned to Simtabi/laranail org conventions.
   It supersedes the legacy `laranail/laranail` monolith, which is being merged in.
+- **`ToolkitServiceProvider` now builds on `laranail/package-tools`'
+  `PackageServiceProvider` lifecycle** (`configurePackage()` /
+  `packageRegistered()` / `packageBooted()`) instead of a hand-rolled
+  `register()` / `boot()`. Behaviour is unchanged — every publish tag, config
+  key, namespaced alias, binding, command and middleware alias is preserved.
 - Realigned tooling to PHP `^8.3 || ^8.4 || ^8.5` and Laravel `^13.0`
   (Pest 3, Orchestra Testbench 11, PHPStan 2, Pint).
 - Artisan commands now use the org-wide naming shape
