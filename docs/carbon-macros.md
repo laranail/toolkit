@@ -115,7 +115,6 @@ Carbon::parse('2026-04-06')->isEasterMonday();   // true (Easter 2026 = Apr 5)
 
 > **Origin:** these calendars were folded into `CarbonMacros` from the legacy
 > monolith's 14 national `Carbon` calendar traits during the migration (the
-> legacy `=`/`===`/octal-literal bugs were fixed on the way). See the
-> [migration ledger](migration/MIGRATION.md).
+> legacy `=`/`===`/octal-literal bugs were fixed on the way).
 
 [← Docs index](../README.md#documentation)

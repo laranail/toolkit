@@ -2,8 +2,7 @@
 
 All macros are registered eagerly by `MacroServiceProvider`, and all directives
 by `BladeServiceProvider`. Only additions with **no native Laravel equivalent**
-are included — native duplicates were intentionally dropped (see
-[migration record](migration/dropped.md)).
+are included — native duplicates were intentionally dropped.
 
 ## Str / Stringable macros
 

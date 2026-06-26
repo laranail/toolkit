@@ -158,10 +158,10 @@ resolution time from `config('laranail.toolkit.llm.default_provider')` — `open
 ## Migration / removal record
 
 This package was ported from the pre-1.0 `Simtabi\Laranail` monolith, keeping
-only the genuine delta over Laravel 13 / PHP 8.3–8.5 natives. The complete
-per-symbol accounting (migrated / relocated / dropped) is in
-[migration/MIGRATION.md](migration/MIGRATION.md); the cited drop rationale is in
-[migration/dropped.md](migration/dropped.md). A regression test
-(`tests/Regression/ApiSurfaceTest`) enforces that nothing is lost unplanned.
+only the genuine delta over Laravel 13 / PHP 8.4–8.5 natives — native-duplicative,
+consolidated, or out-of-scope symbols were dropped, and the notification and
+database/UUID tooling moved to `laranail/notifications` and `laranail/database-tools`.
+A regression test (`tests/Regression/ApiSurfaceTest`) enforces that nothing is lost
+unplanned.
 
 [← Docs index](../README.md#documentation)

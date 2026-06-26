@@ -156,8 +156,7 @@ Toolkit::archiver()->extract($zip, $dest);
 
 `Toolkit::avatar()/gravatar()/captcha()/archiver()` return the module's typed
 service from the container (deferred providers boot on demand). It replaces the
-legacy 48-method `Laranail` service-locator (see the
-[migration ledger](docs/migration/MIGRATION.md)).
+legacy 48-method `Laranail` service-locator.
 
 ### Avatar (DI or facade)
 
@@ -246,9 +245,7 @@ class Post extends Model
 |------|-------------|
 | [Installation](docs/installation.md) | Install, publish tags, requirements |
 | [Configuration](docs/configuration.md) | `laranail.toolkit.*` config reference |
-| [Architecture](docs/architecture.md) | Modules, deferred providers, layout, migration record |
-| [Migration ledger](docs/migration/MIGRATION.md) | Every legacy symbol: migrated / relocated / dropped |
-| [Laranail → Toolkit map](docs/migration/laranail-to-toolkit.md) | Every legacy `Laranail::` method → its `Toolkit::` / `Helper::` / native home |
+| [Architecture](docs/architecture.md) | Modules, deferred providers, layout |
 | [make-crud](docs/make-crud.md) | API CRUD generator command |
 | [Artisan commands](docs/commands.md) | The three `laranail::toolkit.*` commands + the full `laranail/console` lifecycle (signal-safe, redacting, path-confined) |
 | [CrudController](docs/crud-controller.md) | Secure base controller |
