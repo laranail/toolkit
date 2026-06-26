@@ -77,20 +77,19 @@ class ToolkitServiceProvider extends PackageServiceProvider
             //   atlas / captcha  → config('laranail.toolkit.atlas|captcha.*')
             // (atlas/captcha are centralised here so they get the publish-override
             // bridge; their deferred modules only bind services.)
-            ->hasConfigFile('toolkit')
-            ->hasConfigFile('feature-toggles')
-            ->hasConfigFile('atlas')
-            ->hasConfigFile('captcha')
+            ->hasConfigFile(['toolkit', 'feature-toggles', 'atlas', 'captcha'])
             ->hasViews('laranail-toolkit')
             ->hasTranslations()
             ->discoversMigrations()
             ->runsMigrations()   // load (register) the discovered migrations so `migrate` runs them
             ->hasCommands([MakeCrud::class, IdeHelperMacros::class, Tidy::class])
             // Opt-in middleware aliases (none pushed onto the global stack).
-            ->registerRouteMiddleware('access.log', AccessLogMiddleware::class)
-            ->registerRouteMiddleware('api.request', ApiRequestMiddleware::class)
-            ->registerRouteMiddleware('api.response', ApiResponseMiddleware::class)
-            ->registerRouteMiddleware('email.obfuscate', EmailObfuscatorMiddleware::class)
+            ->registerMiddlewareAliases([
+                'access.log' => AccessLogMiddleware::class,
+                'api.request' => ApiRequestMiddleware::class,
+                'api.response' => ApiResponseMiddleware::class,
+                'email.obfuscate' => EmailObfuscatorMiddleware::class,
+            ])
             // Macro coordinator + Blade directives (eager) and the deferred
             // feature modules.
             ->hasChildProviders([
@@ -104,23 +103,20 @@ class ToolkitServiceProvider extends PackageServiceProvider
                 LivewireServiceProvider::class,
                 LLMServiceProvider::class,
             ])
-            ->hasValidationRule(
-                'reject_common_passwords',
-                RejectCommonPasswords::class,
-                'The :attribute contains a common password that is not allowed.',
-            )
-            ->hasAboutSection('Laranail Toolkit', static fn (): array => new RequirementsDiagnostics()->toAboutArray())
+            ->hasValidationRules([
+                'reject_common_passwords' => [
+                    RejectCommonPasswords::class,
+                    'The :attribute contains a common password that is not allowed.',
+                ],
+            ])
+            ->hasAboutSections([
+                'Laranail Toolkit' => static fn (): array => new RequirementsDiagnostics()->toAboutArray(),
+            ])
             // SecurityData reads this file directly (not via config()), so it is
             // published as a plain file rather than a namespaced config.
-            ->publish(
-                [__DIR__ . '/../../config/security.php' => config_path('laranail-toolkit-security.php')],
-                $package->getNamespacedPublishTag('security'),
-            )
+            ->publishFile(__DIR__ . '/../../config/security.php', config_path('laranail-toolkit-security.php'), 'security')
             // CRUD stubs, consumed by the MakeCrud command when overridden.
-            ->publish(
-                [__DIR__ . '/../../stubs' => base_path('stubs/vendor/laranail-toolkit')],
-                $package->getNamespacedPublishTag('stubs'),
-            );
+            ->publishDirectory(__DIR__ . '/../../stubs', base_path('stubs/vendor/laranail-toolkit'), 'stubs');
     }
 
     public function packageRegistered(): void

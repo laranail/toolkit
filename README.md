@@ -12,7 +12,7 @@ macros, and custom Blade directives.
 
 | | |
 |---|---|
-| PHP | `^8.3 \|\| ^8.4 \|\| ^8.5` |
+| PHP | `^8.4.1 \|\| ^8.5` |
 | Laravel | `^13.0` |
 | License | MIT |
 | Author | Imani Manyara — Simtabi LLC |
@@ -242,7 +242,7 @@ class Post extends Model
 | Page | Description |
 |------|-------------|
 | [Installation](docs/installation.md) | Install, publish tags, requirements |
-| [Configuration](docs/configuration.md) | `laranail-toolkit.*` config reference |
+| [Configuration](docs/configuration.md) | `laranail.toolkit.*` config reference |
 | [Architecture](docs/architecture.md) | Modules, deferred providers, layout, migration record |
 | [Migration ledger](docs/migration/MIGRATION.md) | Every legacy symbol: migrated / relocated / dropped |
 | [Laranail → Toolkit map](docs/migration/laranail-to-toolkit.md) | Every legacy `Laranail::` method → its `Toolkit::` / `Helper::` / native home |

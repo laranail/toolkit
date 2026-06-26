@@ -111,7 +111,7 @@ class ToolkitManager
     }
 
     /**
-     * HTTP client configuration builder (seeded from laranail-toolkit.http.*).
+     * HTTP client configuration builder (seeded from laranail.toolkit.http.*).
      */
     public function http(): HttpConfigurationServiceInterface
     {

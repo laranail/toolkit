@@ -4,12 +4,12 @@
 
 | | |
 |---|---|
-| PHP | `^8.3 \|\| ^8.4 \|\| ^8.5` |
+| PHP | `^8.4.1 \|\| ^8.5` |
 | Laravel | `^13.0` |
 | Extensions | `ext-fileinfo`, `ext-mbstring` (also `ext-zip` for the Zip archiver) |
 
 The toolkit surfaces a live requirements check under `php artisan about`
-(section **Laranail Toolkit**): PHP version vs. the `8.3.0` floor, the presence
+(section **Laranail Toolkit**): PHP version vs. the `8.4.1` floor, the presence
 of the `json` / `mbstring` / `fileinfo` extensions, and storage writability.
 
 ## Install

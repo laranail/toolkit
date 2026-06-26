@@ -205,11 +205,19 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
   (`Simtabi\Laranail\Toolkit`), realigned to Simtabi/laranail org conventions.
   It supersedes the legacy `laranail/laranail` monolith, which is being merged in.
 - **`ToolkitServiceProvider` is fully declarative on `laranail/package-tools`'
-  (`^1.1`) `configurePackage()` API** — `hasConfigFile`, `hasViews`,
+  (`^1.2`) `configurePackage()` API** — `hasConfigFile([…])`, `hasViews`,
   `hasTranslations`, `discoversMigrations`/`runsMigrations`, `hasCommands`,
-  `registerRouteMiddleware`, `hasChildProviders`, `hasValidationRule`,
-  `hasAboutSection`, and `publish()` with namespaced tags; bindings live in
-  `packageRegistered()`.
+  `registerMiddlewareAliases([…])`, `hasChildProviders`, `hasValidationRules([…])`,
+  `hasAboutSections([…])`, and `publishFile()`/`publishDirectory()` (namespaced
+  `::` tags) for the security file + CRUD stubs; bindings live in
+  `packageRegistered()`. The provider uses the array/batch fluent forms throughout
+  rather than repeated single calls.
+- **Translations now load from `resources/lang/`** (package-tools' standard path)
+  under the `laranail/toolkit` namespace — previously they sat unloaded in
+  `resources/assets/lang/`. (Namespace changed from `laranail-toolkit`; the bundled
+  translations are not referenced by the package itself, so impact is nil.)
+- Removed two dead config files (`config/archiver.php`, `config/config.php`) that
+  were never merged or read.
 - **Config is now the standard namespaced `config('laranail.toolkit.*')`** (dotted,
   collision-free): the main config plus `feature-toggles`, `atlas` and `captcha`
   each merge at their own sub-key and publish under the **`laranail::toolkit-config`**
@@ -221,8 +229,8 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
   The utility services/helpers, the `reject_common_passwords` rule, `ApiResponseTrait`
   and the `AccessLog` model are **no longer publishable** — they are used directly
   from the package.
-- Realigned tooling to PHP `^8.3 || ^8.4 || ^8.5` and Laravel `^13.0`
-  (Pest 3, Orchestra Testbench 11, PHPStan 2, Pint).
+- Realigned tooling to PHP `^8.4.1 || ^8.5` and Laravel `^13.0`
+  (Pest, Orchestra Testbench, PHPStan 2, Pint).
 - Artisan commands now use the org-wide naming shape
   `laranail::toolkit.<command>`. `make:crud` is now
   `laranail::toolkit.make-crud` with a `make:crud` alias retained for ergonomics.

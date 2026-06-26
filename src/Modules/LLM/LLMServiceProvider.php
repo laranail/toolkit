@@ -16,7 +16,7 @@ use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
  * Deferred service provider for the self-contained LLM module.
  *
  * Resolves {@see LLMProviderInterface} to the configured default driver
- * (OpenAI / Gemini / Claude), keyed off `laranail-toolkit.llm.default_provider`.
+ * (OpenAI / Gemini / Claude), keyed off `laranail.toolkit.llm.default_provider`.
  * Kept self-contained so the module can later be extracted into its own package.
  */
 class LLMServiceProvider extends ServiceProvider implements DeferrableProvider

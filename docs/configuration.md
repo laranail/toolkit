@@ -88,7 +88,6 @@ The feature modules' config files are merged centrally under the same namespace
 
 - `laranail.toolkit.captcha` — providers and behavior (see
   [captcha module](modules/captcha.md)).
-- `laranail.toolkit.archiver` — archiver limits.
 - `laranail.toolkit.atlas` — one self-contained file for the Atlas module:
   select-box / cache settings, the continent display-name map
   (`atlas.continents`), and the Laravel-locale registry (`atlas.languages`)
