@@ -7,21 +7,18 @@ namespace Simtabi\Laranail\Toolkit\Modules\Security;
 use RuntimeException;
 
 /**
- * Lazy, app-free accessor for the package's bundled security datasets.
+ * Lazy accessor for the package's bundled security datasets (passwords,
+ * passphrase wordlist, redaction keys), statically cached per process.
  *
- * Reads the merged {@see config/security.php} file (passwords, passphrase
- * wordlist, redaction keys) on first access and statically caches it per
- * process — at most one `require` per file per process.
+ * The datasets ship in {@see config/security.php} and are merged under the
+ * `laranail.toolkit.security` config namespace by the toolkit provider, so:
  *
- * Designed to work WITHOUT a booted Laravel application (the Security generators
- * are pure value objects with standalone unit tests), so it never calls
- * `config()` or `config_path()` unguarded:
- *
- *  - The PACKAGE DEFAULT is always loaded via a `__DIR__`-relative path, which
- *    resolves with no framework present.
- *  - A PUBLISHED override at `config_path('laranail-toolkit-security.php')` is
- *    used INSTEAD only when `config_path()` exists (Laravel is booted) AND the
- *    published file is present.
+ *  - When a Laravel app is booted, the data is read from
+ *    `config('laranail.toolkit.security.*')` — including any published override
+ *    applied by package-tools' config bridge.
+ *  - When NO app is booted (the Security generators are pure value objects with
+ *    standalone unit tests), it falls back to the package default file via a
+ *    `__DIR__`-relative path, which resolves with no framework present.
  *
  * @see config/security.php
  */
@@ -122,9 +119,9 @@ final class SecurityData
     }
 
     /**
-     * Load (once per process) and return the security config array. Prefers a
-     * published override when Laravel is booted and the file exists; otherwise
-     * falls back to the package default. Never calls `config_path()` unguarded.
+     * Load (once per process) and return the security config array. Reads the
+     * merged `laranail.toolkit.security` config when an application is booted;
+     * otherwise falls back to the package default file (framework-free).
      *
      * @return array<string, mixed>
      */
@@ -134,19 +131,21 @@ final class SecurityData
             return self::$config;
         }
 
-        // Package default — resolves with no booted app:
-        //   src/Modules/Security/ --(dirname __DIR__, 3)--> repo root --> config/security.php
-        $path = dirname(__DIR__, 3) . '/config/security.php';
+        // Prefer the booted application's merged config (package default +
+        // published override). Guarded so the Security value objects keep working
+        // with no booted Laravel application.
+        if (function_exists('app') && app()->bound('config')) {
+            $data = app('config')->get('laranail.toolkit.security');
 
-        // Prefer a published override ONLY when Laravel is booted (config_path
-        // exists) AND the override file is present.
-        if (function_exists('config_path')) {
-            $published = config_path('laranail-toolkit-security.php');
-
-            if (is_file($published)) {
-                $path = $published;
+            if (is_array($data) && $data !== []) {
+                /** @var array<string, mixed> $data */
+                return self::$config = $data;
             }
         }
+
+        // Framework-free fallback — the package default file:
+        //   src/Modules/Security/ --(dirname __DIR__, 3)--> repo root --> config/security.php
+        $path = dirname(__DIR__, 3) . '/config/security.php';
 
         if (!is_file($path)) {
             throw new RuntimeException("Security config not found at [{$path}].");

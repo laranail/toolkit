@@ -353,7 +353,7 @@ final class Password implements \Stringable
          *     feedback: array{warning: string, suggestions: list<string>}
          * } $result
          */
-        $result = new Zxcvbn()->passwordStrength($password, $userInputs);
+        $result = (new Zxcvbn())->passwordStrength($password, $userInputs);
 
         return $result;
     }

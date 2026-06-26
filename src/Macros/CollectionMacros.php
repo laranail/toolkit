@@ -45,7 +45,7 @@ final class CollectionMacros extends ServiceProvider
             /** @var Collection<array-key, mixed> $this */
             return $this->map(function (mixed $value): mixed {
                 if (is_array($value) || is_object($value)) {
-                    return new Collection((array) $value)->recursive();
+                    return (new Collection((array) $value))->recursive();
                 }
 
                 return $value;
@@ -68,7 +68,7 @@ final class CollectionMacros extends ServiceProvider
             /** @var Collection<array-key, mixed> $this */
             return $this->map(function (mixed $value) use ($callback): mixed {
                 if ($value instanceof Collection || is_array($value)) {
-                    return new Collection($value)->filterRecursive($callback);
+                    return (new Collection($value))->filterRecursive($callback);
                 }
 
                 return $value;
@@ -180,7 +180,7 @@ final class CollectionMacros extends ServiceProvider
             $start = array_slice($items, 0, $offset, true);
             $end = array_slice($items, $offset, null, true);
 
-            return new Collection($start)->merge([$key => $value])->merge($end);
+            return (new Collection($start))->merge([$key => $value])->merge($end);
         });
 
         Collection::macro('insertBefore', function (int|string $key, mixed $value): Collection {
@@ -195,7 +195,7 @@ final class CollectionMacros extends ServiceProvider
             $start = array_slice($items, 0, $index, true);
             $end = array_slice($items, $index, null, true);
 
-            return new Collection($start)->merge([$key => $value])->merge($end);
+            return (new Collection($start))->merge([$key => $value])->merge($end);
         });
 
         $this->registerNavigationMacros();
@@ -287,7 +287,7 @@ final class CollectionMacros extends ServiceProvider
             $inserted = $key !== null ? [$key => $item] : [$item];
 
             if ($position === false) {
-                return new Collection($items)->merge($inserted);
+                return (new Collection($items))->merge($inserted);
             }
 
             $offset = $position + 1;

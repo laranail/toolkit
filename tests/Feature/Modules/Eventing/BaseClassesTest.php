@@ -67,7 +67,7 @@ class BaseClassesTest extends TestCase
 
         $this->app->instance(LogService::class, new LogService($logs));
 
-        new FixtureJob()->failed(new RuntimeException('kaboom'));
+        (new FixtureJob())->failed(new RuntimeException('kaboom'));
     }
 
     public function test_base_event_is_dispatchable(): void

@@ -330,20 +330,21 @@ SecurityData::passphraseWords(); // list<string> (exactly 7776; throws RuntimeEx
 SecurityData::redactKeys();      // list<string>
 ```
 
-`SecurityData` works **without a booted Laravel app** (the Security generators
-are pure value objects): it always resolves the package default via a
-`__DIR__`-relative path, and only when Laravel is booted (`config_path()` exists)
-and a published override file is present does it prefer that instead. Each
-section is `require`d at most once per process and statically cached.
+The datasets are merged under `laranail.toolkit.security`, so `SecurityData`
+reads `config('laranail.toolkit.security.*')` when an app is booted. It also works
+**without a booted Laravel app** (the Security generators are pure value objects):
+with no app it falls back to a `__DIR__`-relative read of the package default.
+The data is resolved at most once per process and statically cached.
 
-To customize the data, publish an override copy:
+To customise the datasets, publish the configs and edit the published
+`config/laranail/toolkit/security.php`:
 
 ```bash
-php artisan vendor:publish --tag=laranail::toolkit-security
+php artisan vendor:publish --tag=laranail::toolkit-config
 ```
 
-which writes `config/laranail-toolkit-security.php`. When present, `SecurityData`
-prefers it over the package default.
+The edited file is merged over the package default like any other namespaced
+config (no separate publish tag).
 
 > **`SecurityData` is static-by-design.** It is a `final` class with only
 > **static** accessors (`commonPasswords()`, `passphraseWords()`,

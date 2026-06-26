@@ -75,9 +75,10 @@ class ToolkitServiceProvider extends PackageServiceProvider
             //   toolkit          → config('laranail.toolkit.*')
             //   feature-toggles  → config('laranail.toolkit.feature-toggles.*')
             //   atlas / captcha  → config('laranail.toolkit.atlas|captcha.*')
+            //   security         → config('laranail.toolkit.security.*'), read by SecurityData
             // (atlas/captcha are centralised here so they get the publish-override
             // bridge; their deferred modules only bind services.)
-            ->hasConfigFile(['toolkit', 'feature-toggles', 'atlas', 'captcha'])
+            ->hasConfigFile(['toolkit', 'feature-toggles', 'atlas', 'captcha', 'security'])
             ->hasViews('laranail-toolkit')
             ->hasTranslations()
             ->discoversMigrations()
@@ -110,11 +111,8 @@ class ToolkitServiceProvider extends PackageServiceProvider
                 ],
             ])
             ->hasAboutSections([
-                'Laranail Toolkit' => static fn (): array => new RequirementsDiagnostics()->toAboutArray(),
+                'Laranail Toolkit' => static fn (): array => (new RequirementsDiagnostics())->toAboutArray(),
             ])
-            // SecurityData reads this file directly (not via config()), so it is
-            // published as a plain file rather than a namespaced config.
-            ->publishFile(__DIR__ . '/../../config/security.php', config_path('laranail-toolkit-security.php'), 'security')
             // CRUD stubs, consumed by the MakeCrud command when overridden.
             ->publishDirectory(__DIR__ . '/../../stubs', base_path('stubs/vendor/laranail-toolkit'), 'stubs');
     }

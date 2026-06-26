@@ -47,8 +47,8 @@ class HasFormattersTest extends TestCase
 
     public function test_formatted_username_prefixes_at_or_returns_false(): void
     {
-        $this->assertSame('@neo', new FormattableRecord(['username' => 'Neo'])->formattedUsername());
-        $this->assertFalse(new FormattableRecord()->formattedUsername());
+        $this->assertSame('@neo', (new FormattableRecord(['username' => 'Neo']))->formattedUsername());
+        $this->assertFalse((new FormattableRecord())->formattedUsername());
     }
 
     public function test_excerpt_truncates_content(): void
@@ -102,7 +102,7 @@ class HasFormattersTest extends TestCase
         // Take the primary candidate so the suggester skips to the next one.
         FormattableRecord::query()->create(['username' => 'janedoe']);
 
-        $suggestion = new FormattableRecord()->suggestUsername('Jane', 'Doe');
+        $suggestion = (new FormattableRecord())->suggestUsername('Jane', 'Doe');
 
         // The taken primary candidate must be skipped, and the result must be free.
         $this->assertNotSame('janedoe', $suggestion);

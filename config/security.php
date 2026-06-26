@@ -8,15 +8,13 @@ declare(strict_types=1);
  * =============================================================================
  *
  * Merged, single source of truth for the package's bundled security datasets,
- * loaded lazily (and without a booted Laravel app) by
- * {@see Simtabi\Laranail\Toolkit\Modules\Security\SecurityData}.
+ * read by {@see Simtabi\Laranail\Toolkit\Modules\Security\SecurityData}.
  *
- * Publish an override copy with:
- *
- *     php artisan vendor:publish --tag=laranail::toolkit-security
- *
- * which writes to config_path('laranail-toolkit-security.php'). When the
- * published file exists, SecurityData prefers it over this package default.
+ * Merged under the `laranail.toolkit.security` config namespace by the toolkit
+ * provider, so it is read via `config('laranail.toolkit.security.*')` when an app
+ * is booted (with a `__DIR__`-relative fallback for framework-free use). Override
+ * it like any other config — publish `laranail::toolkit-config` and edit the
+ * published `config/laranail/toolkit/security.php`.
  *
  * Sections:
  *   - passwords.common    : common-password denylist (RejectCommonPasswords)

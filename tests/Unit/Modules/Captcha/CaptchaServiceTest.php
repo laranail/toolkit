@@ -84,7 +84,7 @@ class CaptchaServiceTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new CaptchaService()->getProvider('Evil\\ArbitraryClass');
+        (new CaptchaService())->getProvider('Evil\\ArbitraryClass');
     }
 
     #[Group('security')]
@@ -92,7 +92,7 @@ class CaptchaServiceTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new CaptchaService()->setDefaultProvider('nope');
+        (new CaptchaService())->setDefaultProvider('nope');
     }
 
     public function test_verify_through_service_uses_selected_provider(): void
@@ -101,7 +101,7 @@ class CaptchaServiceTest extends TestCase
             'hcaptcha.com/*' => Http::response(['success' => true], 200),
         ]);
 
-        $result = new CaptchaService()->verify('token', [], 'hcaptcha', '203.0.113.1');
+        $result = (new CaptchaService())->verify('token', [], 'hcaptcha', '203.0.113.1');
 
         $this->assertTrue($result->isSuccess());
         $this->assertSame('hcaptcha', $result->getProviderName());
@@ -114,7 +114,7 @@ class CaptchaServiceTest extends TestCase
     {
         config()->set('laranail.toolkit.captcha.turnstile.secret_key', '');
 
-        $result = new CaptchaService()->verify('token', [], 'turnstile');
+        $result = (new CaptchaService())->verify('token', [], 'turnstile');
 
         $this->assertTrue($result->isFailure());
     }
@@ -123,7 +123,7 @@ class CaptchaServiceTest extends TestCase
     {
         $this->assertSame(
             ['recaptcha', 'turnstile', 'hcaptcha', 'friendly_captcha', 'null'],
-            new CaptchaService()->getProviderNames(),
+            (new CaptchaService())->getProviderNames(),
         );
     }
 
@@ -142,7 +142,7 @@ class CaptchaServiceTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        new CaptchaService()->registerProvider(
+        (new CaptchaService())->registerProvider(
             new TurnstileProvider(siteKey: 'k', secretKey: 's', timeout: 30),
             'evil',
         );
@@ -150,7 +150,7 @@ class CaptchaServiceTest extends TestCase
 
     public function test_set_and_get_default_provider_round_trip(): void
     {
-        $service = new CaptchaService()->setDefaultProvider('hcaptcha');
+        $service = (new CaptchaService())->setDefaultProvider('hcaptcha');
 
         $this->assertSame('hcaptcha', $service->getDefaultProvider());
         $this->assertInstanceOf(HcaptchaProvider::class, $service->getProvider());
@@ -166,12 +166,12 @@ class CaptchaServiceTest extends TestCase
 
     public function test_get_site_key_returns_the_configured_key(): void
     {
-        $this->assertSame('hc-site', new CaptchaService()->getSiteKey('hcaptcha'));
+        $this->assertSame('hc-site', (new CaptchaService())->getSiteKey('hcaptcha'));
     }
 
     public function test_has_configured_provider_is_true_when_secrets_present(): void
     {
-        $this->assertTrue(new CaptchaService()->hasConfiguredProvider());
+        $this->assertTrue((new CaptchaService())->hasConfiguredProvider());
     }
 
     public function test_verify_with_all_providers_runs_every_driver(): void
@@ -180,7 +180,7 @@ class CaptchaServiceTest extends TestCase
             '*' => Http::response(['success' => true], 200),
         ]);
 
-        $results = new CaptchaService()->verifyWithAllProviders('token', [], '198.51.100.7');
+        $results = (new CaptchaService())->verifyWithAllProviders('token', [], '198.51.100.7');
 
         $this->assertSame(['recaptcha', 'turnstile', 'hcaptcha', 'friendly_captcha', 'null'], array_keys($results));
         $this->assertTrue($results['hcaptcha']->isSuccess());

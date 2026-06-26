@@ -46,7 +46,7 @@ class ArchiverTest extends TestCase
         $zip->close();
 
         $dest = $this->work . '/out-zip';
-        new Zip()->extract($zipPath, $dest);
+        (new Zip())->extract($zipPath, $dest);
 
         $this->assertSame('hi', file_get_contents($dest . '/hello.txt'));
         $this->assertSame('earth', file_get_contents($dest . '/nested/world.txt'));
@@ -65,7 +65,7 @@ class ArchiverTest extends TestCase
         $dest = $this->work . '/out-evil';
 
         try {
-            new Zip()->extract($zipPath, $dest);
+            (new Zip())->extract($zipPath, $dest);
             $this->fail('Expected ArchiveException for the traversal entry.');
         } catch (ArchiveException $e) {
             $this->assertStringContainsString('unsafe', strtolower($e->getMessage()));
@@ -82,7 +82,7 @@ class ArchiverTest extends TestCase
         file_put_contents($bad, 'not a real zip');
 
         $this->expectException(ArchiveException::class);
-        new Zip()->extract($bad, $this->work . '/out-corrupt');
+        (new Zip())->extract($bad, $this->work . '/out-corrupt');
     }
 
     public function test_tar_round_trip_extracts_safe_entries(): void
@@ -94,7 +94,7 @@ class ArchiverTest extends TestCase
         unset($phar);
 
         $dest = $this->work . '/out-tar';
-        new Tar()->extract($tarPath, $dest);
+        (new Tar())->extract($tarPath, $dest);
 
         $this->assertSame('hi', file_get_contents($dest . '/hello.txt'));
         $this->assertSame('earth', file_get_contents($dest . '/nested/world.txt'));

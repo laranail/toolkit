@@ -79,7 +79,7 @@ class UsernameDelegationTest extends TestCase
 
         Account::query()->create(['username' => 'janedoe']);
 
-        $suggestion = new Account()->suggestUsername('Jane', 'Doe');
+        $suggestion = (new Account())->suggestUsername('Jane', 'Doe');
 
         $this->assertNotSame('janedoe', $suggestion);
         $this->assertNotSame('', $suggestion);

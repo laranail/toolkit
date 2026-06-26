@@ -70,7 +70,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_livewire_is_not_available_in_the_test_environment(): void
     {
-        $this->assertFalse(new LivewireService()->isLivewireAvailable());
+        $this->assertFalse((new LivewireService())->isLivewireAvailable());
     }
 
     public function test_flush_is_a_safe_no_op_without_livewire(): void
@@ -142,7 +142,7 @@ class LivewireServiceTest extends TestCase
     {
         $app = new Container();
 
-        new LivewireServiceProvider($app)->register();
+        (new LivewireServiceProvider($app))->register();
 
         $this->assertInstanceOf(LivewireService::class, $app->make(LivewireServiceInterface::class));
         $this->assertSame(
@@ -153,7 +153,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_provider_provides_its_deferred_bindings(): void
     {
-        $provides = new LivewireServiceProvider($this->app)->provides();
+        $provides = (new LivewireServiceProvider($this->app))->provides();
 
         $this->assertSame(
             [LivewireServiceInterface::class, 'laranail.livewire'],
@@ -187,7 +187,7 @@ class LivewireServiceTest extends TestCase
         $service->registerComponent('my-component', FakeComponent::class);
         $this->app->instance(LivewireServiceInterface::class, $service);
 
-        new LivewireServiceProvider($this->app)->boot();
+        (new LivewireServiceProvider($this->app))->boot();
 
         $this->assertSame(['my-component' => FakeComponent::class], $service->registered);
     }
@@ -198,7 +198,7 @@ class LivewireServiceTest extends TestCase
         $service->registerComponent('my-component', FakeComponent::class);
         $this->app->instance(LivewireServiceInterface::class, $service);
 
-        new LivewireServiceProvider($this->app)->boot();
+        (new LivewireServiceProvider($this->app))->boot();
 
         // Still collected, never flushed into a (non-existent) registry.
         $this->assertSame(['my-component' => FakeComponent::class], $service->getRegisteredComponents());

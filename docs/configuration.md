@@ -117,7 +117,7 @@ Per-user and per-environment overrides are supported via
 ## Security data
 
 `config/security.php` is the single, merged source for the package's bundled
-security datasets, read lazily by
+security datasets, merged under `laranail.toolkit.security` and read by
 `Simtabi\Laranail\Toolkit\Modules\Security\SecurityData`:
 
 - `passwords.common` — 560 lowercased, deduplicated common passwords
@@ -125,15 +125,12 @@ security datasets, read lazily by
 - `passphrases.wordlist` — exactly 7776 EFF CC0 words (`Passphrase`).
 - `redact_keys` — default request-data redaction keys (`AccessLogMiddleware`).
 
-`SecurityData` loads the package default via a `__DIR__`-relative path and works
-without a booted Laravel app; when Laravel is booted and a published override is
-present, it prefers that file. Publish an override copy with:
-
-```bash
-php artisan vendor:publish --tag=laranail::toolkit-security
-```
-
-which writes `config/laranail-toolkit-security.php`. See the
+`SecurityData` reads `config('laranail.toolkit.security.*')` when an app is booted
+(falling back to a `__DIR__`-relative read of the package default when none is —
+the Security value objects work framework-free). To customise the datasets,
+publish the configs (`laranail::toolkit-config`) and edit
+`config/laranail/toolkit/security.php` — the override is merged like any other
+namespaced config. See the
 [security helpers](security.md#merged-security-data-configsecurityphp) doc for
 details.
 

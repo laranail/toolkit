@@ -36,9 +36,12 @@ php artisan vendor:publish --tag=laranail::toolkit-config
 php artisan vendor:publish --tag=laranail::toolkit-views
 php artisan vendor:publish --tag=laranail::toolkit-translations
 php artisan vendor:publish --tag=laranail::toolkit-migrations
-php artisan vendor:publish --tag=laranail::toolkit-security   # config/laranail-toolkit-security.php
 php artisan vendor:publish --tag=laranail::toolkit-stubs      # CRUD stubs
 ```
+
+> Security datasets (common passwords, EFF wordlist, redaction keys) are merged
+> under `config('laranail.toolkit.security.*')` — published with the other configs
+> via `laranail::toolkit-config`, no separate tag.
 
 > Publish tags use the `laranail::toolkit-*` form (package-tools' namespaced
 > convention). Utilities, the `reject_common_passwords` rule, `ApiResponseTrait`

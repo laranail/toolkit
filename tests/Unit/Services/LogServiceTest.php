@@ -34,7 +34,7 @@ class LogServiceTest extends TestCase
                 && array_key_exists('env', $context)
         );
 
-        new LogService($logs)->info('hello', ['key' => 'value']);
+        (new LogService($logs))->info('hello', ['key' => 'value']);
     }
 
     /**
@@ -57,7 +57,7 @@ class LogServiceTest extends TestCase
             fn (string $psrLevel): bool => $psrLevel === $level->value
         );
 
-        new LogService($logs)->{$level->value}('msg');
+        (new LogService($logs))->{$level->value}('msg');
     }
 
     public function test_a_named_channel_is_routed_through_channel(): void
@@ -69,7 +69,7 @@ class LogServiceTest extends TestCase
         $logs->shouldReceive('channel')->with('slack')->once()->andReturn($channelLogger);
         $logs->shouldNotReceive('log');
 
-        new LogService($logs)->error('boom', [], 'slack');
+        (new LogService($logs))->error('boom', [], 'slack');
     }
 
     public function test_is_resolvable_from_the_container(): void
@@ -88,6 +88,6 @@ class LogServiceTest extends TestCase
                 && array_key_exists('line', $context)
         );
 
-        new LogService($logs)->exception(new \RuntimeException('boom'));
+        (new LogService($logs))->exception(new \RuntimeException('boom'));
     }
 }

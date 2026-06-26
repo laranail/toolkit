@@ -118,7 +118,7 @@ final class RejectCommonPasswords implements ValidationRule
             /**
              * @var array{score: int, feedback: array{warning: string, suggestions: list<string>}} $result
              */
-            $result = new Zxcvbn()->passwordStrength($trimmed);
+            $result = (new Zxcvbn())->passwordStrength($trimmed);
 
             if ($result['score'] < $this->minZxcvbnScore) {
                 $fail($this->strengthMessage($result['feedback']));

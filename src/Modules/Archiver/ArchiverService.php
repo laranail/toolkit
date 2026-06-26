@@ -23,6 +23,6 @@ final class ArchiverService implements ArchiverServiceInterface
 
     public function extract(string $pathToArchive, string $pathToDirectory): void
     {
-        new ArchiveManager()->extract($pathToArchive, $pathToDirectory);
+        (new ArchiveManager())->extract($pathToArchive, $pathToDirectory);
     }
 }

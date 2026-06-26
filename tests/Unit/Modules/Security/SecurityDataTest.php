@@ -47,13 +47,11 @@ class SecurityDataTest extends TestCase
         $this->assertContains('secret', $keys);
     }
 
-    public function test_loads_package_default_without_publishing(): void
+    public function test_reads_the_merged_security_config_namespace(): void
     {
-        // No published override exists in the test app, so the accessor must
-        // still resolve the package default config/security.php via its
-        // __DIR__-relative path.
-        $published = config_path('laranail-toolkit-security.php');
-        $this->assertFileDoesNotExist($published);
+        // The datasets are merged under `laranail.toolkit.security` and the
+        // accessor reads them from there (no separate published file).
+        $this->assertCount(7776, config('laranail.toolkit.security.passphrases.wordlist'));
 
         $this->assertCount(7776, SecurityData::passphraseWords());
         $this->assertNotEmpty(SecurityData::commonPasswords());

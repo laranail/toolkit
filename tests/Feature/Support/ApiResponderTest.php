@@ -11,7 +11,7 @@ class ApiResponderTest extends TestCase
 {
     public function test_success_builds_the_canonical_envelope(): void
     {
-        $response = new ApiResponder()->success(
+        $response = (new ApiResponder())->success(
             data: ['id' => 1],
             message: 'Fetched.',
             statusCode: 201,
@@ -30,7 +30,7 @@ class ApiResponderTest extends TestCase
 
     public function test_error_builds_the_canonical_envelope(): void
     {
-        $response = new ApiResponder()->error(
+        $response = (new ApiResponder())->error(
             message: 'Validation failed.',
             statusCode: 422,
             errors: ['email' => ['required']],
@@ -47,11 +47,11 @@ class ApiResponderTest extends TestCase
 
     public function test_defaults_match_the_trait(): void
     {
-        $success = new ApiResponder()->success();
+        $success = (new ApiResponder())->success();
         $this->assertSame(200, $success->getStatusCode());
         $this->assertSame('Request successful.', $success->getData(true)['message']);
 
-        $error = new ApiResponder()->error();
+        $error = (new ApiResponder())->error();
         $this->assertSame(500, $error->getStatusCode());
         $this->assertFalse($error->getData(true)['success']);
     }

@@ -85,7 +85,7 @@ class RecaptchaProviderTest extends TestCase
     #[Group('security')]
     public function test_fails_closed_when_not_configured(): void
     {
-        $result = new RecaptchaProvider('', '')->verify('token-123');
+        $result = (new RecaptchaProvider('', ''))->verify('token-123');
 
         $this->assertTrue($result->isFailure());
     }

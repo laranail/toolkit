@@ -218,6 +218,15 @@ First tagged release. Migrated and hardened from the legacy `LaraUtilX` /
   translations are not referenced by the package itself, so impact is nil.)
 - Removed two dead config files (`config/archiver.php`, `config/config.php`) that
   were never merged or read.
+- **Security datasets are now a merged config.** `config/security.php` is merged
+  under `laranail.toolkit.security` (with the other configs, published via
+  `laranail::toolkit-config`); `SecurityData` reads
+  `config('laranail.toolkit.security.*')` when an app is booted, falling back to a
+  `__DIR__`-relative read of the package default when none is (framework-free). The
+  separate `laranail::toolkit-security` publish tag is gone.
+- Standardised on the explicit `(new X())->y()` form over the parens-less PHP 8.4
+  `new X()->y()` syntax across the package (Rector's
+  `NewMethodCallWithoutParenthesesRector` is skipped to preserve it).
 - **Config is now the standard namespaced `config('laranail.toolkit.*')`** (dotted,
   collision-free): the main config plus `feature-toggles`, `atlas` and `captcha`
   each merge at their own sub-key and publish under the **`laranail::toolkit-config`**

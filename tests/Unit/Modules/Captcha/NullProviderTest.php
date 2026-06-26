@@ -15,7 +15,7 @@ class NullProviderTest extends TestCase
     {
         Http::fake();
 
-        $result = new NullProvider()->verify('anything');
+        $result = (new NullProvider())->verify('anything');
 
         $this->assertTrue($result->isSuccess());
         $this->assertSame(1.0, $result->score());
@@ -27,13 +27,13 @@ class NullProviderTest extends TestCase
 
     public function test_is_always_configured(): void
     {
-        $this->assertTrue(new NullProvider()->isConfigured());
+        $this->assertTrue((new NullProvider())->isConfigured());
     }
 
     public function test_exposes_its_site_key(): void
     {
-        $this->assertSame('null-site-key', new NullProvider()->getSiteKey());
-        $this->assertSame('custom', new NullProvider('custom')->getSiteKey());
+        $this->assertSame('null-site-key', (new NullProvider())->getSiteKey());
+        $this->assertSame('custom', (new NullProvider('custom'))->getSiteKey());
     }
 
     #[Group('security')]
@@ -41,7 +41,7 @@ class NullProviderTest extends TestCase
     {
         Http::fake();
 
-        $this->assertTrue(new NullProvider()->verify('')->isSuccess());
+        $this->assertTrue((new NullProvider())->verify('')->isSuccess());
 
         Http::assertNothingSent();
     }

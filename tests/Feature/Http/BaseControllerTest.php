@@ -25,7 +25,7 @@ class BaseControllerTest extends TestCase
 {
     public function test_success_response_helper_is_inherited(): void
     {
-        $response = new BaseControllerFixture()->ok();
+        $response = (new BaseControllerFixture())->ok();
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame([
@@ -38,7 +38,7 @@ class BaseControllerTest extends TestCase
 
     public function test_error_response_helper_is_inherited(): void
     {
-        $response = new BaseControllerFixture()->bad();
+        $response = (new BaseControllerFixture())->bad();
 
         $this->assertSame(422, $response->getStatusCode());
         $this->assertSame([

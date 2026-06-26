@@ -298,7 +298,7 @@ class CacheServiceTest extends TestCase
     {
         // The array driver IS taggable, so a tagged clone routes through
         // Cache::tags() inside store() and round-trips under the tag group.
-        $tagged = new CacheService(60, [])->tags(['group-a']);
+        $tagged = (new CacheService(60, []))->tags(['group-a']);
 
         $this->assertTrue($tagged->put('tk', 'tv'));
         $this->assertSame('tv', $tagged->remember('tk', fn () => 'recomputed'));

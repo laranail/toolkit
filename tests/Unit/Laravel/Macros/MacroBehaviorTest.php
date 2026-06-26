@@ -51,7 +51,7 @@ class MacroBehaviorTest extends TestCase
 
     public function test_collection_transpose_swaps_rows_and_columns(): void
     {
-        $result = new Collection([[1, 2], [3, 4]])->transpose()->all();
+        $result = (new Collection([[1, 2], [3, 4]]))->transpose()->all();
 
         $this->assertSame([[1, 3], [2, 4]], $result);
     }
@@ -79,7 +79,7 @@ class MacroBehaviorTest extends TestCase
 
         // Works on nested Collections and plain objects too.
         $object = (object) ['id' => 9, 'name' => 'C', 'secret' => 'z'];
-        $reduced = new Collection([$object])->pluckMany(['id', 'name'])->first();
+        $reduced = (new Collection([$object]))->pluckMany(['id', 'name'])->first();
         $this->assertEquals((object) ['id' => 9, 'name' => 'C'], $reduced);
     }
 
@@ -100,8 +100,8 @@ class MacroBehaviorTest extends TestCase
 
     public function test_collection_rotate_left_handles_empty(): void
     {
-        $this->assertSame([], new Collection([])->rotateLeft()->all());
-        $this->assertSame([2, 3, 1], new Collection([1, 2, 3])->rotateLeft()->values()->all());
+        $this->assertSame([], (new Collection([]))->rotateLeft()->all());
+        $this->assertSame([2, 3, 1], (new Collection([1, 2, 3]))->rotateLeft()->values()->all());
     }
 
     public function test_arr_remove_value_uses_value_membership(): void

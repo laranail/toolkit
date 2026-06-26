@@ -50,6 +50,6 @@ class SchedulerService implements SchedulerServiceInterface
      */
     private function isDue(Event $event): bool
     {
-        return new CronExpression($event->expression)->isDue(Carbon::now());
+        return (new CronExpression($event->expression))->isDue(Carbon::now());
     }
 }
