@@ -1,0 +1,1151 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="AvatarResolution.php" path="/Modules/Avatar">
+    <totals>
+      <lines total="133" comments="15" code="118" executable="43" executed="43" percent="100.00"/>
+      <methods count="16" tested="16" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="1" percent="100.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarResolution" start="10" executable="43" executed="43" crap="30">
+      <namespace name="Simtabi\Laranail\Toolkit\Modules\Avatar"/>
+      <method name="__construct" signature="__construct(string $url, string $sourceType, string $method, array $metadata)" start="15" end="20" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getUrl" signature="getUrl(): string" start="22" end="25" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getSourceType" signature="getSourceType(): string" start="27" end="30" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getMethod" signature="getMethod(): string" start="32" end="35" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getMetadata" signature="getMetadata(): array" start="40" end="43" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isGravatar" signature="isGravatar(): bool" start="45" end="48" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isInitials" signature="isInitials(): bool" start="50" end="53" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isUrl" signature="isUrl(): bool" start="55" end="58" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isFallback" signature="isFallback(): bool" start="60" end="63" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isFromModel" signature="isFromModel(): bool" start="65" end="68" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isFromEmail" signature="isFromEmail(): bool" start="70" end="73" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isFromName" signature="isFromName(): bool" start="75" end="78" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isFromCallback" signature="isFromCallback(): bool" start="80" end="83" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getDescription" signature="getDescription(): string" start="88" end="108" crap="15" executable="18" executed="18" coverage="100"/>
+      <method name="toArray" signature="toArray(): array" start="113" end="126" crap="1" executable="11" executed="11" coverage="100"/>
+      <method name="__toString" signature="__toString(): string" start="128" end="131" crap="1" executable="1" executed="1" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="20">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_flag_variants"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_accepts_a_callable_source"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_fallback_honours_custom_colors_and_shape"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_email_string_with_all_strategies_disabled_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_email_string_with_gravatar_disabled_uses_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_model_with_no_usable_fields_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_model_name_built_from_first_and_last_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_prefers_its_stored_avatar_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_name_string_produces_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_string_url"/>
+      </line>
+      <line nr="24">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_fallback_honours_custom_colors_and_shape"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_prefers_its_stored_avatar_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_name_string_produces_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_string_url"/>
+      </line>
+      <line nr="29">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="34">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+      </line>
+      <line nr="42">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="47">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+      </line>
+      <line nr="52">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_flag_variants"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_email_string_with_gravatar_disabled_uses_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_model_name_built_from_first_and_last_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_name_string_produces_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+      </line>
+      <line nr="57">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_flag_variants"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_prefers_its_stored_avatar_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_string_url"/>
+      </line>
+      <line nr="62">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_flag_variants"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_fallback_honours_custom_colors_and_shape"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_email_string_with_all_strategies_disabled_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_model_with_no_usable_fields_falls_back"/>
+      </line>
+      <line nr="67">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_model_with_no_usable_fields_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_prefers_its_stored_avatar_url"/>
+      </line>
+      <line nr="72">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_flag_variants"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_email_string_with_all_strategies_disabled_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverDirectTest::test_email_string_with_gravatar_disabled_uses_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+      </line>
+      <line nr="77">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_flag_variants"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_name_string_produces_initials"/>
+      </line>
+      <line nr="82">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_flag_variants"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_string_url"/>
+      </line>
+      <line nr="90">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="91">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="92">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="93">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="94">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="95">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="96">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="98">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="99">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="100">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="101">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="102">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="104">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="105">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="106">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="116">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="117">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="118">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="119">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="120">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="121">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="122">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="123">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="124">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="130">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="107">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="97">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="103">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_describes_each_source_combination"/>
+      </line>
+      <line nr="115">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+      <line nr="125">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarDtosTest::test_avatar_resolution_source_and_method_flags"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\Avatar</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="8">
+        <token name="T_DOC_COMMENT"> * Immutable result of an avatar resolution operation.</token>
+      </line>
+      <line no="9">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="10">
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AvatarResolution</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IMPLEMENTS">implements</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_FULLY_QUALIFIED">\Stringable</token>
+      </line>
+      <line no="11">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="12">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT">     * @param array&lt;string, mixed&gt; $metadata</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="15">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">__construct</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="16">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$url</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="17">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$sourceType</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="18">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$method</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="19">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$metadata</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="20">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="21"/>
+      <line no="22">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="23">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="24">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">url</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="26"/>
+      <line no="27">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getSourceType</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="28">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sourceType</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="30">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="31"/>
+      <line no="32">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getMethod</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="33">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="36"/>
+      <line no="37">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="38">
+        <token name="T_DOC_COMMENT">     * @return array&lt;string, mixed&gt;</token>
+      </line>
+      <line no="39">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getMetadata</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="42">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">metadata</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="43">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="44"/>
+      <line no="45">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isGravatar</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'gravatar'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="49"/>
+      <line no="50">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isInitials</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'initials'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="53">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="54"/>
+      <line no="55">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="56">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'url'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="59"/>
+      <line no="60">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isFallback</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="61">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="62">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'fallback'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="63">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="64"/>
+      <line no="65">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isFromModel</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="66">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="67">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sourceType</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'model'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="68">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="69"/>
+      <line no="70">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isFromEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="71">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="72">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sourceType</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'email'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="73">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="74"/>
+      <line no="75">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isFromName</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="76">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="77">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sourceType</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'name'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="78">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="79"/>
+      <line no="80">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isFromCallback</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="81">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="82">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sourceType</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'callback'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="83">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="84"/>
+      <line no="85">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="86">
+        <token name="T_DOC_COMMENT">     * A human-readable description of how the avatar was resolved.</token>
+      </line>
+      <line no="87">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="88">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getDescription</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="89">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="90">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sourceType</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="91">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'model'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="92">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'url'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Stored avatar from model'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="93">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'gravatar'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Gravatar for model email'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="94">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'initials'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Initials avatar for model name'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="95">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'fallback'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Fallback initials avatar for model'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="96">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_DEFAULT">default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Avatar from model'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="97">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="98">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'email'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="99">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'gravatar'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Gravatar for email'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="100">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'initials'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Initials avatar for email'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="101">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'fallback'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Fallback initials avatar for email'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="102">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_DEFAULT">default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Avatar for email'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="103">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="104">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'name'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Initials avatar for name'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="105">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'callback'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Custom avatar from callback'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="106">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_DEFAULT">default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Avatar'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="107">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="108">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="109"/>
+      <line no="110">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="111">
+        <token name="T_DOC_COMMENT">     * @return array&lt;string, mixed&gt;</token>
+      </line>
+      <line no="112">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="113">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">toArray</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="114">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="115">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="116">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'url'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">url</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="117">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'source_type'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sourceType</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="118">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'method'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="119">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'metadata'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">metadata</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="120">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'description'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getDescription</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="121">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'is_gravatar'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isGravatar</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="122">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'is_initials'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isInitials</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="123">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'is_url'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="124">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'is_fallback'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isFallback</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="125">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="126">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="127"/>
+      <line no="128">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">__toString</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="129">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="130">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">url</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="131">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="132">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="133"/>
+    </source>
+  </file>
+</phpunit>

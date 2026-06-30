@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="Laranail.php" path="/Facades">
+    <totals>
+      <lines total="51" comments="34" code="17" executable="1" executed="1" percent="100.00"/>
+      <methods count="1" tested="1" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="1" percent="100.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Facades\Laranail" start="44" executable="1" executed="1" crap="1">
+      <namespace name="Simtabi\Laranail\Toolkit\Facades"/>
+      <method name="getFacadeAccessor" signature="getFacadeAccessor(): string" start="46" end="49" crap="1" executable="1" executed="1" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="48">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_and_toolkit_resolve_the_same_manager_and_services"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_the_newly_exposed_services"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_facade_fronts_each_module"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Facades</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Facades\Facade</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\ToolkitManager</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9"/>
+      <line no="10">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="11">
+        <token name="T_DOC_COMMENT"> * The familiar `Laranail` entry point, re-introduced as a clean alias.</token>
+      </line>
+      <line no="12">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT"> * This resolves the SAME {@see ToolkitManager} as the {@see Toolkit} facade &#x2014;</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT"> * one manager, two facade names &#x2014; so `Laranail::route()` is identical to</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT"> * `Toolkit::route()` with no duplicated logic. It is NOT the legacy 48-method</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT"> * service-locator; it exposes only the toolkit's typed module accessors.</token>
+      </line>
+      <line no="17">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface                    avatar()</token>
+      </line>
+      <line no="19">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface                gravatar()</token>
+      </line>
+      <line no="20">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService                           captcha()</token>
+      </line>
+      <line no="21">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface                archiver()</token>
+      </line>
+      <line no="22">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface                 route()</token>
+      </line>
+      <line no="23">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface            validation()</token>
+      </line>
+      <line no="24">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface               session()</token>
+      </line>
+      <line no="25">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface                  file()</token>
+      </line>
+      <line no="26">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface                system()</token>
+      </line>
+      <line no="27">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\ModelService                                    model()</token>
+      </line>
+      <line no="28">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface     http()</token>
+      </line>
+      <line no="29">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface auth()</token>
+      </line>
+      <line no="30">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface              cache()</token>
+      </line>
+      <line no="31">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface                log()</token>
+      </line>
+      <line no="32">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface                settings()</token>
+      </line>
+      <line no="33">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface           rateLimiter()</token>
+      </line>
+      <line no="34">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface             scheduler()</token>
+      </line>
+      <line no="35">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface                      atlas()</token>
+      </line>
+      <line no="36">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface                livewire()</token>
+      </line>
+      <line no="37">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Modules\Security\Token                                   token()</token>
+      </line>
+      <line no="38">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Modules\Security\Password                                password()</token>
+      </line>
+      <line no="39">
+        <token name="T_DOC_COMMENT"> * @method static \Simtabi\Laranail\Toolkit\Modules\Security\Passphrase                              passphrase()</token>
+      </line>
+      <line no="40">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="41">
+        <token name="T_DOC_COMMENT"> * @see ToolkitManager</token>
+      </line>
+      <line no="42">
+        <token name="T_DOC_COMMENT"> * @see Toolkit</token>
+      </line>
+      <line no="43">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="44">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Laranail</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXTENDS">extends</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Facade</token>
+      </line>
+      <line no="45">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getFacadeAccessor</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ToolkitManager</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_CLASS">class</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="50">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="51"/>
+    </source>
+  </file>
+</phpunit>

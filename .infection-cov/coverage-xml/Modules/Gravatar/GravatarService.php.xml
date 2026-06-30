@@ -1,0 +1,2631 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="GravatarService.php" path="/Modules/Gravatar">
+    <totals>
+      <lines total="224" comments="14" code="210" executable="60" executed="57" percent="95.00"/>
+      <methods count="23" tested="22" percent="95.65"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarService" start="15" executable="60" executed="57" crap="33">
+      <namespace name="Simtabi\Laranail\Toolkit\Modules\Gravatar"/>
+      <method name="setEmail" signature="setEmail(string $email): self" start="45" end="48" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="setSize" signature="setSize(int $size): self" start="50" end="53" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="setHttps" signature="setHttps(bool $https): self" start="55" end="58" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="setRating" signature="setRating(string $rating): self" start="60" end="71" crap="2" executable="6" executed="6" coverage="100"/>
+      <method name="setDefaultImage" signature="setDefaultImage(string $defaultImage): self" start="73" end="82" crap="2.86" executable="5" executed="2" coverage="40"/>
+      <method name="setForceDefault" signature="setForceDefault(bool $forceDefault): self" start="84" end="87" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="setCustomDefaultUrl" signature="setCustomDefaultUrl(?string $customUrl): self" start="89" end="96" crap="3" executable="3" executed="3" coverage="100"/>
+      <method name="getEmail" signature="getEmail(): ?string" start="98" end="101" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getSize" signature="getSize(): int" start="103" end="106" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isHttps" signature="isHttps(): bool" start="108" end="111" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getRating" signature="getRating(): string" start="113" end="116" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getDefaultImage" signature="getDefaultImage(): string" start="118" end="121" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isForceDefault" signature="isForceDefault(): bool" start="123" end="126" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getCustomDefaultUrl" signature="getCustomDefaultUrl(): ?string" start="128" end="131" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="availableRatings" signature="availableRatings(): array" start="134" end="137" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="availableDefaultImages" signature="availableDefaultImages(): array" start="140" end="143" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isValidEmail" signature="isValidEmail(string $email): bool" start="145" end="148" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="hashEmail" signature="hashEmail(string $email): string" start="150" end="153" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="generate" signature="generate(): string" start="155" end="172" crap="3" executable="10" executed="10" coverage="100"/>
+      <method name="resolve" signature="resolve(): Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarResolution" start="174" end="187" crap="1" executable="10" executed="10" coverage="100"/>
+      <method name="__toString" signature="__toString(): string" start="189" end="196" crap="2" executable="3" executed="3" coverage="100"/>
+      <method name="requireValidEmail" signature="requireValidEmail(): string" start="198" end="209" crap="4" executable="5" executed="5" coverage="100"/>
+      <method name="with" signature="with(callable $mutator): self" start="216" end="222" crap="1" executable="3" executed="3" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="47">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_the_builder_is_immutable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_requires_a_valid_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="52">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_size_is_clamped_to_gravatar_limits"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_the_builder_is_immutable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+      </line>
+      <line nr="57">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+      </line>
+      <line nr="62">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_invalid_rating_throws"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+      </line>
+      <line nr="64">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_invalid_rating_throws"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+      </line>
+      <line nr="65">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_invalid_rating_throws"/>
+      </line>
+      <line nr="66">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_invalid_rating_throws"/>
+      </line>
+      <line nr="70">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+      </line>
+      <line nr="75">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+      </line>
+      <line nr="81">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+      </line>
+      <line nr="86">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+      </line>
+      <line nr="91">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_rejects_invalid_urls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_accepts_null_to_clear"/>
+      </line>
+      <line nr="92">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_rejects_invalid_urls"/>
+      </line>
+      <line nr="95">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_accepts_null_to_clear"/>
+      </line>
+      <line nr="100">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_without_email_returns_bare_builder"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_the_builder_is_immutable"/>
+      </line>
+      <line nr="105">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_size_is_clamped_to_gravatar_limits"/>
+      </line>
+      <line nr="110">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+      </line>
+      <line nr="115">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+      </line>
+      <line nr="120">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+      </line>
+      <line nr="125">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+      </line>
+      <line nr="130">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_accepts_null_to_clear"/>
+      </line>
+      <line nr="136">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_rating_and_default_image_lists_are_exposed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_available_ratings_and_default_images_are_exposed"/>
+      </line>
+      <line nr="142">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_rating_and_default_image_lists_are_exposed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_available_ratings_and_default_images_are_exposed"/>
+      </line>
+      <line nr="147">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_has_gravatar_reflects_email_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_is_valid_email_validates_addresses"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_requires_a_valid_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="152">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_hashes_the_normalized_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="157">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_is_empty_when_email_missing"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_requires_a_valid_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="159">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="161">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="162">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="163">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="164">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="167">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="168">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+      </line>
+      <line nr="171">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="176">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+      <line nr="178">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+      <line nr="179">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+      <line nr="181">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+      <line nr="182">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+      <line nr="183">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+      <line nr="184">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+      <line nr="185">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+      <line nr="192">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_is_empty_when_email_missing"/>
+      </line>
+      <line nr="193">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_is_empty_when_email_missing"/>
+      </line>
+      <line nr="194">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_is_empty_when_email_missing"/>
+      </line>
+      <line nr="200">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_is_empty_when_email_missing"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_requires_a_valid_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="201">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_is_empty_when_email_missing"/>
+      </line>
+      <line nr="204">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_requires_a_valid_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="205">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_requires_a_valid_email"/>
+      </line>
+      <line nr="208">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="218">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_size_is_clamped_to_gravatar_limits"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_the_builder_is_immutable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_requires_a_valid_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_accepts_null_to_clear"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="219">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_size_is_clamped_to_gravatar_limits"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_the_builder_is_immutable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_requires_a_valid_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_accepts_null_to_clear"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="221">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_valid_rating_and_default_are_accepted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_size_is_clamped_to_gravatar_limits"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_the_builder_is_immutable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_requires_a_valid_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_accepts_null_to_clear"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="67">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_invalid_rating_throws"/>
+      </line>
+      <line nr="165">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_gravatar_facade_proxies_a_method_call"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_chains_into_a_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_uses_email_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_gravatar_fluent_builder_accepts_explicit_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_generate_with_gravatar_fallback_prefers_gravatar_when_email_present"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_resolves_an_email_string_to_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_url_returns_the_resolved_url_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceCoverageTest::test_get_avatar_cached_returns_resolution_and_caches_it"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_for_email_applies_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Avatar\AvatarServiceTest::test_get_gravatar_uses_email_extracted_from_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_generate_includes_size_rating_and_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_custom_default_url_overrides_the_default_image"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_to_string_returns_the_generated_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_it_defaults_to_https"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_http_base_url_is_used_when_https_disabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_force_default_adds_the_f_parameter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_data_services_and_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_result_builders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolutionContextTest::test_context_generates_gravatar_initials_and_custom"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_an_email_string_produces_a_gravatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_callable_returning_a_dto"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_cached_resolution_returns_the_same_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_get_avatar_url_returns_the_resolved_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Avatar\AvatarResolverTest::test_resolve_from_a_model_falls_back_to_gravatar_then_initials"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_get_avatar_falls_back_to_gravatar_when_no_stored_avatar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Traits\HasAvatarTest::test_gravatar_builds_a_url_from_the_email_attribute"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_url_contract_is_stable"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Regression\ParityTest::test_gravatar_defaults_to_https"/>
+      </line>
+      <line nr="180">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+      <line nr="186">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Gravatar\GravatarServiceTest::test_resolve_returns_a_structured_dto"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\Gravatar</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Str</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">InvalidArgumentException</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9"/>
+      <line no="10">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="11">
+        <token name="T_DOC_COMMENT"> * Fluent, immutable Gravatar URL builder.</token>
+      </line>
+      <line no="12">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT"> * Defaults to HTTPS. Every `set*` returns a fresh instance.</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="15">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GravatarService</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IMPLEMENTS">implements</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_FULLY_QUALIFIED">\Stringable</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GravatarServiceInterface</token>
+      </line>
+      <line no="16">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="17">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONST">const</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">HTTPS_BASE_URL</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'https://secure.gravatar.com/avatar/'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="18"/>
+      <line no="19">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONST">const</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">HTTP_BASE_URL</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'http://www.gravatar.com/avatar/'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="20"/>
+      <line no="21">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONST">const</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">MIN_SIZE</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="22"/>
+      <line no="23">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONST">const</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">MAX_SIZE</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">2048</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="24"/>
+      <line no="25">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** @var list&lt;string&gt; */</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONST">const</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AVAILABLE_RATINGS</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'g'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'pg'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'r'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'x'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="27"/>
+      <line no="28">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** @var list&lt;string&gt; */</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONST">const</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AVAILABLE_DEFAULTS</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'404'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'mp'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'identicon'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'monsterid'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'wavatar'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'retro'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'robohash'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'blank'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="30"/>
+      <line no="31">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="32"/>
+      <line no="33">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$size</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">200</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="34"/>
+      <line no="35">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$https</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="36"/>
+      <line no="37">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$rating</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'g'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="38"/>
+      <line no="39">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$defaultImage</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'monsterid'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="40"/>
+      <line no="41">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$forceDefault</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="42"/>
+      <line no="43">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$customDefaultUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="44"/>
+      <line no="45">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">setEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">self</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">email</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Str</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">lower</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">trim</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="49"/>
+      <line no="50">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">setSize</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$size</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">self</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">size</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">max</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">MIN_SIZE</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">min</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">MAX_SIZE</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">abs</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$size</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="53">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="54"/>
+      <line no="55">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">setHttps</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$https</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="56">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">self</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">https</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$https</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="59"/>
+      <line no="60">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">setRating</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$rating</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="61">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="62">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$rating</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Str</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">lower</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$rating</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="63"/>
+      <line no="64">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">in_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$rating</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">AVAILABLE_RATINGS</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="65">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="66">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">Invalid rating [</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$rating</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">]. Allowed: </token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">implode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">', '</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">AVAILABLE_RATINGS</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="67">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="68">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="69"/>
+      <line no="70">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">self</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">rating</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$rating</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="71">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="72"/>
+      <line no="73">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">setDefaultImage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$defaultImage</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="74">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="75">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">in_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$defaultImage</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">AVAILABLE_DEFAULTS</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="76">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="77">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">Invalid default image [</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$defaultImage</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">]. Allowed: </token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">implode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">', '</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">AVAILABLE_DEFAULTS</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="78">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="79">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="80"/>
+      <line no="81">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">self</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">defaultImage</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$defaultImage</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="82">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="83"/>
+      <line no="84">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">setForceDefault</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$forceDefault</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="85">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="86">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">self</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">forceDefault</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$forceDefault</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="87">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="88"/>
+      <line no="89">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">setCustomDefaultUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$customUrl</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="90">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="91">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$customUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">filter_var</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$customUrl</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FILTER_VALIDATE_URL</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="92">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">Invalid custom default URL [</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$customUrl</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">].</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="93">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="94"/>
+      <line no="95">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">self</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$c</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">customDefaultUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$customUrl</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="96">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="97"/>
+      <line no="98">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="99">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="100">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">email</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="101">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="102"/>
+      <line no="103">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getSize</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+      </line>
+      <line no="104">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="105">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">size</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="106">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="107"/>
+      <line no="108">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isHttps</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="109">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="110">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">https</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="111">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="112"/>
+      <line no="113">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getRating</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="114">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="115">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">rating</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="116">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="117"/>
+      <line no="118">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getDefaultImage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="119">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="120">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">defaultImage</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="121">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="122"/>
+      <line no="123">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isForceDefault</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="124">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="125">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">forceDefault</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="126">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="127"/>
+      <line no="128">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getCustomDefaultUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="129">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="130">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">customDefaultUrl</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="131">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="132"/>
+      <line no="133">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** @return list&lt;string&gt; */</token>
+      </line>
+      <line no="134">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">availableRatings</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="135">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="136">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">AVAILABLE_RATINGS</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="137">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="138"/>
+      <line no="139">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** @return list&lt;string&gt; */</token>
+      </line>
+      <line no="140">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">availableDefaultImages</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="141">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="142">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">AVAILABLE_DEFAULTS</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="143">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="144"/>
+      <line no="145">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isValidEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="146">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="147">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">filter_var</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FILTER_VALIDATE_EMAIL</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="148">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="149"/>
+      <line no="150">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">hashEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="151">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="152">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">md5</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Str</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">lower</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">trim</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="153">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="154"/>
+      <line no="155">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">generate</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="156">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="157">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">requireValidEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="158"/>
+      <line no="159">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$baseUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">https</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">HTTPS_BASE_URL</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">HTTP_BASE_URL</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="160"/>
+      <line no="161">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$params</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="162">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'s'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">size</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="163">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'r'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">rating</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="164">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'d'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">customDefaultUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">defaultImage</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="165">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="166"/>
+      <line no="167">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">forceDefault</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="168">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$params</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'f'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'y'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="169">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="170"/>
+      <line no="171">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$baseUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">hashEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'?'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">http_build_query</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$params</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="172">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="173"/>
+      <line no="174">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">resolve</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GravatarResolution</token>
+      </line>
+      <line no="175">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="176">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">requireValidEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="177"/>
+      <line no="178">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GravatarResolution</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="179">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">url</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">generate</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="180">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">email</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="181">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">hash</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">hashEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$email</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="182">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">size</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">size</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="183">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">isHttps</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">https</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="184">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">rating</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">rating</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="185">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">defaultImage</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">customDefaultUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">defaultImage</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="186">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="187">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="188"/>
+      <line no="189">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">__toString</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="190">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="191">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_TRY">try</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="192">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">generate</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="193">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CATCH">catch</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">InvalidArgumentException</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="194">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="195">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="196">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="197"/>
+      <line no="198">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">requireValidEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="199">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="200">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">email</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">email</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="201">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'An email is required to generate a Gravatar URL.'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="202">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="203"/>
+      <line no="204">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isValidEmail</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">email</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="205">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">Invalid email address [</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">email</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">].</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="206">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="207"/>
+      <line no="208">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">email</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="209">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="210"/>
+      <line no="211">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="212">
+        <token name="T_DOC_COMMENT">     * Return a mutated clone, keeping the builder immutable.</token>
+      </line>
+      <line no="213">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="214">
+        <token name="T_DOC_COMMENT">     * @param callable(self): mixed $mutator</token>
+      </line>
+      <line no="215">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="216">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$mutator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="217">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="218">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$clone</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CLONE">clone</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="219">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$mutator</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$clone</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="220"/>
+      <line no="221">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$clone</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="222">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="223">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="224"/>
+    </source>
+  </file>
+</phpunit>

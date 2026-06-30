@@ -1,0 +1,523 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="CollectionFilter.php" path="/Support">
+    <totals>
+      <lines total="47" comments="9" code="38" executable="16" executed="16" percent="100.00"/>
+      <methods count="1" tested="1" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="1" percent="100.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Support\CollectionFilter" start="10" executable="16" executed="16" crap="10">
+      <namespace name="Simtabi\Laranail\Toolkit\Support"/>
+      <method name="filter" signature="filter(Illuminate\Support\Collection $items, string $name, string $operator, $value)" start="20" end="45" crap="10" executable="16" executed="16" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="22">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_nested_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_handles_missing_data_gracefully"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_equals_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_equals_operator"/>
+      </line>
+      <line nr="23">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_nested_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_handles_missing_data_gracefully"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_equals_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_equals_operator"/>
+      </line>
+      <line nr="25">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_nested_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_handles_missing_data_gracefully"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_equals_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_equals_operator"/>
+      </line>
+      <line nr="26">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_nested_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_handles_missing_data_gracefully"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_equals_operator"/>
+      </line>
+      <line nr="29">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_equals_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+      </line>
+      <line nr="30">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_equals_operator"/>
+      </line>
+      <line nr="34">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+      </line>
+      <line nr="35">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+      </line>
+      <line nr="37">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+      </line>
+      <line nr="38">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+      </line>
+      <line nr="39">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+      </line>
+      <line nr="40">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+      </line>
+      <line nr="41">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+      </line>
+      <line nr="42">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+      </line>
+      <line nr="44">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_nested_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_handles_missing_data_gracefully"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_equals_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_equals_operator"/>
+      </line>
+      <line nr="43">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_returns_empty_collection_for_unknown_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_starts_with_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_filtering_is_case_insensitive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_not_contains_operator"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_ends_with_matches_when_the_needle_repeats_earlier"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_string_operators_tolerate_non_string_and_missing_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CollectionFilterTest::test_can_filter_by_ends_with_operator"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Support</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Collection</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Str</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9"/>
+      <line no="10">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">CollectionFilter</token>
+      </line>
+      <line no="11">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="12">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT">     * Filter a collection by a given key value pair.</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT">     * @param Collection&lt;array-key, mixed&gt; $items</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT">     * @param mixed                        $value</token>
+      </line>
+      <line no="17">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT">     * @return Collection&lt;array-key, mixed&gt;</token>
+      </line>
+      <line no="19">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="20">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">filter</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Collection</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$items</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$name</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$operator</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="21">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="22">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$items</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">filter</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$item</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$name</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$operator</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="23">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$actual</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">data_get</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$item</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$name</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="24"/>
+      <line no="25">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$operator</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'equals'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$actual</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_EQUAL">==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="27">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="28"/>
+      <line no="29">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$operator</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'not_equals'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="30">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$actual</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_EQUAL">!=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="31">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="32"/>
+      <line no="33">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_COMMENT">// String operators: compare case-insensitively, guarding non-scalars.</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$haystack</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_scalar</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$actual</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Str</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">lower</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$actual</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$needle</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_scalar</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Str</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">lower</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="36"/>
+      <line no="37">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$operator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="38">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'contains'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">str_contains</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$haystack</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$needle</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'not_contains'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">str_contains</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$haystack</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$needle</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'starts_with'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">str_starts_with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$haystack</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$needle</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'ends_with'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">str_ends_with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$haystack</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$needle</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="42">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_DEFAULT">default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="43">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="44">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="45">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="46">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="47"/>
+    </source>
+  </file>
+</phpunit>

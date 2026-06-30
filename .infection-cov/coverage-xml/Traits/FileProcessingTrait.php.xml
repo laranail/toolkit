@@ -1,0 +1,694 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="FileProcessingTrait.php" path="/Traits">
+    <totals>
+      <lines total="90" comments="23" code="67" executable="20" executed="20" percent="100.00"/>
+      <methods count="5" tested="5" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="0" tested="1" percent="0"/>
+      <traits count="1" tested="0" percent="0.00"/>
+    </totals>
+    <trait name="Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait" start="10" executable="20" executed="20" crap="8">
+      <namespace name="Simtabi\Laranail\Toolkit\Traits"/>
+      <method name="getFile" signature="getFile(string $filename, string $directory): string" start="17" end="29" crap="2" executable="6" executed="6" coverage="100"/>
+      <method name="uploadFile" signature="uploadFile(Illuminate\Http\UploadedFile $file, string $directory): string" start="34" end="47" crap="1" executable="5" executed="5" coverage="100"/>
+      <method name="uploadFiles" signature="uploadFiles(array $files, string $directory): array" start="56" end="65" crap="2" executable="4" executed="4" coverage="100"/>
+      <method name="deleteFile" signature="deleteFile(string $filename, string $directory): void" start="70" end="76" crap="1" executable="3" executed="3" coverage="100"/>
+      <method name="deleteFiles" signature="deleteFiles(array $filenames, string $directory): void" start="83" end="88" crap="2" executable="2" executed="2" coverage="100"/>
+    </trait>
+    <coverage>
+      <line nr="19">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+      </line>
+      <line nr="20">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+      </line>
+      <line nr="22">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+      </line>
+      <line nr="24">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+      </line>
+      <line nr="25">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+      </line>
+      <line nr="28">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+      </line>
+      <line nr="36">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+      </line>
+      <line nr="40">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+      </line>
+      <line nr="42">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+      </line>
+      <line nr="44">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+      </line>
+      <line nr="46">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+      </line>
+      <line nr="58">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_handles_empty_files_array"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+      </line>
+      <line nr="60">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_handles_empty_files_array"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+      </line>
+      <line nr="61">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+      </line>
+      <line nr="64">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_handles_empty_files_array"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+      </line>
+      <line nr="72">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+      </line>
+      <line nr="73">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+      </line>
+      <line nr="75">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+      </line>
+      <line nr="85">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_handles_empty_delete_files_array"/>
+      </line>
+      <line nr="86">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Traits</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Http\UploadedFile</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Facades\Storage</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9"/>
+      <line no="10">
+        <token name="T_TRAIT">trait</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FileProcessingTrait</token>
+      </line>
+      <line no="11">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="12">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FilePathGuard</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="13"/>
+      <line no="14">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT">     * Get file contents.</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="17">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getFile</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'uploads'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="18">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="19">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">assertSafePath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="20">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">assertSafePath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="21"/>
+      <line no="22">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$filePath</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="23"/>
+      <line no="24">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Storage</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">exists</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$filePath</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Storage</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">get</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$filePath</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="27"/>
+      <line no="28">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'File not found'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="30"/>
+      <line no="31">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="32">
+        <token name="T_DOC_COMMENT">     * Upload a file.</token>
+      </line>
+      <line no="33">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">uploadFile</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">UploadedFile</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'uploads'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="36">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">assertSafePath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="37"/>
+      <line no="38">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Use the original *basename* only so a malicious client-supplied</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// name with path segments cannot escape the target directory.</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$original</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">basename</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getClientOriginalName</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="41"/>
+      <line no="42">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">uniqid</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'_'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$original</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="43"/>
+      <line no="44">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">storeAs</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="45"/>
+      <line no="46">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="48"/>
+      <line no="49">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="50">
+        <token name="T_DOC_COMMENT">     * Upload multiple files.</token>
+      </line>
+      <line no="51">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="52">
+        <token name="T_DOC_COMMENT">     * @param array&lt;int, UploadedFile&gt; $files</token>
+      </line>
+      <line no="53">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="54">
+        <token name="T_DOC_COMMENT">     * @return array&lt;int, string&gt;</token>
+      </line>
+      <line no="55">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="56">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">uploadFiles</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$files</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'uploads'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$filenames</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="59"/>
+      <line no="60">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$files</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="61">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$filenames</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">uploadFile</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="62">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="63"/>
+      <line no="64">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$filenames</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="65">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="66"/>
+      <line no="67">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="68">
+        <token name="T_DOC_COMMENT">     * Delete a file.</token>
+      </line>
+      <line no="69">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="70">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">deleteFile</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'uploads'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="71">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="72">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">assertSafePath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="73">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">assertSafePath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="74"/>
+      <line no="75">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">Storage</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">delete</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="76">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="77"/>
+      <line no="78">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="79">
+        <token name="T_DOC_COMMENT">     * Delete multiple files.</token>
+      </line>
+      <line no="80">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="81">
+        <token name="T_DOC_COMMENT">     * @param array&lt;int, string&gt; $filenames</token>
+      </line>
+      <line no="82">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="83">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">deleteFiles</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$filenames</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'uploads'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="84">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="85">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$filenames</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="86">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">deleteFile</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$filename</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="87">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="88">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="89">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="90"/>
+    </source>
+  </file>
+</phpunit>

@@ -1,0 +1,843 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="SettingsStore.php" path="/Services">
+    <totals>
+      <lines total="97" comments="25" code="72" executable="19" executed="19" percent="100.00"/>
+      <methods count="8" tested="8" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="1" percent="100.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Services\SettingsStore" start="21" executable="19" executed="19" crap="10">
+      <namespace name="Simtabi\Laranail\Toolkit\Services"/>
+      <method name="__construct" signature="__construct(?Illuminate\Contracts\Filesystem\Filesystem $disk, ?string $path)" start="25" end="28" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="all" signature="all(): array" start="35" end="46" crap="3" executable="5" executed="5" coverage="100"/>
+      <method name="get" signature="get(string $key, mixed $default): mixed" start="51" end="54" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="has" signature="has(string $key): bool" start="56" end="59" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="set" signature="set(string $key, mixed $value): void" start="64" end="69" crap="1" executable="3" executed="3" coverage="100"/>
+      <method name="forget" signature="forget(string $key): void" start="74" end="79" crap="1" executable="3" executed="3" coverage="100"/>
+      <method name="persist" signature="persist(array $settings): void" start="84" end="90" crap="1" executable="4" executed="4" coverage="100"/>
+      <method name="disk" signature="disk(): Illuminate\Contracts\Filesystem\Filesystem" start="92" end="95" crap="1" executable="1" executed="1" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="27">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_the_newly_exposed_services"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_get_returns_default_for_missing_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_all_is_empty_before_anything_is_written"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_corrupt_store_degrades_to_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="37">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_get_returns_default_for_missing_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_all_is_empty_before_anything_is_written"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_corrupt_store_degrades_to_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="39">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_get_returns_default_for_missing_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_all_is_empty_before_anything_is_written"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_corrupt_store_degrades_to_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="40">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_get_returns_default_for_missing_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_all_is_empty_before_anything_is_written"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="43">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_corrupt_store_degrades_to_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="45">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_corrupt_store_degrades_to_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="53">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_get_returns_default_for_missing_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_corrupt_store_degrades_to_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="58">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+      </line>
+      <line nr="66">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="67">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="68">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="76">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+      </line>
+      <line nr="77">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+      </line>
+      <line nr="78">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+      </line>
+      <line nr="86">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="87">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="88">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="94">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_get_returns_default_for_missing_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_all_is_empty_before_anything_is_written"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_corrupt_store_degrades_to_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+      <line nr="89">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_forget_removes_a_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_uses_dot_notation_nesting"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_set_then_get_round_trips_and_persists"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_has_reflects_presence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SettingsStoreTest::test_overwrites_an_existing_value"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Services</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Contracts\Filesystem\Filesystem</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Arr</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Facades\Storage</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="10">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="11">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Support\Config</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ToolkitConfig</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="12"/>
+      <line no="13">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT"> * A small, typed runtime settings store backed by a single JSON file on a</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT"> * configured filesystem disk.</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="17">
+        <token name="T_DOC_COMMENT"> * This is a *dynamic* settings store (values that change at runtime and persist</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT"> * across requests) &#x2014; it is deliberately separate from Laravel's `config()` (the</token>
+      </line>
+      <line no="19">
+        <token name="T_DOC_COMMENT"> * static, deploy-time configuration). Keys use dot notation.</token>
+      </line>
+      <line no="20">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="21">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SettingsStore</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IMPLEMENTS">implements</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SettingsStoreInterface</token>
+      </line>
+      <line no="22">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="23">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="24"/>
+      <line no="25">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">__construct</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">Filesystem</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$disk</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="27">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">path</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ToolkitConfig</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">string</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'laranail.toolkit.settings.path'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'laranail/settings.json'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="28">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="29"/>
+      <line no="30">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="31">
+        <token name="T_DOC_COMMENT">     * All persisted settings.</token>
+      </line>
+      <line no="32">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="33">
+        <token name="T_DOC_COMMENT">     * @return array&lt;string, mixed&gt;</token>
+      </line>
+      <line no="34">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">all</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="36">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="37">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$disk</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">disk</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="38"/>
+      <line no="39">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$disk</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">exists</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">path</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="42"/>
+      <line no="43">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$decoded</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">json_decode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$disk</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">get</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">path</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="44"/>
+      <line no="45">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$decoded</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$decoded</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="47"/>
+      <line no="48">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="49">
+        <token name="T_DOC_COMMENT">     * Get a setting by dot-notation key.</token>
+      </line>
+      <line no="50">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">get</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">mixed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">mixed</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="53">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Arr</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">get</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">all</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="54">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="55"/>
+      <line no="56">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">has</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Arr</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">has</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">all</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="59">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="60"/>
+      <line no="61">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="62">
+        <token name="T_DOC_COMMENT">     * Set (or overwrite) a setting by dot-notation key and persist.</token>
+      </line>
+      <line no="63">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="64">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">set</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">mixed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="65">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="66">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$all</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">all</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="67">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">Arr</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">set</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$all</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="68">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">persist</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$all</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="69">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="70"/>
+      <line no="71">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="72">
+        <token name="T_DOC_COMMENT">     * Remove a setting by dot-notation key and persist.</token>
+      </line>
+      <line no="73">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="74">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">forget</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="75">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="76">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$all</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">all</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="77">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">Arr</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">forget</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$all</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="78">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">persist</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$all</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="79">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="80"/>
+      <line no="81">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="82">
+        <token name="T_DOC_COMMENT">     * @param array&lt;string, mixed&gt; $settings</token>
+      </line>
+      <line no="83">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="84">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">persist</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$settings</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="85">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="86">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">disk</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">put</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="87">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">path</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="88">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">json_encode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$settings</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JSON_PRETTY_PRINT</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_PIPE">|</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JSON_UNESCAPED_SLASHES</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_PIPE">|</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JSON_THROW_ON_ERROR</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="89">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="90">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="91"/>
+      <line no="92">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">disk</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Filesystem</token>
+      </line>
+      <line no="93">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="94">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">disk</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE_EQUAL">??=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Storage</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">disk</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">ToolkitConfig</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">string</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'laranail.toolkit.settings.disk'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'local'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="95">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="96">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="97"/>
+    </source>
+  </file>
+</phpunit>

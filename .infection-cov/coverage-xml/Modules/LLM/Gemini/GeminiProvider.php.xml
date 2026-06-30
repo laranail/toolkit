@@ -1,0 +1,1741 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="GeminiProvider.php" path="/Modules/LLM/Gemini">
+    <totals>
+      <lines total="164" comments="12" code="152" executable="72" executed="56" percent="77.78"/>
+      <methods count="3" tested="1" percent="33.33"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiProvider" start="13" executable="72" executed="56" crap="33.42">
+      <namespace name="Simtabi\Laranail\Toolkit\Modules\LLM\Gemini"/>
+      <method name="__construct" signature="__construct(string $apiKey, int $maxRetries, int $retryDelay, string $baseUrl)" start="19" end="26" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="generateResponse" signature="generateResponse(string $modelName, array $messages, ?float $temperature, ?int $maxTokens, ?array $stop, ?float $topP, ?float $frequencyPenalty, ?float $presencePenalty, ?array $logitBias, ?string $user, ?bool $jsonMode, bool $fullResponse): Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiResponse" start="28" end="119" crap="27.67" executable="52" executed="37" coverage="71.153846153846"/>
+      <method name="mapMessages" signature="mapMessages(array $messages): array" start="129" end="162" crap="6.01" executable="19" executed="18" coverage="94.736842105263"/>
+    </class>
+    <coverage>
+      <line nr="25">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_llm_binding_selects_gemini_when_configured"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_invalid_base_url_scheme_is_rejected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="43">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="45">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="47">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="48">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="51">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="54">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="57">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="60">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="61">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+      </line>
+      <line nr="64">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="65">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="66">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+      </line>
+      <line nr="68">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="69">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+      </line>
+      <line nr="72">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="74">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="75">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="76">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="77">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="82">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="95">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="96">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="98">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="99">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="100">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="101">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="102">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="103">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="104">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="109">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="111">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="113">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="115">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="116">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="118">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="131">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="133">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="135">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="136">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="137">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="138">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="140">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="141">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+      </line>
+      <line nr="143">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+      </line>
+      <line nr="147">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="151">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="152">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="153">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="157">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="158">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="159">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+      </line>
+      <line nr="161">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="114">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="117">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="154">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\LLM\Gemini</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Http\Client\ConnectionException</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Facades\Http</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="10">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="11">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\LLM\RetriesHttpRequests</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="12"/>
+      <line no="13">
+        <token name="T_FINAL">final</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GeminiProvider</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IMPLEMENTS">implements</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">LLMProviderInterface</token>
+      </line>
+      <line no="14">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="15">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">RetriesHttpRequests</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="16"/>
+      <line no="17">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$baseUrl</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="18"/>
+      <line no="19">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">__construct</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="20">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$apiKey</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="21">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$maxRetries</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">3</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="22">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$retryDelay</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">2</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="23">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$baseUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'https://generativelanguage.googleapis.com/v1beta'</token>
+      </line>
+      <line no="24">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">baseUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sanitizeBaseUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$baseUrl</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="27"/>
+      <line no="28">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">generateResponse</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$modelName</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="30">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$messages</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="31">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">float</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$temperature</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="32">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$maxTokens</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="33">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$stop</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">float</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$topP</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">float</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$frequencyPenalty</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="36">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">float</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$presencePenalty</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="37">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$logitBias</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="38">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$jsonMode</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$fullResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GeminiResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="42">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Auth via header, never as a query param (which would leak into logs/proxies).</token>
+      </line>
+      <line no="43">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$endpoint</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">baseUrl</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/models/'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$modelName</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">':generateContent'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="44"/>
+      <line no="45">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$contents</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$systemInstruction</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">mapMessages</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$messages</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="46"/>
+      <line no="47">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$generationConfig</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$temperature</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$generationConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'temperature'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$temperature</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$maxTokens</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$generationConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'maxOutputTokens'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$maxTokens</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="53">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="54">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$topP</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="55">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$generationConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'topP'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$topP</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="56">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$stop</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$generationConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'stopSequences'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$stop</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="59">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="60">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$jsonMode</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="61">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$generationConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'responseMimeType'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'application/json'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="62">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="63"/>
+      <line no="64">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'contents'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$contents</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="65">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$systemInstruction</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="66">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'systemInstruction'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$systemInstruction</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="67">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="68">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_EMPTY">empty</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$generationConfig</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="69">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'generationConfig'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$generationConfig</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="70">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="71"/>
+      <line no="72">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">executeWithRetry</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$endpoint</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$fullResponse</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$modelName</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="73">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_TRY">try</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="74">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Http</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">withHeaders</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="75">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Content-Type'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'application/json'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="76">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'x-goog-api-key'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">apiKey</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="77">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">post</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$endpoint</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="78">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CATCH">catch</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">ConnectionException</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="79">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">LLMRequestException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Gemini API connection failed: '</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">retryable</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">previous</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="80">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="81"/>
+      <line no="82">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">successful</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="83">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">status</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="84">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$body</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">json</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="85">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$errorMessage</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$body</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">data_get</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$body</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'error.message'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="86">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$message</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_string</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$errorMessage</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$errorMessage</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Gemini API request failed'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="87"/>
+      <line no="88">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">LLMRequestException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="89">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">Gemini API request failed (HTTP </token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">): </token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$message</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="90">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_STRING">retryable</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isRetryableStatus</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="91">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_STRING">status</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="92">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="93">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="94"/>
+      <line no="95">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">json</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="96">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="97"/>
+      <line no="98">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$text</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="99">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$parts</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">data_get</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'candidates.0.content.parts'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="100">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_iterable</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$parts</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="101">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$parts</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$part</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="102">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_VARIABLE">$partText</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$part</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$part</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'text'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="103">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_string</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$partText</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="104">
+        <token name="T_WHITESPACE">                        </token>
+        <token name="T_VARIABLE">$text</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONCAT_EQUAL">.=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$partText</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="105">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="106">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="107">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="108"/>
+      <line no="109">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$usage</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'usageMetadata'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="110"/>
+      <line no="111">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GeminiResponse</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="112">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_COMMENT">// Gemini does not echo the model; report the requested model.</token>
+      </line>
+      <line no="113">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">content</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$text</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="114">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">model</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$modelName</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="115">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">usage</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OBJECT_CAST">(object)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$usage</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$usage</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="116">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">rawResponse</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$fullResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OBJECT_CAST">(object)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+      </line>
+      <line no="117">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="118">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Gemini'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="119">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="120"/>
+      <line no="121">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="122">
+        <token name="T_DOC_COMMENT">     * Map chat messages to Gemini `contents`, hoisting any system messages into</token>
+      </line>
+      <line no="123">
+        <token name="T_DOC_COMMENT">     * a `systemInstruction` payload (Gemini only accepts user/model roles).</token>
+      </line>
+      <line no="124">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="125">
+        <token name="T_DOC_COMMENT">     * @param array&lt;int, array&lt;string, mixed&gt;&gt; $messages</token>
+      </line>
+      <line no="126">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="127">
+        <token name="T_DOC_COMMENT">     * @return array{0: array&lt;int, array&lt;string, mixed&gt;&gt;, 1: array&lt;string, mixed&gt;|null}</token>
+      </line>
+      <line no="128">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="129">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">mapMessages</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$messages</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="130">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="131">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$contents</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="132">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_DOC_COMMENT">/** @var list&lt;string&gt; $system */</token>
+      </line>
+      <line no="133">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$system</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="134"/>
+      <line no="135">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$messages</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$message</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="136">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$message</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'role'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'user'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="137">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$rawText</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$message</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'content'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="138">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$text</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_string</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$rawText</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$rawText</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="139"/>
+      <line no="140">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'system'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="141">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$system</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$text</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="142"/>
+      <line no="143">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONTINUE">continue</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="144">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="145"/>
+      <line no="146">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_COMMENT">// Gemini uses 'user' and 'model' roles.</token>
+      </line>
+      <line no="147">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'assistant'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="148">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'model'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="149">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="150"/>
+      <line no="151">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$contents</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="152">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'role'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="153">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'parts'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'text'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$text</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="154">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="155">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="156"/>
+      <line no="157">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$systemInstruction</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$system</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+      </line>
+      <line no="158">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+      </line>
+      <line no="159">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'parts'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'text'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">implode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">"\n"</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$system</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="160"/>
+      <line no="161">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$contents</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$systemInstruction</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="162">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="163">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="164"/>
+    </source>
+  </file>
+</phpunit>

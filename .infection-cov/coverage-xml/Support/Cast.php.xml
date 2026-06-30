@@ -1,0 +1,766 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="Cast.php" path="/Support">
+    <totals>
+      <lines total="62" comments="9" code="53" executable="16" executed="16" percent="100.00"/>
+      <methods count="4" tested="4" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="1" percent="100.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Support\Cast" start="16" executable="16" executed="16" crap="15">
+      <namespace name="Simtabi\Laranail\Toolkit\Support"/>
+      <method name="toString" signature="toString(mixed $value, string $default): string" start="18" end="33" crap="6" executable="7" executed="7" coverage="100"/>
+      <method name="toInt" signature="toInt(mixed $value, int $default): int" start="35" end="42" crap="3" executable="3" executed="3" coverage="100"/>
+      <method name="toFloat" signature="toFloat(mixed $value, float $default): float" start="44" end="51" crap="4" executable="3" executed="3" coverage="100"/>
+      <method name="toBool" signature="toBool(mixed $value, bool $default): bool" start="53" end="60" crap="2" executable="3" executed="3" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="20">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Atlas\AtlasServiceProviderTest::test_default_label_config_drives_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\CaptchaServiceTest::test_service_resolves_from_the_container"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_and_toolkit_resolve_the_same_manager_and_services"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_captcha_facade_resolves_its_root"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_auth_atlas_and_livewire"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_each_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_facade_fronts_each_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_string_narrows_scalars_and_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\LaranailExceptionTest::test_from_array_folds_unknown_keys_into_meta"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\LaranailExceptionTest::test_from_array_defaults_message"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperStringsTest::test_escape_html_escapes_strings_and_joins_arrays"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroBehaviorExtraTest::test_collection_sum_average_and_csv"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG6aBehaviorTest::test_str_highlight_words"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG6aBehaviorTest::test_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG8BehaviorTest::test_sort_search_results_reindexes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG8BehaviorTest::test_sort_search_results_orders_by_relevance"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\RestoredMacroBehaviorTest::test_interpolate_replaces_named_placeholders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\RestoredMacroBehaviorTest::test_interpolate_replaces_longest_key_first"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\StringSimilarityMacrosTest::test_closest_match"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_action_mismatch_fails"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_action_match_succeeds"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Security\HighlightWordsEscapingTest::test_html_in_search_term_does_not_inject_markup"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Security\HighlightWordsEscapingTest::test_script_payload_in_text_is_escaped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Security\HighlightWordsEscapingTest::test_quotes_and_ampersands_are_escaped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Security\HighlightWordsEscapingTest::test_empty_terms_still_escape_the_text"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\AuthenticationContextServiceTest::test_guard_argument_overrides_the_default_guard"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\ErrorStorageServiceTest::test_get_first_error_unwraps_nested_arrays"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\ErrorStorageServiceTest::test_get_first_error_returns_scalar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SessionServiceTest::test_exists_in_filter_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SessionServiceTest::test_remove_from_filter_key_rebuilds_or_nulls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SessionServiceTest::test_save_javascript_cookies_persists_session_and_queues_cookie"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\AuthHelperTest::test_authenticated_user_is_exposed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\AuthHelperTest::test_username_falls_back_to_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasErrorStorageTest::test_trait_delegates_to_a_single_memoised_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\CrudControllerTest::test_like_wildcards_in_search_are_escaped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasAvailableLocalesTest::test_available_locales_filters_by_lang_directories"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasAvailableLocalesTest::test_available_locales_skips_vendor_directory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_it_binds_the_interface_and_alias"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_languages_and_locales_have_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continents_has_seven_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_timezones_is_non_empty_and_includes_known_zone"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_returns_code_to_label_keyed_by_iso2"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_can_key_by_iso3_and_use_official_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_falls_back_to_name_for_unknown_label"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_is_non_empty_and_has_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_resolves_by_iso2_and_iso3_case_insensitively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_returns_null_for_unknown_or_blank_codes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_results_are_cached_between_calls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_currencies_is_non_empty_and_includes_usd"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continent_for_country_resolves_by_iso2_and_iso3"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_by_continent_groups_every_continent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_facade_exposes_the_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_regions_and_subregions_are_sorted_and_non_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_in_continent_accepts_code_or_name_case_insensitively"/>
+      </line>
+      <line nr="21">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Atlas\AtlasServiceProviderTest::test_default_label_config_drives_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\CaptchaServiceTest::test_service_resolves_from_the_container"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_and_toolkit_resolve_the_same_manager_and_services"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_captcha_facade_resolves_its_root"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_auth_atlas_and_livewire"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_each_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_facade_fronts_each_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_string_narrows_scalars_and_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\LaranailExceptionTest::test_from_array_folds_unknown_keys_into_meta"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\LaranailExceptionTest::test_from_array_defaults_message"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperStringsTest::test_escape_html_escapes_strings_and_joins_arrays"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroBehaviorExtraTest::test_collection_sum_average_and_csv"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG6aBehaviorTest::test_str_highlight_words"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG6aBehaviorTest::test_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG8BehaviorTest::test_sort_search_results_reindexes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG8BehaviorTest::test_sort_search_results_orders_by_relevance"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\RestoredMacroBehaviorTest::test_interpolate_replaces_named_placeholders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\RestoredMacroBehaviorTest::test_interpolate_replaces_longest_key_first"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\StringSimilarityMacrosTest::test_closest_match"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_action_mismatch_fails"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_action_match_succeeds"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Security\HighlightWordsEscapingTest::test_html_in_search_term_does_not_inject_markup"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Security\HighlightWordsEscapingTest::test_script_payload_in_text_is_escaped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Security\HighlightWordsEscapingTest::test_quotes_and_ampersands_are_escaped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Security\HighlightWordsEscapingTest::test_empty_terms_still_escape_the_text"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\AuthenticationContextServiceTest::test_guard_argument_overrides_the_default_guard"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\ErrorStorageServiceTest::test_get_first_error_unwraps_nested_arrays"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\ErrorStorageServiceTest::test_get_first_error_returns_scalar"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SessionServiceTest::test_exists_in_filter_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SessionServiceTest::test_remove_from_filter_key_rebuilds_or_nulls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\SessionServiceTest::test_save_javascript_cookies_persists_session_and_queues_cookie"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\AuthHelperTest::test_authenticated_user_is_exposed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\AuthHelperTest::test_username_falls_back_to_email"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasErrorStorageTest::test_trait_delegates_to_a_single_memoised_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\CrudControllerTest::test_like_wildcards_in_search_are_escaped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasAvailableLocalesTest::test_available_locales_filters_by_lang_directories"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasAvailableLocalesTest::test_available_locales_skips_vendor_directory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_it_binds_the_interface_and_alias"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_languages_and_locales_have_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continents_has_seven_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_timezones_is_non_empty_and_includes_known_zone"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_returns_code_to_label_keyed_by_iso2"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_can_key_by_iso3_and_use_official_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_falls_back_to_name_for_unknown_label"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_is_non_empty_and_has_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_resolves_by_iso2_and_iso3_case_insensitively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_returns_null_for_unknown_or_blank_codes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_results_are_cached_between_calls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_currencies_is_non_empty_and_includes_usd"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continent_for_country_resolves_by_iso2_and_iso3"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_by_continent_groups_every_continent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_facade_exposes_the_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_regions_and_subregions_are_sorted_and_non_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_in_continent_accepts_code_or_name_case_insensitively"/>
+      </line>
+      <line nr="24">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Atlas\AtlasServiceProviderTest::test_default_label_config_drives_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_string_narrows_scalars_and_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG6aBehaviorTest::test_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\RestoredMacroBehaviorTest::test_interpolate_replaces_named_placeholders"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_returns_code_to_label_keyed_by_iso2"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_can_key_by_iso3_and_use_official_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_falls_back_to_name_for_unknown_label"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_is_non_empty_and_has_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_resolves_by_iso2_and_iso3_case_insensitively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_returns_null_for_unknown_or_blank_codes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_results_are_cached_between_calls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continent_for_country_resolves_by_iso2_and_iso3"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_by_continent_groups_every_continent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_facade_exposes_the_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_regions_and_subregions_are_sorted_and_non_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_in_continent_accepts_code_or_name_case_insensitively"/>
+      </line>
+      <line nr="25">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_string_narrows_scalars_and_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\MacroG6aBehaviorTest::test_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros\RestoredMacroBehaviorTest::test_interpolate_replaces_named_placeholders"/>
+      </line>
+      <line nr="28">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Atlas\AtlasServiceProviderTest::test_default_label_config_drives_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_string_narrows_scalars_and_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_returns_code_to_label_keyed_by_iso2"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_can_key_by_iso3_and_use_official_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_falls_back_to_name_for_unknown_label"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_is_non_empty_and_has_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_resolves_by_iso2_and_iso3_case_insensitively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_returns_null_for_unknown_or_blank_codes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_results_are_cached_between_calls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continent_for_country_resolves_by_iso2_and_iso3"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_by_continent_groups_every_continent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_facade_exposes_the_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_regions_and_subregions_are_sorted_and_non_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_in_continent_accepts_code_or_name_case_insensitively"/>
+      </line>
+      <line nr="29">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Atlas\AtlasServiceProviderTest::test_default_label_config_drives_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_string_narrows_scalars_and_falls_back"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_returns_code_to_label_keyed_by_iso2"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_can_key_by_iso3_and_use_official_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_falls_back_to_name_for_unknown_label"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_is_non_empty_and_has_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_resolves_by_iso2_and_iso3_case_insensitively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_returns_null_for_unknown_or_blank_codes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_results_are_cached_between_calls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continent_for_country_resolves_by_iso2_and_iso3"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_by_continent_groups_every_continent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_facade_exposes_the_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_regions_and_subregions_are_sorted_and_non_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_in_continent_accepts_code_or_name_case_insensitively"/>
+      </line>
+      <line nr="32">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_string_narrows_scalars_and_falls_back"/>
+      </line>
+      <line nr="37">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Atlas\AtlasServiceProviderTest::test_default_label_config_drives_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_and_toolkit_resolve_the_same_manager_and_services"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_auth_atlas_and_livewire"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_each_cross_cutting_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_facade_fronts_each_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_defaults_are_seeded_from_the_toolkit_http_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_falls_back_to_sane_defaults_when_config_is_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_fluent_setters_override_and_build_the_guzzle_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_int_accepts_numeric_strings_only"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\LaranailExceptionTest::test_from_array_folds_unknown_keys_into_meta"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\LaranailExceptionTest::test_from_array_defaults_message"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\RateLimiterServiceTest::test_can_hit_rate_limiter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\RateLimiterServiceTest::test_can_get_attempts_count"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\RateLimiterServiceTest::test_can_clear_attempts"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasGuzzleConfigTest::test_trait_resolves_the_http_configuration_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasGuzzleConfigTest::test_resolved_service_builds_a_guzzle_config_array"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\CrudControllerTest::test_like_wildcards_in_search_are_escaped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\CrudControllerTest::test_unwhitelisted_sort_by_is_ignored"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\CrudControllerTest::test_per_page_is_clamped_to_max"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasAvailableLocalesTest::test_available_locales_filters_by_lang_directories"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasAvailableLocalesTest::test_available_locales_skips_vendor_directory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_it_binds_the_interface_and_alias"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_languages_and_locales_have_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continents_has_seven_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_timezones_is_non_empty_and_includes_known_zone"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_returns_code_to_label_keyed_by_iso2"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_can_key_by_iso3_and_use_official_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_falls_back_to_name_for_unknown_label"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_is_non_empty_and_has_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_resolves_by_iso2_and_iso3_case_insensitively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_returns_null_for_unknown_or_blank_codes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_results_are_cached_between_calls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_currencies_is_non_empty_and_includes_usd"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continent_for_country_resolves_by_iso2_and_iso3"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_by_continent_groups_every_continent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_facade_exposes_the_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_regions_and_subregions_are_sorted_and_non_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_in_continent_accepts_code_or_name_case_insensitively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\ValidationServiceTest::test_old_input_can_coerce_to_bool"/>
+      </line>
+      <line nr="38">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Atlas\AtlasServiceProviderTest::test_default_label_config_drives_for_select_box"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_and_toolkit_resolve_the_same_manager_and_services"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_auth_atlas_and_livewire"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_each_cross_cutting_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_laranail_facade_fronts_each_module"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_defaults_are_seeded_from_the_toolkit_http_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_falls_back_to_sane_defaults_when_config_is_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_fluent_setters_override_and_build_the_guzzle_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_int_accepts_numeric_strings_only"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\LaranailExceptionTest::test_from_array_folds_unknown_keys_into_meta"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\LaranailExceptionTest::test_from_array_defaults_message"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\RateLimiterServiceTest::test_can_hit_rate_limiter"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\RateLimiterServiceTest::test_can_get_attempts_count"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\RateLimiterServiceTest::test_can_clear_attempts"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasGuzzleConfigTest::test_trait_resolves_the_http_configuration_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasGuzzleConfigTest::test_resolved_service_builds_a_guzzle_config_array"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\CrudControllerTest::test_like_wildcards_in_search_are_escaped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\CrudControllerTest::test_unwhitelisted_sort_by_is_ignored"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\CrudControllerTest::test_per_page_is_clamped_to_max"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasAvailableLocalesTest::test_available_locales_filters_by_lang_directories"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasAvailableLocalesTest::test_available_locales_skips_vendor_directory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_it_binds_the_interface_and_alias"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_languages_and_locales_have_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continents_has_seven_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_timezones_is_non_empty_and_includes_known_zone"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_returns_code_to_label_keyed_by_iso2"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_can_key_by_iso3_and_use_official_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_for_select_box_falls_back_to_name_for_unknown_label"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_is_non_empty_and_has_a_known_entry"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_resolves_by_iso2_and_iso3_case_insensitively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_country_returns_null_for_unknown_or_blank_codes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_results_are_cached_between_calls"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_currencies_is_non_empty_and_includes_usd"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_continent_for_country_resolves_by_iso2_and_iso3"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_by_continent_groups_every_continent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_facade_exposes_the_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_regions_and_subregions_are_sorted_and_non_empty"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Atlas\AtlasServiceTest::test_countries_in_continent_accepts_code_or_name_case_insensitively"/>
+      </line>
+      <line nr="41">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_int_accepts_numeric_strings_only"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\ValidationServiceTest::test_old_input_can_coerce_to_bool"/>
+      </line>
+      <line nr="46">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_float_accepts_numeric_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_action_mismatch_fails"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_score_at_or_above_threshold_succeeds"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_score_below_threshold_fails"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_action_match_succeeds"/>
+      </line>
+      <line nr="47">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_float_accepts_numeric_values"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_action_mismatch_fails"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_score_at_or_above_threshold_succeeds"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_score_below_threshold_fails"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Captcha\RecaptchaProviderTest::test_v3_action_match_succeeds"/>
+      </line>
+      <line nr="50">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_float_accepts_numeric_values"/>
+      </line>
+      <line nr="55">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_each_cross_cutting_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_defaults_are_seeded_from_the_toolkit_http_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_falls_back_to_sane_defaults_when_config_is_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_fluent_setters_override_and_build_the_guzzle_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_bool_falls_back_on_unrecognised_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_bool_uses_filter_var_semantics"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasGuzzleConfigTest::test_trait_resolves_the_http_configuration_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasGuzzleConfigTest::test_resolved_service_builds_a_guzzle_config_array"/>
+      </line>
+      <line nr="56">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_toolkit_facade_fronts_each_cross_cutting_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_defaults_are_seeded_from_the_toolkit_http_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_falls_back_to_sane_defaults_when_config_is_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Services\HttpConfigurationServiceTest::test_fluent_setters_override_and_build_the_guzzle_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_bool_uses_filter_var_semantics"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasGuzzleConfigTest::test_trait_resolves_the_http_configuration_service"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\HasGuzzleConfigTest::test_resolved_service_builds_a_guzzle_config_array"/>
+      </line>
+      <line nr="59">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_bool_falls_back_on_unrecognised_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\CastTest::test_to_bool_uses_filter_var_semantics"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Support</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="8">
+        <token name="T_DOC_COMMENT"> * Safe scalar coercion helpers for `mixed` values.</token>
+      </line>
+      <line no="9">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="10">
+        <token name="T_DOC_COMMENT"> * Many call sites read loosely-typed values (config repositories, request</token>
+      </line>
+      <line no="11">
+        <token name="T_DOC_COMMENT"> * input, session data, decoded JSON) that PHPStan widens to `mixed`. Casting</token>
+      </line>
+      <line no="12">
+        <token name="T_DOC_COMMENT"> * `mixed` directly is rejected under strict analysis; these helpers narrow the</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT"> * value first and fall back to a supplied default when it is of an unusable</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT"> * type, centralising the narrowing instead of repeating it at every site.</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="16">
+        <token name="T_FINAL">final</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Cast</token>
+      </line>
+      <line no="17">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="18">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">toString</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">mixed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="19">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="20">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_string</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="21">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="22">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="23"/>
+      <line no="24">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_int</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_float</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="27"/>
+      <line no="28">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_bool</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'1'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'0'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="30">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="31"/>
+      <line no="32">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="33">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="34"/>
+      <line no="35">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">toInt</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">mixed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">0</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+      </line>
+      <line no="36">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="37">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_int</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="38">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="40"/>
+      <line no="41">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_numeric</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_INT_CAST">(int)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="42">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="43"/>
+      <line no="44">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">toFloat</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">mixed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">float</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DNUMBER">0.0</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">float</token>
+      </line>
+      <line no="45">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_float</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_int</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_CAST">(float)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="49"/>
+      <line no="50">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_numeric</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_CAST">(float)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="52"/>
+      <line no="53">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">toBool</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">mixed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="54">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="55">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_bool</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="56">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="58"/>
+      <line no="59">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">filter_var</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FILTER_VALIDATE_BOOLEAN</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FILTER_NULL_ON_FAILURE</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="60">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="61">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="62"/>
+    </source>
+  </file>
+</phpunit>

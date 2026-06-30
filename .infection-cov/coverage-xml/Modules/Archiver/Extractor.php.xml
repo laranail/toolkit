@@ -1,0 +1,631 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="Extractor.php" path="/Modules/Archiver">
+    <totals>
+      <lines total="73" comments="7" code="66" executable="19" executed="12" percent="63.16"/>
+      <methods count="4" tested="0" percent="0.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Modules\Archiver\Extractor" start="11" executable="19" executed="12" crap="19.2">
+      <namespace name="Simtabi\Laranail\Toolkit\Modules\Archiver"/>
+      <method name="extract" signature="extract(string $pathToArchive, string $pathToDirectory): void" start="21" end="21" crap="0" executable="0" executed="0" coverage="100"/>
+      <method name="setLimits" signature="setLimits(int $maxEntries, int $maxTotalBytes): static" start="23" end="29" crap="2" executable="3" executed="0" coverage="0"/>
+      <method name="assertWithinLimits" signature="assertWithinLimits(int $entryCount, int $totalBytes): void" start="31" end="36" crap="4.12" executable="2" executed="1" coverage="50"/>
+      <method name="ensureDestination" signature="ensureDestination(string $directory): void" start="38" end="43" crap="6.00" executable="2" executed="1" coverage="50"/>
+      <method name="validatePharEntries" signature="validatePharEntries(PharData $phar, string $destination): void" start="49" end="71" crap="4.07" executable="12" executed="10" coverage="83.333333333333"/>
+    </class>
+    <coverage>
+      <line nr="33">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+      </line>
+      <line nr="40">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+      </line>
+      <line nr="51">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+      <line nr="52">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+      <line nr="53">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+      <line nr="55">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+      <line nr="56">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+      <line nr="60">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+      <line nr="62">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+      <line nr="64">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+      <line nr="68">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+      <line nr="69">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\Archiver</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">PharData</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">RecursiveIteratorIterator</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SplFileInfo</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="10"/>
+      <line no="11">
+        <token name="T_ABSTRACT">abstract</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Extractor</token>
+      </line>
+      <line no="12">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="13">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GuardsArchivePaths</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="14"/>
+      <line no="15">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** Maximum number of entries permitted in an archive (zip-bomb guard). */</token>
+      </line>
+      <line no="16">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$maxEntries</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">10_000</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="17"/>
+      <line no="18">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** Maximum total uncompressed size permitted, in bytes (zip-bomb guard). */</token>
+      </line>
+      <line no="19">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$maxTotalBytes</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">1_073_741_824</token>
+        <token name="T_SEMICOLON">;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COMMENT">// 1 GiB</token>
+      </line>
+      <line no="20"/>
+      <line no="21">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_ABSTRACT">abstract</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">extract</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$pathToArchive</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$pathToDirectory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="22"/>
+      <line no="23">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">setLimits</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$maxEntries</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$maxTotalBytes</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+      </line>
+      <line no="24">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">maxEntries</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$maxEntries</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">maxTotalBytes</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$maxTotalBytes</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="27"/>
+      <line no="28">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="30"/>
+      <line no="31">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">assertWithinLimits</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$entryCount</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$totalBytes</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="32">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="33">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$entryCount</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_GT">&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">maxEntries</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$totalBytes</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_GT">&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">maxTotalBytes</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ArchiveException</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">tooLarge</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="36">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="37"/>
+      <line no="38">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ensureDestination</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">is_dir</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_AT">@</token>
+        <token name="T_STRING">mkdir</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">0755</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">is_dir</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ArchiveException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">Unable to create destination directory [</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$directory</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">].</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="42">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="43">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="44"/>
+      <line no="45">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="46">
+        <token name="T_DOC_COMMENT">     * Validate every entry of a (possibly compressed) tar before extraction:</token>
+      </line>
+      <line no="47">
+        <token name="T_DOC_COMMENT">     * reject path traversal, symlinks, and bomb-sized archives.</token>
+      </line>
+      <line no="48">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">validatePharEntries</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">PharData</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$phar</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$destination</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$iterator</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">RecursiveIteratorIterator</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$phar</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$count</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">0</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="53">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$total</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">0</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="54"/>
+      <line no="55">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$iterator</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="56">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_INSTANCEOF">instanceof</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SplFileInfo</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONTINUE">continue</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="59"/>
+      <line no="60">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$relative</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$iterator</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getSubPathName</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="61"/>
+      <line no="62">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">assertWithinDestination</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$destination</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$relative</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="63"/>
+      <line no="64">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isLink</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="65">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ArchiveException</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">unsafeEntry</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$relative</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="66">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="67"/>
+      <line no="68">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$total</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_PLUS_EQUAL">+=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getSize</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="69">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">assertWithinLimits</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_INC">++</token>
+        <token name="T_VARIABLE">$count</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$total</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="70">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="71">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="72">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="73"/>
+    </source>
+  </file>
+</phpunit>

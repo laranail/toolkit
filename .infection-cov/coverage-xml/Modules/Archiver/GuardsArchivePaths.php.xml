@@ -1,0 +1,649 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="GuardsArchivePaths.php" path="/Modules/Archiver">
+    <totals>
+      <lines total="60" comments="12" code="48" executable="18" executed="18" percent="100.00"/>
+      <methods count="2" tested="2" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="0" tested="1" percent="0"/>
+      <traits count="1" tested="0" percent="0.00"/>
+    </totals>
+    <trait name="Simtabi\Laranail\Toolkit\Modules\Archiver\GuardsArchivePaths" start="10" executable="18" executed="18" crap="11">
+      <namespace name="Simtabi\Laranail\Toolkit\Modules\Archiver"/>
+      <method name="assertWithinDestination" signature="assertWithinDestination(string $destination, string $entryName): void" start="17" end="32" crap="5" executable="7" executed="7" coverage="100"/>
+      <method name="lexicalPath" signature="lexicalPath(string $path): string" start="37" end="58" crap="6" executable="11" executed="11" coverage="100"/>
+    </trait>
+    <coverage>
+      <line nr="19">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#absolute unix"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#windows drive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="22">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#absolute unix"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#windows drive"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="23">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#absolute unix"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#windows drive"/>
+      </line>
+      <line nr="26">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="27">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="29">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="30">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+      </line>
+      <line nr="39">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="40">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="42">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="43">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="44">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="45">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="48">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="49">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+      </line>
+      <line nr="51">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+      </line>
+      <line nr="54">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+      <line nr="57">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverServiceTest::test_service_extract_delegates_to_manager"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_slip_entry_is_refused_and_nothing_escapes"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_tar_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_manager_selects_extractor_by_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\ArchiverTest::test_zip_round_trip_extracts_safe_entries"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#parent traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#deep traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_traversal_and_absolute_entries_are_refused#backslash traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver\GuardsArchivePathsTest::test_safe_relative_entries_are_allowed"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\Archiver</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="8">
+        <token name="T_DOC_COMMENT"> * Shared protection against Zip-Slip / path-traversal during extraction.</token>
+      </line>
+      <line no="9">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="10">
+        <token name="T_TRAIT">trait</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GuardsArchivePaths</token>
+      </line>
+      <line no="11">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="12">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT">     * Ensure an archive entry name resolves *inside* the destination directory.</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT">     * Rejects absolute paths, drive-letter paths and `..` traversal &#x2014; checked</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT">     * lexically (the target does not exist on disk yet).</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="17">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">assertWithinDestination</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$destination</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$entryName</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="18">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="19">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$entryName</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">str_replace</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'\\'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$entryName</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="20"/>
+      <line no="21">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Absolute (unix) or Windows drive-letter paths are never allowed.</token>
+      </line>
+      <line no="22">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">str_starts_with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$entryName</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">preg_match</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'#^[a-zA-Z]:#'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$entryName</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="23">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ArchiveException</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">unsafeEntry</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$entryName</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="24">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="25"/>
+      <line no="26">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$base</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">lexicalPath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$destination</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="27">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$target</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">lexicalPath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$destination</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$entryName</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="28"/>
+      <line no="29">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$target</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$base</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">str_starts_with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$target</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$base</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="30">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ArchiveException</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">unsafeEntry</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$entryName</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="31">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="32">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="33"/>
+      <line no="34">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="35">
+        <token name="T_DOC_COMMENT">     * Resolve `.`/`..` segments lexically, without touching the filesystem.</token>
+      </line>
+      <line no="36">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="37">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">lexicalPath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="38">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">str_replace</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'\\'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$isAbsolute</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">str_starts_with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="41"/>
+      <line no="42">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$parts</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="43">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">explode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$segment</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="44">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$segment</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$segment</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'.'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="45">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONTINUE">continue</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="47"/>
+      <line no="48">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$segment</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'..'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">array_pop</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$parts</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="50"/>
+      <line no="51">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONTINUE">continue</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="53"/>
+      <line no="54">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$parts</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$segment</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="55">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="56"/>
+      <line no="57">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$isAbsolute</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">implode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$parts</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="59">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="60"/>
+    </source>
+  </file>
+</phpunit>

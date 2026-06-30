@@ -1,0 +1,506 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="FilePathGuard.php" path="/Traits">
+    <totals>
+      <lines total="55" comments="18" code="37" executable="11" executed="10" percent="90.91"/>
+      <methods count="2" tested="1" percent="50.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="0" tested="0" percent="0"/>
+      <traits count="1" tested="0" percent="0.00"/>
+    </totals>
+    <trait name="Simtabi\Laranail\Toolkit\Traits\FilePathGuard" start="17" executable="11" executed="10" crap="5.02">
+      <namespace name="Simtabi\Laranail\Toolkit\Traits"/>
+      <method name="isSafePath" signature="isSafePath(string $path): bool" start="22" end="37" crap="3.04" executable="6" executed="5" coverage="83.333333333333"/>
+      <method name="assertSafePath" signature="assertSafePath(string $path): string" start="44" end="53" crap="2" executable="5" executed="5" coverage="100"/>
+    </trait>
+    <coverage>
+      <line nr="25">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_logs_action_deletes_log_files_in_storage"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_age_filter_keeps_recent_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_dry_run_deletes_nothing_and_reports"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_temp_action_deletes_temp_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_storage_action_deletes_uploaded_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_size_filter_only_deletes_large_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_gitignore_is_never_deleted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_symlink_escaping_storage_is_not_deleted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_age_filter_deletes_files_older_than_threshold"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_all_excludes_db_action"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\CommandConsoleFeaturesTest::test_tidy_records_files_processed_and_space_freed_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_probes_are_exception_safe_for_missing_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_file_info_reports_metadata_for_a_real_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_to_data_uri_returns_empty_for_missing_or_unsafe_paths"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_from_json_reads_a_file_or_a_raw_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_exists_size_and_last_modified_for_a_real_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_probes_reject_unsafe_paths_without_throwing"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_from_json_returns_null_for_invalid_json"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_to_data_uri_encodes_an_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_traversal_segments_are_rejected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_safe_paths_are_allowed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_null_bytes_are_rejected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_assert_safe_path_throws_on_traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_size_rejects_unsafe_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_with_empty_allowlist_accepts_any_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_probes_reject_traversal_paths"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_size_passes_within_limit_and_fails_over_limit"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_combines_extension_and_size_checks"/>
+      </line>
+      <line nr="26">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_probes_reject_unsafe_paths_without_throwing"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_null_bytes_are_rejected"/>
+      </line>
+      <line nr="30">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_logs_action_deletes_log_files_in_storage"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_age_filter_keeps_recent_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_dry_run_deletes_nothing_and_reports"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_temp_action_deletes_temp_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_storage_action_deletes_uploaded_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_size_filter_only_deletes_large_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_gitignore_is_never_deleted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_symlink_escaping_storage_is_not_deleted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_age_filter_deletes_files_older_than_threshold"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_all_excludes_db_action"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\CommandConsoleFeaturesTest::test_tidy_records_files_processed_and_space_freed_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_probes_are_exception_safe_for_missing_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_file_info_reports_metadata_for_a_real_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_to_data_uri_returns_empty_for_missing_or_unsafe_paths"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_from_json_reads_a_file_or_a_raw_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_exists_size_and_last_modified_for_a_real_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_probes_reject_unsafe_paths_without_throwing"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_from_json_returns_null_for_invalid_json"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_to_data_uri_encodes_an_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_traversal_segments_are_rejected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_safe_paths_are_allowed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_assert_safe_path_throws_on_traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_size_rejects_unsafe_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_with_empty_allowlist_accepts_any_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_probes_reject_traversal_paths"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_size_passes_within_limit_and_fails_over_limit"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_combines_extension_and_size_checks"/>
+      </line>
+      <line nr="32">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_logs_action_deletes_log_files_in_storage"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_age_filter_keeps_recent_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_dry_run_deletes_nothing_and_reports"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_temp_action_deletes_temp_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_storage_action_deletes_uploaded_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_size_filter_only_deletes_large_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_gitignore_is_never_deleted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_symlink_escaping_storage_is_not_deleted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_age_filter_deletes_files_older_than_threshold"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_all_excludes_db_action"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\CommandConsoleFeaturesTest::test_tidy_records_files_processed_and_space_freed_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_probes_are_exception_safe_for_missing_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_file_info_reports_metadata_for_a_real_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_to_data_uri_returns_empty_for_missing_or_unsafe_paths"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_from_json_reads_a_file_or_a_raw_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_exists_size_and_last_modified_for_a_real_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_probes_reject_unsafe_paths_without_throwing"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_from_json_returns_null_for_invalid_json"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_to_data_uri_encodes_an_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_traversal_segments_are_rejected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_safe_paths_are_allowed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_assert_safe_path_throws_on_traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_size_rejects_unsafe_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_with_empty_allowlist_accepts_any_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_probes_reject_traversal_paths"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_size_passes_within_limit_and_fails_over_limit"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_combines_extension_and_size_checks"/>
+      </line>
+      <line nr="36">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_logs_action_deletes_log_files_in_storage"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_age_filter_keeps_recent_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_dry_run_deletes_nothing_and_reports"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_temp_action_deletes_temp_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_storage_action_deletes_uploaded_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_size_filter_only_deletes_large_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_gitignore_is_never_deleted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_symlink_escaping_storage_is_not_deleted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_age_filter_deletes_files_older_than_threshold"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\TidyCommandTest::test_all_excludes_db_action"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Console\CommandConsoleFeaturesTest::test_tidy_records_files_processed_and_space_freed_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_probes_are_exception_safe_for_missing_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_file_info_reports_metadata_for_a_real_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_to_data_uri_returns_empty_for_missing_or_unsafe_paths"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_from_json_reads_a_file_or_a_raw_string"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_exists_size_and_last_modified_for_a_real_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_probes_reject_unsafe_paths_without_throwing"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_from_json_returns_null_for_invalid_json"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Helpers\HelperFilesTest::test_to_data_uri_encodes_an_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_traversal_segments_are_rejected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_safe_paths_are_allowed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_assert_safe_path_throws_on_traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_size_rejects_unsafe_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_with_empty_allowlist_accepts_any_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_probes_reject_traversal_paths"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_size_passes_within_limit_and_fails_over_limit"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Services\FileServiceTest::test_validate_combines_extension_and_size_checks"/>
+      </line>
+      <line nr="46">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_safe_paths_are_allowed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_assert_safe_path_throws_on_traversal"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+      </line>
+      <line nr="47">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_assert_safe_path_throws_on_traversal"/>
+      </line>
+      <line nr="48">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_assert_safe_path_throws_on_traversal"/>
+      </line>
+      <line nr="52">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_safe_paths_are_allowed"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_returns_file_not_found_for_non_existent_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_single_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_get_existing_file"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uses_default_directory_when_not_specified"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_delete_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_preserves_file_extension"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_uploaded_file_has_unique_name"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_multiple_files"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_upload_handles_special_characters_in_filename"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FileProcessingTraitTest::test_can_upload_single_file"/>
+      </line>
+      <line nr="49">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Traits\FilePathGuardTest::test_assert_safe_path_throws_on_traversal"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Traits</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">InvalidArgumentException</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8"/>
+      <line no="9">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="10">
+        <token name="T_DOC_COMMENT"> * Path-safety guard rejecting directory-traversal segments (`..`) and null</token>
+      </line>
+      <line no="11">
+        <token name="T_DOC_COMMENT"> * bytes in arbitrary filesystem paths.</token>
+      </line>
+      <line no="12">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT"> * This is a thin, dependency-free wrapper &#x2014; it does not touch the filesystem</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT"> * or re-implement Laravel's Storage abstraction; it only validates the shape</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT"> * of a path string before it is handed to lower-level file APIs.</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="17">
+        <token name="T_TRAIT">trait</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FilePathGuard</token>
+      </line>
+      <line no="18">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="19">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="20">
+        <token name="T_DOC_COMMENT">     * Determine whether a path is free of traversal segments and null bytes.</token>
+      </line>
+      <line no="21">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="22">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isSafePath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="23">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="24">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Null byte injection terminates C-level path strings early.</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">str_contains</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">"\0"</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="27">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="28"/>
+      <line no="29">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Normalise separators, then reject any `..` segment.</token>
+      </line>
+      <line no="30">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$segments</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">preg_split</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'#[\\\\/]+#'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="31"/>
+      <line no="32">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$segments</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="33">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="35"/>
+      <line no="36">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">array_all</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$segments</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$segment</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$segment</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'..'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="37">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="38"/>
+      <line no="39">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="40">
+        <token name="T_DOC_COMMENT">     * Assert that a path is safe, throwing if it is not.</token>
+      </line>
+      <line no="41">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="42">
+        <token name="T_DOC_COMMENT">     * @throws InvalidArgumentException when the path contains a `..` segment or a null byte</token>
+      </line>
+      <line no="43">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="44">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">assertSafePath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="45">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isSafePath</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Unsafe path rejected: paths may not contain ".." traversal segments or null bytes.'</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="51"/>
+      <line no="52">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$path</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="53">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="54">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="55"/>
+    </source>
+  </file>
+</phpunit>

@@ -1,0 +1,1192 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="RendersApiExceptions.php" path="/Exceptions/Concerns">
+    <totals>
+      <lines total="147" comments="54" code="93" executable="41" executed="37" percent="90.24"/>
+      <methods count="6" tested="3" percent="50.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions" start="40" executable="41" executed="37" crap="15.21">
+      <namespace name="Simtabi\Laranail\Toolkit\Exceptions\Concerns"/>
+      <method name="__construct" signature="__construct()" start="42" end="42" crap="2" executable="1" executed="0" coverage="0"/>
+      <method name="register" signature="register(Illuminate\Foundation\Configuration\Exceptions $exceptions): void" start="47" end="51" crap="1" executable="2" executed="2" coverage="100"/>
+      <method name="registerSlackReporter" signature="registerSlackReporter(Illuminate\Foundation\Configuration\Exceptions $exceptions, int $throttleMinutes): void" start="63" end="87" crap="5.01" executable="14" executed="13" coverage="92.857142857143"/>
+      <method name="registerMethodNotAllowedRenderer" signature="registerMethodNotAllowedRenderer(Illuminate\Foundation\Configuration\Exceptions $exceptions): void" start="95" end="108" crap="3" executable="9" executed="9" coverage="100"/>
+      <method name="slackContext" signature="slackContext(Throwable $exception): array" start="118" end="137" crap="4.05" executable="14" executed="12" coverage="85.714285714286"/>
+      <method name="relativeLocation" signature="relativeLocation(string $file, int $line): string" start="142" end="145" crap="1" executable="1" executed="1" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="49">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+      </line>
+      <line nr="50">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+      </line>
+      <line nr="65">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_is_a_noop_without_a_configured_channel"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="66">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_is_a_noop_without_a_configured_channel"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="67">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_is_a_noop_without_a_configured_channel"/>
+      </line>
+      <line nr="70">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="74">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="76">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="77">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="80">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="82">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="83">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="84">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="86">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_is_a_noop_without_a_configured_channel"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="97">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_renders_json_for_api_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_defers_to_default_for_web_requests"/>
+      </line>
+      <line nr="98">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_renders_json_for_api_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_defers_to_default_for_web_requests"/>
+      </line>
+      <line nr="99">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_defers_to_default_for_web_requests"/>
+      </line>
+      <line nr="102">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_renders_json_for_api_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+      </line>
+      <line nr="103">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_renders_json_for_api_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+      </line>
+      <line nr="104">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_renders_json_for_api_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+      </line>
+      <line nr="106">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_renders_json_for_api_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+      </line>
+      <line nr="107">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_renders_json_for_api_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_defers_to_default_for_web_requests"/>
+      </line>
+      <line nr="120">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="121">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="123">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="124">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="125">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="126">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="127">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="128">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="131">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="132">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="133">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="136">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="144">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="85">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_slack_reporter_alerts_and_throttles_for_web_requests"/>
+      </line>
+      <line nr="105">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_method_not_allowed_renders_json_for_api_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions\RendersApiExceptionsTest::test_register_wires_both_helpers"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Exceptions\Concerns</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Foundation\Configuration\Exceptions</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Http\JsonResponse</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Http\Request</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="10">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Carbon</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="11">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Facades\Cache</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="12">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Symfony\Component\HttpFoundation\Response</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">HttpResponse</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="13">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="14">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Throwable</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="15"/>
+      <line no="16">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="17">
+        <token name="T_DOC_COMMENT"> * Opt-in reporting/rendering helpers for an application's exception handler.</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="19">
+        <token name="T_DOC_COMMENT"> * Laravel 11+ moved exception configuration into the application's own</token>
+      </line>
+      <line no="20">
+        <token name="T_DOC_COMMENT"> * `bootstrap/app.php` `withExceptions()` closure, so a package can no longer</token>
+      </line>
+      <line no="21">
+        <token name="T_DOC_COMMENT"> * ship a competing `Handler` subclass. This registrar instead exposes the reusable</token>
+      </line>
+      <line no="22">
+        <token name="T_DOC_COMMENT"> * *logic* from the legacy `LaranailExceptionHandler` as small, composable</token>
+      </line>
+      <line no="23">
+        <token name="T_DOC_COMMENT"> * registrars a consumer can wire in from that closure:</token>
+      </line>
+      <line no="24">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="25">
+        <token name="T_DOC_COMMENT"> * ```php</token>
+      </line>
+      <line no="26">
+        <token name="T_DOC_COMMENT"> * use Illuminate\Foundation\Configuration\Exceptions;</token>
+      </line>
+      <line no="27">
+        <token name="T_DOC_COMMENT"> * use Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions;</token>
+      </line>
+      <line no="28">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="29">
+        <token name="T_DOC_COMMENT"> * -&gt;withExceptions(function (Exceptions $exceptions): void {</token>
+      </line>
+      <line no="30">
+        <token name="T_DOC_COMMENT"> *     RendersApiExceptions::register($exceptions);</token>
+      </line>
+      <line no="31">
+        <token name="T_DOC_COMMENT"> * })</token>
+      </line>
+      <line no="32">
+        <token name="T_DOC_COMMENT"> * ```</token>
+      </line>
+      <line no="33">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="34">
+        <token name="T_DOC_COMMENT"> * Both registrars are independent &#x2014; call {@see registerSlackReporter()} and/or</token>
+      </line>
+      <line no="35">
+        <token name="T_DOC_COMMENT"> * {@see registerMethodNotAllowedRenderer()} individually if you only want one.</token>
+      </line>
+      <line no="36">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="37">
+        <token name="T_DOC_COMMENT"> * Implemented as a final, all-static registrar (rather than a trait) so it can</token>
+      </line>
+      <line no="38">
+        <token name="T_DOC_COMMENT"> * be called directly from the configuration closure without mixing into a class.</token>
+      </line>
+      <line no="39">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="40">
+        <token name="T_FINAL">final</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">RendersApiExceptions</token>
+      </line>
+      <line no="41">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="42">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">__construct</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="43"/>
+      <line no="44">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="45">
+        <token name="T_DOC_COMMENT">     * Register every helper this registrar provides on the given configurator.</token>
+      </line>
+      <line no="46">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">register</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Exceptions</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$exceptions</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">registerSlackReporter</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$exceptions</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">registerMethodNotAllowedRenderer</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$exceptions</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="52"/>
+      <line no="53">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="54">
+        <token name="T_DOC_COMMENT">     * Throttled Slack critical alert for uncaught exceptions.</token>
+      </line>
+      <line no="55">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="56">
+        <token name="T_DOC_COMMENT">     * Skips console / maintenance-mode runs, no-ops when no Slack channel is</token>
+      </line>
+      <line no="57">
+        <token name="T_DOC_COMMENT">     * configured, and de-duplicates bursts via a short-lived cache lock so a</token>
+      </line>
+      <line no="58">
+        <token name="T_DOC_COMMENT">     * crash loop does not flood the channel. Returns the exception to Laravel's</token>
+      </line>
+      <line no="59">
+        <token name="T_DOC_COMMENT">     * default logging stack untouched.</token>
+      </line>
+      <line no="60">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="61">
+        <token name="T_DOC_COMMENT">     * @param int $throttleMinutes How long to suppress duplicate alerts for.</token>
+      </line>
+      <line no="62">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="63">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">registerSlackReporter</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Exceptions</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$exceptions</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$throttleMinutes</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">5</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="64">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="65">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$exceptions</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">report</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Throwable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$exception</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$throttleMinutes</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="66">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">app</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">runningInConsole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">app</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isDownForMaintenance</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="67">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="68">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="69"/>
+      <line no="70">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">config</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'logging.channels.slack.url'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="71">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="72">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="73"/>
+      <line no="74">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'laranail:toolkit:slack-error-throttle'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="75"/>
+      <line no="76">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Cache</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">has</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="77">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="78">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="79"/>
+      <line no="80">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">Cache</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">put</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Carbon</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">now</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">addMinutes</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$throttleMinutes</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="81"/>
+      <line no="82">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">logger</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">channel</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'slack'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">critical</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="83">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$exception</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="84">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">slackContext</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$exception</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="85">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="86">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="87">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="88"/>
+      <line no="89">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="90">
+        <token name="T_DOC_COMMENT">     * Render `405 Method Not Allowed` as a JSON envelope for API requests.</token>
+      </line>
+      <line no="91">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="92">
+        <token name="T_DOC_COMMENT">     * Defers to Laravel's default (HTML) rendering for non-JSON requests by</token>
+      </line>
+      <line no="93">
+        <token name="T_DOC_COMMENT">     * returning `null`, so web responses are never hijacked.</token>
+      </line>
+      <line no="94">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="95">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">registerMethodNotAllowedRenderer</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Exceptions</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$exceptions</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="96">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="97">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$exceptions</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">render</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">MethodNotAllowedHttpException</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Request</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="98">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">expectsJson</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="99">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="100">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="101"/>
+      <line no="102">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="103">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'success'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="104">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'message'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Method not allowed.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="105">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'errors'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="106">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">HttpResponse</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">HTTP_METHOD_NOT_ALLOWED</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="107">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="108">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="109"/>
+      <line no="110">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="111">
+        <token name="T_DOC_COMMENT">     * Build the structured Slack log context for an exception.</token>
+      </line>
+      <line no="112">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="113">
+        <token name="T_DOC_COMMENT">     * Form data is only attached for non-GET requests and is JSON-encoded; file</token>
+      </line>
+      <line no="114">
+        <token name="T_DOC_COMMENT">     * paths are made relative to the base path for readability.</token>
+      </line>
+      <line no="115">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="116">
+        <token name="T_DOC_COMMENT">     * @return array&lt;string, mixed&gt;</token>
+      </line>
+      <line no="117">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="118">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">slackContext</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Throwable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$exception</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="119">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="120">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">request</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="121">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$previous</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$exception</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getPrevious</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="122"/>
+      <line no="123">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">array_filter</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="124">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Request URL'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">fullUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="125">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Request IP'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">ip</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="126">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Request Referer'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">header</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'referer'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="127">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Request Method'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="128">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Request Form Data'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">method</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'GET'</token>
+      </line>
+      <line no="129">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">json_encode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">input</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JSON_PRETTY_PRINT</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_PIPE">|</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JSON_UNESCAPED_SLASHES</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_PIPE">|</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JSON_UNESCAPED_UNICODE</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="130">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="131">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Exception Type'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$exception</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_CLASS">class</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="132">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'File Path'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">relativeLocation</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$exception</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getFile</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$exception</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getLine</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="133">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Previous File Path'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$previous</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_INSTANCEOF">instanceof</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Throwable</token>
+      </line>
+      <line no="134">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">relativeLocation</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$previous</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getFile</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$previous</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getLine</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="135">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="136">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">mixed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="137">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="138"/>
+      <line no="139">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="140">
+        <token name="T_DOC_COMMENT">     * Format a `file:line` location relative to the application base path.</token>
+      </line>
+      <line no="141">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="142">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">relativeLocation</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$line</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="143">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="144">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ltrim</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">sprintf</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'%s:%d'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">str_replace</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">base_path</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$file</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$line</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="145">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="146">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="147"/>
+    </source>
+  </file>
+</phpunit>
