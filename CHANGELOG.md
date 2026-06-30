@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `Passphrase::capitalize('title')` now title-cases each segment of a hyphenated
+  compound word (`felt-tip` → `Felt-Tip`) rather than only the first segment,
+  matching the documented "title-case every word" contract and removing an
+  intermittent test failure when a hyphenated EFF word was drawn.
+
 ### Tests
 
 - Raised the mutation score (Infection) on the in-scope code (`src/Helpers`,
@@ -14,6 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `minCoveredMsi 85`) — Covered Code MSI ~77% → ~88%. Added exhaustive
   exact-value behaviour tests for the Arr/String/Collection/Carbon macros and the
   `Username` support helper (no source or threshold changes).
+- Package-wide coverage pass — line coverage ~93.6% → ~97.5% (suite 1225 → 1373
+  tests). Added edge-case/unit/regression tests for the Observer base, model &
+  controller traits, the Archiver, Captcha, Avatar and LLM modules, the HTTP
+  layer (middleware/requests/CRUD controller/payload-key mutation), security
+  data loading, the validation/model services and `ToolkitManager`. Passphrase
+  tests are now deterministic (reflection-pinned wordlist) instead of relying on
+  random draws.
 
 ## [0.1.0] - 2026-06-26
 
