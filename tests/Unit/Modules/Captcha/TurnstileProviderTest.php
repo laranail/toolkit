@@ -63,4 +63,54 @@ class TurnstileProviderTest extends TestCase
 
         $this->assertTrue($this->provider()->verify('token-xyz')->isFailure());
     }
+
+    #[Group('security')]
+    public function test_fails_closed_when_not_configured(): void
+    {
+        Http::fake();
+
+        $provider = new TurnstileProvider('', '');
+
+        $this->assertFalse($provider->isConfigured());
+
+        $result = $provider->verify('token-xyz');
+
+        $this->assertTrue($result->isFailure());
+        $this->assertSame(['Turnstile not properly configured'], $result->errorCodes());
+
+        Http::assertNothingSent();
+    }
+
+    public function test_unsuccessful_response_surfaces_error_codes(): void
+    {
+        Http::fake([
+            'challenges.cloudflare.com/*' => Http::response(
+                ['success' => false, 'error-codes' => ['invalid-input-response']],
+                200,
+            ),
+        ]);
+
+        $result = $this->provider()->verify('token-xyz');
+
+        $this->assertTrue($result->isFailure());
+        $this->assertSame(['invalid-input-response'], $result->errorCodes());
+    }
+
+    public function test_unsuccessful_response_without_error_codes_falls_back_to_unknown(): void
+    {
+        Http::fake([
+            'challenges.cloudflare.com/*' => Http::response(['success' => false], 200),
+        ]);
+
+        $this->assertSame(['Unknown error'], $this->provider()->verify('token-xyz')->errorCodes());
+    }
+
+    public function test_exposes_its_metadata(): void
+    {
+        $provider = new TurnstileProvider('site-key', 'secret-key', 12);
+
+        $this->assertSame('turnstile', $provider->getName());
+        $this->assertSame('site-key', $provider->getSiteKey());
+        $this->assertSame(12, $provider->getTimeout());
+    }
 }

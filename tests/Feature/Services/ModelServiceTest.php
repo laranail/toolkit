@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Psr\Log\AbstractLogger;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Stringable;
 
 class ModelServiceUser extends Model
 {
@@ -19,6 +21,19 @@ class ModelServiceUser extends Model
 
     protected $guarded = [];
 }
+
+class ModelServiceIntUser extends Model
+{
+    protected $table = 'model_service_users';
+
+    public $timestamps = false;
+
+    protected $guarded = [];
+
+    protected $casts = ['username' => 'integer'];
+}
+
+class ModelServiceObserver {}
 
 class ModelServiceTest extends TestCase
 {
@@ -115,5 +130,86 @@ class ModelServiceTest extends TestCase
         $this->assertSame('Jane', $this->service->getModelItem($user, 'first_name'));
         $this->assertSame('fallback', $this->service->getModelItem($user, 'missing', 'fallback'));
         $this->assertNull($this->service->getModelItem($user, 'missing'));
+    }
+
+    public function test_formable_users_list_is_empty_for_a_table_with_no_rows(): void
+    {
+        $this->assertSame([], $this->service->getFormableUsersList(new ModelServiceUser()));
+    }
+
+    public function test_formable_users_list_stringifies_a_non_string_username(): void
+    {
+        ModelServiceUser::create(['username' => '42']);
+
+        // The cast model returns the username as an int, exercising the numeric
+        // branch of the internal string coercion.
+        $list = $this->service->getFormableUsersList(new ModelServiceIntUser());
+
+        $this->assertSame('42', $list[1]);
+    }
+
+    public function test_get_users_from_model_returns_a_plain_list_when_not_keyed(): void
+    {
+        ModelServiceUser::create(['first_name' => 'Grace', 'last_name' => 'Hopper']);
+
+        $users = $this->service->getUsersFromModel(new ModelServiceUser(), keyed: false);
+
+        $this->assertArrayHasKey('name', $users[0]);
+        $this->assertArrayHasKey('id', $users[0]);
+        $this->assertSame('Grace Hopper', $users[0]['name']);
+    }
+
+    public function test_eloquent2selectbox_omits_the_placeholder_when_null(): void
+    {
+        ModelServiceUser::create(['first_name' => 'Ada', 'username' => 'ada']);
+
+        $box = $this->service->eloquent2selectbox(ModelServiceUser::all(), 'username', 'id', null);
+
+        $this->assertArrayNotHasKey('', $box);
+        $this->assertContains('ada', $box);
+    }
+
+    public function test_register_model_observer_registers_and_logs_when_both_classes_exist(): void
+    {
+        $logger = new class() extends AbstractLogger
+        {
+            /** @var list<array{level: mixed, message: string, context: array<string, mixed>}> */
+            public array $records = [];
+
+            public function log($level, string|Stringable $message, array $context = []): void
+            {
+                $this->records[] = ['level' => $level, 'message' => (string) $message, 'context' => $context];
+            }
+        };
+
+        $service = new ModelService($logger);
+
+        $service->registerModelObserver(ModelServiceUser::class, ModelServiceObserver::class);
+
+        $this->assertCount(1, $logger->records);
+        $this->assertSame('info', $logger->records[0]['level']);
+        $this->assertSame('Model observer registered', $logger->records[0]['message']);
+        $this->assertSame(ModelServiceUser::class, $logger->records[0]['context']['model']);
+        $this->assertSame(ModelServiceObserver::class, $logger->records[0]['context']['observer']);
+    }
+
+    public function test_register_model_observer_is_a_noop_when_a_class_is_missing(): void
+    {
+        $logger = new class() extends AbstractLogger
+        {
+            /** @var list<mixed> */
+            public array $records = [];
+
+            public function log($level, string|Stringable $message, array $context = []): void
+            {
+                $this->records[] = $message;
+            }
+        };
+
+        $service = new ModelService($logger);
+
+        $service->registerModelObserver('App\\Does\\Not\\Exist', ModelServiceObserver::class);
+
+        $this->assertSame([], $logger->records);
     }
 }

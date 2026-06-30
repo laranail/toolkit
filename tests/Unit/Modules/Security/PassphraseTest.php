@@ -7,29 +7,50 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
+use ReflectionProperty;
 use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
 use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class PassphraseTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        // Undo any wordlist injection so other tests reload the real EFF list.
+        $this->setWordlist(null);
+
+        parent::tearDown();
+    }
+
+    /**
+     * Pin the process-wide wordlist cache for deterministic generation. Pass null
+     * to clear it (forcing a reload of the real list on next use).
+     *
+     * @param list<string>|null $words
+     */
+    private function setWordlist(?array $words): void
+    {
+        (new ReflectionProperty(Passphrase::class, 'wordlist'))->setValue(null, $words);
+    }
+
     public function test_memorable_default_is_six_hyphenated_words(): void
     {
-        $passphrase = Passphrase::memorable()->generate();
+        // Count drawn words via metadata (not explode('-'), which would miscount a
+        // hyphenated EFF word such as "felt-tip"); separately assert the join.
+        $meta = Passphrase::memorable()->generateWithMetadata();
 
-        $this->assertCount(6, explode('-', $passphrase));
+        $this->assertCount(6, $meta['words']);
+        $this->assertStringContainsString('-', $meta['passphrase']);
     }
 
     public function test_default_aliases_memorable(): void
     {
-        $this->assertCount(6, explode('-', Passphrase::default()->generate()));
+        $this->assertCount(6, Passphrase::default()->generateWithMetadata()['words']);
     }
 
     public function test_word_count_is_respected(): void
     {
-        $passphrase = Passphrase::memorable()->wordCount(4)->generate();
-
-        $this->assertCount(4, explode('-', $passphrase));
+        $this->assertCount(4, Passphrase::memorable()->wordCount(4)->generateWithMetadata()['words']);
     }
 
     public function test_separator_variants(): void
@@ -58,19 +79,29 @@ class PassphraseTest extends TestCase
 
     public function test_capitalize_first_capitalises_only_the_first_word(): void
     {
-        $words = explode('-', Passphrase::memorable()->wordCount(3)->capitalize('first')->generate());
+        // Deterministic: a single-word list makes every drawn word "alpha".
+        $this->setWordlist(['alpha']);
 
-        $this->assertSame(ucfirst($words[0]), $words[0]);
-        $this->assertSame(strtolower($words[1]), $words[1]);
-        $this->assertSame(strtolower($words[2]), $words[2]);
+        $this->assertSame(
+            'Alpha-alpha-alpha',
+            Passphrase::memorable()->wordCount(3)->capitalize('first')->generate(),
+        );
     }
 
     public function test_capitalize_title_capitalises_every_word(): void
     {
-        $words = explode('-', Passphrase::memorable()->wordCount(3)->capitalize('title')->generate());
+        // Every word title-cased, including each segment of a hyphenated compound
+        // ("felt-tip" → "Felt-Tip") — the case that previously made this flaky.
+        $this->setWordlist(['felt-tip']);
+        $this->assertSame(
+            'Felt-Tip_Felt-Tip',
+            Passphrase::memorable()->wordCount(2)->separator('_')->capitalize('title')->generate(),
+        );
 
-        foreach ($words as $word) {
-            $this->assertSame(ucfirst($word), $word);
+        // And across an arbitrary draw: every hyphen-delimited segment is upper-cased.
+        $this->setWordlist(['felt-tip', 'yo-yo', 't-shirt', 'drop-down', 'alpha']);
+        foreach (explode('-', Passphrase::memorable()->wordCount(6)->capitalize('title')->generate()) as $segment) {
+            $this->assertSame(ucfirst($segment), $segment);
         }
     }
 
@@ -161,7 +192,10 @@ class PassphraseTest extends TestCase
 
     public function test_to_string_yields_a_passphrase(): void
     {
-        $this->assertCount(6, explode('-', (string) Passphrase::memorable()));
+        // Deterministic single-word list → __toString() yields six hyphenated words.
+        $this->setWordlist(['alpha']);
+
+        $this->assertSame('alpha-alpha-alpha-alpha-alpha-alpha', (string) Passphrase::memorable());
     }
 
     public function test_builder_is_immutable(): void
@@ -169,8 +203,8 @@ class PassphraseTest extends TestCase
         $base = Passphrase::memorable()->wordCount(4);
         $more = $base->wordCount(8);
 
-        $this->assertCount(4, explode('-', $base->generate()));
-        $this->assertCount(8, explode('-', $more->generate()));
+        $this->assertCount(4, $base->generateWithMetadata()['words']);
+        $this->assertCount(8, $more->generateWithMetadata()['words']);
         $this->assertNotSame($base, $more);
     }
 

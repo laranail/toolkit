@@ -20,6 +20,14 @@ class HasErrorStorageFixture
     {
         return $this->addError($key, $message);
     }
+
+    /**
+     * @param array<int|string, mixed>|string $errors
+     */
+    public function replace(array|string $errors): static
+    {
+        return $this->setErrors($errors);
+    }
 }
 
 class HasErrorStorageTest extends TestCase
@@ -47,5 +55,34 @@ class HasErrorStorageTest extends TestCase
 
         $object->clearErrors();
         $this->assertFalse($object->hasErrors());
+    }
+
+    public function test_set_errors_stores_the_collection_and_is_chainable(): void
+    {
+        $object = new HasErrorStorageFixture();
+
+        $returned = $object->replace(['email' => 'required']);
+
+        // setErrors() returns the host for fluent chaining.
+        $this->assertSame($object, $returned);
+        $this->assertTrue($object->hasErrors());
+        $this->assertSame(['required'], $object->getErrors('email'));
+
+        // A subsequent setErrors() merges into the existing collection.
+        $object->replace(['name' => 'too long']);
+
+        $this->assertSame(['required'], $object->getErrors('email'));
+        $this->assertSame(['too long'], $object->getErrors('name'));
+        $this->assertSame(2, $object->getErrorCount());
+    }
+
+    public function test_set_errors_accepts_a_bare_string_message(): void
+    {
+        $object = new HasErrorStorageFixture();
+
+        $object->replace('something broke');
+
+        $this->assertTrue($object->hasErrors());
+        $this->assertSame('something broke', $object->getFirstError());
     }
 }

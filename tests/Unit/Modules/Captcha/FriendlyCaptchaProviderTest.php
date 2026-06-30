@@ -99,4 +99,28 @@ class FriendlyCaptchaProviderTest extends TestCase
 
         Http::assertNothingSent();
     }
+
+    public function test_unsuccessful_response_without_errors_falls_back_to_unknown(): void
+    {
+        Http::fake([
+            'global.frcapi.com/*' => Http::response(['success' => false], 200),
+        ]);
+
+        $this->assertSame(['Unknown error'], $this->provider()->verify('token-abc')->errorCodes());
+    }
+
+    public function test_exposes_its_metadata_for_the_global_endpoint(): void
+    {
+        $provider = new FriendlyCaptchaProvider('site-key', 'api-key', false, 20);
+
+        $this->assertSame('friendly_captcha', $provider->getName());
+        $this->assertSame('site-key', $provider->getSiteKey());
+        $this->assertFalse($provider->usesEuEndpoint());
+        $this->assertSame(20, $provider->getTimeout());
+    }
+
+    public function test_exposes_the_eu_endpoint_flag_when_enabled(): void
+    {
+        $this->assertTrue($this->provider(useEu: true)->usesEuEndpoint());
+    }
 }

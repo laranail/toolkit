@@ -100,6 +100,88 @@ class ArchiverTest extends TestCase
         $this->assertSame('earth', file_get_contents($dest . '/nested/world.txt'));
     }
 
+    public function test_corrupt_tar_throws_cannot_open(): void
+    {
+        $bad = $this->work . '/corrupt.tar';
+        file_put_contents($bad, 'not a real tar archive');
+
+        $this->expectException(ArchiveException::class);
+        $this->expectExceptionMessageMatches('/Unable to open archive/');
+        (new Tar())->extract($bad, $this->work . '/out-corrupt-tar');
+    }
+
+    public function test_set_limits_is_fluent_and_returns_the_same_instance(): void
+    {
+        $zip = new Zip();
+
+        $this->assertSame($zip, $zip->setLimits(5, 1024));
+    }
+
+    #[Group('security')]
+    public function test_zip_extraction_is_refused_when_entry_count_exceeds_the_limit(): void
+    {
+        $zipPath = $this->work . '/many.zip';
+        $zip = new ZipArchive();
+        $zip->open($zipPath, ZipArchive::CREATE);
+        $zip->addFromString('a.txt', 'a');
+        $zip->addFromString('b.txt', 'b');
+        $zip->close();
+
+        $dest = $this->work . '/out-many';
+
+        $this->expectException(ArchiveException::class);
+        $this->expectExceptionMessageMatches('/exceeds the configured limit/');
+        (new Zip())->setLimits(1, 1_073_741_824)->extract($zipPath, $dest);
+    }
+
+    #[Group('security')]
+    public function test_zip_extraction_is_refused_when_total_bytes_exceeds_the_limit(): void
+    {
+        $zipPath = $this->work . '/big.zip';
+        $zip = new ZipArchive();
+        $zip->open($zipPath, ZipArchive::CREATE);
+        $zip->addFromString('payload.txt', str_repeat('x', 64));
+        $zip->close();
+
+        $dest = $this->work . '/out-big';
+
+        $this->expectException(ArchiveException::class);
+        $this->expectExceptionMessageMatches('/exceeds the configured limit/');
+        (new Zip())->setLimits(10_000, 8)->extract($zipPath, $dest);
+    }
+
+    #[Group('security')]
+    public function test_tar_extraction_is_refused_when_total_bytes_exceeds_the_limit(): void
+    {
+        $tarPath = $this->work . '/big.tar';
+        $phar = new PharData($tarPath);
+        $phar->addFromString('payload.txt', str_repeat('y', 64));
+        unset($phar);
+
+        $dest = $this->work . '/out-tar-big';
+
+        $this->expectException(ArchiveException::class);
+        $this->expectExceptionMessageMatches('/exceeds the configured limit/');
+        (new Tar())->setLimits(10_000, 8)->extract($tarPath, $dest);
+    }
+
+    public function test_extraction_fails_when_destination_cannot_be_created(): void
+    {
+        $zipPath = $this->work . '/ok.zip';
+        $zip = new ZipArchive();
+        $zip->open($zipPath, ZipArchive::CREATE);
+        $zip->addFromString('hello.txt', 'hi');
+        $zip->close();
+
+        // A regular file blocks the creation of the destination directory tree.
+        $blocker = $this->work . '/blocker';
+        file_put_contents($blocker, 'data');
+
+        $this->expectException(ArchiveException::class);
+        $this->expectExceptionMessageMatches('/Unable to create destination directory/');
+        (new Zip())->extract($zipPath, $blocker . '/sub/dir');
+    }
+
     public function test_manager_selects_extractor_by_extension(): void
     {
         $tarPath = $this->work . '/data.tar';

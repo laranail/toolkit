@@ -106,7 +106,8 @@ final class Passphrase implements \Stringable
 
     /**
      * Capitalisation strategy: `none` (lowercase), `first` (first word only),
-     * `all` (UPPERCASE every word) or `title` (Title-case every word).
+     * `all` (UPPERCASE every word) or `title` (Title-case every word, including
+     * each segment of a hyphenated compound — "felt-tip" → "Felt-Tip").
      *
      * @param 'none'|'first'|'all'|'title' $strategy
      *
@@ -230,7 +231,10 @@ final class Passphrase implements \Stringable
     {
         return match ($this->capitalize) {
             'all' => array_map(strtoupper(...), $words),
-            'title' => array_map(ucfirst(...), $words),
+            // Title-case every word, capitalising each segment of a compound
+            // (hyphenated) word too — e.g. "felt-tip" → "Felt-Tip" — so the result
+            // is fully title-cased regardless of the separator in use.
+            'title' => array_map(static fn (string $word): string => ucwords($word, ' -'), $words),
             'first' => $this->capitaliseFirstWord($words),
             default => $words,
         };

@@ -300,7 +300,7 @@ $meta = Passphrase::memorable()->generateWithMetadata();
 | `memorable()` / `default()` | Presets (6 hyphenated words). |
 | `wordCount(int)` | Number of words, guarded to **1..20**. |
 | `separator(string)` | `-`, `_`, ` ` (space) or `''` (none). |
-| `capitalize(string)` | `none`, `first`, `all` or `title`. |
+| `capitalize(string)` | `none`, `first`, `all` or `title` (title-cases every word, incl. each segment of a hyphenated compound — `felt-tip` → `Felt-Tip`). |
 | `withNumber(int $digits)` | Append a random decimal token. |
 | `withSymbol(?string)` | Append a symbol (`null` = random from a safe set). |
 | `generate()` / `generateWithMetadata()` / `__toString()` | Terminals. |

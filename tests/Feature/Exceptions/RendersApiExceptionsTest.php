@@ -124,6 +124,85 @@ class RendersApiExceptionsTest extends TestCase
         }
     }
 
+    public function test_slack_reporter_is_a_noop_in_web_context_without_a_channel(): void
+    {
+        // The plain no-op test runs under the console guard; force a web runtime
+        // so the *channel-absent* guard (rather than the console guard) is hit.
+        config(['logging.channels.slack.url' => null]);
+        Cache::flush();
+
+        $slack = Log::spy();
+        Log::shouldReceive('channel')->with('slack')->andReturn($slack);
+
+        $handler = $this->handler();
+        RendersApiExceptions::registerSlackReporter($this->configurator($handler));
+
+        $this->asWebRequest(function () use ($handler): void {
+            $handler->report(new RuntimeException('boom'));
+        });
+
+        $this->assertFalse(Cache::has('laranail:toolkit:slack-error-throttle'));
+        $slack->shouldNotHaveReceived('critical');
+    }
+
+    public function test_slack_context_includes_form_data_and_previous_location(): void
+    {
+        config([
+            'logging.channels.slack' => [
+                'driver' => 'single',
+                'path' => storage_path('logs/slack-test.log'),
+                'url' => 'https://hooks.example.test/abc',
+            ],
+            'app.debug' => false,
+        ]);
+
+        Cache::flush();
+
+        /** @var array<string, mixed> $captured */
+        $captured = [];
+
+        $slack = Log::spy();
+        $slack->shouldReceive('critical')->andReturnUsing(
+            function (string $message, array $context) use (&$captured): void {
+                $captured = $context;
+            },
+        );
+        Log::shouldReceive('channel')->with('slack')->andReturn($slack);
+
+        // A non-GET request triggers the JSON form-data branch.
+        $this->app->instance('request', Request::create('/api/things', 'POST', ['title' => 'Hello']));
+
+        $handler = $this->handler();
+        RendersApiExceptions::registerSlackReporter($this->configurator($handler));
+
+        $exception = new RuntimeException('outer', 0, new \LogicException('inner cause'));
+
+        $this->asWebRequest(function () use ($handler, $exception): void {
+            $handler->report($exception);
+        });
+
+        $this->assertSame('POST', $captured['Request Method']);
+        $this->assertSame(RuntimeException::class, $captured['Exception Type']);
+        $this->assertArrayHasKey('Request Form Data', $captured);
+        $this->assertStringContainsString('title', (string) $captured['Request Form Data']);
+        $this->assertStringContainsString('Hello', (string) $captured['Request Form Data']);
+        $this->assertArrayHasKey('Previous File Path', $captured);
+        $this->assertStringContainsString(basename(__FILE__), (string) $captured['Previous File Path']);
+    }
+
+    public function test_constructor_is_private(): void
+    {
+        $reflection = new \ReflectionClass(RendersApiExceptions::class);
+        $constructor = $reflection->getConstructor();
+
+        $this->assertNotNull($constructor);
+        $this->assertTrue($constructor->isPrivate());
+        $instance = $reflection->newInstanceWithoutConstructor();
+        $constructor->invoke($instance);
+
+        $this->assertInstanceOf(RendersApiExceptions::class, $instance);
+    }
+
     public function test_register_wires_both_helpers(): void
     {
         $handler = $this->handler();

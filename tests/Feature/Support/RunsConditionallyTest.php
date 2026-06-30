@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Support;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Support\ConditionalRunner;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
@@ -62,6 +63,33 @@ class RunsConditionallyTest extends TestCase
         $this->assertSame('ok', $this->host->forRole('admin', fn (): string => 'ok'));
         $this->assertNull($this->host->forRole('editor', fn (): string => 'ok'));
     }
+
+    public function test_run_for_web_fires_only_for_a_bound_non_api_request(): void
+    {
+        $this->app->instance('request', Request::create('/dashboard', 'GET'));
+
+        $this->assertSame('web', $this->host->forWeb(fn (): string => 'web'));
+        // A plain web request is not an API request.
+        $this->assertNull($this->host->forApi(fn (): string => 'api'));
+    }
+
+    public function test_run_for_api_fires_for_an_api_path_request(): void
+    {
+        $this->app->instance('request', Request::create('/api/users', 'GET'));
+
+        $this->assertSame('api', $this->host->forApi(fn (): string => 'api'));
+        // An API request is not classified as a web request.
+        $this->assertNull($this->host->forWeb(fn (): string => 'web'));
+    }
+
+    public function test_run_for_api_fires_when_the_request_expects_json(): void
+    {
+        $request = Request::create('/dashboard', 'GET');
+        $request->headers->set('Accept', 'application/json');
+        $this->app->instance('request', $request);
+
+        $this->assertSame('json', $this->host->forApi(fn (): string => 'json'));
+    }
 }
 
 /**
@@ -99,6 +127,16 @@ class RunsConditionallyHost
     public function forRole(string $role, callable $callback): mixed
     {
         return $this->runForRole($role, $callback);
+    }
+
+    public function forWeb(callable $callback): mixed
+    {
+        return $this->runForWeb($callback);
+    }
+
+    public function forApi(callable $callback): mixed
+    {
+        return $this->runForApi($callback);
     }
 }
 

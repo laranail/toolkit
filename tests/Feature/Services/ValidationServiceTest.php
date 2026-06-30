@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Services;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\MessageBag;
 use PHPUnit\Framework\Attributes\Group;
+use Psr\Log\AbstractLogger;
 use Psr\Log\NullLogger;
 use Simtabi\Laranail\Toolkit\Services\ValidationService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Stringable;
 
 #[Group('services')]
 class ValidationServiceTest extends TestCase
@@ -103,5 +106,42 @@ class ValidationServiceTest extends TestCase
         $this->assertFalse($this->service()->isValidDatabaseConnection('does_not_exist'));
 
         Schema::drop('settings_probe');
+    }
+
+    public function test_is_valid_database_connection_logs_and_returns_false_on_failure(): void
+    {
+        $logger = new class() extends AbstractLogger
+        {
+            /** @var list<array{level: mixed, message: string, context: array<string, mixed>}> */
+            public array $records = [];
+
+            public function log($level, string|Stringable $message, array $context = []): void
+            {
+                $this->records[] = ['level' => $level, 'message' => (string) $message, 'context' => $context];
+            }
+        };
+
+        $service = new ValidationService($this->app->make('session.store'), $logger);
+
+        // Point the default connection at an unsupported driver so the schema
+        // lookup throws — exercising the catch/log/return-false guard. Restored
+        // before teardown so the in-memory database can still be cleaned up.
+        $original = config('database.default');
+        config()->set('database.connections.broken', ['driver' => 'no-such-driver', 'database' => ':memory:']);
+        config()->set('database.default', 'broken');
+
+        try {
+            $this->assertFalse($service->isValidDatabaseConnection('settings'));
+        } finally {
+            config()->set('database.default', $original);
+            DB::purge('broken');
+        }
+
+        $this->assertCount(1, $logger->records);
+        $this->assertSame('error', $logger->records[0]['level']);
+        $this->assertSame('Database connection validation failed', $logger->records[0]['message']);
+        $this->assertSame('settings', $logger->records[0]['context']['table']);
+        $this->assertIsString($logger->records[0]['context']['error']);
+        $this->assertNotSame('', $logger->records[0]['context']['error']);
     }
 }

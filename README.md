@@ -257,7 +257,7 @@ class Post extends Model
 | [Security helpers](docs/security.md) | `RejectCommonPasswords` rule + CSPRNG `Modules\Security\Token`/`Password`/`Passphrase` generators + access-log redaction, `SecurityData` |
 | [Exceptions](docs/exceptions.md) | The `LaranailException` hierarchy + `RendersApiExceptions` app-side registrar |
 | [Base classes](docs/base-classes.md) | Reusable controller / job / listener / observer / event bases |
-| [Macros](docs/macros.md) | Str/Arr/Collection/Query macros + string-similarity + Blade directives + IDE stub (`ide-helper:macros` regenerator) |
+| [Macros](docs/macros.md) | Str/Arr/Collection/Query/Request/Response/Factory macros + string-similarity + Blade directives + IDE stub (`ide-helper:macros` regenerator) |
 | [Carbon macros](docs/carbon-macros.md) | Date helpers + ~90 national-calendar predicates (15 countries) |
 | [Traits](docs/traits.md) | Model & controller traits |
 | [Eventing module](docs/modules/eventing.md) | `Event` / `Listener` bases + `CacheEvents` (provider-less) |

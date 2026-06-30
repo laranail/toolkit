@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiProvider;
@@ -78,5 +79,88 @@ class GeminiProviderTest extends TestCase
         $this->expectException(LLMRequestException::class);
 
         new GeminiProvider('k', baseUrl: 'file:///etc/passwd');
+    }
+
+    public function test_assistant_role_is_mapped_to_model_role(): void
+    {
+        $this->fakeOk();
+
+        $this->provider()->generateResponse('gemini-2.0-flash', [
+            ['role' => 'user', 'content' => 'Hi'],
+            ['role' => 'assistant', 'content' => 'Hello'],
+        ]);
+
+        Http::assertSent(function ($request): bool {
+            $contents = $request->data()['contents'];
+
+            return $contents[0]['role'] === 'user'
+                && $contents[1]['role'] === 'model'
+                && $contents[1]['parts'][0]['text'] === 'Hello';
+        });
+    }
+
+    public function test_an_api_error_with_a_message_is_surfaced_in_the_exception(): void
+    {
+        Http::fake([
+            '*' => Http::response(['error' => ['message' => 'quota exceeded']], 400),
+        ]);
+
+        try {
+            $this->provider()->generateResponse('gemini-2.0-flash', [['role' => 'user', 'content' => 'Hi']]);
+            $this->fail('Expected LLMRequestException.');
+        } catch (LLMRequestException $e) {
+            $this->assertSame('Gemini API request failed (HTTP 400): quota exceeded', $e->getMessage());
+            $this->assertSame(400, $e->getCode());
+            $this->assertFalse($e->isRetryable());
+        }
+
+        // 4xx is non-retryable: exactly one request should have been sent.
+        Http::assertSentCount(1);
+    }
+
+    public function test_an_api_error_without_a_message_falls_back_to_a_default(): void
+    {
+        Http::fake([
+            '*' => Http::response(['unexpected' => 'shape'], 422),
+        ]);
+
+        try {
+            $this->provider()->generateResponse('gemini-2.0-flash', [['role' => 'user', 'content' => 'Hi']]);
+            $this->fail('Expected LLMRequestException.');
+        } catch (LLMRequestException $e) {
+            $this->assertSame('Gemini API request failed (HTTP 422): Gemini API request failed', $e->getMessage());
+        }
+    }
+
+    public function test_a_retryable_5xx_error_is_retried_until_exhaustion(): void
+    {
+        Http::fake([
+            '*' => Http::response(['error' => ['message' => 'backend down']], 503),
+        ]);
+
+        try {
+            $this->provider()->generateResponse('gemini-2.0-flash', [['role' => 'user', 'content' => 'Hi']]);
+            $this->fail('Expected LLMRequestException.');
+        } catch (LLMRequestException $e) {
+            $this->assertStringContainsString('503', $e->getMessage());
+        }
+
+        Http::assertSentCount(3);
+    }
+
+    public function test_a_connection_failure_is_wrapped_as_a_retryable_exception(): void
+    {
+        Http::fake(function (): void {
+            throw new ConnectionException('cURL error 28: timed out');
+        });
+
+        try {
+            $this->provider()->generateResponse('gemini-2.0-flash', [['role' => 'user', 'content' => 'Hi']]);
+            $this->fail('Expected LLMRequestException.');
+        } catch (LLMRequestException $e) {
+            $this->assertStringStartsWith('Gemini API connection failed:', $e->getMessage());
+            $this->assertTrue($e->isRetryable());
+            $this->assertInstanceOf(ConnectionException::class, $e->getPrevious());
+        }
     }
 }
