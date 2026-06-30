@@ -8,9 +8,9 @@ use Illuminate\Support\Arr;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
- * Exhaustive behaviour tests for {@see \Simtabi\Laranail\Toolkit\Macros\ArrMacros}
- * — exact input→output assertions (incl. edge cases) so the mutation gate has no
- * surviving operator/return/boundary mutants in these pure array macros.
+ * Exhaustive behaviour tests for the toolkit's Arr macros — exact input→output
+ * assertions (incl. edge cases) so the mutation gate has no surviving operator/
+ * return/boundary mutants in these pure array macros.
  */
 final class ArrMacrosBehaviorTest extends TestCase
 {
@@ -36,7 +36,7 @@ final class ArrMacrosBehaviorTest extends TestCase
     {
         $this->assertSame(
             ['A_1' => 1, 'B_2' => 2],
-            Arr::mapKeys(['a' => 1, 'b' => 2], fn ($k, $v): string => strtoupper($k) . '_' . $v),
+            Arr::mapKeys(['a' => 1, 'b' => 2], fn ($k, $v): string => strtoupper((string) $k) . '_' . $v),
         );
         $this->assertSame([], Arr::mapKeys([], fn ($k, $v) => $k));
     }

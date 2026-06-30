@@ -1,0 +1,928 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="AuthenticationException.php" path="/Exceptions">
+    <totals>
+      <lines total="115" comments="35" code="80" executable="35" executed="34" percent="97.14"/>
+      <methods count="5" tested="4" percent="80.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Exceptions\AuthenticationException" start="21" executable="35" executed="34" crap="11">
+      <namespace name="Simtabi\Laranail\Toolkit\Exceptions"/>
+      <method name="missingGuard" signature="missingGuard(): self" start="31" end="39" crap="1" executable="6" executed="6" coverage="100"/>
+      <method name="invalidGuard" signature="invalidGuard(string $guard): self" start="46" end="55" crap="1" executable="7" executed="7" coverage="100"/>
+      <method name="unauthenticated" signature="unauthenticated(?string $guard): self" start="62" end="71" crap="2" executable="7" executed="7" coverage="100"/>
+      <method name="render" signature="render(Illuminate\Http\Request $request): \Illuminate\Http\JsonResponse|false" start="80" end="99" crap="3" executable="11" executed="11" coverage="100"/>
+      <method name="resolveStatus" signature="resolveStatus(): int" start="104" end="113" crap="4.25" executable="4" executed="3" coverage="75"/>
+    </class>
+    <coverage>
+      <line nr="33">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_it_extends_the_rich_laranail_base"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_defers_to_default_for_non_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_missing_guard_factory"/>
+      </line>
+      <line nr="34">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_it_extends_the_rich_laranail_base"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_defers_to_default_for_non_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_missing_guard_factory"/>
+      </line>
+      <line nr="35">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_it_extends_the_rich_laranail_base"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_defers_to_default_for_non_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_missing_guard_factory"/>
+      </line>
+      <line nr="36">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_it_extends_the_rich_laranail_base"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_defers_to_default_for_non_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_missing_guard_factory"/>
+      </line>
+      <line nr="37">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_it_extends_the_rich_laranail_base"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_defers_to_default_for_non_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_missing_guard_factory"/>
+      </line>
+      <line nr="48">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_invalid_guard_factory_carries_context"/>
+      </line>
+      <line nr="49">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_invalid_guard_factory_carries_context"/>
+      </line>
+      <line nr="50">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_invalid_guard_factory_carries_context"/>
+      </line>
+      <line nr="51">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_invalid_guard_factory_carries_context"/>
+      </line>
+      <line nr="52">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_invalid_guard_factory_carries_context"/>
+      </line>
+      <line nr="53">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_invalid_guard_factory_carries_context"/>
+      </line>
+      <line nr="64">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_unauthenticated_factory_includes_guard_when_given"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+      </line>
+      <line nr="65">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_unauthenticated_factory_includes_guard_when_given"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+      </line>
+      <line nr="66">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_unauthenticated_factory_includes_guard_when_given"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+      </line>
+      <line nr="67">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_unauthenticated_factory_includes_guard_when_given"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+      </line>
+      <line nr="68">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_unauthenticated_factory_includes_guard_when_given"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+      </line>
+      <line nr="69">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_unauthenticated_factory_includes_guard_when_given"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+      </line>
+      <line nr="82">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_defers_to_default_for_non_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="83">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_defers_to_default_for_non_json_requests"/>
+      </line>
+      <line nr="86">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="88">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="89">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="90">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="91">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="94">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="95">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="98">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="106">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="108">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="112">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+      <line nr="38">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_it_extends_the_rich_laranail_base"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_defers_to_default_for_non_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_missing_guard_factory"/>
+      </line>
+      <line nr="54">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_invalid_guard_factory_carries_context"/>
+      </line>
+      <line nr="70">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_unauthenticated_factory_includes_guard_when_given"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+      </line>
+      <line nr="92">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_returns_json_envelope_for_json_requests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions\AuthenticationExceptionTest::test_render_includes_debug_payload_when_debug_enabled"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Exceptions</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Http\JsonResponse</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Http\Request</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="10">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Symfony\Component\HttpFoundation\Response</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">HttpResponse</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="11"/>
+      <line no="12">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT"> * Thrown when an authentication-related operation fails.</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT"> * Built on the rich {@see LaranailException} base, so it carries structured</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT"> * context, a UI-facing message and an HTTP status. It is *self-rendering*: when</token>
+      </line>
+      <line no="17">
+        <token name="T_DOC_COMMENT"> * the request expects JSON, Laravel's framework handler (L11+ calls `render()`</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT"> * directly on the exception &#x2014; no custom Handler subclass required) emits a</token>
+      </line>
+      <line no="19">
+        <token name="T_DOC_COMMENT"> * standardised error envelope mirroring {@see ApiResponseTrait}.</token>
+      </line>
+      <line no="20">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="21">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AuthenticationException</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXTENDS">extends</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">LaranailException</token>
+      </line>
+      <line no="22">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="23">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="24">
+        <token name="T_DOC_COMMENT">     * Default HTTP status for authentication failures.</token>
+      </line>
+      <line no="25">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONST">const</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">DEFAULT_STATUS</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">HttpResponse</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">HTTP_UNAUTHORIZED</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="27"/>
+      <line no="28">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="29">
+        <token name="T_DOC_COMMENT">     * No guard was supplied before using the auth helper.</token>
+      </line>
+      <line no="30">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="31">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">missingGuard</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="32">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="33">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">message</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'You must provide a guard before you can use the authentication helper.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">code</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">2001</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="36">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">userMessage</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Authentication guard not specified.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="37">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">status</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">DEFAULT_STATUS</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="38">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="40"/>
+      <line no="41">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="42">
+        <token name="T_DOC_COMMENT">     * The supplied guard is not a known/configured guard.</token>
+      </line>
+      <line no="43">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="44">
+        <token name="T_DOC_COMMENT">     * @param string $guard The invalid guard name.</token>
+      </line>
+      <line no="45">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">invalidGuard</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">message</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">Invalid authentication guard: </token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">code</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">2002</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">context</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'guard'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">userMessage</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Invalid authentication configuration.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="53">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">status</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">DEFAULT_STATUS</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="54">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="55">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="56"/>
+      <line no="57">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="58">
+        <token name="T_DOC_COMMENT">     * The current user is not authenticated (optionally on a named guard).</token>
+      </line>
+      <line no="59">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="60">
+        <token name="T_DOC_COMMENT">     * @param string|null $guard The guard the user failed to authenticate on.</token>
+      </line>
+      <line no="61">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="62">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">unauthenticated</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="63">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="64">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="65">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">message</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'User is not authenticated.'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE"> (guard: </token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">)</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="66">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">code</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">2003</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="67">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">context</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">array_filter</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'guard'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FN">fn</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">mixed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="68">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">userMessage</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Please log in to continue.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="69">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">status</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">DEFAULT_STATUS</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="70">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="71">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="72"/>
+      <line no="73">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="74">
+        <token name="T_DOC_COMMENT">     * Render the exception as a JSON envelope when the request expects JSON.</token>
+      </line>
+      <line no="75">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="76">
+        <token name="T_DOC_COMMENT">     * Returning `false` for non-JSON requests defers to Laravel's default</token>
+      </line>
+      <line no="77">
+        <token name="T_DOC_COMMENT">     * rendering (e.g. a redirect to the login route / an HTML error page), so</token>
+      </line>
+      <line no="78">
+        <token name="T_DOC_COMMENT">     * the toolkit never hijacks web responses.</token>
+      </line>
+      <line no="79">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="80">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">render</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Request</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_PIPE">|</token>
+        <token name="T_STRING">false</token>
+      </line>
+      <line no="81">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="82">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">expectsJson</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="83">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="84">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="85"/>
+      <line no="86">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">resolveStatus</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="87"/>
+      <line no="88">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="89">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'success'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="90">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'message'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getUserMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="91">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'errors'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getContext</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="92">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="93"/>
+      <line no="94">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_BOOL_CAST">(bool)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">config</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'app.debug'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="95">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'debug'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">toArray</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="96">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="97"/>
+      <line no="98">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="99">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="100"/>
+      <line no="101">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="102">
+        <token name="T_DOC_COMMENT">     * Resolve a valid HTTP status, defaulting to 401 for any out-of-range value.</token>
+      </line>
+      <line no="103">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="104">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">resolveStatus</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">int</token>
+      </line>
+      <line no="105">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="106">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getStatus</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="107"/>
+      <line no="108">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LT">&lt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">100</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_GT">&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">599</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="109">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">DEFAULT_STATUS</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="110">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="111"/>
+      <line no="112">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="113">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="114">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="115"/>
+    </source>
+  </file>
+</phpunit>

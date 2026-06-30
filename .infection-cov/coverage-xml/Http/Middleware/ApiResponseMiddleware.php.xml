@@ -1,0 +1,2071 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="ApiResponseMiddleware.php" path="/Http/Middleware">
+    <totals>
+      <lines total="262" comments="85" code="177" executable="68" executed="63" percent="92.65"/>
+      <methods count="11" tested="8" percent="72.73"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware" start="38" executable="68" executed="63" crap="28.31">
+      <namespace name="Simtabi\Laranail\Toolkit\Http\Middleware"/>
+      <method name="handle" signature="handle(Illuminate\Http\Request $request, Closure $next, string $options): Symfony\Component\HttpFoundation\Response" start="45" end="64" crap="3" executable="7" executed="7" coverage="100"/>
+      <method name="isEnvelopable" signature="isEnvelopable(Illuminate\Http\JsonResponse $response): bool" start="70" end="85" crap="3" executable="7" executed="7" coverage="100"/>
+      <method name="mutateKey" signature="mutateKey(string $key): string" start="90" end="93" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="hook" signature="hook(Illuminate\Http\Request $request, Illuminate\Http\JsonResponse $response): Illuminate\Http\JsonResponse" start="98" end="101" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="buildPayload" signature="buildPayload(Illuminate\Http\JsonResponse $response, string $options): Illuminate\Http\JsonResponse" start="108" end="131" crap="3" executable="14" executed="14" coverage="100"/>
+      <method name="resolveData" signature="resolveData(Illuminate\Http\JsonResponse $response, array $payload, string $metaTag, string $pageTag): mixed" start="147" end="179" crap="6.13" executable="13" executed="11" coverage="84.615384615385"/>
+      <method name="extractPaginator" signature="extractPaginator(Illuminate\Http\JsonResponse $response): ?Illuminate\Pagination\LengthAwarePaginator" start="187" end="200" crap="4.07" executable="6" executed="5" coverage="83.333333333333"/>
+      <method name="isSuccessful" signature="isSuccessful(int $code): bool" start="205" end="208" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getStatusMessage" signature="getStatusMessage(int $code): string" start="213" end="216" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="getMetaBlock" signature="getMetaBlock(Illuminate\Http\JsonResponse $response): array" start="224" end="241" crap="4.13" executable="10" executed="8" coverage="80"/>
+      <method name="getPaginationBlock" signature="getPaginationBlock(Illuminate\Pagination\LengthAwarePaginator $paginator): array" start="251" end="260" crap="1" executable="7" executed="7" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="47">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_non_json_responses_pass_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="49">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_non_json_responses_pass_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="51">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_non_json_responses_pass_through_untouched"/>
+      </line>
+      <line nr="54">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="59">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="60">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+      </line>
+      <line nr="63">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="72">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="73">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="76">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="78">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="79">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+      </line>
+      <line nr="82">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="84">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="92">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="100">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="110">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="111">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="112">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="114">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="116">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="117">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="118">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="119">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="122">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="124">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="125">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="128">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="130">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="153">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="155">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="156">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="160">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="162">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="165">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="167">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="168">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+      </line>
+      <line nr="171">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="174">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="178">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="189">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="191">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="192">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="195">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="199">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_malformed_json_body_passes_through_untouched"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="207">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="215">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="226">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="228">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="229">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="230">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="231">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="234">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="240">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="254">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="255">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="256">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="257">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="258">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="120">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="232">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_valid_json_is_enveloped_and_camel_cased"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Http\ApiResponseMiddlewareTest::test_empty_json_body_produces_envelope_without_data_key"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_envelopes_and_camel_cases_data"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_marks_error_status"/>
+      </line>
+      <line nr="253">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+      <line nr="259">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiMiddlewareTest::test_response_middleware_builds_pagination_block"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Http\Middleware</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Closure</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Http\JsonResponse</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Http\Request</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="10">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Http\Resources\Json\JsonResource</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="11">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Pagination\LengthAwarePaginator</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="12">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Str</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="13">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Http\Contracts\HttpStatusInterface</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="14">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="15">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Symfony\Component\HttpFoundation\Response</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="16"/>
+      <line no="17">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT"> * Wraps a route's JSON response in the standard envelope and rewrites its data</token>
+      </line>
+      <line no="19">
+        <token name="T_DOC_COMMENT"> * keys to camelCase.</token>
+      </line>
+      <line no="20">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="21">
+        <token name="T_DOC_COMMENT"> * The envelope is intentionally **shape-compatible** with</token>
+      </line>
+      <line no="22">
+        <token name="T_DOC_COMMENT"> * {@see ApiResponseTrait}: top-level</token>
+      </line>
+      <line no="23">
+        <token name="T_DOC_COMMENT"> * `success` / `message` / `data` / `meta`, with pagination under</token>
+      </line>
+      <line no="24">
+        <token name="T_DOC_COMMENT"> * `meta.pagination` using the same field names. Use the trait when you control</token>
+      </line>
+      <line no="25">
+        <token name="T_DOC_COMMENT"> * the controller and want to build the envelope explicitly; use this middleware</token>
+      </line>
+      <line no="26">
+        <token name="T_DOC_COMMENT"> * when you want to envelope *existing* handlers (e.g. a legacy API group)</token>
+      </line>
+      <line no="27">
+        <token name="T_DOC_COMMENT"> * without touching each one.</token>
+      </line>
+      <line no="28">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="29">
+        <token name="T_DOC_COMMENT"> * This middleware **globally transforms the payload of every response on the</token>
+      </line>
+      <line no="30">
+        <token name="T_DOC_COMMENT"> * routes it is attached to**. It is therefore opt-in: register it on a specific</token>
+      </line>
+      <line no="31">
+        <token name="T_DOC_COMMENT"> * route or group via the `api.response` alias rather than in the global kernel.</token>
+      </line>
+      <line no="32">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="33">
+        <token name="T_DOC_COMMENT"> * Hardening: the response body is decoded with {@see json_decode} guarded by</token>
+      </line>
+      <line no="34">
+        <token name="T_DOC_COMMENT"> * {@see json_last_error()}. If the body is not valid JSON (e.g. a streamed file</token>
+      </line>
+      <line no="35">
+        <token name="T_DOC_COMMENT"> * or HTML error page that slipped through), the response is returned</token>
+      </line>
+      <line no="36">
+        <token name="T_DOC_COMMENT"> * **untouched** rather than corrupted or fatal.</token>
+      </line>
+      <line no="37">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="38">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ApiResponseMiddleware</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXTENDS">extends</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ApiMiddleware</token>
+      </line>
+      <line no="39">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="41">
+        <token name="T_DOC_COMMENT">     * Handle the response.</token>
+      </line>
+      <line no="42">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="43">
+        <token name="T_DOC_COMMENT">     * @param string ...$options Optional envelope tags: [metaTag, dataTag, pageTag].</token>
+      </line>
+      <line no="44">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="45">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">handle</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Request</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Closure</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$next</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ELLIPSIS">...</token>
+        <token name="T_VARIABLE">$options</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Response</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$next</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="48"/>
+      <line no="49">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_INSTANCEOF">instanceof</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_COMMENT">// Only JSON API responses are enveloped; views/streams/redirects pass through.</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="53"/>
+      <line no="54">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">hook</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="55"/>
+      <line no="56">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Hardening: if the body is not a paginator and not decodable JSON, the</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// response is malformed (e.g. tampered downstream) &#x2014; leave it untouched</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// rather than fatal on, or silently corrupt, the bytes.</token>
+      </line>
+      <line no="59">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isEnvelopable</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="60">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="61">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="62"/>
+      <line no="63">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">buildPayload</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ELLIPSIS">...</token>
+        <token name="T_VARIABLE">$options</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="64">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="65"/>
+      <line no="66">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="67">
+        <token name="T_DOC_COMMENT">     * Whether the response body can be safely enveloped: a paginator, an empty</token>
+      </line>
+      <line no="68">
+        <token name="T_DOC_COMMENT">     * body, or a syntactically valid JSON document.</token>
+      </line>
+      <line no="69">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="70">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isEnvelopable</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="71">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="72">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">extractPaginator</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_INSTANCEOF">instanceof</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">LengthAwarePaginator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="73">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="74">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="75"/>
+      <line no="76">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$content</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getContent</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="77"/>
+      <line no="78">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$content</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="79">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="80">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="81"/>
+      <line no="82">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">json_decode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$content</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="83"/>
+      <line no="84">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">json_last_error</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JSON_ERROR_NONE</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="85">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="86"/>
+      <line no="87">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="88">
+        <token name="T_DOC_COMMENT">     * Rewrite each data key to camelCase for JS/TS clients.</token>
+      </line>
+      <line no="89">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="90">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">mutateKey</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="91">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="92">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Str</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">camel</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="93">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="94"/>
+      <line no="95">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="96">
+        <token name="T_DOC_COMMENT">     * Hook into the response before it is enveloped. Override to mutate it.</token>
+      </line>
+      <line no="97">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="98">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">hook</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Request</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JsonResponse</token>
+      </line>
+      <line no="99">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="100">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="101">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="102"/>
+      <line no="103">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="104">
+        <token name="T_DOC_COMMENT">     * Build the standard `{ success, message, data, meta }` envelope.</token>
+      </line>
+      <line no="105">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="106">
+        <token name="T_DOC_COMMENT">     * @param string ...$options Optional envelope tags: [metaTag, dataTag, pageTag].</token>
+      </line>
+      <line no="107">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="108">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">buildPayload</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ELLIPSIS">...</token>
+        <token name="T_VARIABLE">$options</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JsonResponse</token>
+      </line>
+      <line no="109">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="110">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$metaTag</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$options</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_LNUMBER">0</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'meta'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="111">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$dataTag</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$options</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'data'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="112">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$pageTag</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$options</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_LNUMBER">2</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'pagination'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="113"/>
+      <line no="114">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getStatusCode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="115"/>
+      <line no="116">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="117">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'success'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isSuccessful</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="118">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'message'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getStatusMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="119">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$metaTag</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getMetaBlock</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="120">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="121"/>
+      <line no="122">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">resolveData</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$metaTag</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$pageTag</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="123"/>
+      <line no="124">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">NO_DATA</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="125">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$dataTag</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">mutateKeys</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$data</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="126">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="127"/>
+      <line no="128">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">setData</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="129"/>
+      <line no="130">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="131">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="132"/>
+      <line no="133">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="134">
+        <token name="T_DOC_COMMENT">     * Sentinel meaning "the response had no decodable body" &#x2014; distinct from a</token>
+      </line>
+      <line no="135">
+        <token name="T_DOC_COMMENT">     * body that legitimately decoded to `null`.</token>
+      </line>
+      <line no="136">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="137">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONST">const</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">NO_DATA</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">"\0__laranail_no_data__\0"</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="138"/>
+      <line no="139">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="140">
+        <token name="T_DOC_COMMENT">     * Resolve the `data` portion of the payload, mutating `$payload[$metaTag]`</token>
+      </line>
+      <line no="141">
+        <token name="T_DOC_COMMENT">     * in place to add the pagination block when the response is paginated.</token>
+      </line>
+      <line no="142">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="143">
+        <token name="T_DOC_COMMENT">     * @param array&lt;string, mixed&gt; $payload</token>
+      </line>
+      <line no="144">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="145">
+        <token name="T_DOC_COMMENT">     * @return mixed The data value, or {@see ApiResponseMiddleware::NO_DATA}.</token>
+      </line>
+      <line no="146">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="147">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">resolveData</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="148">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="149">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG">&amp;</token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="150">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$metaTag</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="151">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$pageTag</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="152">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">mixed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="153">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">extractPaginator</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="154"/>
+      <line no="155">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_INSTANCEOF">instanceof</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">LengthAwarePaginator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="156">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_ISSET">isset</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$metaTag</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">is_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$metaTag</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="157">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$metaTag</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="158">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="159"/>
+      <line no="160">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$payload</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$metaTag</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$pageTag</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getPaginationBlock</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="161"/>
+      <line no="162">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">items</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="163">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="164"/>
+      <line no="165">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$content</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getContent</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="166"/>
+      <line no="167">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$content</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="168">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">NO_DATA</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="169">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="170"/>
+      <line no="171">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$decoded</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">json_decode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$content</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="172"/>
+      <line no="173">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Hardening: invalid JSON &#x2192; leave the original response untouched.</token>
+      </line>
+      <line no="174">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">json_last_error</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JSON_ERROR_NONE</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="175">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">NO_DATA</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="176">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="177"/>
+      <line no="178">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$decoded</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="179">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="180"/>
+      <line no="181">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="182">
+        <token name="T_DOC_COMMENT">     * Pull a LengthAwarePaginator out of the response's original payload,</token>
+      </line>
+      <line no="183">
+        <token name="T_DOC_COMMENT">     * whether it is the paginator itself or wrapped in a resource collection.</token>
+      </line>
+      <line no="184">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="185">
+        <token name="T_DOC_COMMENT">     * @return LengthAwarePaginator&lt;array-key, mixed&gt;|null</token>
+      </line>
+      <line no="186">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="187">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">extractPaginator</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">LengthAwarePaginator</token>
+      </line>
+      <line no="188">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="189">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$original</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getOriginalContent</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="190"/>
+      <line no="191">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$original</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_INSTANCEOF">instanceof</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">LengthAwarePaginator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="192">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$original</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="193">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="194"/>
+      <line no="195">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$original</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_INSTANCEOF">instanceof</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">JsonResource</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$original</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">resource</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_INSTANCEOF">instanceof</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">LengthAwarePaginator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="196">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$original</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">resource</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="197">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="198"/>
+      <line no="199">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="200">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="201"/>
+      <line no="202">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="203">
+        <token name="T_DOC_COMMENT">     * Whether the status code denotes success (i.e. not a 4xx/5xx).</token>
+      </line>
+      <line no="204">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="205">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isSuccessful</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$code</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="206">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="207">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$code</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LT">&lt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">400</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="208">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="209"/>
+      <line no="210">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="211">
+        <token name="T_DOC_COMMENT">     * Human-readable reason phrase for the status code.</token>
+      </line>
+      <line no="212">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="213">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getStatusMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$code</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="214">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="215">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">HttpStatusInterface</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">CODES</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$code</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Unknown'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="216">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="217"/>
+      <line no="218">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="219">
+        <token name="T_DOC_COMMENT">     * Build the `meta` block (code + status + message), merging any</token>
+      </line>
+      <line no="220">
+        <token name="T_DOC_COMMENT">     * `additionalMeta` the response carries.</token>
+      </line>
+      <line no="221">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="222">
+        <token name="T_DOC_COMMENT">     * @return array&lt;string, mixed&gt;</token>
+      </line>
+      <line no="223">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="224">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getMetaBlock</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">JsonResponse</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="225">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="226">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$code</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getStatusCode</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="227"/>
+      <line no="228">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$meta</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="229">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'code'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$code</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="230">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'status'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isSuccessful</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$code</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'success'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'error'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="231">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'message'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getStatusMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$code</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="232">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="233"/>
+      <line no="234">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_ISSET">isset</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">additionalMeta</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">is_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">additionalMeta</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="235">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_DOC_COMMENT">/** @var array&lt;string, mixed&gt; $additional */</token>
+      </line>
+      <line no="236">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$additional</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$response</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">additionalMeta</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="237">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$meta</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">array_merge</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$meta</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$additional</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="238">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="239"/>
+      <line no="240">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$meta</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="241">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="242"/>
+      <line no="243">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="244">
+        <token name="T_DOC_COMMENT">     * Build the pagination block. Field names mirror</token>
+      </line>
+      <line no="245">
+        <token name="T_DOC_COMMENT">     * {@see ApiResponseTrait::paginatedResponse()}.</token>
+      </line>
+      <line no="246">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="247">
+        <token name="T_DOC_COMMENT">     * @param LengthAwarePaginator&lt;array-key, mixed&gt; $paginator</token>
+      </line>
+      <line no="248">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="249">
+        <token name="T_DOC_COMMENT">     * @return array&lt;string, int&gt;</token>
+      </line>
+      <line no="250">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="251">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getPaginationBlock</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">LengthAwarePaginator</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="252">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="253">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="254">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'total'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">total</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="255">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'count'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">count</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="256">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'per_page'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">perPage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="257">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'current_page'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">currentPage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="258">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'total_pages'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$paginator</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">lastPage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="259">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="260">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="261">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="262"/>
+    </source>
+  </file>
+</phpunit>

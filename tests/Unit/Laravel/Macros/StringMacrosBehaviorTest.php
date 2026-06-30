@@ -10,9 +10,9 @@ use Illuminate\Support\Stringable;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
- * Exhaustive behaviour tests for {@see \Simtabi\Laranail\Toolkit\Macros\StringMacros}
- * — exact assertions over the Str macros (incl. the arithmetic-heavy similarity and
- * truncation helpers) plus the Stringable mirrors, to kill surviving mutants.
+ * Exhaustive behaviour tests for the toolkit's Str macros — exact assertions over
+ * the Str macros (incl. the arithmetic-heavy similarity and truncation helpers) plus
+ * the Stringable mirrors, to kill surviving mutants.
  */
 final class StringMacrosBehaviorTest extends TestCase
 {

@@ -1,0 +1,684 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="RetriesHttpRequests.php" path="/Modules/LLM">
+    <totals>
+      <lines total="81" comments="19" code="62" executable="25" executed="24" percent="96.00"/>
+      <methods count="3" tested="2" percent="66.67"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="0" tested="0" percent="0"/>
+      <traits count="1" tested="0" percent="0.00"/>
+    </totals>
+    <trait name="Simtabi\Laranail\Toolkit\Modules\LLM\RetriesHttpRequests" start="14" executable="25" executed="24" crap="10">
+      <namespace name="Simtabi\Laranail\Toolkit\Modules\LLM"/>
+      <method name="executeWithRetry" signature="executeWithRetry(callable $callback, string $provider)" start="26" end="60" crap="6" executable="20" executed="19" coverage="95"/>
+      <method name="isRetryableStatus" signature="isRetryableStatus(int $status): bool" start="62" end="65" crap="2" executable="1" executed="1" coverage="100"/>
+      <method name="sanitizeBaseUrl" signature="sanitizeBaseUrl(string $baseUrl): string" start="70" end="79" crap="2" executable="4" executed="4" coverage="100"/>
+    </trait>
+    <coverage>
+      <line nr="28">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_parses_a_successful_response_and_sends_the_api_key_header"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="29">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_parses_a_successful_response_and_sends_the_api_key_header"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="30">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_parses_a_successful_response_and_sends_the_api_key_header"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="32">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_parses_a_successful_response_and_sends_the_api_key_header"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="34">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_parses_a_successful_response_and_sends_the_api_key_header"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="35">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="36">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="37">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="39">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="40">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="43">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="44">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="45">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="48">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="55">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="56">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="59">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="64">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="72">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_llm_binding_selects_claude_when_configured"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_llm_binding_selects_gemini_when_configured"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_parses_a_successful_response_and_sends_the_api_key_header"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_invalid_base_url_scheme_is_rejected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="74">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_llm_binding_selects_claude_when_configured"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_llm_binding_selects_gemini_when_configured"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_parses_a_successful_response_and_sends_the_api_key_header"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_invalid_base_url_scheme_is_rejected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="75">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_invalid_base_url_scheme_is_rejected"/>
+      </line>
+      <line nr="78">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_llm_binding_selects_claude_when_configured"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Modules\FacadesTest::test_llm_binding_selects_gemini_when_configured"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_parses_a_successful_response_and_sends_the_api_key_header"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_system_messages_become_system_instruction_and_json_mode_sets_mime_type"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_model_is_reported_from_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\GeminiProviderTest::test_api_key_is_sent_as_a_header_and_never_in_the_url"/>
+      </line>
+      <line nr="46">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+      <line nr="57">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_fails_fast_on_4xx_without_retrying"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders\ClaudeProviderTest::test_it_retries_on_5xx_then_gives_up"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\LLM</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Facades\Log</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8"/>
+      <line no="9">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="10">
+        <token name="T_DOC_COMMENT"> * Shared retry behaviour for HTTP-based LLM providers.</token>
+      </line>
+      <line no="11">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="12">
+        <token name="T_DOC_COMMENT"> * Expects the using class to declare `int $maxRetries` and `int $retryDelay`.</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="14">
+        <token name="T_TRAIT">trait</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">RetriesHttpRequests</token>
+      </line>
+      <line no="15">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="16">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="17">
+        <token name="T_DOC_COMMENT">     * Run the callback, retrying only on retryable failures (transport errors,</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT">     * HTTP 429 and 5xx). Non-retryable failures (e.g. 4xx) fail fast.</token>
+      </line>
+      <line no="19">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="20">
+        <token name="T_DOC_COMMENT">     * @template T</token>
+      </line>
+      <line no="21">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="22">
+        <token name="T_DOC_COMMENT">     * @param callable(): T $callback</token>
+      </line>
+      <line no="23">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="24">
+        <token name="T_DOC_COMMENT">     * @return T</token>
+      </line>
+      <line no="25">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">executeWithRetry</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$provider</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="27">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="28">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$max</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">max</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">maxRetries</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$attempt</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">0</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="30">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$lastException</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="31"/>
+      <line no="32">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_WHILE">while</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$attempt</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LT">&lt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$max</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="33">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_TRY">try</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CATCH">catch</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">LLMRequestException</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="36">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$lastException</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="37">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$attempt</token>
+        <token name="T_INC">++</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="38"/>
+      <line no="39">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isRetryable</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$attempt</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_GREATER_OR_EQUAL">&gt;=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$max</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_BREAK">break</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="42"/>
+      <line no="43">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">Log</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">warning</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$provider</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE"> API request failed, retrying...</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="44">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'attempt'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$attempt</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="45">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'error'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$e</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="47"/>
+      <line no="48">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">retryDelay</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_GT">&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">0</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_STRING">sleep</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">retryDelay</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="53"/>
+      <line no="54">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// The loop only exits here via the catch path, so $lastException is set.</token>
+      </line>
+      <line no="55">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_STRING">Log</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">error</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$provider</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE"> API request failed</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="56">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'error'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$lastException</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getMessage</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="58"/>
+      <line no="59">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$lastException</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="60">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="61"/>
+      <line no="62">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isRetryableStatus</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">int</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="63">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="64">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">429</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$status</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_GREATER_OR_EQUAL">&gt;=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">500</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="65">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="66"/>
+      <line no="67">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="68">
+        <token name="T_DOC_COMMENT">     * Validate a configured base URL and reject non-HTTP(S) schemes (SSRF guard).</token>
+      </line>
+      <line no="69">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="70">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">sanitizeBaseUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$baseUrl</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="71">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="72">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$scheme</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">strtolower</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">parse_url</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$baseUrl</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">PHP_URL_SCHEME</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="73"/>
+      <line no="74">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">in_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$scheme</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'http'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'https'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="75">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">LLMRequestException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">Invalid LLM base URL scheme: [</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$scheme</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">].</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="76">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="77"/>
+      <line no="78">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">rtrim</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$baseUrl</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="79">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="80">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="81"/>
+    </source>
+  </file>
+</phpunit>

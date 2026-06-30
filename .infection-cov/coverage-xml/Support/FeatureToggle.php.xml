@@ -1,0 +1,344 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="FeatureToggle.php" path="/Support">
+    <totals>
+      <lines total="41" comments="9" code="32" executable="8" executed="8" percent="100.00"/>
+      <methods count="2" tested="2" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="1" percent="100.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Support\FeatureToggle" start="9" executable="8" executed="8" crap="4">
+      <namespace name="Simtabi\Laranail\Toolkit\Support"/>
+      <method name="isEnabled" signature="isEnabled(string $feature): bool" start="16" end="29" crap="2" executable="6" executed="6" coverage="100"/>
+      <method name="getOverrideKey" signature="getOverrideKey(): string" start="34" end="39" crap="2" executable="2" executed="2" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="18">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_enabled_when_configured_true"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_user_override_takes_precedence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_when_configured_false"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_by_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_environment_override_takes_precedence"/>
+      </line>
+      <line nr="21">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_enabled_when_configured_true"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_user_override_takes_precedence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_when_configured_false"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_by_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_environment_override_takes_precedence"/>
+      </line>
+      <line nr="22">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_enabled_when_configured_true"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_user_override_takes_precedence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_when_configured_false"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_by_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_environment_override_takes_precedence"/>
+      </line>
+      <line nr="24">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_enabled_when_configured_true"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_user_override_takes_precedence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_when_configured_false"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_by_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_environment_override_takes_precedence"/>
+      </line>
+      <line nr="25">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_user_override_takes_precedence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_environment_override_takes_precedence"/>
+      </line>
+      <line nr="28">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_enabled_when_configured_true"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_when_configured_false"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_by_default"/>
+      </line>
+      <line nr="36">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_enabled_when_configured_true"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_user_override_takes_precedence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_when_configured_false"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_by_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_environment_override_takes_precedence"/>
+      </line>
+      <line nr="38">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_enabled_when_configured_true"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_user_override_takes_precedence"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_when_configured_false"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_feature_is_disabled_by_default"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Unit\Support\FeatureToggleTest::test_environment_override_takes_precedence"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Support</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Facades\Config</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8"/>
+      <line no="9">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FeatureToggle</token>
+      </line>
+      <line no="10">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="11">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="12">
+        <token name="T_DOC_COMMENT">     * Check if a feature is enabled. Flags live under the namespaced config key</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT">     * `laranail.toolkit.feature-toggles.*` (merged by the package + overridable</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT">     * by publishing the config &#x2014; no runtime file copy needed).</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="16">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isEnabled</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$feature</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="17">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="18">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$isEnabledInConfig</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Config</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">get</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">laranail.toolkit.feature-toggles.</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$feature</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="19"/>
+      <line no="20">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Check if there's a per-user or per-environment override</token>
+      </line>
+      <line no="21">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$overrideKey</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">laranail.toolkit.feature-toggles.</token>
+        <token name="T_CURLY_OPEN">{</token>
+        <token name="T_VARIABLE">$feature</token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_ENCAPSED_AND_WHITESPACE">.</token>
+        <token name="T_DOUBLE_QUOTES">"</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">getOverrideKey</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="22">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$isOverridden</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Config</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">get</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$overrideKey</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="23"/>
+      <line no="24">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$isOverridden</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOL_CAST">(bool)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$isOverridden</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="27"/>
+      <line no="28">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOL_CAST">(bool)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$isEnabledInConfig</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="30"/>
+      <line no="31">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="32">
+        <token name="T_DOC_COMMENT">     * Get the override key based on user or environment.</token>
+      </line>
+      <line no="33">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">getOverrideKey</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="36">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">auth</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">user</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="37"/>
+      <line no="38">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'user.'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">id</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'environment.'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOT">.</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">app</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">environment</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="40">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="41"/>
+    </source>
+  </file>
+</phpunit>

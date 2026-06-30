@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="AccessLog.php" path="/Modules/Security/AccessLog">
+    <totals>
+      <lines total="28" comments="2" code="26" executable="3" executed="3" percent="100.00"/>
+      <methods count="1" tested="1" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="1" percent="100.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLog" start="9" executable="3" executed="3" crap="1">
+      <namespace name="Simtabi\Laranail\Toolkit\Modules\Security\AccessLog"/>
+      <method name="casts" signature="casts(): array" start="21" end="26" crap="1" executable="3" executed="3" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="24">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_logging_can_be_disabled_via_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_config_override_replaces_the_default_deny_list"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_deeply_nested_secrets_are_redacted_recursively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_a_logging_failure_never_breaks_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_sensitive_fields_are_redacted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_query_string_secrets_are_not_stored_in_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_default_deny_list_comes_from_security_data"/>
+      </line>
+      <line nr="23">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_logging_can_be_disabled_via_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_config_override_replaces_the_default_deny_list"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_deeply_nested_secrets_are_redacted_recursively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_a_logging_failure_never_breaks_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_sensitive_fields_are_redacted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_query_string_secrets_are_not_stored_in_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_default_deny_list_comes_from_security_data"/>
+      </line>
+      <line nr="25">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_logging_can_be_disabled_via_config"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_config_override_replaces_the_default_deny_list"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_deeply_nested_secrets_are_redacted_recursively"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_a_logging_failure_never_breaks_the_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_sensitive_fields_are_redacted"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_query_string_secrets_are_not_stored_in_url"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\AccessLogMiddlewareTest::test_default_deny_list_comes_from_security_data"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\Security\AccessLog</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Database\Eloquent\Model</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8"/>
+      <line no="9">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AccessLog</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXTENDS">extends</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Model</token>
+      </line>
+      <line no="10">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="11">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** @var list&lt;string&gt; */</token>
+      </line>
+      <line no="12">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$fillable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="13">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'ip'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="14">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'method'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="15">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'url'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="16">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'user_agent'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="17">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'request_data'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="18">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="19"/>
+      <line no="20">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** @return array&lt;string, string&gt; */</token>
+      </line>
+      <line no="21">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">casts</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="22">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="23">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+      </line>
+      <line no="24">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'request_data'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'array'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="27">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="28"/>
+    </source>
+  </file>
+</phpunit>

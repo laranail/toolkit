@@ -1,0 +1,1545 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="ConditionalRunner.php" path="/Support">
+    <totals>
+      <lines total="195" comments="84" code="111" executable="28" executed="27" percent="96.43"/>
+      <methods count="14" tested="13" percent="92.86"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Support\ConditionalRunner" start="27" executable="28" executed="27" crap="23">
+      <namespace name="Simtabi\Laranail\Toolkit\Support"/>
+      <method name="make" signature="make(): self" start="40" end="43" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="whenConsole" signature="whenConsole(callable $callback): self" start="48" end="51" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="whenNotConsole" signature="whenNotConsole(callable $callback): self" start="56" end="59" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="whenApi" signature="whenApi(callable $callback): self" start="67" end="70" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="whenWeb" signature="whenWeb(callable $callback): self" start="75" end="78" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="whenAuthenticated" signature="whenAuthenticated(callable $callback, ?string $guard): self" start="83" end="86" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="whenGuest" signature="whenGuest(callable $callback, ?string $guard): self" start="91" end="94" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="whenRole" signature="whenRole(string $role, callable $callback, ?string $guard): self" start="102" end="105" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="whenRoleIsNot" signature="whenRoleIsNot(string $role, callable $callback, ?string $guard): self" start="113" end="120" crap="3" executable="3" executed="3" coverage="100"/>
+      <method name="when" signature="when(bool $condition, callable $callback): self" start="127" end="134" crap="2" executable="3" executed="3" coverage="100"/>
+      <method name="run" signature="run(): array" start="142" end="153" crap="2" executable="5" executed="5" coverage="100"/>
+      <method name="isApiRequest" signature="isApiRequest(): bool" start="162" end="171" crap="3.14" executable="4" executed="3" coverage="75"/>
+      <method name="isWebRequest" signature="isWebRequest(): bool" start="176" end="179" crap="2" executable="1" executed="1" coverage="100"/>
+      <method name="userHasRole" signature="userHasRole(string $role, ?string $guard): bool" start="184" end="193" crap="3" executable="4" executed="4" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="42">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_not_console_is_skipped_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_make_returns_a_fresh_runner"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_run_clears_pending_callbacks"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_conditional_exposes_a_runner"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_outside_console_returns_null_under_console"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="50">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+      </line>
+      <line nr="58">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_not_console_is_skipped_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_outside_console_returns_null_under_console"/>
+      </line>
+      <line nr="69">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+      </line>
+      <line nr="77">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+      </line>
+      <line nr="85">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="93">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+      </line>
+      <line nr="104">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+      </line>
+      <line nr="115">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+      </line>
+      <line nr="117">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+      </line>
+      <line nr="119">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+      </line>
+      <line nr="129">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_not_console_is_skipped_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_run_clears_pending_callbacks"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_outside_console_returns_null_under_console"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="130">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_run_clears_pending_callbacks"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="133">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_not_console_is_skipped_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_run_clears_pending_callbacks"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_outside_console_returns_null_under_console"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="144">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_not_console_is_skipped_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_run_clears_pending_callbacks"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_outside_console_returns_null_under_console"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="146">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_not_console_is_skipped_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_run_clears_pending_callbacks"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_outside_console_returns_null_under_console"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="147">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_run_clears_pending_callbacks"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="150">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_not_console_is_skipped_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_run_clears_pending_callbacks"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_outside_console_returns_null_under_console"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="152">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_console_runs_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_not_console_is_skipped_under_console_context"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_authenticated_runs_only_when_a_user_is_logged_in"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_is_false_without_a_resolvable_user"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_run_clears_pending_callbacks"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_guest_runs_only_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_not_runs_when_role_absent"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_in_console_returns_the_callback_result"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_outside_console_returns_null_under_console"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_guest_gates_on_auth_state"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_when_authenticated_gates_on_auth_state"/>
+      </line>
+      <line nr="164">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+      </line>
+      <line nr="168">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+      </line>
+      <line nr="170">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_for_api_path"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_runs_when_json_is_expected"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_api_is_skipped_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+      </line>
+      <line nr="178">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_runs_for_a_plain_web_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_web_is_skipped_for_an_api_request"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+      </line>
+      <line nr="186">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+      </line>
+      <line nr="188">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+      </line>
+      <line nr="189">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_guests"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_is_false_for_a_model_without_has_role"/>
+      </line>
+      <line nr="192">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_when_role_uses_the_user_has_role_method"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\ConditionalRunnerTest::test_predicates_chain_and_each_fires_independently"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Support\RunsConditionallyTest::test_run_for_role_delegates_to_has_role"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Support</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Traits\Conditionable</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8"/>
+      <line no="9">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="10">
+        <token name="T_DOC_COMMENT"> * Context-aware conditional execution.</token>
+      </line>
+      <line no="11">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="12">
+        <token name="T_DOC_COMMENT"> * Native Laravel's {@see Conditionable} answers</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT"> * "run this when a boolean is true". `ConditionalRunner` adds the *request /</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT"> * auth context* predicates that boolean does not carry: console vs. web vs.</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT"> * API, authenticated vs. guest, and role checks.</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="17">
+        <token name="T_DOC_COMMENT"> * Each predicate runs its callback only when the context holds; predicates are</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT"> * chainable, so several may be queued and each fires (or not) when {@see run()}</token>
+      </line>
+      <line no="19">
+        <token name="T_DOC_COMMENT"> * is finally called &#x2014; there is no implicit short-circuit between them.</token>
+      </line>
+      <line no="20">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="21">
+        <token name="T_DOC_COMMENT"> * Every probe reads native runtime state (`app()-&gt;runningInConsole()`,</token>
+      </line>
+      <line no="22">
+        <token name="T_DOC_COMMENT"> * `request()`, `auth()`); role checks call `hasRole()` on the authenticated</token>
+      </line>
+      <line no="23">
+        <token name="T_DOC_COMMENT"> * user *only if that method exists*, so the runner works with any model that</token>
+      </line>
+      <line no="24">
+        <token name="T_DOC_COMMENT"> * provides one (e.g. spatie/laravel-permission) without a hard dependency on</token>
+      </line>
+      <line no="25">
+        <token name="T_DOC_COMMENT"> * any package.</token>
+      </line>
+      <line no="26">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="27">
+        <token name="T_FINAL">final</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ConditionalRunner</token>
+      </line>
+      <line no="28">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="30">
+        <token name="T_DOC_COMMENT">     * Queued callbacks whose context predicate evaluated true, in the order</token>
+      </line>
+      <line no="31">
+        <token name="T_DOC_COMMENT">     * they were registered.</token>
+      </line>
+      <line no="32">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="33">
+        <token name="T_DOC_COMMENT">     * @var list&lt;callable():mixed&gt;</token>
+      </line>
+      <line no="34">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$pending</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="36"/>
+      <line no="37">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="38">
+        <token name="T_DOC_COMMENT">     * Fluent entry point.</token>
+      </line>
+      <line no="39">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STATIC">static</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">make</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="42">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="43">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="44"/>
+      <line no="45">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="46">
+        <token name="T_DOC_COMMENT">     * Run a callback when the running context is the console.</token>
+      </line>
+      <line no="47">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">whenConsole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">when</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">app</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">runningInConsole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="52"/>
+      <line no="53">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="54">
+        <token name="T_DOC_COMMENT">     * Run a callback when the running context is NOT the console (web / API).</token>
+      </line>
+      <line no="55">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="56">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">whenNotConsole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">when</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">app</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">runningInConsole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="59">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="60"/>
+      <line no="61">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="62">
+        <token name="T_DOC_COMMENT">     * Run a callback for API requests.</token>
+      </line>
+      <line no="63">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="64">
+        <token name="T_DOC_COMMENT">     * Mirrors the legacy semantics: a request is treated as API when its path</token>
+      </line>
+      <line no="65">
+        <token name="T_DOC_COMMENT">     * matches `api/*` or it explicitly expects a JSON response.</token>
+      </line>
+      <line no="66">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="67">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">whenApi</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="68">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="69">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">when</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isApiRequest</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="70">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="71"/>
+      <line no="72">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="73">
+        <token name="T_DOC_COMMENT">     * Run a callback for web requests (a bound HTTP request that is not API).</token>
+      </line>
+      <line no="74">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="75">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">whenWeb</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="76">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="77">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">when</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isWebRequest</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="78">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="79"/>
+      <line no="80">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="81">
+        <token name="T_DOC_COMMENT">     * Run a callback when a user is authenticated (optionally on a guard).</token>
+      </line>
+      <line no="82">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="83">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">whenAuthenticated</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="84">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="85">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">when</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">auth</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">guard</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">check</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="86">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="87"/>
+      <line no="88">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="89">
+        <token name="T_DOC_COMMENT">     * Run a callback when no user is authenticated (optionally on a guard).</token>
+      </line>
+      <line no="90">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="91">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">whenGuest</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="92">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="93">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">when</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">auth</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">guard</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">guest</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="94">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="95"/>
+      <line no="96">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="97">
+        <token name="T_DOC_COMMENT">     * Run a callback when the authenticated user holds the given role.</token>
+      </line>
+      <line no="98">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="99">
+        <token name="T_DOC_COMMENT">     * Falls back to `false` (callback skipped) when no user is authenticated or</token>
+      </line>
+      <line no="100">
+        <token name="T_DOC_COMMENT">     * the user model does not expose a `hasRole()` method.</token>
+      </line>
+      <line no="101">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="102">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">whenRole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="103">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="104">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">when</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">userHasRole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="105">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="106"/>
+      <line no="107">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="108">
+        <token name="T_DOC_COMMENT">     * Run a callback when the authenticated user does NOT hold the given role.</token>
+      </line>
+      <line no="109">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="110">
+        <token name="T_DOC_COMMENT">     * Requires an authenticated user whose model exposes `hasRole()`; a guest</token>
+      </line>
+      <line no="111">
+        <token name="T_DOC_COMMENT">     * or a model without that method is treated as "role absent".</token>
+      </line>
+      <line no="112">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="113">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">whenRoleIsNot</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="114">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="115">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">auth</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">guard</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">user</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="116"/>
+      <line no="117">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$resolvable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">method_exists</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'hasRole'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="118"/>
+      <line no="119">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">when</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$resolvable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">hasRole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="120">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="121"/>
+      <line no="122">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="123">
+        <token name="T_DOC_COMMENT">     * Queue a callback to run when the supplied condition is truthy.</token>
+      </line>
+      <line no="124">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="125">
+        <token name="T_DOC_COMMENT">     * The general-purpose primitive the context predicates build on.</token>
+      </line>
+      <line no="126">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="127">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">when</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">bool</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$condition</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CALLABLE">callable</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">self</token>
+      </line>
+      <line no="128">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="129">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$condition</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="130">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">pending</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="131">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="132"/>
+      <line no="133">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="134">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="135"/>
+      <line no="136">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="137">
+        <token name="T_DOC_COMMENT">     * Execute every queued callback in registration order and return their</token>
+      </line>
+      <line no="138">
+        <token name="T_DOC_COMMENT">     * results.</token>
+      </line>
+      <line no="139">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="140">
+        <token name="T_DOC_COMMENT">     * @return list&lt;mixed&gt;</token>
+      </line>
+      <line no="141">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="142">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">run</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="143">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="144">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$results</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="145"/>
+      <line no="146">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">pending</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="147">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$results</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$callback</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="148">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="149"/>
+      <line no="150">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">pending</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="151"/>
+      <line no="152">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$results</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="153">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="154"/>
+      <line no="155">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="156">
+        <token name="T_DOC_COMMENT">     * Determine whether the bound request should be treated as an API call.</token>
+      </line>
+      <line no="157">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="158">
+        <token name="T_DOC_COMMENT">     * Request-driven (not console-driven): a bound request whose path matches</token>
+      </line>
+      <line no="159">
+        <token name="T_DOC_COMMENT">     * `api/*` or which explicitly expects JSON. Absent a bound request there is</token>
+      </line>
+      <line no="160">
+        <token name="T_DOC_COMMENT">     * nothing to classify, so the answer is false.</token>
+      </line>
+      <line no="161">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="162">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isApiRequest</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="163">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="164">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">app</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">bound</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'request'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="165">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="166">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="167"/>
+      <line no="168">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">request</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="169"/>
+      <line no="170">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">is</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'api/*'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$request</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">expectsJson</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="171">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="172"/>
+      <line no="173">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="174">
+        <token name="T_DOC_COMMENT">     * Determine whether the bound request is a (non-API) web request.</token>
+      </line>
+      <line no="175">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="176">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">isWebRequest</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="177">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="178">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">app</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">bound</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'request'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_AND">&amp;&amp;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">isApiRequest</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="179">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="180"/>
+      <line no="181">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="182">
+        <token name="T_DOC_COMMENT">     * Resolve whether the authenticated user holds a role, dependency-free.</token>
+      </line>
+      <line no="183">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="184">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">userHasRole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="185">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="186">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">auth</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">guard</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$guard</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">user</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="187"/>
+      <line no="188">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOLEAN_OR">||</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_STRING">method_exists</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'hasRole'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="189">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="190">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="191"/>
+      <line no="192">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_BOOL_CAST">(bool)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$user</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">hasRole</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$role</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="193">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="194">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="195"/>
+    </source>
+  </file>
+</phpunit>

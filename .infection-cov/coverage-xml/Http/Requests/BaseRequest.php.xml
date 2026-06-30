@@ -1,0 +1,1349 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="BaseRequest.php" path="/Http/Requests">
+    <totals>
+      <lines total="193" comments="76" code="117" executable="35" executed="30" percent="85.71"/>
+      <methods count="11" tested="8" percent="72.73"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Simtabi\Laranail\Toolkit\Http\Requests\BaseRequest" start="26" executable="35" executed="30" crap="23.41">
+      <namespace name="Simtabi\Laranail\Toolkit\Http\Requests"/>
+      <method name="authorize" signature="authorize(): bool" start="31" end="34" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="rules" signature="rules(): array" start="41" end="41" crap="0" executable="0" executed="0" coverage="100"/>
+      <method name="messages" signature="messages(): array" start="48" end="51" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="attributes" signature="attributes(): array" start="58" end="61" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="prepareForValidation" signature="prepareForValidation(): void" start="66" end="69" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="sanitizeInput" signature="sanitizeInput(): void" start="74" end="87" crap="3" executable="6" executed="6" coverage="100"/>
+      <method name="sanitizeFieldByType" signature="sanitizeFieldByType(string $fieldName, string $value): string" start="97" end="133" crap="7.60" executable="13" executed="10" coverage="76.923076923077"/>
+      <method name="withValidator" signature="withValidator(Illuminate\Contracts\Validation\Validator $validator): void" start="138" end="143" crap="1" executable="3" executed="3" coverage="100"/>
+      <method name="afterValidation" signature="afterValidation(Illuminate\Contracts\Validation\Validator $validator): void" start="148" end="151" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="validated" signature="validated($key, $default): mixed" start="162" end="175" crap="4" executable="6" executed="6" coverage="100"/>
+      <method name="failedValidation" signature="failedValidation(Illuminate\Contracts\Validation\Validator $validator): void" start="180" end="183" crap="2" executable="1" executed="0" coverage="0"/>
+      <method name="failedAuthorization" signature="failedAuthorization(): void" start="188" end="191" crap="2" executable="1" executed="0" coverage="0"/>
+    </class>
+    <coverage>
+      <line nr="33">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="50">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="60">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="68">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="76">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="78">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="79">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="80">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="82">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="86">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="100">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="101">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+      </line>
+      <line nr="105">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="106">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+      </line>
+      <line nr="110">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="117">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="124">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="125">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="129">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="132">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+      </line>
+      <line nr="140">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="141">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="142">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="151">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_failed_validation_returns_a_json_error_envelope_at_422"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_field_specific_normalisation_is_applied"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_script_tags_in_name_fields_are_stripped"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_html_and_script_tags_are_stripped_from_input"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\BaseRequestTest::test_international_names_are_preserved"/>
+      </line>
+      <line nr="164">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+      </line>
+      <line nr="166">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+      </line>
+      <line nr="167">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+      </line>
+      <line nr="168">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+      </line>
+      <line nr="169">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+      </line>
+      <line nr="174">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Http\ApiRequestTest::test_valid_request_passes_through_with_sanitized_input"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Http\Requests</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Auth\Access\AuthorizationException</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Contracts\Validation\Validator</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ValidatorContract</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Foundation\Http\FormRequest</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="10">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Support\Str</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="11">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Illuminate\Validation\ValidationException</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="12"/>
+      <line no="13">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT"> * FormRequest base that sanitizes every string input on</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT"> * {@see BaseRequest::prepareForValidation()} before the validator runs.</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="17">
+        <token name="T_DOC_COMMENT"> * Sanitization is **always on** by design (defence in depth): HTML tags are</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT"> * stripped and whitespace trimmed for every string field, then field-specific</token>
+      </line>
+      <line no="19">
+        <token name="T_DOC_COMMENT"> * normalisation is applied based on the field name (email/username/url/db_/name).</token>
+      </line>
+      <line no="20">
+        <token name="T_DOC_COMMENT"> *</token>
+      </line>
+      <line no="21">
+        <token name="T_DOC_COMMENT"> * The name normaliser is **Unicode-aware**: it preserves letters in any script</token>
+      </line>
+      <line no="22">
+        <token name="T_DOC_COMMENT"> * (accents, apostrophes, hyphens &#x2014; e.g. `Jos&#xE9;`, `O'Brien`, `M&#xFC;ller`,</token>
+      </line>
+      <line no="23">
+        <token name="T_DOC_COMMENT"> * `Ren&#xE9;e-Claire`) while still removing HTML and control/punctuation noise. The</token>
+      </line>
+      <line no="24">
+        <token name="T_DOC_COMMENT"> * legacy `[^a-zA-Z\s'-]` filter corrupted international names; this does not.</token>
+      </line>
+      <line no="25">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="26">
+        <token name="T_ABSTRACT">abstract</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">BaseRequest</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXTENDS">extends</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FormRequest</token>
+      </line>
+      <line no="27">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="28">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="29">
+        <token name="T_DOC_COMMENT">     * Determine if the user is authorized to make this request.</token>
+      </line>
+      <line no="30">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="31">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">authorize</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">bool</token>
+      </line>
+      <line no="32">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="33">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="35"/>
+      <line no="36">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="37">
+        <token name="T_DOC_COMMENT">     * Get the validation rules that apply to the request.</token>
+      </line>
+      <line no="38">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="39">
+        <token name="T_DOC_COMMENT">     * @return array&lt;string, mixed&gt;</token>
+      </line>
+      <line no="40">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_ABSTRACT">abstract</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">rules</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="42"/>
+      <line no="43">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="44">
+        <token name="T_DOC_COMMENT">     * Get custom messages for validator errors.</token>
+      </line>
+      <line no="45">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="46">
+        <token name="T_DOC_COMMENT">     * @return array&lt;string, string&gt;</token>
+      </line>
+      <line no="47">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">messages</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="52"/>
+      <line no="53">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="54">
+        <token name="T_DOC_COMMENT">     * Get custom attributes for validator errors.</token>
+      </line>
+      <line no="55">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="56">
+        <token name="T_DOC_COMMENT">     * @return array&lt;string, string&gt;</token>
+      </line>
+      <line no="57">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">attributes</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+      </line>
+      <line no="59">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="60">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="61">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="62"/>
+      <line no="63">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="64">
+        <token name="T_DOC_COMMENT">     * Prepare the data for validation by sanitizing all input.</token>
+      </line>
+      <line no="65">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="66">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">prepareForValidation</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="67">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="68">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sanitizeInput</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="69">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="70"/>
+      <line no="71">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="72">
+        <token name="T_DOC_COMMENT">     * Sanitize all string input. Always enabled (defensive by design).</token>
+      </line>
+      <line no="73">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="74">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">sanitizeInput</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="75">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="76">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$input</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">all</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="77"/>
+      <line no="78">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$input</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="79">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_string</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="80">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">trim</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strip_tags</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="81"/>
+      <line no="82">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$input</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sanitizeFieldByType</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="83">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="84">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="85"/>
+      <line no="86">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">replace</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$input</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="87">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="88"/>
+      <line no="89">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="90">
+        <token name="T_DOC_COMMENT">     * Apply field-specific sanitization based on the field name.</token>
+      </line>
+      <line no="91">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="92">
+        <token name="T_DOC_COMMENT">     * Bug fix vs. legacy: the legacy `sanitizeInput()` discarded this method's</token>
+      </line>
+      <line no="93">
+        <token name="T_DOC_COMMENT">     * return value (it only stored the strip_tags/trim result), so the</token>
+      </line>
+      <line no="94">
+        <token name="T_DOC_COMMENT">     * field-specific rules never actually applied. Here the return value is</token>
+      </line>
+      <line no="95">
+        <token name="T_DOC_COMMENT">     * used.</token>
+      </line>
+      <line no="96">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="97">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">sanitizeFieldByType</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$fieldName</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="98">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="99">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Email fields &#x2014; normalise to lowercase.</token>
+      </line>
+      <line no="100">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">str_contains</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$fieldName</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'email'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="101">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Str</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">lower</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="102">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="103"/>
+      <line no="104">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Username fields &#x2014; ascii-safe handle: letters, digits, underscore, hyphen.</token>
+      </line>
+      <line no="105">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">str_contains</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$fieldName</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'username'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="106">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Str</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">lower</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">preg_replace</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/[^a-zA-Z0-9_-]/'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="107">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="108"/>
+      <line no="109">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// URL fields &#x2014; strip characters illegal in a URL.</token>
+      </line>
+      <line no="110">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">str_contains</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$fieldName</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'url'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="111">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$sanitized</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">filter_var</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">FILTER_SANITIZE_URL</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="112"/>
+      <line no="113">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$sanitized</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$sanitized</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="114">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="115"/>
+      <line no="116">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Database identifier fields &#x2014; conservative identifier charset.</token>
+      </line>
+      <line no="117">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">str_starts_with</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$fieldName</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'db_'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="118">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">preg_replace</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'/[^a-zA-Z0-9._-]/'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="119">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="120"/>
+      <line no="121">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Name fields &#x2014; Unicode letters (any script), marks (combining accents),</token>
+      </line>
+      <line no="122">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// spaces, apostrophes and hyphens. Preserves international names while</token>
+      </line>
+      <line no="123">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// dropping control chars / punctuation noise. HTML is already stripped above.</token>
+      </line>
+      <line no="124">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">str_contains</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$fieldName</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'name'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="125">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$cleaned</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">preg_replace</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">"/[^\p{L}\p{M}\s'-]/u"</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">''</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="126"/>
+      <line no="127">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_COMMENT">// preg_replace returns null on a malformed-UTF-8 subject; fall back</token>
+      </line>
+      <line no="128">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_COMMENT">// to the (already HTML-stripped, trimmed) value rather than nulling it.</token>
+      </line>
+      <line no="129">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$cleaned</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="130">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="131"/>
+      <line no="132">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="133">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="134"/>
+      <line no="135">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="136">
+        <token name="T_DOC_COMMENT">     * Configure the validator instance.</token>
+      </line>
+      <line no="137">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="138">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">withValidator</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">ValidatorContract</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$validator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="139">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="140">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$validator</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">after</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">ValidatorContract</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$validator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="141">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">afterValidation</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$validator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="142">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="143">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="144"/>
+      <line no="145">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="146">
+        <token name="T_DOC_COMMENT">     * Additional validation after the main rules. Override in child classes.</token>
+      </line>
+      <line no="147">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="148">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">afterValidation</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">ValidatorContract</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$validator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="149">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="150">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_COMMENT">// Override in child classes if needed.</token>
+      </line>
+      <line no="151">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="152"/>
+      <line no="153">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="154">
+        <token name="T_DOC_COMMENT">     * Get the validated data, re-applying field-specific sanitization so the</token>
+      </line>
+      <line no="155">
+        <token name="T_DOC_COMMENT">     * validated set matches the sanitized input.</token>
+      </line>
+      <line no="156">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="157">
+        <token name="T_DOC_COMMENT">     * @param array&lt;string&gt;|int|string|null $key</token>
+      </line>
+      <line no="158">
+        <token name="T_DOC_COMMENT">     * @param mixed                         $default</token>
+      </line>
+      <line no="159">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="160">
+        <token name="T_DOC_COMMENT">     * @return ($key is null ? array&lt;string, mixed&gt; : mixed)</token>
+      </line>
+      <line no="161">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="162">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">validated</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">mixed</token>
+      </line>
+      <line no="163">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="164">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$validated</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">parent</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">validated</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$key</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$default</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="165"/>
+      <line no="166">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$validated</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="167">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$validated</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$field</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="168">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">is_string</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="169">
+        <token name="T_WHITESPACE">                    </token>
+        <token name="T_VARIABLE">$validated</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_VARIABLE">$field</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sanitizeFieldByType</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING_CAST">(string)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$field</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$value</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="170">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="171">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="172">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="173"/>
+      <line no="174">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$validated</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="175">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="176"/>
+      <line no="177">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="178">
+        <token name="T_DOC_COMMENT">     * Throw a validation exception on a failed validation attempt.</token>
+      </line>
+      <line no="179">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="180">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">failedValidation</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">ValidatorContract</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$validator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="181">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="182">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ValidationException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$validator</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="183">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="184"/>
+      <line no="185">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="186">
+        <token name="T_DOC_COMMENT">     * Throw an authorization exception on a failed authorization attempt.</token>
+      </line>
+      <line no="187">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="188">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PROTECTED">protected</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">failedAuthorization</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">void</token>
+      </line>
+      <line no="189">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="190">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AuthorizationException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'This action is unauthorized.'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="191">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="192">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="193"/>
+    </source>
+  </file>
+</phpunit>

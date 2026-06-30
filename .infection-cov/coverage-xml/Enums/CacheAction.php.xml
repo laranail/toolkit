@@ -1,0 +1,514 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="CacheAction.php" path="/Enums">
+    <totals>
+      <lines total="58" comments="7" code="51" executable="20" executed="20" percent="100.00"/>
+      <methods count="4" tested="4" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="0" tested="1" percent="0"/>
+      <traits count="1" tested="0" percent="0.00"/>
+    </totals>
+    <trait name="Simtabi\Laranail\Toolkit\Enums\CacheAction" start="12" executable="20" executed="20" crap="16">
+      <namespace name="Simtabi\Laranail\Toolkit\Enums"/>
+      <method name="displayName" signature="displayName(): string" start="19" end="26" crap="4" executable="5" executed="5" coverage="100"/>
+      <method name="description" signature="description(): string" start="29" end="36" crap="4" executable="5" executed="5" coverage="100"/>
+      <method name="priority" signature="priority(): string" start="39" end="46" crap="4" executable="5" executed="5" coverage="100"/>
+      <method name="result" signature="result(): string" start="49" end="56" crap="4" executable="5" executed="5" coverage="100"/>
+    </trait>
+    <coverage>
+      <line nr="21">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="22">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="23">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="24">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="31">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_descriptions_for_non_failed_actions"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+      </line>
+      <line nr="32">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_descriptions_for_non_failed_actions"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+      </line>
+      <line nr="33">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_descriptions_for_non_failed_actions"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+      </line>
+      <line nr="34">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_descriptions_for_non_failed_actions"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+      </line>
+      <line nr="41">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="42">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="43">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="44">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="51">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="52">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="53">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="54">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="25">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="35">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_descriptions_for_non_failed_actions"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+      </line>
+      <line nr="45">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+      <line nr="55">
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_failed_factory_carries_reason"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cache_action_enum_exposes_metadata"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_clearing_factory"/>
+        <covered by="Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing\CacheEventsTest::test_cleared_factory"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Enums</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8"/>
+      <line no="9">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="10">
+        <token name="T_DOC_COMMENT"> * The lifecycle phase a {@see CacheEvents} instance represents.</token>
+      </line>
+      <line no="11">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="12">
+        <token name="T_ENUM">enum</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">CacheAction</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="13">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="14">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CASE">case</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Clearing</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'clearing'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="15">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CASE">case</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Cleared</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'cleared'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="16">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CASE">case</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Failed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'failed'</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="17"/>
+      <line no="18">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** Human-friendly display name for the action. */</token>
+      </line>
+      <line no="19">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">displayName</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="20">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="21">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="22">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Clearing</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Cache Clearing Started'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="23">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Cleared</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Cache Cleared'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="24">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Failed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Cache Operation Failed'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="27"/>
+      <line no="28">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** Short description of the action. */</token>
+      </line>
+      <line no="29">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">description</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="30">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="31">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="32">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Clearing</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Cache clearing operation has started.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="33">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Cleared</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Cache has been successfully cleared.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="34">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Failed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Cache operation failed.'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="36">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="37"/>
+      <line no="38">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** Relative priority/severity of the action. */</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">priority</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="42">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Clearing</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'low'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="43">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Cleared</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'medium'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="44">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Failed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'high'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="45">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="47"/>
+      <line no="48">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/** Coarse outcome bucket for the action. */</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">result</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Clearing</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'in_progress'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="53">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Cleared</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'success'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="54">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">self</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">Failed</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'failure'</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="55">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="56">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="57">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="58"/>
+    </source>
+  </file>
+</phpunit>
