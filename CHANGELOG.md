@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Tests
+
+- Raised the mutation score (Infection) on the in-scope code (`src/Helpers`,
+  `src/Macros`, `src/Support`) past the committed gate (`minMsi 80` /
+  `minCoveredMsi 85`) — Covered Code MSI ~77% → ~88%. Added exhaustive
+  exact-value behaviour tests for the Arr/String/Collection/Carbon macros and the
+  `Username` support helper (no source or threshold changes).
+
 ## [0.1.0] - 2026-06-26
 
 ### Added
