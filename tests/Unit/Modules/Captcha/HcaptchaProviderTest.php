@@ -75,4 +75,39 @@ class HcaptchaProviderTest extends TestCase
         $this->assertTrue($result->isFailure());
         $this->assertSame(['invalid-input-response'], $result->errorCodes());
     }
+
+    public function test_unsuccessful_response_without_error_codes_falls_back_to_unknown(): void
+    {
+        Http::fake([
+            'hcaptcha.com/*' => Http::response(['success' => false], 200),
+        ]);
+
+        $this->assertSame(['Unknown error'], $this->provider()->verify('token-abc')->errorCodes());
+    }
+
+    #[Group('security')]
+    public function test_fails_closed_when_not_configured(): void
+    {
+        Http::fake();
+
+        $provider = new HcaptchaProvider('', '');
+
+        $this->assertFalse($provider->isConfigured());
+
+        $result = $provider->verify('token-abc');
+
+        $this->assertTrue($result->isFailure());
+        $this->assertSame(['hCaptcha not properly configured'], $result->errorCodes());
+
+        Http::assertNothingSent();
+    }
+
+    public function test_exposes_its_metadata(): void
+    {
+        $provider = new HcaptchaProvider('site-key', 'secret-key', 15);
+
+        $this->assertSame('hcaptcha', $provider->getName());
+        $this->assertSame('site-key', $provider->getSiteKey());
+        $this->assertSame(15, $provider->getTimeout());
+    }
 }

@@ -30,6 +30,11 @@ class NullProviderTest extends TestCase
         $this->assertTrue((new NullProvider())->isConfigured());
     }
 
+    public function test_exposes_its_name(): void
+    {
+        $this->assertSame('null', (new NullProvider())->getName());
+    }
+
     public function test_exposes_its_site_key(): void
     {
         $this->assertSame('null-site-key', (new NullProvider())->getSiteKey());

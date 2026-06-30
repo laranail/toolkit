@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
@@ -68,6 +69,73 @@ class ClaudeProviderTest extends TestCase
             $this->provider()->generateResponse('claude-3-5-sonnet', [['role' => 'user', 'content' => 'Hi']]);
         } finally {
             Http::assertSentCount(3); // maxRetries attempts
+        }
+    }
+
+    public function test_optional_generation_parameters_are_added_to_the_payload(): void
+    {
+        Http::fake([
+            '*' => Http::response([
+                'model' => 'claude-3-5-sonnet',
+                'content' => [['type' => 'text', 'text' => 'ok']],
+            ], 200),
+        ]);
+
+        $this->provider()->generateResponse(
+            'claude-3-5-sonnet',
+            [['role' => 'user', 'content' => 'Hi']],
+            temperature: 0.25,
+            maxTokens: 256,
+            stop: ['END'],
+            topP: 0.9,
+        );
+
+        Http::assertSent(function ($request): bool {
+            $body = $request->data();
+
+            return $body['model'] === 'claude-3-5-sonnet'
+                && $body['max_tokens'] === 256
+                && $body['temperature'] === 0.25
+                && $body['top_p'] === 0.9
+                && $body['stop_sequences'] === ['END'];
+        });
+    }
+
+    public function test_optional_parameters_are_omitted_when_not_supplied(): void
+    {
+        Http::fake([
+            '*' => Http::response(['content' => [['type' => 'text', 'text' => 'ok']]], 200),
+        ]);
+
+        // No temperature/topP and an empty stop array → those keys are omitted,
+        // and max_tokens defaults to 1024.
+        $this->provider()->generateResponse('claude-3-5-sonnet', [
+            ['role' => 'user', 'content' => 'Hi'],
+        ], stop: []);
+
+        Http::assertSent(function ($request): bool {
+            $body = $request->data();
+
+            return $body['max_tokens'] === 1024
+                && !array_key_exists('temperature', $body)
+                && !array_key_exists('top_p', $body)
+                && !array_key_exists('stop_sequences', $body);
+        });
+    }
+
+    public function test_a_connection_failure_is_wrapped_as_a_retryable_exception(): void
+    {
+        Http::fake(function (): void {
+            throw new ConnectionException('cURL error 28: timed out');
+        });
+
+        try {
+            $this->provider()->generateResponse('claude-3-5-sonnet', [['role' => 'user', 'content' => 'Hi']]);
+            $this->fail('Expected LLMRequestException.');
+        } catch (LLMRequestException $e) {
+            $this->assertStringStartsWith('Claude API connection failed:', $e->getMessage());
+            $this->assertTrue($e->isRetryable());
+            $this->assertInstanceOf(ConnectionException::class, $e->getPrevious());
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Simtabi\Laranail\Toolkit\Tests\Feature\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Attributes\Group;
+use Simtabi\Laranail\Toolkit\Support\Username;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\HasFormatters;
 
@@ -34,6 +35,29 @@ class HasFormattersTest extends TestCase
     public function test_formatted_created_at_is_null_without_value(): void
     {
         $record = new FormattableRecord();
+
+        $this->assertNull($record->formattedCreatedAt());
+    }
+
+    public function test_formatted_created_at_uses_the_default_format_when_none_given(): void
+    {
+        $record = new FormattableRecord(['created_at' => '2024-01-18 13:45:00']);
+
+        // Falls back to defaultDateTimeFormat(): 'm/d/Y h:i:s a'.
+        $this->assertSame('01/18/2024 01:45:00 pm', $record->formattedCreatedAt());
+    }
+
+    public function test_formatted_updated_at_formats_and_is_null_without_value(): void
+    {
+        $record = new FormattableRecord(['updated_at' => '2024-03-09 08:05:30']);
+
+        $this->assertSame('2024-03-09 08:05', $record->formattedUpdatedAt('Y-m-d H:i'));
+        $this->assertNull((new FormattableRecord())->formattedUpdatedAt());
+    }
+
+    public function test_formatted_timestamp_treats_empty_string_as_null(): void
+    {
+        $record = new FormattableRecord(['created_at' => '']);
 
         $this->assertNull($record->formattedCreatedAt());
     }
@@ -110,5 +134,52 @@ class HasFormattersTest extends TestCase
         $this->assertFalse(FormattableRecord::query()->where('username', $suggestion)->exists());
 
         Schema::drop('formattable_records');
+    }
+
+    public function test_suggest_username_falls_back_to_the_generator_when_every_candidate_is_taken(): void
+    {
+        $record = new ExhaustedUsernameRecord();
+
+        // Establish how many deterministic/padded candidates the loop will probe;
+        // the fixture denies all of them so suggestUsername() must reach the
+        // bounded generate() fallback.
+        $candidateCount = count(Username::fromName('Jane', 'Doe')->candidates());
+
+        $suggestion = $record->suggestUsername('Jane', 'Doe');
+
+        $this->assertNotSame('', $suggestion);
+        $this->assertStringStartsWith('janedoe', $suggestion);
+        // A random suffix was appended by the generator, so the handle is longer
+        // than the bare 'janedoe' base — proving the fallback path ran.
+        $this->assertGreaterThan(mb_strlen('janedoe'), mb_strlen($suggestion));
+        // The candidate loop was fully exhausted before the generator kicked in.
+        $this->assertGreaterThan($candidateCount, $record->availabilityCalls);
+    }
+}
+
+/**
+ * Host whose availability check denies enough early probes to exhaust the
+ * candidate loop, forcing {@see HasFormatters::suggestUsername()} into its
+ * bounded generator fallback.
+ */
+class ExhaustedUsernameRecord extends Model
+{
+    use HasFormatters;
+
+    public int $availabilityCalls = 0;
+
+    protected $table = 'exhausted_username_records';
+
+    public $timestamps = false;
+
+    protected $guarded = [];
+
+    protected function usernameIsAvailable(string $username, string $column = 'username'): bool
+    {
+        $this->availabilityCalls++;
+
+        // Deny the first 15 probes (the candidate loop is at most 10), so the
+        // generator's random-suffixed retries are the first accepted handle.
+        return $this->availabilityCalls > 15;
     }
 }
