@@ -1,4 +1,8 @@
-# Laranail Toolkit
+# laranail/toolkit
+
+[![Latest version on Packagist](https://img.shields.io/packagist/v/laranail/toolkit.svg)](https://packagist.org/packages/laranail/toolkit)
+[![Tests](https://github.com/laranail/toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/laranail/toolkit/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 > A security-first Swiss-army toolkit for Laravel — utilities, traits, middleware, macros, LLM providers, and self-contained feature modules for day-to-day Laravel development.
 
@@ -8,14 +12,7 @@ application behind clean contracts: an LLM provider abstraction (OpenAI / Claude
 captcha + archiver modules, a library of utilities, traits,
 macros, and custom Blade directives.
 
-## Support matrix
-
-| | |
-|---|---|
-| PHP | `^8.4.1 \|\| ^8.5` |
-| Laravel | `^13.0` |
-| License | MIT |
-| Author | Imani Manyara — Simtabi LLC |
+Compatible with PHP `^8.4.1 || ^8.5` and Laravel `^13.0`.
 
 ## Installation
 
@@ -239,41 +236,76 @@ class Post extends Model
 }
 ```
 
-## Documentation
+## <a name="documentation"></a>Documentation
 
-| Page | Description |
-|------|-------------|
-| [Installation](docs/installation.md) | Install, publish tags, requirements |
-| [Configuration](docs/configuration.md) | `laranail.toolkit.*` config reference |
-| [Architecture](docs/architecture.md) | Modules, deferred providers, layout |
-| [make-crud](docs/make-crud.md) | API CRUD generator command |
-| [Artisan commands](docs/commands.md) | The three `laranail::toolkit.*` commands + the full `laranail/console` lifecycle (signal-safe, redacting, path-confined) |
-| [CrudController](docs/crud-controller.md) | Secure base controller |
-| [Access log](docs/access-log.md) | `access.log` middleware + redaction |
-| [API middleware](docs/api-middleware.md) | `api.request` / `api.response` envelope + `BaseRequest` sanitization |
-| [Utilities](docs/utilities.md) | Stateful services (auth context, error storage, HTTP config, route, validation, cache, log, …) + static Support helpers (Cast, Config, ConditionalRunner, ApiResponder, …) |
-| [Static helpers](docs/helpers.md) | `Helper` — one static facade (array, string, date, system, file, geo, console) |
-| [Username builder](docs/username.md) | `Support\Username` — fluent, immutable username / handle generator |
-| [Security helpers](docs/security.md) | `RejectCommonPasswords` rule + CSPRNG `Modules\Security\Token`/`Password`/`Passphrase` generators + access-log redaction, `SecurityData` |
-| [Exceptions](docs/exceptions.md) | The `LaranailException` hierarchy + `RendersApiExceptions` app-side registrar |
-| [Base classes](docs/base-classes.md) | Reusable controller / job / listener / observer / event bases |
-| [Macros](docs/macros.md) | Str/Arr/Collection/Query/Request/Response/Factory macros + string-similarity + Blade directives + IDE stub (`ide-helper:macros` regenerator) |
-| [Carbon macros](docs/carbon-macros.md) | Date helpers + ~90 national-calendar predicates (15 countries) |
-| [Traits](docs/traits.md) | Model & controller traits |
-| [Eventing module](docs/modules/eventing.md) | `Event` / `Listener` bases + `CacheEvents` (provider-less) |
-| [Avatar module](docs/modules/avatar.md) | Generated initials avatars |
-| [Gravatar module](docs/modules/gravatar.md) | Gravatar URL builder |
-| [Captcha module](docs/modules/captcha.md) | reCAPTCHA / hCaptcha / Turnstile / Friendly Captcha / Null |
-| [Archiver module](docs/modules/archiver.md) | Safe tar/zip extraction |
-| [Atlas module](docs/modules/atlas.md) | Country / currency / timezone / locale data |
-| [Livewire module](docs/modules/livewire.md) | Livewire component registration |
-| [LLM module](docs/modules/llm.md) | OpenAI / Claude / Gemini provider abstraction |
+Hosted at [`opensource.simtabi.com/toolkit/docs/`](https://opensource.simtabi.com/toolkit/docs/). The same pages live under [`docs/`](docs/):
+
+### Guides
+
+- [Installation](docs/installation.md) — install, publish tags, requirements.
+- [Getting started](docs/getting-started.md) — install, publish, use a module, generate CRUD.
+- [Configuration](docs/configuration.md) — `laranail.toolkit.*` config reference.
+- [Architecture](docs/architecture.md) — modules, deferred providers, layout.
+
+### Reference
+
+- [make-crud](docs/make-crud.md) — API CRUD generator command.
+- [Artisan commands](docs/commands.md) — the three `laranail::toolkit.*` commands + the `laranail/console` lifecycle.
+- [CrudController](docs/crud-controller.md) — secure base controller.
+- [Access log](docs/access-log.md) — `access.log` middleware + redaction.
+- [API middleware](docs/api-middleware.md) — `api.request` / `api.response` envelope + `BaseRequest` sanitization.
+- [Utilities](docs/utilities.md) — stateful services + static Support helpers.
+- [Static helpers](docs/helpers.md) — `Helper`, one static facade (array/string/date/system/file/geo/console).
+- [Username builder](docs/username.md) — `Support\Username`, an immutable username/handle generator.
+- [Security helpers](docs/security.md) — `RejectCommonPasswords` rule + CSPRNG token/password/passphrase generators.
+- [Exceptions](docs/exceptions.md) — the `LaranailException` hierarchy + `RendersApiExceptions`.
+- [Base classes](docs/base-classes.md) — reusable controller / job / listener / observer / event bases.
+- [Macros](docs/macros.md) — Str/Arr/Collection/Query/Request/Response/Factory macros + Blade directives.
+- [Carbon macros](docs/carbon-macros.md) — date helpers + ~90 national-calendar predicates (15 countries).
+- [Traits](docs/traits.md) — model & controller traits.
+
+### Modules
+
+- [Eventing](docs/modules/eventing.md) — `Event` / `Listener` bases + `CacheEvents`.
+- [Avatar](docs/modules/avatar.md) — generated initials avatars.
+- [Gravatar](docs/modules/gravatar.md) — Gravatar URL builder.
+- [Captcha](docs/modules/captcha.md) — reCAPTCHA / hCaptcha / Turnstile / Friendly Captcha / Null.
+- [Archiver](docs/modules/archiver.md) — safe tar/zip extraction.
+- [Atlas](docs/modules/atlas.md) — country / currency / timezone / locale data.
+- [Livewire](docs/modules/livewire.md) — Livewire component registration.
+- [LLM](docs/modules/llm.md) — OpenAI / Claude / Gemini provider abstraction.
+
+### Project
+
+- [Changelog](CHANGELOG.md) — release history.
+
+## Stability
+
+Pre-1.0 (0.x) — the public API may change between minor versions. Pin a version before bumping.
+
+## Local development
+
+```bash
+composer install
+composer test     # run the test suite
+```
+
+## Sister packages
+
+- [`laranail/console`](https://github.com/laranail/console) — the command base this package's commands extend.
+- [`laranail/notifications`](https://github.com/laranail/notifications) — multi-channel notifications (moved out of the toolkit).
+- [`laranail/database-tools`](https://github.com/laranail/database-tools) — database/UUID tooling (moved out of the toolkit).
+
+## Community
+
+- [Issues](https://github.com/laranail/toolkit/issues) — bugs + feature requests.
+- Product: <https://opensource.simtabi.com/toolkit/> · Docs: <https://opensource.simtabi.com/toolkit/docs/>.
+
+## Contributing & security
+
+- [CONTRIBUTING.md](CONTRIBUTING.md) — workflow + coding standards.
+- [SECURITY.md](SECURITY.md) — how to report a vulnerability.
 
 ## License
 
 MIT © Simtabi LLC. See [LICENSE](LICENSE).
-
-- Product: <https://opensource.simtabi.com/toolkit/>
-- Documentation: <https://opensource.simtabi.com/toolkit/docs/>
-- Source & issues: <https://github.com/laranail/toolkit>
-- Security policy: [SECURITY.md](SECURITY.md)
