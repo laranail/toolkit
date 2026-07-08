@@ -43,8 +43,8 @@
         "illuminate/support": "^13.0",
         "illuminate/validation": "^13.0",
         "intervention/image": "^4.1",
-        "laranail/console": "^1.0",
-        "laranail/package-tools": "^2.0",
+        "laranail/console": "^1.1",
+        "laranail/package-tools": "^3.0",
         "openai-php/client": "^0.20.0",
         "rinvex/countries": "^9.1"
     },
