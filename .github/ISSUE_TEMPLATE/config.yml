@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/laranail/toolkit/security/policy
     about: Please report security issues privately per our SECURITY.md, not as public issues.
   - name: Question / discussion
-    url: https://opensource.simtabi.com/toolkit/docs/
+    url: https://opensource.simtabi.com/documentation/laranail/toolkit/
     about: Read the documentation or open a discussion for usage questions.
