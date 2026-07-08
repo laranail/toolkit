@@ -51,7 +51,12 @@ trait RetriesHttpRequests
             }
         }
 
-        // The loop only exits here via the catch path, so $lastException is set.
+        // The loop only exits here via the catch path, so $lastException is
+        // set — but make the invariant explicit rather than assumed.
+        if (!$lastException instanceof LLMRequestException) {
+            throw new \LogicException("{$provider} retry loop exited without a captured exception.");
+        }
+
         Log::error("{$provider} API request failed", [
             'error' => $lastException->getMessage(),
         ]);

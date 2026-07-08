@@ -7,6 +7,9 @@ includes:
     - phpstan-baseline.neon
 
 parameters:
+    # PHPDoc literal-union params are runtime-validated on purpose (defense
+    # against callers ignoring the docblock); don't treat them as certain.
+    treatPhpDocTypesAsCertain: false
     level: 9
 
     paths:
