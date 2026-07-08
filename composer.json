@@ -110,6 +110,6 @@
     },
     "suggest": {
         "livewire/livewire": "^3.0 — for the Livewire component-registration module",
-        "laranail/database-tools": "for UUID/ULID model traits, schema macros, soft-archive, backup/restore and the database CLI (relocated out of this package)"
+        "laranail/db-tools": "for UUID/ULID model traits, schema macros, soft-archive, backup/restore and the database CLI (relocated out of this package)"
     }
 }

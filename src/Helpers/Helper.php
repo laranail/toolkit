@@ -27,7 +27,7 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
  *                   (`app(SystemServiceInterface::class)` / `Toolkit::system()`)
  *
  * Database tooling (connection probes, UUID model traits, schema macros, the
- * `db` console command) lives in the dedicated `laranail/database-tools` package.
+ * `db` console command) lives in the dedicated `laranail/db-tools` package.
  *
  * What remains here (genuinely pure, regrouped by concern into the {@see Concerns}
  * `InteractsWith*` traits):

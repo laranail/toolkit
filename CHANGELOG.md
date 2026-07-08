@@ -159,10 +159,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### BREAKING
 
-- **BREAKING: relocated all UUID & database tooling to `laranail/database-tools`.**
+- **BREAKING: relocated all UUID & database tooling to `laranail/db-tools`.**
   The toolkit no longer ships UUID or low-level database features — they now live
   in the sibling
-  [`laranail/database-tools`](https://opensource.simtabi.com/database-tools/)
+  [`laranail/db-tools`](https://opensource.simtabi.com/db-tools/)
   package. Moved out: `Traits\HasUuid`; `Exceptions\UuidException` /
   `MissingUuidColumnException`; `Services\DatabaseService` and
   `Services\ImportDatabaseService` (+ their contracts); the
@@ -173,9 +173,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Modules\Model\Scopes\ArchiveScope` (soft-archive `archived_at`);
   `Modules\Security\Session\DatabaseSession`; `Helper::uuid()`; and the
   `using_uuids_for_id` / `using_ulids_for_id` / `type_id` config keys.
-  **Migrate:** `composer require laranail/database-tools` and use its
+  **Migrate:** `composer require laranail/db-tools` and use its
   `Concerns\HasUuid` / `Services\DatabaseService` / `Schema\BlueprintMacros` and
-  the `laranail::database-tools.db` command.
+  the `laranail::db-tools.db` command.
 - **The `Utilities\` namespace was removed.** Every `*Util` class was split by
   responsibility into injectable, interface-backed `Services\*` and pure static
   `Support\*`. Update imports as follows:

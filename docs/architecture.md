@@ -160,7 +160,7 @@ resolution time from `config('laranail.toolkit.llm.default_provider')` — `open
 This package was ported from the pre-1.0 `Simtabi\Laranail` monolith, keeping
 only the genuine delta over Laravel 13 / PHP 8.4–8.5 natives — native-duplicative,
 consolidated, or out-of-scope symbols were dropped, and the notification and
-database/UUID tooling moved to `laranail/notifications` and `laranail/database-tools`.
+database/UUID tooling moved to `laranail/notifications` and `laranail/db-tools`.
 A regression test (`tests/Regression/ApiSurfaceTest`) enforces that nothing is lost
 unplanned.
 
