@@ -111,6 +111,21 @@ Accessors (each delegates to the `CacheAction` enum):
 | `getResult()` | `in_progress` / `success` / `failure`. |
 | `isSuccessful()` | `true` only for `CacheAction::Cleared`. |
 
+### Dispatched by the cache maintenance surface
+
+The [`CacheService`](../cache.md) maintenance methods (`clearConfig()`,
+`optimize()`, …) fire these events automatically — `clearing` before each op and
+`cleared` / `failed` after — so you can observe cache housekeeping without adding
+any dispatch calls yourself.
+
+### `LogCacheEvents` — bundled, opt-in listener
+
+`class Modules\Eventing\Listeners\LogCacheEvents extends Listener` logs the cache
+lifecycle through the PSR-3 logger (`failed` at `error`, the rest at `info`). The
+toolkit provider wires it to `CacheEvents`, but its `shouldHandle()` gate keeps it
+**silent unless** `config('laranail.toolkit.cache.log_events')` is `true` — so it
+adds no noise by default. Enable it to trace cache clears/optimizes in logs.
+
 ### The `CacheAction` enum
 
 `Simtabi\Laranail\Toolkit\Enums\CacheAction` is a backed `string` enum with three

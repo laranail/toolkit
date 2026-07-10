@@ -22,9 +22,11 @@ use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI\OpenAIProvider;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ConfigManagerInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\PythonApiServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
@@ -33,6 +35,7 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
+use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class FacadesTest extends TestCase
@@ -120,6 +123,21 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(SettingsStoreInterface::class, Laranail::settings());
         $this->assertInstanceOf(RateLimiterServiceInterface::class, Laranail::rateLimiter());
         $this->assertInstanceOf(SchedulerServiceInterface::class, Laranail::scheduler());
+    }
+
+    public function test_toolkit_facade_fronts_config_python_and_runtime(): void
+    {
+        $this->assertInstanceOf(ConfigManagerInterface::class, Toolkit::config());
+        $this->assertInstanceOf(PythonApiServiceInterface::class, Toolkit::pythonApi());
+        $this->assertInstanceOf(RuntimeConfigurator::class, Toolkit::runtime());
+
+        // runtime() hands back a fresh builder each call (it snapshots INI state).
+        $this->assertNotSame(Toolkit::runtime(), Toolkit::runtime());
+
+        // Reachable through the Laranail alias too.
+        $this->assertInstanceOf(ConfigManagerInterface::class, Laranail::config());
+        $this->assertInstanceOf(PythonApiServiceInterface::class, Laranail::pythonApi());
+        $this->assertInstanceOf(RuntimeConfigurator::class, Laranail::runtime());
     }
 
     public function test_llm_binding_selects_openai_by_default(): void

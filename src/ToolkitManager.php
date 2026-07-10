@@ -16,9 +16,11 @@ use Simtabi\Laranail\Toolkit\Modules\Security\Password;
 use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ConfigManagerInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\PythonApiServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
@@ -27,6 +29,7 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
+use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
 
 /**
  * Unified, typed entry point to the toolkit's feature modules.
@@ -143,11 +146,38 @@ class ToolkitManager
     }
 
     /**
-     * Tag-aware cache repository (get/put/remember/forget, namespaced keys).
+     * Unified cache surface: tag-aware data cache (get/put/remember/forget,
+     * namespaced keys) plus framework cache maintenance (clear/optimize).
      */
     public function cache(): CacheRepositoryInterface
     {
         return $this->app->make(CacheRepositoryInterface::class);
+    }
+
+    /**
+     * Fluent runtime config manager (get/set/merge/load + when/unless chaining).
+     */
+    public function config(): ConfigManagerInterface
+    {
+        return $this->app->make(ConfigManagerInterface::class);
+    }
+
+    /**
+     * Config-driven HTTP client factory for named Python/external microservices.
+     */
+    public function pythonApi(): PythonApiServiceInterface
+    {
+        return $this->app->make(PythonApiServiceInterface::class);
+    }
+
+    /**
+     * A fresh PHP runtime/INI configurator (memory, timeout, debug-tool toggles;
+     * `apply`/`scope`/`restore`). Returns a new builder each call — it snapshots
+     * INI state on construction.
+     */
+    public function runtime(): RuntimeConfigurator
+    {
+        return RuntimeConfigurator::make();
     }
 
     /**

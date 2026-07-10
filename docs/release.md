@@ -4,7 +4,7 @@
 
 ## Versioning & stability
 
-Pre-1.0, the package follows SemVer's 0.x convention: breaking changes bump the **minor** (`0.X.0`), fixes and additive features bump the patch. The PHP floor (`^8.4.1`) and the `laranail/package-tools`/`laranail/console` constraints live in `composer.json` — a breaking bump in either upstream is itself a breaking change here.
+Pre-1.0, the package follows SemVer's 0.x convention: breaking changes bump the **minor** (`0.X.0`), fixes and additive features bump the patch. The PHP floor (`^8.4.1`) and the `laranail/console` constraint live in `composer.json` — a breaking bump in that upstream is itself a breaking change here. (The toolkit is self-contained and no longer depends on `laranail/package-tools`.)
 
 **What the version contract covers:** the documented module surface (`Modules\*` public classes and facades) and the shipped Artisan commands. Anything marked `@internal` and module internals' constructor signatures are excluded.
 

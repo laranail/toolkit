@@ -25,6 +25,7 @@ parameters:
     # real install transparently supersedes them.
     scanFiles:
         - stubs/phpstan/livewire.php
+        - stubs/phpstan/debugging-tools.php
 
     ignoreErrors:
         # Laravel facades / magic helpers resolve dynamically.

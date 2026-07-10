@@ -24,7 +24,7 @@ automatically; you only publish assets you want to own or customize.
 
 ## Publish tags
 
-Publish tags use package-tools' namespaced `laranail::toolkit-*` convention.
+Publish tags use the namespaced `laranail::toolkit-*` convention.
 
 | Tag | Publishes to |
 |-----|--------------|

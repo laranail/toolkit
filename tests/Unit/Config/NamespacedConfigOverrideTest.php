@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Config;
 
-use Simtabi\Laranail\Package\Tools\Testing\AssertsPublishedConfigOverrides;
 use Simtabi\Laranail\Toolkit\Providers\ToolkitServiceProvider;
+use Simtabi\Laranail\Toolkit\Tests\Concerns\AssertsPublishedConfigOverrides;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
