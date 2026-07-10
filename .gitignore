@@ -1,5 +1,6 @@
 /.phpunit.cache
 /.infection
+/.infection-cov
 /infection.log
 /infection-*.txt
 /infection-*.log
