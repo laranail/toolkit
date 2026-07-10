@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
+use Illuminate\Support\Facades\Log;
 use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
@@ -66,5 +67,14 @@ class RuntimeConfiguratorConfigTest extends TestCase
     {
         // No global INI mutation happens at boot unless explicitly enabled.
         $this->assertFalse(config('laranail.toolkit.runtime.apply_on_boot'));
+    }
+
+    public function test_unknown_profile_logs_a_warning(): void
+    {
+        Log::shouldReceive('warning')
+            ->once()
+            ->withArgs(fn (string $message): bool => str_contains($message, 'nonexistent'));
+
+        RuntimeConfigurator::fromConfig('nonexistent');
     }
 }

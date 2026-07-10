@@ -90,4 +90,16 @@ class RuntimeConfiguratorTest extends TestCase
     {
         $this->assertTrue(RuntimeConfigurator::isCli());
     }
+
+    public function test_non_runtime_ini_directives_are_recorded_not_silently_dropped(): void
+    {
+        // realpath_cache_size is PHP_INI_SYSTEM — ini_set() refuses it at runtime.
+        $config = RuntimeConfigurator::make()->set('realpath_cache_size', '8M');
+
+        $config->apply();
+
+        $this->assertArrayHasKey('realpath_cache_size', $config->getFailedIniSettings());
+
+        $config->restore();
+    }
 }

@@ -58,6 +58,14 @@ final class RuntimeConfigurator
 
     private bool $applied = false;
 
+    /**
+     * INI directives that `ini_set()` refused during the last {@see apply()}
+     * because they are not runtime-settable (PHP_INI_PERDIR / PHP_INI_SYSTEM).
+     *
+     * @var array<string, mixed>
+     */
+    private array $failedIni = [];
+
     public function __construct()
     {
         $this->captureOriginalValues();
@@ -125,7 +133,13 @@ final class RuntimeConfigurator
         }
 
         if ($profile !== null && $profile !== '') {
-            $this->applyProfile(ToolkitConfig::array("{$base}.profiles.{$profile}"));
+            $settings = ToolkitConfig::array("{$base}.profiles.{$profile}");
+
+            if ($settings === []) {
+                Log::warning("Unknown laranail.toolkit.runtime profile [{$profile}]; applied defaults only.");
+            } else {
+                $this->applyProfile($settings);
+            }
         }
 
         return $this;
@@ -381,6 +395,8 @@ final class RuntimeConfigurator
             return $this;
         }
 
+        $this->failedIni = [];
+
         foreach ($this->pending as $key => $value) {
             $this->applyIniSetting($key, $value);
         }
@@ -464,6 +480,19 @@ final class RuntimeConfigurator
     public function getDisabledTools(): array
     {
         return array_filter($this->disableTools);
+    }
+
+    /**
+     * INI directives the last {@see apply()} could not set because they are not
+     * runtime-settable (PHP_INI_PERDIR / PHP_INI_SYSTEM — e.g. `post_max_size`,
+     * `upload_max_filesize`, `realpath_cache_size`). These must be set in
+     * `php.ini`; the configurator records rather than silently drops them.
+     *
+     * @return array<string, mixed>
+     */
+    public function getFailedIniSettings(): array
+    {
+        return $this->failedIni;
     }
 
     public function get(string $key): string|false
@@ -607,7 +636,12 @@ final class RuntimeConfigurator
             return;
         }
 
-        @ini_set($key, Cast::toString($value));
+        // ini_set() returns false when the directive is not settable at runtime
+        // (PHP_INI_PERDIR / PHP_INI_SYSTEM). Record it so the no-op is not
+        // silent — such directives must be set in php.ini.
+        if (@ini_set($key, Cast::toString($value)) === false) {
+            $this->failedIni[$key] = $value;
+        }
     }
 
     private function applyDebuggingToolSettings(): void
@@ -666,6 +700,7 @@ final class RuntimeConfigurator
         $context = [
             'pending' => $this->pending,
             'disabled_tools' => array_filter($this->disableTools),
+            'failed_ini' => $this->failedIni,
             'memory_usage_bytes' => memory_get_usage(true),
         ];
 

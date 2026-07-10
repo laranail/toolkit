@@ -72,9 +72,19 @@ directives you explicitly set are applied.
 Set **`runtime.apply_on_boot = true`** to have the toolkit apply the
 `default_profile` (or just the `defaults`) automatically at boot — a one-line way
 to enforce global INI. It mutates PHP INI for every request/command, so it is
-opt-in (default off). See
-[configuration](configuration.md#laranailtoolkitruntime) for the full block and
-the shipped profiles (`queue`, `batch`, `import`, `export`, `uploads`).
+opt-in (default off); note that pairing it with a `queue`/`batch` profile
+(`max_execution_time => 0`) removes the web request time limit globally — prefer
+applying those per-job. An unknown profile name logs a warning and applies only
+the defaults. See [configuration](configuration.md#laranailtoolkitruntime) for
+the full block and the shipped profiles (`queue`, `batch`, `import`, `export`,
+`uploads`).
+
+> **php.ini-only directives.** `post_max_size`, `upload_max_filesize`,
+> `max_input_time`, `max_input_vars`, `max_file_uploads`, `realpath_cache_size`
+> and `realpath_cache_ttl` cannot be changed at runtime via `ini_set()` — set
+> them in `php.ini`. If applied anyway (e.g. via the `uploads` profile or
+> `forLargeUploads()`), they are recorded in `getFailedIniSettings()` rather than
+> silently dropped.
 
 ## Builder methods
 
@@ -96,6 +106,7 @@ the shipped profiles (`queue`, `batch`, `import`, `export`, `uploads`).
 | `scope(callable)` | Apply → run → restore (returns the callback result). |
 | `restore()` | Restore captured originals and re-enable disabled tools. |
 | `isApplied()` / `getPending()` / `getOriginal()` / `getDisabledTools()` / `get(string)` | State accessors. |
+| `getFailedIniSettings()` | Directives the last `apply()` could **not** set at runtime (see the php.ini note below). |
 
 Static helpers: `setMemory(string)`, `setTimeout(int)`, `isCli()`,
 `hasTelescopeInstalled()`, `hasXdebugLoaded()`, `hasDebugbarInstalled()`,

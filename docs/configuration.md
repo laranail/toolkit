@@ -118,16 +118,24 @@ value by env or by publishing this file, no code change.
 
 | Key | Default | Notes |
 |-----|---------|-------|
-| `apply_on_boot` | `false` | Apply `default_profile` (or just `defaults`) at boot. Mutates PHP INI for every request/command — opt-in. Env: `LARANAIL_RUNTIME_APPLY_ON_BOOT`. |
-| `default_profile` | `null` | Profile used by `apply_on_boot` and `::fromConfig()` with no argument. Env: `LARANAIL_RUNTIME_PROFILE`. |
-| `defaults.<ini>` | mostly `null` | Common INI settings; `null` leaves PHP's value untouched. Keys: `memory_limit`, `max_execution_time`, `max_input_time`, `max_input_vars`, `error_reporting` (integer), `display_errors`, `post_max_size`, `upload_max_filesize`, `max_file_uploads`, `realpath_cache_size`, `realpath_cache_ttl`, `default_socket_timeout`. Each has a `LARANAIL_RUNTIME_*` env. |
-| `ini` | `[]` | Any additional INI directives (`key => value`). |
+| `apply_on_boot` | `false` | Apply `default_profile` (or just `defaults`) at boot. Mutates PHP INI for every request/command — opt-in. A profile with `max_execution_time => 0` (queue/batch) removes the **web** request time limit globally, so prefer applying those per-job. Env: `LARANAIL_RUNTIME_APPLY_ON_BOOT`. |
+| `default_profile` | `null` | Profile used by `apply_on_boot` and `::fromConfig()` with no argument. An unknown name logs a warning and applies defaults only. Env: `LARANAIL_RUNTIME_PROFILE`. |
+| `defaults.<ini>` | `null` | Runtime-settable INI directives; `null` leaves PHP's value untouched. Keys: `memory_limit`, `max_execution_time`, `error_reporting` (integer), `display_errors`, `default_socket_timeout`. Each has a `LARANAIL_RUNTIME_*` env. |
+| `ini` | `[]` | Any additional runtime-settable INI directives (`key => value`). |
 | `disable_tools.<tool>` | `false` | Disable `telescope` / `xdebug` / `clockwork` / `debugbar` when applied. Env: `LARANAIL_RUNTIME_DISABLE_<TOOL>`. |
 | `profiles.<name>` | see below | Named presets. A profile is a flat INI `key => value` map plus an optional `disable` list of tool names. |
 
 Shipped profiles (mirror the built-in `RuntimeConfigurator` presets, tunable here):
 `queue`, `batch`, `import`, `export`, `uploads`. Layering when a profile is
 selected: `defaults` → `ini` → `disable_tools` → the profile (profile wins).
+
+> **php.ini-only directives.** PHP cannot change `post_max_size`,
+> `upload_max_filesize`, `max_input_time`, `max_input_vars`, `max_file_uploads`
+> (PHP_INI_PERDIR) or `realpath_cache_size` / `realpath_cache_ttl`
+> (PHP_INI_SYSTEM) at runtime via `ini_set()` — set them in `php.ini`. They are
+> intentionally left out of `defaults`; if a profile (e.g. `uploads`) requests
+> one, `RuntimeConfigurator` records it in `getFailedIniSettings()` instead of
+> silently dropping it.
 
 ## LLM provider keys
 

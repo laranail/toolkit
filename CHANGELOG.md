@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-07-10
+
+### Fixed
+
+- **Runtime config no longer silently drops non-settable INI directives.** PHP
+  cannot change `post_max_size`, `upload_max_filesize`, `max_input_time/vars`,
+  `max_file_uploads` (PHP_INI_PERDIR) or `realpath_cache_size` /
+  `realpath_cache_ttl` (PHP_INI_SYSTEM) at runtime. These were removed from the
+  `laranail.toolkit.runtime.defaults` list (which now holds only runtime-settable
+  keys), and `RuntimeConfigurator` records any that a profile still requests in
+  the new `getFailedIniSettings()` instead of an `@`-suppressed no-op. Docs call
+  out the php.ini-only directives.
+- `RuntimeConfigurator::usingConfig()` / `fromConfig()` now log a warning for an
+  unknown profile name (previously silently applied defaults only).
+
+### Changed
+
+- Documented that `runtime.apply_on_boot` with a `queue`/`batch` profile
+  (`max_execution_time => 0`) removes the web request time limit globally — apply
+  those per-job instead.
+
 ## [0.3.1] - 2026-07-10
 
 ### Added
