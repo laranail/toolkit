@@ -531,11 +531,18 @@ class CacheService implements CacheRepositoryInterface
         }
     }
 
-    /** The config-rebuild body, reused by the optimize orchestrator. */
+    /**
+     * The config-rebuild body, reused by the optimize orchestrator.
+     *
+     * Caches the live (runtime) config with top-level Closures stripped. To
+     * avoid ever leaving an unloadable cache that would brick the next boot (a
+     * config value that is an object without `__set_state` exports to invalid
+     * PHP), it writes to a fresh temp file, requires it to prove it loads, and
+     * only then swaps it into place — rolling back and throwing otherwise.
+     */
     private function cacheConfigNow(): void
     {
         $path = $this->application()->getCachedConfigPath();
-        $this->deleteIfExists($path);
 
         /** @var array<string, mixed> $config */
         $config = $this->application()->make('config')->all();
@@ -545,7 +552,22 @@ class CacheService implements CacheRepositoryInterface
             }
         });
 
-        $this->files()->put($path, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+        $temp = $path . '.' . uniqid('tmp', true);
+        $this->files()->put($temp, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+
+        try {
+            $loaded = require $temp;
+            if (!is_array($loaded)) {
+                throw new \RuntimeException('Cached config did not evaluate to an array.');
+            }
+        } catch (Throwable $e) {
+            $this->deleteIfExists($temp);
+
+            throw new \RuntimeException('Configuration is not cacheable: ' . $e->getMessage(), 0, $e);
+        }
+
+        $this->deleteIfExists($path);
+        $this->files()->move($temp, $path);
     }
 
     /** The view-compile body, reused by the optimize orchestrator. */

@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Exceptions\PythonApiException;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\PythonApiServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 use Throwable;
 
 /**
@@ -54,7 +55,10 @@ final readonly class PythonApiService implements PythonApiServiceInterface
         try {
             $response = $this->buildRequest($name, $definition)->get($definition->healthPath);
 
-            return $response->successful() && $response->json($definition->healthKey) === $definition->healthyValue;
+            // Compare stringified so a non-string health value (bool/int) can
+            // still match a configured `healthy_value`.
+            return $response->successful()
+                && Cast::toString($response->json($definition->healthKey)) === $definition->healthyValue;
         } catch (Throwable $e) {
             $this->logger->warning('Python API health check failed', [
                 'service' => $name,

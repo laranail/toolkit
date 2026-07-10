@@ -69,9 +69,11 @@ class CacheMaintenanceTest extends TestCase
         $this->assertSame([], $result->errors);
     }
 
-    public function test_optimize_collects_every_step(): void
+    public function test_optimize_visits_every_step(): void
     {
-        // Mock the filesystem so config-rebuild/view-compile perform no real writes.
+        // Mock the filesystem so config-rebuild/view-compile perform no real
+        // writes. The config-cache step needs a real temp file to validate, so
+        // it lands in errors here — the point is that all six steps are visited.
         $files = Mockery::mock(Filesystem::class);
         $files->shouldReceive('exists')->andReturn(false);
         $files->shouldReceive('glob')->andReturn([]);
@@ -80,11 +82,39 @@ class CacheMaintenanceTest extends TestCase
 
         $result = (new CacheService(60, [], null, '', $files))->optimize();
 
-        $this->assertTrue($result->successful());
+        $this->assertInstanceOf(CacheOptimizationResult::class, $result);
+
+        $attempted = array_merge($result->steps, array_keys($result->errors));
+        sort($attempted);
         $this->assertSame(
-            ['config_cleared', 'routes_cleared', 'views_cleared', 'config_cached', 'views_compiled', 'framework_cache_cleared'],
-            $result->steps,
+            ['config_cached', 'config_cleared', 'framework_cache_cleared', 'routes_cleared', 'views_cleared', 'views_compiled'],
+            $attempted,
         );
+    }
+
+    public function test_cache_config_never_leaves_a_broken_cache(): void
+    {
+        Event::fake([CacheEvents::class]);
+
+        // An anonymous class instance exports to PHP that cannot be re-parsed,
+        // so its cached form would fatal on load — the classic "bricked cached
+        // config" case.
+        config()->set('demo.unserializable', new class() {});
+        $path = $this->app->getCachedConfigPath();
+        @unlink($path);
+
+        try {
+            // Must not throw, and must not leave a broken cache file behind.
+            (new CacheService(60, []))->cacheConfig();
+
+            $this->assertFileDoesNotExist($path);
+            Event::assertDispatched(
+                CacheEvents::class,
+                fn (CacheEvents $e): bool => $e->action === CacheAction::Failed && ($e->metadata['operation'] ?? null) === 'config_cache',
+            );
+        } finally {
+            @unlink($path);
+        }
     }
 
     public function test_key_from_request_is_a_stable_hash(): void

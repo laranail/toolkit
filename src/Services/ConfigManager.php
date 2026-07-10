@@ -95,8 +95,11 @@ class ConfigManager implements ConfigManagerInterface
     }
 
     /**
-     * Remove a config key. Nested keys are fully removed; a top-level key is
-     * nulled (the framework config repository exposes no true top-level forget).
+     * Remove a config key. Nested keys are fully removed (`has()` and `get()`
+     * both miss afterwards). A **top-level** key can only be nulled — the
+     * framework config repository exposes no true top-level forget — so
+     * `get('foo')` returns `null` but `has('foo')` still reports `true`. Gate on
+     * `get()`/`get($k) !== null`, not `has()`, after removing a top-level key.
      */
     public function remove(string $key): static
     {

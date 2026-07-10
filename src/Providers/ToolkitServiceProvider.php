@@ -153,6 +153,8 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->loadViewsFrom("{$root}/resources/views", 'laranail-toolkit');
         $this->loadTranslationsFrom("{$root}/resources/lang", 'laranail/toolkit');
         $this->loadJsonTranslationsFrom("{$root}/resources/lang");
+        // Published JSON string-translation overrides in the app lang path.
+        $this->loadJsonTranslationsFrom($this->app->langPath('vendor/laranail/toolkit'));
         $this->loadMigrationsFrom("{$root}/database/migrations");
 
         $this->commands([MakeCrud::class, IdeHelperMacros::class, Tidy::class]);
