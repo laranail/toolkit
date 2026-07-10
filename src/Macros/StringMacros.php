@@ -35,7 +35,20 @@ final class StringMacros extends ServiceProvider
             }
 
             $middleLength = Str::length($middle);
-            $halfLength = (int) (($length - $middleLength) / 2);
+
+            // No room for the marker — hard-truncate to the budget.
+            if ($length <= $middleLength) {
+                return Str::substr($string, 0, max(0, $length));
+            }
+
+            $halfLength = intdiv($length - $middleLength, 2);
+
+            // Room for the marker but not for two balanced ends: keep the head
+            // that fits. (`-0` would otherwise make Str::substr return the whole
+            // string, producing output longer than the input.)
+            if ($halfLength < 1) {
+                return Str::substr($string, 0, $length - $middleLength) . $middle;
+            }
 
             return Str::substr($string, 0, $halfLength) . $middle . Str::substr($string, -$halfLength);
         });

@@ -29,12 +29,17 @@ final readonly class SystemService implements SystemServiceInterface
     public function parseMemoryLimit(string $memoryLimit): int
     {
         $memoryLimit = trim($memoryLimit);
-        if ($memoryLimit === '' || $memoryLimit === '-1') {
+        if ($memoryLimit === '') {
             return -1;
         }
 
         $last = strtolower($memoryLimit[strlen($memoryLimit) - 1]);
         $value = (int) $memoryLimit;
+
+        // Any negative value (`-1`, `-1G`, …) means unlimited.
+        if ($value < 0) {
+            return -1;
+        }
 
         return match ($last) {
             'g' => $value * (1024 ** 3),
@@ -48,7 +53,7 @@ final readonly class SystemService implements SystemServiceInterface
     {
         $limit = ini_get('memory_limit');
 
-        return $limit === '' ? '-1' : $limit;
+        return $limit === false || $limit === '' ? '-1' : $limit;
     }
 
     /**

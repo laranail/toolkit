@@ -7,6 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-10
+
+A correctness/security pass across the wider package (independent multi-agent
+review). Several fixes change observable behaviour — hence the minor bump.
+
+### Security
+
+- **`Token::verify()` now enforces the `type()` binding.** A validly-signed token
+  minted for one purpose (e.g. `verify`) is no longer accepted by a verifier
+  configured for another (e.g. `reset`) — closing a cross-purpose replay. The MAC
+  authenticates the token's own type but did not confirm it matched the verifier.
+- **`Token::verify()` honours the token's embedded expiry** even when the
+  verifying builder omits `expiresIn()` (previously an under-configured verifier
+  silently accepted an expired token). Expiry is now self-describing.
+- **`Request::isFromDomain()` compares the parsed host**, not a substring — so
+  `https://evil.com/?ref=trusted.com` no longer matches `trusted.com`.
+
+### Fixed
+
+- `SchedulerService` due-checking goes through each event's own `isDue()`, so the
+  event's timezone and `when()`/`skip()`/`environments()` filters are honoured
+  (a raw `CronExpression` ignored both).
+- `ModelService::getUsersFromModel()` no longer drops distinct users that share a
+  name (a redundant `keyBy(name)` collapsed them before the `pluck`).
+- `Str::truncateMiddle()` no longer returns corrupted output longer than the input
+  for small `$length` (a `-0` offset returned the whole string).
+- `Collection::toCsv()` escapes enclosures as `""` (RFC 4180 / Excel) by default,
+  not `\"` which standard CSV readers mis-parse.
+- `FeatureToggle` no longer reads as enabled for everyone without an override when
+  a flag is configured only as a nested override map; such a flag is off unless it
+  declares an explicit `default`.
+- `SystemService::memoryLimit()` cannot return `false` from a `string` method; and
+  `parseMemoryLimit()` treats any negative value (`-1`, `-1G`) as unlimited.
+- `OpenAIProvider` no longer throws a `TypeError` on empty `choices` / null content
+  (defaults to `''`, matching Claude/Gemini).
+- `AvatarGeneration::getAspectRatio()` guards against a zero height (was
+  `DivisionByZeroError`).
+
+### Changed
+
+- `laranail::toolkit.tidy`: `--days` and `--size` now compose as **AND** (a file
+  must be older AND larger) — a huge but fresh file is no longer swept.
+- `CrudController::deleteRecord()` returns a proper empty `204` (the previous JSON
+  message body was silently stripped by the `204`).
+
 ## [0.3.2] - 2026-07-10
 
 ### Fixed

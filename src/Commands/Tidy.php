@@ -280,15 +280,21 @@ class Tidy extends Command
             return true;
         }
 
+        // Each supplied filter must pass — with both `--days` and `--size` a file
+        // must be older AND larger, so a huge but fresh file is not swept.
         if ($cutoff !== null) {
             $mtime = @filemtime($path);
 
-            if ($mtime !== false && $mtime < $cutoff) {
-                return true;
+            if ($mtime === false || $mtime >= $cutoff) {
+                return false;
             }
         }
 
-        return $minBytes !== null && $size >= $minBytes;
+        if ($minBytes !== null && $size < $minBytes) {
+            return false;
+        }
+
+        return true;
     }
 
     // -----------------------------------------------------------------------

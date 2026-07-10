@@ -83,9 +83,9 @@ final readonly class ModelService
             ->select('*')
             ->addSelect($this->concatNameExpression($model));
 
-        $form = $query->get()
-            ->keyBy(fn ($item): string => Str::title(Str::lower($this->stringAttr($item->getAttribute('name')))))
-            ->pluck('name', $model->getKeyName());
+        // Key by the model's primary key (unique). A prior keyBy(name) collapsed
+        // distinct users sharing a name before the pluck, silently dropping them.
+        $form = $query->get()->pluck('name', $model->getKeyName());
 
         $data = $form->map(static fn ($item, $key): array => [
             'name' => $item,

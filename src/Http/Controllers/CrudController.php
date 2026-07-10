@@ -120,9 +120,9 @@ abstract class CrudController extends BaseController
         $record = $this->model->findOrFail($id);
         $record->delete();
 
-        return response()->json([
-            'message' => 'Record deleted successfully',
-        ], 204);
+        // 204 No Content — the RESTful response for a delete. (A JSON body here
+        // would be silently stripped by a 204, so none is sent.)
+        return response()->json(null, 204);
     }
 
     protected function resolvePerPage(Request $request): int

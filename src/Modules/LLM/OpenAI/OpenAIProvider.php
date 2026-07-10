@@ -107,9 +107,14 @@ final readonly class OpenAIProvider implements LLMProviderInterface
      */
     private function createResponse(object $response, bool $fullResponse): OpenAIResponse
     {
+        // Default missing text to '' (empty choices from a content filter, or a
+        // null content on a tool-call/refusal) so we never assign null to the
+        // non-nullable OpenAIResponse::$content — matching Claude/Gemini.
+        $content = $response->choices[0]->message->content ?? '';
+
         if ($fullResponse) {
             return new OpenAIResponse(
-                content: $response->choices[0]->message->content,
+                content: $content,
                 model: $response->model,
                 usage: $response->usage,
                 rawResponse: $response
@@ -117,7 +122,7 @@ final readonly class OpenAIProvider implements LLMProviderInterface
         }
 
         return new OpenAIResponse(
-            content: $response->choices[0]->message->content
+            content: $content
         );
     }
 

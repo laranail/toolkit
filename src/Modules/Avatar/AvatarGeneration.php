@@ -76,7 +76,9 @@ readonly class AvatarGeneration implements \Stringable
 
     public function getAspectRatio(): float
     {
-        return $this->width / $this->height;
+        // A zero height is degenerate; report an undefined ratio rather than
+        // raising DivisionByZeroError.
+        return $this->height === 0 ? 0.0 : $this->width / $this->height;
     }
 
     public function getBackgroundColor(): ?string

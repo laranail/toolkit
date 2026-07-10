@@ -96,7 +96,9 @@ final class CollectionMacros extends ServiceProvider
             return $this->map($callback)->average();
         });
 
-        Collection::macro('toCsv', function (string $delimiter = ',', string $enclosure = '"', string $escape = '\\'): array {
+        // Default escape doubles the enclosure ("" ) per RFC 4180 / Excel / fgetcsv;
+        // a backslash default would emit \" which standard CSV readers mis-parse.
+        Collection::macro('toCsv', function (string $delimiter = ',', string $enclosure = '"', string $escape = '"'): array {
             /** @var Collection<array-key, mixed> $this */
             $rows = [];
 

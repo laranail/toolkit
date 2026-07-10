@@ -200,6 +200,39 @@ class TokenTest extends TestCase
     }
 
     #[Group('security')]
+    public function test_a_validly_signed_token_of_another_type_is_rejected(): void
+    {
+        $secret = 's3cr3t';
+
+        // A genuinely-signed token minted for the 'verify' purpose.
+        $verifyToken = Token::signed($secret)->type('verify')->encoding('hex')->length(16)->generate();
+
+        // A 'reset' verifier must reject it even though the MAC is valid — a token
+        // minted for one purpose cannot be replayed as another.
+        $this->assertFalse(Token::signed($secret)->type('reset')->encoding('hex')->length(16)->verify($verifyToken));
+
+        // Sanity: the matching-purpose verifier accepts it.
+        $this->assertTrue(Token::signed($secret)->type('verify')->encoding('hex')->length(16)->verify($verifyToken));
+    }
+
+    #[Group('security')]
+    public function test_embedded_expiry_is_enforced_even_when_the_verifier_omits_expires_in(): void
+    {
+        $secret = 's3cr3t';
+
+        // Hand-build an already-expired but validly-signed token.
+        $body = bin2hex(random_bytes(16));
+        $pastExpiry = (string) (time() - 1);
+        $signedBody = $body . '.' . $pastExpiry;
+        $mac = rtrim(strtr(base64_encode(hash_hmac('sha256', $signedBody, $secret, true)), '+/', '-_'), '=');
+        $expired = $signedBody . '.' . $mac;
+
+        // A verifier that did NOT set expiresIn() must still honour the token's
+        // own embedded expiry.
+        $this->assertFalse(Token::signed($secret)->verify($expired));
+    }
+
+    #[Group('security')]
     public function test_tokens_are_high_entropy_with_no_collisions(): void
     {
         // A large sample drawn from random_bytes() must not collide, evidencing a

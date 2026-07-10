@@ -119,8 +119,8 @@ final class CollectionMacrosBehaviorTest extends TestCase
         $this->assertSame(['"1";"2"'], collect([[1, 2]])->toCsv(';'));
         // Custom enclosure.
         $this->assertSame(['|1|,|2|'], collect([[1, 2]])->toCsv(',', '|'));
-        // Default escape (backslash) doubles the enclosure inside a field.
-        $this->assertSame(['"a\\"b"'], collect([['a"b']])->toCsv());
+        // Default escape doubles the enclosure inside a field (RFC 4180: "" ).
+        $this->assertSame(['"a""b"'], collect([['a"b']])->toCsv());
         // Custom escape character.
         $this->assertSame(['"a#"b"'], collect([['a"b']])->toCsv(',', '"', '#'));
     }

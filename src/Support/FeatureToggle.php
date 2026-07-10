@@ -15,7 +15,7 @@ class FeatureToggle
      */
     public static function isEnabled(string $feature): bool
     {
-        $isEnabledInConfig = Config::get("laranail.toolkit.feature-toggles.{$feature}", false);
+        $config = Config::get("laranail.toolkit.feature-toggles.{$feature}", false);
 
         // Check if there's a per-user or per-environment override
         $overrideKey = "laranail.toolkit.feature-toggles.{$feature}." . self::getOverrideKey();
@@ -25,7 +25,14 @@ class FeatureToggle
             return (bool) $isOverridden;
         }
 
-        return (bool) $isEnabledInConfig;
+        // A flag configured only as an override map (array) has no base value —
+        // it is off unless it declares an explicit `default`. Casting the array
+        // itself to bool would wrongly enable it for everyone without an override.
+        if (is_array($config)) {
+            return (bool) ($config['default'] ?? false);
+        }
+
+        return (bool) $config;
     }
 
     /**

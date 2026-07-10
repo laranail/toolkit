@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Carbon\Carbon;
-use Cron\CronExpression;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Log;
@@ -46,10 +44,12 @@ class SchedulerService implements SchedulerServiceInterface
     }
 
     /**
-     * Evaluate the event's cron expression against the current time.
+     * Whether the event is due now — via the event's own {@see Event::isDue()} so
+     * its configured timezone and `when()`/`skip()`/`environments()` filters are
+     * honoured (a raw CronExpression would ignore both).
      */
     private function isDue(Event $event): bool
     {
-        return (new CronExpression($event->expression))->isDue(Carbon::now());
+        return $event->isDue(app());
     }
 }

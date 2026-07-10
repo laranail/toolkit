@@ -248,6 +248,14 @@ final class Token implements \Stringable
             return false;
         }
 
+        // Enforce the purpose binding: a validly-signed token minted for another
+        // type() (or none) must not verify under this builder's configured type.
+        // The MAC alone does not prevent this — it authenticates the token's own
+        // type, not that it matches what the verifier expects.
+        if ($this->type !== '' && !str_ends_with($signedBody, '.' . $this->type)) {
+            return false;
+        }
+
         return $this->expiryIsValid($signedBody);
     }
 
@@ -279,25 +287,34 @@ final class Token implements \Stringable
     }
 
     /**
-     * Validate the expiry embedded in a signed body, if the builder set one.
-     * The expiry is the trailing numeric segment that precedes any type label.
+     * Validate any expiry embedded in the token. The expiry is authoritative and
+     * self-describing: it is enforced whenever the token carries one, regardless
+     * of whether this (verifying) builder set {@see expiresIn()} — otherwise an
+     * under-configured verifier would silently accept an expired token. A token
+     * with no expiry segment never expires.
      */
     private function expiryIsValid(string $signedBody): bool
     {
-        if ($this->expiresIn <= 0) {
-            return true;
+        // Strip the matched type suffix so the expiry (when present) is the
+        // trailing segment. (verify() has already confirmed this suffix.)
+        if ($this->type !== '' && str_ends_with($signedBody, '.' . $this->type)) {
+            $signedBody = substr($signedBody, 0, -\strlen('.' . $this->type));
         }
 
         $segments = explode('.', $signedBody);
 
-        // With a type set the expiry is the second-to-last segment; otherwise last.
-        $index = $this->type !== '' ? count($segments) - 2 : count($segments) - 1;
-
-        if ($index < 0 || !isset($segments[$index]) || !ctype_digit($segments[$index])) {
-            return false;
+        // The body carries no dots, so >1 segment means a trailing expiry. A
+        // non-numeric trailing segment is part of the body, not an expiry.
+        if (count($segments) < 2) {
+            return true;
         }
 
-        return time() <= (int) $segments[$index];
+        $expiry = end($segments);
+        if (!ctype_digit($expiry)) {
+            return true;
+        }
+
+        return time() <= (int) $expiry;
     }
 
     /** HMAC-SHA256 over the signed body, rendered base64url (URL-safe, no pad). */
