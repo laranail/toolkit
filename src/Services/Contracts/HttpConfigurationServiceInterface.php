@@ -29,10 +29,21 @@ interface HttpConfigurationServiceInterface
 
     public function getCacheTtl(): int;
 
+    /** Set (or clear, with null) the base URI applied to the client. */
+    public function setBaseUri(?string $baseUri): self;
+
+    public function getBaseUri(): ?string;
+
+    /** Set (or clear, with null) the outbound proxy. */
+    public function setProxy(?string $proxy): self;
+
+    public function getProxy(): ?string;
+
     /**
-     * Render the current configuration as a Guzzle config array.
+     * Render the current configuration as a Guzzle config array. `base_uri` and
+     * `proxy` are present only when set.
      *
-     * @return array{persist: bool, timeout: int, retry: array{max: int}, cache_ttl: int}
+     * @return array{persist: bool, timeout: int, retry: array{max: int}, cache_ttl: int, base_uri?: string, proxy?: string}
      */
     public function toGuzzleConfig(): array;
 }

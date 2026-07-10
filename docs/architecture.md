@@ -110,8 +110,12 @@ accessors**:
 | `Toolkit::scheduler()` | `Services\Contracts\SchedulerServiceInterface` |
 
 plus `file()`, `system()`, `session()`, `route()`,
-`validation()`, `http()`, `auth()`, and `model()`. (The pure static `Helper::`
-methods are intentionally **not** on the facade — see [helpers](helpers.md).)
+`validation()`, `http()`, `auth()`, `model()`, and the runtime trio
+`config()` ([config manager](../config-manager.md)),
+`pythonApi()` ([python API](../python-api.md)), and
+`runtime()` ([runtime configurator](../runtime-configurator.md)). (The pure static
+`Helper::` methods are intentionally **not** on the facade — see
+[helpers](helpers.md).)
 
 ## Eager vs. deferred
 
@@ -155,6 +159,21 @@ use Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions;
 resolution time from `config('laranail.toolkit.llm.default_provider')` — `openai`
 (default), `claude`, or `gemini`. See [LLM providers](modules/llm.md).
 
+## Self-contained provider (no `laranail/package-tools`)
+
+The `ToolkitServiceProvider` is built on plain `Illuminate\Support\ServiceProvider`
+primitives — the toolkit **does not depend on `laranail/package-tools`**. It is the
+foundational "Swiss-army" library that other laranail packages build on, so the
+dependency arrow points the other way. The provider reproduces the declarative
+lifecycle itself: `register()` merges each `config/*.php` under its dotted
+`laranail.toolkit.*` key (with a published-override bridge that deep-merges an
+edited `config/laranail/…` file back over the key), registers the eager + deferred
+child providers, and wires the container bindings; `boot()` loads
+views/translations/migrations, the commands, the route-middleware aliases, the
+`reject_common_passwords` validator, the `php artisan about` section, the
+cache-events listener, and (in console) the publish groups. Publish tags are
+unchanged (`laranail::toolkit-{config,views,translations,migrations,stubs}`).
+
 ## Migration / removal record
 
 This package was ported from the pre-1.0 `Simtabi\Laranail` monolith, keeping
@@ -162,6 +181,9 @@ only the genuine delta over Laravel 13 / PHP 8.4–8.5 natives — native-duplic
 consolidated, or out-of-scope symbols were dropped, and the notification and
 database/UUID tooling moved to `laranail/notifications` and `laranail/db-tools`.
 A regression test (`tests/Regression/ApiSurfaceTest`) enforces that nothing is lost
-unplanned.
+unplanned. The `CacheService` maintenance surface (clear/rebuild/optimize) — once
+deferred to native artisan and dropped as the legacy `CacheServiceInterface` — was
+folded back onto the unified cache service; the runtime `ConfigManager`,
+`PythonApiService`, and INI `RuntimeConfigurator` were added alongside it.
 
 [← Docs index](../README.md#documentation)

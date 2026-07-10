@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services\Contracts;
 
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
+use Simtabi\Laranail\Toolkit\Services\CacheOptimizationResult;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
 
 /**
@@ -13,6 +15,11 @@ use Simtabi\Laranail\Toolkit\Services\CacheService;
  * `Illuminate\Contracts\Cache\Repository`: this is the toolkit's own resilient
  * (log-and-fall-back), namespaced, optionally-tagged cache helper, not a drop-in
  * for the framework repository. Bound interface→{@see CacheService}.
+ *
+ * Two cohesive halves: the application data cache (get/put/remember/…) and the
+ * framework cache maintenance surface (`clear…`/`cache…`/`optimize`), the latter
+ * dispatching {@see CacheEvents}
+ * around every operation.
  */
 interface CacheRepositoryInterface
 {
@@ -61,4 +68,60 @@ interface CacheRepositoryInterface
      * @param array<int, string> $tags
      */
     public function tags(array $tags): static;
+
+    /**
+     * A stable cache key derived from the current request input plus the current
+     * URL (for request-scoped response caching).
+     */
+    public function keyFromRequest(): string;
+
+    // --- Framework cache maintenance (resilient; dispatches CacheEvents) ---
+
+    /** Flush the entire framework cache store. */
+    public function clearFrameworkCache(): static;
+
+    /** Delete the cached config file. */
+    public function clearConfig(): static;
+
+    /** Delete the cached routes file. */
+    public function clearRoutes(): static;
+
+    /** Delete compiled Blade views. */
+    public function clearCompiledViews(): static;
+
+    /** Delete all PHP files in the bootstrap cache dir. */
+    public function clearBootstrap(): static;
+
+    /** Delete the cached events file. */
+    public function clearEvents(): static;
+
+    /** Delete all `*.log` files under the log directory. */
+    public function clearLogs(): static;
+
+    /**
+     * Clear a third-party cache directory/file named by a config key
+     * (skips silently when unset/absent).
+     */
+    public function clearThirdPartyCache(string $configKey): static;
+
+    /** Clear the HTMLPurifier cache directory. */
+    public function clearPurifier(): static;
+
+    /** Clear the Debugbar storage directory. */
+    public function clearDebugbar(): static;
+
+    /** Rebuild the cached config file (Closures stripped). */
+    public function cacheConfig(): static;
+
+    /** Recompile every Blade view under the configured view paths. */
+    public function cacheViews(): static;
+
+    /** Clear framework + third-party caches and logs in one pass. */
+    public function purgeAll(): static;
+
+    /** Clear then rebuild config + views and flush the store. */
+    public function optimize(): CacheOptimizationResult;
+
+    /** Clear the config/routes/views optimization caches. */
+    public function clearOptimization(): CacheOptimizationResult;
 }

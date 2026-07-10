@@ -82,7 +82,7 @@ final readonly class SystemService implements SystemServiceInterface
 
     public function isCli(): bool
     {
-        return PHP_SAPI === 'cli';
+        return PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg';
     }
 
     public function isHttps(): bool

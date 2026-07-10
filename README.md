@@ -16,7 +16,7 @@ composer require laranail/toolkit
 
 ## Documentation
 
-Full documentation is at **[opensource.simtabi.com/documentation/laranail/toolkit](https://opensource.simtabi.com/documentation/laranail/toolkit/)** — the feature overview, LLM providers, the API CRUD generator + middleware, the feature modules, and the utilities/traits/macros/directives reference.
+Full documentation is at **[opensource.simtabi.com/documentation/laranail/toolkit](https://opensource.simtabi.com/documentation/laranail/toolkit/)** — the feature overview, LLM providers, the API CRUD generator + middleware, the feature modules, the unified cache (data + maintenance), the fluent runtime config manager, the Python microservice HTTP client, the PHP runtime/INI configurator, and the utilities/traits/macros/directives reference.
 
 ## Contributing & security
 

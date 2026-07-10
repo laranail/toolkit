@@ -1,7 +1,7 @@
 # Configuration
 
 The package's main config ships at `config/toolkit.php` and is merged under the
-dotted **`laranail.toolkit.*`** namespace (via package-tools' `hasConfigFile`).
+dotted **`laranail.toolkit.*`** namespace by the toolkit's own service provider.
 Read any value with `config('laranail.toolkit.<key>')`. Publish it with:
 
 ```bash
@@ -9,9 +9,10 @@ php artisan vendor:publish --tag=laranail::toolkit-config
 ```
 
 which writes `config/laranail/toolkit.php` (and the module configs to
-`config/laranail/toolkit/{feature-toggles,atlas,captcha}.php`). Editing a published
-file overrides the matching `config('laranail.toolkit.*')` value — package-tools
-loads the published override back into the dotted key.
+`config/laranail/toolkit/{feature-toggles,atlas,captcha,security}.php`). Editing a
+published file overrides the matching `config('laranail.toolkit.*')` value — the
+provider's override bridge deep-merges the published file back over the dotted
+key at register time.
 
 Each config file lives at its own sub-key, so there are no collisions:
 `toolkit` → `laranail.toolkit.*`, `feature-toggles` →
@@ -35,7 +36,10 @@ Defaults applied to `CacheService`.
 |-----|---------|-------|
 | `default_expiration` | `60` (minutes) | |
 | `default_tags` | `[]` | |
-| `namespace` | `''` | Optional key prefix applied to `get`/`forget`/`remember`/`put`/`many`/`increment`/`decrement`. Env: `LARANAIL_CACHE_NAMESPACE`. |
+| `namespace` | `''` | Optional key prefix applied to every read/write/forget. Env: `LARANAIL_CACHE_NAMESPACE`. |
+| `log_events` | `false` | When `true`, the `LogCacheEvents` listener logs the cache-maintenance lifecycle (clearing/cleared/failed). Env: `LARANAIL_CACHE_LOG_EVENTS`. |
+
+See [cache](cache.md) for the full data + maintenance surface.
 
 ## `laranail.toolkit.http`
 
@@ -48,6 +52,27 @@ trait).
 | `request_timeout` | `60` (seconds) | `GUZZLE_REQUEST_TIMEOUT` |
 | `max_retries` | `10` | `GUZZLE_MAX_RETRIES` |
 | `cache_ttl` | `10` (seconds) | `GUZZLE_CACHE_TTL` |
+
+## `laranail.toolkit.python`
+
+Named Python (or any external HTTP) microservices consumed by `PythonApiService`.
+Each entry under `python.services.<name>` describes one client. See
+[python API](python-api.md).
+
+| Key | Default | Notes |
+|-----|---------|-------|
+| `services.<name>.base_url` | — | Client base URL (required). |
+| `services.<name>.timeout` | `null` | Seconds; `null` inherits `http.request_timeout`. |
+| `services.<name>.verify_ssl` | `true` | `false` disables TLS verification. |
+| `services.<name>.ca_cert` | `null` | Path to a CA bundle (e.g. mkcert). Missing-but-set logs a warning. |
+| `services.<name>.health_path` | `/health` | Path probed by `health()`. |
+| `services.<name>.health_key` | `status` | JSON key checked in the health response. |
+| `services.<name>.healthy_value` | `healthy` | Expected value at `health_key`. |
+| `services.<name>.retry_times` | `3` | HTTP retry attempts. |
+| `services.<name>.retry_sleep_ms` | `100` | Delay between retries. |
+
+Ships with `fastapi` (`PYTHON_FASTAPI_*` env) and `flask` (`PYTHON_FLASK_*` env)
+pre-defined; add more services by adding keys under `python.services`.
 
 ## `laranail.toolkit.access_log`
 

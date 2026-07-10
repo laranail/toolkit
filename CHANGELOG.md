@@ -16,6 +16,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Unified cache maintenance.** `CacheService` (behind `Toolkit::cache()`) now
+  also clears and rebuilds framework caches — `clearFrameworkCache()`,
+  `clearConfig()`, `clearRoutes()`, `clearCompiledViews()`, `clearBootstrap()`,
+  `clearEvents()`, `clearLogs()`, `clearThirdPartyCache()` / `clearPurifier()` /
+  `clearDebugbar()`, `cacheConfig()`, `cacheViews()`, `purgeAll()` — plus the
+  `optimize()` / `clearOptimization()` orchestrators returning a typed
+  `CacheOptimizationResult`. Every op dispatches `CacheEvents`
+  (clearing → cleared/failed) and is resilient (logged, never throws). Added the
+  opt-in `LogCacheEvents` listener (`laranail.toolkit.cache.log_events`) and a
+  `keyFromRequest()` helper.
+- **`ConfigManager`** (`Toolkit::config()`, `ConfigManagerInterface`) — a fluent
+  runtime config manager (get/set/merge/remove/push/transform, file loaders,
+  `when`/`unless`/`inEnvironment`/`whenHas`). `merge()` is a true deep merge via
+  the new `Support\ConfigMerger`.
+- **`PythonApiService`** (`Toolkit::pythonApi()`, `PythonApiServiceInterface`) — a
+  config-driven HTTP client factory for named Python/external microservices
+  (`laranail.toolkit.python.services.*`), with `fastapi()`/`flask()` shims and
+  per-service, configurable health checks.
+- **`Support\RuntimeConfigurator`** (`Toolkit::runtime()`) — a chainable PHP
+  runtime/INI configurator (memory, execution time, INI directives, debug-tool
+  toggles) with `apply`/`scope`/`restore` and job/import/export presets.
+
+### Changed
+
+- **The toolkit no longer depends on `laranail/package-tools`.** `ToolkitServiceProvider`
+  is rewritten on plain `Illuminate\Support\ServiceProvider` primitives while
+  preserving the dotted `laranail.toolkit.*` config namespace, the published-override
+  bridge, and every publish tag. The toolkit is now the foundational library other
+  laranail packages build on.
+- `HttpConfigurationService` regained `base_uri` / `proxy` support and
+  non-negative validation on its integer setters; `toGuzzleConfig()` emits
+  `base_uri` / `proxy` when set.
+
+### Fixed
+
+- `CacheService` data operations are now consistently namespace-aware — `get()` /
+  `forget()` align with `put()` / `remember()` under a configured
+  `cache.namespace` (behaviour is unchanged when no namespace is set).
+- `SystemService::isCli()` now also detects the `phpdbg` SAPI.
+
 ## [0.1.1] - 2026-06-30
 
 ### Fixed
