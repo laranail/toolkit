@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Helpers;
 
+use Illuminate\Http\Request;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
@@ -40,17 +41,15 @@ class HelperSystemTest extends TestCase
         $this->assertTrue($this->system->isCli());
     }
 
-    public function test_is_https_reads_server_state_safely(): void
+    public function test_is_https_delegates_to_the_request_scheme(): void
     {
-        unset($_SERVER['HTTPS']);
+        // isHttps() reads the framework request (so it respects TrustProxies),
+        // not raw $_SERVER — swap the bound request to drive it.
+        $this->app->instance('request', Request::create('http://x.test/'));
         $this->assertFalse($this->system->isHttps());
 
-        $_SERVER['HTTPS'] = 'off';
-        $this->assertFalse($this->system->isHttps());
-
-        $_SERVER['HTTPS'] = 'on';
+        $this->app->instance('request', Request::create('https://x.test/'));
         $this->assertTrue($this->system->isHttps());
-        unset($_SERVER['HTTPS']);
     }
 
     public function test_memory_usage_and_server_env_shapes(): void
@@ -75,12 +74,11 @@ class HelperSystemTest extends TestCase
 
     public function test_is_ssl_installed_aliases_is_https(): void
     {
-        unset($_SERVER['HTTPS']);
+        $this->app->instance('request', Request::create('http://x.test/'));
         $this->assertFalse($this->system->isSslInstalled());
 
-        $_SERVER['HTTPS'] = 'on';
+        $this->app->instance('request', Request::create('https://x.test/'));
         $this->assertTrue($this->system->isSslInstalled());
-        unset($_SERVER['HTTPS']);
     }
 
     public function test_composer_reads_the_application_composer_json(): void

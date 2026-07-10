@@ -149,6 +149,12 @@ final readonly class OpenAIProvider implements LLMProviderInterface
                 $lastException = $e;
                 $attempt++;
 
+                // Only 429 / 5xx are transient; fail fast on 4xx (e.g. a 400
+                // invalid request or 401 bad key) instead of retrying it.
+                if (!$this->isRetryableStatus($e->getStatusCode())) {
+                    break;
+                }
+
                 if ($attempt < $this->maxRetries) {
                     Log::warning('OpenAI API request failed, retrying...', [
                         'attempt' => $attempt,
@@ -164,5 +170,11 @@ final readonly class OpenAIProvider implements LLMProviderInterface
         ]);
 
         throw $lastException ?? new \RuntimeException('OpenAI API request failed.');
+    }
+
+    /** Whether an HTTP status is worth retrying (transient): 429 or any 5xx. */
+    private function isRetryableStatus(int $status): bool
+    {
+        return $status === 429 || $status >= 500;
     }
 }

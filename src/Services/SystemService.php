@@ -92,9 +92,11 @@ final readonly class SystemService implements SystemServiceInterface
 
     public function isHttps(): bool
     {
-        $https = $_SERVER['HTTPS'] ?? null;
-
-        return is_string($https) && $https !== '' && strtolower($https) !== 'off';
+        // Delegate to the framework request so HTTPS behind a TLS-terminating
+        // proxy/load balancer is detected (via X-Forwarded-Proto, honoured for
+        // configured TrustProxies). Reading $_SERVER['HTTPS'] alone misses that
+        // case, and trusting the proxy header directly would be spoofable.
+        return request()->isSecure();
     }
 
     public function isSslInstalled(): bool

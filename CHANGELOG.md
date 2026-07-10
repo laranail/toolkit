@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-10
+
+Resolves the previously-deferred review items. These tighten several ambiguous
+or unsafe behaviours — **breaking** for callers that relied on the old
+semantics — hence the minor bump.
+
+### Changed
+
+- **`RouteService` now matches the route NAME, not the URL path/substring.**
+  `isCurrentRoute()`, `getActiveCssClass()` and `getActiveMenuClassName()` compare
+  the current route name (with wildcard support, e.g. `users.*`) — so `'post'` no
+  longer activates on `/posts` or `/composer-help`, and a path can't be mistaken
+  for a route name. Use `isRequest()` / `isUrlSegment()` for path checks.
+- **`RouteService::isUrlSegment()`** requires BOTH the segment and the query param
+  to match when a `paramKey` is given (a param match alone no longer reports the
+  segment active).
+- **`SystemService::isHttps()`** delegates to the framework request, so HTTPS
+  behind a TLS-terminating proxy is detected (via `X-Forwarded-Proto`, honoured
+  for configured `TrustProxies`) instead of reading `$_SERVER['HTTPS']` alone.
+- **`ErrorStorageService::getErrorCount()`** counts error *messages*, not
+  top-level keys (a key holding a list now contributes each message).
+- **`CrudController`** action id parameters are typed `int|string`.
+
+### Added
+
+- **`CrudController::authorizeAction(string $ability, ?Model $record = null)`** —
+  an overridable authorization seam invoked before each CRUD action
+  (`viewAny`/`view`/`create`/`update`/`delete`). No-op by default; override it to
+  enforce a policy/gate on the drop-in controller.
+
+### Fixed
+
+- **`SettingsStore`** serialises its read-modify-write behind an atomic
+  `Cache::lock`, so two concurrent `set()`/`forget()` calls no longer clobber each
+  other's key. (Cross-process safety needs an atomic cache store.)
+- **`OpenAIProvider`** retries only transient failures (HTTP 429 / 5xx) and fails
+  fast on 4xx (e.g. a 400 invalid request or 401 bad key) — matching the
+  Claude/Gemini providers.
+
 ## [0.4.0] - 2026-07-10
 
 A correctness/security pass across the wider package (independent multi-agent

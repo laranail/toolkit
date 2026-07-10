@@ -49,7 +49,8 @@ class HasErrorStorageTest extends TestCase
         // If the trait resolved a fresh service per call (the legacy bug) the
         // accumulated state below would be lost.
         $this->assertTrue($object->hasErrors());
-        $this->assertSame(1, $object->getErrorCount());
+        // Two messages under one key — counted as messages, not keys.
+        $this->assertSame(2, $object->getErrorCount());
         $this->assertSame(['required', 'invalid'], $object->getErrors('email'));
         $this->assertSame('required', $object->getFirstError());
 

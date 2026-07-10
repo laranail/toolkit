@@ -147,13 +147,15 @@ class RouteServiceCoverageTest extends TestCase
         $this->assertSame('active', $service->getActiveMenuClassName('dashboard'));
     }
 
-    public function test_active_menu_class_name_falls_back_to_url_contains(): void
+    public function test_active_menu_class_name_matches_route_name_with_wildcards(): void
     {
         $service = $this->serviceAtRoute('account/profile', 'account.profile');
 
-        // The current route name is "account.profile" (no match), but the URL
-        // contains "account/profile" so the Str::contains branch returns active.
-        $this->assertSame('active', $service->getActiveMenuClassName('account/profile'));
-        $this->assertSame('', $service->getActiveMenuClassName('totally/unrelated'));
+        // Matches the current route NAME (with wildcards), not a URL substring.
+        $this->assertSame('active', $service->getActiveMenuClassName('account.profile'));
+        $this->assertSame('active', $service->getActiveMenuClassName('account.*'));
+        $this->assertSame('', $service->getActiveMenuClassName('totally.unrelated'));
+        // 'account' must NOT activate — no substring false positive.
+        $this->assertSame('', $service->getActiveMenuClassName('account'));
     }
 }

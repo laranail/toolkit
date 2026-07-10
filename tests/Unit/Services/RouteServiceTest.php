@@ -11,14 +11,17 @@ use Simtabi\Laranail\Toolkit\Services\RouteService;
 
 class RouteServiceTest extends TestCase
 {
-    public function test_is_current_route_matches_via_request_pattern(): void
+    public function test_is_current_route_matches_the_route_name_with_wildcards(): void
     {
-        $request = Request::create('/users/5/edit');
+        $router = $this->createMock(Router::class);
+        $router->method('currentRouteName')->willReturn('users.edit');
 
-        $service = new RouteService($this->createMock(Router::class), $request);
+        $service = new RouteService($router, Request::create('/users/5/edit'));
 
-        $this->assertTrue($service->isCurrentRoute('users/*'));
-        $this->assertFalse($service->isCurrentRoute('posts/*'));
+        // Matches the route NAME (with wildcards), not the URL path.
+        $this->assertTrue($service->isCurrentRoute('users.*'));
+        $this->assertTrue($service->isCurrentRoute('users.edit'));
+        $this->assertFalse($service->isCurrentRoute('posts.*'));
     }
 
     public function test_is_current_route_falls_back_to_route_name(): void
@@ -37,12 +40,10 @@ class RouteServiceTest extends TestCase
 
     public function test_active_css_class_returns_class_only_when_active(): void
     {
-        $request = Request::create('/home');
-
         $router = $this->createMock(Router::class);
-        $router->method('currentRouteName')->willReturn(null);
+        $router->method('currentRouteName')->willReturn('home');
 
-        $service = new RouteService($router, $request);
+        $service = new RouteService($router, Request::create('/home'));
 
         $this->assertSame('active', $service->getActiveCssClass('home'));
         $this->assertSame('current', $service->getActiveCssClassForRoute('home', 'current'));

@@ -69,7 +69,15 @@ class ErrorStorageService implements ErrorStorageServiceInterface
 
     public function getErrorCount(): int
     {
-        return count($this->errors);
+        // Count messages, not keys — a key holding a list of messages
+        // (repeated addError()) contributes each of them.
+        $count = 0;
+
+        foreach ($this->errors as $messages) {
+            $count += is_array($messages) ? count($messages) : 1;
+        }
+
+        return $count;
     }
 
     public function getFirstError(): ?string

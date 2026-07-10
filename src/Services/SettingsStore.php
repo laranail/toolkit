@@ -6,6 +6,7 @@ namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
@@ -63,9 +64,9 @@ class SettingsStore implements SettingsStoreInterface
      */
     public function set(string $key, mixed $value): void
     {
-        $all = $this->all();
-        Arr::set($all, $key, $value);
-        $this->persist($all);
+        $this->mutate(function (array &$all) use ($key, $value): void {
+            Arr::set($all, $key, $value);
+        });
     }
 
     /**
@@ -73,9 +74,27 @@ class SettingsStore implements SettingsStoreInterface
      */
     public function forget(string $key): void
     {
-        $all = $this->all();
-        Arr::forget($all, $key);
-        $this->persist($all);
+        $this->mutate(function (array &$all) use ($key): void {
+            Arr::forget($all, $key);
+        });
+    }
+
+    /**
+     * Serialise the read-modify-write behind an atomic lock so two concurrent
+     * writers cannot each read the same snapshot and clobber the other's key.
+     *
+     * Cross-process safety requires an atomic cache store (redis/database/…); the
+     * array/file drivers serialise within a single process.
+     *
+     * @param callable(array<string, mixed>): void $mutator
+     */
+    private function mutate(callable $mutator): void
+    {
+        Cache::lock('laranail:toolkit:settings:' . md5($this->path), 10)->block(5, function () use ($mutator): void {
+            $all = $this->all();
+            $mutator($all);
+            $this->persist($all);
+        });
     }
 
     /**

@@ -31,8 +31,23 @@ abstract class CrudController extends BaseController
 
     public function __construct(protected Model $model) {}
 
+    /**
+     * Authorization seam invoked before each CRUD action with the standard
+     * ability (`viewAny`/`view`/`create`/`update`/`delete`) and, where relevant,
+     * the resolved record. No-op by default; override to enforce a policy/gate —
+     * e.g. `$this->authorize($ability, $record ?? $this->model);` (the
+     * `AuthorizesRequests` trait is available via {@see BaseController}). A
+     * drop-in subclass exposes read/write/delete, so wire authorization here.
+     */
+    protected function authorizeAction(string $ability, ?Model $record = null): void
+    {
+        // Intentionally empty — consuming controllers enforce authorization.
+    }
+
     public function getAllRecords(Request $request): JsonResponse
     {
+        $this->authorizeAction('viewAny');
+
         $query = $this->model->query();
 
         if (!empty($this->searchableFields) && $request->filled('search')) {
@@ -68,7 +83,7 @@ abstract class CrudController extends BaseController
         ]);
     }
 
-    public function getRecordById($id): JsonResponse
+    public function getRecordById(int|string $id): JsonResponse
     {
         $query = $this->model->query();
 
@@ -78,11 +93,15 @@ abstract class CrudController extends BaseController
 
         $record = $query->findOrFail($id);
 
+        $this->authorizeAction('view', $record);
+
         return response()->json(['data' => $record]);
     }
 
     public function storeRecord(Request $request): JsonResponse
     {
+        $this->authorizeAction('create');
+
         $validated = $this->validateRequest($request);
 
         $record = $this->model->create($validated);
@@ -97,9 +116,11 @@ abstract class CrudController extends BaseController
         ], 201);
     }
 
-    public function updateRecord(Request $request, $id): JsonResponse
+    public function updateRecord(Request $request, int|string $id): JsonResponse
     {
         $record = $this->model->findOrFail($id);
+
+        $this->authorizeAction('update', $record);
 
         $validated = $this->validateRequest($request, $id);
 
@@ -115,9 +136,12 @@ abstract class CrudController extends BaseController
         ]);
     }
 
-    public function deleteRecord($id): JsonResponse
+    public function deleteRecord(int|string $id): JsonResponse
     {
         $record = $this->model->findOrFail($id);
+
+        $this->authorizeAction('delete', $record);
+
         $record->delete();
 
         // 204 No Content — the RESTful response for a delete. (A JSON body here

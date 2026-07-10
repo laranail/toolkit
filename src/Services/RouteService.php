@@ -6,7 +6,6 @@ namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
@@ -39,13 +38,13 @@ final readonly class RouteService implements RouteServiceInterface
 
     public function isCurrentRoute(string $routeName): bool
     {
-        // Request::is() supports exact names AND wildcards (e.g. "users.*").
-        // Fall back to route-name matching when the URL pattern doesn't match.
-        if ($this->request->is($routeName)) {
-            return true;
-        }
+        // Match the current route's NAME (wildcards supported, e.g. "users.*").
+        // Previously this also matched the URL *path*, conflating two namespaces
+        // and producing false positives; use isRequest()/isUrlSegment() for path
+        // checks.
+        $current = $this->router->currentRouteName();
 
-        return $this->router->currentRouteName() === $routeName;
+        return $current !== null && Str::is($routeName, $current);
     }
 
     public function isRoute(string $routeName): bool
@@ -80,20 +79,21 @@ final readonly class RouteService implements RouteServiceInterface
         $prefix = trim($route->getPrefix() ?? '', '/');
         $prefix = $prefix !== '' ? "{$prefix}/" : '';
 
-        $parameter = $paramKey !== null ? $this->request->query($paramKey) : null;
-        $paramStatus = filled($parameter) && $this->looseEquals($parameter, $paramValue);
-
         $pattern = $strict
             ? [$prefix . $segment, $prefix . $segment . '/']
             : [$prefix . $segment, $prefix . $segment . '/', $prefix . $segment . '/*'];
 
         $matches = $this->request->is(...$pattern);
 
-        if (!$paramStatus) {
-            return $matches && blank($parameter) && blank($paramValue);
+        // When a query param is specified, BOTH the URL segment and the param
+        // must match — a param match alone must not report the segment active.
+        if ($paramKey !== null) {
+            $parameter = $this->request->query($paramKey);
+
+            return $matches && filled($parameter) && $this->looseEquals($parameter, $paramValue);
         }
 
-        return true;
+        return $matches;
     }
 
     public function isLastUrlSegment(string $segment): bool
@@ -206,22 +206,18 @@ final readonly class RouteService implements RouteServiceInterface
     {
         $current = $this->router->currentRouteName();
 
+        if ($current === null) {
+            return '';
+        }
+
         if (is_array($route)) {
-            // Legacy used Arr::has($route, $current), which checks *keys*, not
-            // values — wrong for a flat list of route names. Compare against the
-            // list values instead.
-            return $current !== null && in_array($current, $route, true) ? $className : '';
+            return in_array($current, $route, true) ? $className : '';
         }
 
-        if ($current === $route) {
-            return $className;
-        }
-
-        if (Str::contains(URL::current(), $route)) {
-            return $className;
-        }
-
-        return '';
+        // Match the current route NAME (wildcards like "posts.*" supported), not a
+        // substring of the URL — 'post' must not activate on '/posts' or
+        // '/composer-help'. Use a route-name pattern for prefix-style menus.
+        return Str::is($route, $current) ? $className : '';
     }
 
     /**
