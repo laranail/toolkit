@@ -476,11 +476,13 @@ final class RuntimeConfigurator
 
     private function captureOriginalValues(): void
     {
-        foreach ([
+        $keys = [
             'memory_limit', 'max_execution_time', 'error_reporting',
             'display_errors', 'realpath_cache_size', 'realpath_cache_ttl',
             'post_max_size', 'upload_max_filesize',
-        ] as $key) {
+        ];
+
+        foreach ($keys as $key) {
             $this->originalValues[$key] = ini_get($key);
         }
     }
