@@ -139,4 +139,62 @@ return [
         'disk' => env('LARANAIL_SETTINGS_DISK', 'local'),
         'path' => env('LARANAIL_SETTINGS_PATH', 'laranail/settings.json'),
     ],
+
+    /*
+     * PHP runtime / INI settings applied by Support\RuntimeConfigurator via
+     * ->usingConfig()/::fromConfig(). Everything here is data — override any
+     * value (env or by publishing this file) without touching code.
+     *
+     * A value of `null` in `defaults`/`ini` leaves PHP's current INI value
+     * untouched; set a value to have it applied. Named `profiles` layer over the
+     * defaults and mirror the built-in RuntimeConfigurator presets so you can
+     * tune them from config.
+     */
+    'runtime' => [
+        // Apply `default_profile` (or just `defaults`) automatically at boot.
+        // This mutates PHP INI for EVERY request/command — opt-in only.
+        'apply_on_boot' => env('LARANAIL_RUNTIME_APPLY_ON_BOOT', false),
+
+        // Profile applied by apply_on_boot and by ::fromConfig() with no
+        // argument. null = apply only `defaults` + `ini` + `disable_tools`.
+        'default_profile' => env('LARANAIL_RUNTIME_PROFILE'),
+
+        // Common INI settings. null = leave PHP's value untouched.
+        'defaults' => [
+            'memory_limit' => env('LARANAIL_RUNTIME_MEMORY_LIMIT'),
+            'max_execution_time' => env('LARANAIL_RUNTIME_MAX_EXECUTION_TIME'),
+            'max_input_time' => env('LARANAIL_RUNTIME_MAX_INPUT_TIME'),
+            'max_input_vars' => env('LARANAIL_RUNTIME_MAX_INPUT_VARS'),
+            'error_reporting' => env('LARANAIL_RUNTIME_ERROR_REPORTING'),
+            'display_errors' => env('LARANAIL_RUNTIME_DISPLAY_ERRORS'),
+            'post_max_size' => env('LARANAIL_RUNTIME_POST_MAX_SIZE'),
+            'upload_max_filesize' => env('LARANAIL_RUNTIME_UPLOAD_MAX_FILESIZE'),
+            'max_file_uploads' => env('LARANAIL_RUNTIME_MAX_FILE_UPLOADS'),
+            'realpath_cache_size' => env('LARANAIL_RUNTIME_REALPATH_CACHE_SIZE'),
+            'realpath_cache_ttl' => env('LARANAIL_RUNTIME_REALPATH_CACHE_TTL'),
+            'default_socket_timeout' => env('LARANAIL_RUNTIME_DEFAULT_SOCKET_TIMEOUT'),
+        ],
+
+        // Any additional INI directives not listed above (key => value).
+        'ini' => [],
+
+        // Debugging tools disabled when a profile / the defaults are applied.
+        'disable_tools' => [
+            'telescope' => env('LARANAIL_RUNTIME_DISABLE_TELESCOPE', false),
+            'xdebug' => env('LARANAIL_RUNTIME_DISABLE_XDEBUG', false),
+            'clockwork' => env('LARANAIL_RUNTIME_DISABLE_CLOCKWORK', false),
+            'debugbar' => env('LARANAIL_RUNTIME_DISABLE_DEBUGBAR', false),
+        ],
+
+        // Named presets. A profile is a flat map of INI key => value, plus an
+        // optional `disable` list of tool names. These mirror the built-in
+        // ::forQueueJob()/forBatchProcessing()/forImport()/forExport() presets.
+        'profiles' => [
+            'queue' => ['memory_limit' => '1G', 'max_execution_time' => 0, 'disable' => ['telescope']],
+            'batch' => ['memory_limit' => '2G', 'max_execution_time' => 0, 'disable' => ['telescope', 'xdebug', 'clockwork', 'debugbar']],
+            'import' => ['memory_limit' => '1G', 'max_execution_time' => 1800, 'disable' => ['telescope']],
+            'export' => ['memory_limit' => '1G', 'max_execution_time' => 900, 'disable' => ['telescope']],
+            'uploads' => ['memory_limit' => '512M', 'post_max_size' => '100M', 'upload_max_filesize' => '100M', 'max_execution_time' => 600],
+        ],
+    ],
 ];

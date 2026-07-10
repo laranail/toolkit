@@ -41,6 +41,41 @@ $rows = Toolkit::runtime()
 | `forImport()` | 1G memory, 30-minute timeout, Telescope off. |
 | `forExport()` | 1G memory, 15-minute timeout, Telescope off. |
 
+## Config-driven profiles
+
+The presets above live in code, but you can drive the configurator entirely from
+the **`laranail.toolkit.runtime`** config block — no code change needed to tune
+memory, timeouts, INI directives or which debug tools to disable. Publish the
+config, edit the values (or set the `LARANAIL_RUNTIME_*` env vars), and build from
+it:
+
+```php
+use Simtabi\Laranail\Toolkit\Facades\Toolkit;
+use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
+
+// Apply the `defaults` + a named profile from config, then run scoped:
+RuntimeConfigurator::fromConfig('import')->scope(fn () => $importer->run());
+
+// Or load config into an existing builder and keep chaining:
+Toolkit::runtime()->usingConfig('batch')->memory('4G')->apply();
+```
+
+| Method | Notes |
+|--------|-------|
+| `RuntimeConfigurator::fromConfig(?string $profile = null)` | New builder seeded from config: `defaults` + `ini` + `disable_tools`, then the named `$profile` (or `runtime.default_profile`). |
+| `usingConfig(?string $profile = null)` | Same, loaded into the current builder (returns `self`). |
+
+Layering order: `defaults` → `ini` → `disable_tools` → the named `profile`
+(profiles win). A `null` value in `defaults`/`ini` is **skipped**, so only the
+directives you explicitly set are applied.
+
+Set **`runtime.apply_on_boot = true`** to have the toolkit apply the
+`default_profile` (or just the `defaults`) automatically at boot — a one-line way
+to enforce global INI. It mutates PHP INI for every request/command, so it is
+opt-in (default off). See
+[configuration](configuration.md#laranailtoolkitruntime) for the full block and
+the shipped profiles (`queue`, `batch`, `import`, `export`, `uploads`).
+
 ## Builder methods
 
 | Group | Methods (each returns `self`) |

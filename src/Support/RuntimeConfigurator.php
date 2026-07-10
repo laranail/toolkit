@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Laravel\Telescope\Telescope;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\SystemService;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 
 /**
  * Chainable API for adjusting PHP runtime settings during heavy operations:
@@ -89,6 +90,45 @@ final class RuntimeConfigurator
     public static function forExport(): self
     {
         return self::make()->memory('1G')->timeoutMinutes(15)->disableTelescope();
+    }
+
+    /**
+     * Build a configurator from the `laranail.toolkit.runtime` config block —
+     * the common `defaults`, the extra `ini` map and `disable_tools`, plus the
+     * named `$profile` (or the configured `default_profile`) layered on top.
+     */
+    public static function fromConfig(?string $profile = null): self
+    {
+        return self::make()->usingConfig($profile);
+    }
+
+    /**
+     * Load INI settings from the `laranail.toolkit.runtime` config into this
+     * builder: `defaults` then `ini` then `disable_tools`, then the named
+     * `$profile` (falling back to `runtime.default_profile`). `null` config
+     * values are skipped, so only explicitly-set directives are applied. Call
+     * {@see apply()} / {@see scope()} afterwards.
+     */
+    public function usingConfig(?string $profile = null): self
+    {
+        $base = 'laranail.toolkit.runtime';
+        $configured = ToolkitConfig::string("{$base}.default_profile");
+        $profile ??= ($configured !== '' ? $configured : null);
+
+        $this->applyIniMap(ToolkitConfig::array("{$base}.defaults"));
+        $this->applyIniMap(ToolkitConfig::array("{$base}.ini"));
+
+        foreach (ToolkitConfig::array("{$base}.disable_tools") as $tool => $enabled) {
+            if (is_string($tool) && Cast::toBool($enabled)) {
+                $this->markToolDisabled($tool);
+            }
+        }
+
+        if ($profile !== null && $profile !== '') {
+            $this->applyProfile(ToolkitConfig::array("{$base}.profiles.{$profile}"));
+        }
+
+        return $this;
     }
 
     // --- Memory -------------------------------------------------------------
@@ -484,6 +524,59 @@ final class RuntimeConfigurator
 
         foreach ($keys as $key) {
             $this->originalValues[$key] = ini_get($key);
+        }
+    }
+
+    /**
+     * Queue every non-null INI directive from a config map.
+     *
+     * @param array<array-key, mixed> $map
+     */
+    private function applyIniMap(array $map): void
+    {
+        foreach ($map as $key => $value) {
+            if (is_string($key) && $value !== null) {
+                $this->set($key, $value);
+            }
+        }
+    }
+
+    /**
+     * Apply a named profile: a flat INI key => value map plus an optional
+     * `disable` list of tool names and an optional nested `ini` map.
+     *
+     * @param array<array-key, mixed> $profile
+     */
+    private function applyProfile(array $profile): void
+    {
+        foreach ($profile as $key => $value) {
+            if ($key === 'disable') {
+                foreach ((array) $value as $tool) {
+                    if (is_string($tool)) {
+                        $this->markToolDisabled($tool);
+                    }
+                }
+
+                continue;
+            }
+
+            if ($key === 'ini' && is_array($value)) {
+                $this->applyIniMap($value);
+
+                continue;
+            }
+
+            if (is_string($key) && $value !== null) {
+                $this->set($key, $value);
+            }
+        }
+    }
+
+    /** Flag a known debugging tool (by name) for disabling. */
+    private function markToolDisabled(string $name): void
+    {
+        if (array_key_exists($name, $this->disableTools)) {
+            $this->disableTools[$name] = true;
         }
     }
 

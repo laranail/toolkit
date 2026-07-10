@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-07-10
+
+### Added
+
+- **Config-driven runtime/INI settings.** A new `laranail.toolkit.runtime` config
+  block declares common INI settings (memory, execution/input time, upload/post
+  sizes, realpath cache, …), an extra `ini` map, `disable_tools`, and named
+  `profiles` (`queue`/`batch`/`import`/`export`/`uploads`) — all env- and
+  publish-overridable. `RuntimeConfigurator::fromConfig()` / `->usingConfig()`
+  build from it (a `null` value leaves PHP's INI untouched), and the opt-in
+  `runtime.apply_on_boot` applies a profile at boot.
+
+### Fixed
+
+- Satisfy the CI `phpcs` ruleset in `RuntimeConfigurator` (an inline-array
+  `foreach` flagged as a multi-line control structure); no runtime change.
+
 ## [0.3.0] - 2026-07-10
 
 ### Added

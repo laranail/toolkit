@@ -65,6 +65,7 @@ use Simtabi\Laranail\Toolkit\Services\SystemService;
 use Simtabi\Laranail\Toolkit\Services\ValidationService;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics;
+use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
@@ -169,6 +170,12 @@ class ToolkitServiceProvider extends ServiceProvider
 
         // Log the cache lifecycle when opted in (config-gated inside the listener).
         Event::listen(CacheEvents::class, [LogCacheEvents::class, 'handle']);
+
+        // Optionally apply the configured runtime/INI profile at boot (opt-in;
+        // mutates PHP INI for every request/command).
+        if (ToolkitConfig::bool('laranail.toolkit.runtime.apply_on_boot')) {
+            RuntimeConfigurator::fromConfig()->apply();
+        }
 
         if ($this->app->runningInConsole()) {
             $this->registerPublishing($root);
