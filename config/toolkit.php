@@ -4,6 +4,19 @@ declare(strict_types=1);
 
 return [
     /*
+     * Authenticated-user accessors (Toolkit::user()/userAs()/userOrFail() and the
+     * opt-in global user() helper). `default_guard` selects the guard when none is
+     * passed (null = the framework's `auth.defaults.guard`). `user_model` is the
+     * app's user model FQCN, used only to type the generated IDE-helper stubs —
+     * the runtime accessors never hard-code it, so multi-guard and non-standard
+     * model locations keep working.
+     */
+    'auth' => [
+        'default_guard' => env('LARANAIL_TOOLKIT_AUTH_GUARD'), // null → framework default
+        'user_model' => null,                                  // e.g. \App\Models\User::class (typing only)
+    ],
+
+    /*
      * Self-contained LLM module (Modules\LLM). One consistent prefix:
      * `laranail.toolkit.llm.*` — `default_provider` selects the driver bound to
      * LLMProviderInterface, and each provider's credentials/tuning live nested

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Database\Eloquent\Model;
+use Simtabi\Laranail\Toolkit\Exceptions\AuthenticationException;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
@@ -29,6 +32,7 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
 
 /**
@@ -127,6 +131,60 @@ class ToolkitManager
     public function auth(): AuthenticationContextServiceInterface
     {
         return $this->app->make(AuthenticationContextServiceInterface::class);
+    }
+
+    /**
+     * The currently authenticated user — a guard-aware, null-safe accessor.
+     *
+     * Improves on a hard-coded `auth()->user()` / `App\Models\User` helper: it is
+     * multi-guard (pass `$guard`, or configure `laranail.toolkit.auth.default_guard`),
+     * never assumes the model lives at a fixed FQCN, and returns null when there is
+     * no authenticated user. For a statically-inferred concrete type use
+     * {@see self::userAs()}; to require a user use {@see self::userOrFail()}.
+     */
+    public function user(?string $guard = null): Authenticatable|Model|null
+    {
+        return $this->auth()->getUser($guard ?? $this->defaultAuthGuard());
+    }
+
+    /**
+     * The authenticated user, statically typed to the given model class.
+     *
+     * `Toolkit::userAs(User::class)` is inferred by PHPStan/IDEs as `?User` — the
+     * type safety of Laravel PR laravel/laravel#6582 without hard-coding the model
+     * or breaking multi-guard apps.
+     *
+     * @template TUser of Authenticatable
+     *
+     * @param class-string<TUser> $model
+     *
+     * @return TUser|null
+     */
+    public function userAs(string $model, ?string $guard = null): ?Authenticatable
+    {
+        $user = $this->user($guard);
+
+        return $user instanceof $model ? $user : null;
+    }
+
+    /**
+     * The authenticated user, or throw — for call sites that require one.
+     *
+     * @throws AuthenticationException when no user is authenticated on the guard
+     */
+    public function userOrFail(?string $guard = null): Authenticatable|Model
+    {
+        return $this->user($guard) ?? throw AuthenticationException::unauthenticated($guard);
+    }
+
+    /**
+     * The configured default guard for the user accessors (null = framework default).
+     */
+    private function defaultAuthGuard(): ?string
+    {
+        $guard = ToolkitConfig::string('laranail.toolkit.auth.default_guard', '');
+
+        return $guard !== '' ? $guard : null;
     }
 
     /**
