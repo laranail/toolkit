@@ -1,0 +1,1884 @@
+{
+    "Simtabi\\Laranail\\Features\\Archiver\\Contracts\\ArchiverServiceInterface": [
+        "tar",
+        "tarGz",
+        "zip"
+    ],
+    "Simtabi\\Laranail\\Features\\Archiver\\Facades\\ArchiverFacade": [],
+    "Simtabi\\Laranail\\Features\\Archiver\\Services\\ArchiveManager": [
+        "__construct",
+        "addExtractor",
+        "getExtractor"
+    ],
+    "Simtabi\\Laranail\\Features\\Archiver\\Services\\ArchiverService": [
+        "tar",
+        "tarGz",
+        "zip"
+    ],
+    "Simtabi\\Laranail\\Features\\Archiver\\Services\\Extractor": [
+        "extract"
+    ],
+    "Simtabi\\Laranail\\Features\\Archiver\\Services\\Tar": [
+        "extract"
+    ],
+    "Simtabi\\Laranail\\Features\\Archiver\\Services\\TarGz": [
+        "extract"
+    ],
+    "Simtabi\\Laranail\\Features\\Archiver\\Services\\Zip": [
+        "extract"
+    ],
+    "Simtabi\\Laranail\\Features\\Avatar\\Contracts\\AvatarServiceInterface": [
+        "create",
+        "fromEmail",
+        "fromName",
+        "generate",
+        "generateBase64",
+        "generateDataUri",
+        "generateWithGravatarFallback",
+        "getAvailableBackgroundColors",
+        "getAvailableFontEnums",
+        "getAvailableFontNames",
+        "getAvailableFontValues",
+        "getAvailableFonts",
+        "getAvailableForegroundColors",
+        "getAvailableShapes",
+        "getAvatar",
+        "getAvatarCached",
+        "getAvatarUrl",
+        "getBackgroundColor",
+        "getBorderColor",
+        "getBorderSize",
+        "getCacheTtl",
+        "getChars",
+        "getDefaultFont",
+        "getDefaultFontName",
+        "getFontPath",
+        "getFontSize",
+        "getForegroundColor",
+        "getGravatar",
+        "getGravatarDefaultImages",
+        "getGravatarForEmail",
+        "getGravatarRatings",
+        "getHeight",
+        "getImageObject",
+        "getName",
+        "getQuality",
+        "getRandomBackgroundColor",
+        "getRandomForegroundColor",
+        "getShape",
+        "getWidth",
+        "gravatar",
+        "hasGravatar",
+        "isAscii",
+        "isCacheEnabled",
+        "isImageProcessingAvailable",
+        "isUppercase",
+        "makeInitials",
+        "save",
+        "setAscii",
+        "setBackgroundColor",
+        "setBorderColor",
+        "setBorderSize",
+        "setCacheEnabled",
+        "setCacheTtl",
+        "setChars",
+        "setColors",
+        "setDefaultFont",
+        "setDefaultFontName",
+        "setFontByName",
+        "setFontPath",
+        "setFontSize",
+        "setForegroundColor",
+        "setHeight",
+        "setName",
+        "setQuality",
+        "setShape",
+        "setSize",
+        "setUppercase",
+        "setWidth",
+        "useDefaultFont",
+        "useFont",
+        "useFontByName"
+    ],
+    "Simtabi\\Laranail\\Features\\Avatar\\DTOs\\AvatarGenerationDTO": [
+        "__construct",
+        "__debugInfo",
+        "__toString",
+        "fromArray",
+        "getAspectRatio",
+        "getBackgroundColor",
+        "getColors",
+        "getFileSize",
+        "getForegroundColor",
+        "getFormat",
+        "getGenerationTime",
+        "getHeight",
+        "getMetadata",
+        "getShape",
+        "getUrl",
+        "getWidth",
+        "isCircular",
+        "isSquare",
+        "success",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Features\\Avatar\\DTOs\\AvatarResolutionContextDTO": [
+        "__construct",
+        "avatar",
+        "createCustomResult",
+        "createGravatarResult",
+        "createInitialsResult",
+        "createResult",
+        "createUrlResult",
+        "generateCustom",
+        "generateGravatar",
+        "getAllConfig",
+        "getConfig",
+        "gravatar",
+        "hasConfig",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Features\\Avatar\\DTOs\\AvatarResolutionDTO": [
+        "__construct",
+        "__debugInfo",
+        "__toString",
+        "fallback",
+        "fromArray",
+        "getDescription",
+        "getMetadata",
+        "getMethod",
+        "getSourceType",
+        "getUrl",
+        "isDefault",
+        "isFallback",
+        "isFromCallback",
+        "isFromEmail",
+        "isFromModel",
+        "isFromName",
+        "isGravatar",
+        "isInitials",
+        "isUrl",
+        "success",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Features\\Avatar\\Facades\\AvatarFacade": [],
+    "Simtabi\\Laranail\\Features\\Avatar\\Services\\AvatarResolutionContext": [
+        "__construct",
+        "config",
+        "custom",
+        "customResult",
+        "getConfig",
+        "gravatar",
+        "gravatarResult",
+        "hasConfig",
+        "initials",
+        "initialsResult",
+        "result"
+    ],
+    "Simtabi\\Laranail\\Features\\Avatar\\Services\\AvatarResolver": [
+        "__construct",
+        "getConfig",
+        "getFieldMappings",
+        "resolve",
+        "setConfig",
+        "setFieldMappings"
+    ],
+    "Simtabi\\Laranail\\Features\\Avatar\\Services\\AvatarService": [
+        "__construct",
+        "create",
+        "fromEmail",
+        "fromName",
+        "generate",
+        "generateBase64",
+        "generateDataUri",
+        "generateWithGravatarFallback",
+        "getAvailableBackgroundColors",
+        "getAvailableFontEnums",
+        "getAvailableFontNames",
+        "getAvailableFontValues",
+        "getAvailableFonts",
+        "getAvailableForegroundColors",
+        "getAvailableShapes",
+        "getAvatar",
+        "getAvatarCached",
+        "getAvatarUrl",
+        "getBackgroundColor",
+        "getBorderColor",
+        "getBorderSize",
+        "getCacheTtl",
+        "getChars",
+        "getDefaultFont",
+        "getDefaultFontName",
+        "getFontPath",
+        "getFontSize",
+        "getForegroundColor",
+        "getGravatar",
+        "getGravatarDefaultImages",
+        "getGravatarForEmail",
+        "getGravatarRatings",
+        "getHeight",
+        "getImageObject",
+        "getName",
+        "getQuality",
+        "getRandomBackgroundColor",
+        "getRandomForegroundColor",
+        "getShape",
+        "getWidth",
+        "gravatar",
+        "hasGravatar",
+        "isAscii",
+        "isCacheEnabled",
+        "isImageProcessingAvailable",
+        "isUppercase",
+        "makeInitials",
+        "save",
+        "setAscii",
+        "setBackgroundColor",
+        "setBorderColor",
+        "setBorderSize",
+        "setCacheEnabled",
+        "setCacheTtl",
+        "setChars",
+        "setColors",
+        "setDefaultFont",
+        "setDefaultFontName",
+        "setFontByName",
+        "setFontPath",
+        "setFontSize",
+        "setForegroundColor",
+        "setHeight",
+        "setName",
+        "setQuality",
+        "setShape",
+        "setSize",
+        "setUppercase",
+        "setWidth",
+        "useDefaultFont",
+        "useFont",
+        "useFontByName"
+    ],
+    "Simtabi\\Laranail\\Features\\Captcha\\Contracts\\CaptchaProviderInterface": [
+        "getName",
+        "getSiteKey",
+        "isConfigured",
+        "verify"
+    ],
+    "Simtabi\\Laranail\\Features\\Captcha\\Providers\\HcaptchaProvider": [
+        "__construct",
+        "getName",
+        "getSiteKey",
+        "getTimeout",
+        "isConfigured",
+        "verify"
+    ],
+    "Simtabi\\Laranail\\Features\\Captcha\\Providers\\RecaptchaProvider": [
+        "__construct",
+        "getMinScore",
+        "getName",
+        "getSiteKey",
+        "getTimeout",
+        "isConfigured",
+        "verify"
+    ],
+    "Simtabi\\Laranail\\Features\\Captcha\\Providers\\TurnstileProvider": [
+        "__construct",
+        "getName",
+        "getSiteKey",
+        "getTimeout",
+        "isConfigured",
+        "verify"
+    ],
+    "Simtabi\\Laranail\\Features\\Captcha\\Results\\CaptchaVerificationResult": [
+        "failure",
+        "getContext",
+        "getErrors",
+        "getFirstError",
+        "getProviderName",
+        "getScore",
+        "isFailure",
+        "isSuccess",
+        "success",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Features\\Captcha\\Services\\CaptchaService": [
+        "__construct",
+        "getDefaultProvider",
+        "getProvider",
+        "getProviderNames",
+        "getProviders",
+        "getSiteKey",
+        "getStats",
+        "hasConfiguredProvider",
+        "hasProvider",
+        "registerProvider",
+        "setDefaultProvider",
+        "verify",
+        "verifyWithAllProviders"
+    ],
+    "Simtabi\\Laranail\\Features\\Gravatar\\Contracts\\GravatarServiceInterface": [
+        "create",
+        "fromEmail",
+        "generate",
+        "generateForEmail",
+        "generateLarge",
+        "generateMedium",
+        "generateSecure",
+        "generateSmall",
+        "generateWithCustomDefault",
+        "getAvailableDefaultImages",
+        "getAvailableRatings",
+        "getCustomDefaultUrl",
+        "getDefaultImage",
+        "getEmail",
+        "getEmailHash",
+        "getRating",
+        "getSize",
+        "isForceDefault",
+        "isHttps",
+        "isValidEmail",
+        "quick",
+        "reset",
+        "setCustomDefaultUrl",
+        "setDefaultImage",
+        "setEmail",
+        "setForceDefault",
+        "setHttps",
+        "setRating",
+        "setSize"
+    ],
+    "Simtabi\\Laranail\\Features\\Gravatar\\DTOs\\GravatarResolutionDTO": [
+        "__construct",
+        "__debugInfo",
+        "__toString",
+        "fromArray",
+        "getDefaultImage",
+        "getDomain",
+        "getEmail",
+        "getFullUrl",
+        "getHash",
+        "getMetadata",
+        "getRating",
+        "getSize",
+        "getUrl",
+        "isAppropriate",
+        "isHttps",
+        "isSecure",
+        "success",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Features\\Gravatar\\Facades\\GravatarFacade": [],
+    "Simtabi\\Laranail\\Features\\Gravatar\\Services\\GravatarService": [
+        "__construct",
+        "__debugInfo",
+        "__toString",
+        "create",
+        "fromEmail",
+        "generate",
+        "generateForEmail",
+        "generateLarge",
+        "generateMedium",
+        "generateSecure",
+        "generateSmall",
+        "generateWithCustomDefault",
+        "getAvailableDefaultImages",
+        "getAvailableRatings",
+        "getCustomDefaultUrl",
+        "getDefaultImage",
+        "getEmail",
+        "getEmailHash",
+        "getRating",
+        "getSize",
+        "isForceDefault",
+        "isHttps",
+        "isValidEmail",
+        "quick",
+        "reset",
+        "setCustomDefaultUrl",
+        "setDefaultImage",
+        "setEmail",
+        "setForceDefault",
+        "setHttps",
+        "setRating",
+        "setSize"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AbstractNotificationChannel": [
+        "__construct",
+        "isEnabled",
+        "requiresConfig",
+        "setConfig",
+        "validateConfig"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AppleBusinessMessagesChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\CacheChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\ConsoleChannel": [
+        "getName",
+        "send",
+        "setConfig"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\DatabaseChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\DiscordChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\EmailChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\FileChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\LogChannel": [
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\PushChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\SlackChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\SmsChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Channels\\WebhookChannel": [
+        "__construct",
+        "getName",
+        "send"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Contracts\\NotificationChannelInterface": [
+        "getName",
+        "isEnabled",
+        "requiresConfig",
+        "send",
+        "setConfig",
+        "validateConfig"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Services\\NotificationService": [
+        "__construct",
+        "broadcast",
+        "getChannel",
+        "getChannels",
+        "registerChannel",
+        "send",
+        "setDefaultChannels",
+        "unregisterChannel"
+    ],
+    "Simtabi\\Laranail\\Features\\Notifications\\Support\\NotificationResult": [
+        "__construct",
+        "getErrors",
+        "getFailedChannels",
+        "getResults",
+        "getSuccessfulChannels",
+        "hasPartialSuccess",
+        "isSuccessful",
+        "toArray"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\AuthenticationServiceInterface": [
+        "authHelper",
+        "isUserExists",
+        "username"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\CacheServiceInterface": [
+        "decrement",
+        "flush",
+        "forget",
+        "get",
+        "has",
+        "increment",
+        "many",
+        "put",
+        "putMany",
+        "remember",
+        "rememberForever",
+        "tags"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\DatabaseServiceInterface": [
+        "clearCache",
+        "clearLogFiles",
+        "deleteStorageSymlink",
+        "generateRelationshipSyncData",
+        "handleViewCount",
+        "isJoined",
+        "modifyTimestamps",
+        "setMorphClassNames"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\FileServiceInterface": [
+        "copy",
+        "delete",
+        "exists",
+        "extension",
+        "isInAllowedDirectory",
+        "isValidPath",
+        "lastModified",
+        "move",
+        "read",
+        "size",
+        "write"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\RouteServiceInterface": [
+        "getActiveCssClass",
+        "getActiveCssClassForUrlParameter",
+        "getCurrentRouteInfo",
+        "getInputValueFromQueryString",
+        "getRequestParameterValue",
+        "getRouteNameFromUrl",
+        "isCurrentRoute",
+        "isLastUrlSegment",
+        "isRequest",
+        "isRequestOnPage",
+        "isRequestParameter",
+        "isRoute",
+        "isUrlRequestSegment",
+        "isUrlSegment"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\AuthenticationHelperServiceInterface": [
+        "getCurrentUserId",
+        "getGuard",
+        "getUser",
+        "getUserEmail",
+        "getUserId",
+        "isAuthenticated",
+        "setGuard",
+        "setUserEmail",
+        "setUserId"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ClassHelperServiceInterface": [
+        "getClassName"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\CollectionHelperServiceInterface": [
+        "mapKeyValuePairArray",
+        "sortItemWithChildren",
+        "sortSearchResults"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\DatabaseFileServiceInterface": [
+        "getSupportedExtensions",
+        "handleImport",
+        "isValidDatabaseFile",
+        "validateDatabaseFile",
+        "validateFileSize"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ErrorStorageServiceInterface": [
+        "addError",
+        "clearErrors",
+        "getErrorCount",
+        "getErrors",
+        "getFirstError",
+        "hasErrors",
+        "setErrors"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\FakerHelperServiceInterface": [
+        "faker",
+        "random"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\FileHelperServiceInterface": [
+        "clearLogFiles",
+        "deleteStorageSymlink",
+        "exists",
+        "formatFileSize",
+        "getExtension",
+        "getFileAsObject",
+        "getFilenameWithoutExtension",
+        "isImage",
+        "pathToUploadedFileInstance",
+        "sanitizeFilename"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\HttpConfigurationServiceInterface": [
+        "getCacheTtl",
+        "getMaxRetries",
+        "getRequestTimeout",
+        "isPersistConnection",
+        "setCacheTtl",
+        "setMaxRetries",
+        "setPersistConnection",
+        "setRequestTimeout",
+        "toGuzzleConfig"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\LivewireComponentServiceInterface": [
+        "addComponent",
+        "addEmitter",
+        "addListener",
+        "getAlias",
+        "getComponents",
+        "getListeners",
+        "registerComponents",
+        "setAlias"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\ModelFormatterServiceInterface": [
+        "excerpt",
+        "formatAddress",
+        "formatAddressLine",
+        "formatCityStateZip",
+        "formatContent",
+        "formatCreatedAt",
+        "formatDisplayName",
+        "formatDob",
+        "formatFullAddress",
+        "formatFullName",
+        "formatUpdatedAt",
+        "formatUsername",
+        "stripHtml",
+        "truncate"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\PackageServiceInterface": [
+        "buildPublishTag",
+        "getNamespace",
+        "getPath",
+        "getPublishTagId",
+        "loadAndPublishConfigurations",
+        "loadAndPublishTranslations",
+        "loadAndPublishViews",
+        "loadAnonymousComponents",
+        "loadCommands",
+        "loadConfigFromFile",
+        "loadFactories",
+        "loadHelpers",
+        "loadMigrations",
+        "loadRoutes",
+        "mergeConfigs",
+        "publishAssets",
+        "publishCustomAssets",
+        "registerAnonymousBladeComponents",
+        "registerBladeComponents",
+        "registerComponents",
+        "registerEventListeners",
+        "registerEventSubscribers",
+        "registerLivewireComponents",
+        "registerMiddleware",
+        "registerMiddlewareGroups",
+        "setNamespace",
+        "setPublishTagId",
+        "shouldRunInConsole"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\StringHelperServiceInterface": [
+        "generateEmailFromUsername",
+        "generateUsername",
+        "ucWords"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\SessionServiceInterface": [
+        "existsInFilterKey",
+        "joinInFilterKey",
+        "removeFromFilterKey",
+        "saveJavaScriptCookies"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\SystemServiceInterface": [
+        "getComposerArray",
+        "getPackagesAndDependencies",
+        "getServerEnv",
+        "getSystemEnv",
+        "isSslInstalled"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\UtilityServiceInterface": [
+        "arrayToDotNotation",
+        "faker",
+        "fetchKeyedArrayValues",
+        "generateEmailFromUsername",
+        "generateLivewireComponentKey",
+        "generateRandomSalutation",
+        "generateUsername",
+        "getRandomIdFromCollection",
+        "html",
+        "mapKeyValuePairArray",
+        "random",
+        "sortItemWithChildren",
+        "sortItemsWithChildrenNested",
+        "sortSearchResults",
+        "ucWords",
+        "writeToConsoleOutput"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Contracts\\ValidationServiceInterface": [
+        "getCheckboxStatus",
+        "getErrorBagMessage",
+        "getErrorBagMessageClass",
+        "getHasErrorCssClass",
+        "isValidDatabaseConnection",
+        "isValidDbCredentials",
+        "setDatabaseCredentials"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Exceptions\\FileTooLargeException": [
+        "create"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Exceptions\\InvalidPathException": [
+        "create",
+        "directoryTraversal",
+        "invalidCharacters",
+        "nullByteDetected",
+        "outsideAllowedDirectory"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Exceptions\\LaranailException": [
+        "__construct",
+        "__toString",
+        "from",
+        "fromArray",
+        "getContext",
+        "getMeta",
+        "getStatus",
+        "getUserMessage",
+        "jsonSerialize",
+        "mergeContext",
+        "mergeMeta",
+        "toArray",
+        "toLogContext",
+        "withContext",
+        "withMeta",
+        "withStatus",
+        "withUserMessage",
+        "wrap"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Exceptions\\LaranailExceptionHandler": [
+        "register"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Facades\\LaranailFacade": [],
+    "Simtabi\\Laranail\\Foundation\\Laranail": [
+        "__construct",
+        "arrayToDotNotation",
+        "authHelper",
+        "cache",
+        "checkIfFileExistsInStorage",
+        "clearCache",
+        "clearLogFiles",
+        "deleteStorageSymlink",
+        "eloquent2selectbox",
+        "environment",
+        "existsInFilterKey",
+        "faker",
+        "formatter",
+        "generateEmailFromUsername",
+        "generateLivewireComponentKey",
+        "generateUsername",
+        "getActiveCssClassForRoute",
+        "getAppUrl",
+        "getCheckboxStatus",
+        "getClassNameFromClass",
+        "getComposerArray",
+        "getCurrentRouteInfo",
+        "getErrorBagMessage",
+        "getFileAsObject",
+        "getModelItem",
+        "getServerEnv",
+        "getSystemEnv",
+        "html",
+        "httpConfig",
+        "isCurrentRoute",
+        "isSslIsInstalled",
+        "isUserExists",
+        "isValidDatabaseConnection",
+        "joinInFilterKey",
+        "livewire",
+        "logError",
+        "mapKeyValuePairArray",
+        "package",
+        "pathToUploadedFileInstance",
+        "random",
+        "registerModelObserver",
+        "removeFromFilterKey",
+        "saveJavaScriptCookies",
+        "setDatabaseCredentials",
+        "sortItemWithChildren",
+        "sortSearchResults",
+        "ucWords",
+        "username",
+        "writeToConsoleOutput"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Providers\\LaranailEventServiceProvider": [
+        "boot",
+        "getRegisteredEvents",
+        "listens",
+        "provides",
+        "register",
+        "shouldDiscoverEvents"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Providers\\LaranailHookServiceProvider": [
+        "boot",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Providers\\LaranailServiceProvider": [
+        "boot",
+        "provides",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationHelperService": [
+        "check",
+        "create",
+        "currentUser",
+        "getCurrentUserId",
+        "getGuard",
+        "getUser",
+        "getUserEmail",
+        "getUserId",
+        "isAuthenticated",
+        "setGuard",
+        "setUserEmail",
+        "setUserId"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\AuthenticationService": [
+        "authHelper",
+        "isUserExists",
+        "username"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\CacheService": [
+        "__construct",
+        "decrement",
+        "flush",
+        "forget",
+        "get",
+        "has",
+        "increment",
+        "many",
+        "put",
+        "putMany",
+        "remember",
+        "rememberForever",
+        "tags"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\ClassHelperService": [
+        "getClassName"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\CollectionHelperService": [
+        "mapKeyValuePairArray",
+        "sortItemWithChildren",
+        "sortSearchResults"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\DatabaseFileService": [
+        "create",
+        "getFileInfo",
+        "getSupportedExtensions",
+        "handleImport",
+        "isValidDatabaseFile",
+        "validateDatabaseFile",
+        "validateFileSize"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\DatabaseService": [
+        "__construct",
+        "clearCache",
+        "clearLogFiles",
+        "deleteStorageSymlink",
+        "generateRelationshipSyncData",
+        "handleViewCount",
+        "isJoined",
+        "modifyTimestamps",
+        "setMorphClassNames"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\ErrorStorageService": [
+        "addError",
+        "clearErrors",
+        "create",
+        "getErrorCount",
+        "getErrors",
+        "getFirstError",
+        "hasErrors",
+        "setErrors",
+        "withErrors"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\FakerHelperService": [
+        "faker",
+        "random"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\FileHelperService": [
+        "__construct",
+        "clearLogFiles",
+        "deleteStorageSymlink",
+        "exists",
+        "formatFileSize",
+        "getExtension",
+        "getFileAsObject",
+        "getFilenameWithoutExtension",
+        "isImage",
+        "pathToUploadedFileInstance",
+        "sanitizeFilename"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\FileService": [
+        "__construct",
+        "copy",
+        "delete",
+        "exists",
+        "extension",
+        "isInAllowedDirectory",
+        "isValidPath",
+        "lastModified",
+        "move",
+        "read",
+        "size",
+        "write"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\HttpConfigurationService": [
+        "__construct",
+        "getCacheTtl",
+        "getMaxRetries",
+        "getRequestTimeout",
+        "isPersistConnection",
+        "setCacheTtl",
+        "setMaxRetries",
+        "setPersistConnection",
+        "setRequestTimeout",
+        "toGuzzleConfig"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\LivewireComponentService": [
+        "addComponent",
+        "addEmitter",
+        "addListener",
+        "getAlias",
+        "getComponents",
+        "getListeners",
+        "registerComponents",
+        "setAlias"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\ModelFormatterService": [
+        "excerpt",
+        "formatAddress",
+        "formatAddressLine",
+        "formatCityStateZip",
+        "formatContent",
+        "formatCreatedAt",
+        "formatDisplayName",
+        "formatDob",
+        "formatFullAddress",
+        "formatFullName",
+        "formatUpdatedAt",
+        "formatUsername",
+        "stripHtml",
+        "truncate"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\ModelService": [
+        "__construct",
+        "concatName",
+        "eloquent2selectbox",
+        "getFormableUsersList",
+        "getUsersFromModel",
+        "mapKeyValuePairArray",
+        "registerModelObserver",
+        "sortItemWithChildren"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\PackageService": [
+        "__construct",
+        "buildPublishTag",
+        "getNamespace",
+        "getPath",
+        "getPublishTagId",
+        "loadAndPublishConfigurations",
+        "loadAndPublishTranslations",
+        "loadAndPublishViews",
+        "loadAnonymousComponents",
+        "loadCommands",
+        "loadConfigFromFile",
+        "loadFactories",
+        "loadHelpers",
+        "loadMigrations",
+        "loadRoutes",
+        "mergeConfigs",
+        "publishAssets",
+        "publishCustomAssets",
+        "registerAnonymousBladeComponents",
+        "registerBladeComponents",
+        "registerComponents",
+        "registerEventListeners",
+        "registerEventSubscribers",
+        "registerLivewireComponents",
+        "registerMiddleware",
+        "registerMiddlewareGroups",
+        "setNamespace",
+        "setPublishTagId",
+        "setServiceProvider",
+        "shouldRunInConsole"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\RouteService": [
+        "__construct",
+        "getActiveCssClass",
+        "getActiveCssClassForRoute",
+        "getActiveCssClassForUrlParameter",
+        "getActiveMenuClassName",
+        "getAppUrl",
+        "getCurrentRouteInfo",
+        "getInputValueFromQueryString",
+        "getRequestParameterValue",
+        "getRouteNameFromUrl",
+        "isCurrentRoute",
+        "isLastUrlSegment",
+        "isRequest",
+        "isRequestOnPage",
+        "isRequestParameter",
+        "isRoute",
+        "isUrlRequestSegment",
+        "isUrlSegment"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\SessionService": [
+        "existsInFilterKey",
+        "joinInFilterKey",
+        "removeFromFilterKey",
+        "saveJavaScriptCookies"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\StringHelperService": [
+        "generateEmailFromUsername",
+        "generateUsername",
+        "ucWords"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\SystemService": [
+        "environment",
+        "getComposerArray",
+        "getPackagesAndDependencies",
+        "getServerEnv",
+        "getSystemEnv",
+        "isSslInstalled"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\UtilityService": [
+        "arrayToDotNotation",
+        "faker",
+        "fetchKeyedArrayValues",
+        "generateEmailFromUsername",
+        "generateLivewireComponentKey",
+        "generateRandomSalutation",
+        "generateUsername",
+        "getRandomIdFromCollection",
+        "html",
+        "mapKeyValuePairArray",
+        "random",
+        "sortItemWithChildren",
+        "sortItemsWithChildrenNested",
+        "sortSearchResults",
+        "ucWords",
+        "writeToConsoleOutput"
+    ],
+    "Simtabi\\Laranail\\Foundation\\Services\\ValidationService": [
+        "__construct",
+        "fetchModelData",
+        "getCheckboxStatus",
+        "getErrorBagMessage",
+        "getErrorBagMessageClass",
+        "getHasErrorCssClass",
+        "isValidDatabaseConnection",
+        "isValidDbCredentials",
+        "oldInput",
+        "setDatabaseCredentials"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Commands\\AssetCommand": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Commands\\CronJobCommand": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Commands\\DatabaseCommand": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Commands\\InitializeApplication": [
+        "__construct",
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Commands\\LicenseCommand": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Commands\\MacrosCommand": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Commands\\MaintenanceCommand": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Commands\\SetAppNamespace": [
+        "__construct",
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Commands\\TidyCommand": [
+        "__construct",
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Http\\Controllers\\BaseController": [
+        "__construct"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\ApiMiddleware": [],
+    "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\ApiRequestMiddleware": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\ApiResponseMiddleware": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Http\\Middleware\\EmailObfuscatorMiddleware": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Http\\Requests\\ApiRequest": [],
+    "Simtabi\\Laranail\\Laravel\\Http\\Requests\\BaseRequest": [
+        "attributes",
+        "authorize",
+        "messages",
+        "rules",
+        "validated",
+        "withValidator"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Jobs\\BaseJob": [
+        "backoff",
+        "failed",
+        "retryUntil",
+        "tags"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Listeners\\BaseListener": [
+        "getPriority",
+        "shouldHandle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Listeners\\LicenseListener": [
+        "getConfiguration",
+        "getPriority",
+        "getSupportedEventActions",
+        "handle",
+        "shouldHandle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\After": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\At": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Before": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Bind": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\BrazilianHolidays": [
+        "registerBrazilianHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\CanadianDates": [
+        "registerCanadianDates"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\CapitalizeWords": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\CatchableProxy": [
+        "__call",
+        "__construct"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ChunkBy": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\CollectBy": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Decrement": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\DistanceBetween": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\DutchHolidays": [
+        "registerDutchHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\EachCons": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Eighth": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Error": [
+        "run"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Extract": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\FactoryBuilderMixin": [
+        "withoutEvents"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Fifth": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\FilterMap": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\FirstDifferentLengthAwarePaginator": [
+        "__construct"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\FirstOrFail": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\FirstOrPush": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ForSelectBox": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Fourth": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\FrenchHolidays": [
+        "registerFrenchHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\FromBase64": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\FromJson": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\FromPairs": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\GenerateName": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\GermanHolidays": [
+        "registerGermanHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\GetFile": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\GetNth": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Glob": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\GroupByModel": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Head": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\HighlightWords": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Human": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\IfAny": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\IfEmpty": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\IfMacro": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Increment": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\IndianHolidays": [
+        "registerIndianHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\IndonesianHolidays": [
+        "registerIndonesianHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Initials": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertAfter": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertAfterKey": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertAt": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertBefore": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\InsertBeforeKey": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Interpolate": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\IsEquals": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ItalianHolidays": [
+        "registerItalianHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\KenyanHolidays": [
+        "registerKenyanHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Krsort": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Ksort": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\LinesCount": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\MacroSupport": [
+        "toArray",
+        "toJson",
+        "toObject",
+        "when"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Matches": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Message": [
+        "run"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\MultiNationalDates": [
+        "registerMultinationalDates"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Ninth": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\None": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Paginate": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\PaginateFirstDifferent": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\PaginateWithPrevious": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Paginator": [
+        "paginate"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ParallelMap": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Path": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Pdf": [
+        "run"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\PluckMany": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\PluckToArray": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Prioritize": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ReadingMinutes": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Recursive": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\RenameKeys": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ReplaceInKeys": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ResponseMacros": [
+        "__construct",
+        "bindMacros"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Rotate": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Round5": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Rsort": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Second": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\SectionBy": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Seventh": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\SimplePaginate": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Sixth": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\SliceBefore": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\StripTags": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Success": [
+        "run"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\SwedishHolidays": [
+        "registerSwedishHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Tail": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Tenth": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Third": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ToBase64": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ToPairs": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Transpose": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\TryCatch": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\UkrainianHolidays": [
+        "registerUkrainianHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\UsDates": [
+        "registerUsDates"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\Validate": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\WhenEquals": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\WhereContains": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\WhereEndsWith": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\WhereStartsWith": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\WithSize": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\WordsCount": [
+        "__invoke"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Macros\\ZambianHolidays": [
+        "registerZambianHolidays"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Observers\\BaseObserver": [
+        "created",
+        "creating",
+        "deleted",
+        "deleting",
+        "forceDeleted",
+        "forceDeleting",
+        "replicating",
+        "restored",
+        "restoring",
+        "retrieved",
+        "saved",
+        "saving",
+        "updated",
+        "updating"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\ArchiverServiceProvider": [
+        "boot",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\ArrMacroProvider": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\BladeServiceProvider": [
+        "boot",
+        "register",
+        "registerDirectives"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\BlueprintMacroProvider": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\CarbonMacroProvider": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\CollectionMacroProvider": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\LaravelMiddlewareServiceProvider": [
+        "boot",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\MacrosServiceProvider": [
+        "boot",
+        "provides",
+        "register"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\QueryBuilderMacroProvider": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\RequestMacroProvider": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\ResponseMacroProvider": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Providers\\StringMacroProvider": [
+        "boot"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Services\\ImportDatabaseService": [
+        "handle"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Services\\ResponseBuilderService": [
+        "createResponse"
+    ],
+    "Simtabi\\Laranail\\Laravel\\Services\\SystemService": [
+        "checkDiskSpace",
+        "checkSystemRequirements",
+        "getApplicationInfo",
+        "getMemoryUsage",
+        "getPhpVersion",
+        "getSystemRequirements",
+        "isCli",
+        "isPhpVersionSupported",
+        "parseMemoryLimit"
+    ],
+    "Simtabi\\Laranail\\Shared\\Enums\\AvatarFont": [
+        "fromValueOrNull",
+        "getByCategory",
+        "getCategory",
+        "getDescription",
+        "getDisplayName",
+        "getFileSize",
+        "getFontNames",
+        "getFontValues",
+        "getValue",
+        "supportsUnicode"
+    ],
+    "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": [
+        "getAsyncCapableChannels",
+        "getChannelClass",
+        "getChannelGroups",
+        "getChannelMetadata",
+        "getConfigurableChannels",
+        "getDefaultChannelsByEnvironment",
+        "getRecommendedChannelsByType",
+        "groups",
+        "isAsyncCapable",
+        "requiresConfig"
+    ],
+    "Simtabi\\Laranail\\Shared\\Events\\BaseEvent": [
+        "getAction",
+        "getCategory",
+        "getContext",
+        "getDescription",
+        "getDisplayName",
+        "getLogLevel",
+        "getMetadata",
+        "getNotificationChannels",
+        "getPriorityLevel",
+        "getSummary",
+        "getType",
+        "isCompleted",
+        "isError",
+        "isStarting",
+        "shouldLog",
+        "shouldNotify",
+        "toArray",
+        "toJson",
+        "withMetadata"
+    ],
+    "Simtabi\\Laranail\\Shared\\Events\\CacheEvents": [
+        "cleared",
+        "clearing",
+        "failed",
+        "getDescription",
+        "getDisplayName",
+        "getPriorityLevel",
+        "getResult",
+        "isSuccessful"
+    ],
+    "Simtabi\\Laranail\\Shared\\Events\\EnvironmentEvents": [
+        "backupCreated",
+        "getBackupPath",
+        "getDescription",
+        "getDisplayName",
+        "getEnvironmentConfig",
+        "getPriorityLevel",
+        "getResult",
+        "getValidationErrors",
+        "isSuccessful",
+        "isValid",
+        "restored",
+        "saved",
+        "validated",
+        "validating",
+        "validationFailed"
+    ],
+    "Simtabi\\Laranail\\Shared\\Events\\LicenseEvents": [
+        "activated",
+        "activating",
+        "activationFailed",
+        "deactivated",
+        "deactivating",
+        "getDescription",
+        "getDisplayName",
+        "getFailureReason",
+        "getLicenseData",
+        "getLicenseKey",
+        "getLicenseName",
+        "getPriorityLevel",
+        "getResult",
+        "invalid",
+        "isSuccessful",
+        "isValid",
+        "isVerified",
+        "revoked",
+        "revoking",
+        "unverified",
+        "validated",
+        "validating",
+        "validationFailed",
+        "verified",
+        "verifying"
+    ],
+    "Simtabi\\Laranail\\Shared\\Events\\RequirementsEvents": [
+        "checked",
+        "checking",
+        "diskSpaceInsufficient",
+        "extensionMissing",
+        "getDescription",
+        "getDiskSpaceInfo",
+        "getDisplayName",
+        "getFailedRequirements",
+        "getMissingExtension",
+        "getPermissionInfo",
+        "getPhpVersionInfo",
+        "getPriorityLevel",
+        "getRequirements",
+        "getResult",
+        "isSuccessful",
+        "passed",
+        "permissionFailed",
+        "phpVersionFailed",
+        "validationFailed"
+    ],
+    "Simtabi\\Laranail\\Shared\\Exceptions\\AuthenticationException": [
+        "invalidGuard",
+        "missingGuard",
+        "unauthenticated"
+    ],
+    "Simtabi\\Laranail\\Shared\\Exceptions\\CollectionItemNotFound": [],
+    "Simtabi\\Laranail\\Shared\\Exceptions\\ImmutableDataException": [],
+    "Simtabi\\Laranail\\Shared\\Exceptions\\MissingUuidColumnException": [],
+    "Simtabi\\Laranail\\Shared\\Exceptions\\ModelException": [
+        "invalidState",
+        "missingPrimaryKey",
+        "notFound"
+    ],
+    "Simtabi\\Laranail\\Shared\\Exceptions\\UuidException": [
+        "generationFailed",
+        "invalidFormat",
+        "missingValue"
+    ],
+    "Simtabi\\Laranail\\Support\\Contracts\\CacheHelperInterface": [
+        "bootstrap",
+        "clearCache",
+        "clearConfigCache",
+        "clearExpiredCache",
+        "clearOldCacheFiles",
+        "clearRouteCache",
+        "clearSessionCache",
+        "clearViewCache",
+        "compiledViews",
+        "config",
+        "debugbar",
+        "framework",
+        "getCacheStats",
+        "isCacheWorking",
+        "logs",
+        "optimize",
+        "packages",
+        "purgeAll",
+        "purifier",
+        "routes",
+        "services"
+    ],
+    "Simtabi\\Laranail\\Support\\Contracts\\LoggerServiceInterface": [
+        "isLoggingEnabled",
+        "logDebug",
+        "logError",
+        "logInfo",
+        "logWarning"
+    ],
+    "Simtabi\\Laranail\\Support\\Contracts\\ResponseBuilderServiceInterface": [
+        "createErrorResponse",
+        "createResponse",
+        "createSuccessResponse"
+    ],
+    "Simtabi\\Laranail\\Support\\Contracts\\ResponseMacroInterface": [],
+    "Simtabi\\Laranail\\Support\\Contracts\\ShovelHttpInterface": [],
+    "Simtabi\\Laranail\\Support\\Contracts\\SystemServiceInterface": [
+        "checkSystemRequirements",
+        "getPhpMinimumVersion",
+        "getSystemRequirements",
+        "parseMemoryLimit"
+    ],
+    "Simtabi\\Laranail\\Support\\Eloquent\\Scopes\\ArchiveScope": [
+        "apply",
+        "extend"
+    ],
+    "Simtabi\\Laranail\\Support\\Facades\\LanguagesFacade": [],
+    "Simtabi\\Laranail\\Support\\Resources\\AvatarGenerationResource": [
+        "toArray",
+        "with"
+    ],
+    "Simtabi\\Laranail\\Support\\Resources\\AvatarResolutionResource": [
+        "toArray",
+        "with"
+    ],
+    "Simtabi\\Laranail\\Support\\Resources\\GravatarResolutionResource": [
+        "toArray",
+        "with"
+    ],
+    "Simtabi\\Laranail\\Support\\Services\\Atlas\\Countries": [
+        "__construct",
+        "getAllCountries",
+        "invoke"
+    ],
+    "Simtabi\\Laranail\\Support\\Services\\Atlas\\Languages": [
+        "getAvailableLocales",
+        "getListLanguageFlags",
+        "getListLanguages"
+    ],
+    "Simtabi\\Laranail\\Support\\Traits\\HasArchiver": [
+        "archive",
+        "archived",
+        "archiving",
+        "bootArchivable",
+        "getArchivedAtColumn",
+        "getQualifiedArchivedAtColumn",
+        "initializeArchivable",
+        "isArchived",
+        "runArchive",
+        "unArchive",
+        "unArchived",
+        "unArchiving"
+    ],
+    "Simtabi\\Laranail\\Support\\Traits\\HasAuth": [
+        "getGuard",
+        "getUserEmail",
+        "getUserId",
+        "getUserProperty",
+        "isAuthenticated",
+        "setGuard",
+        "setUserEmail",
+        "setUserId"
+    ],
+    "Simtabi\\Laranail\\Support\\Traits\\HasErrorStorage": [
+        "addError",
+        "clearErrors",
+        "getErrorCount",
+        "getErrors",
+        "getFirstError",
+        "hasErrors"
+    ],
+    "Simtabi\\Laranail\\Support\\Traits\\HasGuzzleConfig": [],
+    "Simtabi\\Laranail\\Support\\Traits\\HasPackageTools": [],
+    "Simtabi\\Laranail\\Support\\Traits\\Livewire\\HasLivewire": [
+        "registerLivewireComponents"
+    ],
+    "Simtabi\\Laranail\\Support\\Traits\\Models\\HasAvatar": [
+        "generateAvatar",
+        "getAvatarAttribute",
+        "getAvatarUrl",
+        "getAvatarWithFallback",
+        "getGravatar",
+        "gravatar"
+    ],
+    "Simtabi\\Laranail\\Support\\Traits\\Models\\HasFormatters": [
+        "excerpt",
+        "formatDisplayName",
+        "formattedAddress",
+        "formattedContent",
+        "formattedCreatedAt",
+        "formattedDob",
+        "formattedFullName",
+        "formattedUpdatedAt",
+        "formattedUsername"
+    ],
+    "Simtabi\\Laranail\\Support\\Traits\\RunsConditionally": [],
+    "Simtabi\\Laranail\\Support\\Utilities\\Auth": [
+        "auth",
+        "email",
+        "guard",
+        "id",
+        "invoke",
+        "user"
+    ],
+    "Simtabi\\Laranail\\Support\\Utilities\\BladeDirectives": [
+        "directives"
+    ],
+    "Simtabi\\Laranail\\Support\\Utilities\\DatabaseSession": [
+        "__construct",
+        "getLastActivityAtAttribute",
+        "getUnserializedPayloadAttribute",
+        "setPayload",
+        "user"
+    ],
+    "Simtabi\\Laranail\\Support\\Utilities\\Runners\\ConditionalRunner": [
+        "make",
+        "whenApi",
+        "whenAuthenticated",
+        "whenNotConsole",
+        "whenRole",
+        "whenRoleIsNot",
+        "whenWeb"
+    ],
+    "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\DiskSpaceValidator": [
+        "addPath",
+        "analyze",
+        "analyzeAll",
+        "checkAllPaths",
+        "checkMinimum",
+        "checkRecommended",
+        "checkUsage",
+        "clearCache",
+        "formatBytes",
+        "fromArray",
+        "fromJson",
+        "getConfiguration",
+        "getDiskSpaceInfo",
+        "getParameters",
+        "isHealthy",
+        "make",
+        "reset",
+        "setMinSpace",
+        "setPaths",
+        "setRecommendedSpace",
+        "setUnit",
+        "setWarningThreshold",
+        "toArray",
+        "toJson",
+        "useBinary",
+        "useDecimal"
+    ],
+    "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\Environment": [
+        "isAlpha",
+        "isBeta",
+        "isDevelopment",
+        "isEnvironment",
+        "isLocal",
+        "isNonProduction",
+        "isProduction",
+        "isRelease",
+        "isRunningUnitTests",
+        "isStaging",
+        "isTesting"
+    ],
+    "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\RequirementsChecker": [
+        "check",
+        "checkPhpVersion"
+    ],
+    "Simtabi\\Laranail\\Support\\Utilities\\Username": [
+        "__construct",
+        "name2username"
+    ]
+}

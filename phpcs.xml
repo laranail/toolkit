@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Laranail Toolkit Coding Standard">
+    <description>PSR-12 conformance lint for laranail/toolkit (formatting is owned by Pint).</description>
+
+    <arg value="p"/>
+    <arg value="s"/>
+    <arg name="colors"/>
+
+    <!-- Line-length and similar warnings stay visible but do not fail the gate. -->
+    <config name="ignore_warnings_on_exit" value="1"/>
+
+    <!-- Paths to check -->
+    <file>src</file>
+    <file>tests</file>
+
+    <!-- Exclude paths -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <!-- Fixtures + the api-surface scanner are data/tooling, not style-governed source. -->
+    <exclude-pattern>tests/Fixtures/*</exclude-pattern>
+
+    <!-- PSR-12 base. Pint owns formatting; exclude the one sniff that fights
+         Pint's single-line empty bodies (`) {}`, valid under PER style). -->
+    <rule ref="PSR12">
+        <!-- Pint owns formatting; exclude the sniffs that fight its PER-style
+             single-line empty bodies (`class Foo {}` / `) {}`). -->
+        <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
+        <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine"/>
+        <!-- Single-line promoted-constructor empty bodies (`__construct(...) {}`)
+             that Pint produces. -->
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+        <!-- Pint emits `new class()` (no space) for anonymous classes; this
+             PSR-12 sniff wants `new class ()`. Pint owns formatting. -->
+        <exclude name="PSR12.Classes.AnonClassDeclaration.SpaceAfterKeyword"/>
+    </rule>
+
+    <!-- Test methods follow PHPUnit's snake_case convention. -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
+    <!-- Tests may colocate small fixture classes alongside the test class. -->
+    <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
+    <!-- Clean-code (built-in sniffs only) -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+</ruleset>

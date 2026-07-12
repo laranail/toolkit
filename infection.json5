@@ -1,0 +1,36 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    // Scoped to the toolkit's pure, framework-independent logic — the code most
+    // worth hardening against weak tests. Framework glue (service providers,
+    // middleware, Eloquent observers) is deliberately out of scope: its mutants
+    // are dominated by integration concerns Infection cannot meaningfully cover.
+    "source": {
+        "directories": [
+            "src/Helpers",
+            "src/Macros",
+            "src/Support"
+        ],
+        "excludes": [
+            // Macro/mixin registrars are framework glue (they only call
+            // ->macro()); their behaviour is exercised through the macros, not
+            // the registrar bodies.
+            "Macros/MacroServiceProvider.php",
+            "Macros/FactoryBuilderMixin.php"
+        ]
+    },
+    "mutators": {
+        "@default": true
+    },
+    // Pest runs on the PHPUnit engine; Infection drives it through the PHPUnit
+    // adapter (it does not have a dedicated "pest" framework key).
+    "testFramework": "phpunit",
+    "minMsi": 80,
+    "minCoveredMsi": 85,
+    "logs": {
+        "text": "infection.log",
+        "stryker": {
+            "report": "infection"
+        }
+    },
+    "tmpDir": ".infection"
+}
