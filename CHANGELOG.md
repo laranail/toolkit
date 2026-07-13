@@ -5,6 +5,8 @@ All notable changes to `laranail/toolkit` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [0.1.0] - 2026-07-12
 
 Initial public release. Folded in during the pre-stable phase:
@@ -30,3 +32,6 @@ Initial public release. Folded in during the pre-stable phase:
 - Corrected the `AuthHelper::userExists()` doc (it is gated to stateful/session
   guards) and the `auth.user_model` config comment (a reserved hint, not read at
   runtime — the `userAs()` generic provides the IDE typing).
+
+[Unreleased]: https://github.com/laranail/toolkit/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/laranail/toolkit/releases/tag/v0.1.0
