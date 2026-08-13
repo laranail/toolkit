@@ -10,7 +10,7 @@ notifications module already was — it now lives in `laranail/notifications`).
 The layout is **flat and feature-first**: cross-cutting glue sits at the top of
 `src/`, and every feature is a single folder under `src/Modules/` with its files
 directly inside it (a sub-folder only for a genuinely multi-file group such as
-`Captcha/Providers/` or the per-driver LLM folders).
+the per-driver LLM folders).
 
 ```
 src/
@@ -36,7 +36,6 @@ src/
 └── Modules/                                # self-contained feature modules (flat inside)
     ├── Avatar/        AvatarService, AvatarServiceInterface, AvatarFont, DTOs, Avatar facade, provider
     ├── Gravatar/      GravatarService, …, Gravatar facade, provider
-    ├── Captcha/       CaptchaService, …, Providers/{Recaptcha,Hcaptcha,Turnstile,FriendlyCaptcha,Null}, Captcha facade, provider
     ├── Archiver/      ArchiverService, ArchiveManager, Zip/Tar/TarGz/Extractor, Archiver facade, provider
     ├── Atlas/         AtlasService, …, Atlas facade, provider (single config/atlas.php)
     ├── Eventing/      Events/{Event (abstract event base), CacheEvents}, Listeners/Listener (abstract listener base)
@@ -66,8 +65,8 @@ The layout is designed so a new feature is a drop-in folder:
 1. Create `src/Modules/<Name>/` with `<Name>Service.php`, `<Name>ServiceInterface.php`,
    a `<Name>Facade.php`, and a deferred `<Name>ServiceProvider.php` (plus DTOs/enums
    as needed). Keep a sub-folder only for a genuinely multi-file group.
-2. Register the provider in `ToolkitServiceProvider::configurePackage()` via
-   `->hasChildProviders([... ModuleServiceProvider::class])`.
+2. Add the provider to the `CHILD_PROVIDERS` constant in
+   `ToolkitServiceProvider`, which registers each one in `register()`.
 3. (Optional) add a `Toolkit::<name>()` accessor on `ToolkitManager` and a Laravel
    alias in `composer.json` `extra.laravel.aliases`.
 
@@ -84,7 +83,6 @@ Each module provider:
 |--------|----------|-------|--------|
 | Gravatar | `GravatarServiceInterface` | `laranail.gravatar` | `Gravatar` |
 | Avatar | `AvatarServiceInterface` | `laranail.avatar` | `Avatar` |
-| Captcha | `CaptchaProviderInterface` / `CaptchaService` | `laranail.captcha` | `Captcha` |
 | Archiver | `ArchiverServiceInterface` | `laranail.archiver` | `Archiver` |
 | Atlas | `AtlasService` | `laranail.atlas` | `Atlas` |
 | LLM | `LLMProviderInterface` | `laranail.llm` | `LLM` |
@@ -96,7 +94,7 @@ or the unified `Toolkit` facade (`Toolkit::avatar()`, …).
 
 `Facades\Toolkit` (proxying `ToolkitManager`) fronts every module **and** the
 injectable core services with typed `@method` accessors. Alongside the module
-accessors (`avatar()`, `gravatar()`, `captcha()`, `archiver()`, `atlas()`,
+accessors (`avatar()`, `gravatar()`, `archiver()`, `atlas()`,
 `livewire()`) and the security generators (`token()`, `password()`,
 `passphrase()`), it exposes the core services — including the **five service
 accessors**:

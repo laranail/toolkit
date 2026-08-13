@@ -19,6 +19,7 @@ use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware;
+use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
 use Simtabi\Laranail\Toolkit\Macros\MacroServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceProvider;
@@ -223,6 +224,11 @@ class ToolkitServiceProvider extends ServiceProvider
         ));
 
         // Cache/Logger service contracts (interface→concrete service).
+        // Singleton: the registry IS the state. A fresh instance per resolve
+        // would hand back an empty registry while the Builder macros it had
+        // already registered stayed behind, throwing for every model.
+        $this->app->singleton(MacroableModels::class);
+
         $this->app->bind(CacheRepositoryInterface::class, CacheService::class);
         $this->app->bind(LoggerServiceInterface::class, LogService::class);
 

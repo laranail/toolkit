@@ -96,6 +96,13 @@ interface FileServiceInterface
      * ("data:<mime>;base64,<payload>"), or an empty string when the file is
      * missing or the path is unsafe.
      */
+    /**
+     * Relative paths of every file under a directory. Non-recursive by default.
+     *
+     * @return list<string>
+     */
+    public function filesInPath(string $directory, bool $recursive = false): array;
+
     public function toDataUri(string $path): string;
 
     /**

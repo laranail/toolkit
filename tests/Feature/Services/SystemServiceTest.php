@@ -95,6 +95,11 @@ class SystemServiceTest extends TestCase
                 return '';
             }
 
+            public function filesInPath(string $directory, bool $recursive = false): array
+            {
+                return [];
+            }
+
             public function toDataUri(string $path): string
             {
                 return '';

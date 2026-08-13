@@ -28,7 +28,7 @@ Publish tags use the namespaced `laranail::toolkit-*` convention.
 
 | Tag | Publishes to |
 |-----|--------------|
-| `laranail::toolkit-config` | all configs under the dotted namespace — `config/laranail/toolkit.php`, `…/toolkit/feature-toggles.php`, `…/toolkit/atlas.php`, `…/toolkit/captcha.php`, `…/toolkit/security.php` (editing them overrides `config('laranail.toolkit.*')`; `security` holds the common-password / EFF-wordlist / redaction datasets read by `SecurityData`) |
+| `laranail::toolkit-config` | all configs under the dotted namespace — `config/laranail/toolkit.php`, `…/toolkit/feature-toggles.php`, `…/toolkit/atlas.php`, `…/toolkit/security.php` (editing them overrides `config('laranail.toolkit.*')`; `security` holds the common-password / EFF-wordlist / redaction datasets read by `SecurityData`) |
 | `laranail::toolkit-migrations` | `database/migrations/*` |
 | `laranail::toolkit-views` | `resources/views/vendor/laranail-toolkit` |
 | `laranail::toolkit-translations` | `lang/vendor/laranail/toolkit` |

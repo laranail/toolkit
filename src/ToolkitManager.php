@@ -8,6 +8,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
+use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
@@ -249,6 +250,14 @@ class ToolkitManager
     public function config(): ConfigManagerInterface
     {
         return $this->app->make(ConfigManagerInterface::class);
+    }
+
+    /**
+     * Per-model macro registry — `Builder::macro()` narrowed to one model.
+     */
+    public function macroableModels(): MacroableModels
+    {
+        return $this->app->make(MacroableModels::class);
     }
 
     /**

@@ -27,6 +27,7 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
  * @method static \Illuminate\Contracts\Auth\Authenticatable|\Illuminate\Database\Eloquent\Model      userOrFail(?string $guard = null)
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface               cache()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\ConfigManagerInterface                 config()
+ * @method static \Simtabi\Laranail\Toolkit\Macros\MacroableModels                                    macroableModels()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\PythonApiServiceInterface              pythonApi()
  * @method static \Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator                               runtime()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface                 log()

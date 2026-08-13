@@ -23,6 +23,34 @@ final class StringMacros extends ServiceProvider
 
     private function registerStrMacros(): void
     {
+        // Strip the application's own base URL, leaving a relative path.
+        //
+        // Seeded and imported content routinely carries absolute URLs from
+        // wherever it was produced, which then point at the wrong host in every
+        // other environment.
+        //
+        // Both `app.url` and `url('')` are stripped, because they disagree more
+        // often than you would like: `url('')` is the CURRENT REQUEST's root, so
+        // behind a proxy, on a secondary domain, or in a queue worker it is not
+        // the canonical app URL that the content was stored with. Using either
+        // alone silently leaves the other's URLs absolute.
+        //
+        // Pass $base explicitly for content that came from a different host
+        // entirely — a staging import, say — which neither default can know.
+        Str::macro('withoutBaseUrl', function (string $string, ?string $base = null): string {
+            $bases = $base !== null ? [$base] : [config('app.url'), url('')];
+
+            foreach ($bases as $candidate) {
+                $candidate = is_string($candidate) ? rtrim($candidate, '/') : '';
+
+                if ($candidate !== '') {
+                    $string = Str::replace($candidate, '', $string);
+                }
+            }
+
+            return $string;
+        });
+
         Str::macro('kebabToTitle', fn (string $string): string => Str::title(Str::replace('-', ' ', $string)));
 
         Str::macro('snakeToTitle', fn (string $string): string => Str::title(Str::replace('_', ' ', $string)));

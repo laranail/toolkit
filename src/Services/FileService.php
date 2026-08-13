@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * File-name / size inspection plus thin, path-guarded filesystem probes.
@@ -205,6 +206,45 @@ final class FileService implements FileServiceInterface
      * ("data:<mime>;base64,<payload>"), or an empty string when the file is
      * missing or the path is unsafe. Restores the legacy ToBase64 macro safely.
      */
+    /**
+     * Relative paths of every file directly under a directory.
+     *
+     * Read-only and path-guarded like the other probes here, and non-recursive
+     * on purpose — a caller that wants a tree can say so, whereas one that
+     * wanted a single level and silently got a recursive walk has a bug that
+     * only shows up on a large directory.
+     *
+     * Returns paths relative to `$directory`, which is what a caller almost
+     * always wants: the absolute prefix is something it already has.
+     *
+     * An unreadable or missing directory yields an empty list rather than
+     * throwing, matching {@see exists()} and {@see fileInfo()}.
+     *
+     * @return list<string>
+     */
+    public function filesInPath(string $directory, bool $recursive = false): array
+    {
+        if (!$this->isSafePath($directory) || !File::isDirectory($directory)) {
+            return [];
+        }
+
+        $files = $recursive ? File::allFiles($directory) : File::files($directory);
+
+        $root = rtrim($directory, '/\\');
+
+        $relative = array_map(
+            static fn (SplFileInfo $file): string => ltrim(
+                Str::after($file->getPathname(), $root),
+                '/\\',
+            ),
+            $files,
+        );
+
+        sort($relative);
+
+        return $relative;
+    }
+
     public function toDataUri(string $path): string
     {
         if (!$this->exists($path) || !File::isFile($path)) {

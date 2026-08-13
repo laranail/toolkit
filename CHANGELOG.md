@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`Macros\MacroableModels`** — a macro registry keyed by model class, reachable
+  as `Toolkit::macroableModels()`. `Builder::macro()` is global: register
+  `whereActive` and it exists on every model's builder, including the ones where
+  it makes no sense. This narrows it — a macro is registered *for a model*, and
+  calling it on another fails the way an undefined method should.
+
+  A macro's closure is bound to the model instance **and scoped to its class**,
+  so `$this->someProtectedThing` reaches the real member rather than falling
+  through `Model::__get()` to an attribute lookup that quietly returns null. That
+  is a deliberate difference from a bare `Closure::bind($closure, $model)`, which
+  keeps the closure's own scope, and it is what makes accessor-style macros work.
+
+- **`Str::withoutBaseUrl()`** — strips the application's own base URL from a
+  string, leaving a relative path. Both `config('app.url')` and `url('')` are
+  stripped, because they disagree more often than you would like: `url('')` is
+  the *current request's* root, so behind a proxy, on a secondary domain, or in a
+  queue worker it is not the canonical app URL the content was stored with.
+  Using either alone silently leaves the other's URLs absolute.
+
+- **`FileService::filesInPath()`** — relative paths of the files under a
+  directory, non-recursive by default, path-guarded and exception-safe like the
+  other probes there.
+
+### Changed — breaking
+
+- **`Services\Contracts\FileServiceInterface` gains `filesInPath()`.** Anything
+  implementing that contract directly must add the method. Consumers resolving
+  it from the container are unaffected.
+
 ### Removed
 
 - The `Captcha` module (`src/Modules/Captcha/`), its config file and the `Captcha` facade alias have
@@ -14,7 +45,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   providers, environment-scoped credentials, a database-backed settings store and edge bot
   management. `Toolkit::captcha()` is gone with it. See UPGRADING.md.
 
-## [Unreleased]
+### Fixed
+
+- **Documentation that still described the removed captcha module.**
+  `docs/modules/captcha.md` was still shipping in full, and `architecture.md`,
+  `configuration.md`, `installation.md` and `getting-started.md` all still
+  referenced the module, its config file and `Toolkit::captcha()`.
+  `architecture.md` also told you to register a child provider through
+  `configurePackage()->hasChildProviders([...])`, a method that does not exist —
+  it is the `CHILD_PROVIDERS` constant on `ToolkitServiceProvider`.
 
 ## [0.1.0] - 2026-07-12
 
