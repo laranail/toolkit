@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- The `Captcha` module (`src/Modules/Captcha/`), its config file and the `Captcha` facade alias have
+  been relocated to [`laranail/captcha`](https://github.com/laranail/captcha), which covers eleven
+  providers, environment-scoped credentials, a database-backed settings store and edge bot
+  management. `Toolkit::captcha()` is gone with it. See UPGRADING.md.
+
+## [Unreleased]
+
 ## [0.1.0] - 2026-07-12
 
 Initial public release. Folded in during the pre-stable phase:

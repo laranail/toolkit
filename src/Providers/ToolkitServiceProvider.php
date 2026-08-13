@@ -23,7 +23,6 @@ use Simtabi\Laranail\Toolkit\Macros\MacroServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Listeners\LogCacheEvents;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
@@ -92,7 +91,7 @@ class ToolkitServiceProvider extends ServiceProvider
      *
      * @var list<string>
      */
-    private const array CONFIG_FILES = ['toolkit', 'feature-toggles', 'atlas', 'captcha', 'security'];
+    private const array CONFIG_FILES = ['toolkit', 'feature-toggles', 'atlas', 'security'];
 
     /**
      * Eager coordinators (macros, Blade directives) + the deferred feature
@@ -105,7 +104,6 @@ class ToolkitServiceProvider extends ServiceProvider
         BladeServiceProvider::class,
         GravatarServiceProvider::class,
         AvatarServiceProvider::class,
-        CaptchaServiceProvider::class,
         ArchiverServiceProvider::class,
         AtlasServiceProvider::class,
         LivewireServiceProvider::class,

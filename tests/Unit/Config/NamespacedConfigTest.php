@@ -20,7 +20,6 @@ final class NamespacedConfigTest extends TestCase
 
     public function test_module_configs_get_distinct_per_file_subkeys(): void
     {
-        self::assertNotNull(config('laranail.toolkit.captcha.default_provider'));
         self::assertNotNull(config('laranail.toolkit.atlas.default_label'));
     }
 }

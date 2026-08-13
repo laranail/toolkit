@@ -99,7 +99,6 @@
                 "Laranail": "Simtabi\\Laranail\\Toolkit\\Facades\\Laranail",
                 "Avatar": "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Avatar",
                 "Gravatar": "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\Gravatar",
-                "Captcha": "Simtabi\\Laranail\\Toolkit\\Modules\\Captcha\\Captcha",
                 "Archiver": "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Archiver",
                 "Atlas": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas",
                 "Livewire": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\Livewire",
@@ -111,6 +110,7 @@
         }
     },
     "suggest": {
+        "laranail/captcha": "Captcha and bot management, relocated out of this package (Turnstile, hCaptcha, every reCAPTCHA version, Friendly Captcha, Arkose, ALTCHA, self-hosted math).",
         "livewire/livewire": "^3.0 \u2014 for the Livewire component-registration module",
         "laranail/db-tools": "for UUID/ULID model traits, schema macros, soft-archive, backup/restore and the database CLI (relocated out of this package)"
     },

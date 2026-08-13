@@ -50,10 +50,6 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(GravatarServiceInterface::class, Gravatar::getFacadeRoot());
     }
 
-    public function test_captcha_facade_resolves_its_root(): void
-    {
-        $this->assertInstanceOf(CaptchaService::class, Captcha::getFacadeRoot());
-    }
 
     public function test_llm_facade_resolves_the_default_provider(): void
     {
@@ -80,7 +76,6 @@ class FacadesTest extends TestCase
     {
         $this->assertInstanceOf(AvatarServiceInterface::class, Toolkit::avatar());
         $this->assertInstanceOf(GravatarServiceInterface::class, Toolkit::gravatar());
-        $this->assertInstanceOf(CaptchaService::class, Toolkit::captcha());
         $this->assertInstanceOf(ArchiverServiceInterface::class, Toolkit::archiver());
     }
 

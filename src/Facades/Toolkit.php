@@ -12,7 +12,6 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
  *
  * @method static \Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface                     avatar()
  * @method static \Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface                 gravatar()
- * @method static \Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService                            captcha()
  * @method static \Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface                 archiver()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface                  route()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface             validation()

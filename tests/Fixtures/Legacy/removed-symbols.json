@@ -1,35 +1,27 @@
 {
-  "Simtabi\\Laranail\\Foundation\\Contracts\\DatabaseServiceInterface": {
+  "Simtabi\\Laranail\\Features\\Captcha\\Contracts\\CaptchaProviderInterface": {
     "status": "relocated",
-    "target": "laranail/db-tools"
+    "target": "laranail/captcha"
   },
-  "Simtabi\\Laranail\\Foundation\\Services\\DatabaseService": {
+  "Simtabi\\Laranail\\Features\\Captcha\\Providers\\HcaptchaProvider": {
     "status": "relocated",
-    "target": "laranail/db-tools"
+    "target": "laranail/captcha"
   },
-  "Simtabi\\Laranail\\Laravel\\Services\\ImportDatabaseService": {
+  "Simtabi\\Laranail\\Features\\Captcha\\Providers\\RecaptchaProvider": {
     "status": "relocated",
-    "target": "laranail/db-tools"
+    "target": "laranail/captcha"
   },
-  "Simtabi\\Laranail\\Shared\\Exceptions\\MissingUuidColumnException": {
+  "Simtabi\\Laranail\\Features\\Captcha\\Providers\\TurnstileProvider": {
     "status": "relocated",
-    "target": "laranail/db-tools"
+    "target": "laranail/captcha"
   },
-  "Simtabi\\Laranail\\Shared\\Exceptions\\UuidException": {
+  "Simtabi\\Laranail\\Features\\Captcha\\Results\\CaptchaVerificationResult": {
     "status": "relocated",
-    "target": "laranail/db-tools"
+    "target": "laranail/captcha"
   },
-  "Simtabi\\Laranail\\Support\\Eloquent\\Scopes\\ArchiveScope": {
+  "Simtabi\\Laranail\\Features\\Captcha\\Services\\CaptchaService": {
     "status": "relocated",
-    "target": "laranail/db-tools"
-  },
-  "Simtabi\\Laranail\\Support\\Traits\\HasArchiver": {
-    "status": "relocated",
-    "target": "laranail/db-tools"
-  },
-  "Simtabi\\Laranail\\Support\\Utilities\\DatabaseSession": {
-    "status": "relocated",
-    "target": "laranail/db-tools"
+    "target": "laranail/captcha"
   },
   "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AbstractNotificationChannel": {
     "status": "relocated",
@@ -102,6 +94,10 @@
   "Simtabi\\Laranail\\Foundation\\Contracts\\CacheServiceInterface": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Services\\CacheService"
+  },
+  "Simtabi\\Laranail\\Foundation\\Contracts\\DatabaseServiceInterface": {
+    "status": "relocated",
+    "target": "laranail/db-tools"
   },
   "Simtabi\\Laranail\\Foundation\\Contracts\\Services\\AuthenticationHelperServiceInterface": {
     "status": "merged",
@@ -182,6 +178,10 @@
   "Simtabi\\Laranail\\Foundation\\Services\\DatabaseFileService": {
     "status": "merged",
     "target": "Merged into Simtabi\\Laranail\\Toolkit\\Services\\FileService (validate/validateSize) + ImportDatabaseService (transactional .sql import)."
+  },
+  "Simtabi\\Laranail\\Foundation\\Services\\DatabaseService": {
+    "status": "relocated",
+    "target": "laranail/db-tools"
   },
   "Simtabi\\Laranail\\Foundation\\Services\\FakerHelperService": {
     "status": "merged",
@@ -719,6 +719,10 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
+  "Simtabi\\Laranail\\Laravel\\Services\\ImportDatabaseService": {
+    "status": "relocated",
+    "target": "laranail/db-tools"
+  },
   "Simtabi\\Laranail\\Laravel\\Services\\ResponseBuilderService": {
     "status": "dropped",
     "target": "returns arrays; superseded by ApiResponseTrait (JsonResponse) + ResponseMacros"
@@ -743,6 +747,14 @@
     "status": "dropped",
     "target": "see docs/migration/MIGRATION.md + dropped.md"
   },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\MissingUuidColumnException": {
+    "status": "relocated",
+    "target": "laranail/db-tools"
+  },
+  "Simtabi\\Laranail\\Shared\\Exceptions\\UuidException": {
+    "status": "relocated",
+    "target": "laranail/db-tools"
+  },
   "Simtabi\\Laranail\\Support\\Contracts\\CacheHelperInterface": {
     "status": "merged",
     "target": "Merged into Simtabi\\Laranail\\Toolkit\\Services\\Contracts\\CacheRepositoryInterface."
@@ -759,6 +771,10 @@
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Http\\Contracts\\HttpStatusInterface (renamed from ShovelHttpInterface, G12c)"
   },
+  "Simtabi\\Laranail\\Support\\Eloquent\\Scopes\\ArchiveScope": {
+    "status": "relocated",
+    "target": "laranail/db-tools"
+  },
   "Simtabi\\Laranail\\Support\\Facades\\LanguagesFacade": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas"
@@ -770,6 +786,10 @@
   "Simtabi\\Laranail\\Support\\Services\\Atlas\\Languages": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasService"
+  },
+  "Simtabi\\Laranail\\Support\\Traits\\HasArchiver": {
+    "status": "relocated",
+    "target": "laranail/db-tools"
   },
   "Simtabi\\Laranail\\Support\\Traits\\HasPackageTools": {
     "status": "dropped",
@@ -786,6 +806,10 @@
   "Simtabi\\Laranail\\Support\\Utilities\\BladeDirectives": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Providers\\BladeServiceProvider"
+  },
+  "Simtabi\\Laranail\\Support\\Utilities\\DatabaseSession": {
+    "status": "relocated",
+    "target": "laranail/db-tools"
   },
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\DiskSpaceValidator": {
     "status": "merged",

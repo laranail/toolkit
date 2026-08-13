@@ -26,7 +26,6 @@ final class ToolkitServiceProviderTest extends TestCase
         self::assertSame('openai', config('laranail.toolkit.llm.default_provider'));
         self::assertIsArray(config('laranail.toolkit.feature-toggles'));
         self::assertNotNull(config('laranail.toolkit.atlas.default_label'));
-        self::assertNotNull(config('laranail.toolkit.captcha.default_provider'));
     }
 
     public function test_route_middleware_aliases_are_registered(): void

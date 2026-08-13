@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
@@ -59,11 +58,6 @@ class ToolkitManager
     public function gravatar(): GravatarServiceInterface
     {
         return $this->app->make(GravatarServiceInterface::class);
-    }
-
-    public function captcha(): CaptchaService
-    {
-        return $this->app->make(CaptchaService::class);
     }
 
     public function archiver(): ArchiverServiceInterface
