@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- **`Toolkit::config()` — the runtime `ConfigManager` moved to `laranail/package-tools`.**
+  That package already owned the config file resolver, merger, validator and
+  pattern resolver, so config machinery had two homes and two `ConfigMerger`
+  classes with the same short name and the same four-method API. Worse, two
+  container-resolvable services held **opposite** semantics over `config()` —
+  `ConfigService::merge()` yields to the app, `ConfigManager::override()` does
+  not — and provider boot order silently decided which won.
+
+  `Services\ConfigManager`, `Services\Contracts\ConfigManagerInterface`,
+  `Support\ConfigMerger` and `Exceptions\ConfigException` are gone;
+  `ConfigException` had exactly one thrower, so catching it was already dead code.
+
+- **`Toolkit::pythonApi()` — the Python client moved to `laranail/python`.** The
+  HTTP client was a third of the problem; the new package is a bidirectional
+  bridge with a hardened local-process transport and HMAC-signed inbound
+  callbacks. `Services\PythonApiService`, its contract,
+  `Services\PythonServiceDefinition` and `Exceptions\PythonApiException` are
+  gone, as is the `laranail.toolkit.python` config block — env var names are
+  unchanged, so an existing `.env` keeps working.
+
+  Both are `suggest`-ed rather than required. See
+  [UPGRADING.md](UPGRADING.md) for the two behaviour changes that came with the
+  moves.
+
 ### Added
 
 - **`Macros\MacroableModels`** — a macro registry keyed by model class, reachable

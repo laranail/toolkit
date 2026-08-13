@@ -89,33 +89,6 @@ return [
      * null to inherit the shared `http.request_timeout` above. Point `ca_cert`
      * at a mkcert/Caddy CA bundle for HTTPS behind a local reverse proxy.
      */
-    'python' => [
-        'services' => [
-            'fastapi' => [
-                'base_url' => env('PYTHON_FASTAPI_URL', 'http://127.0.0.1:8000'),
-                'timeout' => env('PYTHON_FASTAPI_TIMEOUT'),
-                'verify_ssl' => env('PYTHON_FASTAPI_VERIFY_SSL', true),
-                'ca_cert' => env('PYTHON_FASTAPI_CA_CERT'),
-                'health_path' => env('PYTHON_FASTAPI_HEALTH_PATH', '/health'),
-                'health_key' => env('PYTHON_FASTAPI_HEALTH_KEY', 'status'),
-                'healthy_value' => env('PYTHON_FASTAPI_HEALTHY_VALUE', 'healthy'),
-                'retry_times' => env('PYTHON_FASTAPI_RETRY_TIMES', 3),
-                'retry_sleep_ms' => env('PYTHON_FASTAPI_RETRY_SLEEP_MS', 100),
-            ],
-            'flask' => [
-                'base_url' => env('PYTHON_FLASK_URL', 'http://127.0.0.1:5000'),
-                'timeout' => env('PYTHON_FLASK_TIMEOUT'),
-                'verify_ssl' => env('PYTHON_FLASK_VERIFY_SSL', true),
-                'ca_cert' => env('PYTHON_FLASK_CA_CERT'),
-                'health_path' => env('PYTHON_FLASK_HEALTH_PATH', '/health'),
-                'health_key' => env('PYTHON_FLASK_HEALTH_KEY', 'status'),
-                'healthy_value' => env('PYTHON_FLASK_HEALTHY_VALUE', 'healthy'),
-                'retry_times' => env('PYTHON_FLASK_RETRY_TIMES', 3),
-                'retry_sleep_ms' => env('PYTHON_FLASK_RETRY_SLEEP_MS', 100),
-            ],
-        ],
-    ],
-
     'access_log' => [
         // Toggle persistence of the access.log middleware.
         'enabled' => env('LARANAIL_ACCESS_LOG_ENABLED', true),

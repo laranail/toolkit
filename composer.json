@@ -112,7 +112,9 @@
     "suggest": {
         "laranail/captcha": "Captcha and bot management, relocated out of this package (Turnstile, hCaptcha, every reCAPTCHA version, Friendly Captcha, Arkose, ALTCHA, self-hosted math).",
         "livewire/livewire": "^3.0 \u2014 for the Livewire component-registration module",
-        "laranail/db-tools": "for UUID/ULID model traits, schema macros, soft-archive, backup/restore and the database CLI (relocated out of this package)"
+        "laranail/db-tools": "for UUID/ULID model traits, schema macros, soft-archive, backup/restore and the database CLI (relocated out of this package)",
+        "laranail/package-tools": "for the fluent runtime ConfigManager, relocated out of this package.",
+        "laranail/python": "Bidirectional Python bridge \u2014 HTTP services, local process execution and signed callbacks (supersedes PythonApiService, relocated out of this package)."
     },
     "repositories": [
         {

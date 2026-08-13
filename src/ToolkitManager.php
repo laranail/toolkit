@@ -19,11 +19,9 @@ use Simtabi\Laranail\Toolkit\Modules\Security\Password;
 use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\ConfigManagerInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\PythonApiServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
@@ -245,27 +243,11 @@ class ToolkitManager
     }
 
     /**
-     * Fluent runtime config manager (get/set/merge/load + when/unless chaining).
-     */
-    public function config(): ConfigManagerInterface
-    {
-        return $this->app->make(ConfigManagerInterface::class);
-    }
-
-    /**
      * Per-model macro registry — `Builder::macro()` narrowed to one model.
      */
     public function macroableModels(): MacroableModels
     {
         return $this->app->make(MacroableModels::class);
-    }
-
-    /**
-     * Config-driven HTTP client factory for named Python/external microservices.
-     */
-    public function pythonApi(): PythonApiServiceInterface
-    {
-        return $this->app->make(PythonApiServiceInterface::class);
     }
 
     /**

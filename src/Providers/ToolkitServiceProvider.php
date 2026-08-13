@@ -34,15 +34,12 @@ use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLogMiddleware;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
 use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
-use Simtabi\Laranail\Toolkit\Services\ConfigManager;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\ConfigManagerInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\PythonApiServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
@@ -55,7 +52,6 @@ use Simtabi\Laranail\Toolkit\Services\FileService;
 use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
 use Simtabi\Laranail\Toolkit\Services\LogService;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
-use Simtabi\Laranail\Toolkit\Services\PythonApiService;
 use Simtabi\Laranail\Toolkit\Services\RateLimiterService;
 use Simtabi\Laranail\Toolkit\Services\RouteService;
 use Simtabi\Laranail\Toolkit\Services\SchedulerService;
@@ -231,19 +227,6 @@ class ToolkitServiceProvider extends ServiceProvider
 
         $this->app->bind(CacheRepositoryInterface::class, CacheService::class);
         $this->app->bind(LoggerServiceInterface::class, LogService::class);
-
-        // Fluent runtime config manager (stateful — fresh per resolve).
-        $this->app->bind(ConfigManagerInterface::class, fn ($app): ConfigManager => new ConfigManager(
-            $app->make(ConfigRepository::class),
-            $app,
-        ));
-
-        // Config-driven Python/external microservice HTTP client factory.
-        $this->app->bind(PythonApiServiceInterface::class, fn ($app): PythonApiService => new PythonApiService(
-            $app->make(ConfigRepository::class),
-            $app->make(HttpConfigurationServiceInterface::class),
-            $app->make(LoggerInterface::class),
-        ));
 
         // Settings store, rate limiter and scheduler service contracts.
         $this->app->bind(SettingsStoreInterface::class, SettingsStore::class);

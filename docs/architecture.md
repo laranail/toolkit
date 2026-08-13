@@ -110,9 +110,7 @@ accessors**:
 plus `file()`, `system()`, `session()`, `route()`,
 `validation()`, `http()`, `auth()`, `model()`, the guard-aware user accessors
 `user()` / `userAs()` / `userOrFail()` / `withGuard()`
-([authenticated user](../auth.md)), and the runtime trio
-`config()` ([config manager](../config-manager.md)),
-`pythonApi()` ([python API](../python-api.md)), and
+([authenticated user](../auth.md)), and
 `runtime()` ([runtime configurator](../runtime-configurator.md)). (The pure static
 `Helper::` methods are intentionally **not** on the facade — see
 [helpers](helpers.md).)
@@ -183,7 +181,17 @@ database/UUID tooling moved to `laranail/notifications` and `laranail/db-tools`.
 A regression test (`tests/Regression/ApiSurfaceTest`) enforces that nothing is lost
 unplanned. The `CacheService` maintenance surface (clear/rebuild/optimize) — once
 deferred to native artisan and dropped as the legacy `CacheServiceInterface` — was
-folded back onto the unified cache service; the runtime `ConfigManager`,
-`PythonApiService`, and INI `RuntimeConfigurator` were added alongside it.
+folded back onto the unified cache service, and the INI `RuntimeConfigurator` was
+added alongside it.
+
+Two services have since left, following the precedent captcha set. The runtime
+`ConfigManager` went to [`laranail/package-tools`](https://github.com/laranail/package-tools),
+which already owned the config resolver, merger, validator and pattern resolver —
+config machinery belongs with the package-authoring runtime, and keeping a second
+`ConfigMerger` here meant two classes with the same short name and the same
+four-method API drifting apart. `PythonApiService` became
+[`laranail/python`](https://github.com/laranail/python), where the HTTP client is
+one transport of a bidirectional bridge rather than the whole thing. See
+[UPGRADING.md](../UPGRADING.md).
 
 [← Docs index](../README.md#documentation)

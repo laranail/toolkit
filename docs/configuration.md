@@ -52,27 +52,6 @@ trait).
 | `max_retries` | `10` | `GUZZLE_MAX_RETRIES` |
 | `cache_ttl` | `10` (seconds) | `GUZZLE_CACHE_TTL` |
 
-## `laranail.toolkit.python`
-
-Named Python (or any external HTTP) microservices consumed by `PythonApiService`.
-Each entry under `python.services.<name>` describes one client. See
-[python API](python-api.md).
-
-| Key | Default | Notes |
-|-----|---------|-------|
-| `services.<name>.base_url` | — | Client base URL (required). |
-| `services.<name>.timeout` | `null` | Seconds; `null` inherits `http.request_timeout`. |
-| `services.<name>.verify_ssl` | `true` | `false` disables TLS verification. |
-| `services.<name>.ca_cert` | `null` | Path to a CA bundle (e.g. mkcert). Missing-but-set logs a warning. |
-| `services.<name>.health_path` | `/health` | Path probed by `health()`. |
-| `services.<name>.health_key` | `status` | JSON key checked in the health response. |
-| `services.<name>.healthy_value` | `healthy` | Expected value at `health_key`. |
-| `services.<name>.retry_times` | `3` | HTTP retry attempts. |
-| `services.<name>.retry_sleep_ms` | `100` | Delay between retries. |
-
-Ships with `fastapi` (`PYTHON_FASTAPI_*` env) and `flask` (`PYTHON_FLASK_*` env)
-pre-defined; add more services by adding keys under `python.services`.
-
 ## `laranail.toolkit.access_log`
 
 | Key | Default | Notes |
