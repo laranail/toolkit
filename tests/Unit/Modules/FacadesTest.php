@@ -10,8 +10,6 @@ use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\Avatar;
 use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\Captcha;
-use Simtabi\Laranail\Toolkit\Modules\Captcha\CaptchaService;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
 use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
@@ -49,7 +47,6 @@ class FacadesTest extends TestCase
     {
         $this->assertInstanceOf(GravatarServiceInterface::class, Gravatar::getFacadeRoot());
     }
-
 
     public function test_llm_facade_resolves_the_default_provider(): void
     {
