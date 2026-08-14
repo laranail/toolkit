@@ -86,6 +86,7 @@ php artisan laranail::toolkit.tidy [action] [options]
 | `--seed` | (db) also run `db:seed` after `migrate:fresh`. |
 | `--optimize` | (cache) also run `optimize:clear`. |
 | `--dry-run` | Show what would be removed without deleting anything. |
+| `--unfiltered` | (`storage`) sweep user files with no age/size filter. Refused in production. |
 | `--force` | Skip confirmation prompts (required for the `db` action). |
 
 ### Actions
@@ -98,8 +99,30 @@ php artisan laranail::toolkit.tidy [action] [options]
 - **`db`** — runs `migrate:fresh` (optionally `--seed`). **Excluded from
   `all`.** Requires `--force` AND passes the production-safety
   `confirmToProceed()` guard; it is a no-op under `--dry-run`.
-- **`all`** — tidies cache + the `logs` / `temp` / `storage` roots. It **never**
-  runs the destructive `db` action.
+- **`all`** — tidies cache + `logs` / `temp`, and `storage` **only when scoped**
+  (see below). It **never** runs the destructive `db` action.
+
+### The `storage` action needs a scope
+
+`storage` sweeps `storage/app/public`, `storage/app/uploads` and
+`storage/app/exports`. The first is the disk behind `storage:link` — user
+uploads. So unlike `logs` and `temp`, which hold data the application
+regenerates, an unfiltered sweep here is not housekeeping.
+
+| Invocation | Result |
+|---|---|
+| `tidy storage --days=30 --force` | Deletes uploads older than 30 days. |
+| `tidy storage --size=100 --force` | Deletes uploads over 100 MB. |
+| `tidy storage --force` | **Refused.** Every file would match. |
+| `tidy storage --unfiltered --force` | Deletes everything — outside production only. |
+| `tidy storage --unfiltered --force` *(production)* | **Refused**, with no override. |
+| `tidy all --force` | Sweeps cache + logs + temp; **skips** `storage` and says so. |
+| `tidy all --days=30 --force` | Sweeps everything, `storage` included. |
+
+> Through v0.1.0, `tidy storage --force` and `tidy all --force` deleted every
+> file in those roots. The containment guard did not catch it and never would
+> have: it answers "can this delete something outside `storage_path()`", and
+> those roots are inside it.
 
 ### Safety notes
 
@@ -113,6 +136,9 @@ php artisan laranail::toolkit.tidy [action] [options]
   space that *would* be freed.
 - **`db` is hard-gated** behind `--force` + `confirmToProceed()` and excluded
   from `all`, so a bulk tidy can never drop your tables.
+- **`--force` is not the gate for user files.** It appears in every CI
+  invocation, so it is typed by habit; scoping the `storage` sweep with
+  `--days`/`--size`, or acknowledging it with `--unfiltered`, is.
 - **Signal-safe sweep.** The deletion loop polls
   `signals()->shouldKeepRunning()` per root and per file, so a `SIGTERM` /
   `SIGINT` stops the sweep cleanly mid-directory rather than leaving it half-run.

@@ -100,11 +100,15 @@ class TidyCommandTest extends TestCase
         $this->assertFileDoesNotExist($tmp);
     }
 
-    public function test_storage_action_deletes_uploaded_files(): void
+    public function test_storage_action_deletes_uploaded_files_when_scoped(): void
     {
         $upload = $this->makeStorageFile('app/uploads/photo.bin', 'bytes');
+        touch($upload, time() - (60 * 86400));
 
-        $this->artisan('laranail::toolkit.tidy', ['action' => 'storage', '--force' => true])
+        // Scoped by age. This assertion used to pass with no filter at all,
+        // which is the defect: --force plus a housekeeping verb emptied
+        // app/public, app/uploads and app/exports in one non-interactive run.
+        $this->artisan('laranail::toolkit.tidy', ['action' => 'storage', '--days' => '30', '--force' => true])
             ->assertExitCode(0);
 
         $this->assertFileDoesNotExist($upload);

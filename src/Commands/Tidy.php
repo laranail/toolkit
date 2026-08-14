@@ -29,7 +29,14 @@ use Throwable;
  *  - keeps the destructive `db` action (`migrate:fresh`) OUT of `all`, gated
  *    behind --force AND the production-safety `confirmToProceed()`, and a no-op
  *    under --dry-run;
+ *  - refuses an unfiltered sweep of the roots that hold user files — see
+ *    {@see USER_DATA_ACTIONS} and {@see maySweepUnfiltered()};
  *  - injects its collaborators (no facades in the core logic).
+ *
+ * The containment guard answers "can this delete something outside
+ * `storage_path()`", which is not the same question as "should this delete
+ * this". Every root swept by the `storage` action is inside storage and passes
+ * containment; they are also where user uploads live.
  */
 class Tidy extends Command
 {
@@ -47,6 +54,7 @@ class Tidy extends Command
         {--seed : (db) also run db:seed after migrate:fresh}
         {--optimize : (cache) also run optimize:clear}
         {--dry-run : Show what would be removed without deleting anything}
+        {--unfiltered : (storage) sweep user files with no age/size filter — refused in production}
         {--force : Skip confirmation prompts (required for the db action)}';
 
     protected $description = 'Unified, path-confined maintenance: cache|logs|temp|storage|db|all';
@@ -57,6 +65,22 @@ class Tidy extends Command
         'temp' => ['app/temp', 'app/tmp', 'framework/cache/data'],
         'storage' => ['app/public', 'app/uploads', 'app/exports'],
     ];
+
+    /**
+     * Actions whose roots hold data the application cannot regenerate.
+     *
+     * `logs` and `temp` sweep log files and `framework/cache/data` — losing
+     * those costs nothing, which is the whole point of the command. `storage`
+     * sweeps `app/public` (the disk behind `storage:link`), `app/uploads` and
+     * `app/exports`: user uploads. With no `--days`/`--size` every file matched,
+     * and `--force` skipped the prompt, so `tidy storage --force` — and
+     * `tidy all --force`, which used to sweep the same roots — deleted every
+     * file a user had ever uploaded, in one non-interactive command with a name
+     * that reads like housekeeping.
+     *
+     * @var list<string>
+     */
+    private const USER_DATA_ACTIONS = ['storage'];
 
     private int $filesProcessed = 0;
 
@@ -168,6 +192,10 @@ class Tidy extends Command
         if ($base === false) {
             $this->consoleWriter()->error('storage_path() does not resolve — nothing to tidy.');
 
+            return self::FAILURE;
+        }
+
+        if (!$this->maySweepUnfiltered($action)) {
             return self::FAILURE;
         }
 
@@ -337,6 +365,15 @@ class Tidy extends Command
     // all (cache + file roots; NEVER db)
     // -----------------------------------------------------------------------
 
+    /**
+     * `all` sweeps the regenerable roots unconditionally and the user-file
+     * roots only when scoped.
+     *
+     * Skipping rather than refusing, because `logs` and `temp` are what `all`
+     * is for and failing the whole run over `storage` would make the useful
+     * part unreachable. The skip is printed — an omission this consequential
+     * should not be inferred from a file count.
+     */
     private function tidyAll(): int
     {
         if (!$this->isDryRun() && !$this->confirmAction('Tidy cache, logs, temp and storage? (the db action is excluded.)')) {
@@ -346,16 +383,26 @@ class Tidy extends Command
         $this->tidyCacheQuietly();
 
         $signals = $this->services->signals();
+        $skipped = [];
 
         foreach (['logs', 'temp', 'storage'] as $action) {
             if (!$signals->shouldKeepRunning()) {
                 break;
             }
 
+            if (in_array($action, self::USER_DATA_ACTIONS, true) && !$this->maySweepUnfiltered($action)) {
+                $skipped[] = $action;
+
+                continue;
+            }
+
             $this->tidyFiles($action, confirm: false);
         }
 
-        $this->consoleWriter()->success('All tidied (db excluded — run the db action explicitly).');
+        $this->consoleWriter()->success(sprintf(
+            'All tidied (db excluded — run the db action explicitly)%s.',
+            $skipped === [] ? '' : ', ' . implode(' and ', $skipped) . ' skipped',
+        ));
 
         return self::SUCCESS;
     }
@@ -404,6 +451,59 @@ class Tidy extends Command
     private function isDryRun(): bool
     {
         return $this->boolOption('dry-run');
+    }
+
+    /**
+     * Refuse an unfiltered sweep of the roots that hold user files.
+     *
+     * `--force` is habitual — it is in every CI invocation and most of this
+     * command's own test suite — so it cannot be what stands between a
+     * maintenance command and every user upload. The gate is therefore a flag
+     * that exists for nothing else and cannot be typed by muscle memory.
+     *
+     * A filter makes the sweep intentional on its own: `--days=30` deletes what
+     * is stale, `--size=100` what is oversized, and both together only what is
+     * stale AND oversized. Those pass unchanged. What is refused is the
+     * no-filter case, which matches every file in `app/public`.
+     *
+     * In production the acknowledgement is not offered at all. There is no
+     * legitimate reason to empty a production public disk through a housekeeping
+     * command, and `--force` bypasses Laravel's own `confirmToProceed()` by
+     * design, so a prompt would not have been a gate either.
+     */
+    private function maySweepUnfiltered(string $action): bool
+    {
+        if (!in_array($action, self::USER_DATA_ACTIONS, true)) {
+            return true;
+        }
+
+        if ($this->ageCutoff() !== null || $this->minBytes() !== null) {
+            return true;
+        }
+
+        $roots = implode(', ', array_map(
+            static fn (string $relative): string => "storage/{$relative}",
+            self::ROOTS[$action],
+        ));
+
+        $writer = $this->consoleWriter();
+
+        if ($this->getLaravel()->environment('production')) {
+            $writer->error("Refusing to sweep {$roots} unfiltered in production — these hold user files.");
+            $writer->line('  Pass <fg=yellow>--days=</> or <fg=yellow>--size=</> to delete only what is stale or oversized.');
+
+            return false;
+        }
+
+        if (!$this->boolOption('unfiltered')) {
+            $writer->error("Refusing to sweep {$roots} with no filter — these hold user files, and every one would match.");
+            $writer->line('  Pass <fg=yellow>--days=30</> or <fg=yellow>--size=100</> to scope it,');
+            $writer->line('  or <fg=yellow>--unfiltered</> to delete all of it anyway (never in production).');
+
+            return false;
+        }
+
+        return true;
     }
 
     private function boolOption(string $key): bool
