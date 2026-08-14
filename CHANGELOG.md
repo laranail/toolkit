@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- **`clearThirdPartyCache()` recursively deleted whatever a config key pointed
+  at.** The method is public and takes a config *key*, so any path that key held
+  was handed straight to `deleteDirectory()` — no containment check, no symlink
+  check, no dry run. `filesystems.disks.local.root`, `view.compiled`, or simply a
+  mistyped key would each have emptied a directory the method has no business
+  touching.
+
+  Both shipped callers — `purifier.cachePath` and `debugbar.storage.path` — name
+  somewhere inside `storage/`, so that is now the boundary: a path outside it is
+  refused and logged rather than cleared. The storage root itself is never
+  clearable, only things under it, and a symlink is refused outright because
+  following one would empty somewhere the check never approved.
+
 ### Removed
 
 - **`Toolkit::config()` — the runtime `ConfigManager` moved to `laranail/package-tools`.**

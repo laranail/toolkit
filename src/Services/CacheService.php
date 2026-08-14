@@ -502,11 +502,33 @@ class CacheService implements CacheRepositoryInterface
         }
     }
 
-    /** Clear a third-party cache path read from a config key. */
+    /**
+     * Clear a third-party cache path read from a config key.
+     *
+     * The config key is caller-supplied and `clearThirdPartyCache()` is public,
+     * so this method previously handed *any* configured path to a recursive
+     * delete: `filesystems.disks.local.root`, `view.compiled`, or a
+     * mistyped key pointing anywhere at all. Nothing checked containment, and
+     * nothing checked for a symlink.
+     *
+     * Every legitimate caller — `purifier.cachePath`, `debugbar.storage.path` —
+     * names a directory inside `storage/`, so that is the boundary. A path
+     * outside it is refused rather than cleared, because a cache directory the
+     * application does not own is not this method's to empty.
+     */
     private function deleteThirdParty(string $configKey): void
     {
         $path = ToolkitConfig::string($configKey);
         if ($path === '') {
+            return;
+        }
+
+        if (!$this->isClearableCachePath($path)) {
+            $this->logger->warning('Refused to clear a third-party cache path outside storage/.', [
+                'config_key' => $configKey,
+                'path' => $path,
+            ]);
+
             return;
         }
 
@@ -517,6 +539,31 @@ class CacheService implements CacheRepositoryInterface
         }
 
         $this->deleteIfExists($path);
+    }
+
+    /**
+     * Whether a configured cache path may be emptied.
+     *
+     * Resolved with `realpath()` and compared with a trailing separator, so
+     * `storage2/` does not pass as being inside `storage/`. A symlink is
+     * refused outright: following one would empty a directory the guard never
+     * approved, and no legitimate cache path needs to be one.
+     */
+    private function isClearableCachePath(string $path): bool
+    {
+        if (str_contains($path, "\0") || is_link($path)) {
+            return false;
+        }
+
+        $real = realpath($path);
+        $root = realpath(storage_path());
+
+        if ($real === false || $root === false) {
+            return false;
+        }
+
+        // The root itself is never clearable — only things under it.
+        return $real !== $root && str_starts_with($real, rtrim($root, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
     }
 
     /** The compiled-view clear body, reused by {@see cacheViews()}/orchestrators. */
