@@ -1,19 +1,19 @@
 # Access log middleware
 
 `AccessLogMiddleware` records incoming requests to the `access_logs` table. It is
-registered under the route-middleware alias **`access.log`** and runs in the
+registered under the route-middleware alias **`laranail-toolkit.access-log`** and runs in the
 `terminate` phase, so it never adds latency to the response.
 
 ## Usage
 
 ```php
 // routes/web.php or routes/api.php
-Route::middleware('access.log')->group(function () {
+Route::middleware('laranail-toolkit.access-log')->group(function () {
     Route::get('/dashboard', DashboardController::class);
 });
 ```
 
-Apply it globally by adding `'access.log'` to a middleware group in your
+Apply it globally by adding `'laranail-toolkit.access-log'` to a middleware group in your
 application's bootstrap/HTTP kernel.
 
 ## What is stored

@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * This middleware **globally transforms the payload of every response on the
  * routes it is attached to**. It is therefore opt-in: register it on a specific
- * route or group via the `api.response` alias rather than in the global kernel.
+ * route or group via the `laranail-toolkit.api-response` alias rather than in the global kernel.
  *
  * Hardening: the response body is decoded with {@see json_decode} guarded by
  * {@see json_last_error()}. If the body is not valid JSON (e.g. a streamed file

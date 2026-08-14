@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * {@see ApiRequestMiddleware::hook()}) in a subclass to change the convention or
  * adjust the request further.
  *
- * Opt in per route/group via the `api.request` alias — it is **not** registered
+ * Opt in per route/group via the `laranail-toolkit.api-request` alias — it is **not** registered
  * globally, so it never silently rewrites every request in the app.
  */
 class ApiRequestMiddleware extends ApiMiddleware

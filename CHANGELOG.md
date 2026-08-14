@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Route-middleware aliases are vendor-scoped.** The router's alias map is flat, so a second package
+  registering `api.request` does not conflict — it silently replaces this one, and the damage
+  surfaces as the wrong middleware running on a route nobody touched. `access.log` and
+  `email.obfuscate` are names an application would plausibly pick for itself.
+
+  | Was | Now |
+  |---|---|
+  | `access.log` | `laranail-toolkit.access-log` |
+  | `api.request` | `laranail-toolkit.api-request` |
+  | `api.response` | `laranail-toolkit.api-response` |
+  | `email.obfuscate` | `laranail-toolkit.email-obfuscate` |
+
+  A dot after the prefix rather than `::`, and that is forced rather than stylistic: Laravel resolves
+  an alias with `explode(':', $name, 2)` so `throttle:60,1` can carry parameters, so
+  `laranail::toolkit.api-response` would resolve as the middleware `laranail` with the parameter
+  `:toolkit.api-response`. The dot form keeps `->middleware('laranail-toolkit.api-response:meta,data')`
+  working.
+
+### Fixed
+
+- **The translation namespace was `laranail/toolkit`, with a slash.** That is a namespace, not a
+  path: Laravel publishes to `lang/vendor/{namespace}`, so the files landed one directory deeper
+  than the loader looks for them — every published translation override was silently ignored while
+  the packaged default kept answering. It is `laranail-toolkit` now, matching the view namespace,
+  and `vendor:publish --tag=laranail::toolkit-translations` writes to `lang/vendor/laranail-toolkit`.
+
 ### Removed
 
 - **`Modules\Atlas`, `Modules\Avatar` and `Modules\Gravatar`** — extracted to

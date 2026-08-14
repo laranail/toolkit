@@ -117,7 +117,7 @@ Two things must register eagerly and so run in `boot()`, not deferred:
   Request/Factory macros globally.
 - **Blade directives** — `BladeServiceProvider` registers custom directives.
 
-The middleware alias `access.log`, the `reject_common_passwords` validator, and
+The middleware alias `laranail-toolkit.access-log`, the `reject_common_passwords` validator, and
 the `php artisan about` diagnostics are also wired in `boot()`.
 
 ## Exceptions

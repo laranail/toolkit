@@ -104,13 +104,25 @@ class ToolkitServiceProvider extends ServiceProvider
     /**
      * Opt-in route-middleware aliases (none pushed onto the global stack).
      *
+     * Vendor- and package-scoped, because the router's alias map is flat: a
+     * second package registering `api.request` does not conflict, it silently
+     * replaces this one, and the damage surfaces as the wrong middleware running
+     * on a route nobody changed. `access.log` and `email.obfuscate` are names an
+     * application would plausibly pick for itself.
+     *
+     * A dot rather than `::` after the prefix, and this is forced rather than
+     * stylistic: Laravel resolves an alias with `explode(':', $name, 2)` so that
+     * `throttle:60,1` can carry parameters, and `laranail::toolkit.api-request`
+     * would resolve as the middleware `laranail` with the parameter
+     * `:toolkit.api-request`, which does not exist.
+     *
      * @var array<string, class-string>
      */
     private const array MIDDLEWARE_ALIASES = [
-        'access.log' => AccessLogMiddleware::class,
-        'api.request' => ApiRequestMiddleware::class,
-        'api.response' => ApiResponseMiddleware::class,
-        'email.obfuscate' => EmailObfuscatorMiddleware::class,
+        'laranail-toolkit.access-log' => AccessLogMiddleware::class,
+        'laranail-toolkit.api-request' => ApiRequestMiddleware::class,
+        'laranail-toolkit.api-response' => ApiResponseMiddleware::class,
+        'laranail-toolkit.email-obfuscate' => EmailObfuscatorMiddleware::class,
     ];
 
     public function register(): void
@@ -141,10 +153,15 @@ class ToolkitServiceProvider extends ServiceProvider
         $root = $this->packageRoot();
 
         $this->loadViewsFrom("{$root}/resources/views", 'laranail-toolkit');
-        $this->loadTranslationsFrom("{$root}/resources/lang", 'laranail/toolkit');
+        // A hyphen, matching the view namespace above. A slash here would be a
+        // namespace, not a path: Laravel publishes to `lang/vendor/{namespace}`,
+        // so `laranail/toolkit` nests the files one directory deeper than the
+        // loader looks for them, and every published override is silently
+        // ignored while the packaged default keeps answering.
+        $this->loadTranslationsFrom("{$root}/resources/lang", 'laranail-toolkit');
         $this->loadJsonTranslationsFrom("{$root}/resources/lang");
         // Published JSON string-translation overrides in the app lang path.
-        $this->loadJsonTranslationsFrom($this->app->langPath('vendor/laranail/toolkit'));
+        $this->loadJsonTranslationsFrom($this->app->langPath('vendor/laranail-toolkit'));
         $this->loadMigrationsFrom("{$root}/database/migrations");
 
         $this->commands([MakeCrud::class, IdeHelperMacros::class, Tidy::class]);
@@ -291,7 +308,7 @@ class ToolkitServiceProvider extends ServiceProvider
         );
 
         $this->publishes(
-            ["{$root}/resources/lang" => $this->app->langPath('vendor/laranail/toolkit')],
+            ["{$root}/resources/lang" => $this->app->langPath('vendor/laranail-toolkit')],
             'laranail::toolkit-translations',
         );
 

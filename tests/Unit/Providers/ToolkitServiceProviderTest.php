@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Providers;
 
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
@@ -32,10 +33,43 @@ final class ToolkitServiceProviderTest extends TestCase
     {
         $aliases = $this->app->make(Router::class)->getMiddleware();
 
-        self::assertSame(AccessLogMiddleware::class, $aliases['access.log'] ?? null);
-        self::assertSame(ApiRequestMiddleware::class, $aliases['api.request'] ?? null);
-        self::assertSame(ApiResponseMiddleware::class, $aliases['api.response'] ?? null);
-        self::assertSame(EmailObfuscatorMiddleware::class, $aliases['email.obfuscate'] ?? null);
+        self::assertSame(AccessLogMiddleware::class, $aliases['laranail-toolkit.access-log'] ?? null);
+        self::assertSame(ApiRequestMiddleware::class, $aliases['laranail-toolkit.api-request'] ?? null);
+        self::assertSame(ApiResponseMiddleware::class, $aliases['laranail-toolkit.api-response'] ?? null);
+        self::assertSame(EmailObfuscatorMiddleware::class, $aliases['laranail-toolkit.email-obfuscate'] ?? null);
+    }
+
+    /**
+     * The router's alias map is flat, so a second package registering
+     * `api.request` does not conflict — it silently replaces this one, and the
+     * damage surfaces as the wrong middleware running on a route nobody
+     * touched. `access.log` and `email.obfuscate` are names an application
+     * would plausibly pick for itself.
+     */
+    public function test_no_generic_middleware_alias_is_claimed(): void
+    {
+        $aliases = $this->app->make(Router::class)->getMiddleware();
+
+        foreach (['access.log', 'api.request', 'api.response', 'email.obfuscate'] as $generic) {
+            self::assertArrayNotHasKey($generic, $aliases);
+        }
+    }
+
+    /**
+     * A hyphen, matching the view namespace.
+     *
+     * A slash here is a namespace and not a path: Laravel publishes to
+     * `lang/vendor/{namespace}`, so `laranail/toolkit` nests the files a
+     * directory deeper than the loader looks, and every published override is
+     * silently ignored while the packaged default keeps answering.
+     */
+    public function test_translations_are_namespaced_with_a_hyphen(): void
+    {
+        $namespaces = Lang::getLoader()->namespaces();
+
+        self::assertArrayHasKey('laranail-toolkit', $namespaces);
+        self::assertArrayNotHasKey('laranail/toolkit', $namespaces);
+        self::assertArrayNotHasKey('toolkit', $namespaces);
     }
 
     public function test_child_providers_are_registered(): void

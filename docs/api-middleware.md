@@ -4,11 +4,11 @@ The toolkit ships a small, **opt-in** API layer for JSON endpoints:
 
 | Class | Alias | What it does |
 |-------|-------|--------------|
-| `Http\Middleware\ApiRequestMiddleware` | `api.request` | Recursively rewrites **incoming** request keys to `snake_case`. |
-| `Http\Middleware\ApiResponseMiddleware` | `api.response` | Wraps the **outgoing** JSON in a standard envelope and rewrites data keys to `camelCase`. |
+| `Http\Middleware\ApiRequestMiddleware` | `laranail-toolkit.api-request` | Recursively rewrites **incoming** request keys to `snake_case`. |
+| `Http\Middleware\ApiResponseMiddleware` | `laranail-toolkit.api-response` | Wraps the **outgoing** JSON in a standard envelope and rewrites data keys to `camelCase`. |
 | `Http\Requests\BaseRequest` | — | A `FormRequest` base that sanitizes every string input before validation. |
 | `Http\Requests\ApiRequest` | — | `BaseRequest` subtype that returns a JSON 422 envelope on validation failure. |
-| `Http\Middleware\EmailObfuscatorMiddleware` | `email.obfuscate` | HTML-entity–encodes email addresses in non-JSON responses (anti-harvesting). |
+| `Http\Middleware\EmailObfuscatorMiddleware` | `laranail-toolkit.email-obfuscate` | HTML-entity–encodes email addresses in non-JSON responses (anti-harvesting). |
 | `Http\Middleware\ApiMiddleware` | — | Abstract base shared by the two middleware (the recursive key walker). |
 | `Http\Concerns\MutatesPayloadKeys` | — | Reusable trait for the `snake_case ⇄ camelCase` key conversion. |
 | `Http\Contracts\HttpStatusInterface` | — | HTTP status-code constants + reason-phrase map used for `meta`. |
@@ -19,14 +19,14 @@ route or group.
 ## Request / response middleware
 
 ```php
-Route::middleware(['api.request', 'api.response'])->group(function () {
+Route::middleware(['laranail-toolkit.api-request', 'laranail-toolkit.api-response'])->group(function () {
     Route::get('/users/{user}', [UserController::class, 'show']);
 });
 ```
 
-`api.request` converts a camelCase JSON body (`{"firstName": "Jane"}`) into
+`laranail-toolkit.api-request` converts a camelCase JSON body (`{"firstName": "Jane"}`) into
 snake_case (`first_name`) so it lines up with Laravel's validation / `$fillable`
-conventions. `api.response` does the reverse on the way out and wraps the body:
+conventions. `laranail-toolkit.api-response` does the reverse on the way out and wraps the body:
 
 ```json
 {
@@ -58,7 +58,7 @@ group) without touching each one. The snake/camel key walker lives in the shared
 
 ### Hardening
 
-`api.response` decodes the response body with `json_decode` guarded by
+`laranail-toolkit.api-response` decodes the response body with `json_decode` guarded by
 `json_last_error()`. If the body is **not** valid JSON (e.g. a streamed file or
 an HTML error page that slipped through), the response is returned **untouched**
 — it is never corrupted, and the middleware never fatals. Non-`JsonResponse`
@@ -69,7 +69,7 @@ responses (views, redirects, streams) also pass straight through.
 Both middleware extend `ApiMiddleware`; override `mutateKey()` to change the
 casing convention, or `hook()` to mutate the request/response further. The
 optional positional middleware parameters rename the envelope tags:
-`->middleware('api.response:meta,data,pagination')`.
+`->middleware('laranail-toolkit.api-response:meta,data,pagination')`.
 
 ## `BaseRequest`
 
@@ -134,16 +134,16 @@ class StoreUserRequest extends ApiRequest
 }
 ```
 
-## `email.obfuscate` middleware
+## `laranail-toolkit.email-obfuscate` middleware
 
-`EmailObfuscatorMiddleware` (alias `email.obfuscate`) is a lightweight
+`EmailObfuscatorMiddleware` (alias `laranail-toolkit.email-obfuscate`) is a lightweight
 anti-harvesting measure: on the way out it replaces every email address in the
 response body with its HTML-entity encoding (each character as `&#<codepoint>;`).
 Browsers render the entities as the original text, but naive scrapers see only
 entity noise.
 
 ```php
-Route::middleware('email.obfuscate')->group(function () {
+Route::middleware('laranail-toolkit.email-obfuscate')->group(function () {
     Route::get('/team', [TeamController::class, 'index']);
 });
 ```

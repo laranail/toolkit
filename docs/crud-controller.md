@@ -70,9 +70,9 @@ Route::apiResource('posts', PostController::class);
 | `per_page` | Page size, clamped to `[1, $maxPerPage]` (default `$perPage`). |
 
 > The index `meta` block uses `current_page, last_page, per_page, total`. This differs
-> from the `api.response` middleware / `ApiResponseTrait` pagination block, which uses
+> from the `laranail-toolkit.api-response` middleware / `ApiResponseTrait` pagination block, which uses
 > `total, count, per_page, current_page, total_pages` — wrap `CrudController` responses in
-> `api.response` only if you want the latter shape.
+> `laranail-toolkit.api-response` only if you want the latter shape.
 
 ## Security
 

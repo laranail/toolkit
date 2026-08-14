@@ -357,7 +357,7 @@ config (no separate publish tag).
 
 `Modules\Security\AccessLog` holds the terminate-phase request-logging
 middleware and its Eloquent model. The middleware is registered under the
-`access.log` alias; the full request-lifecycle and configuration walkthrough
+`laranail-toolkit.access-log` alias; the full request-lifecycle and configuration walkthrough
 lives in [access-log.md](access-log.md). The security-relevant pieces:
 
 ### `AccessLog` model

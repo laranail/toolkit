@@ -90,7 +90,7 @@ return [
      * at a mkcert/Caddy CA bundle for HTTPS behind a local reverse proxy.
      */
     'access_log' => [
-        // Toggle persistence of the access.log middleware.
+        // Toggle persistence of the laranail-toolkit.access-log middleware.
         'enabled' => env('LARANAIL_ACCESS_LOG_ENABLED', true),
 
         // Request keys whose values are redacted before being stored.

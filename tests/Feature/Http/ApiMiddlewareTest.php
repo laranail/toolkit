@@ -13,17 +13,17 @@ class ApiMiddlewareTest extends TestCase
 {
     protected function defineRoutes($router): void
     {
-        // api.request snake-cases incoming keys before the handler sees them.
+        // laranail-toolkit.api-request snake-cases incoming keys before the handler sees them.
         $router->post(
             '/_test/api/request',
             fn () => response()->json(['received' => request()->all()]),
-        )->middleware('api.request');
+        )->middleware('laranail-toolkit.api-request');
 
-        // api.response envelopes + camelCases the outgoing JSON.
+        // laranail-toolkit.api-response envelopes + camelCases the outgoing JSON.
         $router->get(
             '/_test/api/response',
             fn () => response()->json(['user_id' => 7, 'display_name' => 'Jane']),
-        )->middleware('api.response');
+        )->middleware('laranail-toolkit.api-response');
 
         $router->get('/_test/api/response/paginated', function () {
             $paginator = new LengthAwarePaginator(
@@ -34,12 +34,12 @@ class ApiMiddlewareTest extends TestCase
             );
 
             return response()->json($paginator);
-        })->middleware('api.response');
+        })->middleware('laranail-toolkit.api-response');
 
         $router->get(
             '/_test/api/response/error',
             fn () => response()->json(['error_code' => 'nope'], 422),
-        )->middleware('api.response');
+        )->middleware('laranail-toolkit.api-response');
     }
 
     public function test_request_middleware_snake_cases_incoming_keys(): void

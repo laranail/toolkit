@@ -56,7 +56,7 @@ trait).
 
 | Key | Default | Notes |
 |-----|---------|-------|
-| `enabled` | `true` | Toggle persistence of the `access.log` middleware. Env: `LARANAIL_ACCESS_LOG_ENABLED`. |
+| `enabled` | `true` | Toggle persistence of the `laranail-toolkit.access-log` middleware. Env: `LARANAIL_ACCESS_LOG_ENABLED`. |
 | `redact` | `null` | Request keys to redact. `null` uses the middleware's built-in deny-list. |
 
 ## `laranail.toolkit.rate_limiting`
