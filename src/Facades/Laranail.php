@@ -15,8 +15,6 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
  * `Toolkit::route()` with no duplicated logic. It is NOT the legacy 48-method
  * service-locator; it exposes only the toolkit's typed module accessors.
  *
- * @method static \Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface                     avatar()
- * @method static \Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface                 gravatar()
  * @method static \Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface                 archiver()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface                  route()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface             validation()
@@ -36,7 +34,6 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface                 settings()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface            rateLimiter()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface              scheduler()
- * @method static \Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface                       atlas()
  * @method static \Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface                 livewire()
  * @method static \Simtabi\Laranail\Toolkit\Modules\Security\Token                                    token()
  * @method static \Simtabi\Laranail\Toolkit\Modules\Security\Password                                 password()

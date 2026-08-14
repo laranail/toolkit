@@ -10,9 +10,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
 use Simtabi\Laranail\Toolkit\Modules\Security\Password;
@@ -48,16 +45,6 @@ class ToolkitManager
     public function __construct(
         private readonly Application $app,
     ) {}
-
-    public function avatar(): AvatarServiceInterface
-    {
-        return $this->app->make(AvatarServiceInterface::class);
-    }
-
-    public function gravatar(): GravatarServiceInterface
-    {
-        return $this->app->make(GravatarServiceInterface::class);
-    }
 
     public function archiver(): ArchiverServiceInterface
     {
@@ -215,14 +202,6 @@ class ToolkitManager
         $guard = ToolkitConfig::string('laranail.toolkit.auth.default_guard', '');
 
         return $guard !== '' ? $guard : null;
-    }
-
-    /**
-     * Geographic / country / language dataset helpers (Atlas module).
-     */
-    public function atlas(): AtlasServiceInterface
-    {
-        return $this->app->make(AtlasServiceInterface::class);
     }
 
     /**

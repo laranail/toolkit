@@ -62,28 +62,6 @@ $this->deleteFile($name, 'uploads');
 $this->deleteFiles($names);
 ```
 
-## HasAvatar
-
-Avatar resolution for a user-like model, wired to the Avatar and Gravatar
-modules. Override `avatarEmailAttribute()` / `avatarAttribute()` to point at
-custom columns.
-
-```php
-use Simtabi\Laranail\Toolkit\Traits\HasAvatar;
-
-class User extends Authenticatable
-{
-    use HasAvatar;
-}
-
-$user->getAvatar();                    // stored avatar, else Gravatar fallback
-$user->gravatar(size: 128);            // Gravatar URL or null (https default)
-$user->getGravatar(size: 128, default: 'mp', rating: 'g'); // Gravatar URL with options
-$user->generateAvatar(size: 128);      // initials avatar data URI
-$user->getAvatarWithFallback(128, preferGravatar: true);
-$user->resolveAvatarUrl($storedPath);  // absolute URL for a stored avatar path
-```
-
 ## HasFormatters
 
 Presentation helpers built on native `Carbon` / `Str`.

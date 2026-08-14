@@ -20,7 +20,7 @@ Every module is reachable by DI (its contract), its own facade, or the unified `
 ```php
 use Simtabi\Laranail\Toolkit\Facades\Toolkit;
 
-$url = Toolkit::gravatar()->setEmail('user@example.com')->setSize(120)->generate();
+$archive = Toolkit::archiver()->zip();
 Toolkit::archiver()->extract($zip, $dest);
 ```
 
@@ -39,7 +39,7 @@ See [make-crud](make-crud.md) and [CrudController](crud-controller.md).
 
 - [Configuration](configuration.md) — the `laranail.toolkit.*` reference.
 - [Architecture](architecture.md) — modules, deferred providers, layout.
-- [LLM module](modules/llm.md) · [Avatar](modules/avatar.md) · [Archiver](modules/archiver.md) — feature modules.
+- [LLM module](modules/llm.md) · [Archiver](modules/archiver.md) — feature modules.
 - [Macros](macros.md) · [Utilities](utilities.md) · [Static helpers](helpers.md) — the building blocks.
 
 ---

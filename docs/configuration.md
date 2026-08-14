@@ -9,14 +9,14 @@ php artisan vendor:publish --tag=laranail::toolkit-config
 ```
 
 which writes `config/laranail/toolkit.php` (and the module configs to
-`config/laranail/toolkit/{feature-toggles,atlas,security}.php`). Editing a
+`config/laranail/toolkit/{feature-toggles,security}.php`). Editing a
 published file overrides the matching `config('laranail.toolkit.*')` value — the
 provider's override bridge deep-merges the published file back over the dotted
 key at register time.
 
 Each config file lives at its own sub-key, so there are no collisions:
 `toolkit` → `laranail.toolkit.*`, `feature-toggles` →
-`laranail.toolkit.feature-toggles.*`, `atlas` → `laranail.toolkit.atlas.*`.
+`laranail.toolkit.feature-toggles.*`.
 
 ## `laranail.toolkit.llm`
 
@@ -144,11 +144,6 @@ defaults.
 
 The feature modules' config files are merged centrally under the same namespace
 (each at its own sub-key, published together under `laranail::toolkit-config`):
-
-- `laranail.toolkit.atlas` — one self-contained file for the Atlas module:
-  select-box / cache settings, the continent display-name map
-  (`atlas.continents`), and the Laravel-locale registry (`atlas.languages`)
-  (see [atlas module](modules/atlas.md)).
 
 > Multi-channel notifications now live in the separate
 > [`laranail/notifications`](https://opensource.simtabi.com/notifications/) package,

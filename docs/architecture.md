@@ -18,13 +18,13 @@ src/
 │   ├── ToolkitServiceProvider.php          # the one entry point
 │   └── BladeServiceProvider.php            # custom-only Blade directives
 ├── Facades/Toolkit.php                     # unified entry facade
-├── ToolkitManager.php                      # Toolkit::avatar()/gravatar()/...
+├── ToolkitManager.php                      # Toolkit::archiver()/cache()/...
 ├── Commands/MakeCrud.php                   # make-crud (extends the laranail/console base)
 ├── Http/Controllers/CrudController.php     # abstract base controller
 ├── Services/                               # injectable, interface-backed services (File, System,
 │                                           #   Cache, Log, SettingsStore, RateLimiter, Scheduler, ...)
 ├── Macros/                                 # grouped macro providers + MacroServiceProvider
-├── Traits/                                 # ApiResponse, Auditable, HasAvatar, FilePathGuard, ...
+├── Traits/                                 # ApiResponse, Auditable, FilePathGuard, ...
 ├── Support/                                # pure/static helpers: ApiResponder, Cast, Config, AuthHelper,
 │   │                                       #   Environment, CollectionFilter, QueryParameters,
 │                                           #   FeatureToggle, RequirementsDiagnostics, Username, ...
@@ -34,10 +34,7 @@ src/
 ├── Helpers/Helper.php                       # static PURE-function facade (arrays/strings/dates/geo/console); Concerns/InteractsWith* traits
                                              #   (file/system domains moved to injectable Services/*)
 └── Modules/                                # self-contained feature modules (flat inside)
-    ├── Avatar/        AvatarService, AvatarServiceInterface, AvatarFont, DTOs, Avatar facade, provider
-    ├── Gravatar/      GravatarService, …, Gravatar facade, provider
     ├── Archiver/      ArchiverService, ArchiveManager, Zip/Tar/TarGz/Extractor, Archiver facade, provider
-    ├── Atlas/         AtlasService, …, Atlas facade, provider (single config/atlas.php)
     ├── Eventing/      Events/{Event (abstract event base), CacheEvents}, Listeners/Listener (abstract listener base)
     ├── Livewire/      LivewireServiceProvider, component registration
     ├── Security/      Token, Password, Passphrase (CSPRNG generators), SecurityData (reads config('laranail.toolkit.security'), framework-free fallback), AccessLog/{AccessLogMiddleware, AccessLog (model)}
@@ -76,25 +73,22 @@ Each module provider:
 
 - **is deferred** (`DeferrableProvider`) — services boot only when first resolved,
   keeping the framework boot lean;
-- **binds by interface** (e.g. `AvatarServiceInterface` → `AvatarService`);
+- **binds by interface** (e.g. `ArchiverServiceInterface` → `ArchiverService`);
 - **registers a string alias** (`laranail.<module>`) and a Facade.
 
 | Module | Contract | Alias | Facade |
 |--------|----------|-------|--------|
-| Gravatar | `GravatarServiceInterface` | `laranail.gravatar` | `Gravatar` |
-| Avatar | `AvatarServiceInterface` | `laranail.avatar` | `Avatar` |
 | Archiver | `ArchiverServiceInterface` | `laranail.archiver` | `Archiver` |
-| Atlas | `AtlasService` | `laranail.atlas` | `Atlas` |
 | LLM | `LLMProviderInterface` | `laranail.llm` | `LLM` |
 
 Resolve any module by its contract (preferred, for testability), its own facade,
-or the unified `Toolkit` facade (`Toolkit::avatar()`, …).
+or the unified `Toolkit` facade (`Toolkit::archiver()`, …).
 
 ### The `Toolkit` facade accessors
 
 `Facades\Toolkit` (proxying `ToolkitManager`) fronts every module **and** the
 injectable core services with typed `@method` accessors. Alongside the module
-accessors (`avatar()`, `gravatar()`, `archiver()`, `atlas()`,
+accessors (`archiver()`, `cache()`,
 `livewire()`) and the security generators (`token()`, `password()`,
 `passphrase()`), it exposes the core services — including the **five service
 accessors**:

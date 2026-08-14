@@ -20,6 +20,11 @@ final class NamespacedConfigTest extends TestCase
 
     public function test_module_configs_get_distinct_per_file_subkeys(): void
     {
-        self::assertNotNull(config('laranail.toolkit.atlas.default_label'));
+        // Was asserted against the atlas config, which moved to laranail/atlas.
+        // security.php is the remaining second file, and the property under test
+        // is that a second file lands on its own sub-key rather than merging
+        // into the first.
+        self::assertIsArray(config('laranail.toolkit.security'));
+        self::assertNotSame(config('laranail.toolkit.security'), config('laranail.toolkit.llm'));
     }
 }

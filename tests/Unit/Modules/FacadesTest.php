@@ -7,11 +7,6 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules;
 use Simtabi\Laranail\Toolkit\Facades\Laranail;
 use Simtabi\Laranail\Toolkit\Facades\Toolkit;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\Avatar;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\Gravatar;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
 use Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiProvider;
@@ -37,16 +32,6 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
 
 class FacadesTest extends TestCase
 {
-    public function test_avatar_facade_resolves_its_root(): void
-    {
-        $this->assertInstanceOf(AvatarServiceInterface::class, Avatar::getFacadeRoot());
-    }
-
-    public function test_gravatar_facade_resolves_its_root(): void
-    {
-        $this->assertInstanceOf(GravatarServiceInterface::class, Gravatar::getFacadeRoot());
-    }
-
     public function test_llm_facade_resolves_the_default_provider(): void
     {
         $this->assertInstanceOf(LLMProviderInterface::class, LLM::getFacadeRoot());
@@ -61,25 +46,9 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(LLMProviderInterface::class, $this->app->make(LLMProviderInterface::class));
     }
 
-    public function test_gravatar_facade_proxies_a_method_call(): void
-    {
-        $url = Gravatar::setEmail('user@example.com')->setSize(120)->generate();
-
-        $this->assertStringContainsString('gravatar.com/avatar/', $url);
-    }
-
     public function test_toolkit_facade_fronts_each_module(): void
     {
-        $this->assertInstanceOf(AvatarServiceInterface::class, Toolkit::avatar());
-        $this->assertInstanceOf(GravatarServiceInterface::class, Toolkit::gravatar());
         $this->assertInstanceOf(ArchiverServiceInterface::class, Toolkit::archiver());
-    }
-
-    public function test_toolkit_facade_chains_into_a_module(): void
-    {
-        $url = Toolkit::gravatar()->setEmail('user@example.com')->setSize(64)->generate();
-
-        $this->assertStringContainsString('gravatar.com/avatar/', $url);
     }
 
     public function test_toolkit_facade_fronts_each_cross_cutting_service(): void
@@ -93,10 +62,9 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(SystemServiceInterface::class, Toolkit::system());
     }
 
-    public function test_toolkit_facade_fronts_auth_atlas_and_livewire(): void
+    public function test_toolkit_facade_fronts_auth_and_livewire(): void
     {
         $this->assertInstanceOf(AuthenticationContextServiceInterface::class, Toolkit::auth());
-        $this->assertInstanceOf(AtlasServiceInterface::class, Toolkit::atlas());
         $this->assertInstanceOf(LivewireServiceInterface::class, Toolkit::livewire());
     }
 
@@ -169,10 +137,8 @@ class FacadesTest extends TestCase
 
     public function test_laranail_facade_fronts_each_module(): void
     {
-        $this->assertInstanceOf(AvatarServiceInterface::class, Laranail::avatar());
         $this->assertInstanceOf(RouteServiceInterface::class, Laranail::route());
         $this->assertInstanceOf(SessionServiceInterface::class, Laranail::session());
-        $this->assertInstanceOf(AtlasServiceInterface::class, Laranail::atlas());
     }
 
     public function test_laranail_and_toolkit_resolve_the_same_manager_and_services(): void
@@ -186,6 +152,9 @@ class FacadesTest extends TestCase
         $this->assertInstanceOf(RouteServiceInterface::class, Toolkit::route());
 
         // Singleton-bound services resolve to the identical instance via either.
-        $this->assertSame(Laranail::atlas(), Toolkit::atlas());
+        // session() rather than the atlas() this used to assert — and rather
+        // than cache(), which is bind() not singleton() and so returns a fresh
+        // instance each call.
+        $this->assertSame(Laranail::session(), Toolkit::session());
     }
 }

@@ -1,4 +1,36 @@
 {
+  "Simtabi\\Laranail\\Features\\Avatar\\Contracts\\AvatarServiceInterface": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Avatar\\DTOs\\AvatarGenerationDTO": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Avatar\\DTOs\\AvatarResolutionContextDTO": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Avatar\\DTOs\\AvatarResolutionDTO": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Avatar\\Facades\\AvatarFacade": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Avatar\\Services\\AvatarResolutionContext": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Avatar\\Services\\AvatarResolver": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Avatar\\Services\\AvatarService": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
   "Simtabi\\Laranail\\Features\\Captcha\\Contracts\\CaptchaProviderInterface": {
     "status": "relocated",
     "target": "laranail/captcha"
@@ -22,6 +54,22 @@
   "Simtabi\\Laranail\\Features\\Captcha\\Services\\CaptchaService": {
     "status": "relocated",
     "target": "laranail/captcha"
+  },
+  "Simtabi\\Laranail\\Features\\Gravatar\\Contracts\\GravatarServiceInterface": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Gravatar\\DTOs\\GravatarResolutionDTO": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Gravatar\\Facades\\GravatarFacade": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Features\\Gravatar\\Services\\GravatarService": {
+    "status": "relocated",
+    "target": "laranail/avatar"
   },
   "Simtabi\\Laranail\\Features\\Notifications\\Channels\\AbstractNotificationChannel": {
     "status": "relocated",
@@ -727,6 +775,10 @@
     "status": "dropped",
     "target": "returns arrays; superseded by ApiResponseTrait (JsonResponse) + ResponseMacros"
   },
+  "Simtabi\\Laranail\\Shared\\Enums\\AvatarFont": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
   "Simtabi\\Laranail\\Shared\\Enums\\NotificationChannelEnum": {
     "status": "relocated",
     "target": "laranail/notifications"
@@ -779,6 +831,18 @@
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas"
   },
+  "Simtabi\\Laranail\\Support\\Resources\\AvatarGenerationResource": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Support\\Resources\\AvatarResolutionResource": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Support\\Resources\\GravatarResolutionResource": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
   "Simtabi\\Laranail\\Support\\Services\\Atlas\\Countries": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasService"
@@ -799,6 +863,10 @@
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\HasLivewireComponents"
   },
+  "Simtabi\\Laranail\\Support\\Traits\\Models\\HasAvatar": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
   "Simtabi\\Laranail\\Support\\Utilities\\Auth": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Support\\AuthHelper"
@@ -818,5 +886,85 @@
   "Simtabi\\Laranail\\Support\\Utilities\\SystemIO\\RequirementsChecker": {
     "status": "merged",
     "target": "Simtabi\\Laranail\\Toolkit\\Support\\RequirementsDiagnostics (useful probes folded, G6c)"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Helpers\\Concerns\\InteractsWithGeo": {
+    "status": "relocated",
+    "target": "laranail/atlas \u2014 Core\\Geo\\Haversine and Core\\Geo\\Vincenty, returning a Distance rather than a bare float"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\Atlas": {
+    "status": "relocated",
+    "target": "laranail/atlas"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasService": {
+    "status": "relocated",
+    "target": "laranail/atlas"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasServiceInterface": {
+    "status": "relocated",
+    "target": "laranail/atlas"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Atlas\\AtlasServiceProvider": {
+    "status": "relocated",
+    "target": "laranail/atlas"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\Avatar": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarFont": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarGeneration": {
+    "status": "dropped",
+    "target": "dropped \u2014 referenced only from tests, never from src/"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarResolution": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarResolutionContext": {
+    "status": "dropped",
+    "target": "dropped \u2014 referenced only from tests, never from src/"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarResolutionContextData": {
+    "status": "dropped",
+    "target": "dropped \u2014 referenced only from tests, never from src/; its Gravatar chain is one of four collapsed into Adapters\\Sources\\GravatarSource"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarResolver": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarService": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarServiceInterface": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Avatar\\AvatarServiceProvider": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\Gravatar": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\GravatarResolution": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\GravatarService": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\GravatarServiceInterface": {
+    "status": "relocated",
+    "target": "laranail/avatar"
+  },
+  "Simtabi\\Laranail\\Toolkit\\Modules\\Gravatar\\GravatarServiceProvider": {
+    "status": "relocated",
+    "target": "laranail/avatar"
   }
 }

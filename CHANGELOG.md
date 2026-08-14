@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- **`Modules\Atlas`, `Modules\Avatar` and `Modules\Gravatar`** — extracted to
+  [`laranail/atlas`](https://opensource.simtabi.com/documentation/laranail/atlas/) and
+  [`laranail/avatar`](https://opensource.simtabi.com/documentation/laranail/avatar/). See
+  [UPGRADING.md](UPGRADING.md); every removed FQCN is recorded in
+  `tests/Fixtures/Legacy/removed-symbols.json`.
+
+  **3,674 lines of `src/` and two dependencies leave with them** — `rinvex/countries` (~17 MB) and
+  `intervention/image` had exactly one consumer each.
+
+  Three bundled fonts go too, and two of them for licensing reasons rather than size:
+  `FreeSerif.ttf` is GPL-3.0, whose font exception covers documents that *embed* the font rather
+  than redistribution of the file, and `msyh.ttf` is not Microsoft YaHei despite the filename but
+  Droid Sans Fallback carrying an Ascender Corporation EULA reading *"you may not copy this font
+  software"*. Neither belonged in an MIT package.
+
+- **`Helpers\Concerns\InteractsWithGeo`** and `Helper::distanceBetween()` — moved to
+  `laranail/atlas`, where the result is a `Distance` carrying its own unit rather than a float whose
+  unit was set by a string argument several lines earlier.
+
+- **`Traits\HasAvatar`** — moved with the Avatar module.
+
 ### Security
 
 - **`clearThirdPartyCache()` recursively deleted whatever a config key pointed

@@ -1,5 +1,102 @@
 # Upgrade guide
 
+## Atlas, Avatar and Gravatar moved out
+
+Three modules left this package. `Modules\Atlas` became
+[`laranail/atlas`](https://opensource.simtabi.com/documentation/laranail/atlas/); `Modules\Avatar`
+and `Modules\Gravatar` merged into
+[`laranail/avatar`](https://opensource.simtabi.com/documentation/laranail/avatar/).
+
+That drops `rinvex/countries` (~17 MB) and `intervention/image` from this package's dependency tree
+outright — they had exactly one consumer each.
+
+```diff
++   composer require laranail/atlas    # if you used Toolkit::atlas()
++   composer require laranail/avatar   # if you used Toolkit::avatar() or ::gravatar()
+```
+
+### Atlas
+
+```diff
+-   use Simtabi\Laranail\Toolkit\Facades\Toolkit;
++   use Simtabi\Laranail\Atlas\Facades\Atlas;
+
+-   Toolkit::atlas()->countries();
++   Atlas::countries();
+
+-   Toolkit::atlas()->forSelectBox('name');
++   Atlas::options('iso2', 'name');
+```
+
+The fourteen fixed methods became a composable query, so anything the old module had not anticipated
+no longer means filtering its array output by hand:
+
+```php
+Atlas::query()->inContinent('AF')->usingCurrency('KES')->sortedByName()->get();
+```
+
+Return types changed from bare arrays to `CountryRecord` objects. That is the point of the move —
+the old arrays were shaped by whatever `rinvex/countries` exposed, so the data package was
+load-bearing in every call site rather than only in the loader.
+
+`config/laranail/toolkit/atlas.php` is gone. Atlas publishes its own
+`config/laranail/atlas.php`; the continent list is no longer configurable, because trimming it used
+to make `countriesByContinent()` silently drop every country on a removed continent — a display
+preference deleting data.
+
+> **`availableLocales()` was broken and is fixed.** It scanned `resource_path('lang')`, which
+> Laravel abandoned in version 9, so it returned an empty list on every modern application. Atlas's
+> `LocaleRegistry` reads `lang_path()` first. If you were working around the empty list, stop.
+
+### Avatar and Gravatar
+
+```diff
+-   use Simtabi\Laranail\Toolkit\Facades\Toolkit;
++   use Simtabi\Laranail\Avatar\Facades\Avatar;
+
+-   Toolkit::avatar()->setName('Ada Lovelace')->setSize(128, 128)->generateDataUri();
++   Avatar::builder()->size(128)->for('Ada Lovelace')->src();
+
+-   Toolkit::gravatar()->setEmail($email)->setSize(120)->generate();
++   Avatar::builder('gravatar-url')->size(120)->for($email)->src();
+```
+
+**The builder is immutable.** The old service held nineteen mutable properties with setters
+returning `$this` and was a container singleton, so two components rendering avatars on one page
+disagreed about the size and the second one won. Every method now returns a new instance, so a
+partially-configured builder is safe to share.
+
+Four behaviours changed, all of them deliberately:
+
+| Was | Now | Why |
+|---|---|---|
+| Gravatar hashes were MD5 | SHA-256 | An MD5 of an email is not a privacy measure — rainbow tables cover most real addresses, so `<img src=".../avatar/<md5>">` publishes your users' addresses. Gravatar has accepted SHA-256 since 2023. Pass `algorithm: 'md5'` if you stored the old hash. |
+| `getGravatar()` defaulted `$isHttps = false` | `https` everywhere | `GravatarService` defaulted `true` and two `AvatarService` methods defaulted `false`, so one application emitted both. `withHttps(false)` is the only way down. |
+| Initials rendered as PNG via `intervention/image` | SVG | No GD, no Imagick, no font file, and resolution-independent. The raster renderer is still available with `intervention/image` installed. |
+| `substr()` on names | multibyte-correct | Any non-Latin name produced a mojibake avatar. |
+
+`HasAvatar` moved with the module. `Simtabi\Laranail\Toolkit\Traits\HasAvatar` is gone.
+
+> **Two bundled fonts are not carried over, for licensing reasons.** `FreeSerif.ttf` is GPL-3.0 —
+> its font exception covers documents that *embed* the font, not redistribution of the file — so
+> shipping it inside an MIT package distributed GPL software under an MIT banner. `msyh.ttf` is not
+> Microsoft YaHei despite the filename; it is Droid Sans Fallback carrying an Ascender Corporation
+> EULA whose text reads *"you may not copy this font software"*. Only `Roboto-Bold.ttf`
+> (Apache-2.0) ships with `laranail/avatar`. If you rendered CJK initials, supply your own font.
+
+### `Helper::distanceBetween()`
+
+Moved to `laranail/atlas`, and it now returns a `Distance` rather than a bare float:
+
+```diff
+-   Helper::distanceBetween($lat1, $lng1, $lat2, $lng2, 'km');
++   Atlas::distance(new Coordinates($lat1, $lng1), new Coordinates($lat2, $lng2))->kilometres();
+```
+
+The old signature returned a number whose unit was decided by a string argument several lines
+earlier, so `$d > 100` could not be read without scrolling and changing the unit silently rescaled
+every comparison below it.
+
 ## `Toolkit::config()` moved to `laranail/package-tools`
 
 Config machinery belongs with the package-authoring runtime, which already owned the config file

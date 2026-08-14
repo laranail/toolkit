@@ -22,11 +22,8 @@ use Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware;
 use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
 use Simtabi\Laranail\Toolkit\Macros\MacroServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Atlas\AtlasServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Avatar\AvatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Listeners\LogCacheEvents;
-use Simtabi\Laranail\Toolkit\Modules\Gravatar\GravatarServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLog;
@@ -88,7 +85,7 @@ class ToolkitServiceProvider extends ServiceProvider
      *
      * @var list<string>
      */
-    private const array CONFIG_FILES = ['toolkit', 'feature-toggles', 'atlas', 'security'];
+    private const array CONFIG_FILES = ['toolkit', 'feature-toggles', 'security'];
 
     /**
      * Eager coordinators (macros, Blade directives) + the deferred feature
@@ -99,10 +96,7 @@ class ToolkitServiceProvider extends ServiceProvider
     private const array CHILD_PROVIDERS = [
         MacroServiceProvider::class,
         BladeServiceProvider::class,
-        GravatarServiceProvider::class,
-        AvatarServiceProvider::class,
         ArchiverServiceProvider::class,
-        AtlasServiceProvider::class,
         LivewireServiceProvider::class,
         LLMServiceProvider::class,
     ];

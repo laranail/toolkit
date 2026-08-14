@@ -7,7 +7,6 @@ namespace Simtabi\Laranail\Toolkit\Helpers;
 use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithArrays;
 use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithConsole;
 use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithDates;
-use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithGeo;
 use Simtabi\Laranail\Toolkit\Helpers\Concerns\InteractsWithStrings;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
@@ -38,7 +37,6 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
  *                                 escapeHtml, classBasename, randomIntExcept,
  *                                 faker, interpolate, stripTags, linesCount
  * - {@see InteractsWithDates}   — carbonParse, carbonHumanDiff
- * - {@see InteractsWithGeo}     — distanceBetween
  * - {@see InteractsWithConsole} — write
  *
  * These are deliberately **not** fronted by the `Toolkit` facade — they are pure
@@ -49,6 +47,5 @@ final class Helper
     use InteractsWithArrays;
     use InteractsWithConsole;
     use InteractsWithDates;
-    use InteractsWithGeo;
     use InteractsWithStrings;
 }

@@ -4,7 +4,7 @@
 [![Tests](https://github.com/laranail/toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/laranail/toolkit/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> A security-first Swiss-army toolkit for Laravel — an LLM provider abstraction (OpenAI / Claude / Gemini), an API CRUD generator, an access-log middleware, avatar/gravatar/captcha/archiver modules, and a library of utilities, traits, macros, and custom Blade directives behind clean contracts.
+> A security-first Swiss-army toolkit for Laravel — an LLM provider abstraction (OpenAI / Claude / Gemini), an API CRUD generator, an access-log middleware, captcha and archiver modules, and a library of utilities, traits, macros, and custom Blade directives behind clean contracts.
 
 Compatible with PHP `^8.4.1 || ^8.5` and Laravel `^13.0`.
 
