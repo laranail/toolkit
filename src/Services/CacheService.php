@@ -258,14 +258,54 @@ class CacheService implements CacheRepositoryInterface
     }
 
     /**
-     * A stable cache key derived from the current request's input plus the
-     * current URL — for request-scoped response caching. Returns a hash; pass
-     * it to {@see put()}/{@see get()} (which apply namespacing).
+     * A stable cache key derived from the current request's method, URL and
+     * input — for request-scoped response caching. Returns a hash; pass it to
+     * {@see put()}/{@see get()} (which apply namespacing).
+     *
+     * ## This key identifies a *request*, not a *requester*
+     *
+     * Nothing here distinguishes two users issuing the same request, so
+     * caching a personalised response under it serves one user's response to
+     * the next. That is the realistic leak, and it is the caller's to close:
+     * pass whatever the response actually varies by via `$vary` — the
+     * authenticated user id, the locale, the tenant.
+     *
+     * ```php
+     * $key = $cache->keyFromRequest(['user' => $request->user()?->getAuthIdentifier()]);
+     * ```
+     *
+     * ## Why the hash changed
+     *
+     * This was `md5(serialize($input) . '|' . $url)`. MD5 chosen-prefix
+     * collisions are cheap, and request input is attacker-controlled and
+     * length-prefixed by `serialize()`, so collision blocks survive into the
+     * digest intact — two distinct requests can be made to share an entry. The
+     * attack needs the victim's request to carry the other half of the pair,
+     * which is a real constraint, but SHA-256 costs nothing here and removes
+     * the question.
+     *
+     * The method was also part of the key by omission: a GET and a POST to one
+     * URL with identical input hashed the same. That collision needed no
+     * cryptography at all.
+     *
+     * `serialize()` stays — it is unambiguous over nested input and its output
+     * is never unserialized — but the input is sorted first, so `?a=1&b=2` and
+     * `?b=2&a=1` stop caching the same response twice.
+     *
+     * @param array<string, mixed> $vary extra dimensions the response varies by
      */
-    public function keyFromRequest(): string
+    public function keyFromRequest(array $vary = []): string
     {
         $request = request();
+
+        // `input()` rather than `all()`: `all()` merges uploaded files, and an
+        // UploadedFile in the digest is both unserialisable and keyed by a
+        // per-request temp path. Laravel types it `mixed`, and a key-less call
+        // does return the merged query+body array, but the narrowing is real
+        // rather than a silenced cast.
         $input = $request->input();
+        $input = is_array($input) ? $input : ['value' => $input];
+        $this->sortRecursive($input);
 
         try {
             $url = (string) url()->current();
@@ -273,7 +313,37 @@ class CacheService implements CacheRepositoryInterface
             $url = ToolkitConfig::string('app.url');
         }
 
-        return md5(serialize($input) . '|' . $url);
+        ksort($vary);
+
+        return hash('sha256', serialize([
+            'method' => $request->getMethod(),
+            'url' => $url,
+            'input' => $input,
+            'vary' => $vary,
+        ]));
+    }
+
+    /**
+     * Sort an input tree by key so that argument order does not change the key.
+     *
+     * Lists are left alone — `?tags[]=a&tags[]=b` is not the same request as
+     * `?tags[]=b&tags[]=a`, and sorting it would merge two responses.
+     *
+     * @param array<array-key, mixed> $input
+     */
+    private function sortRecursive(array &$input): void
+    {
+        foreach ($input as &$value) {
+            if (is_array($value)) {
+                $this->sortRecursive($value);
+            }
+        }
+
+        unset($value);
+
+        if (!array_is_list($input)) {
+            ksort($input);
+        }
     }
 
     // ---------------------------------------------------------------------

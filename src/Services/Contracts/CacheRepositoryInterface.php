@@ -70,10 +70,16 @@ interface CacheRepositoryInterface
     public function tags(array $tags): static;
 
     /**
-     * A stable cache key derived from the current request input plus the current
-     * URL (for request-scoped response caching).
+     * A stable cache key derived from the current request's method, URL and
+     * input (for request-scoped response caching).
+     *
+     * The key identifies a request, not a requester — pass whatever the
+     * response varies by (user, locale, tenant) via `$vary`, or a personalised
+     * response cached under it will be served to the next caller.
+     *
+     * @param array<string, mixed> $vary extra dimensions the response varies by
      */
-    public function keyFromRequest(): string;
+    public function keyFromRequest(array $vary = []): string;
 
     // --- Framework cache maintenance (resilient; dispatches CacheEvents) ---
 

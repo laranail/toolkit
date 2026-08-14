@@ -35,7 +35,7 @@ behaviour is unchanged unless you configure `laranail.toolkit.cache.namespace`).
 | `increment(string $key, int $by = 1)` | `int\|false` | |
 | `decrement(string $key, int $by = 1)` | `int\|false` | |
 | `tags(array $tags)` | `static` | A clone scoped to `$tags` for grouped invalidation. |
-| `keyFromRequest()` | `string` | Stable hash of the request input + current URL. |
+| `keyFromRequest(array $vary = [])` | `string` | SHA-256 of the request method + current URL + sorted input, plus `$vary`. |
 
 ```php
 $user = $cache->remember("user:{$id}", fn () => User::find($id), minutes: 15);
@@ -45,6 +45,27 @@ $cache->tags(['reports'])->get('q3');               // reads back under the same
 
 $key = $cache->keyFromRequest();                    // request-scoped response caching
 ```
+
+### `keyFromRequest()` identifies a request, not a requester
+
+Nothing in the key distinguishes two users issuing the same request, so caching a
+personalised response under the bare key serves one user's response to the next.
+Pass whatever the response actually varies by:
+
+```php
+$key = $cache->keyFromRequest([
+    'user'   => $request->user()?->getAuthIdentifier(),
+    'locale' => app()->getLocale(),
+]);
+```
+
+Argument order does not affect the key — `?a=1&b=2` and `?b=2&a=1` share an entry —
+but list order does, because `?tags[]=a&tags[]=b` is a different request from
+`?tags[]=b&tags[]=a`.
+
+> The digest was MD5 through v0.1.0, and the HTTP method was not part of the key at
+> all, so a POST response could be served to a GET of the same URL. Both are fixed;
+> keys computed by the old version will not match and simply miss.
 
 ## Cache maintenance
 

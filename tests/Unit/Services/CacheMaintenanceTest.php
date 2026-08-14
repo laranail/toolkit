@@ -124,7 +124,7 @@ class CacheMaintenanceTest extends TestCase
         $first = $service->keyFromRequest();
         $second = $service->keyFromRequest();
 
-        $this->assertMatchesRegularExpression('/^[a-f0-9]{32}$/', $first);
+        $this->assertMatchesRegularExpression('/^[a-f0-9]{64}$/', $first);
         $this->assertSame($first, $second);
     }
 }
