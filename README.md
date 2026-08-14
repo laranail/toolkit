@@ -14,7 +14,7 @@ Compatible with PHP `^8.4.1 || ^8.5` and Laravel `^13.0`.
 composer require laranail/toolkit
 ```
 
-## Documentation
+## <a name="documentation"></a>Documentation
 
 Full documentation is at **[opensource.simtabi.com/documentation/laranail/toolkit](https://opensource.simtabi.com/documentation/laranail/toolkit/)** — the feature overview, LLM providers, the API CRUD generator + middleware, the feature modules, the guard-aware authenticated-user accessors, the unified cache (data + maintenance), the fluent runtime config manager, the Python microservice HTTP client, the PHP runtime/INI configurator, and the per-model macro registry, and the utilities/traits/macros/directives reference.
 
