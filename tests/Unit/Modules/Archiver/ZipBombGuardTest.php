@@ -126,13 +126,20 @@ final class ZipBombGuardTest extends TestCase
         $path = $this->sandbox . '/big.zip';
         $this->honestArchive($path, 32_768);
 
+        $refused = false;
+
         try {
             (new Zip())->setLimits(maxEntries: 100, maxTotalBytes: 4_096)
                 ->extract($path, $this->sandbox . '/out');
         } catch (ArchiveException) {
-            // expected
+            $refused = true;
         }
 
+        // Both halves matter. Without the first, an extractor that quietly
+        // succeeded and wrote nothing would pass this test just as happily as
+        // one that refused — and "nothing was written" is not the claim; "it
+        // refused, and therefore nothing was written" is.
+        self::assertTrue($refused, 'The ceiling was exceeded but no ArchiveException was thrown.');
         self::assertFileDoesNotExist($this->sandbox . '/out/payload.bin');
     }
 
