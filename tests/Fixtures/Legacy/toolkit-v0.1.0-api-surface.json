@@ -176,7 +176,7 @@
     "Simtabi\\Laranail\\Toolkit\\Macros\\FactoryBuilderMixin": [
         "withoutEvents"
     ],
-    "Simtabi\\Laranail\\Toolkit\\Macros\\MacroServiceProvider": [
+    "Simtabi\\Laranail\\Toolkit\\Macros\\Providers\\MacroServiceProvider": [
         "boot",
         "register"
     ],
@@ -229,7 +229,7 @@
         "tarGz",
         "zip"
     ],
-    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\ArchiverServiceProvider": [
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Archiver\\Providers\\ArchiverServiceProvider": [
         "provides",
         "register"
     ],
@@ -645,7 +645,7 @@
         "registerComponent",
         "registerComponents"
     ],
-    "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\LivewireServiceProvider": [
+    "Simtabi\\Laranail\\Toolkit\\Modules\\Livewire\\Providers\\LivewireServiceProvider": [
         "boot",
         "provides",
         "register"
