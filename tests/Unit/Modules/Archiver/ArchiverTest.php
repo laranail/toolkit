@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\GuardsArchivePaths;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\Tar;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
@@ -215,3 +216,20 @@ class ArchiverTest extends TestCase
         @rmdir($dir);
     }
 }
+
+it('rejects an archive entry containing a null byte', function (): void {
+    // PHP's path handling truncates at the byte, so a name that passes every other check can still
+    // open a different file. laranail/product-updater's sibling guard rejected this; this one did not.
+    $guard = new class()
+    {
+        use GuardsArchivePaths;
+
+        public function check(string $destination, string $entry): void
+        {
+            $this->assertWithinDestination($destination, $entry);
+        }
+    };
+
+    expect(fn () => $guard->check(sys_get_temp_dir() . '/dest', "safe.txt\0harmless"))
+        ->toThrow(ArchiveException::class);
+});
