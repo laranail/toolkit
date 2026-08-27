@@ -9,7 +9,7 @@ use Simtabi\Laranail\Toolkit\Modules\Livewire\HasLivewireComponents;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\Livewire as LivewireFacade;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireService;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\Providers\LivewireServiceProvider;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class LivewireServiceTest extends TestCase

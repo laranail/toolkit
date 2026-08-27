@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Simtabi\Laranail\Toolkit\Modules\Archiver;
+namespace Simtabi\Laranail\Toolkit\Modules\Archiver\Providers;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 
 class ArchiverServiceProvider extends ServiceProvider implements DeferrableProvider
 {

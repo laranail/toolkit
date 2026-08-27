@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
 use Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware;
-use Simtabi\Laranail\Toolkit\Modules\LLM\LLMServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Providers\LLMServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLogMiddleware;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
