@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Stringable;
+use Illuminate\Support\ServiceProvider;
 use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
@@ -241,11 +241,11 @@ final class StringMacros extends ServiceProvider
             $k = 0;
 
             for ($i = 0; $i < $len1; $i++) {
-                if (!$s1Matches[$i]) {
+                if (! $s1Matches[$i]) {
                     continue;
                 }
 
-                while (!$s2Matches[$k]) {
+                while (! $s2Matches[$k]) {
                     $k++;
                 }
 

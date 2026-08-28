@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Rules;
 
+use InvalidArgumentException;
+
 /**
  * Fluent factory for {@see RejectCommonPasswords}.
  *
@@ -21,11 +23,11 @@ namespace Simtabi\Laranail\Toolkit\Rules;
 final readonly class RejectCommonPasswordsBuilder
 {
     /**
-     * @param int         $minLength      Minimum length gate (0 = off).
-     * @param int         $minEntropy     Minimum Shannon-entropy gate in bits (0 = off).
-     * @param bool        $checkHibp      Enable the opt-in HIBP k-anonymity breach check.
-     * @param string|null $hibpApiKey     Optional HIBP API key for the range request.
-     * @param int         $minZxcvbnScore Minimum zxcvbn strength score 0–4 (0 = off).
+     * @param int $minLength Minimum length gate (0 = off).
+     * @param int $minEntropy Minimum Shannon-entropy gate in bits (0 = off).
+     * @param bool $checkHibp Enable the opt-in HIBP k-anonymity breach check.
+     * @param string|null $hibpApiKey Optional HIBP API key for the range request.
+     * @param int $minZxcvbnScore Minimum zxcvbn strength score 0–4 (0 = off).
      */
     public function __construct(
         private int $minLength = 0,
@@ -57,12 +59,12 @@ final readonly class RejectCommonPasswordsBuilder
      * Require a minimum zxcvbn strength score 0–4 (0 disables the gate). Opt-in and
      * silently skipped when `bjeavons/zxcvbn-php` is not installed.
      *
-     * @throws \InvalidArgumentException when `$score` is outside 0–4
+     * @throws InvalidArgumentException when `$score` is outside 0–4
      */
     public function minZxcvbnScore(int $score): self
     {
         if ($score < 0 || $score > 4) {
-            throw new \InvalidArgumentException("minZxcvbnScore must be between 0 and 4, got [{$score}].");
+            throw new InvalidArgumentException("minZxcvbnScore must be between 0 and 4, got [{$score}].");
         }
 
         return new self($this->minLength, $this->minEntropy, $this->checkHibp, $this->hibpApiKey, $score);

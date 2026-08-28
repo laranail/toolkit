@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
-use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\ServiceProvider;
+use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Registers the toolkit's Carbon macros: quarter/business-day/utility date
@@ -24,6 +24,31 @@ use Illuminate\Support\ServiceProvider;
  */
 final class CarbonMacros extends ServiceProvider
 {
+    /**
+     * Resolve the day-of-month for the Nth $weekday of $date's month, optionally
+     * offset by $addDays. {@see Carbon::nthOfMonth()} returns `false` when the
+     * Nth occurrence does not exist, so the result is narrowed here once instead
+     * of at every holiday call site.
+     *
+     * Public because the holiday macros call it via the fully-qualified class
+     * name: inside a registered macro the closure's `$this`/`self` are rebound to
+     * the Carbon instance, so `self::` would not resolve to this provider.
+     */
+    public static function nthWeekdayDay(Carbon $date, int $nth, int $weekday, int $addDays = 0): ?int
+    {
+        $resolved = $date->copy()->nthOfMonth($nth, $weekday);
+
+        if (! $resolved instanceof Carbon) {
+            return null;
+        }
+
+        if ($addDays !== 0) {
+            $resolved = $resolved->addDays($addDays);
+        }
+
+        return $resolved->day;
+    }
+
     public function boot(): void
     {
         $this->registerDateMacros();
@@ -951,30 +976,5 @@ final class CarbonMacros extends ServiceProvider
 
             return $this->month === 10 && $this->day === 18;
         });
-    }
-
-    /**
-     * Resolve the day-of-month for the Nth $weekday of $date's month, optionally
-     * offset by $addDays. {@see Carbon::nthOfMonth()} returns `false` when the
-     * Nth occurrence does not exist, so the result is narrowed here once instead
-     * of at every holiday call site.
-     *
-     * Public because the holiday macros call it via the fully-qualified class
-     * name: inside a registered macro the closure's `$this`/`self` are rebound to
-     * the Carbon instance, so `self::` would not resolve to this provider.
-     */
-    public static function nthWeekdayDay(Carbon $date, int $nth, int $weekday, int $addDays = 0): ?int
-    {
-        $resolved = $date->copy()->nthOfMonth($nth, $weekday);
-
-        if (!$resolved instanceof Carbon) {
-            return null;
-        }
-
-        if ($addDays !== 0) {
-            $resolved = $resolved->addDays($addDays);
-        }
-
-        return $resolved->day;
     }
 }

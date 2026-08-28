@@ -34,15 +34,15 @@ interface RouteServiceInterface
     /**
      * Whether the current URL matches the given segment (prefix-aware).
      *
-     * @param bool        $strict     When true, does not match wildcard sub-paths.
-     * @param string|null $paramKey   Optional query parameter key to additionally require.
-     * @param mixed       $paramValue Optional query parameter value to match.
+     * @param bool $strict When true, does not match wildcard sub-paths.
+     * @param string|null $paramKey Optional query parameter key to additionally require.
+     * @param mixed $paramValue Optional query parameter value to match.
      */
     public function isUrlSegment(
         string $segment,
         bool $strict = false,
         ?string $paramKey = null,
-        mixed $paramValue = null
+        mixed $paramValue = null,
     ): bool;
 
     /** Whether the last URL segment equals the given segment. */
@@ -61,13 +61,13 @@ interface RouteServiceInterface
      * Return `$class` when the URL parameter/segment is active, otherwise an empty string.
      *
      * @param string|null $segment URL segment to fall back to when `$value` is empty.
-     * @param string      $key     Query parameter key (default: `tab`).
+     * @param string $key Query parameter key (default: `tab`).
      */
     public function getActiveCssClassForUrlParameter(
         mixed $value,
         ?string $segment = null,
         string $key = 'tab',
-        string $class = 'active'
+        string $class = 'active',
     ): string;
 
     /**

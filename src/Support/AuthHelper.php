@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Support;
 
+use InvalidArgumentException;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\StatefulGuard;
-use Illuminate\Contracts\Auth\UserProvider;
-use InvalidArgumentException;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 
 /**
@@ -126,13 +126,13 @@ final readonly class AuthHelper
      */
     public function userExists(mixed $value, string $key = 'id'): bool
     {
-        if (!$this->auth instanceof StatefulGuard) {
+        if (! $this->auth instanceof StatefulGuard) {
             return false;
         }
 
         $provider = $this->auth->getProvider();
 
-        if (!$provider instanceof UserProvider) {
+        if (! $provider instanceof UserProvider) {
             return false;
         }
 

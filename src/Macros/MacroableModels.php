@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
-use BadMethodCallException;
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use InvalidArgumentException;
 use ReflectionFunction;
+use ReflectionParameter;
+use BadMethodCallException;
+use InvalidArgumentException;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * A macro registry keyed by model class.
@@ -92,7 +93,7 @@ class MacroableModels
     {
         $this->guardModel($model);
 
-        if (!isset($this->macros[$name][$model])) {
+        if (! isset($this->macros[$name][$model])) {
             return false;
         }
 
@@ -143,7 +144,7 @@ class MacroableModels
         $macros = [];
 
         foreach ($this->macros as $name => $models) {
-            if (!isset($models[$model])) {
+            if (! isset($models[$model])) {
                 continue;
             }
 
@@ -151,9 +152,9 @@ class MacroableModels
             // here — the original swallowed a ReflectionException that could
             // never be thrown.
             $macros[$name] = [
-                'name' => $name,
+                'name'       => $name,
                 'parameters' => array_map(
-                    static fn (\ReflectionParameter $p): string => $p->getName(),
+                    static fn (ReflectionParameter $p): string => $p->getName(),
                     (new ReflectionFunction($models[$model]))->getParameters(),
                 ),
             ];
@@ -187,9 +188,9 @@ class MacroableModels
             $model = $this->getModel();
             $class = $model::class;
 
-            if (!isset($models[$class])) {
+            if (! isset($models[$class])) {
                 throw new BadMethodCallException(
-                    sprintf('Call to undefined method %s::%s()', $class, $name)
+                    sprintf('Call to undefined method %s::%s()', $class, $name),
                 );
             }
 
@@ -207,13 +208,13 @@ class MacroableModels
      */
     protected function guardModel(string $model): void
     {
-        if (!class_exists($model)) {
+        if (! class_exists($model)) {
             throw new InvalidArgumentException(sprintf('The class [%s] does not exist.', $model));
         }
 
-        if (!is_subclass_of($model, Model::class)) {
+        if (! is_subclass_of($model, Model::class)) {
             throw new InvalidArgumentException(
-                sprintf('[%s] must be a subclass of %s.', $model, Model::class)
+                sprintf('[%s] must be a subclass of %s.', $model, Model::class),
             );
         }
     }

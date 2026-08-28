@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Traits;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Support\Username;
 
 /**
@@ -23,14 +23,6 @@ use Simtabi\Laranail\Toolkit\Support\Username;
 trait HasFormatters
 {
     /**
-     * Default display format for date-time attributes.
-     */
-    protected function defaultDateTimeFormat(): string
-    {
-        return 'm/d/Y h:i:s a';
-    }
-
-    /**
      * Format the model's `created_at` timestamp.
      */
     public function formattedCreatedAt(?string $format = null): ?string
@@ -44,18 +36,6 @@ trait HasFormatters
     public function formattedUpdatedAt(?string $format = null): ?string
     {
         return $this->formatTimestamp($this->getAttribute('updated_at'), $format);
-    }
-
-    /**
-     * Format an arbitrary timestamp value using the model's default format.
-     */
-    protected function formatTimestamp(mixed $value, ?string $format = null): ?string
-    {
-        if ($value === null || $value === '') {
-            return null;
-        }
-
-        return Carbon::parse($value)->format($format ?? $this->defaultDateTimeFormat());
     }
 
     /**
@@ -160,7 +140,7 @@ trait HasFormatters
     public function suggestUsername(
         string $firstName,
         ?string $lastName = null,
-        string $column = 'username'
+        string $column = 'username',
     ): string {
         $builder = Username::fromName($firstName, $lastName)
             ->unique(fn (string $username): bool => $this->usernameIsAvailable($username, $column));
@@ -175,10 +155,30 @@ trait HasFormatters
     }
 
     /**
+     * Default display format for date-time attributes.
+     */
+    protected function defaultDateTimeFormat(): string
+    {
+        return 'm/d/Y h:i:s a';
+    }
+
+    /**
+     * Format an arbitrary timestamp value using the model's default format.
+     */
+    protected function formatTimestamp(mixed $value, ?string $format = null): ?string
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        return Carbon::parse($value)->format($format ?? $this->defaultDateTimeFormat());
+    }
+
+    /**
      * Whether no existing row holds the given username in the given column.
      */
     protected function usernameIsAvailable(string $username, string $column = 'username'): bool
     {
-        return !$this->newQuery()->where($column, $username)->exists();
+        return ! $this->newQuery()->where($column, $username)->exists();
     }
 }

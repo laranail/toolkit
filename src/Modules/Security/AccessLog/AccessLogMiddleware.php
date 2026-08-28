@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Modules\Security\AccessLog;
 
 use Closure;
-use Illuminate\Http\Request;
-use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
-use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 
 class AccessLogMiddleware
 {
@@ -45,17 +45,17 @@ class AccessLogMiddleware
      */
     public function terminate(Request $request, Response $response): void
     {
-        if (!(bool) config('laranail.toolkit.access_log.enabled', true)) {
+        if (! (bool) config('laranail.toolkit.access_log.enabled', true)) {
             return;
         }
 
         try {
             AccessLog::create([
-                'ip' => $request->ip(),
+                'ip'     => $request->ip(),
                 'method' => $request->method(),
                 // Drop the query string so secrets passed as query params are not stored.
-                'url' => $request->url(),
-                'user_agent' => $request->userAgent(),
+                'url'          => $request->url(),
+                'user_agent'   => $request->userAgent(),
                 'request_data' => $this->redact($request->all()),
             ]);
         } catch (Throwable $e) {

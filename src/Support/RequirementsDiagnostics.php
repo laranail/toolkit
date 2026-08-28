@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Support;
 
+use function dirname;
+
+use InvalidArgumentException;
+
 /**
  * Thin diagnostics surface for the toolkit's runtime requirements.
  *
@@ -40,8 +44,8 @@ final class RequirementsDiagnostics
         $minimum = $minimumVersion ?? self::MINIMUM_PHP_VERSION;
 
         return [
-            'current' => PHP_VERSION,
-            'minimum' => $minimum,
+            'current'   => PHP_VERSION,
+            'minimum'   => $minimum,
             'supported' => version_compare(PHP_VERSION, $minimum, '>='),
         ];
     }
@@ -96,8 +100,8 @@ final class RequirementsDiagnostics
 
         // Walk up to the nearest existing ancestor so a not-yet-created
         // directory is judged by where it would live.
-        while ($candidate !== '' && !file_exists($candidate)) {
-            $parent = \dirname($candidate);
+        while ($candidate !== '' && ! file_exists($candidate)) {
+            $parent = dirname($candidate);
 
             if ($parent === $candidate) {
                 break;
@@ -121,7 +125,7 @@ final class RequirementsDiagnostics
     {
         return array_keys(array_filter(
             $this->checkExtensions($extensions),
-            static fn (bool $loaded): bool => !$loaded,
+            static fn (bool $loaded): bool => ! $loaded,
         ));
     }
 
@@ -156,11 +160,11 @@ final class RequirementsDiagnostics
             && ($minimumBytes === null || $freeBytes >= $minimumBytes);
 
         return [
-            'path' => $path,
-            'free' => $freeBytes,
-            'total' => $totalBytes,
-            'minimum' => $minimumBytes,
-            'available' => $available,
+            'path'       => $path,
+            'free'       => $freeBytes,
+            'total'      => $totalBytes,
+            'minimum'    => $minimumBytes,
+            'available'  => $available,
             'sufficient' => $sufficient,
         ];
     }
@@ -178,10 +182,10 @@ final class RequirementsDiagnostics
      * path or a restricted SAPI; that path is reported as `available: false`
      * and drags `healthy` down rather than throwing.
      *
-     * @param list<string> $paths         paths to probe (defaults to the app base path)
-     * @param int|null     $minMb         hard minimum free space in MB, or null to skip the floor check
-     * @param int|null     $recommendedMb recommended free space in MB, or null to skip the recommendation
-     * @param int          $warnAtPercent emit a warning once used space reaches this percentage (0–100)
+     * @param list<string> $paths paths to probe (defaults to the app base path)
+     * @param int|null $minMb hard minimum free space in MB, or null to skip the floor check
+     * @param int|null $recommendedMb recommended free space in MB, or null to skip the recommendation
+     * @param int $warnAtPercent emit a warning once used space reaches this percentage (0–100)
      *
      * @return array{
      *     healthy: bool,
@@ -213,7 +217,7 @@ final class RequirementsDiagnostics
         }
 
         if ($warnAtPercent < 0 || $warnAtPercent > 100) {
-            throw new \InvalidArgumentException('warnAtPercent must be between 0 and 100.');
+            throw new InvalidArgumentException('warnAtPercent must be between 0 and 100.');
         }
 
         $minimumBytes = $minMb === null ? null : $this->mbToBytes($minMb);
@@ -226,17 +230,40 @@ final class RequirementsDiagnostics
             $report = $this->probePath($path, $minimumBytes, $recommendedBytes, $warnAtPercent);
             $results[$path] = $report;
 
-            if (!$report['available'] || !$report['meets_minimum'] || $report['warning']) {
+            if (! $report['available'] || ! $report['meets_minimum'] || $report['warning']) {
                 $healthy = false;
             }
         }
 
         return [
-            'healthy' => $healthy,
+            'healthy'         => $healthy,
             'warn_at_percent' => $warnAtPercent,
-            'minimum_mb' => $minMb,
-            'recommended_mb' => $recommendedMb,
-            'paths' => $results,
+            'minimum_mb'      => $minMb,
+            'recommended_mb'  => $recommendedMb,
+            'paths'           => $results,
+        ];
+    }
+
+    /**
+     * Build the array surfaced under `php artisan about`.
+     *
+     * @return array<string, string>
+     */
+    public function toAboutArray(): array
+    {
+        $php = $this->checkPhpVersion();
+
+        $missing = $this->missingExtensions();
+
+        $disk = $this->checkDiskSpace();
+
+        return [
+            'PHP Version'         => $php['current'],
+            'Minimum PHP'         => $php['minimum'],
+            'PHP Supported'       => $php['supported'] ? 'Yes' : 'No',
+            'Required Extensions' => $missing === [] ? 'All loaded' : 'Missing: ' . implode(', ', $missing),
+            'Storage Writable'    => $this->isDirectoryWritable(storage_path()) ? 'Yes' : 'No',
+            'Storage Free Space'  => $disk['free'] === null ? 'Unknown' : $this->formatBytes($disk['free']),
         ];
     }
 
@@ -291,16 +318,16 @@ final class RequirementsDiagnostics
         $warning = $usedPercent !== null && $usedPercent >= $warnAtPercent;
 
         return [
-            'path' => $path,
-            'available' => $available,
-            'free' => $freeBytes,
-            'total' => $totalBytes,
-            'used' => $usedBytes,
-            'used_percent' => $usedPercent,
-            'meets_minimum' => $meetsMinimum,
+            'path'              => $path,
+            'available'         => $available,
+            'free'              => $freeBytes,
+            'total'             => $totalBytes,
+            'used'              => $usedBytes,
+            'used_percent'      => $usedPercent,
+            'meets_minimum'     => $meetsMinimum,
             'meets_recommended' => $meetsRecommended,
-            'warning' => $warning,
-            'status' => $this->diskStatus($available, $meetsMinimum, $meetsRecommended, $warning),
+            'warning'           => $warning,
+            'status'            => $this->diskStatus($available, $meetsMinimum, $meetsRecommended, $warning),
         ];
     }
 
@@ -314,11 +341,11 @@ final class RequirementsDiagnostics
         bool $warning,
     ): string {
         return match (true) {
-            !$available => 'unavailable',
-            !$meetsMinimum => 'critical',
-            $warning => 'warning',
-            !$meetsRecommended => 'low',
-            default => 'healthy',
+            ! $available        => 'unavailable',
+            ! $meetsMinimum     => 'critical',
+            $warning            => 'warning',
+            ! $meetsRecommended => 'low',
+            default             => 'healthy',
         };
     }
 
@@ -341,29 +368,6 @@ final class RequirementsDiagnostics
         }
 
         return (string) getcwd();
-    }
-
-    /**
-     * Build the array surfaced under `php artisan about`.
-     *
-     * @return array<string, string>
-     */
-    public function toAboutArray(): array
-    {
-        $php = $this->checkPhpVersion();
-
-        $missing = $this->missingExtensions();
-
-        $disk = $this->checkDiskSpace();
-
-        return [
-            'PHP Version' => $php['current'],
-            'Minimum PHP' => $php['minimum'],
-            'PHP Supported' => $php['supported'] ? 'Yes' : 'No',
-            'Required Extensions' => $missing === [] ? 'All loaded' : 'Missing: ' . implode(', ', $missing),
-            'Storage Writable' => $this->isDirectoryWritable(storage_path()) ? 'Yes' : 'No',
-            'Storage Free Space' => $disk['free'] === null ? 'Unknown' : $this->formatBytes($disk['free']),
-        ];
     }
 
     /**

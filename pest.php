@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Simtabi\Laranail\Toolkit\Providers\ToolkitServiceProvider;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Providers\ToolkitServiceProvider;
 
 /*
 |--------------------------------------------------------------------------

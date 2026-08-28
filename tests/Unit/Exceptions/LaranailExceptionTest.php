@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions;
 
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
+use PHPUnit\Framework\TestCase;
 use Simtabi\Laranail\Toolkit\Exceptions\LaranailException;
 
 class LaranailExceptionTest extends TestCase
@@ -33,9 +33,9 @@ class LaranailExceptionTest extends TestCase
     {
         $exception = LaranailException::fromArray([
             'message' => 'hi',
-            'code' => 7,
+            'code'    => 7,
             'context' => ['k' => 'v'],
-            'extra' => 'folded',
+            'extra'   => 'folded',
         ]);
 
         $this->assertSame('hi', $exception->getMessage());

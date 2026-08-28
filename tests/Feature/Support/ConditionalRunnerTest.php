@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Support;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Support\ConditionalRunner;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Simtabi\Laranail\Toolkit\Support\ConditionalRunner;
 
 #[Group('support')]
 class ConditionalRunnerTest extends TestCase
@@ -100,7 +100,7 @@ class ConditionalRunnerTest extends TestCase
 
         $this->assertSame([], $guest);
 
-        $this->actingAs(new ConditionalRunnerUser());
+        $this->actingAs(new ConditionalRunnerUser);
 
         $authed = ConditionalRunner::make()
             ->whenAuthenticated(fn (): string => 'auth')
@@ -117,7 +117,7 @@ class ConditionalRunnerTest extends TestCase
 
         $this->assertSame(['guest'], $guest);
 
-        $this->actingAs(new ConditionalRunnerUser());
+        $this->actingAs(new ConditionalRunnerUser);
 
         $authed = ConditionalRunner::make()
             ->whenGuest(fn (): string => 'guest')
@@ -145,7 +145,7 @@ class ConditionalRunnerTest extends TestCase
 
     public function test_when_role_is_false_for_a_model_without_has_role(): void
     {
-        $this->actingAs(new ConditionalRunnerRolelessUser());
+        $this->actingAs(new ConditionalRunnerRolelessUser);
 
         $results = ConditionalRunner::make()
             ->whenRole('admin', fn (): string => 'yes')
@@ -190,7 +190,7 @@ class ConditionalRunnerTest extends TestCase
         $this->assertSame([], $guest);
 
         // Model without hasRole(): role is unverifiable, so skip.
-        $this->actingAs(new ConditionalRunnerRolelessUser());
+        $this->actingAs(new ConditionalRunnerRolelessUser);
 
         $roleless = ConditionalRunner::make()
             ->whenRoleIsNot('admin', fn (): string => 'no-admin')

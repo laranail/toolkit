@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros\Providers;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\ServiceProvider;
 use Simtabi\Laranail\Toolkit\Macros\ArrMacros;
 use Simtabi\Laranail\Toolkit\Macros\CarbonMacros;
-use Simtabi\Laranail\Toolkit\Macros\CollectionMacros;
-use Simtabi\Laranail\Toolkit\Macros\FactoryBuilderMixin;
-use Simtabi\Laranail\Toolkit\Macros\QueryBuilderMacros;
-use Simtabi\Laranail\Toolkit\Macros\RequestMacros;
-use Simtabi\Laranail\Toolkit\Macros\ResponseMacros;
 use Simtabi\Laranail\Toolkit\Macros\StringMacros;
+use Simtabi\Laranail\Toolkit\Macros\RequestMacros;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Simtabi\Laranail\Toolkit\Macros\ResponseMacros;
+use Simtabi\Laranail\Toolkit\Macros\CollectionMacros;
+use Simtabi\Laranail\Toolkit\Macros\QueryBuilderMacros;
+use Simtabi\Laranail\Toolkit\Macros\FactoryBuilderMixin;
 
 /**
  * Coordinator that wires every grouped macro provider in the toolkit and
@@ -49,7 +49,7 @@ final class MacroServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (class_exists(Factory::class)) {
-            Factory::mixin(new FactoryBuilderMixin());
+            Factory::mixin(new FactoryBuilderMixin);
         }
     }
 }

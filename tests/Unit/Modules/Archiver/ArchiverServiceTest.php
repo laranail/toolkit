@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver;
 
 use PharData;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Tar;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\TarGz;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\Archiver as ArchiverFacade;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Tar;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\TarGz;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class ArchiverServiceTest extends TestCase
 {
@@ -32,7 +32,7 @@ class ArchiverServiceTest extends TestCase
 
     public function test_service_factory_methods_return_extractors(): void
     {
-        $service = new ArchiverService();
+        $service = new ArchiverService;
 
         $this->assertInstanceOf(Tar::class, $service->tar());
         $this->assertInstanceOf(TarGz::class, $service->tarGz());
@@ -47,7 +47,7 @@ class ArchiverServiceTest extends TestCase
         unset($phar);
 
         $dest = $this->work . '/out';
-        (new ArchiverService())->extract($tarPath, $dest);
+        (new ArchiverService)->extract($tarPath, $dest);
 
         $this->assertFileExists($dest . '/hello.txt');
         $this->assertSame('hi', file_get_contents($dest . '/hello.txt'));
@@ -71,7 +71,7 @@ class ArchiverServiceTest extends TestCase
 
     private function deleteTree(string $dir): void
     {
-        if (!is_dir($dir)) {
+        if (! is_dir($dir)) {
             return;
         }
 

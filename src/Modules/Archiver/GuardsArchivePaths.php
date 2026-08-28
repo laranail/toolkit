@@ -34,7 +34,7 @@ trait GuardsArchivePaths
         $base = $this->lexicalPath($destination);
         $target = $this->lexicalPath($destination . '/' . $entryName);
 
-        if ($target !== $base && !str_starts_with((string) $target, $base . '/')) {
+        if ($target !== $base && ! str_starts_with((string) $target, $base . '/')) {
             throw ArchiveException::unsafeEntry($entryName);
         }
     }

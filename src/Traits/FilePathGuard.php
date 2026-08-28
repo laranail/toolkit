@@ -43,9 +43,9 @@ trait FilePathGuard
      */
     public function assertSafePath(string $path): string
     {
-        if (!$this->isSafePath($path)) {
+        if (! $this->isSafePath($path)) {
             throw new InvalidArgumentException(
-                'Unsafe path rejected: paths may not contain ".." traversal segments or null bytes.'
+                'Unsafe path rejected: paths may not contain ".." traversal segments or null bytes.',
             );
         }
 

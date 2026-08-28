@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
+use Illuminate\Database\Eloquent\Model;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
-use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
-use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Fluent authentication helper for managing user context across guards.

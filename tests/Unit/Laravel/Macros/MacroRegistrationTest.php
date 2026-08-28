@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use Illuminate\Support\Facades\Response;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 /**
  * Documents the kept-vs-dropped macro inventory and asserts every kept macro is
@@ -160,86 +160,86 @@ class MacroRegistrationTest extends TestCase
         // shadowed them, so they are not re-registered. (The remaining Carbon
         // date helpers + every holiday calendar ARE ported — see KEPT['Carbon'].)
         'Carbon::startOfQuarter / endOfQuarter / isSameQuarter' => 'Native Carbon 3 methods; legacy macros shadowed them.',
-        'Carbon::isWeekday' => 'Native Carbon method; the legacy macro shadowed it.',
-        'Carbon::nextWeekday / previousWeekday' => 'Native Carbon mutating modifiers; legacy macros shadowed them.',
-        'Carbon::toDateTimeLocalString' => 'Native Carbon method (with a $precision arg); the legacy macro shadowed it.',
+        'Carbon::isWeekday'                                     => 'Native Carbon method; the legacy macro shadowed it.',
+        'Carbon::nextWeekday / previousWeekday'                 => 'Native Carbon mutating modifiers; legacy macros shadowed them.',
+        'Carbon::toDateTimeLocalString'                         => 'Native Carbon method (with a $precision arg); the legacy macro shadowed it.',
 
         // Response macros — RESTORED into Macros\ResponseMacros, delegating to
         // the canonical ApiResponseTrait envelope (see KEPT['Response']). The
         // legacy ResponseMacroProvider/ResponseMacros wiring classes stay dropped
         // (replaced by the grouped provider); their behaviour lives on as the
         // success/error/message/pdf macros.
-        'ResponseMacroProvider' => 'Replaced by Macros\\ResponseMacros (grouped provider); legacy wiring class no longer needed.',
+        'ResponseMacroProvider'                => 'Replaced by Macros\\ResponseMacros (grouped provider); legacy wiring class no longer needed.',
         'ResponseMacros (legacy wiring class)' => 'Replaced by Macros\\ResponseMacros; the success/error/message/pdf macros are restored there.',
 
         // Dropped individual macros from kept providers.
-        'Str::wrap / Stringable::wrap' => 'Native in Laravel; kept as wrapWith to avoid overriding core.',
-        'Str::reverse / Stringable::reverse' => 'Native in Laravel; kept as reverseString to avoid overriding core.',
-        'Str::unwrap / Stringable::unwrap' => 'Native in Laravel; the macro was shadowed by the core method.',
-        'Str::isUrl / Stringable::isUrl' => 'Native in Laravel; the macro was shadowed by the core method.',
-        'Str::initials / Stringable::initials' => 'Native in Laravel and behaves identically; the macro was shadowed.',
-        'Str::replaceFirst / Str::replaceLast' => 'Native Laravel methods; macro was a redundant fallback.',
-        'Collection::chunkWhileNull' => 'Broken: called chunk() with the wrong signature.',
-        'Collection::countBy' => 'Native Collection method.',
-        'Arr::keyExists' => 'Trivial alias of array_key_exists()/Arr::exists().',
-        'Arr::isAssoc' => 'Trivial self-call of native Arr::isAssoc().',
-        'Arr::flattenWithDepth' => 'Trivial pass-through to native Arr::flatten().',
-        'Builder::whereLike / whereNotLike / orWhereLike' => 'Native in Laravel 12 query builder; the macros were shadowed.',
-        'QueryBuilder::toBase' => 'Shadowed native toBase() and just returned $this.',
-        'Builder::dumpSql / ddSql' => 'Debug-only dump()/dd() helpers; low value and dd() halts execution.',
-        'Blueprint::dropIndexIfExists' => 'Relied on the removed Doctrine schema manager API; dead/broken.',
+        'Str::wrap / Stringable::wrap'                                                                                    => 'Native in Laravel; kept as wrapWith to avoid overriding core.',
+        'Str::reverse / Stringable::reverse'                                                                              => 'Native in Laravel; kept as reverseString to avoid overriding core.',
+        'Str::unwrap / Stringable::unwrap'                                                                                => 'Native in Laravel; the macro was shadowed by the core method.',
+        'Str::isUrl / Stringable::isUrl'                                                                                  => 'Native in Laravel; the macro was shadowed by the core method.',
+        'Str::initials / Stringable::initials'                                                                            => 'Native in Laravel and behaves identically; the macro was shadowed.',
+        'Str::replaceFirst / Str::replaceLast'                                                                            => 'Native Laravel methods; macro was a redundant fallback.',
+        'Collection::chunkWhileNull'                                                                                      => 'Broken: called chunk() with the wrong signature.',
+        'Collection::countBy'                                                                                             => 'Native Collection method.',
+        'Arr::keyExists'                                                                                                  => 'Trivial alias of array_key_exists()/Arr::exists().',
+        'Arr::isAssoc'                                                                                                    => 'Trivial self-call of native Arr::isAssoc().',
+        'Arr::flattenWithDepth'                                                                                           => 'Trivial pass-through to native Arr::flatten().',
+        'Builder::whereLike / whereNotLike / orWhereLike'                                                                 => 'Native in Laravel 12 query builder; the macros were shadowed.',
+        'QueryBuilder::toBase'                                                                                            => 'Shadowed native toBase() and just returned $this.',
+        'Builder::dumpSql / ddSql'                                                                                        => 'Debug-only dump()/dd() helpers; low value and dd() halts execution.',
+        'Blueprint::dropIndexIfExists'                                                                                    => 'Relied on the removed Doctrine schema manager API; dead/broken.',
         'Request::isAjax / getUserAgent / isHttps / getClientIps / getBearerToken / getFullUrlWithQuery / getQueryString' => 'Trivial one-to-one aliases of native Request methods.',
-        'Request::getPreferredLanguage' => 'Macro recursed into the native method of the same name (infinite loop).',
+        'Request::getPreferredLanguage'                                                                                   => 'Macro recursed into the native method of the same name (infinite loop).',
 
         // G6a: useful Collection/Str micro-classes folded into the grouped macro
         // providers. The short name changes (each is now a registered macro, not
         // a class) — see KEPT['Collection']/['Str']/['Arr'] and the ledger.
         'Macros\\Before / InsertAt / Rotate / FirstOrPush / EachCons / SliceBefore / ChunkBy / GroupByModel / ForSelectBox / Extract / Tail / ToPairs / FromPairs / IfEmpty' => 'Folded into Macros\\CollectionMacros as registered Collection macros (G6a).',
-        'Macros\\RenameKeys' => 'Folded into Macros\\ArrMacros as the Arr::renameKeys multi-rename macro (G6a).',
-        'Macros\\ReadingMinutes / HighlightWords' => 'Folded into Macros\\StringMacros as Str/Stringable macros (G6a); HighlightWords emits e()-escaped HtmlString.',
+        'Macros\\RenameKeys'                                                                                                                                                 => 'Folded into Macros\\ArrMacros as the Arr::renameKeys multi-rename macro (G6a).',
+        'Macros\\ReadingMinutes / HighlightWords'                                                                                                                            => 'Folded into Macros\\StringMacros as Str/Stringable macros (G6a); HighlightWords emits e()-escaped HtmlString.',
 
         // Native-duplicative / broken legacy macros, kept dropped.
         'Str::initials / Stringable::initials (legacy Macros\\Initials)' => 'Native Str::initials exists; the legacy macro called a nonexistent Str::interpolate.',
 
         // Restored borderline macros: folded into the grouped providers.
-        'Macros\\Matches' => 'Folded into Macros\\StringMacros as the Str/Stringable matches() macro (native preg_match wrapper, returns bool).',
+        'Macros\\Matches'                   => 'Folded into Macros\\StringMacros as the Str/Stringable matches() macro (native preg_match wrapper, returns bool).',
         'Macros\\PluckMany / ReplaceInKeys' => 'Folded into Macros\\CollectionMacros as registered Collection macros (pluckMany / replaceInKeys).',
 
         // RESTORED legacy Collection micro-classes → Macros\CollectionMacros.
         'Macros\\CollectBy / FilterMap / IfAny / None / PluckToArray / WithSize / InsertAfterKey / InsertBeforeKey / SectionBy' => 'Restored as registered Collection macros in Macros\\CollectionMacros (insert-by-key now key-preserving and non-mutating).',
-        'Macros\\After' => 'Collection::after() is native in this Laravel version; the legacy After macro would be shadowed, so kept dropped.',
+        'Macros\\After'                                                                                                         => 'Collection::after() is native in this Laravel version; the legacy After macro would be shadowed, so kept dropped.',
 
         // RESTORED legacy Str micro-classes → Macros\StringMacros.
         'Macros\\LinesCount / Interpolate' => 'Restored as Str + Stringable macros in Macros\\StringMacros (Interpolate re-implemented as :placeholder interpolation, longest-key-first).',
-        'Macros\\StripTags' => 'Restored as the Str::stripTags macro only; Stringable::stripTags is native in Laravel (a macro there would be shadowed).',
-        'Macros\\FromBase64' => 'Str::fromBase64 / Stringable::fromBase64 are native in Laravel (strictly-better for the bare-payload case); the data-URI variant cannot override the native method, so kept dropped.',
+        'Macros\\StripTags'                => 'Restored as the Str::stripTags macro only; Stringable::stripTags is native in Laravel (a macro there would be shadowed).',
+        'Macros\\FromBase64'               => 'Str::fromBase64 / Stringable::fromBase64 are native in Laravel (strictly-better for the bare-payload case); the data-URI variant cannot override the native method, so kept dropped.',
 
         // RESTORED legacy file/util micro-classes → Services\FileService (file domain).
         'Macros\\GenerateName / ToBase64 / FromJson' => 'Restored as FileService::generateName / FileService::toDataUri / FileService::fromJson (path-guarded; decode errors handled).',
 
         // Native-strictly-better legacy micro-classes, kept dropped.
-        'Macros\\At / Second..Tenth (ordinals) / GetNth' => 'Positional access is the native $c->slice($n, 1)->first() / values()->get($n) / nth(); no macro adds value.',
-        'Macros\\Head' => 'Trivial alias of the native Collection::first().',
-        'Macros\\Ksort / Krsort / Rsort' => 'Native Collection::sortKeys() / sortKeysDesc() / sortDesc() are strictly better (immutable, keyed).',
-        'Macros\\Path' => 'Native data_get()/Arr::get() dot-notation is strictly better.',
-        'Macros\\Recursive / Transpose' => 'Already registered as inline Collection macros (recursive / transpose); legacy classes are redundant.',
-        'Macros\\Increment / Decrement' => 'Mutated $this->items in place (anti-pattern); no clean immutable intent worth a macro.',
-        'Macros\\CapitalizeWords' => 'Native Str::headline() does proper title-case and is strictly better; legacy called a nonexistent Str::capitalizeWords.',
-        'Macros\\Human / Bind' => 'Broken: called nonexistent Str::human()/Str::bind(); no salvageable intent.',
-        'Macros\\Round5' => 'Native round($n / 5) * 5 is a strictly simpler, correct one-liner (the legacy version mishandled negatives).',
-        'Macros\\GetFile / Glob' => 'Trivial new SplFileInfo() / glob() wrappers; call PHP/File directly (per the FileService I/O policy).',
-        'Macros\\FirstOrFail (legacy)' => 'Already registered as the inline Collection::firstOrFail() macro; legacy class is redundant.',
-        'Macros\\Prioritize (legacy)' => 'Already registered as the inline Collection::prioritize() macro; legacy class is redundant.',
-        'Macros\\InsertAfter / InsertBefore (legacy)' => 'Already registered as inline Collection::insertAfter()/insertBefore() macros.',
-        'Macros\\WordsCount' => 'Already registered as the Str::countWords() macro (returns int, not a string).',
+        'Macros\\At / Second..Tenth (ordinals) / GetNth'          => 'Positional access is the native $c->slice($n, 1)->first() / values()->get($n) / nth(); no macro adds value.',
+        'Macros\\Head'                                            => 'Trivial alias of the native Collection::first().',
+        'Macros\\Ksort / Krsort / Rsort'                          => 'Native Collection::sortKeys() / sortKeysDesc() / sortDesc() are strictly better (immutable, keyed).',
+        'Macros\\Path'                                            => 'Native data_get()/Arr::get() dot-notation is strictly better.',
+        'Macros\\Recursive / Transpose'                           => 'Already registered as inline Collection macros (recursive / transpose); legacy classes are redundant.',
+        'Macros\\Increment / Decrement'                           => 'Mutated $this->items in place (anti-pattern); no clean immutable intent worth a macro.',
+        'Macros\\CapitalizeWords'                                 => 'Native Str::headline() does proper title-case and is strictly better; legacy called a nonexistent Str::capitalizeWords.',
+        'Macros\\Human / Bind'                                    => 'Broken: called nonexistent Str::human()/Str::bind(); no salvageable intent.',
+        'Macros\\Round5'                                          => 'Native round($n / 5) * 5 is a strictly simpler, correct one-liner (the legacy version mishandled negatives).',
+        'Macros\\GetFile / Glob'                                  => 'Trivial new SplFileInfo() / glob() wrappers; call PHP/File directly (per the FileService I/O policy).',
+        'Macros\\FirstOrFail (legacy)'                            => 'Already registered as the inline Collection::firstOrFail() macro; legacy class is redundant.',
+        'Macros\\Prioritize (legacy)'                             => 'Already registered as the inline Collection::prioritize() macro; legacy class is redundant.',
+        'Macros\\InsertAfter / InsertBefore (legacy)'             => 'Already registered as inline Collection::insertAfter()/insertBefore() macros.',
+        'Macros\\WordsCount'                                      => 'Already registered as the Str::countWords() macro (returns int, not a string).',
         'Macros\\WhereContains / WhereStartsWith / WhereEndsWith' => 'RESTORED as Collection::whereContains/whereStartsWith/whereEndsWith macros in Macros\\CollectionMacros — ergonomic deep-path string filters with no native equal; the strict non-string guard fixes the legacy versions that tripped on non-string column values.',
 
         // Anti-patterns / dependency-locked, kept dropped.
-        'Macros\\CatchableProxy / TryCatch' => 'try/catch-over-collections anti-pattern; TryCatch also depends on spatie/laravel-collection-macros.',
-        'Macros\\MacroSupport' => 'JSON round-trip "variable" coercion helper; lossy and not a Macroable target; dropped.',
-        'Macros\\IfMacro' => 'value()-based conditional with no Macroable target; native when()/unless() cover it.',
-        'Macros\\IsEquals / WhenEquals' => 'Request equality anti-pattern (loose == in WhenEquals); native $request->input() comparison is clearer.',
-        'Macros\\Validate' => 'Resolves the validator per item inside a Collection predicate; heavyweight anti-pattern, dropped.',
+        'Macros\\CatchableProxy / TryCatch'                                                                                                  => 'try/catch-over-collections anti-pattern; TryCatch also depends on spatie/laravel-collection-macros.',
+        'Macros\\MacroSupport'                                                                                                               => 'JSON round-trip "variable" coercion helper; lossy and not a Macroable target; dropped.',
+        'Macros\\IfMacro'                                                                                                                    => 'value()-based conditional with no Macroable target; native when()/unless() cover it.',
+        'Macros\\IsEquals / WhenEquals'                                                                                                      => 'Request equality anti-pattern (loose == in WhenEquals); native $request->input() comparison is clearer.',
+        'Macros\\Validate'                                                                                                                   => 'Resolves the validator per item inside a Collection predicate; heavyweight anti-pattern, dropped.',
         'Macros\\Paginate / Paginator / SimplePaginate / PaginateFirstDifferent / PaginateWithPrevious / FirstDifferentLengthAwarePaginator' => 'Bespoke paginators; native Collection paginate helpers / LengthAwarePaginator supersede them.',
     ];
 
@@ -302,7 +302,7 @@ class MacroRegistrationTest extends TestCase
         }
 
         // Also assert via the facade-backed request instance path.
-        $this->assertTrue((new Request())->hasMacro('isBot'));
+        $this->assertTrue((new Request)->hasMacro('isBot'));
     }
 
     public function test_carbon_macros_are_registered(): void

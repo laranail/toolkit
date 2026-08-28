@@ -17,24 +17,6 @@ trait HasErrorStorage
     private ?ErrorStorageServiceInterface $errorStorage = null;
 
     /**
-     * Resolve (and memoise) the error-storage service for this instance.
-     */
-    protected function errorStorage(): ErrorStorageServiceInterface
-    {
-        return $this->errorStorage ??= app(ErrorStorageServiceInterface::class);
-    }
-
-    /**
-     * @param array<int|string, mixed>|string $errors
-     */
-    protected function setErrors(array|string $errors): static
-    {
-        $this->errorStorage()->setErrors($errors);
-
-        return $this;
-    }
-
-    /**
      * @return array<int|string, mixed>
      */
     public function getErrors(?string $key = null): array
@@ -69,5 +51,23 @@ trait HasErrorStorage
     public function getFirstError(): ?string
     {
         return $this->errorStorage()->getFirstError();
+    }
+
+    /**
+     * Resolve (and memoise) the error-storage service for this instance.
+     */
+    protected function errorStorage(): ErrorStorageServiceInterface
+    {
+        return $this->errorStorage ??= app(ErrorStorageServiceInterface::class);
+    }
+
+    /**
+     * @param array<int|string, mixed>|string $errors
+     */
+    protected function setErrors(array|string $errors): static
+    {
+        $this->errorStorage()->setErrors($errors);
+
+        return $this;
     }
 }

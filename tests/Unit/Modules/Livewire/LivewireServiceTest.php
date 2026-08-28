@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Livewire;
 
 use Illuminate\Container\Container;
-use Simtabi\Laranail\Toolkit\Modules\Livewire\HasLivewireComponents;
-use Simtabi\Laranail\Toolkit\Modules\Livewire\Livewire as LivewireFacade;
-use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireService;
-use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Livewire\Providers\LivewireServiceProvider;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireService;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\HasLivewireComponents;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\Livewire as LivewireFacade;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\Providers\LivewireServiceProvider;
 
 class LivewireServiceTest extends TestCase
 {
     public function test_register_component_collects_the_pair(): void
     {
-        $service = new LivewireService();
+        $service = new LivewireService;
 
         $returned = $service->registerComponent(' my-component ', FakeComponent::class);
 
@@ -29,19 +29,19 @@ class LivewireServiceTest extends TestCase
 
     public function test_register_components_merges_a_map(): void
     {
-        $service = new LivewireService();
+        $service = new LivewireService;
 
         $service->registerComponent('cart', FakeComponent::class)
             ->registerComponents([
                 'user-card' => FakeComponent::class,
-                'widget' => FakeComponent::class,
+                'widget'    => FakeComponent::class,
             ]);
 
         $this->assertSame(
             [
-                'cart' => FakeComponent::class,
+                'cart'      => FakeComponent::class,
                 'user-card' => FakeComponent::class,
-                'widget' => FakeComponent::class,
+                'widget'    => FakeComponent::class,
             ],
             $service->getRegisteredComponents(),
         );
@@ -49,7 +49,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_register_component_overwrites_a_duplicate_alias(): void
     {
-        $service = new LivewireService();
+        $service = new LivewireService;
 
         $service->registerComponent('cart', FakeComponent::class)
             ->registerComponent('cart', OtherComponent::class);
@@ -62,7 +62,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_generate_component_key_kebab_cases_the_name(): void
     {
-        $service = new LivewireService();
+        $service = new LivewireService;
 
         $this->assertSame('my-component', $service->generateComponentKey('MyComponent'));
         $this->assertSame('user-card', $service->generateComponentKey('UserCard'));
@@ -70,12 +70,12 @@ class LivewireServiceTest extends TestCase
 
     public function test_livewire_is_not_available_in_the_test_environment(): void
     {
-        $this->assertFalse((new LivewireService())->isLivewireAvailable());
+        $this->assertFalse((new LivewireService)->isLivewireAvailable());
     }
 
     public function test_flush_is_a_safe_no_op_without_livewire(): void
     {
-        $service = new LivewireService();
+        $service = new LivewireService;
         $service->registerComponent('my-component', FakeComponent::class);
 
         $service->flush();
@@ -110,7 +110,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_trait_registers_host_declared_components(): void
     {
-        $host = new FakeLivewireHost();
+        $host = new FakeLivewireHost;
 
         $host->registerLivewireComponents();
 
@@ -122,7 +122,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_trait_is_a_no_op_without_the_host_hook(): void
     {
-        $host = new FakeLivewireHostWithoutHook();
+        $host = new FakeLivewireHostWithoutHook;
 
         $host->registerLivewireComponents();
 
@@ -131,7 +131,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_trait_is_a_no_op_for_an_empty_component_map(): void
     {
-        $host = new FakeLivewireHostEmpty();
+        $host = new FakeLivewireHostEmpty;
 
         $host->registerLivewireComponents();
 
@@ -140,7 +140,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_provider_register_binds_interface_singleton_and_alias(): void
     {
-        $app = new Container();
+        $app = new Container;
 
         (new LivewireServiceProvider($app))->register();
 
@@ -163,10 +163,10 @@ class LivewireServiceTest extends TestCase
 
     public function test_flush_registers_every_component_when_livewire_is_available(): void
     {
-        $service = new FakeAvailableLivewireService();
+        $service = new FakeAvailableLivewireService;
         $service->registerComponents([
             'my-component' => FakeComponent::class,
-            'widget' => OtherComponent::class,
+            'widget'       => OtherComponent::class,
         ]);
 
         $service->flush();
@@ -175,7 +175,7 @@ class LivewireServiceTest extends TestCase
         $this->assertSame(
             [
                 'my-component' => FakeComponent::class,
-                'widget' => OtherComponent::class,
+                'widget'       => OtherComponent::class,
             ],
             $service->registered,
         );
@@ -183,7 +183,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_provider_boot_flushes_when_livewire_is_available(): void
     {
-        $service = new FakeAvailableLivewireService();
+        $service = new FakeAvailableLivewireService;
         $service->registerComponent('my-component', FakeComponent::class);
         $this->app->instance(LivewireServiceInterface::class, $service);
 
@@ -194,7 +194,7 @@ class LivewireServiceTest extends TestCase
 
     public function test_provider_boot_is_a_no_op_when_livewire_is_absent(): void
     {
-        $service = new LivewireService();
+        $service = new LivewireService;
         $service->registerComponent('my-component', FakeComponent::class);
         $this->app->instance(LivewireServiceInterface::class, $service);
 

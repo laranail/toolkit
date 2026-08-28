@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
+use Symfony\Component\Console\Application;
 use Simtabi\Laranail\Toolkit\Commands\Tidy;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -19,25 +19,6 @@ use Symfony\Component\Console\Output\BufferedOutput;
  */
 class CommandConsoleFeaturesTest extends TestCase
 {
-    /**
-     * Resolve a registered command, bind a buffered output and run it with the
-     * given input array — returning the exit code so the caller can assert on
-     * both the effect and the populated command metadata.
-     *
-     * @param array<string, mixed> $input
-     */
-    private function runCommand(object $command, array $input, ?callable $before = null): int
-    {
-        $command->setLaravel($this->app);
-        $command->setApplication(new Application());
-
-        if ($before !== null) {
-            $before($command);
-        }
-
-        return $command->run(new ArrayInput($input), new BufferedOutput());
-    }
-
     // -----------------------------------------------------------------------
     // metadata is populated through the lifecycle
     // -----------------------------------------------------------------------
@@ -107,5 +88,24 @@ class CommandConsoleFeaturesTest extends TestCase
         $this->assertFileExists($upload);
 
         @unlink($upload);
+    }
+
+    /**
+     * Resolve a registered command, bind a buffered output and run it with the
+     * given input array — returning the exit code so the caller can assert on
+     * both the effect and the populated command metadata.
+     *
+     * @param array<string, mixed> $input
+     */
+    private function runCommand(object $command, array $input, ?callable $before = null): int
+    {
+        $command->setLaravel($this->app);
+        $command->setApplication(new Application);
+
+        if ($before !== null) {
+            $before($command);
+        }
+
+        return $command->run(new ArrayInput($input), new BufferedOutput);
     }
 }

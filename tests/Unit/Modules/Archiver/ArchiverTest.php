@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver;
 
+use Phar;
 use PharData;
+use ZipArchive;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\GuardsArchivePaths;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\Tar;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use ZipArchive;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\GuardsArchivePaths;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 
 class ArchiverTest extends TestCase
 {
@@ -40,14 +41,14 @@ class ArchiverTest extends TestCase
     public function test_zip_round_trip_extracts_safe_entries(): void
     {
         $zipPath = $this->work . '/safe.zip';
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
         $zip->open($zipPath, ZipArchive::CREATE);
         $zip->addFromString('hello.txt', 'hi');
         $zip->addFromString('nested/world.txt', 'earth');
         $zip->close();
 
         $dest = $this->work . '/out-zip';
-        (new Zip())->extract($zipPath, $dest);
+        (new Zip)->extract($zipPath, $dest);
 
         $this->assertSame('hi', file_get_contents($dest . '/hello.txt'));
         $this->assertSame('earth', file_get_contents($dest . '/nested/world.txt'));
@@ -57,7 +58,7 @@ class ArchiverTest extends TestCase
     public function test_zip_slip_entry_is_refused_and_nothing_escapes(): void
     {
         $zipPath = $this->work . '/evil.zip';
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
         $zip->open($zipPath, ZipArchive::CREATE);
         $zip->addFromString('../evil.txt', 'pwned');
         $zip->addFromString('safe.txt', 'ok');
@@ -66,7 +67,7 @@ class ArchiverTest extends TestCase
         $dest = $this->work . '/out-evil';
 
         try {
-            (new Zip())->extract($zipPath, $dest);
+            (new Zip)->extract($zipPath, $dest);
             $this->fail('Expected ArchiveException for the traversal entry.');
         } catch (ArchiveException $e) {
             $this->assertStringContainsString('unsafe', strtolower($e->getMessage()));
@@ -83,7 +84,7 @@ class ArchiverTest extends TestCase
         file_put_contents($bad, 'not a real zip');
 
         $this->expectException(ArchiveException::class);
-        (new Zip())->extract($bad, $this->work . '/out-corrupt');
+        (new Zip)->extract($bad, $this->work . '/out-corrupt');
     }
 
     public function test_tar_round_trip_extracts_safe_entries(): void
@@ -95,7 +96,7 @@ class ArchiverTest extends TestCase
         unset($phar);
 
         $dest = $this->work . '/out-tar';
-        (new Tar())->extract($tarPath, $dest);
+        (new Tar)->extract($tarPath, $dest);
 
         $this->assertSame('hi', file_get_contents($dest . '/hello.txt'));
         $this->assertSame('earth', file_get_contents($dest . '/nested/world.txt'));
@@ -108,12 +109,12 @@ class ArchiverTest extends TestCase
 
         $this->expectException(ArchiveException::class);
         $this->expectExceptionMessageMatches('/Unable to open archive/');
-        (new Tar())->extract($bad, $this->work . '/out-corrupt-tar');
+        (new Tar)->extract($bad, $this->work . '/out-corrupt-tar');
     }
 
     public function test_set_limits_is_fluent_and_returns_the_same_instance(): void
     {
-        $zip = new Zip();
+        $zip = new Zip;
 
         $this->assertSame($zip, $zip->setLimits(5, 1024));
     }
@@ -122,7 +123,7 @@ class ArchiverTest extends TestCase
     public function test_zip_extraction_is_refused_when_entry_count_exceeds_the_limit(): void
     {
         $zipPath = $this->work . '/many.zip';
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
         $zip->open($zipPath, ZipArchive::CREATE);
         $zip->addFromString('a.txt', 'a');
         $zip->addFromString('b.txt', 'b');
@@ -132,14 +133,14 @@ class ArchiverTest extends TestCase
 
         $this->expectException(ArchiveException::class);
         $this->expectExceptionMessageMatches('/exceeds the configured limit/');
-        (new Zip())->setLimits(1, 1_073_741_824)->extract($zipPath, $dest);
+        (new Zip)->setLimits(1, 1_073_741_824)->extract($zipPath, $dest);
     }
 
     #[Group('security')]
     public function test_zip_extraction_is_refused_when_total_bytes_exceeds_the_limit(): void
     {
         $zipPath = $this->work . '/big.zip';
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
         $zip->open($zipPath, ZipArchive::CREATE);
         $zip->addFromString('payload.txt', str_repeat('x', 64));
         $zip->close();
@@ -148,7 +149,7 @@ class ArchiverTest extends TestCase
 
         $this->expectException(ArchiveException::class);
         $this->expectExceptionMessageMatches('/exceeds the configured limit/');
-        (new Zip())->setLimits(10_000, 8)->extract($zipPath, $dest);
+        (new Zip)->setLimits(10_000, 8)->extract($zipPath, $dest);
     }
 
     #[Group('security')]
@@ -163,13 +164,13 @@ class ArchiverTest extends TestCase
 
         $this->expectException(ArchiveException::class);
         $this->expectExceptionMessageMatches('/exceeds the configured limit/');
-        (new Tar())->setLimits(10_000, 8)->extract($tarPath, $dest);
+        (new Tar)->setLimits(10_000, 8)->extract($tarPath, $dest);
     }
 
     public function test_extraction_fails_when_destination_cannot_be_created(): void
     {
         $zipPath = $this->work . '/ok.zip';
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
         $zip->open($zipPath, ZipArchive::CREATE);
         $zip->addFromString('hello.txt', 'hi');
         $zip->close();
@@ -180,7 +181,7 @@ class ArchiverTest extends TestCase
 
         $this->expectException(ArchiveException::class);
         $this->expectExceptionMessageMatches('/Unable to create destination directory/');
-        (new Zip())->extract($zipPath, $blocker . '/sub/dir');
+        (new Zip)->extract($zipPath, $blocker . '/sub/dir');
     }
 
     public function test_manager_selects_extractor_by_extension(): void
@@ -190,7 +191,7 @@ class ArchiverTest extends TestCase
         $phar->addFromString('a.txt', 'A');
         unset($phar);
         $phar = new PharData($tarPath);
-        $phar->compress(\Phar::GZ); // -> data.tar.gz
+        $phar->compress(Phar::GZ); // -> data.tar.gz
         unset($phar);
 
         $dest = $this->work . '/out-mgr';
@@ -201,7 +202,7 @@ class ArchiverTest extends TestCase
 
     private function deleteTree(string $dir): void
     {
-        if (!is_dir($dir)) {
+        if (! is_dir($dir)) {
             return;
         }
 
@@ -220,7 +221,7 @@ class ArchiverTest extends TestCase
 it('rejects an archive entry containing a null byte', function (): void {
     // PHP's path handling truncates at the byte, so a name that passes every other check can still
     // open a different file. laranail/product-updater's sibling guard rejected this; this one did not.
-    $guard = new class()
+    $guard = new class
     {
         use GuardsArchivePaths;
 

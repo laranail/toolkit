@@ -23,10 +23,7 @@ use Illuminate\Support\ServiceProvider;
  */
 class BladeServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        //
-    }
+    public function register(): void {}
 
     public function boot(): void
     {
@@ -38,6 +35,23 @@ class BladeServiceProvider extends ServiceProvider
         $this->registerInlineAssetDirectives();
         $this->registerStringDirectives();
         $this->registerFormDirectives();
+    }
+
+    /**
+     * Split a two-argument directive expression into its trimmed parts.
+     *
+     * @return array{0: string, 1: string}
+     */
+    private static function twoArgs(string $expression): array
+    {
+        $parts = array_map(trim(...), explode(',', $expression, 2));
+
+        return [$parts[0], $parts[1] ?? ''];
+    }
+
+    private static function stripQuotes(string $expression): string
+    {
+        return trim(str_replace(['\'', '"'], '', $expression));
     }
 
     /**
@@ -104,15 +118,15 @@ class BladeServiceProvider extends ServiceProvider
     private function registerIconDirectives(): void
     {
         $iconFamilies = [
-            'fa' => 'fa fa-',
-            'fas' => 'fas fa-',
-            'far' => 'far fa-',
-            'fal' => 'fal fa-',
-            'fab' => 'fab fa-',
-            'fad' => 'fad fa-',
-            'mdi' => 'mdi mdi-',
+            'fa'    => 'fa fa-',
+            'fas'   => 'fas fa-',
+            'far'   => 'far fa-',
+            'fal'   => 'fal fa-',
+            'fab'   => 'fab fa-',
+            'fad'   => 'fad fa-',
+            'mdi'   => 'mdi mdi-',
             'glyph' => 'glyphicons glyphicons-',
-            'bi' => 'bi bi-',
+            'bi'    => 'bi bi-',
         ];
 
         foreach ($iconFamilies as $name => $prefix) {
@@ -273,22 +287,5 @@ class BladeServiceProvider extends ServiceProvider
 
             return "<?php if (collect(old('{$field}', []))->contains({$model}->id) || collect({$array})->contains(fn (\$item): bool => \$item == {$model}->id)) { echo 'checked=\"checked\"'; } ?>";
         });
-    }
-
-    /**
-     * Split a two-argument directive expression into its trimmed parts.
-     *
-     * @return array{0: string, 1: string}
-     */
-    private static function twoArgs(string $expression): array
-    {
-        $parts = array_map(trim(...), explode(',', $expression, 2));
-
-        return [$parts[0], $parts[1] ?? ''];
-    }
-
-    private static function stripQuotes(string $expression): string
-    {
-        return trim(str_replace(['\'', '"'], '', $expression));
     }
 }

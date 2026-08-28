@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
-use Illuminate\Console\Scheduling\Schedule;
+use Mockery;
 use Illuminate\Support\Facades\Log;
-use Simtabi\Laranail\Toolkit\Services\SchedulerService;
+use Illuminate\Console\Scheduling\Schedule;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Services\SchedulerService;
 
 class SchedulerServiceTest extends TestCase
 {
@@ -16,7 +17,7 @@ class SchedulerServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->schedulerService = new SchedulerService();
+        $this->schedulerService = new SchedulerService;
     }
 
     public function test_can_get_schedule_summary()
@@ -113,7 +114,7 @@ class SchedulerServiceTest extends TestCase
 
         // Mock Log facade to verify logging
         Log::shouldReceive('info')
-            ->with(\Mockery::type('string'))
+            ->with(Mockery::type('string'))
             ->once();
 
         $this->schedulerService->getScheduleSummary();

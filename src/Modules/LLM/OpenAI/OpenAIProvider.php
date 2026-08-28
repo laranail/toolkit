@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI;
 
+use OpenAI;
+use RuntimeException;
 use Illuminate\Support\Facades\Log;
 use OpenAI\Contracts\ClientContract;
 use OpenAI\Exceptions\ErrorException;
@@ -17,9 +19,9 @@ final readonly class OpenAIProvider implements LLMProviderInterface
         string $apiKey,
         private int $maxRetries = 3,
         private int $retryDelay = 2,
-        ?ClientContract $client = null
+        ?ClientContract $client = null,
     ) {
-        $this->client = $client ?? \OpenAI::client($apiKey);
+        $this->client = $client ?? OpenAI::client($apiKey);
     }
 
     public function generateResponse(
@@ -34,7 +36,7 @@ final readonly class OpenAIProvider implements LLMProviderInterface
         ?array $logitBias = null,
         ?string $user = null,
         ?bool $jsonMode = false,
-        bool $fullResponse = false
+        bool $fullResponse = false,
     ): OpenAIResponse {
         $parameters = $this->buildParameters(
             modelName: $modelName,
@@ -47,7 +49,7 @@ final readonly class OpenAIProvider implements LLMProviderInterface
             presencePenalty: $presencePenalty,
             logitBias: $logitBias,
             user: $user,
-            jsonMode: $jsonMode
+            jsonMode: $jsonMode,
         );
 
         return $this->executeWithRetry(function () use ($parameters, $fullResponse) {
@@ -71,22 +73,22 @@ final readonly class OpenAIProvider implements LLMProviderInterface
         ?float $presencePenalty,
         ?array $logitBias,
         ?string $user,
-        ?bool $jsonMode
+        ?bool $jsonMode,
     ): array {
         $parameters = [
-            'model' => $modelName,
+            'model'    => $modelName,
             'messages' => $messages,
         ];
 
         $optionalParameters = [
-            'temperature' => $temperature,
-            'max_tokens' => $maxTokens,
-            'stop' => $stop,
-            'top_p' => $topP,
+            'temperature'       => $temperature,
+            'max_tokens'        => $maxTokens,
+            'stop'              => $stop,
+            'top_p'             => $topP,
             'frequency_penalty' => $frequencyPenalty,
-            'presence_penalty' => $presencePenalty,
-            'logit_bias' => $logitBias,
-            'user' => $user,
+            'presence_penalty'  => $presencePenalty,
+            'logit_bias'        => $logitBias,
+            'user'              => $user,
         ];
 
         foreach ($optionalParameters as $key => $value) {
@@ -117,12 +119,12 @@ final readonly class OpenAIProvider implements LLMProviderInterface
                 content: $content,
                 model: $response->model,
                 usage: $response->usage,
-                rawResponse: $response
+                rawResponse: $response,
             );
         }
 
         return new OpenAIResponse(
-            content: $content
+            content: $content,
         );
     }
 
@@ -133,9 +135,9 @@ final readonly class OpenAIProvider implements LLMProviderInterface
      *
      * @param callable(): T $callback
      *
-     * @throws ErrorException
-     *
      * @return T
+     *
+     * @throws ErrorException
      */
     private function executeWithRetry(callable $callback)
     {
@@ -151,14 +153,14 @@ final readonly class OpenAIProvider implements LLMProviderInterface
 
                 // Only 429 / 5xx are transient; fail fast on 4xx (e.g. a 400
                 // invalid request or 401 bad key) instead of retrying it.
-                if (!$this->isRetryableStatus($e->getStatusCode())) {
+                if (! $this->isRetryableStatus($e->getStatusCode())) {
                     break;
                 }
 
                 if ($attempt < $this->maxRetries) {
                     Log::warning('OpenAI API request failed, retrying...', [
                         'attempt' => $attempt,
-                        'error' => $e->getMessage(),
+                        'error'   => $e->getMessage(),
                     ]);
                     sleep($this->retryDelay);
                 }
@@ -169,7 +171,7 @@ final readonly class OpenAIProvider implements LLMProviderInterface
             'error' => $lastException?->getMessage(),
         ]);
 
-        throw $lastException ?? new \RuntimeException('OpenAI API request failed.');
+        throw $lastException ?? new RuntimeException('OpenAI API request failed.');
     }
 
     /** Whether an HTTP status is worth retrying (transient): 429 or any 5xx. */

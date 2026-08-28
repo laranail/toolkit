@@ -40,7 +40,7 @@ final class Zip extends Extractor
      */
     public function extract(string $pathToArchive, string $pathToDirectory): void
     {
-        $archive = new ZipArchive();
+        $archive = new ZipArchive;
 
         if ($archive->open($pathToArchive) !== true) {
             throw ArchiveException::cannotOpen($pathToArchive);
@@ -68,7 +68,7 @@ final class Zip extends Extractor
             $this->assertWithinLimits($i + 1, $total);
         }
 
-        if (!$archive->extractTo($pathToDirectory)) {
+        if (! $archive->extractTo($pathToDirectory)) {
             $archive->close();
 
             throw ArchiveException::cannotOpen($pathToArchive);

@@ -17,7 +17,7 @@ class InvalidPathException extends RuntimeException
     /**
      * Create a new invalid-path exception.
      *
-     * @param string $path   The offending path.
+     * @param string $path The offending path.
      * @param string $reason Why the path is invalid.
      */
     public static function create(string $path, string $reason = 'Invalid or unsafe path'): self

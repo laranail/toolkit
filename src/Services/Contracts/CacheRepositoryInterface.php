@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services\Contracts;
 
-use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
-use Simtabi\Laranail\Toolkit\Services\CacheOptimizationResult;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
+use Simtabi\Laranail\Toolkit\Services\CacheOptimizationResult;
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 
 /**
  * Public surface of the toolkit's {@see CacheService}.

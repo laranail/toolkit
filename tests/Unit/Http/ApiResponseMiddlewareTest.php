@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
 
 #[Group('security')]
 class ApiResponseMiddlewareTest extends TestCase
 {
-    private function process(Response $response): Response
-    {
-        $middleware = new ApiResponseMiddleware();
-
-        return $middleware->handle(Request::create('/x', 'GET'), fn () => $response);
-    }
-
     public function test_non_json_responses_pass_through_untouched(): void
     {
         $original = new Response('<html>hi</html>', 200);
@@ -69,5 +62,12 @@ class ApiResponseMiddlewareTest extends TestCase
         $this->assertSame(1, $json['data']['userId']);
         $this->assertSame('v', $json['data']['nestedBlock']['innerKey']);
         $this->assertSame('success', $json['meta']['status']);
+    }
+
+    private function process(Response $response): Response
+    {
+        $middleware = new ApiResponseMiddleware;
+
+        return $middleware->handle(Request::create('/x', 'GET'), fn () => $response);
     }
 }

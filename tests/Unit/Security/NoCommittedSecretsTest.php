@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Security;
 
-use PHPUnit\Framework\Attributes\Group;
+use SplFileInfo;
+use FilesystemIterator;
+use RecursiveIteratorIterator;
 use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Guard against credentials accidentally committed to the package source.
@@ -22,11 +24,11 @@ class NoCommittedSecretsTest extends TestCase
      * @var array<string, string>
      */
     private const SECRET_PATTERNS = [
-        '/sk-[A-Za-z0-9]{32,}/' => 'OpenAI-style secret key',
-        '/AIza[0-9A-Za-z_\-]{35}/' => 'Google API key',
-        '/xox[baprs]-[0-9A-Za-z\-]{10,}/' => 'Slack token',
-        '/AKIA[0-9A-Z]{16}/' => 'AWS access key id',
-        '/ghp_[0-9A-Za-z]{36}/' => 'GitHub personal access token',
+        '/sk-[A-Za-z0-9]{32,}/'                => 'OpenAI-style secret key',
+        '/AIza[0-9A-Za-z_\-]{35}/'             => 'Google API key',
+        '/xox[baprs]-[0-9A-Za-z\-]{10,}/'      => 'Slack token',
+        '/AKIA[0-9A-Z]{16}/'                   => 'AWS access key id',
+        '/ghp_[0-9A-Za-z]{36}/'                => 'GitHub personal access token',
         '/-----BEGIN [A-Z ]*PRIVATE KEY-----/' => 'PEM private key',
     ];
 
@@ -38,16 +40,16 @@ class NoCommittedSecretsTest extends TestCase
 
         foreach ($scanDirs as $dir) {
             $path = $root . '/' . $dir;
-            if (!is_dir($path)) {
+            if (! is_dir($path)) {
                 continue;
             }
 
             $files = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS),
+                new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS),
             );
 
             foreach ($files as $file) {
-                /** @var \SplFileInfo $file */
+                /** @var SplFileInfo $file */
                 $contents = (string) file_get_contents($file->getPathname());
 
                 foreach (self::SECRET_PATTERNS as $pattern => $label) {

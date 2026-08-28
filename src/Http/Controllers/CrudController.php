@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Support\Cast;
 
 abstract class CrudController extends BaseController
@@ -31,26 +31,13 @@ abstract class CrudController extends BaseController
 
     public function __construct(protected Model $model) {}
 
-    /**
-     * Authorization seam invoked before each CRUD action with the standard
-     * ability (`viewAny`/`view`/`create`/`update`/`delete`) and, where relevant,
-     * the resolved record. No-op by default; override to enforce a policy/gate —
-     * e.g. `$this->authorize($ability, $record ?? $this->model);` (the
-     * `AuthorizesRequests` trait is available via {@see BaseController}). A
-     * drop-in subclass exposes read/write/delete, so wire authorization here.
-     */
-    protected function authorizeAction(string $ability, ?Model $record = null): void
-    {
-        // Intentionally empty — consuming controllers enforce authorization.
-    }
-
     public function getAllRecords(Request $request): JsonResponse
     {
         $this->authorizeAction('viewAny');
 
         $query = $this->model->query();
 
-        if (!empty($this->searchableFields) && $request->filled('search')) {
+        if (! empty($this->searchableFields) && $request->filled('search')) {
             // Escape LIKE wildcards so user input can't broaden the match.
             $term = addcslashes(Cast::toString($request->get('search')), '%_\\');
             $query->where(function ($q) use ($term) {
@@ -61,7 +48,7 @@ abstract class CrudController extends BaseController
         }
 
         // Load relationships if defined
-        if (!empty($this->relationships)) {
+        if (! empty($this->relationships)) {
             $query->with($this->relationships);
         }
 
@@ -76,9 +63,9 @@ abstract class CrudController extends BaseController
             'data' => $records->items(),
             'meta' => [
                 'current_page' => $records->currentPage(),
-                'last_page' => $records->lastPage(),
-                'per_page' => $records->perPage(),
-                'total' => $records->total(),
+                'last_page'    => $records->lastPage(),
+                'per_page'     => $records->perPage(),
+                'total'        => $records->total(),
             ],
         ]);
     }
@@ -87,7 +74,7 @@ abstract class CrudController extends BaseController
     {
         $query = $this->model->query();
 
-        if (!empty($this->relationships)) {
+        if (! empty($this->relationships)) {
             $query->with($this->relationships);
         }
 
@@ -106,13 +93,13 @@ abstract class CrudController extends BaseController
 
         $record = $this->model->create($validated);
 
-        if (!empty($this->relationships)) {
+        if (! empty($this->relationships)) {
             $record->load($this->relationships);
         }
 
         return response()->json([
             'message' => 'Record created successfully',
-            'data' => $record,
+            'data'    => $record,
         ], 201);
     }
 
@@ -126,13 +113,13 @@ abstract class CrudController extends BaseController
 
         $record->update($validated);
 
-        if (!empty($this->relationships)) {
+        if (! empty($this->relationships)) {
             $record->load($this->relationships);
         }
 
         return response()->json([
             'message' => 'Record updated successfully',
-            'data' => $record,
+            'data'    => $record,
         ]);
     }
 
@@ -147,6 +134,19 @@ abstract class CrudController extends BaseController
         // 204 No Content — the RESTful response for a delete. (A JSON body here
         // would be silently stripped by a 204, so none is sent.)
         return response()->json(null, 204);
+    }
+
+    /**
+     * Authorization seam invoked before each CRUD action with the standard
+     * ability (`viewAny`/`view`/`create`/`update`/`delete`) and, where relevant,
+     * the resolved record. No-op by default; override to enforce a policy/gate —
+     * e.g. `$this->authorize($ability, $record ?? $this->model);` (the
+     * `AuthorizesRequests` trait is available via {@see BaseController}). A
+     * drop-in subclass exposes read/write/delete, so wire authorization here.
+     */
+    protected function authorizeAction(string $ability, ?Model $record = null): void
+    {
+        // Intentionally empty — consuming controllers enforce authorization.
     }
 
     protected function resolvePerPage(Request $request): int
@@ -181,19 +181,19 @@ abstract class CrudController extends BaseController
      * column to the field name when omitted (avoids malformed rule strings).
      *
      * @param array<string, mixed> $rules
-     * @param int|string           $id
+     * @param int|string $id
      *
      * @return array<string, mixed>
      */
     private function applyUniqueIgnore(array $rules, $id): array
     {
         foreach ($rules as $field => $rule) {
-            if (!is_string($rule) || !str_contains($rule, 'unique:')) {
+            if (! is_string($rule) || ! str_contains($rule, 'unique:')) {
                 continue;
             }
 
             $segments = array_map(function (string $segment) use ($field, $id) {
-                if (!str_starts_with($segment, 'unique:')) {
+                if (! str_starts_with($segment, 'unique:')) {
                     return $segment;
                 }
 

@@ -16,7 +16,7 @@ namespace Simtabi\Laranail\Toolkit\Services;
 final readonly class CacheOptimizationResult
 {
     /**
-     * @param list<string>          $steps  Labels of the steps that completed successfully, in order.
+     * @param list<string> $steps Labels of the steps that completed successfully, in order.
      * @param array<string, string> $errors Map of step label → error message for steps that failed.
      */
     public function __construct(
@@ -32,7 +32,7 @@ final readonly class CacheOptimizationResult
 
     public function failed(): bool
     {
-        return !$this->success;
+        return ! $this->success;
     }
 
     /**
@@ -42,8 +42,8 @@ final readonly class CacheOptimizationResult
     {
         return [
             'success' => $this->success,
-            'steps' => $this->steps,
-            'errors' => $this->errors,
+            'steps'   => $this->steps,
+            'errors'  => $this->errors,
         ];
     }
 }

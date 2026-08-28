@@ -12,7 +12,7 @@ class HelperConsoleTest extends TestCase
 {
     public function test_write_wraps_each_line_in_the_style_tag(): void
     {
-        $output = new BufferedOutput();
+        $output = new BufferedOutput;
 
         Helper::write($output, 'info', 'first', 'second');
 
@@ -21,7 +21,7 @@ class HelperConsoleTest extends TestCase
 
     public function test_write_with_no_lines_emits_nothing(): void
     {
-        $output = new BufferedOutput();
+        $output = new BufferedOutput;
 
         Helper::write($output, 'comment');
 

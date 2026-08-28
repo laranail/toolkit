@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Support\Facades\File;
 use PHPUnit\Framework\Attributes\Test;
-use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
 
 /**
  * `clearThirdPartyCache()` is public and takes a config *key*, so whatever path
@@ -45,11 +45,6 @@ final class ThirdPartyCacheContainmentTest extends TestCase
         File::deleteDirectory($this->sandbox);
 
         parent::tearDown();
-    }
-
-    private function service(): CacheService
-    {
-        return $this->app->make(CacheService::class);
     }
 
     #[Test]
@@ -123,5 +118,10 @@ final class ThirdPartyCacheContainmentTest extends TestCase
         $this->service()->clearPurifier();
 
         self::assertFileDoesNotExist($this->sandbox . '/storage/purifier/x.php');
+    }
+
+    private function service(): CacheService
+    {
+        return $this->app->make(CacheService::class);
     }
 }

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
+use stdClass;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Simtabi\Laranail\Toolkit\Support\FeatureToggle;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Support\FeatureToggle;
 
 class FeatureToggleTest extends TestCase
 {
@@ -42,7 +43,7 @@ class FeatureToggleTest extends TestCase
         Config::set('laranail.toolkit.feature-toggles.test_feature', false);
 
         // Mock authenticated user
-        $user = new \stdClass();
+        $user = new stdClass;
         $user->id = 123;
         Auth::shouldReceive('user')->andReturn($user);
 

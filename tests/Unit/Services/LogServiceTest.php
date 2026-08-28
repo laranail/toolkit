@@ -4,17 +4,30 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
-use Illuminate\Log\LogManager;
 use Mockery;
-use PHPUnit\Framework\Attributes\DataProvider;
+use RuntimeException;
 use Psr\Log\LoggerInterface;
+use Illuminate\Log\LogManager;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
-use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\LogService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Simtabi\Laranail\Toolkit\Services\LogService;
+use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
 
 class LogServiceTest extends TestCase
 {
+    /**
+     * @return iterable<string, array{LogLevel}>
+     */
+    public static function levels(): iterable
+    {
+        yield 'debug' => [LogLevel::Debug];
+        yield 'info' => [LogLevel::Info];
+        yield 'warning' => [LogLevel::Warning];
+        yield 'error' => [LogLevel::Error];
+        yield 'critical' => [LogLevel::Critical];
+    }
+
     public function test_logger_service_contract_resolves_to_the_logging_util(): void
     {
         $this->assertInstanceOf(
@@ -31,22 +44,10 @@ class LogServiceTest extends TestCase
                 && $message === 'hello'
                 && ($context['key'] ?? null) === 'value'
                 && array_key_exists('timestamp', $context)
-                && array_key_exists('env', $context)
+                && array_key_exists('env', $context),
         );
 
         (new LogService($logs))->info('hello', ['key' => 'value']);
-    }
-
-    /**
-     * @return iterable<string, array{LogLevel}>
-     */
-    public static function levels(): iterable
-    {
-        yield 'debug' => [LogLevel::Debug];
-        yield 'info' => [LogLevel::Info];
-        yield 'warning' => [LogLevel::Warning];
-        yield 'error' => [LogLevel::Error];
-        yield 'critical' => [LogLevel::Critical];
     }
 
     #[DataProvider('levels')]
@@ -54,7 +55,7 @@ class LogServiceTest extends TestCase
     {
         $logs = Mockery::mock(LogManager::class);
         $logs->shouldReceive('log')->once()->withArgs(
-            fn (string $psrLevel): bool => $psrLevel === $level->value
+            fn (string $psrLevel): bool => $psrLevel === $level->value,
         );
 
         (new LogService($logs))->{$level->value}('msg');
@@ -83,11 +84,11 @@ class LogServiceTest extends TestCase
         $logs->shouldReceive('log')->once()->withArgs(
             fn (string $level, string $message, array $context): bool => $level === 'error'
                 && $message === 'boom'
-                && ($context['exception'] ?? null) === \RuntimeException::class
+                && ($context['exception'] ?? null) === RuntimeException::class
                 && array_key_exists('file', $context)
-                && array_key_exists('line', $context)
+                && array_key_exists('line', $context),
         );
 
-        (new LogService($logs))->exception(new \RuntimeException('boom'));
+        (new LogService($logs))->exception(new RuntimeException('boom'));
     }
 }

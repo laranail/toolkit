@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 /**
  * Registers convenience macros on the query and Eloquent builders.
@@ -68,7 +68,7 @@ final class QueryBuilderMacros extends ServiceProvider
             /** @var QueryBuilder $this */
             // Log::channel(null) resolves the default channel.
             Log::channel($channel)->debug('Query Builder SQL', [
-                'sql' => $this->toSql(),
+                'sql'      => $this->toSql(),
                 'bindings' => $this->getBindings(),
             ]);
 

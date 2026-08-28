@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\LLM\Gemini;
 
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
-use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
+use Illuminate\Http\Client\ConnectionException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\RetriesHttpRequests;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
 final class GeminiProvider implements LLMProviderInterface
 {
@@ -20,7 +20,7 @@ final class GeminiProvider implements LLMProviderInterface
         private string $apiKey,
         private int $maxRetries = 3,
         private int $retryDelay = 2,
-        string $baseUrl = 'https://generativelanguage.googleapis.com/v1beta'
+        string $baseUrl = 'https://generativelanguage.googleapis.com/v1beta',
     ) {
         $this->baseUrl = $this->sanitizeBaseUrl($baseUrl);
     }
@@ -37,7 +37,7 @@ final class GeminiProvider implements LLMProviderInterface
         ?array $logitBias = null,
         ?string $user = null,
         ?bool $jsonMode = false,
-        bool $fullResponse = false
+        bool $fullResponse = false,
     ): GeminiResponse {
         // Auth via header, never as a query param (which would leak into logs/proxies).
         $endpoint = $this->baseUrl . '/models/' . $modelName . ':generateContent';
@@ -65,21 +65,21 @@ final class GeminiProvider implements LLMProviderInterface
         if ($systemInstruction !== null) {
             $payload['systemInstruction'] = $systemInstruction;
         }
-        if (!empty($generationConfig)) {
+        if (! empty($generationConfig)) {
             $payload['generationConfig'] = $generationConfig;
         }
 
         return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse, $modelName) {
             try {
                 $response = Http::withHeaders([
-                    'Content-Type' => 'application/json',
+                    'Content-Type'   => 'application/json',
                     'x-goog-api-key' => $this->apiKey,
                 ])->post($endpoint, $payload);
             } catch (ConnectionException $e) {
                 throw new LLMRequestException('Gemini API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
             }
 
-            if (!$response->successful()) {
+            if (! $response->successful()) {
                 $status = $response->status();
                 $body = $response->json();
                 $errorMessage = is_array($body) ? data_get($body, 'error.message') : null;
@@ -113,7 +113,7 @@ final class GeminiProvider implements LLMProviderInterface
                 content: $text,
                 model: $modelName,
                 usage: (object) (is_array($usage) ? $usage : []),
-                rawResponse: $fullResponse ? (object) $data : null
+                rawResponse: $fullResponse ? (object) $data : null,
             );
         }, 'Gemini');
     }
@@ -149,7 +149,7 @@ final class GeminiProvider implements LLMProviderInterface
             }
 
             $contents[] = [
-                'role' => $role,
+                'role'  => $role,
                 'parts' => [['text' => $text]],
             ];
         }

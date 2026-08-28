@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Macros;
 
 use ArrayAccess;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use RuntimeException;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\ServiceProvider;
 use Simtabi\Laranail\Toolkit\Support\Cast;
+use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * Registers the toolkit's general-purpose Collection macros.
@@ -150,12 +150,12 @@ final class CollectionMacros extends ServiceProvider
             $buildTree = function (int|string|null $parentId) use ($grouped, $childrenKey, &$buildTree): Collection {
                 $children = $grouped->get($parentId);
 
-                if (!$children instanceof Collection) {
+                if (! $children instanceof Collection) {
                     return new Collection([]);
                 }
 
                 return $children->map(function (mixed $item) use ($childrenKey, $buildTree): mixed {
-                    if (!is_array($item)) {
+                    if (! is_array($item)) {
                         return $item;
                     }
 
@@ -173,7 +173,7 @@ final class CollectionMacros extends ServiceProvider
             /** @var Collection<array-key, mixed> $this */
             $index = $this->keys()->search($key);
 
-            if (!is_int($index)) {
+            if (! is_int($index)) {
                 return $this->put($key, $value);
             }
 
@@ -189,7 +189,7 @@ final class CollectionMacros extends ServiceProvider
             /** @var Collection<array-key, mixed> $this */
             $index = $this->keys()->search($key);
 
-            if (!is_int($index)) {
+            if (! is_int($index)) {
                 return $this->prepend($value, $key);
             }
 
@@ -257,10 +257,10 @@ final class CollectionMacros extends ServiceProvider
         Collection::macro('none', function (mixed $key, mixed $value = null): bool {
             /** @var Collection<array-key, mixed> $this */
             if (func_num_args() === 2) {
-                return !$this->contains($key, $value);
+                return ! $this->contains($key, $value);
             }
 
-            return !$this->contains($key);
+            return ! $this->contains($key);
         });
 
         // pluck() returning a plain array rather than a Collection.
@@ -340,7 +340,7 @@ final class CollectionMacros extends ServiceProvider
                     $currentName = $name;
                     $results->push(new Collection([
                         $sectionKey => $name,
-                        $itemsKey => $current,
+                        $itemsKey   => $current,
                     ]));
                 }
 
@@ -378,11 +378,11 @@ final class CollectionMacros extends ServiceProvider
             return $this->filter(static function (mixed $item) use ($key, $value, $caseSensitive): bool {
                 $haystack = data_get($item, $key);
 
-                if (!is_string($haystack)) {
+                if (! is_string($haystack)) {
                     return false;
                 }
 
-                if (!$caseSensitive) {
+                if (! $caseSensitive) {
                     $haystack = Str::lower($haystack);
                     $value = Str::lower($value);
                 }
@@ -397,11 +397,11 @@ final class CollectionMacros extends ServiceProvider
             return $this->filter(static function (mixed $item) use ($key, $value, $caseSensitive): bool {
                 $haystack = data_get($item, $key);
 
-                if (!is_string($haystack)) {
+                if (! is_string($haystack)) {
                     return false;
                 }
 
-                if (!$caseSensitive) {
+                if (! $caseSensitive) {
                     $haystack = Str::lower($haystack);
                     $value = Str::lower($value);
                 }
@@ -416,11 +416,11 @@ final class CollectionMacros extends ServiceProvider
             return $this->filter(static function (mixed $item) use ($key, $value, $caseSensitive): bool {
                 $haystack = data_get($item, $key);
 
-                if (!is_string($haystack)) {
+                if (! is_string($haystack)) {
                     return false;
                 }
 
-                if (!$caseSensitive) {
+                if (! $caseSensitive) {
                     $haystack = Str::lower($haystack);
                     $value = Str::lower($value);
                 }
@@ -634,13 +634,13 @@ final class CollectionMacros extends ServiceProvider
             $assoc = [];
 
             foreach ($this as $pair) {
-                if (!is_array($pair)) {
+                if (! is_array($pair)) {
                     continue;
                 }
 
                 [$key, $value] = $pair;
 
-                if (!is_int($key) && !is_string($key)) {
+                if (! is_int($key) && ! is_string($key)) {
                     continue;
                 }
 

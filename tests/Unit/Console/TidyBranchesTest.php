@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
+use ReflectionMethod;
+use RuntimeException;
+use ReflectionProperty;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
-use ReflectionMethod;
-use ReflectionProperty;
 use Simtabi\Laranail\Toolkit\Commands\Tidy;
-use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Symfony\Component\Console\Input\ArrayInput;
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
 
 /**
  * Targets the harder-to-reach Tidy branches: the declined-confirmation early
@@ -34,29 +35,6 @@ class TidyBranchesTest extends TestCase
         }
 
         parent::tearDown();
-    }
-
-    private function makeStorageFile(string $relative, string $contents = 'x'): string
-    {
-        $path = storage_path($relative);
-        @mkdir(dirname($path), 0777, true);
-        file_put_contents($path, $contents);
-        $this->created[] = $path;
-
-        return $path;
-    }
-
-    private function makeSpyCommand(): SpyTidy
-    {
-        $spy = new SpyTidy(
-            $this->app->make(FileServiceInterface::class),
-            $this->app->make(CacheRepositoryInterface::class),
-            $this->app->make(LoggerServiceInterface::class),
-        );
-        $spy->setLaravel($this->app);
-        $this->app->make(Kernel::class)->registerCommand($spy);
-
-        return $spy;
     }
 
     // -----------------------------------------------------------------------
@@ -202,6 +180,29 @@ class TidyBranchesTest extends TestCase
         @rmdir($dir);
     }
 
+    private function makeStorageFile(string $relative, string $contents = 'x'): string
+    {
+        $path = storage_path($relative);
+        @mkdir(dirname($path), 0777, true);
+        file_put_contents($path, $contents);
+        $this->created[] = $path;
+
+        return $path;
+    }
+
+    private function makeSpyCommand(): SpyTidy
+    {
+        $spy = new SpyTidy(
+            $this->app->make(FileServiceInterface::class),
+            $this->app->make(CacheRepositoryInterface::class),
+            $this->app->make(LoggerServiceInterface::class),
+        );
+        $spy->setLaravel($this->app);
+        $this->app->make(Kernel::class)->registerCommand($spy);
+
+        return $spy;
+    }
+
     private function filesProcessed(Tidy $command): int
     {
         $value = (new ReflectionProperty(Tidy::class, 'filesProcessed'))->getValue($command);
@@ -245,7 +246,7 @@ class SpyTidy extends Tidy
         $this->calledCommands[] = $name;
 
         if ($this->throwOnCacheClear && $name === 'cache:clear') {
-            throw new \RuntimeException('cache flush failed');
+            throw new RuntimeException('cache flush failed');
         }
 
         return self::SUCCESS;

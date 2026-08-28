@@ -4,29 +4,22 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions;
 
-use Illuminate\Foundation\Configuration\Exceptions;
-use Illuminate\Foundation\Exceptions\Handler;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
+use LogicException;
+use ReflectionClass;
+use ReflectionObject;
 use RuntimeException;
-use Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Foundation\Exceptions\Handler;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class RendersApiExceptionsTest extends TestCase
 {
-    private function handler(): Handler
-    {
-        return $this->app->make(Handler::class);
-    }
-
-    private function configurator(Handler $handler): Exceptions
-    {
-        return new Exceptions($handler);
-    }
-
     public function test_method_not_allowed_renders_json_for_api_requests(): void
     {
         $handler = $this->handler();
@@ -79,8 +72,8 @@ class RendersApiExceptionsTest extends TestCase
         config([
             'logging.channels.slack' => [
                 'driver' => 'single',
-                'path' => storage_path('logs/slack-test.log'),
-                'url' => 'https://hooks.example.test/abc',
+                'path'   => storage_path('logs/slack-test.log'),
+                'url'    => 'https://hooks.example.test/abc',
             ],
             'app.debug' => false,
         ]);
@@ -103,25 +96,6 @@ class RendersApiExceptionsTest extends TestCase
 
         $this->assertTrue(Cache::has('laranail:toolkit:slack-error-throttle'));
         $slack->shouldHaveReceived('critical')->once();
-    }
-
-    /**
-     * Run a callback with the application reporting a non-console runtime so the
-     * console-gated reporter logic executes, then restore the cached flag.
-     */
-    private function asWebRequest(callable $callback): void
-    {
-        $reflection = new \ReflectionObject($this->app);
-        $flag = $reflection->getProperty('isRunningInConsole');
-
-        $previous = $flag->getValue($this->app);
-        $flag->setValue($this->app, false);
-
-        try {
-            $callback();
-        } finally {
-            $flag->setValue($this->app, $previous);
-        }
     }
 
     public function test_slack_reporter_is_a_noop_in_web_context_without_a_channel(): void
@@ -150,8 +124,8 @@ class RendersApiExceptionsTest extends TestCase
         config([
             'logging.channels.slack' => [
                 'driver' => 'single',
-                'path' => storage_path('logs/slack-test.log'),
-                'url' => 'https://hooks.example.test/abc',
+                'path'   => storage_path('logs/slack-test.log'),
+                'url'    => 'https://hooks.example.test/abc',
             ],
             'app.debug' => false,
         ]);
@@ -175,7 +149,7 @@ class RendersApiExceptionsTest extends TestCase
         $handler = $this->handler();
         RendersApiExceptions::registerSlackReporter($this->configurator($handler));
 
-        $exception = new RuntimeException('outer', 0, new \LogicException('inner cause'));
+        $exception = new RuntimeException('outer', 0, new LogicException('inner cause'));
 
         $this->asWebRequest(function () use ($handler, $exception): void {
             $handler->report($exception);
@@ -192,7 +166,7 @@ class RendersApiExceptionsTest extends TestCase
 
     public function test_constructor_is_private(): void
     {
-        $reflection = new \ReflectionClass(RendersApiExceptions::class);
+        $reflection = new ReflectionClass(RendersApiExceptions::class);
         $constructor = $reflection->getConstructor();
 
         $this->assertNotNull($constructor);
@@ -216,5 +190,34 @@ class RendersApiExceptionsTest extends TestCase
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertSame(405, $response->getStatusCode());
+    }
+
+    private function handler(): Handler
+    {
+        return $this->app->make(Handler::class);
+    }
+
+    private function configurator(Handler $handler): Exceptions
+    {
+        return new Exceptions($handler);
+    }
+
+    /**
+     * Run a callback with the application reporting a non-console runtime so the
+     * console-gated reporter logic executes, then restore the cached flag.
+     */
+    private function asWebRequest(callable $callback): void
+    {
+        $reflection = new ReflectionObject($this->app);
+        $flag = $reflection->getProperty('isRunningInConsole');
+
+        $previous = $flag->getValue($this->app);
+        $flag->setValue($this->app, false);
+
+        try {
+            $callback();
+        } finally {
+            $flag->setValue($this->app, $previous);
+        }
     }
 }

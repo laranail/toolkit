@@ -23,7 +23,7 @@ trait HasLivewireComponents
      */
     public function registerLivewireComponents(): void
     {
-        if (!method_exists($this, 'getLivewireComponents')) {
+        if (! method_exists($this, 'getLivewireComponents')) {
             return;
         }
 

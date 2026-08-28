@@ -26,7 +26,7 @@ final class ArrMacros extends ServiceProvider
 
         Arr::macro('filterEmpty', fn (array $array): array => array_filter(
             $array,
-            static fn (mixed $value): bool => !empty($value),
+            static fn (mixed $value): bool => ! empty($value),
         ));
 
         Arr::macro('mapKeys', function (array $array, callable $callback): array {
@@ -77,11 +77,11 @@ final class ArrMacros extends ServiceProvider
 
         Arr::macro('removeValues', fn (array $array, array $values): array => array_values(array_filter(
             $array,
-            static fn (mixed $item): bool => !in_array($item, $values, true),
+            static fn (mixed $item): bool => ! in_array($item, $values, true),
         )));
 
         Arr::macro('renameKey', function (array $array, int|string $oldKey, int|string $newKey): array {
-            if (!array_key_exists($oldKey, $array)) {
+            if (! array_key_exists($oldKey, $array)) {
                 return $array;
             }
 
@@ -96,7 +96,7 @@ final class ArrMacros extends ServiceProvider
         // are skipped (the legacy version assumed each old key existed).
         Arr::macro('renameKeys', function (array $array, array $changes): array {
             foreach ($changes as $oldKey => $newKey) {
-                if (!array_key_exists($oldKey, $array)) {
+                if (! array_key_exists($oldKey, $array)) {
                     continue;
                 }
 
@@ -153,7 +153,7 @@ final class ArrMacros extends ServiceProvider
             foreach ($array as $item) {
                 $groupKey = Arr::get($item, $key);
 
-                if (!is_int($groupKey) && !is_string($groupKey)) {
+                if (! is_int($groupKey) && ! is_string($groupKey)) {
                     continue;
                 }
 
@@ -170,7 +170,7 @@ final class ArrMacros extends ServiceProvider
             foreach ($array as $item) {
                 $uniqueKey = Arr::get($item, $key);
 
-                if (!in_array($uniqueKey, $seen, true)) {
+                if (! in_array($uniqueKey, $seen, true)) {
                     $seen[] = $uniqueKey;
                     $result[] = $item;
                 }

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Exceptions\Concerns;
 
-use Illuminate\Foundation\Configuration\Exceptions;
-use Illuminate\Http\JsonResponse;
+use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Foundation\Configuration\Exceptions;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Throwable;
 
 /**
  * Opt-in reporting/rendering helpers for an application's exception handler.
@@ -95,14 +95,14 @@ final class RendersApiExceptions
     public static function registerMethodNotAllowedRenderer(Exceptions $exceptions): void
     {
         $exceptions->render(static function (MethodNotAllowedHttpException $e, Request $request): ?JsonResponse {
-            if (!$request->expectsJson()) {
+            if (! $request->expectsJson()) {
                 return null;
             }
 
             return new JsonResponse([
                 'success' => false,
                 'message' => $e->getMessage() !== '' ? $e->getMessage() : 'Method not allowed.',
-                'errors' => [],
+                'errors'  => [],
             ], HttpResponse::HTTP_METHOD_NOT_ALLOWED);
         });
     }
@@ -121,15 +121,15 @@ final class RendersApiExceptions
         $previous = $exception->getPrevious();
 
         return array_filter([
-            'Request URL' => $request->fullUrl(),
-            'Request IP' => $request->ip(),
-            'Request Referer' => $request->header('referer'),
-            'Request Method' => $request->method(),
+            'Request URL'       => $request->fullUrl(),
+            'Request IP'        => $request->ip(),
+            'Request Referer'   => $request->header('referer'),
+            'Request Method'    => $request->method(),
             'Request Form Data' => $request->method() !== 'GET'
                 ? json_encode($request->input(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
                 : null,
-            'Exception Type' => $exception::class,
-            'File Path' => self::relativeLocation($exception->getFile(), $exception->getLine()),
+            'Exception Type'     => $exception::class,
+            'File Path'          => self::relativeLocation($exception->getFile(), $exception->getLine()),
             'Previous File Path' => $previous instanceof Throwable
                 ? self::relativeLocation($previous->getFile(), $previous->getLine())
                 : null,

@@ -4,28 +4,22 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
-use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Http\Client\ConnectionException;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
 
 class ClaudeProviderTest extends TestCase
 {
-    private function provider(): ClaudeProvider
-    {
-        // retryDelay = 0 so retries don't sleep in tests.
-        return new ClaudeProvider('test-key', maxRetries: 3, retryDelay: 0);
-    }
-
     public function test_it_parses_a_successful_response_and_sends_the_api_key_header(): void
     {
         Http::fake([
             '*' => Http::response([
-                'model' => 'claude-3-5-sonnet',
+                'model'   => 'claude-3-5-sonnet',
                 'content' => [['type' => 'text', 'text' => 'Hello there']],
-                'usage' => ['input_tokens' => 5],
+                'usage'   => ['input_tokens' => 5],
             ], 200),
         ]);
 
@@ -76,7 +70,7 @@ class ClaudeProviderTest extends TestCase
     {
         Http::fake([
             '*' => Http::response([
-                'model' => 'claude-3-5-sonnet',
+                'model'   => 'claude-3-5-sonnet',
                 'content' => [['type' => 'text', 'text' => 'ok']],
             ], 200),
         ]);
@@ -117,9 +111,9 @@ class ClaudeProviderTest extends TestCase
             $body = $request->data();
 
             return $body['max_tokens'] === 1024
-                && !array_key_exists('temperature', $body)
-                && !array_key_exists('top_p', $body)
-                && !array_key_exists('stop_sequences', $body);
+                && ! array_key_exists('temperature', $body)
+                && ! array_key_exists('top_p', $body)
+                && ! array_key_exists('stop_sequences', $body);
         });
     }
 
@@ -137,5 +131,11 @@ class ClaudeProviderTest extends TestCase
             $this->assertTrue($e->isRetryable());
             $this->assertInstanceOf(ConnectionException::class, $e->getPrevious());
         }
+    }
+
+    private function provider(): ClaudeProvider
+    {
+        // retryDelay = 0 so retries don't sleep in tests.
+        return new ClaudeProvider('test-key', maxRetries: 3, retryDelay: 0);
     }
 }

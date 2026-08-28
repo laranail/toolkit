@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Traits;
 
-use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
-use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\HasAuth;
+use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 
 /**
  * Test double exercising the {@see HasAuth} trait.
@@ -29,7 +29,7 @@ class HasAuthTest extends TestCase
 
     public function test_trait_delegates_user_context_to_a_memoised_service(): void
     {
-        $object = new HasAuthFixture();
+        $object = new HasAuthFixture;
 
         $object->setUserEmail('a@b.com')->setUserId(9)->setGuard('web');
 
@@ -40,7 +40,7 @@ class HasAuthTest extends TestCase
 
     public function test_is_authenticated_reflects_the_guard_state(): void
     {
-        $object = new HasAuthFixture();
+        $object = new HasAuthFixture;
 
         // No user is logged in under the default guard in the test harness.
         $this->assertFalse($object->isAuthenticated());

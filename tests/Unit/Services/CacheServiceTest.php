@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
+use Mockery;
+use Stringable;
+use RuntimeException;
+use Psr\Log\AbstractLogger;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Support\Facades\Cache;
-use Psr\Log\AbstractLogger;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class CacheServiceTest extends TestCase
 {
@@ -35,8 +38,8 @@ class CacheServiceTest extends TestCase
         $data = ['test' => 'data'];
 
         // Mock Cache facade
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
-        Cache::shouldReceive('put')->with($key, $data, \Mockery::any())->andReturn(true);
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
+        Cache::shouldReceive('put')->with($key, $data, Mockery::any())->andReturn(true);
         Cache::shouldReceive('get')->with($key, null)->andReturn($data);
         Cache::shouldReceive('get')->with($key)->andReturn($data);
 
@@ -53,7 +56,7 @@ class CacheServiceTest extends TestCase
         $minutes = 30;
 
         // Mock Cache facade
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
         Cache::shouldReceive('put')->with($key, $data, $minutes * 60)->andReturn(true);
         Cache::shouldReceive('get')->with($key, null)->andReturn($data);
         Cache::shouldReceive('get')->with($key)->andReturn($data);
@@ -81,8 +84,8 @@ class CacheServiceTest extends TestCase
         $data = ['test' => 'data'];
 
         // Mock Cache facade
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
-        Cache::shouldReceive('put')->with($key, $data, \Mockery::any())->andReturn(true);
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
+        Cache::shouldReceive('put')->with($key, $data, Mockery::any())->andReturn(true);
         Cache::shouldReceive('get')->with($key, null)->andReturn($data);
 
         $this->cacheService->cache($key, $data);
@@ -110,8 +113,8 @@ class CacheServiceTest extends TestCase
         $data = ['test' => 'data'];
 
         // Mock Cache facade - first call returns data, after forget returns null
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
-        Cache::shouldReceive('put')->with($key, $data, \Mockery::any())->andReturn(true);
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
+        Cache::shouldReceive('put')->with($key, $data, Mockery::any())->andReturn(true);
         Cache::shouldReceive('get')->with($key, null)->andReturn($data)->once();
         Cache::shouldReceive('forget')->with($key)->andReturn(true);
         Cache::shouldReceive('get')->with($key, null)->andReturn(null)->once();
@@ -130,7 +133,7 @@ class CacheServiceTest extends TestCase
         $tags = ['test'];
 
         // Mock Cache facade to avoid store issues
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
         Cache::shouldReceive('put')->andReturn(true);
 
         $result = $this->cacheService->cache($key, $data, null, $tags);
@@ -211,13 +214,13 @@ class CacheServiceTest extends TestCase
 
     public function test_remember_falls_back_to_callback_and_logs_on_store_failure(): void
     {
-        $logger = new CollectingTestLogger();
+        $logger = new CollectingTestLogger;
         $util = new CacheService(60, [], $logger);
 
         // Force the underlying store to throw on remember().
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
         Cache::shouldReceive('tags')->andReturnSelf();
-        Cache::shouldReceive('store')->andThrow(new \RuntimeException('backend down'));
+        Cache::shouldReceive('store')->andThrow(new RuntimeException('backend down'));
 
         $result = $util->remember('boom', fn () => 'fallback');
 
@@ -236,11 +239,11 @@ class CacheServiceTest extends TestCase
 
     public function test_remember_forever_falls_back_and_logs_on_store_failure(): void
     {
-        $logger = new CollectingTestLogger();
+        $logger = new CollectingTestLogger;
         $util = new CacheService(60, [], $logger);
 
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
-        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
+        Cache::shouldReceive('store')->andThrow(new RuntimeException('down'));
 
         $this->assertSame('fb', $util->rememberForever('rf', fn () => 'fb'));
         $this->assertNotEmpty($logger->errors);
@@ -248,11 +251,11 @@ class CacheServiceTest extends TestCase
 
     public function test_put_returns_false_and_logs_on_store_failure(): void
     {
-        $logger = new CollectingTestLogger();
+        $logger = new CollectingTestLogger;
         $util = new CacheService(60, [], $logger);
 
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
-        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
+        Cache::shouldReceive('store')->andThrow(new RuntimeException('down'));
 
         $this->assertFalse($util->put('pk', 'pv'));
         $this->assertNotEmpty($logger->errors);
@@ -260,11 +263,11 @@ class CacheServiceTest extends TestCase
 
     public function test_many_returns_defaults_and_logs_on_store_failure(): void
     {
-        $logger = new CollectingTestLogger();
+        $logger = new CollectingTestLogger;
         $util = new CacheService(60, [], $logger);
 
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
-        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
+        Cache::shouldReceive('store')->andThrow(new RuntimeException('down'));
 
         $this->assertSame(['a' => null, 'b' => null], $util->many(['a', 'b']));
         $this->assertNotEmpty($logger->errors);
@@ -272,11 +275,11 @@ class CacheServiceTest extends TestCase
 
     public function test_increment_returns_false_and_logs_on_store_failure(): void
     {
-        $logger = new CollectingTestLogger();
+        $logger = new CollectingTestLogger;
         $util = new CacheService(60, [], $logger);
 
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
-        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
+        Cache::shouldReceive('store')->andThrow(new RuntimeException('down'));
 
         $this->assertFalse($util->increment('ck'));
         $this->assertNotEmpty($logger->errors);
@@ -284,11 +287,11 @@ class CacheServiceTest extends TestCase
 
     public function test_decrement_returns_false_and_logs_on_store_failure(): void
     {
-        $logger = new CollectingTestLogger();
+        $logger = new CollectingTestLogger;
         $util = new CacheService(60, [], $logger);
 
-        Cache::shouldReceive('getStore')->andReturn(new ArrayStore());
-        Cache::shouldReceive('store')->andThrow(new \RuntimeException('down'));
+        Cache::shouldReceive('getStore')->andReturn(new ArrayStore);
+        Cache::shouldReceive('store')->andThrow(new RuntimeException('down'));
 
         $this->assertFalse($util->decrement('ck'));
         $this->assertNotEmpty($logger->errors);
@@ -314,9 +317,9 @@ class CollectingTestLogger extends AbstractLogger
     public array $errors = [];
 
     /**
-     * @param mixed              $level
-     * @param string|\Stringable $message
-     * @param array<mixed>       $context
+     * @param mixed $level
+     * @param string|Stringable $message
+     * @param array<mixed> $context
      */
     public function log($level, $message, array $context = []): void
     {

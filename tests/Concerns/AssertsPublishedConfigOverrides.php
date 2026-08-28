@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Concerns;
 
+use PHPUnit\Framework\Assert;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
-use PHPUnit\Framework\Assert;
 
 /**
  * Test helper verifying that a PUBLISHED namespaced config override reaches its
@@ -23,10 +23,10 @@ trait AssertsPublishedConfigOverrides
 {
     /**
      * @param class-string<ServiceProvider> $providerClass
-     * @param string                        $configKey     Dotted namespaced key, e.g. 'laranail.toolkit'.
-     * @param array<string, mixed>          $override      Values written to the published file.
-     * @param string                        $assertKey     Dotted key read after the override is applied.
-     * @param mixed                         $expected      Expected value at $assertKey.
+     * @param string $configKey Dotted namespaced key, e.g. 'laranail.toolkit'.
+     * @param array<string, mixed> $override Values written to the published file.
+     * @param string $assertKey Dotted key read after the override is applied.
+     * @param mixed $expected Expected value at $assertKey.
      */
     protected function assertPublishedConfigOverride(
         string $providerClass,

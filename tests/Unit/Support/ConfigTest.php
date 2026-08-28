@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
+use stdClass;
 use Simtabi\Laranail\Toolkit\Support\Config;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
@@ -14,15 +15,15 @@ class ConfigTest extends TestCase
         parent::setUp();
 
         config()->set('toolkit_test', [
-            'name' => 'laranail',
+            'name'          => 'laranail',
             'int_as_string' => '42',
-            'real_int' => 7,
-            'float' => 1.5,
-            'flag_true' => 'yes',
-            'flag_false' => '0',
-            'list' => ['a', 1, 'b', null, 'c'],
-            'map' => ['k' => 'v'],
-            'object_value' => new \stdClass(),
+            'real_int'      => 7,
+            'float'         => 1.5,
+            'flag_true'     => 'yes',
+            'flag_false'    => '0',
+            'list'          => ['a', 1, 'b', null, 'c'],
+            'map'           => ['k' => 'v'],
+            'object_value'  => new stdClass,
         ]);
     }
 

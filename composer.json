@@ -85,7 +85,13 @@
         "test:coverage": "pest --coverage --min=88",
         "test:mutation": "infection --threads=max --no-progress",
         "analyse": "phpstan analyse",
-        "format": "pint"
+        "format": "@pint-fix",
+        "pint": "vendor/bin/pint --test --config vendor/laranail/package-tools/pint.json",
+        "pint-fix": "vendor/bin/pint --parallel --config vendor/laranail/package-tools/pint.json",
+        "lint": [
+            "@pint",
+            "@analyse"
+        ]
     },
     "extra": {
         "laravel": {

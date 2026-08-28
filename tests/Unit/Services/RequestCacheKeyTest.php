@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Test;
-use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
 
 /**
  * `keyFromRequest()` hands out a key that a caller will cache a *response*
@@ -20,16 +20,6 @@ use Simtabi\Laranail\Toolkit\Tests\TestCase;
  */
 final class RequestCacheKeyTest extends TestCase
 {
-    private function service(): CacheService
-    {
-        return new CacheService(60, []);
-    }
-
-    private function swapRequest(string $method, string $uri, array $input = []): void
-    {
-        $this->app->instance('request', Request::create($uri, $method, $input));
-    }
-
     #[Test]
     public function the_key_is_a_sha256_digest(): void
     {
@@ -153,5 +143,15 @@ final class RequestCacheKeyTest extends TestCase
         $service = $this->service();
 
         self::assertSame($service->keyFromRequest(), $service->keyFromRequest([]));
+    }
+
+    private function service(): CacheService
+    {
+        return new CacheService(60, []);
+    }
+
+    private function swapRequest(string $method, string $uri, array $input = []): void
+    {
+        $this->app->instance('request', Request::create($uri, $method, $input));
     }
 }

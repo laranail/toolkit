@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Support;
 
-use Barryvdh\Debugbar\Facades\Debugbar;
-use Clockwork\Support\Laravel\ClockworkServiceProvider;
-use Illuminate\Support\Facades\Log;
 use Laravel\Telescope\Telescope;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
+use Illuminate\Support\Facades\Log;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Simtabi\Laranail\Toolkit\Services\SystemService;
+use Clockwork\Support\Laravel\ClockworkServiceProvider;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 
 /**
  * Chainable API for adjusting PHP runtime settings during heavy operations:
@@ -47,9 +47,9 @@ final class RuntimeConfigurator
     /** @var array<string, bool> Debugging tools to disable. */
     private array $disableTools = [
         'telescope' => false,
-        'xdebug' => false,
+        'xdebug'    => false,
         'clockwork' => false,
-        'debugbar' => false,
+        'debugbar'  => false,
     ];
 
     private bool $logging = false;
@@ -73,7 +73,7 @@ final class RuntimeConfigurator
 
     public static function make(): self
     {
-        return new self();
+        return new self;
     }
 
     /** Pre-configured for queue jobs: 1G memory, no timeout, Telescope disabled. */
@@ -108,6 +108,47 @@ final class RuntimeConfigurator
     public static function fromConfig(?string $profile = null): self
     {
         return self::make()->usingConfig($profile);
+    }
+
+    // --- Static helpers -----------------------------------------------------
+
+    public static function setMemory(string $limit): void
+    {
+        self::make()->memory($limit)->apply();
+    }
+
+    public static function setTimeout(int $seconds): void
+    {
+        self::make()->timeout($seconds)->apply();
+    }
+
+    /**
+     * Whether PHP is running under a CLI SAPI (`cli` or `phpdbg`). Matches
+     * {@see SystemService::isCli()}.
+     */
+    public static function isCli(): bool
+    {
+        return PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg';
+    }
+
+    public static function hasTelescopeInstalled(): bool
+    {
+        return class_exists(Telescope::class);
+    }
+
+    public static function hasXdebugLoaded(): bool
+    {
+        return extension_loaded('xdebug');
+    }
+
+    public static function hasDebugbarInstalled(): bool
+    {
+        return class_exists(Debugbar::class);
+    }
+
+    public static function hasClockworkInstalled(): bool
+    {
+        return class_exists(ClockworkServiceProvider::class);
     }
 
     /**
@@ -353,7 +394,7 @@ final class RuntimeConfigurator
 
     public function unless(bool $condition, callable $callback): self
     {
-        return $this->when(!$condition, $callback);
+        return $this->when(! $condition, $callback);
     }
 
     public function whenCli(callable $callback): self
@@ -363,7 +404,7 @@ final class RuntimeConfigurator
 
     public function whenWeb(callable $callback): self
     {
-        return $this->when(!self::isCli(), $callback);
+        return $this->when(! self::isCli(), $callback);
     }
 
     // --- Logging ------------------------------------------------------------
@@ -500,47 +541,6 @@ final class RuntimeConfigurator
         return ini_get($key);
     }
 
-    // --- Static helpers -----------------------------------------------------
-
-    public static function setMemory(string $limit): void
-    {
-        self::make()->memory($limit)->apply();
-    }
-
-    public static function setTimeout(int $seconds): void
-    {
-        self::make()->timeout($seconds)->apply();
-    }
-
-    /**
-     * Whether PHP is running under a CLI SAPI (`cli` or `phpdbg`). Matches
-     * {@see SystemService::isCli()}.
-     */
-    public static function isCli(): bool
-    {
-        return PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg';
-    }
-
-    public static function hasTelescopeInstalled(): bool
-    {
-        return class_exists(Telescope::class);
-    }
-
-    public static function hasXdebugLoaded(): bool
-    {
-        return extension_loaded('xdebug');
-    }
-
-    public static function hasDebugbarInstalled(): bool
-    {
-        return class_exists(Debugbar::class);
-    }
-
-    public static function hasClockworkInstalled(): bool
-    {
-        return class_exists(ClockworkServiceProvider::class);
-    }
-
     // --- Internal -----------------------------------------------------------
 
     private function captureOriginalValues(): void
@@ -611,7 +611,7 @@ final class RuntimeConfigurator
 
     private function applyIniSetting(string $key, mixed $value): void
     {
-        if (!array_key_exists($key, $this->originalValues)) {
+        if (! array_key_exists($key, $this->originalValues)) {
             $this->originalValues[$key] = ini_get($key);
         }
 
@@ -652,7 +652,7 @@ final class RuntimeConfigurator
 
         if ($this->disableTools['xdebug'] && extension_loaded('xdebug')) {
             // Capture the current mode once so restore() can put it back.
-            if (!array_key_exists(self::XDEBUG_MODE, $this->originalValues)) {
+            if (! array_key_exists(self::XDEBUG_MODE, $this->originalValues)) {
                 $this->originalValues[self::XDEBUG_MODE] = ini_get(self::XDEBUG_MODE);
             }
             if (function_exists('xdebug_disable')) {
@@ -698,9 +698,9 @@ final class RuntimeConfigurator
     private function logChanges(string $message): void
     {
         $context = [
-            'pending' => $this->pending,
-            'disabled_tools' => array_filter($this->disableTools),
-            'failed_ini' => $this->failedIni,
+            'pending'            => $this->pending,
+            'disabled_tools'     => array_filter($this->disableTools),
+            'failed_ini'         => $this->failedIni,
             'memory_usage_bytes' => memory_get_usage(true),
         ];
 

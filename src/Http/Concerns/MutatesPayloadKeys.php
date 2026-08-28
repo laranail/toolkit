@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Http\Concerns;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 
 /**
@@ -27,7 +27,7 @@ trait MutatesPayloadKeys
     /**
      * Recursively rewrite every key of the payload using the given transformer.
      *
-     * @param array<array-key, mixed>  $data
+     * @param array<array-key, mixed> $data
      * @param callable(string): string $transform
      *
      * @return array<array-key, mixed>

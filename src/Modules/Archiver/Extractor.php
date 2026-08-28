@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Modules\Archiver;
 
 use PharData;
-use RecursiveIteratorIterator;
 use SplFileInfo;
+use RecursiveIteratorIterator;
 
 abstract class Extractor
 {
@@ -37,7 +37,7 @@ abstract class Extractor
 
     protected function ensureDestination(string $directory): void
     {
-        if (!is_dir($directory) && !@mkdir($directory, 0755, true) && !is_dir($directory)) {
+        if (! is_dir($directory) && ! @mkdir($directory, 0755, true) && ! is_dir($directory)) {
             throw new ArchiveException("Unable to create destination directory [{$directory}].");
         }
     }
@@ -53,7 +53,7 @@ abstract class Extractor
         $total = 0;
 
         foreach ($iterator as $file) {
-            if (!$file instanceof SplFileInfo) {
+            if (! $file instanceof SplFileInfo) {
                 continue;
             }
 

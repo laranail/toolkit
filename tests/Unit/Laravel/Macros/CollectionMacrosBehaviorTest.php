@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
 use ArrayObject;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use RuntimeException;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
@@ -163,9 +163,9 @@ final class CollectionMacrosBehaviorTest extends TestCase
         $this->assertSame(
             [
                 [
-                    'id' => 1,
+                    'id'        => 1,
                     'parent_id' => null,
-                    'children' => [
+                    'children'  => [
                         ['id' => 2, 'parent_id' => 1, 'children' => []],
                     ],
                 ],
@@ -505,8 +505,8 @@ final class CollectionMacrosBehaviorTest extends TestCase
 
     public function test_group_by_model_buckets_keyless_models_together(): void
     {
-        $x = new CollectionMacroGroupable();
-        $y = new CollectionMacroGroupable();
+        $x = new CollectionMacroGroupable;
+        $y = new CollectionMacroGroupable;
 
         $result = collect([$x, $y])->groupByModel(static fn (CollectionMacroGroupable $m): CollectionMacroGroupable => $m);
 
@@ -676,9 +676,9 @@ final class CollectionMacrosBehaviorTest extends TestCase
  */
 class CollectionMacroGroupable extends Model
 {
-    protected $table = 'collection_macro_groupables';
-
     public $timestamps = false;
+
+    protected $table = 'collection_macro_groupables';
 
     protected $guarded = [];
 }

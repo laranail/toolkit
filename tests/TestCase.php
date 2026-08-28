@@ -34,9 +34,9 @@ abstract class TestCase extends OrchestraTestCase
         // Database: sqlite in-memory
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
-            'driver' => 'sqlite',
+            'driver'   => 'sqlite',
             'database' => ':memory:',
-            'prefix' => '',
+            'prefix'   => '',
         ]);
 
         // Cache: array driver
@@ -49,7 +49,7 @@ abstract class TestCase extends OrchestraTestCase
         // caching/llm bindings resolve in tests.
         $app['config']->set('laranail.toolkit.cache', [
             'default_expiration' => 60,
-            'default_tags' => [],
+            'default_tags'       => [],
         ]);
     }
 }

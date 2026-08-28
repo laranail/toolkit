@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Http\Controllers\CrudController;
+use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Simtabi\Laranail\Toolkit\Http\Controllers\CrudController;
 
 class CrudPost extends Model
 {
-    protected $table = 'crud_posts';
-
     public $timestamps = false;
+
+    protected $table = 'crud_posts';
 
     /** @var list<string> */
     protected $fillable = ['title'];
@@ -35,9 +35,9 @@ class CrudPost extends Model
 
 class CrudComment extends Model
 {
-    protected $table = 'crud_comments';
-
     public $timestamps = false;
+
+    protected $table = 'crud_comments';
 
     /** @var list<string> */
     protected $fillable = ['post_id', 'body'];
@@ -47,7 +47,7 @@ class CrudPostController extends CrudController
 {
     public function __construct()
     {
-        parent::__construct(new CrudPost());
+        parent::__construct(new CrudPost);
 
         $this->relationships = ['comments'];
         $this->sortableFields = ['title'];
@@ -58,7 +58,7 @@ class NonUniqueValidatedController extends CrudController
 {
     public function __construct()
     {
-        parent::__construct(new CrudPost());
+        parent::__construct(new CrudPost);
 
         $this->validationRules = ['title' => 'required|max:255', 'tag' => ['nullable', 'string']];
     }
@@ -91,21 +91,11 @@ class CrudControllerTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * @return array<array-key, mixed>
-     */
-    private function decode(JsonResponse $response): array
-    {
-        $data = $response->getData(true);
-
-        return is_array($data) ? $data : [];
-    }
-
     public function test_get_all_records_sorts_by_whitelisted_column_descending(): void
     {
         CrudPost::insert([['title' => 'Banana'], ['title' => 'Apple'], ['title' => 'Cherry']]);
 
-        $response = (new CrudPostController())->getAllRecords(
+        $response = (new CrudPostController)->getAllRecords(
             Request::create('/', 'GET', ['sort_by' => 'title', 'sort_direction' => 'desc']),
         );
 
@@ -119,7 +109,7 @@ class CrudControllerTest extends TestCase
     {
         CrudPost::insert([['title' => 'Banana'], ['title' => 'Apple'], ['title' => 'Cherry']]);
 
-        $response = (new CrudPostController())->getAllRecords(
+        $response = (new CrudPostController)->getAllRecords(
             Request::create('/', 'GET', ['sort_by' => 'title', 'sort_direction' => 'sideways']),
         );
 
@@ -134,7 +124,7 @@ class CrudControllerTest extends TestCase
         $post = CrudPost::create(['title' => 'Hello']);
         $post->comments()->create(['body' => 'Nice one']);
 
-        $response = (new CrudPostController())->getRecordById($post->getKey());
+        $response = (new CrudPostController)->getRecordById($post->getKey());
 
         $data = (array) $this->decode($response)['data'];
         $comments = (array) $data['comments'];
@@ -148,12 +138,12 @@ class CrudControllerTest extends TestCase
     {
         $this->expectException(ModelNotFoundException::class);
 
-        (new CrudPostController())->getRecordById(999);
+        (new CrudPostController)->getRecordById(999);
     }
 
     public function test_store_record_loads_relationships_and_returns_201(): void
     {
-        $response = (new CrudPostController())->storeRecord(
+        $response = (new CrudPostController)->storeRecord(
             Request::create('/', 'POST', ['title' => 'Fresh']),
         );
 
@@ -173,7 +163,7 @@ class CrudControllerTest extends TestCase
         $post = CrudPost::create(['title' => 'Old']);
         $post->comments()->create(['body' => 'existing']);
 
-        $response = (new CrudPostController())->updateRecord(
+        $response = (new CrudPostController)->updateRecord(
             Request::create('/', 'PUT', ['title' => 'Updated']),
             $post->getKey(),
         );
@@ -191,7 +181,7 @@ class CrudControllerTest extends TestCase
     {
         $post = CrudPost::create(['title' => 'Doomed']);
 
-        $response = (new CrudPostController())->deleteRecord($post->getKey());
+        $response = (new CrudPostController)->deleteRecord($post->getKey());
 
         self::assertSame(204, $response->getStatusCode());
         self::assertNull(CrudPost::find($post->getKey()));
@@ -201,7 +191,7 @@ class CrudControllerTest extends TestCase
     {
         $this->expectException(ModelNotFoundException::class);
 
-        (new CrudPostController())->deleteRecord(999);
+        (new CrudPostController)->deleteRecord(999);
     }
 
     public function test_update_skips_rules_without_unique_constraint(): void
@@ -210,7 +200,7 @@ class CrudControllerTest extends TestCase
         // array rule are both left untouched (no `unique:` segment to rewrite).
         $post = CrudPost::create(['title' => 'Before']);
 
-        $response = (new NonUniqueValidatedController())->updateRecord(
+        $response = (new NonUniqueValidatedController)->updateRecord(
             Request::create('/', 'PUT', ['title' => 'After', 'tag' => 'x']),
             $post->getKey(),
         );
@@ -218,5 +208,15 @@ class CrudControllerTest extends TestCase
         $data = (array) $this->decode($response)['data'];
 
         self::assertSame('After', $data['title']);
+    }
+
+    /**
+     * @return array<array-key, mixed>
+     */
+    private function decode(JsonResponse $response): array
+    {
+        $data = $response->getData(true);
+
+        return is_array($data) ? $data : [];
     }
 }

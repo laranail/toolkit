@@ -11,9 +11,9 @@ final class ArchiveManager
 
     public function __construct()
     {
-        $this->addExtractor('zip', new Zip())
-            ->addExtractor('tar', new Tar())
-            ->addExtractor('tar.gz', new TarGz());
+        $this->addExtractor('zip', new Zip)
+            ->addExtractor('tar', new Tar)
+            ->addExtractor('tar.gz', new TarGz);
     }
 
     public function addExtractor(string $extension, Extractor $extractor): self
@@ -44,9 +44,9 @@ final class ArchiveManager
 
         return match (true) {
             str_ends_with($lower, '.tar.gz'), str_ends_with($lower, '.tgz') => 'tar.gz',
-            str_ends_with($lower, '.tar') => 'tar',
-            str_ends_with($lower, '.zip') => 'zip',
-            default => pathinfo($lower, PATHINFO_EXTENSION),
+            str_ends_with($lower, '.tar')                                   => 'tar',
+            str_ends_with($lower, '.zip')                                   => 'zip',
+            default                                                         => pathinfo($lower, PATHINFO_EXTENSION),
         };
     }
 }

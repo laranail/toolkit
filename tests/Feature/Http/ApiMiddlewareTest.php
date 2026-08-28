@@ -4,48 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 
-use Illuminate\Pagination\LengthAwarePaginator;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 #[Group('http')]
 class ApiMiddlewareTest extends TestCase
 {
-    protected function defineRoutes($router): void
-    {
-        // laranail-toolkit.api-request snake-cases incoming keys before the handler sees them.
-        $router->post(
-            '/_test/api/request',
-            fn () => response()->json(['received' => request()->all()]),
-        )->middleware('laranail-toolkit.api-request');
-
-        // laranail-toolkit.api-response envelopes + camelCases the outgoing JSON.
-        $router->get(
-            '/_test/api/response',
-            fn () => response()->json(['user_id' => 7, 'display_name' => 'Jane']),
-        )->middleware('laranail-toolkit.api-response');
-
-        $router->get('/_test/api/response/paginated', function () {
-            $paginator = new LengthAwarePaginator(
-                items: [['item_id' => 1], ['item_id' => 2]],
-                total: 10,
-                perPage: 2,
-                currentPage: 1,
-            );
-
-            return response()->json($paginator);
-        })->middleware('laranail-toolkit.api-response');
-
-        $router->get(
-            '/_test/api/response/error',
-            fn () => response()->json(['error_code' => 'nope'], 422),
-        )->middleware('laranail-toolkit.api-response');
-    }
-
     public function test_request_middleware_snake_cases_incoming_keys(): void
     {
         $response = $this->postJson('/_test/api/request', [
-            'firstName' => 'Jane',
+            'firstName'   => 'Jane',
             'profileData' => ['lastSeenAt' => '2026-01-01'],
         ]);
 
@@ -103,5 +72,36 @@ class ApiMiddlewareTest extends TestCase
         $this->assertFalse($json['success']);
         $this->assertSame('error', $json['meta']['status']);
         $this->assertSame(422, $json['meta']['code']);
+    }
+
+    protected function defineRoutes($router): void
+    {
+        // laranail-toolkit.api-request snake-cases incoming keys before the handler sees them.
+        $router->post(
+            '/_test/api/request',
+            fn () => response()->json(['received' => request()->all()]),
+        )->middleware('laranail-toolkit.api-request');
+
+        // laranail-toolkit.api-response envelopes + camelCases the outgoing JSON.
+        $router->get(
+            '/_test/api/response',
+            fn () => response()->json(['user_id' => 7, 'display_name' => 'Jane']),
+        )->middleware('laranail-toolkit.api-response');
+
+        $router->get('/_test/api/response/paginated', function () {
+            $paginator = new LengthAwarePaginator(
+                items: [['item_id' => 1], ['item_id' => 2]],
+                total: 10,
+                perPage: 2,
+                currentPage: 1,
+            );
+
+            return response()->json($paginator);
+        })->middleware('laranail-toolkit.api-response');
+
+        $router->get(
+            '/_test/api/response/error',
+            fn () => response()->json(['error_code' => 'nope'], 422),
+        )->middleware('laranail-toolkit.api-response');
     }
 }

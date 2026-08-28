@@ -4,30 +4,15 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiProvider;
-use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Http\Client\ConnectionException;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiProvider;
 
 class GeminiProviderTest extends TestCase
 {
-    private function provider(): GeminiProvider
-    {
-        return new GeminiProvider('secret-key', maxRetries: 3, retryDelay: 0);
-    }
-
-    private function fakeOk(): void
-    {
-        Http::fake([
-            '*' => Http::response([
-                'candidates' => [['content' => ['parts' => [['text' => 'Hi from Gemini']]]]],
-                'usageMetadata' => ['totalTokenCount' => 7],
-            ], 200),
-        ]);
-    }
-
     #[Group('security')]
     public function test_api_key_is_sent_as_a_header_and_never_in_the_url(): void
     {
@@ -40,8 +25,8 @@ class GeminiProviderTest extends TestCase
         $this->assertSame('Hi from Gemini', $response->getContent());
 
         Http::assertSent(fn ($request) => $request->hasHeader('x-goog-api-key', 'secret-key')
-            && !str_contains((string) $request->url(), 'key=')
-            && !str_contains((string) $request->url(), 'secret-key'));
+            && ! str_contains((string) $request->url(), 'key=')
+            && ! str_contains((string) $request->url(), 'secret-key'));
     }
 
     public function test_model_is_reported_from_the_request(): void
@@ -162,5 +147,20 @@ class GeminiProviderTest extends TestCase
             $this->assertTrue($e->isRetryable());
             $this->assertInstanceOf(ConnectionException::class, $e->getPrevious());
         }
+    }
+
+    private function provider(): GeminiProvider
+    {
+        return new GeminiProvider('secret-key', maxRetries: 3, retryDelay: 0);
+    }
+
+    private function fakeOk(): void
+    {
+        Http::fake([
+            '*' => Http::response([
+                'candidates'    => [['content' => ['parts' => [['text' => 'Hi from Gemini']]]]],
+                'usageMetadata' => ['totalTokenCount' => 7],
+            ], 200),
+        ]);
     }
 }

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-use ReflectionFunction;
+use stdClass;
 use ReflectionMethod;
+use ReflectionFunction;
 use ReflectionParameter;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Simtabi\Laranail\Toolkit\Commands\IdeHelperMacros;
 use Simtabi\Laranail\Toolkit\Macros\FactoryBuilderMixin;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use stdClass;
 
 /**
  * Targets the defensive/rarely-hit branches of the ide-helper-macros generator:
@@ -39,14 +39,6 @@ class IdeHelperMacrosBranchesTest extends TestCase
         }
 
         parent::tearDown();
-    }
-
-    /**
-     * @param array<int, mixed> $args
-     */
-    private function invoke(object $object, string $method, array $args = []): mixed
-    {
-        return (new ReflectionMethod($object, $method))->invokeArgs($object, $args);
     }
 
     // -----------------------------------------------------------------------
@@ -81,7 +73,7 @@ class IdeHelperMacrosBranchesTest extends TestCase
 
     public function test_render_class_block_returns_null_for_a_target_with_no_macros(): void
     {
-        $command = new IdeHelperMacros();
+        $command = new IdeHelperMacros;
 
         // stdClass has no static $macros property, so readStaticMacros() returns
         // an empty map and the class block is skipped entirely.
@@ -96,7 +88,7 @@ class IdeHelperMacrosBranchesTest extends TestCase
 
     public function test_factory_mixin_block_is_skipped_when_the_mixin_is_absent(): void
     {
-        $command = new IdeHelperMacros();
+        $command = new IdeHelperMacros;
 
         Factory::flushMacros();
 
@@ -106,7 +98,7 @@ class IdeHelperMacrosBranchesTest extends TestCase
             $this->assertNull($result);
         } finally {
             // Restore the mixin the toolkit registers at boot.
-            Factory::mixin(new FactoryBuilderMixin());
+            Factory::mixin(new FactoryBuilderMixin);
         }
     }
 
@@ -116,7 +108,7 @@ class IdeHelperMacrosBranchesTest extends TestCase
 
     public function test_reflect_macro_handles_an_array_callable(): void
     {
-        $command = new IdeHelperMacros();
+        $command = new IdeHelperMacros;
 
         // A [class, method] pair (kept as an array, not a first-class callable)
         // so the reflector's is_array() branch is exercised. The method name is
@@ -130,9 +122,9 @@ class IdeHelperMacrosBranchesTest extends TestCase
 
     public function test_reflect_macro_handles_an_invokable_object(): void
     {
-        $command = new IdeHelperMacros();
+        $command = new IdeHelperMacros;
 
-        $invokable = new class()
+        $invokable = new class
         {
             public function __invoke(): void {}
         };
@@ -144,12 +136,12 @@ class IdeHelperMacrosBranchesTest extends TestCase
 
     public function test_reflect_macro_returns_null_for_an_unresolvable_array_callable(): void
     {
-        $command = new IdeHelperMacros();
+        $command = new IdeHelperMacros;
 
         // __call makes the pair pass the callable type-hint, yet the named method
         // does not really exist, so ReflectionMethod throws and the reflector
         // swallows it into a null.
-        $magic = new class()
+        $magic = new class
         {
             /**
              * @param array<int, mixed> $arguments
@@ -164,7 +156,7 @@ class IdeHelperMacrosBranchesTest extends TestCase
 
     public function test_reflect_macro_returns_null_for_an_unsupported_callable_form(): void
     {
-        $command = new IdeHelperMacros();
+        $command = new IdeHelperMacros;
 
         // A bare string function name is callable but is neither a Closure, an
         // array pair, nor an object, so it falls through to the null return.
@@ -175,7 +167,7 @@ class IdeHelperMacrosBranchesTest extends TestCase
 
     public function test_reflect_macro_handles_a_closure(): void
     {
-        $command = new IdeHelperMacros();
+        $command = new IdeHelperMacros;
 
         $result = $this->invoke($command, 'reflectMacro', [static fn (): int => 1]);
 
@@ -188,12 +180,20 @@ class IdeHelperMacrosBranchesTest extends TestCase
 
     public function test_render_default_returns_null_for_an_unresolvable_default(): void
     {
-        $command = new IdeHelperMacros();
+        $command = new IdeHelperMacros;
 
         // A required internal-function parameter has no retrievable default, so
         // getDefaultValue() throws and the renderer falls back to 'null'.
         $parameter = new ReflectionParameter('strlen', 'string');
 
         $this->assertSame('null', $this->invoke($command, 'renderDefault', [$parameter]));
+    }
+
+    /**
+     * @param array<int, mixed> $args
+     */
+    private function invoke(object $object, string $method, array $args = []): mixed
+    {
+        return (new ReflectionMethod($object, $method))->invokeArgs($object, $args);
     }
 }

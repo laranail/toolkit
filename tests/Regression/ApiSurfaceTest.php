@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Regression;
 
-use PHPUnit\Framework\Attributes\Group;
+use SplFileInfo;
+use FilesystemIterator;
+use RecursiveIteratorIterator;
 use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Formal 0-unplanned-loss proof.
@@ -128,11 +130,11 @@ class ApiSurfaceTest extends TestCase
         $src = dirname(__DIR__, 2) . '/src';
 
         $files = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($src, \FilesystemIterator::SKIP_DOTS),
+            new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS),
         );
 
         foreach ($files as $file) {
-            /** @var \SplFileInfo $file */
+            /** @var SplFileInfo $file */
             if ($file->getExtension() !== 'php') {
                 continue;
             }

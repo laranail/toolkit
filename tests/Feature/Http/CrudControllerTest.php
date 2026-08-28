@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Http\Controllers\CrudController;
+use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Validation\ValidationException;
+use Simtabi\Laranail\Toolkit\Http\Controllers\CrudController;
 
 class CrudWidget extends Model
 {
-    protected $table = 'crud_widgets';
-
     public $timestamps = false;
+
+    protected $table = 'crud_widgets';
 
     protected $fillable = ['name'];
 }
@@ -32,7 +32,7 @@ class CrudWidgetController extends CrudController
 
     public function __construct()
     {
-        parent::__construct(new CrudWidget());
+        parent::__construct(new CrudWidget);
     }
 }
 
@@ -42,7 +42,7 @@ class ValidatedWidgetController extends CrudController
 
     public function __construct()
     {
-        parent::__construct(new CrudWidget());
+        parent::__construct(new CrudWidget);
     }
 }
 
@@ -68,7 +68,7 @@ class CrudControllerTest extends TestCase
 
     public function test_store_does_not_mass_assign_fields_outside_fillable(): void
     {
-        $controller = new CrudWidgetController();
+        $controller = new CrudWidgetController;
 
         $response = $controller->storeRecord(
             Request::create('/', 'POST', ['name' => 'Acme', 'secret' => 'pwned']),
@@ -85,7 +85,7 @@ class CrudControllerTest extends TestCase
     {
         CrudWidget::insert([['name' => 'a'], ['name' => 'b'], ['name' => 'c']]);
 
-        $response = (new CrudWidgetController())->getAllRecords(
+        $response = (new CrudWidgetController)->getAllRecords(
             Request::create('/', 'GET', ['per_page' => 999999]),
         );
 
@@ -97,7 +97,7 @@ class CrudControllerTest extends TestCase
         CrudWidget::insert([['name' => 'Alpha'], ['name' => 'Beta']]);
 
         // A bare '%' must not match every row.
-        $response = (new CrudWidgetController())->getAllRecords(
+        $response = (new CrudWidgetController)->getAllRecords(
             Request::create('/', 'GET', ['search' => '%']),
         );
 
@@ -109,7 +109,7 @@ class CrudControllerTest extends TestCase
         CrudWidget::insert([['name' => 'a'], ['name' => 'b']]);
 
         // An injection-style sort_by must be ignored, not executed.
-        $response = (new CrudWidgetController())->getAllRecords(
+        $response = (new CrudWidgetController)->getAllRecords(
             Request::create('/', 'GET', ['sort_by' => 'name); drop table crud_widgets;--']),
         );
 
@@ -119,7 +119,7 @@ class CrudControllerTest extends TestCase
 
     public function test_update_unique_rule_ignores_the_current_record(): void
     {
-        $controller = new ValidatedWidgetController();
+        $controller = new ValidatedWidgetController;
         $created = $controller->storeRecord(Request::create('/', 'POST', ['name' => 'Acme']));
         $id = $created->getData(true)['data']['id'];
 
@@ -131,7 +131,7 @@ class CrudControllerTest extends TestCase
 
     public function test_update_unique_rule_still_rejects_a_duplicate_of_another_record(): void
     {
-        $controller = new ValidatedWidgetController();
+        $controller = new ValidatedWidgetController;
         $first = $controller->storeRecord(Request::create('/', 'POST', ['name' => 'Acme']));
         $second = $controller->storeRecord(Request::create('/', 'POST', ['name' => 'Beta']));
         $secondId = $second->getData(true)['data']['id'];

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Support;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Support\ConditionalRunner;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\RunsConditionally;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Simtabi\Laranail\Toolkit\Support\ConditionalRunner;
 
 #[Group('support')]
 class RunsConditionallyTest extends TestCase
@@ -20,7 +20,7 @@ class RunsConditionallyTest extends TestCase
     {
         parent::setUp();
 
-        $this->host = new RunsConditionallyHost();
+        $this->host = new RunsConditionallyHost;
     }
 
     public function test_conditional_exposes_a_runner(): void
@@ -42,7 +42,7 @@ class RunsConditionallyTest extends TestCase
     {
         $this->assertNull($this->host->whenAuthed(fn (): string => 'auth'));
 
-        $this->actingAs(new RunsConditionallyUser());
+        $this->actingAs(new RunsConditionallyUser);
 
         $this->assertSame('auth', $this->host->whenAuthed(fn (): string => 'auth'));
     }
@@ -51,7 +51,7 @@ class RunsConditionallyTest extends TestCase
     {
         $this->assertSame('guest', $this->host->whenGuest(fn (): string => 'guest'));
 
-        $this->actingAs(new RunsConditionallyUser());
+        $this->actingAs(new RunsConditionallyUser);
 
         $this->assertNull($this->host->whenGuest(fn (): string => 'guest'));
     }

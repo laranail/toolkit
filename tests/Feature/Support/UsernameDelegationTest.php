@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Support;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Helpers\Helper;
-use Simtabi\Laranail\Toolkit\Support\Username;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Support\Username;
 use Simtabi\Laranail\Toolkit\Traits\HasFormatters;
 
 class Account extends Model
 {
     use HasFormatters;
 
-    protected $table = 'accounts';
-
     public $timestamps = false;
+
+    protected $table = 'accounts';
 
     protected $guarded = [];
 }
@@ -57,7 +57,7 @@ class UsernameDelegationTest extends TestCase
 
         Account::query()->create(['username' => 'janedoe']);
 
-        $available = static fn (string $username): bool => !Account::query()
+        $available = static fn (string $username): bool => ! Account::query()
             ->where('username', $username)
             ->exists();
 
@@ -79,7 +79,7 @@ class UsernameDelegationTest extends TestCase
 
         Account::query()->create(['username' => 'janedoe']);
 
-        $suggestion = (new Account())->suggestUsername('Jane', 'Doe');
+        $suggestion = (new Account)->suggestUsername('Jane', 'Doe');
 
         $this->assertNotSame('janedoe', $suggestion);
         $this->assertNotSame('', $suggestion);

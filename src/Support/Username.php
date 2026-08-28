@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Support;
 
+use Exception;
+use Stringable;
+use RuntimeException;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * Fluent, immutable username / handle builder.
@@ -31,7 +33,7 @@ use RuntimeException;
  * @see https://www.w3tutorials.net/blog/regular-expression-to-validate-username/
  * @see https://www.handlegrab.com/blog/social-media-username-rules-limits
  */
-final class Username implements \Stringable
+final class Username implements Stringable
 {
     /** Separators that may sit between username parts. */
     private const ALLOWED_SEPARATORS = ['', '.', '_', '-'];
@@ -98,6 +100,18 @@ final class Username implements \Stringable
 
     private bool $isRandom = false;
 
+    /** Never throws — yields '' when generation is impossible. */
+    public function __toString(): string
+    {
+        try {
+            return $this->generate();
+        } catch (Exception) {
+            // generate() only ever throws InvalidArgumentException / RuntimeException;
+            // the Stringable contract must not throw, so yield '' instead.
+            return '';
+        }
+    }
+
     // --- Entry points --------------------------------------------------------
 
     /**
@@ -106,7 +120,7 @@ final class Username implements \Stringable
      */
     public static function for(string $source): self
     {
-        $instance = new self();
+        $instance = new self;
         $instance->source = $source;
 
         return $instance;
@@ -118,7 +132,7 @@ final class Username implements \Stringable
      */
     public static function fromEmail(string $email): self
     {
-        $instance = new self();
+        $instance = new self;
         $instance->source = Str::before($email, '@');
         $instance->separator = '.';
 
@@ -131,7 +145,7 @@ final class Username implements \Stringable
      */
     public static function fromName(string $first, ?string $last = null): self
     {
-        $instance = new self();
+        $instance = new self;
         $instance->source = [$first, $last ?? ''];
 
         return $instance;
@@ -143,7 +157,7 @@ final class Username implements \Stringable
      */
     public static function random(string $prefix = 'user', int $digits = 4): self
     {
-        $instance = new self();
+        $instance = new self;
         $instance->isRandom = true;
         $instance->randomPrefix = $prefix;
         $instance->randomDigits = self::clampDigits($digits);
@@ -156,7 +170,7 @@ final class Username implements \Stringable
     /** Set the separator between parts. One of '', '.', '_', '-'. */
     public function separator(string $separator): self
     {
-        if (!in_array($separator, self::ALLOWED_SEPARATORS, true)) {
+        if (! in_array($separator, self::ALLOWED_SEPARATORS, true)) {
             throw new InvalidArgumentException(
                 "Invalid separator [{$separator}]. Allowed: '', '.', '_', '-'.",
             );
@@ -424,7 +438,7 @@ final class Username implements \Stringable
         $i = 0;
         while (count($finalised) < $n && $i < self::MAX_UNIQUE_ATTEMPTS) {
             $variant = $this->finalise($primary . $this->randomDigitString(3));
-            if ($variant !== '' && !in_array($variant, $finalised, true)) {
+            if ($variant !== '' && ! in_array($variant, $finalised, true)) {
                 $finalised[] = $variant;
             }
             $i++;
@@ -451,28 +465,38 @@ final class Username implements \Stringable
     public function toArray(): array
     {
         return [
-            'username' => (string) $this,
+            'username'  => (string) $this,
             'separator' => $this->separator,
-            'case' => $this->case,
-            'ascii' => $this->ascii,
+            'case'      => $this->case,
+            'ascii'     => $this->ascii,
             'minLength' => $this->minLength,
             'maxLength' => $this->maxLength,
-            'prefix' => $this->prefix,
-            'suffix' => $this->suffix,
-            'reserved' => $this->reserved,
+            'prefix'    => $this->prefix,
+            'suffix'    => $this->suffix,
+            'reserved'  => $this->reserved,
         ];
     }
 
-    /** Never throws — yields '' when generation is impossible. */
-    public function __toString(): string
+    /** Clamp a digit count to the sane 1..10 window. */
+    private static function clampDigits(int $digits): int
     {
-        try {
-            return $this->generate();
-        } catch (\Exception) {
-            // generate() only ever throws InvalidArgumentException / RuntimeException;
-            // the Stringable contract must not throw, so yield '' instead.
-            return '';
+        return max(1, min(10, $digits));
+    }
+
+    /**
+     * Hard guarantee: a generated handle never contains a space. This is a
+     * belt-and-braces assertion over the sanitised result — sanitisation already
+     * strips whitespace, so a hit here would indicate a regression.
+     *
+     * @throws RuntimeException if a space somehow survived sanitisation
+     */
+    private static function assertNoSpaces(string $candidate): string
+    {
+        if (str_contains($candidate, ' ')) {
+            throw new RuntimeException('Generated username unexpectedly contained a space.');
         }
+
+        return $candidate;
     }
 
     // --- Internals -----------------------------------------------------------
@@ -508,7 +532,7 @@ final class Username implements \Stringable
      */
     private function nameParts(): array
     {
-        if (!is_array($this->source)) {
+        if (! is_array($this->source)) {
             return ['', ''];
         }
 
@@ -557,7 +581,7 @@ final class Username implements \Stringable
         $value = match ($this->case) {
             self::CASE_LOWER => Str::lower($value),
             self::CASE_UPPER => Str::upper($value),
-            default => $value,
+            default          => $value,
         };
 
         return $this->clampLength($value);
@@ -664,12 +688,6 @@ final class Username implements \Stringable
         return $out;
     }
 
-    /** Clamp a digit count to the sane 1..10 window. */
-    private static function clampDigits(int $digits): int
-    {
-        return max(1, min(10, $digits));
-    }
-
     /**
      * In {@see rejectSpaces()} mode, fail loudly when the resolved source string
      * contains any whitespace instead of silently stripping it.
@@ -678,7 +696,7 @@ final class Username implements \Stringable
      */
     private function guardSourceSpaces(): void
     {
-        if (!$this->rejectSpaces) {
+        if (! $this->rejectSpaces) {
             return;
         }
 
@@ -693,22 +711,6 @@ final class Username implements \Stringable
                 );
             }
         }
-    }
-
-    /**
-     * Hard guarantee: a generated handle never contains a space. This is a
-     * belt-and-braces assertion over the sanitised result — sanitisation already
-     * strips whitespace, so a hit here would indicate a regression.
-     *
-     * @throws RuntimeException if a space somehow survived sanitisation
-     */
-    private static function assertNoSpaces(string $candidate): string
-    {
-        if (str_contains($candidate, ' ')) {
-            throw new RuntimeException('Generated username unexpectedly contained a space.');
-        }
-
-        return $candidate;
     }
 
     /**

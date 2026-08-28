@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\LLM;
 
-use RuntimeException;
 use Throwable;
+use RuntimeException;
 
 class LLMRequestException extends RuntimeException
 {

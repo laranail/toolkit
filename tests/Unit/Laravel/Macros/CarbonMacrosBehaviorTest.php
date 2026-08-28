@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
 use Illuminate\Support\Carbon;
-use Simtabi\Laranail\Toolkit\Macros\CarbonMacros;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Macros\CarbonMacros;
 
 /**
  * Exhaustive, mutation-hardened coverage for every Carbon macro registered by
@@ -33,46 +33,6 @@ class CarbonMacrosBehaviorTest extends TestCase
         Carbon::setTestNow();
 
         parent::tearDown();
-    }
-
-    private function assertHolds(string $macro, string $date): void
-    {
-        $this->assertTrue(
-            Carbon::parse($date)->{$macro}(),
-            sprintf('%s() should hold on %s', $macro, $date),
-        );
-    }
-
-    private function refuteHolds(string $macro, string $date): void
-    {
-        $this->assertFalse(
-            Carbon::parse($date)->{$macro}(),
-            sprintf('%s() should not hold on %s', $macro, $date),
-        );
-    }
-
-    /**
-     * Fixed-date holiday: true on the date, false on the day before/after and
-     * on the same day in an adjacent month; optional era floor (true on the
-     * floor year, false on the year before it).
-     *
-     * @param list<string> $offDates
-     */
-    private function assertFixedDate(string $macro, string $onDate, array $offDates, ?string $floorTrue = null, ?string $floorFalse = null): void
-    {
-        $this->assertHolds($macro, $onDate);
-
-        foreach ($offDates as $off) {
-            $this->refuteHolds($macro, $off);
-        }
-
-        if ($floorTrue !== null) {
-            $this->assertHolds($macro, $floorTrue);
-        }
-
-        if ($floorFalse !== null) {
-            $this->refuteHolds($macro, $floorFalse);
-        }
     }
 
     // ---- General-purpose date helpers --------------------------------------
@@ -623,5 +583,45 @@ class CarbonMacrosBehaviorTest extends TestCase
 
         // A non-existent occurrence (no fifth Monday in February 2026) returns null.
         $this->assertNull(CarbonMacros::nthWeekdayDay(Carbon::create(2026, 2, 1), 5, Carbon::MONDAY));
+    }
+
+    private function assertHolds(string $macro, string $date): void
+    {
+        $this->assertTrue(
+            Carbon::parse($date)->{$macro}(),
+            sprintf('%s() should hold on %s', $macro, $date),
+        );
+    }
+
+    private function refuteHolds(string $macro, string $date): void
+    {
+        $this->assertFalse(
+            Carbon::parse($date)->{$macro}(),
+            sprintf('%s() should not hold on %s', $macro, $date),
+        );
+    }
+
+    /**
+     * Fixed-date holiday: true on the date, false on the day before/after and
+     * on the same day in an adjacent month; optional era floor (true on the
+     * floor year, false on the year before it).
+     *
+     * @param list<string> $offDates
+     */
+    private function assertFixedDate(string $macro, string $onDate, array $offDates, ?string $floorTrue = null, ?string $floorFalse = null): void
+    {
+        $this->assertHolds($macro, $onDate);
+
+        foreach ($offDates as $off) {
+            $this->refuteHolds($macro, $off);
+        }
+
+        if ($floorTrue !== null) {
+            $this->assertHolds($macro, $floorTrue);
+        }
+
+        if ($floorFalse !== null) {
+            $this->refuteHolds($macro, $floorFalse);
+        }
     }
 }

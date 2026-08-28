@@ -7,8 +7,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Contracts\Cache\Repository;
-use Simtabi\Laranail\Toolkit\Services\RateLimiterService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Services\RateLimiterService;
 
 class RateLimiterServiceTest extends TestCase
 {
@@ -20,7 +20,7 @@ class RateLimiterServiceTest extends TestCase
     {
         parent::setUp();
 
-        $this->cache = new \Illuminate\Cache\Repository(new ArrayStore());
+        $this->cache = new \Illuminate\Cache\Repository(new ArrayStore);
         $this->rateLimiterService = new RateLimiterService($this->cache);
     }
 

@@ -4,26 +4,21 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Services;
 
+use Stringable;
+use Psr\Log\NullLogger;
+use Psr\Log\AbstractLogger;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Attributes\Group;
-use Psr\Log\AbstractLogger;
-use Psr\Log\NullLogger;
-use Simtabi\Laranail\Toolkit\Services\ValidationService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Stringable;
+use Simtabi\Laranail\Toolkit\Services\ValidationService;
 
 #[Group('services')]
 class ValidationServiceTest extends TestCase
 {
-    private function service(): ValidationService
-    {
-        return new ValidationService($this->app->make('session.store'), new NullLogger());
-    }
-
     public function test_error_bag_message_is_empty_html_without_errors(): void
     {
         $html = $this->service()->getErrorBagMessage('email');
@@ -110,7 +105,7 @@ class ValidationServiceTest extends TestCase
 
     public function test_is_valid_database_connection_logs_and_returns_false_on_failure(): void
     {
-        $logger = new class() extends AbstractLogger
+        $logger = new class extends AbstractLogger
         {
             /** @var list<array{level: mixed, message: string, context: array<string, mixed>}> */
             public array $records = [];
@@ -143,5 +138,10 @@ class ValidationServiceTest extends TestCase
         $this->assertSame('settings', $logger->records[0]['context']['table']);
         $this->assertIsString($logger->records[0]['context']['error']);
         $this->assertNotSame('', $logger->records[0]['context']['error']);
+    }
+
+    private function service(): ValidationService
+    {
+        return new ValidationService($this->app->make('session.store'), new NullLogger);
     }
 }

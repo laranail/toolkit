@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 
 /**
  * A small, typed runtime settings store backed by a single JSON file on a
@@ -37,7 +37,7 @@ class SettingsStore implements SettingsStoreInterface
     {
         $disk = $this->disk();
 
-        if (!$disk->exists($this->path)) {
+        if (! $disk->exists($this->path)) {
             return [];
         }
 

@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
+use Mockery;
+use Stringable;
+use RuntimeException;
+use Psr\Log\AbstractLogger;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Event;
-use Mockery;
-use Psr\Log\AbstractLogger;
-use RuntimeException;
-use Simtabi\Laranail\Toolkit\Enums\CacheAction;
-use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
-use Simtabi\Laranail\Toolkit\Services\CacheOptimizationResult;
-use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Enums\CacheAction;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
+use Simtabi\Laranail\Toolkit\Services\CacheOptimizationResult;
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 
 /**
  * Covers the maintenance half of {@see CacheService}: event lifecycle,
@@ -44,7 +45,7 @@ class CacheMaintenanceTest extends TestCase
         $files = Mockery::mock(Filesystem::class);
         $files->shouldReceive('exists')->andThrow(new RuntimeException('disk gone'));
 
-        $logger = new CollectingLogger();
+        $logger = new CollectingLogger;
         $service = new CacheService(60, [], $logger, '', $files);
 
         // Must not throw.
@@ -99,7 +100,7 @@ class CacheMaintenanceTest extends TestCase
         // An anonymous class instance exports to PHP that cannot be re-parsed,
         // so its cached form would fatal on load — the classic "bricked cached
         // config" case.
-        config()->set('demo.unserializable', new class() {});
+        config()->set('demo.unserializable', new class {});
         $path = $this->app->getCachedConfigPath();
         @unlink($path);
 
@@ -138,9 +139,9 @@ class CollectingLogger extends AbstractLogger
     public array $errors = [];
 
     /**
-     * @param mixed              $level
-     * @param string|\Stringable $message
-     * @param array<mixed>       $context
+     * @param mixed $level
+     * @param string|Stringable $message
+     * @param array<mixed> $context
      */
     public function log($level, $message, array $context = []): void
     {

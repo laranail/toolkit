@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Commands;
 
+use Throwable;
+use SplFileInfo;
+use FilesystemIterator;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 use Illuminate\Console\ConfirmableTrait;
-use Simtabi\Laranail\Console\Tools\Commands\Command;
-use Simtabi\Laranail\Console\Tools\Commands\Concerns\SupportsNamespacedNames;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
-use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
+use Simtabi\Laranail\Console\Tools\Commands\Command;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
-use SplFileInfo;
-use Throwable;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Console\Tools\Commands\Concerns\SupportsNamespacedNames;
 
 /**
  * Unified, security-hardened maintenance/cleanup command.
@@ -44,25 +47,10 @@ class Tidy extends Command
     use FilePathGuard;
     use SupportsNamespacedNames;
 
-    /** @var list<string> */
-    protected array $commandAliases = ['tidy'];
-
-    protected $signature = 'laranail::toolkit.tidy
-        {action? : What to tidy (cache|logs|temp|storage|db|all) — defaults to all}
-        {--days= : Only delete files older than this many days}
-        {--size= : Only delete files larger than this many MB}
-        {--seed : (db) also run db:seed after migrate:fresh}
-        {--optimize : (cache) also run optimize:clear}
-        {--dry-run : Show what would be removed without deleting anything}
-        {--unfiltered : (storage) sweep user files with no age/size filter — refused in production}
-        {--force : Skip confirmation prompts (required for the db action)}';
-
-    protected $description = 'Unified, path-confined maintenance: cache|logs|temp|storage|db|all';
-
     /** Storage-relative roots swept by each file-deleting action. */
     private const ROOTS = [
-        'logs' => ['logs'],
-        'temp' => ['app/temp', 'app/tmp', 'framework/cache/data'],
+        'logs'    => ['logs'],
+        'temp'    => ['app/temp', 'app/tmp', 'framework/cache/data'],
         'storage' => ['app/public', 'app/uploads', 'app/exports'],
     ];
 
@@ -81,6 +69,21 @@ class Tidy extends Command
      * @var list<string>
      */
     private const USER_DATA_ACTIONS = ['storage'];
+
+    /** @var list<string> */
+    protected array $commandAliases = ['tidy'];
+
+    protected $signature = 'laranail::toolkit.tidy
+        {action? : What to tidy (cache|logs|temp|storage|db|all) — defaults to all}
+        {--days= : Only delete files older than this many days}
+        {--size= : Only delete files larger than this many MB}
+        {--seed : (db) also run db:seed after migrate:fresh}
+        {--optimize : (cache) also run optimize:clear}
+        {--dry-run : Show what would be removed without deleting anything}
+        {--unfiltered : (storage) sweep user files with no age/size filter — refused in production}
+        {--force : Skip confirmation prompts (required for the db action)}';
+
+    protected $description = 'Unified, path-confined maintenance: cache|logs|temp|storage|db|all';
 
     private int $filesProcessed = 0;
 
@@ -105,16 +108,16 @@ class Tidy extends Command
         $this->services->signals()->setupSignalHandling();
         $this->services->performance()->startTimer();
         $this->services->metadata()->addMany([
-            'action' => $action,
+            'action'  => $action,
             'dry_run' => $this->isDryRun(),
         ]);
 
         $result = match ($action) {
-            'cache' => $this->tidyCache(),
+            'cache'                   => $this->tidyCache(),
             'logs', 'temp', 'storage' => $this->tidyFiles($action),
-            'db' => $this->tidyDatabase(),
-            'all' => $this->tidyAll(),
-            default => $this->invalidAction($action),
+            'db'                      => $this->tidyDatabase(),
+            'all'                     => $this->tidyAll(),
+            default                   => $this->invalidAction($action),
         };
 
         $this->logSummary($action, $result);
@@ -133,7 +136,7 @@ class Tidy extends Command
 
         $this->services->metadata()->addMany([
             'files_processed' => $this->filesProcessed,
-            'space_freed' => $this->services->display()->formatBytes($this->spaceFreed),
+            'space_freed'     => $this->services->display()->formatBytes($this->spaceFreed),
         ]);
 
         $this->services->logger()->logCompletion($exitCode, [
@@ -155,7 +158,7 @@ class Tidy extends Command
             return self::SUCCESS;
         }
 
-        if (!$this->confirmAction('Flush the application cache?')) {
+        if (! $this->confirmAction('Flush the application cache?')) {
             return self::SUCCESS;
         }
 
@@ -195,13 +198,13 @@ class Tidy extends Command
             return self::FAILURE;
         }
 
-        if (!$this->maySweepUnfiltered($action)) {
+        if (! $this->maySweepUnfiltered($action)) {
             return self::FAILURE;
         }
 
         // The `all` action confirms once up front, so its per-root sweeps skip
         // the prompt (passing $confirm = false) to avoid re-asking per action.
-        if ($confirm && !$this->isDryRun() && !$this->confirmAction("Clean {$action} files under storage?")) {
+        if ($confirm && ! $this->isDryRun() && ! $this->confirmAction("Clean {$action} files under storage?")) {
             return self::SUCCESS;
         }
 
@@ -211,7 +214,7 @@ class Tidy extends Command
             // Stop sweeping further roots if a termination signal arrived.
             // shouldKeepRunning() defaults true (and without pcntl), so a normal
             // run sweeps every root.
-            if (!$signals->shouldKeepRunning()) {
+            if (! $signals->shouldKeepRunning()) {
                 break;
             }
 
@@ -238,21 +241,21 @@ class Tidy extends Command
      */
     private function sweep(string $base, string $relative): void
     {
-        if (!$this->isSafePath($relative)) {
+        if (! $this->isSafePath($relative)) {
             return;
         }
 
         $root = realpath($base . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $relative));
 
-        if ($root === false || !is_dir($root) || !$this->isWithin($root, $base)) {
+        if ($root === false || ! is_dir($root) || ! $this->isWithin($root, $base)) {
             return;
         }
 
         $cutoff = $this->ageCutoff();
         $minBytes = $this->minBytes();
 
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($root, \FilesystemIterator::SKIP_DOTS),
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS),
         );
 
         $signals = $this->services->signals();
@@ -261,11 +264,11 @@ class Tidy extends Command
         foreach ($iterator as $file) {
             // Signal-safe sweep: stop deleting mid-directory on Ctrl-C/SIGTERM.
             // Defaults true (and without pcntl), so a normal run is unaffected.
-            if (!$signals->shouldKeepRunning()) {
+            if (! $signals->shouldKeepRunning()) {
                 break;
             }
 
-            if (!$file->isFile()) {
+            if (! $file->isFile()) {
                 continue;
             }
 
@@ -273,7 +276,7 @@ class Tidy extends Command
 
             // Containment re-check on the resolved path: a symlink that escapes
             // the swept root is never deleted.
-            if ($real === false || !$this->isWithin($real, $root)) {
+            if ($real === false || ! $this->isWithin($real, $root)) {
                 continue;
             }
 
@@ -283,7 +286,7 @@ class Tidy extends Command
 
             $size = $file->getSize();
 
-            if (!$this->matchesFilters($real, $size, $cutoff, $minBytes)) {
+            if (! $this->matchesFilters($real, $size, $cutoff, $minBytes)) {
                 continue;
             }
 
@@ -339,14 +342,14 @@ class Tidy extends Command
             return self::SUCCESS;
         }
 
-        if (!$this->boolOption('force')) {
+        if (! $this->boolOption('force')) {
             $writer->error('The db action runs migrate:fresh and DROPS ALL TABLES — re-run with --force.');
 
             return self::FAILURE;
         }
 
         // Production-safety prompt (no-op when --force is honoured outside prod).
-        if (!$this->confirmToProceed()) {
+        if (! $this->confirmToProceed()) {
             return self::FAILURE;
         }
 
@@ -376,7 +379,7 @@ class Tidy extends Command
      */
     private function tidyAll(): int
     {
-        if (!$this->isDryRun() && !$this->confirmAction('Tidy cache, logs, temp and storage? (the db action is excluded.)')) {
+        if (! $this->isDryRun() && ! $this->confirmAction('Tidy cache, logs, temp and storage? (the db action is excluded.)')) {
             return self::SUCCESS;
         }
 
@@ -386,11 +389,11 @@ class Tidy extends Command
         $skipped = [];
 
         foreach (['logs', 'temp', 'storage'] as $action) {
-            if (!$signals->shouldKeepRunning()) {
+            if (! $signals->shouldKeepRunning()) {
                 break;
             }
 
-            if (in_array($action, self::USER_DATA_ACTIONS, true) && !$this->maySweepUnfiltered($action)) {
+            if (in_array($action, self::USER_DATA_ACTIONS, true) && ! $this->maySweepUnfiltered($action)) {
                 $skipped[] = $action;
 
                 continue;
@@ -430,7 +433,7 @@ class Tidy extends Command
     {
         $days = $this->option('days');
 
-        if (!is_string($days) || trim($days) === '') {
+        if (! is_string($days) || trim($days) === '') {
             return null;
         }
 
@@ -441,7 +444,7 @@ class Tidy extends Command
     {
         $size = $this->option('size');
 
-        if (!is_string($size) || trim($size) === '') {
+        if (! is_string($size) || trim($size) === '') {
             return null;
         }
 
@@ -473,7 +476,7 @@ class Tidy extends Command
      */
     private function maySweepUnfiltered(string $action): bool
     {
-        if (!in_array($action, self::USER_DATA_ACTIONS, true)) {
+        if (! in_array($action, self::USER_DATA_ACTIONS, true)) {
             return true;
         }
 
@@ -495,7 +498,7 @@ class Tidy extends Command
             return false;
         }
 
-        if (!$this->boolOption('unfiltered')) {
+        if (! $this->boolOption('unfiltered')) {
             $writer->error("Refusing to sweep {$roots} with no filter — these hold user files, and every one would match.");
             $writer->line('  Pass <fg=yellow>--days=30</> or <fg=yellow>--size=100</> to scope it,');
             $writer->line('  or <fg=yellow>--unfiltered</> to delete all of it anyway (never in production).');

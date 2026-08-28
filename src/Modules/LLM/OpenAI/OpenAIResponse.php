@@ -12,7 +12,7 @@ final readonly class OpenAIResponse implements JsonSerializable
         public string $content,
         public ?string $model = null,
         public ?object $usage = null,
-        public ?object $rawResponse = null
+        public ?object $rawResponse = null,
     ) {}
 
     /**
@@ -54,8 +54,8 @@ final readonly class OpenAIResponse implements JsonSerializable
     {
         return [
             'content' => $this->content,
-            'model' => $this->model,
-            'usage' => $this->usage,
+            'model'   => $this->model,
+            'usage'   => $this->usage,
         ];
     }
 

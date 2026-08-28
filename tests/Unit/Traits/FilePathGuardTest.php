@@ -23,7 +23,7 @@ class FilePathGuardTest extends TestCase
     {
         parent::setUp();
 
-        $this->guard = new FilePathGuardHost();
+        $this->guard = new FilePathGuardHost;
     }
 
     public function test_safe_paths_are_allowed(): void

@@ -109,7 +109,7 @@ class HelperStringsTest extends TestCase
     public function test_class_basename_returns_short_name(): void
     {
         $this->assertSame('Helper', Helper::classBasename(Helper::class));
-        $this->assertSame('Helper', Helper::classBasename(new Helper()));
+        $this->assertSame('Helper', Helper::classBasename(new Helper));
     }
 
     public function test_random_int_except_avoids_excluded_values(): void

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Http\Request;
-use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use Illuminate\Routing\ResponseFactory;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 /**
  * Guards the committed IDE-helper stub (ide-helper/_ide_helper_macros.php)
@@ -27,6 +27,61 @@ class IdeHelperStubTest extends TestCase
 {
     private const STUB_PATH = __DIR__ . '/../../../../ide-helper/_ide_helper_macros.php';
 
+    public function test_stub_file_exists(): void
+    {
+        $this->assertFileExists(self::STUB_PATH, 'The IDE-helper macro stub is missing.');
+    }
+
+    public function test_stub_methods_match_registered_macros(): void
+    {
+        $contents = file_get_contents(self::STUB_PATH);
+        $this->assertIsString($contents);
+
+        foreach ($this->targets() as $label => $target) {
+            $stubbed = $this->stubMethodsFor($contents, $target['class']);
+
+            $this->assertNotEmpty($stubbed, "No @method tags found in the stub for {$label}.");
+
+            foreach ($stubbed as $macro) {
+                $this->assertTrue(
+                    ($target['has'])($macro),
+                    "Stub lists {$label}::{$macro}() but no such macro is registered.",
+                );
+            }
+        }
+    }
+
+    public function test_stub_covers_every_registered_macro(): void
+    {
+        $contents = file_get_contents(self::STUB_PATH);
+        $this->assertIsString($contents);
+
+        foreach ($this->registeredInventory() as $label => $macros) {
+            $stubbed = $this->stubMethodsFor($contents, $this->targets()[$label]['class']);
+
+            foreach ($macros as $macro) {
+                $this->assertContains(
+                    $macro,
+                    $stubbed,
+                    "{$label}::{$macro}() is registered but missing from the IDE-helper stub.",
+                );
+            }
+        }
+    }
+
+    public function test_stub_documents_the_factory_mixin(): void
+    {
+        $contents = file_get_contents(self::STUB_PATH);
+        $this->assertIsString($contents);
+
+        $stubbed = $this->stubMethodsFor(
+            $contents,
+            Factory::class,
+        );
+
+        $this->assertSame(['withoutEvents'], $stubbed, 'The Factory mixin stub must list withoutEvents().');
+    }
+
     /**
      * The fully-qualified stub class each macroable target's macros are declared
      * on, plus a runtime predicate used to assert the macro is really registered.
@@ -38,39 +93,39 @@ class IdeHelperStubTest extends TestCase
         return [
             'Str' => [
                 'class' => Str::class,
-                'has' => Str::hasMacro(...),
+                'has'   => Str::hasMacro(...),
             ],
             'Stringable' => [
                 'class' => Stringable::class,
-                'has' => Stringable::hasMacro(...),
+                'has'   => Stringable::hasMacro(...),
             ],
             'Collection' => [
                 'class' => Collection::class,
-                'has' => Collection::hasMacro(...),
+                'has'   => Collection::hasMacro(...),
             ],
             'Arr' => [
                 'class' => Arr::class,
-                'has' => Arr::hasMacro(...),
+                'has'   => Arr::hasMacro(...),
             ],
             'Carbon' => [
                 'class' => Carbon::class,
-                'has' => Carbon::hasMacro(...),
+                'has'   => Carbon::hasMacro(...),
             ],
             'QueryBuilder' => [
                 'class' => QueryBuilder::class,
-                'has' => QueryBuilder::hasMacro(...),
+                'has'   => QueryBuilder::hasMacro(...),
             ],
             'EloquentBuilder' => [
                 'class' => EloquentBuilder::class,
-                'has' => EloquentBuilder::hasGlobalMacro(...),
+                'has'   => EloquentBuilder::hasGlobalMacro(...),
             ],
             'Request' => [
                 'class' => Request::class,
-                'has' => Request::hasMacro(...),
+                'has'   => Request::hasMacro(...),
             ],
             'ResponseFactory' => [
                 'class' => ResponseFactory::class,
-                'has' => ResponseFactory::hasMacro(...),
+                'has'   => ResponseFactory::hasMacro(...),
             ],
         ];
     }
@@ -160,61 +215,6 @@ class IdeHelperStubTest extends TestCase
                 'isZambianFarmersDay', 'isZambianNationalPrayerDay',
             ],
         ];
-    }
-
-    public function test_stub_file_exists(): void
-    {
-        $this->assertFileExists(self::STUB_PATH, 'The IDE-helper macro stub is missing.');
-    }
-
-    public function test_stub_methods_match_registered_macros(): void
-    {
-        $contents = file_get_contents(self::STUB_PATH);
-        $this->assertIsString($contents);
-
-        foreach ($this->targets() as $label => $target) {
-            $stubbed = $this->stubMethodsFor($contents, $target['class']);
-
-            $this->assertNotEmpty($stubbed, "No @method tags found in the stub for {$label}.");
-
-            foreach ($stubbed as $macro) {
-                $this->assertTrue(
-                    ($target['has'])($macro),
-                    "Stub lists {$label}::{$macro}() but no such macro is registered.",
-                );
-            }
-        }
-    }
-
-    public function test_stub_covers_every_registered_macro(): void
-    {
-        $contents = file_get_contents(self::STUB_PATH);
-        $this->assertIsString($contents);
-
-        foreach ($this->registeredInventory() as $label => $macros) {
-            $stubbed = $this->stubMethodsFor($contents, $this->targets()[$label]['class']);
-
-            foreach ($macros as $macro) {
-                $this->assertContains(
-                    $macro,
-                    $stubbed,
-                    "{$label}::{$macro}() is registered but missing from the IDE-helper stub.",
-                );
-            }
-        }
-    }
-
-    public function test_stub_documents_the_factory_mixin(): void
-    {
-        $contents = file_get_contents(self::STUB_PATH);
-        $this->assertIsString($contents);
-
-        $stubbed = $this->stubMethodsFor(
-            $contents,
-            Factory::class,
-        );
-
-        $this->assertSame(['withoutEvents'], $stubbed, 'The Factory mixin stub must list withoutEvents().');
     }
 
     /**

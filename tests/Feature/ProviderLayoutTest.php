@@ -13,7 +13,7 @@ declare(strict_types=1);
  */
 function providerFiles(string $src): array
 {
-    if (!is_dir($src)) {
+    if (! is_dir($src)) {
         return [];
     }
 
@@ -21,7 +21,7 @@ function providerFiles(string $src): array
 
     /** @var iterable<SplFileInfo> $files */
     $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS)
+        new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS),
     );
 
     foreach ($files as $file) {

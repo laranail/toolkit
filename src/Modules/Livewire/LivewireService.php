@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\Livewire;
 
-use Illuminate\Support\Str;
 use Livewire\Livewire;
+use Illuminate\Support\Str;
 
 /**
  * Livewire component-registration manager.
@@ -48,7 +48,7 @@ class LivewireService implements LivewireServiceInterface
 
     public function flush(): void
     {
-        if (!$this->isLivewireAvailable()) {
+        if (! $this->isLivewireAvailable()) {
             return;
         }
 

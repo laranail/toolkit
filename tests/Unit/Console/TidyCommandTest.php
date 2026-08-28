@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use Illuminate\Contracts\Console\Kernel;
+use Schema;
 use PHPUnit\Framework\Attributes\Group;
+use Illuminate\Contracts\Console\Kernel;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class TidyCommandTest extends TestCase
@@ -21,16 +22,6 @@ class TidyCommandTest extends TestCase
         }
 
         parent::tearDown();
-    }
-
-    private function makeStorageFile(string $relative, string $contents = 'x'): string
-    {
-        $path = storage_path($relative);
-        @mkdir(dirname($path), 0777, true);
-        file_put_contents($path, $contents);
-        $this->created[] = $path;
-
-        return $path;
     }
 
     // -----------------------------------------------------------------------
@@ -167,7 +158,7 @@ class TidyCommandTest extends TestCase
 
         // migrate:fresh re-runs the package's own filesystem migrations, so its
         // tables exist after the refresh.
-        $this->assertTrue(\Schema::hasTable('access_logs'));
+        $this->assertTrue(Schema::hasTable('access_logs'));
     }
 
     public function test_all_excludes_db_action(): void
@@ -178,7 +169,7 @@ class TidyCommandTest extends TestCase
             ->expectsOutputToContain('db excluded')
             ->assertExitCode(0);
 
-        $this->assertTrue(\Schema::hasTable('users'));
+        $this->assertTrue(Schema::hasTable('users'));
     }
 
     // -----------------------------------------------------------------------
@@ -287,6 +278,16 @@ class TidyCommandTest extends TestCase
         $this->assertStringContainsString('$this->isWithin($real, $root)', $code);
         $this->assertStringContainsString('use FilePathGuard;', $code);
         $this->assertStringNotContainsString('sys_get_temp_dir()', $code);
+    }
+
+    private function makeStorageFile(string $relative, string $contents = 'x'): string
+    {
+        $path = storage_path($relative);
+        @mkdir(dirname($path), 0777, true);
+        file_put_contents($path, $contents);
+        $this->created[] = $path;
+
+        return $path;
     }
 
     /**

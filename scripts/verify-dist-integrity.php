@@ -54,7 +54,7 @@ function run(string $command, string $cwd): array
         $cwd,
     );
 
-    if (!is_resource($process)) {
+    if (! is_resource($process)) {
         return [1, ''];
     }
 
@@ -146,7 +146,7 @@ $failures = [];
 printf("  Dist integrity for %s at %s\n\n", $composer['name'] ?? '?', $revision);
 
 foreach (referencedPaths($composer) as [$key, $path]) {
-    if (!contains($tracked, $path)) {
+    if (! contains($tracked, $path)) {
         // Declared but never committed. Composer tolerates a missing psr-4
         // directory, so this is reported and not failed — but it is still a
         // manifest describing something that does not exist.

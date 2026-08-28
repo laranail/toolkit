@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Services;
 
-use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\FileService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Services\FileService;
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 
 class FileServiceTest extends TestCase
 {

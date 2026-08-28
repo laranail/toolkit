@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Traits;
 
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 
 /**
@@ -18,14 +18,6 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInte
 trait HasAuth
 {
     private ?AuthenticationContextServiceInterface $authHelper = null;
-
-    /**
-     * Resolve (and memoise) the auth-helper service for this instance.
-     */
-    protected function authHelper(): AuthenticationContextServiceInterface
-    {
-        return $this->authHelper ??= app(AuthenticationContextServiceInterface::class);
-    }
 
     public function setUserEmail(?string $userEmail): static
     {
@@ -74,5 +66,13 @@ trait HasAuth
     public function isAuthenticated(?string $guard = null): bool
     {
         return $this->authHelper()->isAuthenticated($guard);
+    }
+
+    /**
+     * Resolve (and memoise) the auth-helper service for this instance.
+     */
+    protected function authHelper(): AuthenticationContextServiceInterface
+    {
+        return $this->authHelper ??= app(AuthenticationContextServiceInterface::class);
     }
 }

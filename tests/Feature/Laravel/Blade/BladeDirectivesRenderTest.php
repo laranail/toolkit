@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Laravel\Blade;
 
+use stdClass;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\Group;
@@ -46,7 +47,7 @@ class BladeDirectivesRenderTest extends TestCase
 
     public function test_instanceof_and_typeof_directives_render(): void
     {
-        $object = new \stdClass();
+        $object = new stdClass;
 
         $out = Blade::render(
             '@instanceof($o, \stdClass) yes @endinstanceof',

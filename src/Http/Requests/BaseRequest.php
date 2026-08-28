@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Http\Requests;
 
+use Illuminate\Support\Str;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 
 /**
  * FormRequest base that sanitizes every string input on
@@ -58,6 +58,40 @@ abstract class BaseRequest extends FormRequest
     public function attributes(): array
     {
         return [];
+    }
+
+    /**
+     * Configure the validator instance.
+     */
+    public function withValidator(ValidatorContract $validator): void
+    {
+        $validator->after(function (ValidatorContract $validator): void {
+            $this->afterValidation($validator);
+        });
+    }
+
+    /**
+     * Get the validated data, re-applying field-specific sanitization so the
+     * validated set matches the sanitized input.
+     *
+     * @param array<string>|int|string|null $key
+     * @param mixed $default
+     *
+     * @return ($key is null ? array<string, mixed> : mixed)
+     */
+    public function validated($key = null, $default = null): mixed
+    {
+        $validated = parent::validated($key, $default);
+
+        if (is_array($validated)) {
+            foreach ($validated as $field => $value) {
+                if (is_string($value)) {
+                    $validated[$field] = $this->sanitizeFieldByType((string) $field, $value);
+                }
+            }
+        }
+
+        return $validated;
     }
 
     /**
@@ -133,45 +167,11 @@ abstract class BaseRequest extends FormRequest
     }
 
     /**
-     * Configure the validator instance.
-     */
-    public function withValidator(ValidatorContract $validator): void
-    {
-        $validator->after(function (ValidatorContract $validator): void {
-            $this->afterValidation($validator);
-        });
-    }
-
-    /**
      * Additional validation after the main rules. Override in child classes.
      */
     protected function afterValidation(ValidatorContract $validator): void
     {
         // Override in child classes if needed.
-    }
-
-    /**
-     * Get the validated data, re-applying field-specific sanitization so the
-     * validated set matches the sanitized input.
-     *
-     * @param array<string>|int|string|null $key
-     * @param mixed                         $default
-     *
-     * @return ($key is null ? array<string, mixed> : mixed)
-     */
-    public function validated($key = null, $default = null): mixed
-    {
-        $validated = parent::validated($key, $default);
-
-        if (is_array($validated)) {
-            foreach ($validated as $field => $value) {
-                if (is_string($value)) {
-                    $validated[$field] = $this->sanitizeFieldByType((string) $field, $value);
-                }
-            }
-        }
-
-        return $validated;
     }
 
     /**

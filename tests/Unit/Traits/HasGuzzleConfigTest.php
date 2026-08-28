@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Traits;
 
-use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\HasGuzzleConfig;
+use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 
 /**
  * Test double exposing the protected {@see HasGuzzleConfig::httpConfig()}.
@@ -25,7 +25,7 @@ class HasGuzzleConfigTest extends TestCase
 {
     public function test_trait_resolves_the_http_configuration_service(): void
     {
-        $object = new HasGuzzleConfigFixture();
+        $object = new HasGuzzleConfigFixture;
 
         $this->assertInstanceOf(
             HttpConfigurationServiceInterface::class,

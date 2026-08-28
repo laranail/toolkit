@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Security;
 
-use PHPUnit\Framework\Attributes\Group;
+use SplFileInfo;
+use FilesystemIterator;
+use RecursiveIteratorIterator;
 use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Guards against the pre-rename `LaraUtilX` / Omar Chouman authorship debris
@@ -40,13 +42,13 @@ class NoLegacyDebrisTest extends TestCase
         }
         foreach ($scan as $dir) {
             $path = $root . '/' . $dir;
-            if (!is_dir($path)) {
+            if (! is_dir($path)) {
                 continue;
             }
-            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS)) as $file) {
-                /** @var \SplFileInfo $file */
+            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $file) {
+                /** @var SplFileInfo $file */
                 // The frozen legacy api-surface fixtures legitimately contain old FQCNs.
-                if ($file->isFile() && !str_contains($file->getPathname(), '/Fixtures/Legacy/')) {
+                if ($file->isFile() && ! str_contains($file->getPathname(), '/Fixtures/Legacy/')) {
                     $files[] = $file->getPathname();
                 }
             }

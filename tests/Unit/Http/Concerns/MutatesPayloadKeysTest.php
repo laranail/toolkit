@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http\Concerns;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Http\Concerns\MutatesPayloadKeys;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Simtabi\Laranail\Toolkit\Http\Concerns\MutatesPayloadKeys;
 
 /**
  * Exposes the protected concern methods so they can be exercised in isolation.
@@ -18,7 +18,7 @@ class PayloadKeyMutator
     use MutatesPayloadKeys;
 
     /**
-     * @param array<array-key, mixed>  $data
+     * @param array<array-key, mixed> $data
      * @param callable(string): string $transform
      *
      * @return array<array-key, mixed>
@@ -54,10 +54,10 @@ class MutatesPayloadKeysTest extends TestCase
 {
     public function test_camel_case_keys_rewrites_nested_string_keys(): void
     {
-        $mutator = new PayloadKeyMutator();
+        $mutator = new PayloadKeyMutator;
 
         $result = $mutator->camel([
-            'first_name' => 'Jane',
+            'first_name'  => 'Jane',
             'nested_data' => ['inner_key' => 1],
         ]);
 
@@ -69,10 +69,10 @@ class MutatesPayloadKeysTest extends TestCase
 
     public function test_snake_case_keys_rewrites_nested_string_keys(): void
     {
-        $mutator = new PayloadKeyMutator();
+        $mutator = new PayloadKeyMutator;
 
         $result = $mutator->snake([
-            'firstName' => 'Jane',
+            'firstName'  => 'Jane',
             'nestedData' => ['innerKey' => 1],
         ]);
 
@@ -84,7 +84,7 @@ class MutatesPayloadKeysTest extends TestCase
 
     public function test_integer_list_indices_are_preserved(): void
     {
-        $mutator = new PayloadKeyMutator();
+        $mutator = new PayloadKeyMutator;
 
         $result = $mutator->camel([
             ['user_id' => 1],
@@ -97,7 +97,7 @@ class MutatesPayloadKeysTest extends TestCase
 
     public function test_empty_payload_returns_empty_array(): void
     {
-        $mutator = new PayloadKeyMutator();
+        $mutator = new PayloadKeyMutator;
 
         self::assertSame([], $mutator->camel([]));
         self::assertSame([], $mutator->snake([]));
@@ -119,7 +119,7 @@ class MutatesPayloadKeysTest extends TestCase
             }
         };
 
-        $mutator = new PayloadKeyMutator();
+        $mutator = new PayloadKeyMutator;
 
         $result = $mutator->camel(['user_resource' => $resource]);
 

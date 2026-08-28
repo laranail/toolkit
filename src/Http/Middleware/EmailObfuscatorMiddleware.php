@@ -29,7 +29,7 @@ class EmailObfuscatorMiddleware
         /** @var Response $response */
         $response = $next($request);
 
-        if (!$this->shouldObfuscate($response)) {
+        if (! $this->shouldObfuscate($response)) {
             return $response;
         }
 
@@ -53,17 +53,6 @@ class EmailObfuscatorMiddleware
     }
 
     /**
-     * Whether the response body should be obfuscated. Skips JSON responses
-     * (by Content-Type) so structured API payloads are left untouched.
-     */
-    private function shouldObfuscate(Response $response): bool
-    {
-        $contentType = (string) $response->headers->get('Content-Type', '');
-
-        return !str_contains(strtolower($contentType), 'json');
-    }
-
-    /**
      * HTML-entity-encode every character of the given string.
      */
     private static function encode(string $value): string
@@ -75,5 +64,16 @@ class EmailObfuscatorMiddleware
         }
 
         return $encoded;
+    }
+
+    /**
+     * Whether the response body should be obfuscated. Skips JSON responses
+     * (by Content-Type) so structured API payloads are left untouched.
+     */
+    private function shouldObfuscate(Response $response): bool
+    {
+        $contentType = (string) $response->headers->get('Content-Type', '');
+
+        return ! str_contains(strtolower($contentType), 'json');
     }
 }

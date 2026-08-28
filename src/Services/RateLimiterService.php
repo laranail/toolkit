@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Contracts\Cache\Repository;
-use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 use Simtabi\Laranail\Toolkit\Support\Cast;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
 
 class RateLimiterService implements RateLimiterServiceInterface
 {
@@ -18,8 +18,6 @@ class RateLimiterService implements RateLimiterServiceInterface
 
     /**
      * Create a new rate limiter utility instance.
-     *
-     * @return void
      */
     public function __construct(Repository $cache)
     {

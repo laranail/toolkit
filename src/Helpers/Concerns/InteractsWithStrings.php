@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Helpers\Concerns;
 
 use Faker\Generator;
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
 use RuntimeException;
-use Simtabi\Laranail\Toolkit\Helpers\Helper;
+use Illuminate\Support\Str;
+use Illuminate\Support\HtmlString;
 use Simtabi\Laranail\Toolkit\Support\Cast;
+use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Simtabi\Laranail\Toolkit\Support\Username;
 
 /**
@@ -43,7 +43,7 @@ trait InteractsWithStrings
      */
     public static function ucWords(string $string, string $encoding = 'UTF-8'): string
     {
-        if (!function_exists('mb_convert_case')) {
+        if (! function_exists('mb_convert_case')) {
             return Str::ucwords($string);
         }
 
@@ -66,7 +66,7 @@ trait InteractsWithStrings
             return 'user';
         }
 
-        if (!ctype_alpha($local[0])) {
+        if (! ctype_alpha($local[0])) {
             $local = 'user_' . $local;
         }
 
@@ -119,7 +119,7 @@ trait InteractsWithStrings
      *
      * @param string $prefix Leading word; sanitised to `[a-z]`, falling back to
      *                       `user` when nothing usable remains.
-     * @param int    $digits Number of trailing random digits (clamped to 1..10).
+     * @param int $digits Number of trailing random digits (clamped to 1..10).
      */
     public static function generateUsername(string $prefix = 'user', int $digits = 4): string
     {
@@ -175,7 +175,7 @@ trait InteractsWithStrings
         for ($attempt = 0; $attempt < $maxAttempts; $attempt++) {
             $number = random_int($from, $to);
 
-            if (!in_array($number, $except, true)) {
+            if (! in_array($number, $except, true)) {
                 return $number;
             }
         }

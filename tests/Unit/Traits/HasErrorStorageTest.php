@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Traits;
 
-use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\HasErrorStorage;
+use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
 
 /**
  * Test double that exposes the protected {@see HasErrorStorage::addError()}.
@@ -42,7 +42,7 @@ class HasErrorStorageTest extends TestCase
 
     public function test_trait_delegates_to_a_single_memoised_service(): void
     {
-        $object = new HasErrorStorageFixture();
+        $object = new HasErrorStorageFixture;
 
         $object->record('email', 'required')->record('email', 'invalid');
 
@@ -60,7 +60,7 @@ class HasErrorStorageTest extends TestCase
 
     public function test_set_errors_stores_the_collection_and_is_chainable(): void
     {
-        $object = new HasErrorStorageFixture();
+        $object = new HasErrorStorageFixture;
 
         $returned = $object->replace(['email' => 'required']);
 
@@ -79,7 +79,7 @@ class HasErrorStorageTest extends TestCase
 
     public function test_set_errors_accepts_a_bare_string_message(): void
     {
-        $object = new HasErrorStorageFixture();
+        $object = new HasErrorStorageFixture;
 
         $object->replace('something broke');
 

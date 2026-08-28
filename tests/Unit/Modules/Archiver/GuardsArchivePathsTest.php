@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\GuardsArchivePaths;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class GuardHarness
 {
@@ -29,7 +29,21 @@ class GuardsArchivePathsTest extends TestCase
     {
         parent::setUp();
 
-        $this->guard = new GuardHarness();
+        $this->guard = new GuardHarness;
+    }
+
+    /**
+     * @return array<string, array{0: string}>
+     */
+    public static function maliciousEntries(): array
+    {
+        return [
+            'parent traversal'    => ['../evil.txt'],
+            'deep traversal'      => ['a/b/../../../evil.txt'],
+            'absolute unix'       => ['/etc/passwd'],
+            'windows drive'       => ['C:\\Windows\\system32'],
+            'backslash traversal' => ['..\\evil.txt'],
+        ];
     }
 
     public function test_safe_relative_entries_are_allowed(): void
@@ -39,20 +53,6 @@ class GuardsArchivePathsTest extends TestCase
         $this->guard->check('/var/extract', './also/fine.txt');
 
         $this->assertTrue(true);
-    }
-
-    /**
-     * @return array<string, array{0: string}>
-     */
-    public static function maliciousEntries(): array
-    {
-        return [
-            'parent traversal' => ['../evil.txt'],
-            'deep traversal' => ['a/b/../../../evil.txt'],
-            'absolute unix' => ['/etc/passwd'],
-            'windows drive' => ['C:\\Windows\\system32'],
-            'backslash traversal' => ['..\\evil.txt'],
-        ];
     }
 
     #[DataProvider('maliciousEntries')]

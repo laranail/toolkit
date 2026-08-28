@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use Carbon\FactoryImmutable;
-use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Http\Request;
+use ReflectionClass;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Carbon\FactoryImmutable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use Illuminate\Contracts\Console\Kernel;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 /**
  * Exercises the ide-helper-macros generator: it must register under the org
@@ -123,14 +124,14 @@ class IdeHelperMacrosCommandTest extends TestCase
     private function targets(): array
     {
         return [
-            'Str' => ['class' => Str::class, 'macros' => $this->macroReader(Str::class, 'macros')],
-            'Stringable' => ['class' => Stringable::class, 'macros' => $this->macroReader(Stringable::class, 'macros')],
-            'Collection' => ['class' => Collection::class, 'macros' => $this->macroReader(Collection::class, 'macros')],
-            'Arr' => ['class' => Arr::class, 'macros' => $this->macroReader(Arr::class, 'macros')],
-            'QueryBuilder' => ['class' => QueryBuilder::class, 'macros' => $this->macroReader(QueryBuilder::class, 'macros')],
+            'Str'             => ['class' => Str::class, 'macros' => $this->macroReader(Str::class, 'macros')],
+            'Stringable'      => ['class' => Stringable::class, 'macros' => $this->macroReader(Stringable::class, 'macros')],
+            'Collection'      => ['class' => Collection::class, 'macros' => $this->macroReader(Collection::class, 'macros')],
+            'Arr'             => ['class' => Arr::class, 'macros' => $this->macroReader(Arr::class, 'macros')],
+            'QueryBuilder'    => ['class' => QueryBuilder::class, 'macros' => $this->macroReader(QueryBuilder::class, 'macros')],
             'EloquentBuilder' => ['class' => EloquentBuilder::class, 'macros' => $this->macroReader(EloquentBuilder::class, 'macros')],
-            'Request' => ['class' => Request::class, 'macros' => $this->macroReader(Request::class, 'macros')],
-            'Carbon' => ['class' => Carbon::class, 'macros' => fn (): array => array_keys(
+            'Request'         => ['class' => Request::class, 'macros' => $this->macroReader(Request::class, 'macros')],
+            'Carbon'          => ['class' => Carbon::class, 'macros' => fn (): array => array_keys(
                 FactoryImmutable::getDefaultInstance()->getSettings()['macros'] ?? [],
             )],
         ];
@@ -144,9 +145,9 @@ class IdeHelperMacrosCommandTest extends TestCase
     private function macroReader(string $class, string $property): callable
     {
         return static function () use ($class, $property): array {
-            $reflection = new \ReflectionClass($class);
+            $reflection = new ReflectionClass($class);
 
-            if (!$reflection->hasProperty($property)) {
+            if (! $reflection->hasProperty($property)) {
                 return [];
             }
 

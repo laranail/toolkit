@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\Security;
 
-use InvalidArgumentException;
+use Stringable;
 use RuntimeException;
+use InvalidArgumentException;
 
 /**
  * Fluent, immutable EFF-diceware passphrase generator.
@@ -26,7 +27,7 @@ use RuntimeException;
  * @see https://www.eff.org/dice
  * @see https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
  */
-final class Passphrase implements \Stringable
+final class Passphrase implements Stringable
 {
     /** EFF Large Wordlist size (6^5). */
     public const WORDLIST_SIZE = 7776;
@@ -54,12 +55,18 @@ final class Passphrase implements \Stringable
 
     private ?string $symbol = null;
 
+    /** Convenience: a {@see generate()}d passphrase. */
+    public function __toString(): string
+    {
+        return $this->generate();
+    }
+
     // --- Presets -------------------------------------------------------------
 
     /** Six words, hyphen-separated — the EFF memorable default (≈ 77.5 bits). */
     public static function memorable(): self
     {
-        $instance = new self();
+        $instance = new self;
         $instance->wordCount = 6;
         $instance->separator = self::SEP_HYPHEN;
 
@@ -95,7 +102,7 @@ final class Passphrase implements \Stringable
      */
     public function separator(string $separator): self
     {
-        if (!in_array($separator, self::ALLOWED_SEPARATORS, true)) {
+        if (! in_array($separator, self::ALLOWED_SEPARATORS, true)) {
             throw new InvalidArgumentException(
                 sprintf("Invalid separator [%s]. Allowed: '-', '_', ' ', ''.", $separator),
             );
@@ -115,7 +122,7 @@ final class Passphrase implements \Stringable
      */
     public function capitalize(string $strategy): self
     {
-        if (!in_array($strategy, self::ALLOWED_CAPITALIZE, true)) {
+        if (! in_array($strategy, self::ALLOWED_CAPITALIZE, true)) {
             throw new InvalidArgumentException(
                 sprintf("Invalid capitalize strategy [%s]. Allowed: 'none', 'first', 'all', 'title'.", $strategy),
             );
@@ -187,16 +194,24 @@ final class Passphrase implements \Stringable
 
         return [
             'passphrase' => implode($this->separator, $tokens),
-            'entropy' => $this->wordCount * log(self::WORDLIST_SIZE, 2),
+            'entropy'    => $this->wordCount * log(self::WORDLIST_SIZE, 2),
             'word_count' => $this->wordCount,
-            'words' => $words,
+            'words'      => $words,
         ];
     }
 
-    /** Convenience: a {@see generate()}d passphrase. */
-    public function __toString(): string
+    /**
+     * Load (once) and return the static-cached EFF Large Wordlist. The exact
+     * 7776-word assertion lives in {@see SecurityData::passphraseWords()}.
+     *
+     *
+     * @return list<string>
+     *
+     * @throws RuntimeException when the list is missing or not exactly 7776 words
+     */
+    private static function wordlist(): array
     {
-        return $this->generate();
+        return self::$wordlist ??= SecurityData::passphraseWords();
     }
 
     // --- Internals -----------------------------------------------------------
@@ -275,19 +290,6 @@ final class Passphrase implements \Stringable
         $symbols = '!@#$%^&*?-_+=';
 
         return $symbols[random_int(0, strlen($symbols) - 1)];
-    }
-
-    /**
-     * Load (once) and return the static-cached EFF Large Wordlist. The exact
-     * 7776-word assertion lives in {@see SecurityData::passphraseWords()}.
-     *
-     * @throws RuntimeException when the list is missing or not exactly 7776 words
-     *
-     * @return list<string>
-     */
-    private static function wordlist(): array
-    {
-        return self::$wordlist ??= SecurityData::passphraseWords();
     }
 
     /**

@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Traits;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Support\Username;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Support\Username;
 use Simtabi\Laranail\Toolkit\Traits\HasFormatters;
 
 class FormattableRecord extends Model
 {
     use HasFormatters;
 
-    protected $table = 'formattable_records';
-
     public $timestamps = false;
+
+    protected $table = 'formattable_records';
 
     protected $guarded = [];
 }
@@ -34,7 +34,7 @@ class HasFormattersTest extends TestCase
 
     public function test_formatted_created_at_is_null_without_value(): void
     {
-        $record = new FormattableRecord();
+        $record = new FormattableRecord;
 
         $this->assertNull($record->formattedCreatedAt());
     }
@@ -52,7 +52,7 @@ class HasFormattersTest extends TestCase
         $record = new FormattableRecord(['updated_at' => '2024-03-09 08:05:30']);
 
         $this->assertSame('2024-03-09 08:05', $record->formattedUpdatedAt('Y-m-d H:i'));
-        $this->assertNull((new FormattableRecord())->formattedUpdatedAt());
+        $this->assertNull((new FormattableRecord)->formattedUpdatedAt());
     }
 
     public function test_formatted_timestamp_treats_empty_string_as_null(): void
@@ -72,7 +72,7 @@ class HasFormattersTest extends TestCase
     public function test_formatted_username_prefixes_at_or_returns_false(): void
     {
         $this->assertSame('@neo', (new FormattableRecord(['username' => 'Neo']))->formattedUsername());
-        $this->assertFalse((new FormattableRecord())->formattedUsername());
+        $this->assertFalse((new FormattableRecord)->formattedUsername());
     }
 
     public function test_excerpt_truncates_content(): void
@@ -93,7 +93,7 @@ class HasFormattersTest extends TestCase
 
     public function test_format_address_joins_non_empty_components(): void
     {
-        $record = new FormattableRecord();
+        $record = new FormattableRecord;
 
         $this->assertSame(
             '123 Main St, Apt 4, Springfield',
@@ -103,7 +103,7 @@ class HasFormattersTest extends TestCase
 
     public function test_format_address_line_omits_empty_second_line(): void
     {
-        $record = new FormattableRecord();
+        $record = new FormattableRecord;
 
         $this->assertSame('123 Main St', $record->formatAddressLine('123 Main St'));
         $this->assertSame('123 Main St, Apt 4', $record->formatAddressLine('123 Main St', 'Apt 4'));
@@ -111,7 +111,7 @@ class HasFormattersTest extends TestCase
 
     public function test_format_city_state_zip(): void
     {
-        $record = new FormattableRecord();
+        $record = new FormattableRecord;
 
         $this->assertSame('Springfield, Illinois 62704', $record->formatCityStateZip('springfield', 'illinois', '62704'));
     }
@@ -126,7 +126,7 @@ class HasFormattersTest extends TestCase
         // Take the primary candidate so the suggester skips to the next one.
         FormattableRecord::query()->create(['username' => 'janedoe']);
 
-        $suggestion = (new FormattableRecord())->suggestUsername('Jane', 'Doe');
+        $suggestion = (new FormattableRecord)->suggestUsername('Jane', 'Doe');
 
         // The taken primary candidate must be skipped, and the result must be free.
         $this->assertNotSame('janedoe', $suggestion);
@@ -138,7 +138,7 @@ class HasFormattersTest extends TestCase
 
     public function test_suggest_username_falls_back_to_the_generator_when_every_candidate_is_taken(): void
     {
-        $record = new ExhaustedUsernameRecord();
+        $record = new ExhaustedUsernameRecord;
 
         // Establish how many deterministic/padded candidates the loop will probe;
         // the fixture denies all of them so suggestUsername() must reach the
@@ -168,9 +168,9 @@ class ExhaustedUsernameRecord extends Model
 
     public int $availabilityCalls = 0;
 
-    protected $table = 'exhausted_username_records';
-
     public $timestamps = false;
+
+    protected $table = 'exhausted_username_records';
 
     protected $guarded = [];
 

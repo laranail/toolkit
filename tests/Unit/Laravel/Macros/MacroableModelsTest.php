@@ -5,29 +5,29 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
 use BadMethodCallException;
-use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
-use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
+use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
 
 final class MacroablePost extends Model
 {
+    public $timestamps = false;
+
     protected $table = 'macroable_posts';
 
     protected $guarded = [];
-
-    public $timestamps = false;
 
     protected string $secret = 'from the model';
 }
 
 final class MacroableComment extends Model
 {
+    public $timestamps = false;
+
     protected $table = 'macroable_comments';
 
     protected $guarded = [];
-
-    public $timestamps = false;
 }
 
 final class MacroableModelsTest extends TestCase
@@ -38,7 +38,7 @@ final class MacroableModelsTest extends TestCase
     {
         parent::setUp();
 
-        $this->registry = new MacroableModels();
+        $this->registry = new MacroableModels;
     }
 
     protected function tearDown(): void

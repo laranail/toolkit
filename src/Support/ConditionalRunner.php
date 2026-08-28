@@ -39,7 +39,7 @@ final class ConditionalRunner
      */
     public static function make(): self
     {
-        return new self();
+        return new self;
     }
 
     /**
@@ -55,7 +55,7 @@ final class ConditionalRunner
      */
     public function whenNotConsole(callable $callback): self
     {
-        return $this->when(!app()->runningInConsole(), $callback);
+        return $this->when(! app()->runningInConsole(), $callback);
     }
 
     /**
@@ -116,7 +116,7 @@ final class ConditionalRunner
 
         $resolvable = $user !== null && method_exists($user, 'hasRole');
 
-        return $this->when($resolvable && !$user->hasRole($role), $callback);
+        return $this->when($resolvable && ! $user->hasRole($role), $callback);
     }
 
     /**
@@ -161,7 +161,7 @@ final class ConditionalRunner
      */
     private function isApiRequest(): bool
     {
-        if (!app()->bound('request')) {
+        if (! app()->bound('request')) {
             return false;
         }
 
@@ -175,7 +175,7 @@ final class ConditionalRunner
      */
     private function isWebRequest(): bool
     {
-        return app()->bound('request') && !$this->isApiRequest();
+        return app()->bound('request') && ! $this->isApiRequest();
     }
 
     /**
@@ -185,7 +185,7 @@ final class ConditionalRunner
     {
         $user = auth()->guard($guard)->user();
 
-        if ($user === null || !method_exists($user, 'hasRole')) {
+        if ($user === null || ! method_exists($user, 'hasRole')) {
             return false;
         }
 

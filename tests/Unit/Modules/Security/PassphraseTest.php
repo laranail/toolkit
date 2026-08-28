@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 
-use InvalidArgumentException;
-use PHPUnit\Framework\Attributes\Group;
 use ReflectionClass;
 use ReflectionProperty;
+use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Group;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
 use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class PassphraseTest extends TestCase
 {
@@ -20,17 +20,6 @@ class PassphraseTest extends TestCase
         $this->setWordlist(null);
 
         parent::tearDown();
-    }
-
-    /**
-     * Pin the process-wide wordlist cache for deterministic generation. Pass null
-     * to clear it (forcing a reload of the real list on next use).
-     *
-     * @param list<string>|null $words
-     */
-    private function setWordlist(?array $words): void
-    {
-        (new ReflectionProperty(Passphrase::class, 'wordlist'))->setValue(null, $words);
     }
 
     public function test_memorable_default_is_six_hyphenated_words(): void
@@ -253,5 +242,16 @@ class PassphraseTest extends TestCase
         }
 
         $this->assertCount(1000, $seen);
+    }
+
+    /**
+     * Pin the process-wide wordlist cache for deterministic generation. Pass null
+     * to clear it (forcing a reload of the real list on next use).
+     *
+     * @param list<string>|null $words
+     */
+    private function setWordlist(?array $words): void
+    {
+        (new ReflectionProperty(Passphrase::class, 'wordlist'))->setValue(null, $words);
     }
 }

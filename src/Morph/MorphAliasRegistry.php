@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Morph;
 
-use Illuminate\Database\Eloquent\Model;
 use RuntimeException;
+use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Morph\Exceptions\UnknownMorphAliasException;
 
 /**
@@ -59,9 +59,10 @@ final class MorphAliasRegistry
      * The model class bound to an alias.
      *
      *
-     * @throws UnknownMorphAliasException when the alias is unknown.
      *
      * @return class-string<Model>
+     *
+     * @throws UnknownMorphAliasException when the alias is unknown.
      */
     public function classFor(string $alias): string
     {
@@ -90,7 +91,7 @@ final class MorphAliasRegistry
      */
     public function assertKnownAlias(string $alias): void
     {
-        if (!$this->hasAlias($alias)) {
+        if (! $this->hasAlias($alias)) {
             throw UnknownMorphAliasException::forAlias($alias);
         }
     }
@@ -105,7 +106,7 @@ final class MorphAliasRegistry
     {
         $key = $model->getKey();
 
-        if (!is_scalar($key)) {
+        if (! is_scalar($key)) {
             throw new RuntimeException('A morph subject model must have a scalar primary key.');
         }
 
@@ -117,10 +118,11 @@ final class MorphAliasRegistry
      * lookup so a non-scalar-keyed model fails the same way whether or not it is mapped.
      *
      *
-     * @throws RuntimeException           when the model's key is not scalar.
-     * @throws UnknownMorphAliasException when the model class is unmapped.
      *
      * @return array{0: string, 1: string} `[alias, key]`
+     *
+     * @throws RuntimeException when the model's key is not scalar.
+     * @throws UnknownMorphAliasException when the model class is unmapped.
      */
     public function aliasAndKeyFor(Model $model): array
     {

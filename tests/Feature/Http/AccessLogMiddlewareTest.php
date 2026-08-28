@@ -7,28 +7,21 @@ namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use PHPUnit\Framework\Attributes\Group;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLog;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLogMiddleware;
-use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 #[Group('security')]
 class AccessLogMiddlewareTest extends TestCase
 {
-    private function logRequest(Request $request): void
-    {
-        $middleware = new AccessLogMiddleware();
-        $middleware->handle($request, fn ($req) => new Response('ok'));
-        $middleware->terminate($request, new Response('ok'));
-    }
-
     public function test_sensitive_fields_are_redacted(): void
     {
         $request = Request::create('/login', 'POST', [
-            'email' => 'user@example.com',
+            'email'    => 'user@example.com',
             'password' => 'super-secret',
-            'token' => 'abc123',
-            'profile' => ['api_key' => 'nested-secret', 'name' => 'Jane'],
+            'token'    => 'abc123',
+            'profile'  => ['api_key' => 'nested-secret', 'name' => 'Jane'],
         ]);
 
         $this->logRequest($request);
@@ -48,7 +41,7 @@ class AccessLogMiddlewareTest extends TestCase
             'wrapper' => [
                 'inner' => [
                     'password' => 'deep-secret',
-                    'safe' => 'keep',
+                    'safe'     => 'keep',
                 ],
             ],
         ]);
@@ -91,7 +84,7 @@ class AccessLogMiddlewareTest extends TestCase
 
         $request = Request::create('/override', 'POST', [
             'custom_field' => 'hide-me',
-            'password' => 'no-longer-in-deny-list',
+            'password'     => 'no-longer-in-deny-list',
         ]);
 
         $this->logRequest($request);
@@ -132,5 +125,12 @@ class AccessLogMiddlewareTest extends TestCase
         $this->logRequest(Request::create('/anything', 'GET'));
 
         $this->assertTrue(true); // reached here = no exception propagated
+    }
+
+    private function logRequest(Request $request): void
+    {
+        $middleware = new AccessLogMiddleware;
+        $middleware->handle($request, fn ($req) => new Response('ok'));
+        $middleware->terminate($request, new Response('ok'));
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\ServiceProvider;
 use Simtabi\Laranail\Toolkit\Support\ApiResponder;
@@ -24,12 +24,12 @@ final class ResponseMacros extends ServiceProvider
 {
     public function boot(): void
     {
-        ResponseFactory::macro('success', fn (mixed $data = null, string $message = 'Request successful.', int $status = 200, array $meta = []): JsonResponse => (new ApiResponder())->success($data, $message, $status, $meta));
+        ResponseFactory::macro('success', fn (mixed $data = null, string $message = 'Request successful.', int $status = 200, array $meta = []): JsonResponse => (new ApiResponder)->success($data, $message, $status, $meta));
 
-        ResponseFactory::macro('error', fn (string $message = 'Bad Request', int $status = 400, array $errors = [], mixed $debug = null): JsonResponse => (new ApiResponder())->error($message, $status, $errors, $debug));
+        ResponseFactory::macro('error', fn (string $message = 'Bad Request', int $status = 400, array $errors = [], mixed $debug = null): JsonResponse => (new ApiResponder)->error($message, $status, $errors, $debug));
 
         // message(): a bodyless acknowledgement — the success envelope, null data.
-        ResponseFactory::macro('message', fn (string $message, int $status = 200): JsonResponse => (new ApiResponder())->success(null, $message, $status));
+        ResponseFactory::macro('message', fn (string $message, int $status = 200): JsonResponse => (new ApiResponder)->success(null, $message, $status));
 
         ResponseFactory::macro('pdf', function (
             string $pdf,
@@ -39,7 +39,7 @@ final class ResponseMacros extends ServiceProvider
             $disposition = $download ? 'attachment' : 'inline';
 
             return new Response($pdf, 200, [
-                'Content-Type' => 'application/pdf',
+                'Content-Type'        => 'application/pdf',
                 'Content-Disposition' => $disposition . '; filename="' . addslashes($fileName) . '"',
             ]);
         });

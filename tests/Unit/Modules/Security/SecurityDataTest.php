@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 
-use PHPUnit\Framework\Attributes\Group;
-use ReflectionProperty;
 use RuntimeException;
-use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
+use ReflectionProperty;
+use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 
 #[Group('security')]
 class SecurityDataTest extends TestCase
@@ -21,12 +21,6 @@ class SecurityDataTest extends TestCase
         $this->resetSecurityDataCache();
 
         parent::tearDown();
-    }
-
-    private function resetSecurityDataCache(): void
-    {
-        $property = new ReflectionProperty(SecurityData::class, 'config');
-        $property->setValue(null, null);
     }
 
     public function test_common_passwords_is_non_empty_deduped_and_lowercased(): void
@@ -130,5 +124,11 @@ class SecurityDataTest extends TestCase
         $this->assertNotEmpty(SecurityData::commonPasswords());
         $this->assertCount(7776, SecurityData::passphraseWords());
         $this->assertContains('password', SecurityData::redactKeys());
+    }
+
+    private function resetSecurityDataCache(): void
+    {
+        $property = new ReflectionProperty(SecurityData::class, 'config');
+        $property->setValue(null, null);
     }
 }

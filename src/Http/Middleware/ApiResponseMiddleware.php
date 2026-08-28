@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
-use Simtabi\Laranail\Toolkit\Http\Contracts\HttpStatusInterface;
-use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
+use Simtabi\Laranail\Toolkit\Http\Contracts\HttpStatusInterface;
 
 /**
  * Wraps a route's JSON response in the standard envelope and rewrites its data
@@ -38,6 +38,12 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiResponseMiddleware extends ApiMiddleware
 {
     /**
+     * Sentinel meaning "the response had no decodable body" — distinct from a
+     * body that legitimately decoded to `null`.
+     */
+    private const string NO_DATA = "\0__laranail_no_data__\0";
+
+    /**
      * Handle the response.
      *
      * @param string ...$options Optional envelope tags: [metaTag, dataTag, pageTag].
@@ -46,7 +52,7 @@ class ApiResponseMiddleware extends ApiMiddleware
     {
         $response = $next($request);
 
-        if (!$response instanceof JsonResponse) {
+        if (! $response instanceof JsonResponse) {
             // Only JSON API responses are enveloped; views/streams/redirects pass through.
             return $response;
         }
@@ -56,11 +62,27 @@ class ApiResponseMiddleware extends ApiMiddleware
         // Hardening: if the body is not a paginator and not decodable JSON, the
         // response is malformed (e.g. tampered downstream) — leave it untouched
         // rather than fatal on, or silently corrupt, the bytes.
-        if (!$this->isEnvelopable($response)) {
+        if (! $this->isEnvelopable($response)) {
             return $response;
         }
 
         return $this->buildPayload($response, ...$options);
+    }
+
+    /**
+     * Rewrite each data key to camelCase for JS/TS clients.
+     */
+    protected function mutateKey(string $key): string
+    {
+        return Str::camel($key);
+    }
+
+    /**
+     * Hook into the response before it is enveloped. Override to mutate it.
+     */
+    protected function hook(Request $request, JsonResponse $response): JsonResponse
+    {
+        return $response;
     }
 
     /**
@@ -85,22 +107,6 @@ class ApiResponseMiddleware extends ApiMiddleware
     }
 
     /**
-     * Rewrite each data key to camelCase for JS/TS clients.
-     */
-    protected function mutateKey(string $key): string
-    {
-        return Str::camel($key);
-    }
-
-    /**
-     * Hook into the response before it is enveloped. Override to mutate it.
-     */
-    protected function hook(Request $request, JsonResponse $response): JsonResponse
-    {
-        return $response;
-    }
-
-    /**
      * Build the standard `{ success, message, data, meta }` envelope.
      *
      * @param string ...$options Optional envelope tags: [metaTag, dataTag, pageTag].
@@ -116,7 +122,7 @@ class ApiResponseMiddleware extends ApiMiddleware
         $payload = [
             'success' => $this->isSuccessful($status),
             'message' => $this->getStatusMessage($status),
-            $metaTag => $this->getMetaBlock($response),
+            $metaTag  => $this->getMetaBlock($response),
         ];
 
         $data = $this->resolveData($response, $payload, $metaTag, $pageTag);
@@ -129,12 +135,6 @@ class ApiResponseMiddleware extends ApiMiddleware
 
         return $response;
     }
-
-    /**
-     * Sentinel meaning "the response had no decodable body" — distinct from a
-     * body that legitimately decoded to `null`.
-     */
-    private const string NO_DATA = "\0__laranail_no_data__\0";
 
     /**
      * Resolve the `data` portion of the payload, mutating `$payload[$metaTag]`
@@ -153,7 +153,7 @@ class ApiResponseMiddleware extends ApiMiddleware
         $paginator = $this->extractPaginator($response);
 
         if ($paginator instanceof LengthAwarePaginator) {
-            if (!isset($payload[$metaTag]) || !is_array($payload[$metaTag])) {
+            if (! isset($payload[$metaTag]) || ! is_array($payload[$metaTag])) {
                 $payload[$metaTag] = [];
             }
 
@@ -226,8 +226,8 @@ class ApiResponseMiddleware extends ApiMiddleware
         $code = $response->getStatusCode();
 
         $meta = [
-            'code' => $code,
-            'status' => $this->isSuccessful($code) ? 'success' : 'error',
+            'code'    => $code,
+            'status'  => $this->isSuccessful($code) ? 'success' : 'error',
             'message' => $this->getStatusMessage($code),
         ];
 
@@ -251,11 +251,11 @@ class ApiResponseMiddleware extends ApiMiddleware
     private function getPaginationBlock(LengthAwarePaginator $paginator): array
     {
         return [
-            'total' => $paginator->total(),
-            'count' => $paginator->count(),
-            'per_page' => $paginator->perPage(),
+            'total'        => $paginator->total(),
+            'count'        => $paginator->count(),
+            'per_page'     => $paginator->perPage(),
             'current_page' => $paginator->currentPage(),
-            'total_pages' => $paginator->lastPage(),
+            'total_pages'  => $paginator->lastPage(),
         ];
     }
 }

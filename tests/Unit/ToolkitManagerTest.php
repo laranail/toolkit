@@ -4,19 +4,14 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit;
 
-use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
-use Simtabi\Laranail\Toolkit\Modules\Security\Password;
-use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
+use Simtabi\Laranail\Toolkit\Modules\Security\Token;
+use Simtabi\Laranail\Toolkit\Modules\Security\Password;
+use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
 
 class ToolkitManagerTest extends TestCase
 {
-    private function manager(): ToolkitManager
-    {
-        return new ToolkitManager($this->app);
-    }
-
     public function test_token_returns_a_fresh_token_builder(): void
     {
         $manager = $this->manager();
@@ -40,5 +35,10 @@ class ToolkitManagerTest extends TestCase
 
         $this->assertInstanceOf(Passphrase::class, $manager->passphrase());
         $this->assertNotSame($manager->passphrase(), $manager->passphrase());
+    }
+
+    private function manager(): ToolkitManager
+    {
+        return new ToolkitManager($this->app);
     }
 }

@@ -4,31 +4,31 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Database\Eloquent\Model;
+use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
+use Simtabi\Laranail\Toolkit\Modules\Security\Token;
+use Simtabi\Laranail\Toolkit\Modules\Security\Password;
+use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
+use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
-use Simtabi\Laranail\Toolkit\Modules\Security\Password;
-use Simtabi\Laranail\Toolkit\Modules\Security\Token;
-use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\ModelService;
-use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
-use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
 
 /**
  * Unified, typed entry point to the toolkit's feature modules.
@@ -186,25 +186,6 @@ class ToolkitManager
     }
 
     /**
-     * Resolve the guard for a user accessor: an explicit `$guard` wins, then a
-     * {@see withGuard()} swap, then the configured default (null = framework).
-     */
-    private function resolveGuard(?string $guard): ?string
-    {
-        return $guard ?? $this->activeGuard ?? $this->defaultAuthGuard();
-    }
-
-    /**
-     * The configured default guard for the user accessors (null = framework default).
-     */
-    private function defaultAuthGuard(): ?string
-    {
-        $guard = ToolkitConfig::string('laranail.toolkit.auth.default_guard', '');
-
-        return $guard !== '' ? $guard : null;
-    }
-
-    /**
      * Livewire component helpers (key generation, registration support).
      */
     public function livewire(): LivewireServiceInterface
@@ -293,5 +274,24 @@ class ToolkitManager
     public function passphrase(): Passphrase
     {
         return Passphrase::memorable();
+    }
+
+    /**
+     * Resolve the guard for a user accessor: an explicit `$guard` wins, then a
+     * {@see withGuard()} swap, then the configured default (null = framework).
+     */
+    private function resolveGuard(?string $guard): ?string
+    {
+        return $guard ?? $this->activeGuard ?? $this->defaultAuthGuard();
+    }
+
+    /**
+     * The configured default guard for the user accessors (null = framework default).
+     */
+    private function defaultAuthGuard(): ?string
+    {
+        $guard = ToolkitConfig::string('laranail.toolkit.auth.default_guard', '');
+
+        return $guard !== '' ? $guard : null;
     }
 }

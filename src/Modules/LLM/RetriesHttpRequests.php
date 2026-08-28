@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\LLM;
 
+use LogicException;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -36,13 +37,13 @@ trait RetriesHttpRequests
                 $lastException = $e;
                 $attempt++;
 
-                if (!$e->isRetryable() || $attempt >= $max) {
+                if (! $e->isRetryable() || $attempt >= $max) {
                     break;
                 }
 
                 Log::warning("{$provider} API request failed, retrying...", [
                     'attempt' => $attempt,
-                    'error' => $e->getMessage(),
+                    'error'   => $e->getMessage(),
                 ]);
 
                 if ($this->retryDelay > 0) {
@@ -53,8 +54,8 @@ trait RetriesHttpRequests
 
         // The loop only exits here via the catch path, so $lastException is
         // set — but make the invariant explicit rather than assumed.
-        if (!$lastException instanceof LLMRequestException) {
-            throw new \LogicException("{$provider} retry loop exited without a captured exception.");
+        if (! $lastException instanceof LLMRequestException) {
+            throw new LogicException("{$provider} retry loop exited without a captured exception.");
         }
 
         Log::error("{$provider} API request failed", [
@@ -76,7 +77,7 @@ trait RetriesHttpRequests
     {
         $scheme = strtolower((string) parse_url($baseUrl, PHP_URL_SCHEME));
 
-        if (!in_array($scheme, ['http', 'https'], true)) {
+        if (! in_array($scheme, ['http', 'https'], true)) {
             throw new LLMRequestException("Invalid LLM base URL scheme: [{$scheme}].");
         }
 

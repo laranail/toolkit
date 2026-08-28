@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
-use Illuminate\Contracts\Auth\Factory as AuthFactory;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\StatefulGuard;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Schema;
-use InvalidArgumentException;
 use Mockery;
-use Simtabi\Laranail\Toolkit\Support\AuthHelper;
+use InvalidArgumentException;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Support\AuthHelper;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AuthHelperTest extends TestCase
 {
@@ -41,7 +41,7 @@ class AuthHelperTest extends TestCase
 
     public function test_authenticated_user_is_exposed(): void
     {
-        $user = new AuthHelperFakeUser();
+        $user = new AuthHelperFakeUser;
         $user->forceFill(['id' => 7, 'email' => 'jane@example.com']);
 
         $this->actingAs($user, 'web');
@@ -62,7 +62,7 @@ class AuthHelperTest extends TestCase
 
     public function test_username_falls_back_to_email(): void
     {
-        $user = new AuthHelperFakeUser();
+        $user = new AuthHelperFakeUser;
         $user->forceFill(['id' => 3, 'email' => 'jo@example.com']);
 
         $this->actingAs($user, 'web');
@@ -135,16 +135,16 @@ class AuthHelperTest extends TestCase
 
 class AuthHelperDbUser extends Authenticatable
 {
+    public $timestamps = false;
+
     protected $table = 'auth_util_users';
 
     protected $guarded = [];
-
-    public $timestamps = false;
 }
 
 class AuthHelperFakeUser extends Authenticatable
 {
-    protected $guarded = [];
-
     public $timestamps = false;
+
+    protected $guarded = [];
 }

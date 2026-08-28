@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Contracts\Session\Session;
-use Illuminate\Support\Facades\Schema;
+use Throwable;
+use Psr\Log\LoggerInterface;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\MessageBag;
-use Psr\Log\LoggerInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Contracts\Session\Session;
 use Simtabi\Laranail\Toolkit\Support\Cast;
-use Throwable;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
 
 /**
  * View-layer validation helpers (error-bag rendering, conditional CSS classes,
@@ -36,11 +36,11 @@ final readonly class ValidationService implements ValidationServiceInterface
         string $key,
         string $errorMsgClass = 'error-msg',
         string $wrapperClass = 'has-error',
-        string $bag = 'errors'
+        string $bag = 'errors',
     ): HtmlString {
         $errors = $this->errorBag($bag);
 
-        if (!$errors instanceof MessageBag || !$errors->has($key)) {
+        if (! $errors instanceof MessageBag || ! $errors->has($key)) {
             return new HtmlString('');
         }
 
@@ -51,7 +51,7 @@ final readonly class ValidationService implements ValidationServiceInterface
         $errorClass = e($errorMsgClass);
 
         return new HtmlString(
-            "<div class=\"{$wrapper}\"><p class=\"help-block {$errorClass}\">{$message}</p></div>"
+            "<div class=\"{$wrapper}\"><p class=\"help-block {$errorClass}\">{$message}</p></div>",
         );
     }
 
@@ -59,7 +59,7 @@ final readonly class ValidationService implements ValidationServiceInterface
         string $key,
         string $passedClass = 'success',
         string $failedClass = 'error',
-        string $bag = 'errors'
+        string $bag = 'errors',
     ): string {
         return $this->classForKey($key, $bag, $passedClass, $failedClass);
     }
@@ -68,7 +68,7 @@ final readonly class ValidationService implements ValidationServiceInterface
         string $key,
         string $passedClass = 'has-success',
         string $failedClass = 'has-error',
-        string $bag = 'errors'
+        string $bag = 'errors',
     ): string {
         return $this->classForKey($key, $bag, $passedClass, $failedClass);
     }
@@ -124,7 +124,7 @@ final readonly class ValidationService implements ValidationServiceInterface
      */
     private function errorBag(string $bag): ?MessageBag
     {
-        if (!$this->session->has($bag)) {
+        if (! $this->session->has($bag)) {
             return null;
         }
 
@@ -141,7 +141,7 @@ final readonly class ValidationService implements ValidationServiceInterface
     {
         $errors = $this->errorBag($bag);
 
-        if (!$errors instanceof MessageBag) {
+        if (! $errors instanceof MessageBag) {
             return $passedClass;
         }
 

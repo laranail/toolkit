@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Morph;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use PHPUnit\Framework\Attributes\Group;
 use RuntimeException;
-use Simtabi\Laranail\Toolkit\Morph\Exceptions\UnknownMorphAliasException;
-use Simtabi\Laranail\Toolkit\Morph\MorphAliasRegistry;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Attributes\Group;
+use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Morph\MorphAliasRegistry;
+use Simtabi\Laranail\Toolkit\Morph\Exceptions\UnknownMorphAliasException;
 
 /** A scalar-keyed Eloquent model used as a mapped morph subject. */
 class MorphWidget extends Model
 {
-    protected $table = 'morph_widgets';
-
     public $timestamps = false;
+
+    protected $table = 'morph_widgets';
 
     protected $guarded = [];
 }
@@ -26,9 +26,9 @@ class MorphWidget extends Model
 /** A model whose key is deliberately non-scalar, to exercise the scalar-key guard. */
 class NonScalarKeyModel extends Model
 {
-    protected $table = 'non_scalar_key_models';
-
     public $timestamps = false;
+
+    protected $table = 'non_scalar_key_models';
 
     protected $guarded = [];
 
@@ -41,17 +41,6 @@ class NonScalarKeyModel extends Model
 #[Group('morph')]
 class MorphAliasRegistryTest extends TestCase
 {
-    /** @return array<string, class-string<Model>> */
-    private function map(): array
-    {
-        return ['widget' => MorphWidget::class];
-    }
-
-    private function registry(): MorphAliasRegistry
-    {
-        return new MorphAliasRegistry($this->map());
-    }
-
     public function test_map_and_bidirectional_lookups(): void
     {
         $registry = $this->registry();
@@ -103,12 +92,12 @@ class MorphAliasRegistryTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('scalar primary key');
-        $this->registry()->keyFor(new NonScalarKeyModel());
+        $this->registry()->keyFor(new NonScalarKeyModel);
     }
 
     public function test_alias_and_key_for_returns_alias_and_key_pair(): void
     {
-        $model = new MorphWidget();
+        $model = new MorphWidget;
         $model->setAttribute('id', 7);
 
         $this->assertSame(['widget', '7'], $this->registry()->aliasAndKeyFor($model));
@@ -119,7 +108,7 @@ class MorphAliasRegistryTest extends TestCase
         // A non-scalar key fails the scalar guard even when the class is also unmapped.
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('scalar primary key');
-        $this->registry()->aliasAndKeyFor(new NonScalarKeyModel());
+        $this->registry()->aliasAndKeyFor(new NonScalarKeyModel);
     }
 
     public function test_resolve_finds_the_row_and_returns_null_when_gone(): void
@@ -145,5 +134,16 @@ class MorphAliasRegistryTest extends TestCase
     {
         $this->expectException(UnknownMorphAliasException::class);
         $this->registry()->resolve('ghost', '1');
+    }
+
+    /** @return array<string, class-string<Model>> */
+    private function map(): array
+    {
+        return ['widget' => MorphWidget::class];
+    }
+
+    private function registry(): MorphAliasRegistry
+    {
+        return new MorphAliasRegistry($this->map());
     }
 }

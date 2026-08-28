@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Contracts\Database\Query\Expression;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use Psr\Log\LoggerInterface;
+use InvalidArgumentException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
-use InvalidArgumentException;
-use Psr\Log\LoggerInterface;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Database\Query\Expression;
 
 /**
  * Helpers for Eloquent model operations: select-box conversion, formable user
@@ -29,18 +29,6 @@ final readonly class ModelService
     public function __construct(
         private LoggerInterface $logger,
     ) {}
-
-    /**
-     * Coerce a (possibly null/mixed) model attribute to a string for display.
-     */
-    private function stringAttr(mixed $value): string
-    {
-        if (is_string($value)) {
-            return $value;
-        }
-
-        return is_int($value) || is_float($value) ? (string) $value : '';
-    }
 
     /**
      * Build an `id => display-name` list from a users model.
@@ -89,7 +77,7 @@ final readonly class ModelService
 
         $data = $form->map(static fn ($item, $key): array => [
             'name' => $item,
-            'id' => $key,
+            'id'   => $key,
         ])->values()->all();
 
         if ($keyed) {
@@ -115,7 +103,7 @@ final readonly class ModelService
         string $columnName = 'name',
         string $idColumnName = 'id',
         ?string $placeholderText = 'Select something',
-        string $emptyDataText = 'Nothing to select'
+        string $emptyDataText = 'Nothing to select',
     ): array {
         if ($data instanceof Collection && $data->isEmpty()) {
             return ['' => $emptyDataText];
@@ -138,7 +126,7 @@ final readonly class ModelService
      * Sort a flat list of nodes into a depth-annotated parent→child order.
      *
      * @param array<int, object>|Collection<int, object> $list
-     * @param array<int, object>                         $result
+     * @param array<int, object> $result
      *
      * @return array<int, object>
      */
@@ -146,7 +134,7 @@ final readonly class ModelService
         array|Collection $list,
         array &$result = [],
         int|string|null $parent = null,
-        int $depth = 0
+        int $depth = 0,
     ): array {
         $list = $list instanceof Collection ? $list->all() : $list;
 
@@ -180,7 +168,7 @@ final readonly class ModelService
             $modelClass::observe($observerClass);
 
             $this->logger->info('Model observer registered', [
-                'model' => $modelClass,
+                'model'    => $modelClass,
                 'observer' => $observerClass,
             ]);
         }
@@ -195,6 +183,18 @@ final readonly class ModelService
     public function concatName(string $table, ?string $connection = null): Expression
     {
         return $this->buildConcatExpression($table, $connection);
+    }
+
+    /**
+     * Coerce a (possibly null/mixed) model attribute to a string for display.
+     */
+    private function stringAttr(mixed $value): string
+    {
+        if (is_string($value)) {
+            return $value;
+        }
+
+        return is_int($value) || is_float($value) ? (string) $value : '';
     }
 
     /**
@@ -214,14 +214,14 @@ final readonly class ModelService
     {
         $schema = Schema::connection($connection);
 
-        if (!$schema->hasTable($table)) {
+        if (! $schema->hasTable($table)) {
             throw new InvalidArgumentException(
                 sprintf('Unknown table [%s]: refusing to build a raw SQL expression.', $table),
             );
         }
 
         foreach (self::NAME_COLUMNS as $column) {
-            if (!$schema->hasColumn($table, $column)) {
+            if (! $schema->hasColumn($table, $column)) {
                 throw new InvalidArgumentException(
                     sprintf('Unknown column [%s.%s]: refusing to build a raw SQL expression.', $table, $column),
                 );

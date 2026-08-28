@@ -9,11 +9,6 @@ use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 final class WithoutBaseUrlMacroTest extends TestCase
 {
-    protected function defineEnvironment($app): void
-    {
-        $app['config']->set('app.url', 'https://example.test');
-    }
-
     public function test_it_strips_the_applications_own_base_url(): void
     {
         self::assertSame(
@@ -72,5 +67,10 @@ final class WithoutBaseUrlMacroTest extends TestCase
     public function test_an_empty_base_is_a_no_op(): void
     {
         self::assertSame('https://example.test/a', Str::withoutBaseUrl('https://example.test/a', ''));
+    }
+
+    protected function defineEnvironment($app): void
+    {
+        $app['config']->set('app.url', 'https://example.test');
     }
 }

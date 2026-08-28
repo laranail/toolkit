@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Support;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class CollectionFilter
 {
@@ -13,7 +13,7 @@ class CollectionFilter
      * Filter a collection by a given key value pair.
      *
      * @param Collection<array-key, mixed> $items
-     * @param mixed                        $value
+     * @param mixed $value
      *
      * @return Collection<array-key, mixed>
      */
@@ -35,11 +35,11 @@ class CollectionFilter
             $needle = is_scalar($value) ? Str::lower((string) $value) : '';
 
             return match ($operator) {
-                'contains' => str_contains($haystack, $needle),
-                'not_contains' => !str_contains($haystack, $needle),
-                'starts_with' => str_starts_with($haystack, $needle),
-                'ends_with' => str_ends_with($haystack, $needle),
-                default => false,
+                'contains'     => str_contains($haystack, $needle),
+                'not_contains' => ! str_contains($haystack, $needle),
+                'starts_with'  => str_starts_with($haystack, $needle),
+                'ends_with'    => str_ends_with($haystack, $needle),
+                default        => false,
             };
         });
     }

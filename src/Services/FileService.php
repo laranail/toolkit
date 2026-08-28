@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
-use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\SplFileInfo;
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 
 /**
  * File-name / size inspection plus thin, path-guarded filesystem probes.
@@ -74,7 +74,7 @@ final class FileService implements FileServiceInterface
 
     public function exists(string $path): bool
     {
-        if (!$this->isSafePath($path)) {
+        if (! $this->isSafePath($path)) {
             return false;
         }
 
@@ -83,7 +83,7 @@ final class FileService implements FileServiceInterface
 
     public function size(string $path): int
     {
-        if (!$this->exists($path) || !File::isFile($path)) {
+        if (! $this->exists($path) || ! File::isFile($path)) {
             return 0;
         }
 
@@ -92,7 +92,7 @@ final class FileService implements FileServiceInterface
 
     public function lastModified(string $path): int
     {
-        if (!$this->exists($path)) {
+        if (! $this->exists($path)) {
             return 0;
         }
 
@@ -126,7 +126,7 @@ final class FileService implements FileServiceInterface
      */
     public function validateSize(string $path, int $maxMb): bool
     {
-        if (!$this->exists($path) || !File::isFile($path)) {
+        if (! $this->exists($path) || ! File::isFile($path)) {
             return false;
         }
 
@@ -150,11 +150,11 @@ final class FileService implements FileServiceInterface
      */
     public function validate(string $path, array $allowedExtensions, ?int $maxMb = null): bool
     {
-        if (!$this->exists($path) || !File::isFile($path)) {
+        if (! $this->exists($path) || ! File::isFile($path)) {
             return false;
         }
 
-        if ($allowedExtensions !== [] && !$this->hasAllowedExtension($path, $allowedExtensions)) {
+        if ($allowedExtensions !== [] && ! $this->hasAllowedExtension($path, $allowedExtensions)) {
             return false;
         }
 
@@ -171,19 +171,19 @@ final class FileService implements FileServiceInterface
      */
     public function fileInfo(string $path): array
     {
-        if (!$this->exists($path) || !File::isFile($path)) {
+        if (! $this->exists($path) || ! File::isFile($path)) {
             return [];
         }
 
         return [
-            'path' => $path,
-            'size' => $this->size($path),
-            'extension' => $this->extension($path),
-            'name' => pathinfo($path, PATHINFO_FILENAME),
-            'basename' => basename($path),
+            'path'          => $path,
+            'size'          => $this->size($path),
+            'extension'     => $this->extension($path),
+            'name'          => pathinfo($path, PATHINFO_FILENAME),
+            'basename'      => basename($path),
             'last_modified' => $this->lastModified($path),
-            'is_readable' => File::isReadable($path),
-            'is_writable' => File::isWritable($path),
+            'is_readable'   => File::isReadable($path),
+            'is_writable'   => File::isWritable($path),
         ];
     }
 
@@ -224,7 +224,7 @@ final class FileService implements FileServiceInterface
      */
     public function filesInPath(string $directory, bool $recursive = false): array
     {
-        if (!$this->isSafePath($directory) || !File::isDirectory($directory)) {
+        if (! $this->isSafePath($directory) || ! File::isDirectory($directory)) {
             return [];
         }
 
@@ -247,7 +247,7 @@ final class FileService implements FileServiceInterface
 
     public function toDataUri(string $path): string
     {
-        if (!$this->exists($path) || !File::isFile($path)) {
+        if (! $this->exists($path) || ! File::isFile($path)) {
             return '';
         }
 

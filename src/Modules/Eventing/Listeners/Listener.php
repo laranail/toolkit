@@ -21,7 +21,7 @@ abstract class Listener
      */
     public function handle(object $event): void
     {
-        if (!$this->shouldHandle($event)) {
+        if (! $this->shouldHandle($event)) {
             return;
         }
 

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Traits;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\Attributes\Group;
+use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\Auditable;
 
@@ -16,9 +16,9 @@ class AuditWidget extends Model
 {
     use Auditable;
 
-    protected $table = 'audit_widgets';
-
     public $timestamps = false;
+
+    protected $table = 'audit_widgets';
 
     protected $fillable = ['name', 'secret'];
 

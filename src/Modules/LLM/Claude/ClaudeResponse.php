@@ -12,7 +12,7 @@ final readonly class ClaudeResponse implements JsonSerializable
         public string $content,
         public ?string $model = null,
         public ?object $usage = null,
-        public ?object $rawResponse = null
+        public ?object $rawResponse = null,
     ) {}
 
     public function getContent(): string
@@ -39,8 +39,8 @@ final readonly class ClaudeResponse implements JsonSerializable
     {
         return [
             'content' => $this->content,
-            'model' => $this->model,
-            'usage' => $this->usage,
+            'model'   => $this->model,
+            'usage'   => $this->usage,
         ];
     }
 

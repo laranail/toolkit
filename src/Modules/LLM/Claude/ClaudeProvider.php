@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\LLM\Claude;
 
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
-use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
+use Illuminate\Http\Client\ConnectionException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\RetriesHttpRequests;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
 final class ClaudeProvider implements LLMProviderInterface
 {
@@ -20,7 +20,7 @@ final class ClaudeProvider implements LLMProviderInterface
         private string $apiKey,
         private int $maxRetries = 3,
         private int $retryDelay = 2,
-        string $baseUrl = 'https://api.anthropic.com'
+        string $baseUrl = 'https://api.anthropic.com',
     ) {
         $this->baseUrl = $this->sanitizeBaseUrl($baseUrl);
     }
@@ -37,7 +37,7 @@ final class ClaudeProvider implements LLMProviderInterface
         ?array $logitBias = null,
         ?string $user = null,
         ?bool $jsonMode = false,
-        bool $fullResponse = false
+        bool $fullResponse = false,
     ): ClaudeResponse {
         $endpoint = $this->baseUrl . '/v1/messages';
 
@@ -48,21 +48,21 @@ final class ClaudeProvider implements LLMProviderInterface
             maxTokens: $maxTokens,
             stop: $stop,
             topP: $topP,
-            jsonMode: $jsonMode
+            jsonMode: $jsonMode,
         );
 
         return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse) {
             try {
                 $response = Http::withHeaders([
-                    'Content-Type' => 'application/json',
-                    'x-api-key' => $this->apiKey,
+                    'Content-Type'      => 'application/json',
+                    'x-api-key'         => $this->apiKey,
                     'anthropic-version' => '2023-06-01',
                 ])->post($endpoint, $payload);
             } catch (ConnectionException $e) {
                 throw new LLMRequestException('Claude API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
             }
 
-            if (!$response->successful()) {
+            if (! $response->successful()) {
                 $status = $response->status();
                 $body = $response->json();
                 $errorMessage = is_array($body) ? data_get($body, 'error.message') : null;
@@ -88,7 +88,7 @@ final class ClaudeProvider implements LLMProviderInterface
                 content: $content,
                 model: is_string($model) ? $model : null,
                 usage: (object) (is_array($usage) ? $usage : []),
-                rawResponse: $fullResponse ? (object) $data : null
+                rawResponse: $fullResponse ? (object) $data : null,
             );
         }, 'Claude');
     }
@@ -100,11 +100,11 @@ final class ClaudeProvider implements LLMProviderInterface
         ?int $maxTokens,
         ?array $stop,
         ?float $topP,
-        ?bool $jsonMode
+        ?bool $jsonMode,
     ): array {
         $payload = [
-            'model' => $modelName,
-            'messages' => $messages,
+            'model'      => $modelName,
+            'messages'   => $messages,
             'max_tokens' => $maxTokens ?? 1024,
         ];
 
@@ -116,7 +116,7 @@ final class ClaudeProvider implements LLMProviderInterface
             $payload['top_p'] = $topP;
         }
 
-        if ($stop !== null && !empty($stop)) {
+        if ($stop !== null && ! empty($stop)) {
             $payload['stop_sequences'] = $stop;
         }
 

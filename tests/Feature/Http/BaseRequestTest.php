@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Http\Requests\BaseRequest;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Http\Requests\BaseRequest;
 
 class SanitizingRequest extends BaseRequest
 {
     public function rules(): array
     {
         return [
-            'first_name' => 'nullable|string',
-            'email' => 'nullable|string',
-            'username' => 'nullable|string',
+            'first_name'  => 'nullable|string',
+            'email'       => 'nullable|string',
+            'username'    => 'nullable|string',
             'website_url' => 'nullable|string',
-            'db_table' => 'nullable|string',
-            'bio' => 'nullable|string',
+            'db_table'    => 'nullable|string',
+            'bio'         => 'nullable|string',
         ];
     }
 }
@@ -26,25 +26,6 @@ class SanitizingRequest extends BaseRequest
 #[Group('security')]
 class BaseRequestTest extends TestCase
 {
-    protected function defineRoutes($router): void
-    {
-        // Return the sanitized input the handler actually sees.
-        $router->post(
-            '/_test/base-request',
-            fn (SanitizingRequest $request) => response()->json($request->all()),
-        );
-    }
-
-    /**
-     * @param array<string, mixed> $payload
-     *
-     * @return array<string, mixed>
-     */
-    private function submit(array $payload): array
-    {
-        return (array) $this->postJson('/_test/base-request', $payload)->json();
-    }
-
     public function test_html_and_script_tags_are_stripped_from_input(): void
     {
         $out = $this->submit([
@@ -72,13 +53,13 @@ class BaseRequestTest extends TestCase
     {
         // Accents, apostrophes, hyphens, and non-Latin scripts must survive.
         $names = [
-            'José' => 'José',
-            "O'Brien" => "O'Brien",
-            'Müller' => 'Müller',
+            'José'         => 'José',
+            "O'Brien"      => "O'Brien",
+            'Müller'       => 'Müller',
             'Renée-Claire' => 'Renée-Claire',
-            'Đặng' => 'Đặng',
-            'Светлана' => 'Светлана',
-            '李明' => '李明',
+            'Đặng'         => 'Đặng',
+            'Светлана'     => 'Светлана',
+            '李明'         => '李明',
         ];
 
         foreach ($names as $input => $expected) {
@@ -95,12 +76,31 @@ class BaseRequestTest extends TestCase
     public function test_field_specific_normalisation_is_applied(): void
     {
         $out = $this->submit([
-            'email' => '  USER@Example.COM  ',
+            'email'    => '  USER@Example.COM  ',
             'username' => 'Jöhn Doe!!',
         ]);
 
         // email → lowercased + trimmed; username → ascii handle only.
         $this->assertSame('user@example.com', $out['email']);
         $this->assertSame('jhndoe', $out['username']);
+    }
+
+    protected function defineRoutes($router): void
+    {
+        // Return the sanitized input the handler actually sees.
+        $router->post(
+            '/_test/base-request',
+            fn (SanitizingRequest $request) => response()->json($request->all()),
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $payload
+     *
+     * @return array<string, mixed>
+     */
+    private function submit(array $payload): array
+    {
+        return (array) $this->postJson('/_test/base-request', $payload)->json();
     }
 }

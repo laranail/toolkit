@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
+use Mockery;
+use RuntimeException;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
-use RuntimeException;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class MacroBehaviorExtraTest extends TestCase
@@ -207,7 +208,7 @@ class MacroBehaviorExtraTest extends TestCase
         $this->assertSame([null, 2, 1], $ranks);
 
         Log::shouldReceive('channel')->andReturnSelf();
-        Log::shouldReceive('debug')->once()->with('Query Builder SQL', \Mockery::type('array'));
+        Log::shouldReceive('debug')->once()->with('Query Builder SQL', Mockery::type('array'));
 
         $returned = DB::table('macro_ranks')->log();
         $this->assertNotNull($returned);
@@ -299,9 +300,9 @@ class MacroBehaviorExtraTest extends TestCase
  */
 class MacroThing extends Model
 {
-    protected $table = 'macro_things';
-
     public $timestamps = false;
+
+    protected $table = 'macro_things';
 
     protected $guarded = [];
 }

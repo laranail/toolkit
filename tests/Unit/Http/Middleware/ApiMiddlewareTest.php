@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http\Middleware;
 
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Http\Middleware\ApiMiddleware;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Http\Middleware\ApiMiddleware;
 
 /**
  * Concrete subclass that does not override mutateKey(), so it exercises the base
@@ -30,11 +30,11 @@ class ApiMiddlewareTest extends TestCase
 {
     public function test_default_mutate_key_is_an_identity_transform(): void
     {
-        $middleware = new IdentityApiMiddleware();
+        $middleware = new IdentityApiMiddleware;
 
         $payload = [
-            'user_id' => 1,
-            'displayName' => 'Jane',
+            'user_id'      => 1,
+            'displayName'  => 'Jane',
             'nested_block' => ['a_b' => 2, 'cD' => 3],
         ];
 
@@ -44,7 +44,7 @@ class ApiMiddlewareTest extends TestCase
 
     public function test_default_transform_preserves_list_indices(): void
     {
-        $middleware = new IdentityApiMiddleware();
+        $middleware = new IdentityApiMiddleware;
 
         $payload = [['item_id' => 1], ['item_id' => 2]];
 

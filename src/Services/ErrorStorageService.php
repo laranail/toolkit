@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Support\Arr;
-use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
 use Simtabi\Laranail\Toolkit\Support\Cast;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
 
 /**
  * Fluent, key-based error storage.
@@ -20,6 +20,22 @@ class ErrorStorageService implements ErrorStorageServiceInterface
      * @var array<int|string, mixed>
      */
     private array $errors = [];
+
+    /** Create a fresh instance. */
+    public static function create(): self
+    {
+        return new self;
+    }
+
+    /**
+     * Create an instance pre-seeded with errors.
+     *
+     * @param array<int|string, mixed>|string $errors
+     */
+    public static function withErrors(array|string $errors): self
+    {
+        return self::create()->setErrors($errors);
+    }
 
     public function setErrors(array|string $errors): self
     {
@@ -93,21 +109,5 @@ class ErrorStorageService implements ErrorStorageServiceInterface
         }
 
         return $first === null ? null : Cast::toString($first);
-    }
-
-    /** Create a fresh instance. */
-    public static function create(): self
-    {
-        return new self();
-    }
-
-    /**
-     * Create an instance pre-seeded with errors.
-     *
-     * @param array<int|string, mixed>|string $errors
-     */
-    public static function withErrors(array|string $errors): self
-    {
-        return self::create()->setErrors($errors);
     }
 }

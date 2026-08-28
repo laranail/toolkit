@@ -5,23 +5,12 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit;
 
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class ToolkitManagerUserTest extends TestCase
 {
-    private function manager(): ToolkitManager
-    {
-        return $this->app->make(ToolkitManager::class);
-    }
-
-    protected function defineEnvironment($app): void
-    {
-        // A second guard so multi-guard behaviour is exercised.
-        $app['config']->set('auth.guards.admin', ['driver' => 'session', 'provider' => 'users']);
-    }
-
     public function test_user_is_null_when_unauthenticated(): void
     {
         $this->assertNull($this->manager()->user());
@@ -29,7 +18,7 @@ class ToolkitManagerUserTest extends TestCase
 
     public function test_user_returns_the_authenticated_model(): void
     {
-        $user = new ManagerFakeUser();
+        $user = new ManagerFakeUser;
         $user->forceFill(['id' => 7, 'email' => 'jane@example.com']);
         $this->actingAs($user, 'web');
 
@@ -38,7 +27,7 @@ class ToolkitManagerUserTest extends TestCase
 
     public function test_user_is_guard_aware(): void
     {
-        $user = new ManagerFakeUser();
+        $user = new ManagerFakeUser;
         $user->forceFill(['id' => 1]);
         $this->actingAs($user, 'web');
 
@@ -49,7 +38,7 @@ class ToolkitManagerUserTest extends TestCase
 
     public function test_with_guard_swaps_the_guard_for_the_accessors(): void
     {
-        $admin = new ManagerFakeUser();
+        $admin = new ManagerFakeUser;
         $admin->forceFill(['id' => 9]);
         // Set the user on the 'admin' guard only — without switching the default
         // guard (as actingAs() would via shouldUse()).
@@ -74,7 +63,7 @@ class ToolkitManagerUserTest extends TestCase
     {
         config()->set('laranail.toolkit.auth.default_guard', 'admin');
 
-        $user = new ManagerFakeUser();
+        $user = new ManagerFakeUser;
         $user->forceFill(['id' => 2]);
         $this->actingAs($user, 'admin');
 
@@ -86,7 +75,7 @@ class ToolkitManagerUserTest extends TestCase
 
     public function test_user_as_returns_the_typed_model_or_null(): void
     {
-        $user = new ManagerFakeUser();
+        $user = new ManagerFakeUser;
         $user->forceFill(['id' => 3]);
         $this->actingAs($user, 'web');
 
@@ -97,7 +86,7 @@ class ToolkitManagerUserTest extends TestCase
 
     public function test_user_or_fail_returns_the_user_when_authenticated(): void
     {
-        $user = new ManagerFakeUser();
+        $user = new ManagerFakeUser;
         $user->forceFill(['id' => 4]);
         $this->actingAs($user, 'web');
 
@@ -117,24 +106,35 @@ class ToolkitManagerUserTest extends TestCase
 
         $this->assertNull(user());
 
-        $user = new ManagerFakeUser();
+        $user = new ManagerFakeUser;
         $user->forceFill(['id' => 5]);
         $this->actingAs($user, 'web');
 
         $this->assertSame($user, user());
     }
+
+    protected function defineEnvironment($app): void
+    {
+        // A second guard so multi-guard behaviour is exercised.
+        $app['config']->set('auth.guards.admin', ['driver' => 'session', 'provider' => 'users']);
+    }
+
+    private function manager(): ToolkitManager
+    {
+        return $this->app->make(ToolkitManager::class);
+    }
 }
 
 class ManagerFakeUser extends Authenticatable
 {
-    protected $guarded = [];
-
     public $timestamps = false;
+
+    protected $guarded = [];
 }
 
 class ManagerOtherUser extends Authenticatable
 {
-    protected $guarded = [];
-
     public $timestamps = false;
+
+    protected $guarded = [];
 }

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\Security;
 
-use InvalidArgumentException;
+use Stringable;
 use LogicException;
+use InvalidArgumentException;
 
 /**
  * Fluent, immutable secure-token & one-time-code generator.
@@ -49,7 +50,7 @@ use LogicException;
  * @see https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html
  * @see https://datatracker.ietf.org/doc/html/rfc4648
  */
-final class Token implements \Stringable
+final class Token implements Stringable
 {
     /** Hexadecimal — `[0-9a-f]`, 2 chars per byte. */
     public const ENCODING_HEX = 'hex';
@@ -92,6 +93,12 @@ final class Token implements \Stringable
      * Use {@see unsigned()} / {@see signed()} entry points.
      */
     private function __construct(private ?string $secret) {}
+
+    /** Convenience: a {@see generate()}d token. */
+    public function __toString(): string
+    {
+        return $this->generate();
+    }
 
     // --- Entry points --------------------------------------------------------
 
@@ -161,7 +168,7 @@ final class Token implements \Stringable
             self::ENCODING_NUMERIC,
         ];
 
-        if (!in_array($encoding, $allowed, true)) {
+        if (! in_array($encoding, $allowed, true)) {
             throw new InvalidArgumentException(
                 sprintf('Invalid encoding [%s]. Allowed: %s.', $encoding, implode(', ', $allowed)),
             );
@@ -244,7 +251,7 @@ final class Token implements \Stringable
 
         $expectedMac = $this->sign($signedBody);
 
-        if (!hash_equals($expectedMac, $presentedMac)) {
+        if (! hash_equals($expectedMac, $presentedMac)) {
             return false;
         }
 
@@ -252,17 +259,35 @@ final class Token implements \Stringable
         // type() (or none) must not verify under this builder's configured type.
         // The MAC alone does not prevent this — it authenticates the token's own
         // type, not that it matches what the verifier expects.
-        if ($this->type !== '' && !str_ends_with($signedBody, '.' . $this->type)) {
+        if ($this->type !== '' && ! str_ends_with($signedBody, '.' . $this->type)) {
             return false;
         }
 
         return $this->expiryIsValid($signedBody);
     }
 
-    /** Convenience: a {@see generate()}d token. */
-    public function __toString(): string
+    /** RFC 4648 §6 base32 (uppercase, no padding). */
+    private static function base32Encode(string $bytes): string
     {
-        return $this->generate();
+        $bits = '';
+        $chunks = str_split($bytes);
+        foreach ($chunks as $char) {
+            $bits .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
+        }
+
+        $out = '';
+        foreach (str_split($bits, 5) as $group) {
+            $group = str_pad($group, 5, '0', STR_PAD_RIGHT);
+            $out .= self::BASE32_ALPHABET[(int) bindec($group)];
+        }
+
+        return $out;
+    }
+
+    /** RFC 4648 §5 URL-safe base64 with the `=` padding stripped. */
+    private static function base64UrlEncode(string $bytes): string
+    {
+        return rtrim(strtr(base64_encode($bytes), '+/', '-_'), '=');
     }
 
     // --- Internals -----------------------------------------------------------
@@ -310,7 +335,7 @@ final class Token implements \Stringable
         }
 
         $expiry = end($segments);
-        if (!ctype_digit($expiry)) {
+        if (! ctype_digit($expiry)) {
             return true;
         }
 
@@ -329,12 +354,12 @@ final class Token implements \Stringable
     private function encode(string $bytes): string
     {
         return match ($this->encoding) {
-            self::ENCODING_HEX => bin2hex($bytes),
+            self::ENCODING_HEX       => bin2hex($bytes),
             self::ENCODING_BASE64URL => self::base64UrlEncode($bytes),
-            self::ENCODING_BASE32 => self::base32Encode($bytes),
-            self::ENCODING_ALPHANUM => $this->alphabetEncode($bytes, self::ALPHANUM_ALPHABET),
-            self::ENCODING_NUMERIC => $this->numericEncode($bytes),
-            default => bin2hex($bytes), // unreachable: encoding() guards the set.
+            self::ENCODING_BASE32    => self::base32Encode($bytes),
+            self::ENCODING_ALPHANUM  => $this->alphabetEncode($bytes, self::ALPHANUM_ALPHABET),
+            self::ENCODING_NUMERIC   => $this->numericEncode($bytes),
+            default                  => bin2hex($bytes), // unreachable: encoding() guards the set.
         };
     }
 
@@ -368,30 +393,6 @@ final class Token implements \Stringable
     private function numericEncode(string $bytes): string
     {
         return $this->alphabetEncode($bytes, '0123456789');
-    }
-
-    /** RFC 4648 §6 base32 (uppercase, no padding). */
-    private static function base32Encode(string $bytes): string
-    {
-        $bits = '';
-        $chunks = str_split($bytes);
-        foreach ($chunks as $char) {
-            $bits .= str_pad(decbin(ord($char)), 8, '0', STR_PAD_LEFT);
-        }
-
-        $out = '';
-        foreach (str_split($bits, 5) as $group) {
-            $group = str_pad($group, 5, '0', STR_PAD_RIGHT);
-            $out .= self::BASE32_ALPHABET[(int) bindec($group)];
-        }
-
-        return $out;
-    }
-
-    /** RFC 4648 §5 URL-safe base64 with the `=` padding stripped. */
-    private static function base64UrlEncode(string $bytes): string
-    {
-        return rtrim(strtr(base64_encode($bytes), '+/', '-_'), '=');
     }
 
     /**

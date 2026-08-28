@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Rules;
 
 use Closure;
-use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
-use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 use Throwable;
 use ZxcvbnPhp\Zxcvbn;
+use Illuminate\Support\Str;
+use InvalidArgumentException;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Contracts\Validation\ValidationRule;
+use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 
 /**
  * Reject weak passwords: a large common-password denylist, optional minimum
@@ -48,13 +49,13 @@ final class RejectCommonPasswords implements ValidationRule
     private static ?array $commonPasswords = null;
 
     /**
-     * @param int         $minLength      Minimum length gate (0 = off).
-     * @param int         $minEntropy     Minimum Shannon-entropy gate in bits (0 = off).
-     * @param bool        $checkHibp      Enable the opt-in HIBP k-anonymity breach check.
-     * @param string|null $hibpApiKey     Optional HIBP API key (sent as `hibp-api-key`; not needed for the range API).
-     * @param int         $minZxcvbnScore Minimum zxcvbn strength score 0–4 (0 = off; skipped when zxcvbn is absent).
+     * @param int $minLength Minimum length gate (0 = off).
+     * @param int $minEntropy Minimum Shannon-entropy gate in bits (0 = off).
+     * @param bool $checkHibp Enable the opt-in HIBP k-anonymity breach check.
+     * @param string|null $hibpApiKey Optional HIBP API key (sent as `hibp-api-key`; not needed for the range API).
+     * @param int $minZxcvbnScore Minimum zxcvbn strength score 0–4 (0 = off; skipped when zxcvbn is absent).
      *
-     * @throws \InvalidArgumentException when `$minZxcvbnScore` is outside 0–4
+     * @throws InvalidArgumentException when `$minZxcvbnScore` is outside 0–4
      */
     public function __construct(
         private readonly int $minLength = 0,
@@ -64,7 +65,7 @@ final class RejectCommonPasswords implements ValidationRule
         private readonly int $minZxcvbnScore = 0,
     ) {
         if ($minZxcvbnScore < 0 || $minZxcvbnScore > 4) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 "minZxcvbnScore must be between 0 and 4, got [{$minZxcvbnScore}].",
             );
         }
@@ -75,7 +76,7 @@ final class RejectCommonPasswords implements ValidationRule
      */
     public static function config(): RejectCommonPasswordsBuilder
     {
-        return new RejectCommonPasswordsBuilder();
+        return new RejectCommonPasswordsBuilder;
     }
 
     /**
@@ -83,7 +84,7 @@ final class RejectCommonPasswords implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             return; // Let other validation rules handle non-string values.
         }
 
@@ -118,33 +119,12 @@ final class RejectCommonPasswords implements ValidationRule
             /**
              * @var array{score: int, feedback: array{warning: string, suggestions: list<string>}} $result
              */
-            $result = (new Zxcvbn())->passwordStrength($trimmed);
+            $result = (new Zxcvbn)->passwordStrength($trimmed);
 
             if ($result['score'] < $this->minZxcvbnScore) {
                 $fail($this->strengthMessage($result['feedback']));
             }
         }
-    }
-
-    /**
-     * Build a human-readable failure message from the zxcvbn feedback, folding in
-     * the warning and any suggestions when present.
-     *
-     * @param array{warning: string, suggestions: list<string>} $feedback
-     */
-    private function strengthMessage(array $feedback): string
-    {
-        $message = 'The :attribute is too weak.';
-
-        if ($feedback['warning'] !== '') {
-            $message .= ' ' . rtrim($feedback['warning'], '.') . '.';
-        }
-
-        if ($feedback['suggestions'] !== []) {
-            $message .= ' ' . implode(' ', $feedback['suggestions']);
-        }
-
-        return $message;
     }
 
     /**
@@ -190,6 +170,27 @@ final class RejectCommonPasswords implements ValidationRule
     }
 
     /**
+     * Build a human-readable failure message from the zxcvbn feedback, folding in
+     * the warning and any suggestions when present.
+     *
+     * @param array{warning: string, suggestions: list<string>} $feedback
+     */
+    private function strengthMessage(array $feedback): string
+    {
+        $message = 'The :attribute is too weak.';
+
+        if ($feedback['warning'] !== '') {
+            $message .= ' ' . rtrim($feedback['warning'], '.') . '.';
+        }
+
+        if ($feedback['suggestions'] !== []) {
+            $message .= ' ' . implode(' ', $feedback['suggestions']);
+        }
+
+        return $message;
+    }
+
+    /**
      * HIBP k-anonymity breach check. SHA-1 the password locally, send ONLY the
      * first five hex characters of the hash to the range API, then match the
      * 35-char suffix locally. The plaintext password is never transmitted.
@@ -216,7 +217,7 @@ final class RejectCommonPasswords implements ValidationRule
             return false; // Transport error / timeout -> fail open.
         }
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             return false; // Non-200 (429, 5xx, ...) -> fail open.
         }
 

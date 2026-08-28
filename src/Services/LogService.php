@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Log\LogManager;
-use Psr\Log\LoggerInterface;
-use Simtabi\Laranail\Toolkit\Enums\LogLevel;
-use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Throwable;
+use Psr\Log\LoggerInterface;
+use Illuminate\Log\LogManager;
+use Simtabi\Laranail\Toolkit\Enums\LogLevel;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
 
 /**
  * Thin, injectable logging helper that enriches every record with a timestamp
@@ -32,7 +32,7 @@ class LogService implements LoggerServiceInterface
     {
         $context += [
             'timestamp' => now()->toDateTimeString(),
-            'env' => ToolkitConfig::string('app.env'),
+            'env'       => ToolkitConfig::string('app.env'),
         ];
 
         $this->logger($channel)->log($level->value, $message, $context);
@@ -86,8 +86,8 @@ class LogService implements LoggerServiceInterface
     {
         $this->error($e->getMessage(), [
             'exception' => $e::class,
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
+            'file'      => $e->getFile(),
+            'line'      => $e->getLine(),
         ], $channel);
     }
 

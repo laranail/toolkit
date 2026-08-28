@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services\Contracts;
 
+use Throwable;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
 use Simtabi\Laranail\Toolkit\Services\LogService;
-use Throwable;
 
 /**
  * Public surface of the toolkit's {@see LogService}.

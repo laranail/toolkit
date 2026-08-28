@@ -16,7 +16,7 @@ interface LivewireServiceInterface
     /**
      * Register a single component under an alias.
      *
-     * @param string              $alias The blade tag / component alias (e.g. "my-component").
+     * @param string $alias The blade tag / component alias (e.g. "my-component").
      * @param class-string|string $class The Livewire component class to bind to the alias.
      */
     public function registerComponent(string $alias, string $class): self;

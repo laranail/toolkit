@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static LivewireServiceInterface registerComponent(string $alias, string $class)
  * @method static LivewireServiceInterface registerComponents(array<string, string> $map)
- * @method static array<string, string>    getRegisteredComponents()
- * @method static void                     flush()
- * @method static bool                     isLivewireAvailable()
- * @method static string                   generateComponentKey(string $name)
+ * @method static array<string, string> getRegisteredComponents()
+ * @method static void flush()
+ * @method static bool isLivewireAvailable()
+ * @method static string generateComponentKey(string $name)
  *
  * @see LivewireService
  */

@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
-use Simtabi\Laranail\Toolkit\Services\RouteService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Services\RouteService;
 
 /**
  * Drives RouteService against a real Router with defined routes so the
@@ -16,39 +16,6 @@ use Simtabi\Laranail\Toolkit\Tests\TestCase;
  */
 class RouteServiceCoverageTest extends TestCase
 {
-    /**
-     * Define a route group, dispatch a request through it so the Router has a
-     * "current" route, and return a service bound to that same Router + Request.
-     *
-     * @param array<string, mixed> $query
-     */
-    private function serviceAtRoute(string $uri, string $name, array $query = [], ?string $prefix = null): RouteService
-    {
-        /** @var Router $router */
-        $router = $this->app->make(Router::class);
-
-        $register = function (Router $router) use ($uri, $name): void {
-            $router->get($uri, static fn () => 'ok')->name($name);
-        };
-
-        if ($prefix !== null) {
-            $router->group(['prefix' => $prefix], $register);
-        } else {
-            $register($router);
-        }
-
-        $path = $prefix !== null ? trim($prefix, '/') . '/' . ltrim($uri, '/') : $uri;
-        $request = Request::create('/' . ltrim($path, '/'), 'GET', $query);
-
-        // Dispatch through the Router so Router::current()/currentRouteName()
-        // resolve to the matched route, mirroring a real HTTP request. Bind the
-        // request into the container too, so URL::current() reflects it.
-        $router->dispatch($request);
-        $this->app->instance('request', $request);
-
-        return new RouteService($router, $request);
-    }
-
     public function test_get_app_url_uses_request_host(): void
     {
         $request = Request::create('https://app.example.test/dashboard');
@@ -157,5 +124,38 @@ class RouteServiceCoverageTest extends TestCase
         $this->assertSame('', $service->getActiveMenuClassName('totally.unrelated'));
         // 'account' must NOT activate — no substring false positive.
         $this->assertSame('', $service->getActiveMenuClassName('account'));
+    }
+
+    /**
+     * Define a route group, dispatch a request through it so the Router has a
+     * "current" route, and return a service bound to that same Router + Request.
+     *
+     * @param array<string, mixed> $query
+     */
+    private function serviceAtRoute(string $uri, string $name, array $query = [], ?string $prefix = null): RouteService
+    {
+        /** @var Router $router */
+        $router = $this->app->make(Router::class);
+
+        $register = function (Router $router) use ($uri, $name): void {
+            $router->get($uri, static fn () => 'ok')->name($name);
+        };
+
+        if ($prefix !== null) {
+            $router->group(['prefix' => $prefix], $register);
+        } else {
+            $register($router);
+        }
+
+        $path = $prefix !== null ? trim($prefix, '/') . '/' . ltrim($uri, '/') : $uri;
+        $request = Request::create('/' . ltrim($path, '/'), 'GET', $query);
+
+        // Dispatch through the Router so Router::current()/currentRouteName()
+        // resolve to the matched route, mirroring a real HTTP request. Bind the
+        // request into the container too, so URL::current() reflects it.
+        $router->dispatch($request);
+        $this->app->instance('request', $request);
+
+        return new RouteService($router, $request);
     }
 }

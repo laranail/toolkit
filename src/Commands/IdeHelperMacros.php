@@ -4,26 +4,27 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Commands;
 
-use Carbon\FactoryImmutable;
 use Closure;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Http\Request;
-use Illuminate\Routing\ResponseFactory;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-use Illuminate\Support\Stringable;
+use ReflectionType;
 use ReflectionClass;
-use ReflectionException;
-use ReflectionFunction;
 use ReflectionMethod;
+use ReflectionFunction;
+use ReflectionException;
 use ReflectionNamedType;
 use ReflectionParameter;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Carbon\FactoryImmutable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Stringable;
+use Illuminate\Support\Facades\File;
+use Illuminate\Routing\ResponseFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Simtabi\Laranail\Console\Tools\Commands\Command;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Simtabi\Laranail\Console\Tools\Commands\Concerns\SupportsNamespacedNames;
 
 /**
@@ -41,14 +42,6 @@ class IdeHelperMacros extends Command
 {
     use SupportsNamespacedNames;
 
-    /** @var list<string> */
-    protected array $commandAliases = ['ide-helper:macros'];
-
-    protected $signature = 'laranail::toolkit.ide-helper-macros
-        {--path= : Output path for the stub (default: ide-helper/_ide_helper_macros.php under the base path)}';
-
-    protected $description = 'Regenerate the IDE-helper stub from the toolkit\'s registered macros';
-
     /**
      * Macroable targets to document, keyed by stub label.
      *
@@ -59,16 +52,24 @@ class IdeHelperMacros extends Command
      * @var array<string, array{class: class-string, static: bool}>
      */
     private const TARGETS = [
-        'Str' => ['class' => Str::class, 'static' => true],
-        'Stringable' => ['class' => Stringable::class, 'static' => false],
-        'Collection' => ['class' => Collection::class, 'static' => false],
-        'Arr' => ['class' => Arr::class, 'static' => true],
-        'Carbon' => ['class' => Carbon::class, 'static' => false],
-        'QueryBuilder' => ['class' => QueryBuilder::class, 'static' => false],
+        'Str'             => ['class' => Str::class, 'static' => true],
+        'Stringable'      => ['class' => Stringable::class, 'static' => false],
+        'Collection'      => ['class' => Collection::class, 'static' => false],
+        'Arr'             => ['class' => Arr::class, 'static' => true],
+        'Carbon'          => ['class' => Carbon::class, 'static' => false],
+        'QueryBuilder'    => ['class' => QueryBuilder::class, 'static' => false],
         'EloquentBuilder' => ['class' => EloquentBuilder::class, 'static' => false],
-        'Request' => ['class' => Request::class, 'static' => false],
+        'Request'         => ['class' => Request::class, 'static' => false],
         'ResponseFactory' => ['class' => ResponseFactory::class, 'static' => false],
     ];
+
+    /** @var list<string> */
+    protected array $commandAliases = ['ide-helper:macros'];
+
+    protected $signature = 'laranail::toolkit.ide-helper-macros
+        {--path= : Output path for the stub (default: ide-helper/_ide_helper_macros.php under the base path)}';
+
+    protected $description = 'Regenerate the IDE-helper stub from the toolkit\'s registered macros';
 
     public function handle(): int
     {
@@ -93,9 +94,9 @@ class IdeHelperMacros extends Command
         $byteCount = strlen($contents);
 
         $this->services->metadata()->addMany([
-            'path' => $path,
+            'path'   => $path,
             'macros' => $macroCount,
-            'bytes' => $byteCount,
+            'bytes'  => $byteCount,
         ]);
 
         // Structured completion record: how many macros were documented and the
@@ -103,7 +104,7 @@ class IdeHelperMacros extends Command
         $this->services->logger()->logCompletion(self::SUCCESS, [
             'execution_time' => $performance->getFormattedExecutionTime(),
         ], [
-            'macros' => $macroCount,
+            'macros'    => $macroCount,
             'stub_size' => $this->services->display()->formatBytes($byteCount),
         ]);
 
@@ -220,7 +221,7 @@ class IdeHelperMacros extends Command
      */
     private function renderFactoryMixinClassBlock(): ?string
     {
-        if (!Factory::hasMacro('withoutEvents')) {
+        if (! Factory::hasMacro('withoutEvents')) {
             return null;
         }
 
@@ -269,7 +270,7 @@ class IdeHelperMacros extends Command
     {
         $reflection = new ReflectionClass($class);
 
-        if (!$reflection->hasProperty($property)) {
+        if (! $reflection->hasProperty($property)) {
             return [];
         }
 
@@ -354,7 +355,7 @@ class IdeHelperMacros extends Command
 
             $segment .= '$' . $parameter->getName();
 
-            if ($parameter->isOptional() && !$parameter->isVariadic()) {
+            if ($parameter->isOptional() && ! $parameter->isVariadic()) {
                 $segment .= ' = ' . $this->renderDefault($parameter);
             }
 
@@ -376,29 +377,29 @@ class IdeHelperMacros extends Command
         }
 
         return match (true) {
-            $default === null => 'null',
-            $default === true => 'true',
-            $default === false => 'false',
-            is_string($default) => var_export($default, true),
-            is_array($default) => '[]',
+            $default === null                    => 'null',
+            $default === true                    => 'true',
+            $default === false                   => 'false',
+            is_string($default)                  => var_export($default, true),
+            is_array($default)                   => '[]',
             is_int($default), is_float($default) => (string) $default,
-            default => 'null',
+            default                              => 'null',
         };
     }
 
     /**
      * Render a reflection type as a stub-friendly string (FQCN-prefixed).
      */
-    private function stringifyType(?\ReflectionType $type): ?string
+    private function stringifyType(?ReflectionType $type): ?string
     {
-        if (!$type instanceof ReflectionNamedType) {
+        if (! $type instanceof ReflectionNamedType) {
             // Union/intersection types are rendered loosely as `mixed` so the
             // stub stays parseable regardless of the macro's exact signature.
             return $type === null ? null : 'mixed';
         }
 
         $name = $type->getName();
-        $prefix = !$type->isBuiltin() && $name !== 'self' && $name !== 'static' ? '\\' : '';
+        $prefix = ! $type->isBuiltin() && $name !== 'self' && $name !== 'static' ? '\\' : '';
         $nullable = $type->allowsNull() && $name !== 'mixed' && $name !== 'null' ? '?' : '';
 
         return $nullable . $prefix . $name;

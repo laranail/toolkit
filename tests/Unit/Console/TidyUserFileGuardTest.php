@@ -45,22 +45,6 @@ final class TidyUserFileGuardTest extends TestCase
         parent::tearDown();
     }
 
-    private function pretendProduction(): void
-    {
-        $this->originalEnv = (string) $this->app['env'];
-        $this->app['env'] = 'production';
-    }
-
-    private function upload(string $relative = 'app/public/invoice.pdf'): string
-    {
-        $path = storage_path($relative);
-        @mkdir(dirname($path), 0777, true);
-        file_put_contents($path, 'a user uploaded this');
-        $this->created[] = $path;
-
-        return $path;
-    }
-
     #[Test]
     public function an_unfiltered_storage_sweep_is_refused_even_with_force(): void
     {
@@ -115,9 +99,9 @@ final class TidyUserFileGuardTest extends TestCase
         $upload = $this->upload();
 
         $this->artisan('laranail::toolkit.tidy', [
-            'action' => 'storage',
+            'action'       => 'storage',
             '--unfiltered' => true,
-            '--force' => true,
+            '--force'      => true,
         ])->assertExitCode(0);
 
         $this->assertFileDoesNotExist($upload);
@@ -133,9 +117,9 @@ final class TidyUserFileGuardTest extends TestCase
         $upload = $this->upload();
 
         $this->artisan('laranail::toolkit.tidy', [
-            'action' => 'storage',
+            'action'       => 'storage',
             '--unfiltered' => true,
-            '--force' => true,
+            '--force'      => true,
         ])
             ->expectsOutputToContain('in production')
             ->assertExitCode(1);
@@ -219,5 +203,21 @@ final class TidyUserFileGuardTest extends TestCase
             ->assertExitCode(1);
 
         $this->assertFileExists($upload);
+    }
+
+    private function pretendProduction(): void
+    {
+        $this->originalEnv = (string) $this->app['env'];
+        $this->app['env'] = 'production';
+    }
+
+    private function upload(string $relative = 'app/public/invoice.pdf'): string
+    {
+        $path = storage_path($relative);
+        @mkdir(dirname($path), 0777, true);
+        file_put_contents($path, 'a user uploaded this');
+        $this->created[] = $path;
+
+        return $path;
     }
 }

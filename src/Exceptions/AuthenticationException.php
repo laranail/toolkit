@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Exceptions;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
@@ -79,7 +79,7 @@ class AuthenticationException extends LaranailException
      */
     public function render(Request $request): JsonResponse|false
     {
-        if (!$request->expectsJson()) {
+        if (! $request->expectsJson()) {
             return false;
         }
 
@@ -88,7 +88,7 @@ class AuthenticationException extends LaranailException
         $payload = [
             'success' => false,
             'message' => $this->getUserMessage() ?? $this->getMessage(),
-            'errors' => $this->getContext(),
+            'errors'  => $this->getContext(),
         ];
 
         if ((bool) config('app.debug')) {

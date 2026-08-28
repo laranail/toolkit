@@ -50,9 +50,10 @@ final class SecurityData
     /**
      * Return the EFF Large Wordlist (exactly 7776 CC0 words).
      *
-     * @throws RuntimeException when the list is not exactly 7776 words
      *
      * @return list<string>
+     *
+     * @throws RuntimeException when the list is not exactly 7776 words
      */
     public static function passphraseWords(): array
     {
@@ -89,7 +90,7 @@ final class SecurityData
     {
         $value = self::config()[$key] ?? null;
 
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             return [];
         }
 
@@ -104,7 +105,7 @@ final class SecurityData
      */
     private static function stringList(mixed $value): array
     {
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             return [];
         }
 
@@ -147,13 +148,13 @@ final class SecurityData
         //   src/Modules/Security/ --(dirname __DIR__, 3)--> repo root --> config/security.php
         $path = dirname(__DIR__, 3) . '/config/security.php';
 
-        if (!is_file($path)) {
+        if (! is_file($path)) {
             throw new RuntimeException("Security config not found at [{$path}].");
         }
 
         $config = require $path;
 
-        if (!is_array($config)) {
+        if (! is_array($config)) {
             throw new RuntimeException("Security config at [{$path}] must return an array.");
         }
 

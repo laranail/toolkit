@@ -6,17 +6,17 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Observers\Observer;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Observers\Observer;
 
 /**
  * Bare Eloquent model used as the observed subject.
  */
 class ObservedModel extends Model
 {
-    protected $table = 'observed_models';
-
     public $timestamps = false;
+
+    protected $table = 'observed_models';
 
     protected $guarded = [];
 }
@@ -39,23 +39,9 @@ class RecordingObserver extends Observer
 #[Group('observers')]
 class ObserverTest extends TestCase
 {
-    /**
-     * Every lifecycle hook the base declares — used to drive the no-op coverage.
-     *
-     * @return list<string>
-     */
-    private function lifecycleHooks(): array
-    {
-        return [
-            'retrieved', 'creating', 'created', 'updating', 'updated',
-            'saving', 'saved', 'deleting', 'deleted', 'restoring',
-            'restored', 'forceDeleted',
-        ];
-    }
-
     public function test_base_declares_every_conventional_lifecycle_hook(): void
     {
-        $observer = new class() extends Observer {};
+        $observer = new class extends Observer {};
 
         foreach ($this->lifecycleHooks() as $hook) {
             $this->assertTrue(
@@ -67,8 +53,8 @@ class ObserverTest extends TestCase
 
     public function test_every_base_hook_is_a_no_op_returning_void(): void
     {
-        $observer = new class() extends Observer {};
-        $model = new ObservedModel();
+        $observer = new class extends Observer {};
+        $model = new ObservedModel;
 
         // Each base hook is a void no-op; calling it must neither throw nor
         // mutate the model.
@@ -92,8 +78,8 @@ class ObserverTest extends TestCase
 
     public function test_a_subclass_may_override_only_the_hooks_it_cares_about(): void
     {
-        $observer = new RecordingObserver();
-        $model = new ObservedModel();
+        $observer = new RecordingObserver;
+        $model = new ObservedModel;
 
         // Overridden hook records; un-overridden hooks fall through to the base
         // no-op without error.
@@ -102,5 +88,19 @@ class ObserverTest extends TestCase
         $observer->deleted($model);
 
         $this->assertSame(['created'], $observer->calls);
+    }
+
+    /**
+     * Every lifecycle hook the base declares — used to drive the no-op coverage.
+     *
+     * @return list<string>
+     */
+    private function lifecycleHooks(): array
+    {
+        return [
+            'retrieved', 'creating', 'created', 'updating', 'updated',
+            'saving', 'saved', 'deleting', 'deleted', 'restoring',
+            'restored', 'forceDeleted',
+        ];
     }
 }

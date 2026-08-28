@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Contracts\Session\Session;
-use Illuminate\Cookie\CookieJar;
 use Illuminate\Http\Request;
+use Illuminate\Cookie\CookieJar;
 use Illuminate\Support\Collection;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
+use Illuminate\Contracts\Session\Session;
 use Simtabi\Laranail\Toolkit\Support\Cast;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 
 /**
  * Session / query-string "filter key" helpers.

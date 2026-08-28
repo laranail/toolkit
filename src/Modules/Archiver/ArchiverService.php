@@ -8,21 +8,21 @@ final class ArchiverService implements ArchiverServiceInterface
 {
     public function tar(): Tar
     {
-        return new Tar();
+        return new Tar;
     }
 
     public function tarGz(): TarGz
     {
-        return new TarGz();
+        return new TarGz;
     }
 
     public function zip(): Zip
     {
-        return new Zip();
+        return new Zip;
     }
 
     public function extract(string $pathToArchive, string $pathToDirectory): void
     {
-        (new ArchiveManager())->extract($pathToArchive, $pathToDirectory);
+        (new ArchiveManager)->extract($pathToArchive, $pathToDirectory);
     }
 }

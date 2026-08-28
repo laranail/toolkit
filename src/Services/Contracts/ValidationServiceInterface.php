@@ -23,7 +23,7 @@ interface ValidationServiceInterface
         string $key,
         string $errorMsgClass = 'error-msg',
         string $wrapperClass = 'has-error',
-        string $bag = 'errors'
+        string $bag = 'errors',
     ): HtmlString;
 
     /** Return `$failedClass` when `$key` has an error, otherwise `$passedClass`. */
@@ -31,7 +31,7 @@ interface ValidationServiceInterface
         string $key,
         string $passedClass = 'success',
         string $failedClass = 'error',
-        string $bag = 'errors'
+        string $bag = 'errors',
     ): string;
 
     /** Return `$failedClass` when `$key` has an error, otherwise `$passedClass`. */
@@ -39,7 +39,7 @@ interface ValidationServiceInterface
         string $key,
         string $passedClass = 'has-success',
         string $failedClass = 'has-error',
-        string $bag = 'errors'
+        string $bag = 'errors',
     ): string;
 
     /** Return `'checked'` when the old value is truthy, otherwise null. */
@@ -52,7 +52,7 @@ interface ValidationServiceInterface
         string $key,
         ?object $model = null,
         mixed $default = null,
-        bool $returnBool = false
+        bool $returnBool = false,
     ): mixed;
 
     /** Read a property off a model object, returning a default when absent. */

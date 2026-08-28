@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Rules;
 
-use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Validator as ValidatorFacade;
-use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use ZxcvbnPhp\Zxcvbn;
+use InvalidArgumentException;
+use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\Group;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Contracts\Validation\ValidationRule;
+use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
+use Illuminate\Support\Facades\Validator as ValidatorFacade;
 
 #[Group('security')]
 class RejectCommonPasswordsTest extends TestCase
@@ -21,12 +22,7 @@ class RejectCommonPasswordsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->rule = new RejectCommonPasswords();
-    }
-
-    private function fails(RejectCommonPasswords $rule, mixed $value): bool
-    {
-        return ValidatorFacade::make(['password' => $value], ['password' => [$rule]])->fails();
+        $this->rule = new RejectCommonPasswords;
     }
 
     public function test_rejects_common_passwords()
@@ -47,13 +43,13 @@ class RejectCommonPasswordsTest extends TestCase
         foreach ($commonPasswords as $password) {
             $validator = ValidatorFacade::make(
                 ['password' => $password],
-                ['password' => [$this->rule]]
+                ['password' => [$this->rule]],
             );
 
             $this->assertTrue($validator->fails());
             $this->assertStringContainsString(
                 'common password that is not allowed',
-                $validator->errors()->first('password')
+                $validator->errors()->first('password'),
             );
         }
     }
@@ -71,7 +67,7 @@ class RejectCommonPasswordsTest extends TestCase
         foreach ($strongPasswords as $password) {
             $validator = ValidatorFacade::make(
                 ['password' => $password],
-                ['password' => [$this->rule]]
+                ['password' => [$this->rule]],
             );
 
             $this->assertFalse($validator->fails());
@@ -92,7 +88,7 @@ class RejectCommonPasswordsTest extends TestCase
         foreach ($commonPasswords as $password) {
             $validator = ValidatorFacade::make(
                 ['password' => $password],
-                ['password' => [$this->rule]]
+                ['password' => [$this->rule]],
             );
 
             $this->assertTrue($validator->fails());
@@ -112,7 +108,7 @@ class RejectCommonPasswordsTest extends TestCase
         foreach ($passwordsWithWhitespace as $password) {
             $validator = ValidatorFacade::make(
                 ['password' => $password],
-                ['password' => [$this->rule]]
+                ['password' => [$this->rule]],
             );
 
             $this->assertTrue($validator->fails());
@@ -132,7 +128,7 @@ class RejectCommonPasswordsTest extends TestCase
         foreach ($nonStringValues as $value) {
             $validator = ValidatorFacade::make(
                 ['password' => $value],
-                ['password' => [$this->rule]]
+                ['password' => [$this->rule]],
             );
 
             $this->assertFalse($validator->fails());
@@ -156,7 +152,7 @@ class RejectCommonPasswordsTest extends TestCase
         foreach ($numericSequences as $password) {
             $validator = ValidatorFacade::make(
                 ['password' => $password],
-                ['password' => [$this->rule]]
+                ['password' => [$this->rule]],
             );
 
             $this->assertTrue($validator->fails());
@@ -176,7 +172,7 @@ class RejectCommonPasswordsTest extends TestCase
         foreach ($keyboardPatterns as $password) {
             $validator = ValidatorFacade::make(
                 ['password' => $password],
-                ['password' => [$this->rule]]
+                ['password' => [$this->rule]],
             );
 
             $this->assertTrue($validator->fails());
@@ -200,7 +196,7 @@ class RejectCommonPasswordsTest extends TestCase
         foreach ($commonWithNumbers as $password) {
             $validator = ValidatorFacade::make(
                 ['password' => $password],
-                ['password' => [$this->rule]]
+                ['password' => [$this->rule]],
             );
 
             $this->assertTrue($validator->fails());
@@ -219,7 +215,7 @@ class RejectCommonPasswordsTest extends TestCase
         foreach ($mixedCasePasswords as $password) {
             $validator = ValidatorFacade::make(
                 ['password' => $password],
-                ['password' => [$this->rule]]
+                ['password' => [$this->rule]],
             );
 
             $this->assertFalse($validator->fails());
@@ -230,7 +226,7 @@ class RejectCommonPasswordsTest extends TestCase
     {
         $this->assertInstanceOf(
             ValidationRule::class,
-            $this->rule
+            $this->rule,
         );
     }
 
@@ -307,21 +303,21 @@ class RejectCommonPasswordsTest extends TestCase
 
     public function test_min_zxcvbn_score_invalid_throws(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new RejectCommonPasswords(minZxcvbnScore: 5);
     }
 
     public function test_min_zxcvbn_builder_invalid_throws(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         RejectCommonPasswords::config()->minZxcvbnScore(-1);
     }
 
     public function test_min_zxcvbn_score_rejects_weak_and_passes_strong(): void
     {
-        if (!class_exists(Zxcvbn::class)) {
+        if (! class_exists(Zxcvbn::class)) {
             $this->markTestSkipped('bjeavons/zxcvbn-php is not installed.');
         }
 
@@ -334,7 +330,7 @@ class RejectCommonPasswordsTest extends TestCase
 
     public function test_min_zxcvbn_message_carries_feedback(): void
     {
-        if (!class_exists(Zxcvbn::class)) {
+        if (! class_exists(Zxcvbn::class)) {
             $this->markTestSkipped('bjeavons/zxcvbn-php is not installed.');
         }
 
@@ -348,7 +344,7 @@ class RejectCommonPasswordsTest extends TestCase
 
     public function test_min_zxcvbn_off_by_default_does_not_change_behaviour(): void
     {
-        $rule = new RejectCommonPasswords();
+        $rule = new RejectCommonPasswords;
 
         // Denylist still catches 'password'; a weak-but-not-listed value passes.
         $this->assertTrue($this->fails($rule, 'password'));
@@ -379,5 +375,10 @@ class RejectCommonPasswordsTest extends TestCase
 
             return true;
         });
+    }
+
+    private function fails(RejectCommonPasswords $rule, mixed $value): bool
+    {
+        return ValidatorFacade::make(['password' => $value], ['password' => [$rule]])->fails();
     }
 }

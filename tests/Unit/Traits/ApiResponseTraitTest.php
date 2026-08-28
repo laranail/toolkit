@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Traits;
 
+use Mockery;
+use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Config;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 
 class ApiResponseTraitTest extends TestCase
@@ -99,12 +101,12 @@ class ApiResponseTraitTest extends TestCase
 
     public function test_can_handle_exception_response()
     {
-        $exception = new \Exception('Test exception message');
+        $exception = new Exception('Test exception message');
         $statusCode = 500;
 
         // Mock Log facade
         Log::shouldReceive('error')
-            ->with($exception->getMessage(), \Mockery::type('array'))
+            ->with($exception->getMessage(), Mockery::type('array'))
             ->once();
 
         $response = $this->exceptionResponse($exception, $statusCode);
@@ -119,7 +121,7 @@ class ApiResponseTraitTest extends TestCase
         // Debug should be present when app.debug is true (default in tests)
         if (config('app.debug')) {
             $this->assertArrayHasKey('debug', $responseData);
-            $this->assertEquals(\Exception::class, $responseData['debug']['exception']);
+            $this->assertEquals(Exception::class, $responseData['debug']['exception']);
             $this->assertEquals('Test exception message', $responseData['debug']['message']);
         }
     }
@@ -133,7 +135,7 @@ class ApiResponseTraitTest extends TestCase
             10,
             5,
             1,
-            ['path' => '/test']
+            ['path' => '/test'],
         );
 
         $message = 'Paginated data fetched';
@@ -164,7 +166,7 @@ class ApiResponseTraitTest extends TestCase
             10,
             5,
             1,
-            ['path' => '/test']
+            ['path' => '/test'],
         );
 
         $response = $this->paginatedResponse($paginator);

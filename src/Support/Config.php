@@ -90,7 +90,7 @@ final class Config
     {
         $value = config($key, $default);
 
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             return $default;
         }
 

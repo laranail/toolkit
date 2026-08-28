@@ -4,29 +4,29 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Services;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
+use Stringable;
+use Psr\Log\AbstractLogger;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Psr\Log\AbstractLogger;
-use Simtabi\Laranail\Toolkit\Services\ModelService;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Stringable;
+use Simtabi\Laranail\Toolkit\Services\ModelService;
 
 class ModelServiceUser extends Model
 {
-    protected $table = 'model_service_users';
-
     public $timestamps = false;
+
+    protected $table = 'model_service_users';
 
     protected $guarded = [];
 }
 
 class ModelServiceIntUser extends Model
 {
-    protected $table = 'model_service_users';
-
     public $timestamps = false;
+
+    protected $table = 'model_service_users';
 
     protected $guarded = [];
 
@@ -85,7 +85,7 @@ class ModelServiceTest extends TestCase
         ModelServiceUser::create(['username' => 'ada', 'email' => 'ada@example.com']);
         ModelServiceUser::create(['username' => null, 'email' => 'NO-NAME@EXAMPLE.COM']);
 
-        $list = $this->service->getFormableUsersList(new ModelServiceUser());
+        $list = $this->service->getFormableUsersList(new ModelServiceUser);
 
         $this->assertSame('Ada', $list[1]);
         $this->assertSame('no-name@example.com', $list[2]);
@@ -95,7 +95,7 @@ class ModelServiceTest extends TestCase
     {
         ModelServiceUser::create(['first_name' => 'Grace', 'last_name' => 'Hopper']);
 
-        $users = $this->service->getUsersFromModel(new ModelServiceUser());
+        $users = $this->service->getUsersFromModel(new ModelServiceUser);
 
         $this->assertContains('Grace Hopper', $users);
     }
@@ -124,7 +124,7 @@ class ModelServiceTest extends TestCase
 
     public function test_get_model_item_reads_by_dot_path_with_default(): void
     {
-        $user = new ModelServiceUser();
+        $user = new ModelServiceUser;
         $user->forceFill(['first_name' => 'Jane', 'email' => 'jane@example.com']);
 
         $this->assertSame('Jane', $this->service->getModelItem($user, 'first_name'));
@@ -134,7 +134,7 @@ class ModelServiceTest extends TestCase
 
     public function test_formable_users_list_is_empty_for_a_table_with_no_rows(): void
     {
-        $this->assertSame([], $this->service->getFormableUsersList(new ModelServiceUser()));
+        $this->assertSame([], $this->service->getFormableUsersList(new ModelServiceUser));
     }
 
     public function test_formable_users_list_stringifies_a_non_string_username(): void
@@ -143,7 +143,7 @@ class ModelServiceTest extends TestCase
 
         // The cast model returns the username as an int, exercising the numeric
         // branch of the internal string coercion.
-        $list = $this->service->getFormableUsersList(new ModelServiceIntUser());
+        $list = $this->service->getFormableUsersList(new ModelServiceIntUser);
 
         $this->assertSame('42', $list[1]);
     }
@@ -152,7 +152,7 @@ class ModelServiceTest extends TestCase
     {
         ModelServiceUser::create(['first_name' => 'Grace', 'last_name' => 'Hopper']);
 
-        $users = $this->service->getUsersFromModel(new ModelServiceUser(), keyed: false);
+        $users = $this->service->getUsersFromModel(new ModelServiceUser, keyed: false);
 
         $this->assertArrayHasKey('name', $users[0]);
         $this->assertArrayHasKey('id', $users[0]);
@@ -171,7 +171,7 @@ class ModelServiceTest extends TestCase
 
     public function test_register_model_observer_registers_and_logs_when_both_classes_exist(): void
     {
-        $logger = new class() extends AbstractLogger
+        $logger = new class extends AbstractLogger
         {
             /** @var list<array{level: mixed, message: string, context: array<string, mixed>}> */
             public array $records = [];
@@ -195,7 +195,7 @@ class ModelServiceTest extends TestCase
 
     public function test_register_model_observer_is_a_noop_when_a_class_is_missing(): void
     {
-        $logger = new class() extends AbstractLogger
+        $logger = new class extends AbstractLogger
         {
             /** @var list<mixed> */
             public array $records = [];

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Support;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics;
 
 #[Group('support')]
 class RequirementsDiagnosticsTest extends TestCase
@@ -17,7 +18,7 @@ class RequirementsDiagnosticsTest extends TestCase
     {
         parent::setUp();
 
-        $this->diagnostics = new RequirementsDiagnostics();
+        $this->diagnostics = new RequirementsDiagnostics;
     }
 
     public function test_php_version_check_reports_support(): void
@@ -173,7 +174,7 @@ class RequirementsDiagnosticsTest extends TestCase
 
     public function test_disk_space_probe_rejects_an_out_of_range_threshold(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->diagnostics->diskSpace([sys_get_temp_dir()], warnAtPercent: 101);
     }

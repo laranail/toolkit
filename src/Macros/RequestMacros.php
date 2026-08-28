@@ -54,7 +54,7 @@ final class RequestMacros extends ServiceProvider
 
         Request::macro('hasValidFile', function (string $key): bool {
             /** @var Request $this */
-            if (!$this->hasFile($key)) {
+            if (! $this->hasFile($key)) {
                 return false;
             }
 
@@ -105,7 +105,7 @@ final class RequestMacros extends ServiceProvider
             $request = $this;
 
             foreach ($values as $key => $value) {
-                if (!$request->has($key)) {
+                if (! $request->has($key)) {
                     $request->merge([$key => $value]);
                 }
             }

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http\Requests;
 
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Http\Requests\BaseRequest;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Http\Requests\BaseRequest;
 
 class UrlDbRequest extends BaseRequest
 {
@@ -14,7 +14,7 @@ class UrlDbRequest extends BaseRequest
     {
         return [
             'website_url' => 'nullable|string',
-            'db_table' => 'nullable|string',
+            'db_table'    => 'nullable|string',
         ];
     }
 }
@@ -43,24 +43,6 @@ class ForbiddenRequest extends BaseRequest
 #[Group('security')]
 class BaseRequestTest extends TestCase
 {
-    protected function defineRoutes($router): void
-    {
-        $router->post(
-            '/_test/base-request/url-db',
-            fn (UrlDbRequest $request) => response()->json($request->all()),
-        );
-
-        $router->post(
-            '/_test/base-request/required',
-            fn (RequiredNameRequest $request) => response()->json($request->validated()),
-        );
-
-        $router->post(
-            '/_test/base-request/forbidden',
-            fn (ForbiddenRequest $request) => response()->json(['ok' => true]),
-        );
-    }
-
     public function test_url_fields_have_illegal_characters_stripped(): void
     {
         $response = $this->postJson('/_test/base-request/url-db', [
@@ -94,5 +76,23 @@ class BaseRequestTest extends TestCase
         $response = $this->postJson('/_test/base-request/forbidden', []);
 
         $response->assertStatus(403);
+    }
+
+    protected function defineRoutes($router): void
+    {
+        $router->post(
+            '/_test/base-request/url-db',
+            fn (UrlDbRequest $request) => response()->json($request->all()),
+        );
+
+        $router->post(
+            '/_test/base-request/required',
+            fn (RequiredNameRequest $request) => response()->json($request->validated()),
+        );
+
+        $router->post(
+            '/_test/base-request/forbidden',
+            fn (ForbiddenRequest $request) => response()->json(['ok' => true]),
+        );
     }
 }

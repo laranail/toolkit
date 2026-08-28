@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
-use Illuminate\Config\Repository;
 use PHPUnit\Framework\TestCase;
+use Illuminate\Config\Repository;
 use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
 
 class HttpConfigurationServiceTest extends TestCase
@@ -14,9 +14,9 @@ class HttpConfigurationServiceTest extends TestCase
     {
         $service = new HttpConfigurationService($this->config([
             'laranail.toolkit.http.persist_connection' => false,
-            'laranail.toolkit.http.request_timeout' => 30,
-            'laranail.toolkit.http.max_retries' => 5,
-            'laranail.toolkit.http.cache_ttl' => 7,
+            'laranail.toolkit.http.request_timeout'    => 30,
+            'laranail.toolkit.http.max_retries'        => 5,
+            'laranail.toolkit.http.cache_ttl'          => 7,
         ]));
 
         $this->assertFalse($service->isPersistConnection());
@@ -47,9 +47,9 @@ class HttpConfigurationServiceTest extends TestCase
 
         $this->assertSame($service, $returned);
         $this->assertSame([
-            'persist' => false,
-            'timeout' => 15,
-            'retry' => ['max' => 2],
+            'persist'   => false,
+            'timeout'   => 15,
+            'retry'     => ['max' => 2],
             'cache_ttl' => 99,
         ], $service->toGuzzleConfig());
     }

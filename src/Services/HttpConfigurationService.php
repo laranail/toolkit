@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use InvalidArgumentException;
-use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Support\Cast;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 
 /**
  * Fluent builder for Guzzle/HTTP client configuration.
@@ -117,9 +117,9 @@ class HttpConfigurationService implements HttpConfigurationServiceInterface
     public function toGuzzleConfig(): array
     {
         $config = [
-            'persist' => $this->isPersistConnection(),
-            'timeout' => $this->getRequestTimeout(),
-            'retry' => ['max' => $this->getMaxRetries()],
+            'persist'   => $this->isPersistConnection(),
+            'timeout'   => $this->getRequestTimeout(),
+            'retry'     => ['max' => $this->getMaxRetries()],
             'cache_ttl' => $this->getCacheTtl(),
         ];
 
