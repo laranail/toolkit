@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Support;
 
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Support\ApiResponder;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class ApiResponderTest extends TestCase
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\ServiceProvider;
 use Simtabi\Laranail\Toolkit\Support\ApiResponder;
@@ -39,8 +39,8 @@ final class ResponseMacros extends ServiceProvider
             $disposition = $download ? 'attachment' : 'inline';
 
             return new Response($pdf, 200, [
-                'Content-Type'        => 'application/pdf',
-                'Content-Disposition' => $disposition . '; filename="' . addslashes($fileName) . '"',
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => $disposition.'; filename="'.addslashes($fileName).'"',
             ]);
         });
     }

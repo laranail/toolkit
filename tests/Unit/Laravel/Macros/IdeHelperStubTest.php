@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Stringable;
-use Illuminate\Routing\ResponseFactory;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Http\Request;
+use Illuminate\Routing\ResponseFactory;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * Guards the committed IDE-helper stub (ide-helper/_ide_helper_macros.php)
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
  */
 class IdeHelperStubTest extends TestCase
 {
-    private const STUB_PATH = __DIR__ . '/../../../../ide-helper/_ide_helper_macros.php';
+    private const STUB_PATH = __DIR__.'/../../../../ide-helper/_ide_helper_macros.php';
 
     public function test_stub_file_exists(): void
     {
@@ -93,39 +93,39 @@ class IdeHelperStubTest extends TestCase
         return [
             'Str' => [
                 'class' => Str::class,
-                'has'   => Str::hasMacro(...),
+                'has' => Str::hasMacro(...),
             ],
             'Stringable' => [
                 'class' => Stringable::class,
-                'has'   => Stringable::hasMacro(...),
+                'has' => Stringable::hasMacro(...),
             ],
             'Collection' => [
                 'class' => Collection::class,
-                'has'   => Collection::hasMacro(...),
+                'has' => Collection::hasMacro(...),
             ],
             'Arr' => [
                 'class' => Arr::class,
-                'has'   => Arr::hasMacro(...),
+                'has' => Arr::hasMacro(...),
             ],
             'Carbon' => [
                 'class' => Carbon::class,
-                'has'   => Carbon::hasMacro(...),
+                'has' => Carbon::hasMacro(...),
             ],
             'QueryBuilder' => [
                 'class' => QueryBuilder::class,
-                'has'   => QueryBuilder::hasMacro(...),
+                'has' => QueryBuilder::hasMacro(...),
             ],
             'EloquentBuilder' => [
                 'class' => EloquentBuilder::class,
-                'has'   => EloquentBuilder::hasGlobalMacro(...),
+                'has' => EloquentBuilder::hasGlobalMacro(...),
             ],
             'Request' => [
                 'class' => Request::class,
-                'has'   => Request::hasMacro(...),
+                'has' => Request::hasMacro(...),
             ],
             'ResponseFactory' => [
                 'class' => ResponseFactory::class,
-                'has'   => ResponseFactory::hasMacro(...),
+                'has' => ResponseFactory::hasMacro(...),
             ],
         ];
     }
@@ -222,8 +222,7 @@ class IdeHelperStubTest extends TestCase
      * static aid that is never autoloaded, so it is parsed textually here rather
      * than reflected (reflecting it would re-declare the framework classes).
      *
-     * @param class-string $class
-     *
+     * @param  class-string  $class
      * @return list<string>
      */
     private function stubMethodsFor(string $contents, string $class): array
@@ -233,7 +232,7 @@ class IdeHelperStubTest extends TestCase
 
         // Isolate the `namespace <ns> { … }` block, then the docblock immediately
         // before `class <ShortName> {}` inside it.
-        $nsPattern = '/namespace\s+' . preg_quote($namespace, '/') . '\s*\{(.*?)\n\}/s';
+        $nsPattern = '/namespace\s+'.preg_quote($namespace, '/').'\s*\{(.*?)\n\}/s';
 
         if (preg_match($nsPattern, $contents, $nsMatch) !== 1) {
             return [];
@@ -242,7 +241,7 @@ class IdeHelperStubTest extends TestCase
         $block = $nsMatch[1];
         // Tempered match so the docblock cannot swallow an earlier class's `*/`:
         // capture only the comment immediately preceding `class <ShortName> {}`.
-        $classPattern = '#/\*\*((?:(?!\*/).)*)\*/\s*class\s+' . preg_quote($shortName, '#') . '\s*\{\}#s';
+        $classPattern = '#/\*\*((?:(?!\*/).)*)\*/\s*class\s+'.preg_quote($shortName, '#').'\s*\{\}#s';
 
         if (preg_match($classPattern, $block, $classMatch) !== 1) {
             return [];

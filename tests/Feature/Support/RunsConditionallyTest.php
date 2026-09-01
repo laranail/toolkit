@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Support;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Group;
+use Simtabi\Laranail\Toolkit\Support\ConditionalRunner;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\RunsConditionally;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Simtabi\Laranail\Toolkit\Support\ConditionalRunner;
 
 #[Group('support')]
 class RunsConditionallyTest extends TestCase
@@ -143,7 +143,7 @@ class RunsConditionallyHost
 class RunsConditionallyUser extends Authenticatable
 {
     /**
-     * @param list<string> $roles
+     * @param  list<string>  $roles
      */
     public function __construct(
         private readonly array $roles = [],

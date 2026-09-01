@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use Symfony\Component\Console\Application;
 use Simtabi\Laranail\Toolkit\Commands\Tidy;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -25,7 +25,7 @@ class CommandConsoleFeaturesTest extends TestCase
 
     public function test_tidy_records_files_processed_and_space_freed_metadata(): void
     {
-        $log = storage_path('logs/meta_' . uniqid() . '.log');
+        $log = storage_path('logs/meta_'.uniqid().'.log');
         @mkdir(dirname($log), 0777, true);
         file_put_contents($log, str_repeat('x', 128));
 
@@ -49,7 +49,7 @@ class CommandConsoleFeaturesTest extends TestCase
 
     public function test_tidy_sweep_stops_when_termination_requested(): void
     {
-        $log = storage_path('logs/keep_' . uniqid() . '.log');
+        $log = storage_path('logs/keep_'.uniqid().'.log');
         @mkdir(dirname($log), 0777, true);
         file_put_contents($log, 'keep-me');
 
@@ -71,7 +71,7 @@ class CommandConsoleFeaturesTest extends TestCase
 
     public function test_tidy_all_stops_sweeping_roots_when_termination_requested(): void
     {
-        $upload = storage_path('app/uploads/all_' . uniqid() . '.bin');
+        $upload = storage_path('app/uploads/all_'.uniqid().'.bin');
         @mkdir(dirname($upload), 0777, true);
         file_put_contents($upload, 'keep-me');
 
@@ -95,7 +95,7 @@ class CommandConsoleFeaturesTest extends TestCase
      * given input array — returning the exit code so the caller can assert on
      * both the effect and the populated command metadata.
      *
-     * @param array<string, mixed> $input
+     * @param  array<string, mixed>  $input
      */
     private function runCommand(object $command, array $input, ?callable $before = null): int
     {

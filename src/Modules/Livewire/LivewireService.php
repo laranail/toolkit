@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\Livewire;
 
-use Livewire\Livewire;
 use Illuminate\Support\Str;
+use Livewire\Livewire;
 
 /**
  * Livewire component-registration manager.
@@ -74,7 +74,7 @@ class LivewireService implements LivewireServiceInterface
      * livewire/livewire package present. Only ever reached after
      * {@see isLivewireAvailable()} has confirmed the class exists.
      *
-     * @param class-string|string $class
+     * @param  class-string|string  $class
      */
     protected function registerWithLivewire(string $alias, string $class): void
     {

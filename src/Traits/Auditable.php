@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Traits;
 
-use Throwable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 trait Auditable
 {
@@ -27,8 +27,8 @@ trait Auditable
     }
 
     /**
-     * @param array<string, mixed> $oldValues
-     * @param array<string, mixed> $newValues
+     * @param  array<string, mixed>  $oldValues
+     * @param  array<string, mixed>  $newValues
      */
     private static function logAudit(Model $model, string $event, array $oldValues = [], array $newValues = []): void
     {
@@ -36,11 +36,11 @@ trait Auditable
         try {
             DB::table('model_audits')->insert([
                 'model_type' => $model::class,
-                'model_id'   => $model->getKey(),
-                'event'      => $event,
+                'model_id' => $model->getKey(),
+                'event' => $event,
                 'old_values' => json_encode(self::redactHidden($model, $oldValues)),
                 'new_values' => json_encode(self::redactHidden($model, $newValues)),
-                'user_id'    => Auth::id(),
+                'user_id' => Auth::id(),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -53,8 +53,7 @@ trait Auditable
      * Mask the model's hidden attributes (passwords, tokens, ...) so they are
      * never persisted in the audit trail.
      *
-     * @param array<string, mixed> $values
-     *
+     * @param  array<string, mixed>  $values
      * @return array<string, mixed>
      */
     private static function redactHidden(Model $model, array $values): array

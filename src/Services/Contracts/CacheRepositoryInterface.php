@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services\Contracts;
 
-use Simtabi\Laranail\Toolkit\Services\CacheService;
-use Simtabi\Laranail\Toolkit\Services\CacheOptimizationResult;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
+use Simtabi\Laranail\Toolkit\Services\CacheOptimizationResult;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
 
 /**
  * Public surface of the toolkit's {@see CacheService}.
@@ -26,7 +26,7 @@ interface CacheRepositoryInterface
     /**
      * Cache data with configurable options.
      *
-     * @param array<int, string>|null $tags
+     * @param  array<int, string>|null  $tags
      */
     public function cache(string $key, mixed $data, ?int $minutes = null, ?array $tags = null): mixed;
 
@@ -50,8 +50,7 @@ interface CacheRepositoryInterface
     /**
      * Get multiple values at once, keyed by their original (un-namespaced) keys.
      *
-     * @param list<string> $keys
-     *
+     * @param  list<string>  $keys
      * @return array<string, mixed>
      */
     public function many(array $keys, mixed $default = null): array;
@@ -65,7 +64,7 @@ interface CacheRepositoryInterface
     /**
      * Return a clone scoped to the given tags for grouped invalidation.
      *
-     * @param array<int, string> $tags
+     * @param  array<int, string>  $tags
      */
     public function tags(array $tags): static;
 
@@ -77,7 +76,7 @@ interface CacheRepositoryInterface
      * response varies by (user, locale, tenant) via `$vary`, or a personalised
      * response cached under it will be served to the next caller.
      *
-     * @param array<string, mixed> $vary extra dimensions the response varies by
+     * @param  array<string, mixed>  $vary  extra dimensions the response varies by
      */
     public function keyFromRequest(array $vary = []): string;
 

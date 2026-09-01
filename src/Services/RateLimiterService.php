@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Services;
 
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Contracts\Cache\Repository;
-use Simtabi\Laranail\Toolkit\Support\Cast;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 class RateLimiterService implements RateLimiterServiceInterface
 {

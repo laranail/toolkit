@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use Schema;
-use PHPUnit\Framework\Attributes\Group;
 use Illuminate\Contracts\Console\Kernel;
+use PHPUnit\Framework\Attributes\Group;
+use Schema;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class TidyCommandTest extends TestCase
@@ -51,7 +51,7 @@ class TidyCommandTest extends TestCase
     {
         // A uniquely-named log file so the console lifecycle logger (which may
         // (re)write laravel.log during the run) cannot mask the deletion.
-        $log = $this->makeStorageFile('logs/tidy_' . uniqid() . '.log', 'old log');
+        $log = $this->makeStorageFile('logs/tidy_'.uniqid().'.log', 'old log');
 
         $this->artisan('laranail::toolkit.tidy', ['action' => 'logs', '--force' => true])
             ->assertExitCode(0);
@@ -213,7 +213,7 @@ class TidyCommandTest extends TestCase
         // non-interactive mode and confirmAction() returns the default (false),
         // so the destructive sweep is declined and the file survives — a piped/CI
         // run never silently deletes.
-        $keep = $this->makeStorageFile('logs/noforce_' . uniqid() . '.log', 'keep');
+        $keep = $this->makeStorageFile('logs/noforce_'.uniqid().'.log', 'keep');
 
         $this->artisan('laranail::toolkit.tidy', ['action' => 'logs', '--no-interaction' => true])
             ->assertExitCode(0);
@@ -227,7 +227,7 @@ class TidyCommandTest extends TestCase
 
     public function test_age_filter_deletes_files_older_than_threshold(): void
     {
-        $old = $this->makeStorageFile('logs/aged_' . uniqid() . '.log', 'old');
+        $old = $this->makeStorageFile('logs/aged_'.uniqid().'.log', 'old');
         // Backdate well beyond the threshold so the age branch deletes it.
         touch($old, time() - (40 * 86400));
 
@@ -244,9 +244,9 @@ class TidyCommandTest extends TestCase
     #[Group('security')]
     public function test_symlink_escaping_storage_is_not_deleted(): void
     {
-        $outsideDir = sys_get_temp_dir() . '/laranail-tidy-out-' . uniqid();
+        $outsideDir = sys_get_temp_dir().'/laranail-tidy-out-'.uniqid();
         @mkdir($outsideDir, 0777, true);
-        $secret = $outsideDir . '/secret.log';
+        $secret = $outsideDir.'/secret.log';
         file_put_contents($secret, 'do-not-delete');
 
         // A symlink inside storage/logs pointing at the external secret.
@@ -270,7 +270,7 @@ class TidyCommandTest extends TestCase
     #[Group('security')]
     public function test_deletion_is_confined_to_storage_path_in_source(): void
     {
-        $code = $this->executableSource(dirname(__DIR__, 3) . '/src/Commands/Tidy.php');
+        $code = $this->executableSource(dirname(__DIR__, 3).'/src/Commands/Tidy.php');
 
         // Roots are storage-relative; deletion uses realpath containment and the
         // FilePathGuard; the executable code never sweeps sys_get_temp_dir().

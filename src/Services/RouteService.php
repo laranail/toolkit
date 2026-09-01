@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Throwable;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
-use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Throwable;
 
 /**
  * Route checking and navigation helpers.
@@ -80,8 +80,8 @@ final readonly class RouteService implements RouteServiceInterface
         $prefix = $prefix !== '' ? "{$prefix}/" : '';
 
         $pattern = $strict
-            ? [$prefix . $segment, $prefix . $segment . '/']
-            : [$prefix . $segment, $prefix . $segment . '/', $prefix . $segment . '/*'];
+            ? [$prefix.$segment, $prefix.$segment.'/']
+            : [$prefix.$segment, $prefix.$segment.'/', $prefix.$segment.'/*'];
 
         $matches = $this->request->is(...$pattern);
 
@@ -152,7 +152,7 @@ final readonly class RouteService implements RouteServiceInterface
     public function isRequestOnPage(string $link, string $type = 'name'): bool
     {
         return match ($type) {
-            'url'   => $link === $this->request->fullUrl(),
+            'url' => $link === $this->request->fullUrl(),
             default => $link === $this->router->currentRouteName(),
         };
     }
@@ -168,7 +168,7 @@ final readonly class RouteService implements RouteServiceInterface
             ],
             'method' => $this->request->method(),
             'action' => $this->router->currentRouteAction(),
-            'name'   => $route?->getName(),
+            'name' => $route?->getName(),
         ];
     }
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http\Middleware;
 
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiMiddleware;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * Concrete subclass that does not override mutateKey(), so it exercises the base
@@ -15,8 +15,7 @@ use Simtabi\Laranail\Toolkit\Http\Middleware\ApiMiddleware;
 class IdentityApiMiddleware extends ApiMiddleware
 {
     /**
-     * @param array<array-key, mixed> $data
-     *
+     * @param  array<array-key, mixed>  $data
      * @return array<array-key, mixed>
      */
     public function run(array $data): array
@@ -33,8 +32,8 @@ class ApiMiddlewareTest extends TestCase
         $middleware = new IdentityApiMiddleware;
 
         $payload = [
-            'user_id'      => 1,
-            'displayName'  => 'Jane',
+            'user_id' => 1,
+            'displayName' => 'Jane',
             'nested_block' => ['a_b' => 2, 'cD' => 3],
         ];
 

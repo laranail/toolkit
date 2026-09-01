@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Support\Facades\Storage;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\SettingsStore;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class SettingsStoreTest extends TestCase
 {

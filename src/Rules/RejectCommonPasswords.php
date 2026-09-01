@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Rules;
 
 use Closure;
-use Throwable;
-use ZxcvbnPhp\Zxcvbn;
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
+use Throwable;
+use ZxcvbnPhp\Zxcvbn;
 
 /**
  * Reject weak passwords: a large common-password denylist, optional minimum
@@ -49,11 +49,11 @@ final class RejectCommonPasswords implements ValidationRule
     private static ?array $commonPasswords = null;
 
     /**
-     * @param int $minLength Minimum length gate (0 = off).
-     * @param int $minEntropy Minimum Shannon-entropy gate in bits (0 = off).
-     * @param bool $checkHibp Enable the opt-in HIBP k-anonymity breach check.
-     * @param string|null $hibpApiKey Optional HIBP API key (sent as `hibp-api-key`; not needed for the range API).
-     * @param int $minZxcvbnScore Minimum zxcvbn strength score 0–4 (0 = off; skipped when zxcvbn is absent).
+     * @param  int  $minLength  Minimum length gate (0 = off).
+     * @param  int  $minEntropy  Minimum Shannon-entropy gate in bits (0 = off).
+     * @param  bool  $checkHibp  Enable the opt-in HIBP k-anonymity breach check.
+     * @param  string|null  $hibpApiKey  Optional HIBP API key (sent as `hibp-api-key`; not needed for the range API).
+     * @param  int  $minZxcvbnScore  Minimum zxcvbn strength score 0–4 (0 = off; skipped when zxcvbn is absent).
      *
      * @throws InvalidArgumentException when `$minZxcvbnScore` is outside 0–4
      */
@@ -173,18 +173,18 @@ final class RejectCommonPasswords implements ValidationRule
      * Build a human-readable failure message from the zxcvbn feedback, folding in
      * the warning and any suggestions when present.
      *
-     * @param array{warning: string, suggestions: list<string>} $feedback
+     * @param  array{warning: string, suggestions: list<string>}  $feedback
      */
     private function strengthMessage(array $feedback): string
     {
         $message = 'The :attribute is too weak.';
 
         if ($feedback['warning'] !== '') {
-            $message .= ' ' . rtrim($feedback['warning'], '.') . '.';
+            $message .= ' '.rtrim($feedback['warning'], '.').'.';
         }
 
         if ($feedback['suggestions'] !== []) {
-            $message .= ' ' . implode(' ', $feedback['suggestions']);
+            $message .= ' '.implode(' ', $feedback['suggestions']);
         }
 
         return $message;
@@ -212,7 +212,7 @@ final class RejectCommonPasswords implements ValidationRule
                 $request = $request->withHeaders(['hibp-api-key' => $this->hibpApiKey]);
             }
 
-            $response = $request->get(self::HIBP_RANGE_ENDPOINT . $prefix);
+            $response = $request->get(self::HIBP_RANGE_ENDPOINT.$prefix);
         } catch (Throwable) {
             return false; // Transport error / timeout -> fail open.
         }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Illuminate\Http\Client\ConnectionException;
-use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class ClaudeProviderTest extends TestCase
 {
@@ -17,9 +17,9 @@ class ClaudeProviderTest extends TestCase
     {
         Http::fake([
             '*' => Http::response([
-                'model'   => 'claude-3-5-sonnet',
+                'model' => 'claude-3-5-sonnet',
                 'content' => [['type' => 'text', 'text' => 'Hello there']],
-                'usage'   => ['input_tokens' => 5],
+                'usage' => ['input_tokens' => 5],
             ], 200),
         ]);
 
@@ -70,7 +70,7 @@ class ClaudeProviderTest extends TestCase
     {
         Http::fake([
             '*' => Http::response([
-                'model'   => 'claude-3-5-sonnet',
+                'model' => 'claude-3-5-sonnet',
                 'content' => [['type' => 'text', 'text' => 'ok']],
             ], 200),
         ]);

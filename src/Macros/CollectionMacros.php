@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Macros;
 
 use ArrayAccess;
-use RuntimeException;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\ServiceProvider;
-use Simtabi\Laranail\Toolkit\Support\Cast;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use RuntimeException;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Registers the toolkit's general-purpose Collection macros.
@@ -106,8 +106,8 @@ final class CollectionMacros extends ServiceProvider
                 $row = is_array($item) ? $item : (array) $item;
                 $rows[] = implode($delimiter, array_map(
                     static fn (mixed $value): string => $enclosure
-                        . str_replace($enclosure, $escape . $enclosure, Cast::toString($value))
-                        . $enclosure,
+                        .str_replace($enclosure, $escape.$enclosure, Cast::toString($value))
+                        .$enclosure,
                     $row,
                 ));
             }
@@ -340,7 +340,7 @@ final class CollectionMacros extends ServiceProvider
                     $currentName = $name;
                     $results->push(new Collection([
                         $sectionKey => $name,
-                        $itemsKey   => $current,
+                        $itemsKey => $current,
                     ]));
                 }
 

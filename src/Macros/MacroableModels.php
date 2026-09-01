@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
+use BadMethodCallException;
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 use ReflectionFunction;
 use ReflectionParameter;
-use BadMethodCallException;
-use InvalidArgumentException;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * A macro registry keyed by model class.
@@ -65,7 +65,7 @@ class MacroableModels
     /**
      * Register a macro for one model.
      *
-     * @param class-string<Model> $model
+     * @param  class-string<Model>  $model
      */
     public function addMacro(string $model, string $name, Closure $closure): void
     {
@@ -87,7 +87,7 @@ class MacroableModels
     }
 
     /**
-     * @param class-string<Model> $model
+     * @param  class-string<Model>  $model
      */
     public function removeMacro(string $model, string $name): bool
     {
@@ -109,7 +109,7 @@ class MacroableModels
     }
 
     /**
-     * @param class-string<Model> $model
+     * @param  class-string<Model>  $model
      */
     public function modelHasMacro(string $model, string $name): bool
     {
@@ -133,8 +133,7 @@ class MacroableModels
      * came from returned the objects, which leaked reflection into a public API
      * for the sake of an IDE-helper generator that only ever read `->getName()`.
      *
-     * @param class-string<Model> $model
-     *
+     * @param  class-string<Model>  $model
      * @return array<string, array{name: string, parameters: list<string>}>
      */
     public function macrosForModel(string $model): array
@@ -152,7 +151,7 @@ class MacroableModels
             // here — the original swallowed a ReflectionException that could
             // never be thrown.
             $macros[$name] = [
-                'name'       => $name,
+                'name' => $name,
                 'parameters' => array_map(
                     static fn (ReflectionParameter $p): string => $p->getName(),
                     (new ReflectionFunction($models[$model]))->getParameters(),
@@ -204,7 +203,7 @@ class MacroableModels
     }
 
     /**
-     * @param class-string<Model> $model
+     * @param  class-string<Model>  $model
      */
     protected function guardModel(string $model): void
     {

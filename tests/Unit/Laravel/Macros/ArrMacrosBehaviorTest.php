@@ -36,7 +36,7 @@ final class ArrMacrosBehaviorTest extends TestCase
     {
         $this->assertSame(
             ['A_1' => 1, 'B_2' => 2],
-            Arr::mapKeys(['a' => 1, 'b' => 2], fn ($k, $v): string => strtoupper((string) $k) . '_' . $v),
+            Arr::mapKeys(['a' => 1, 'b' => 2], fn ($k, $v): string => strtoupper((string) $k).'_'.$v),
         );
         $this->assertSame([], Arr::mapKeys([], fn ($k, $v) => $k));
     }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Security;
 
-use SplFileInfo;
 use FilesystemIterator;
-use RecursiveIteratorIterator;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;
-use PHPUnit\Framework\Attributes\Group;
+use RecursiveIteratorIterator;
+use SplFileInfo;
 
 /**
  * Guard against credentials accidentally committed to the package source.
@@ -24,11 +24,11 @@ class NoCommittedSecretsTest extends TestCase
      * @var array<string, string>
      */
     private const SECRET_PATTERNS = [
-        '/sk-[A-Za-z0-9]{32,}/'                => 'OpenAI-style secret key',
-        '/AIza[0-9A-Za-z_\-]{35}/'             => 'Google API key',
-        '/xox[baprs]-[0-9A-Za-z\-]{10,}/'      => 'Slack token',
-        '/AKIA[0-9A-Z]{16}/'                   => 'AWS access key id',
-        '/ghp_[0-9A-Za-z]{36}/'                => 'GitHub personal access token',
+        '/sk-[A-Za-z0-9]{32,}/' => 'OpenAI-style secret key',
+        '/AIza[0-9A-Za-z_\-]{35}/' => 'Google API key',
+        '/xox[baprs]-[0-9A-Za-z\-]{10,}/' => 'Slack token',
+        '/AKIA[0-9A-Z]{16}/' => 'AWS access key id',
+        '/ghp_[0-9A-Za-z]{36}/' => 'GitHub personal access token',
         '/-----BEGIN [A-Z ]*PRIVATE KEY-----/' => 'PEM private key',
     ];
 
@@ -39,7 +39,7 @@ class NoCommittedSecretsTest extends TestCase
         $offenders = [];
 
         foreach ($scanDirs as $dir) {
-            $path = $root . '/' . $dir;
+            $path = $root.'/'.$dir;
             if (! is_dir($path)) {
                 continue;
             }
@@ -63,7 +63,7 @@ class NoCommittedSecretsTest extends TestCase
         $this->assertSame(
             [],
             $offenders,
-            "Secret-shaped strings found in shipped source:\n" . implode("\n", $offenders),
+            "Secret-shaped strings found in shipped source:\n".implode("\n", $offenders),
         );
     }
 }

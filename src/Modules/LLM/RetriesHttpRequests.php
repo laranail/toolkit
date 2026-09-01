@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\LLM;
 
-use LogicException;
 use Illuminate\Support\Facades\Log;
+use LogicException;
 
 /**
  * Shared retry behaviour for HTTP-based LLM providers.
@@ -20,8 +20,7 @@ trait RetriesHttpRequests
      *
      * @template T
      *
-     * @param callable(): T $callback
-     *
+     * @param  callable(): T  $callback
      * @return T
      */
     protected function executeWithRetry(callable $callback, string $provider)
@@ -43,7 +42,7 @@ trait RetriesHttpRequests
 
                 Log::warning("{$provider} API request failed, retrying...", [
                     'attempt' => $attempt,
-                    'error'   => $e->getMessage(),
+                    'error' => $e->getMessage(),
                 ]);
 
                 if ($this->retryDelay > 0) {

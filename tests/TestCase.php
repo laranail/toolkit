@@ -19,7 +19,7 @@ abstract class TestCase extends OrchestraTestCase
     protected function defineDatabaseMigrations(): void
     {
         // Run the package's own migrations (access_logs, model_audits, ...).
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
     protected function getPackageProviders($app): array
@@ -34,9 +34,9 @@ abstract class TestCase extends OrchestraTestCase
         // Database: sqlite in-memory
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
 
         // Cache: array driver
@@ -49,7 +49,7 @@ abstract class TestCase extends OrchestraTestCase
         // caching/llm bindings resolve in tests.
         $app['config']->set('laranail.toolkit.cache', [
             'default_expiration' => 60,
-            'default_tags'       => [],
+            'default_tags' => [],
         ]);
     }
 }

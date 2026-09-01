@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Exceptions;
 
 use Exception;
-use Throwable;
-use Stringable;
 use JsonSerializable;
 use Simtabi\Laranail\Toolkit\Support\Cast;
+use Stringable;
+use Throwable;
 
 /**
  * A rich, structured base exception for the toolkit.
@@ -23,13 +23,13 @@ use Simtabi\Laranail\Toolkit\Support\Cast;
 class LaranailException extends Exception implements JsonSerializable, Stringable
 {
     /**
-     * @param string $message Developer-friendly error message.
-     * @param int $code A domain-specific or HTTP-like code.
-     * @param Throwable|null $previous Previous exception, if wrapping.
-     * @param array<string, mixed> $context Structured payload (arrays allowed).
-     * @param array<string, mixed> $meta Extra metadata (non-PII preferably).
-     * @param string|null $userMessage UI-facing message.
-     * @param int|null $status Optional HTTP status.
+     * @param  string  $message  Developer-friendly error message.
+     * @param  int  $code  A domain-specific or HTTP-like code.
+     * @param  Throwable|null  $previous  Previous exception, if wrapping.
+     * @param  array<string, mixed>  $context  Structured payload (arrays allowed).
+     * @param  array<string, mixed>  $meta  Extra metadata (non-PII preferably).
+     * @param  string|null  $userMessage  UI-facing message.
+     * @param  int|null  $status  Optional HTTP status.
      */
     public function __construct(
         string $message = '',
@@ -58,11 +58,11 @@ class LaranailException extends Exception implements JsonSerializable, Stringabl
         }
 
         if ($this->context !== []) {
-            $summary .= ' context=' . (string) json_encode($this->context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            $summary .= ' context='.(string) json_encode($this->context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         }
 
         if ($this->meta !== []) {
-            $summary .= ' meta=' . (string) json_encode($this->meta, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            $summary .= ' meta='.(string) json_encode($this->meta, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         }
 
         return $summary;
@@ -74,7 +74,7 @@ class LaranailException extends Exception implements JsonSerializable, Stringabl
      * Recognised keys: message, code, context, meta, userMessage, status,
      * previous. Any unknown key is folded into `meta`.
      *
-     * @param array<string, mixed> $payload
+     * @param  array<string, mixed>  $payload
      */
     public static function fromArray(array $payload): static
     {
@@ -102,8 +102,8 @@ class LaranailException extends Exception implements JsonSerializable, Stringabl
      * Wrap a previous Throwable, optionally overriding the message and adding
      * structured context.
      *
-     * @param array<string, mixed> $context
-     * @param array<string, mixed> $meta
+     * @param  array<string, mixed>  $context
+     * @param  array<string, mixed>  $meta
      */
     public static function wrap(
         Throwable $previous,
@@ -170,7 +170,7 @@ class LaranailException extends Exception implements JsonSerializable, Stringabl
     /**
      * Merge multiple context keys recursively.
      *
-     * @param array<string, mixed> $context
+     * @param  array<string, mixed>  $context
      */
     public function mergeContext(array $context): static
     {
@@ -190,7 +190,7 @@ class LaranailException extends Exception implements JsonSerializable, Stringabl
     /**
      * Merge multiple meta keys recursively.
      *
-     * @param array<string, mixed> $meta
+     * @param  array<string, mixed>  $meta
      */
     public function mergeMeta(array $meta): static
     {
@@ -223,21 +223,21 @@ class LaranailException extends Exception implements JsonSerializable, Stringabl
     public function toArray(bool $withTrace = false): array
     {
         $array = [
-            'type'        => static::class,
-            'message'     => $this->getMessage(),
-            'code'        => $this->getCode(),
+            'type' => static::class,
+            'message' => $this->getMessage(),
+            'code' => $this->getCode(),
             'userMessage' => $this->userMessage,
-            'status'      => $this->status,
-            'context'     => $this->context,
-            'meta'        => $this->meta,
+            'status' => $this->status,
+            'context' => $this->context,
+            'meta' => $this->meta,
         ];
 
         $previous = $this->getPrevious();
         if ($previous instanceof Throwable) {
             $array['previous'] = [
-                'type'    => $previous::class,
+                'type' => $previous::class,
                 'message' => $previous->getMessage(),
-                'code'    => (int) $previous->getCode(),
+                'code' => (int) $previous->getCode(),
             ];
         }
 
@@ -259,10 +259,10 @@ class LaranailException extends Exception implements JsonSerializable, Stringabl
     {
         return array_filter([
             'exception' => $this,
-            'context'   => $this->context,
-            'meta'      => $this->meta,
-            'status'    => $this->status,
-            'asArray'   => $this->toArray($withTrace),
+            'context' => $this->context,
+            'meta' => $this->meta,
+            'status' => $this->status,
+            'asArray' => $this->toArray($withTrace),
         ], static fn ($value): bool => $value !== null && $value !== []);
     }
 

@@ -78,7 +78,7 @@ final class Environment
     /**
      * Whether the current environment matches the given name(s).
      *
-     * @param string|list<string> $environment
+     * @param  string|list<string>  $environment
      */
     public static function isEnvironment(string|array $environment): bool
     {

@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Set\ValueObject\LevelSetList;
-use Rector\Php83\Rector\ClassConst\AddTypeToConstRector;
 use Rector\Php71\Rector\TryCatch\MultiExceptionCatchRector;
-use Rector\Php84\Rector\MethodCall\NewMethodCallWithoutParenthesesRector;
+use Rector\Php83\Rector\ClassConst\AddTypeToConstRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
+use Rector\Php84\Rector\MethodCall\NewMethodCallWithoutParenthesesRector;
+use Rector\Set\ValueObject\LevelSetList;
 
 /**
  * Floor guard: pin to the PHP 8.4 set (the toolkit floor is ^8.4.1 via
@@ -18,11 +18,11 @@ use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRecto
  */
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__ . '/src',
-        __DIR__ . '/tests',
+        __DIR__.'/src',
+        __DIR__.'/tests',
     ])
     ->withSkip([
-        __DIR__ . '/tests/Fixtures',
+        __DIR__.'/tests/Fixtures',
         AddOverrideAttributeToOverriddenMethodsRector::class,
         // Typed `const array` trips the PSR-12 sniff tokenizer on this toolchain.
         AddTypeToConstRector::class,

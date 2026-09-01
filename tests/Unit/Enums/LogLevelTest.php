@@ -23,10 +23,10 @@ class LogLevelTest extends TestCase
         $level = LogLevel::Info;
 
         $result = match ($level) {
-            LogLevel::Debug    => 'debug',
-            LogLevel::Info     => 'info',
-            LogLevel::Warning  => 'warning',
-            LogLevel::Error    => 'error',
+            LogLevel::Debug => 'debug',
+            LogLevel::Info => 'info',
+            LogLevel::Warning => 'warning',
+            LogLevel::Error => 'error',
             LogLevel::Critical => 'critical',
         };
 

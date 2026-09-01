@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
 use Illuminate\Support\Collection;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Support\CollectionFilter;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class CollectionFilterTest extends TestCase
 {

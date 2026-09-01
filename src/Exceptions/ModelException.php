@@ -12,7 +12,7 @@ class ModelException extends LaranailException
     /**
      * Missing primary key on a model.
      *
-     * @param class-string|string $modelClass The model class name.
+     * @param  class-string|string  $modelClass  The model class name.
      */
     public static function missingPrimaryKey(string $modelClass): self
     {
@@ -27,8 +27,8 @@ class ModelException extends LaranailException
     /**
      * Model record not found for the given identifier.
      *
-     * @param class-string|string $modelClass The model class name.
-     * @param mixed $identifier The identifier that was not found.
+     * @param  class-string|string  $modelClass  The model class name.
+     * @param  mixed  $identifier  The identifier that was not found.
      */
     public static function notFound(string $modelClass, mixed $identifier): self
     {
@@ -36,7 +36,7 @@ class ModelException extends LaranailException
             message: sprintf('Model not found: %s with identifier %s', $modelClass, self::stringifyIdentifier($identifier)),
             code: 3002,
             context: [
-                'model'      => $modelClass,
+                'model' => $modelClass,
                 'identifier' => $identifier,
             ],
             userMessage: 'Record not found',
@@ -47,8 +47,8 @@ class ModelException extends LaranailException
     /**
      * Invalid model state.
      *
-     * @param class-string|string $modelClass The model class name.
-     * @param string $reason Why the state is invalid.
+     * @param  class-string|string  $modelClass  The model class name.
+     * @param  string  $reason  Why the state is invalid.
      */
     public static function invalidState(string $modelClass, string $reason): self
     {
@@ -56,7 +56,7 @@ class ModelException extends LaranailException
             message: "Invalid model state for {$modelClass}: {$reason}",
             code: 3003,
             context: [
-                'model'  => $modelClass,
+                'model' => $modelClass,
                 'reason' => $reason,
             ],
         );

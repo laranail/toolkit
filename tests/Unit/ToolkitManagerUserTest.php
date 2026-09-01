@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit;
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class ToolkitManagerUserTest extends TestCase
 {
@@ -102,7 +102,7 @@ class ToolkitManagerUserTest extends TestCase
 
     public function test_optional_global_helper_delegates_to_the_manager(): void
     {
-        require_once dirname(__DIR__, 2) . '/helpers/user.php';
+        require_once dirname(__DIR__, 2).'/helpers/user.php';
 
         $this->assertNull(user());
 

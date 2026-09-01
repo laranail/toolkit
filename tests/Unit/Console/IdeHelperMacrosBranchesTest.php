@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use stdClass;
-use ReflectionMethod;
-use ReflectionFunction;
-use ReflectionParameter;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use ReflectionFunction;
+use ReflectionMethod;
+use ReflectionParameter;
 use Simtabi\Laranail\Toolkit\Commands\IdeHelperMacros;
 use Simtabi\Laranail\Toolkit\Macros\FactoryBuilderMixin;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use stdClass;
 
 /**
  * Targets the defensive/rarely-hit branches of the ide-helper-macros generator:
@@ -29,7 +29,7 @@ class IdeHelperMacrosBranchesTest extends TestCase
     {
         parent::setUp();
 
-        $this->output = sys_get_temp_dir() . '/laranail_ide_helper_branch_' . uniqid() . '.php';
+        $this->output = sys_get_temp_dir().'/laranail_ide_helper_branch_'.uniqid().'.php';
     }
 
     protected function tearDown(): void
@@ -144,7 +144,7 @@ class IdeHelperMacrosBranchesTest extends TestCase
         $magic = new class
         {
             /**
-             * @param array<int, mixed> $arguments
+             * @param  array<int, mixed>  $arguments
              */
             public function __call(string $name, array $arguments): void {}
         };
@@ -190,7 +190,7 @@ class IdeHelperMacrosBranchesTest extends TestCase
     }
 
     /**
-     * @param array<int, mixed> $args
+     * @param  array<int, mixed>  $args
      */
     private function invoke(object $object, string $method, array $args = []): mixed
     {

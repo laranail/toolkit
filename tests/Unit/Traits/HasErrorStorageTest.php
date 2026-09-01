@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Traits;
 
+use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\HasErrorStorage;
-use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
-use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
 
 /**
  * Test double that exposes the protected {@see HasErrorStorage::addError()}.
@@ -22,7 +22,7 @@ class HasErrorStorageFixture
     }
 
     /**
-     * @param array<int|string, mixed>|string $errors
+     * @param  array<int|string, mixed>|string  $errors
      */
     public function replace(array|string $errors): static
     {

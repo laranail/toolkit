@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 #[Group('security')]
 class EmailObfuscatorMiddlewareTest extends TestCase

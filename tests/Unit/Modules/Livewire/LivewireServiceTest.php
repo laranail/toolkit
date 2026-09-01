@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Livewire;
 
 use Illuminate\Container\Container;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireService;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\HasLivewireComponents;
-use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\Livewire as LivewireFacade;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireService;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\Providers\LivewireServiceProvider;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class LivewireServiceTest extends TestCase
 {
@@ -34,14 +34,14 @@ class LivewireServiceTest extends TestCase
         $service->registerComponent('cart', FakeComponent::class)
             ->registerComponents([
                 'user-card' => FakeComponent::class,
-                'widget'    => FakeComponent::class,
+                'widget' => FakeComponent::class,
             ]);
 
         $this->assertSame(
             [
-                'cart'      => FakeComponent::class,
+                'cart' => FakeComponent::class,
                 'user-card' => FakeComponent::class,
-                'widget'    => FakeComponent::class,
+                'widget' => FakeComponent::class,
             ],
             $service->getRegisteredComponents(),
         );
@@ -166,7 +166,7 @@ class LivewireServiceTest extends TestCase
         $service = new FakeAvailableLivewireService;
         $service->registerComponents([
             'my-component' => FakeComponent::class,
-            'widget'       => OtherComponent::class,
+            'widget' => OtherComponent::class,
         ]);
 
         $service->flush();
@@ -175,7 +175,7 @@ class LivewireServiceTest extends TestCase
         $this->assertSame(
             [
                 'my-component' => FakeComponent::class,
-                'widget'       => OtherComponent::class,
+                'widget' => OtherComponent::class,
             ],
             $service->registered,
         );

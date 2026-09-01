@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Modules\Eventing\Listeners;
 
 use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Enums\CacheAction;
-use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 
 /**
  * Logs the cache lifecycle ({@see CacheEvents}) through the PSR-3 logger.

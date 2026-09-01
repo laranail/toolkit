@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Services;
 
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Services\FileService;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\FileService;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class FileServiceTest extends TestCase
 {
@@ -46,13 +46,13 @@ class FileServiceTest extends TestCase
     {
         $service = $this->app->make(FileServiceInterface::class);
 
-        $path = sys_get_temp_dir() . '/laranail_fs_' . uniqid() . '.txt';
+        $path = sys_get_temp_dir().'/laranail_fs_'.uniqid().'.txt';
         file_put_contents($path, str_repeat('a', 2048)); // 2 KB
 
         try {
             $this->assertTrue($service->validateSize($path, 1));   // <= 1 MB
             $this->assertTrue($service->validateSize($path, 0));   // no upper bound
-            $this->assertFalse($service->validateSize($path . '.missing', 1));
+            $this->assertFalse($service->validateSize($path.'.missing', 1));
         } finally {
             @unlink($path);
         }
@@ -69,7 +69,7 @@ class FileServiceTest extends TestCase
     {
         $service = $this->app->make(FileServiceInterface::class);
 
-        $sql = sys_get_temp_dir() . '/laranail_fs_' . uniqid() . '.sql';
+        $sql = sys_get_temp_dir().'/laranail_fs_'.uniqid().'.sql';
         file_put_contents($sql, 'SELECT 1;');
 
         try {
@@ -77,7 +77,7 @@ class FileServiceTest extends TestCase
             $this->assertTrue($service->validate($sql, ['sql'], 10));
             $this->assertTrue($service->validate($sql, ['sql'], 0));        // 0 MB → no size cap
             $this->assertFalse($service->validate($sql, ['zip']));          // wrong ext
-            $this->assertFalse($service->validate($sql . '.missing', ['sql']));
+            $this->assertFalse($service->validate($sql.'.missing', ['sql']));
         } finally {
             @unlink($sql);
         }
@@ -87,7 +87,7 @@ class FileServiceTest extends TestCase
     {
         $service = $this->app->make(FileServiceInterface::class);
 
-        $path = sys_get_temp_dir() . '/laranail_fs_' . uniqid() . '.weird';
+        $path = sys_get_temp_dir().'/laranail_fs_'.uniqid().'.weird';
         file_put_contents($path, 'data');
 
         try {

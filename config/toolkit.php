@@ -14,7 +14,7 @@ return [
      */
     'auth' => [
         'default_guard' => env('LARANAIL_TOOLKIT_AUTH_GUARD'), // null → framework default
-        'user_model'    => null,                                  // reserved hint; not used at runtime
+        'user_model' => null,                                  // reserved hint; not used at runtime
     ],
 
     /*
@@ -27,41 +27,41 @@ return [
         'default_provider' => env('LLM_DEFAULT_PROVIDER', 'openai'), // openai | gemini | claude
 
         'openai' => [
-            'api_key'             => env('OPENAI_API_KEY'),
-            'max_retries'         => env('OPENAI_MAX_RETRIES', 3),
-            'retry_delay'         => env('OPENAI_RETRY_DELAY', 2),
-            'default_model'       => env('OPENAI_DEFAULT_MODEL', 'gpt-3.5-turbo'),
+            'api_key' => env('OPENAI_API_KEY'),
+            'max_retries' => env('OPENAI_MAX_RETRIES', 3),
+            'retry_delay' => env('OPENAI_RETRY_DELAY', 2),
+            'default_model' => env('OPENAI_DEFAULT_MODEL', 'gpt-3.5-turbo'),
             'default_temperature' => env('OPENAI_DEFAULT_TEMPERATURE', 0.7),
-            'default_max_tokens'  => env('OPENAI_DEFAULT_MAX_TOKENS', 300),
-            'default_top_p'       => env('OPENAI_DEFAULT_TOP_P', 1.0),
+            'default_max_tokens' => env('OPENAI_DEFAULT_MAX_TOKENS', 300),
+            'default_top_p' => env('OPENAI_DEFAULT_TOP_P', 1.0),
         ],
 
         'gemini' => [
-            'api_key'             => env('GEMINI_API_KEY'),
-            'max_retries'         => env('GEMINI_MAX_RETRIES', 3),
-            'retry_delay'         => env('GEMINI_RETRY_DELAY', 2),
-            'base_url'            => env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com/v1beta'),
-            'default_model'       => env('GEMINI_DEFAULT_MODEL', 'gemini-2.0-flash'),
+            'api_key' => env('GEMINI_API_KEY'),
+            'max_retries' => env('GEMINI_MAX_RETRIES', 3),
+            'retry_delay' => env('GEMINI_RETRY_DELAY', 2),
+            'base_url' => env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com/v1beta'),
+            'default_model' => env('GEMINI_DEFAULT_MODEL', 'gemini-2.0-flash'),
             'default_temperature' => env('GEMINI_DEFAULT_TEMPERATURE', 0.7),
-            'default_max_tokens'  => env('GEMINI_DEFAULT_MAX_TOKENS', 300),
-            'default_top_p'       => env('GEMINI_DEFAULT_TOP_P', 1.0),
+            'default_max_tokens' => env('GEMINI_DEFAULT_MAX_TOKENS', 300),
+            'default_top_p' => env('GEMINI_DEFAULT_TOP_P', 1.0),
         ],
 
         'claude' => [
-            'api_key'             => env('CLAUDE_API_KEY'),
-            'max_retries'         => env('CLAUDE_MAX_RETRIES', 3),
-            'retry_delay'         => env('CLAUDE_RETRY_DELAY', 2),
-            'base_url'            => env('CLAUDE_BASE_URL', 'https://api.anthropic.com'),
-            'default_model'       => env('CLAUDE_DEFAULT_MODEL', 'claude-3-5-sonnet-20241022'),
+            'api_key' => env('CLAUDE_API_KEY'),
+            'max_retries' => env('CLAUDE_MAX_RETRIES', 3),
+            'retry_delay' => env('CLAUDE_RETRY_DELAY', 2),
+            'base_url' => env('CLAUDE_BASE_URL', 'https://api.anthropic.com'),
+            'default_model' => env('CLAUDE_DEFAULT_MODEL', 'claude-3-5-sonnet-20241022'),
             'default_temperature' => env('CLAUDE_DEFAULT_TEMPERATURE', 1.0),
-            'default_max_tokens'  => env('CLAUDE_DEFAULT_MAX_TOKENS', 1024),
-            'default_top_p'       => env('CLAUDE_DEFAULT_TOP_P', 1.0),
+            'default_max_tokens' => env('CLAUDE_DEFAULT_MAX_TOKENS', 1024),
+            'default_top_p' => env('CLAUDE_DEFAULT_TOP_P', 1.0),
         ],
     ],
 
     'cache' => [
         'default_expiration' => 60,
-        'default_tags'       => [],
+        'default_tags' => [],
         // Optional key prefix applied to every read/write/forget.
         'namespace' => env('LARANAIL_CACHE_NAMESPACE', ''),
         // When true, LogCacheEvents logs the cache-maintenance lifecycle
@@ -76,9 +76,9 @@ return [
      */
     'http' => [
         'persist_connection' => env('GUZZLE_PERSIST_CONNECTION', true),
-        'request_timeout'    => env('GUZZLE_REQUEST_TIMEOUT', 60),
-        'max_retries'        => env('GUZZLE_MAX_RETRIES', 10),
-        'cache_ttl'          => env('GUZZLE_CACHE_TTL', 10),
+        'request_timeout' => env('GUZZLE_REQUEST_TIMEOUT', 60),
+        'max_retries' => env('GUZZLE_MAX_RETRIES', 10),
+        'cache_ttl' => env('GUZZLE_CACHE_TTL', 10),
     ],
 
     /*
@@ -99,20 +99,20 @@ return [
     ],
 
     'rate_limiting' => [
-        'default_max_attempts'  => 60,
+        'default_max_attempts' => 60,
         'default_decay_minutes' => 1,
-        'cache_prefix'          => 'rate_limit:',
-        'defaults'              => [
+        'cache_prefix' => 'rate_limit:',
+        'defaults' => [
             'api' => [
-                'max_attempts'  => 60,
+                'max_attempts' => 60,
                 'decay_minutes' => 1,
             ],
             'auth' => [
-                'max_attempts'  => 5,
+                'max_attempts' => 5,
                 'decay_minutes' => 15,
             ],
             'download' => [
-                'max_attempts'  => 3,
+                'max_attempts' => 3,
                 'decay_minutes' => 1,
             ],
         ],
@@ -159,10 +159,10 @@ return [
         // RuntimeConfigurator records it in getFailedIniSettings() rather than
         // silently dropping it.
         'defaults' => [
-            'memory_limit'           => env('LARANAIL_RUNTIME_MEMORY_LIMIT'),
-            'max_execution_time'     => env('LARANAIL_RUNTIME_MAX_EXECUTION_TIME'),
-            'error_reporting'        => env('LARANAIL_RUNTIME_ERROR_REPORTING'),
-            'display_errors'         => env('LARANAIL_RUNTIME_DISPLAY_ERRORS'),
+            'memory_limit' => env('LARANAIL_RUNTIME_MEMORY_LIMIT'),
+            'max_execution_time' => env('LARANAIL_RUNTIME_MAX_EXECUTION_TIME'),
+            'error_reporting' => env('LARANAIL_RUNTIME_ERROR_REPORTING'),
+            'display_errors' => env('LARANAIL_RUNTIME_DISPLAY_ERRORS'),
             'default_socket_timeout' => env('LARANAIL_RUNTIME_DEFAULT_SOCKET_TIMEOUT'),
         ],
 
@@ -173,9 +173,9 @@ return [
         // Debugging tools disabled when a profile / the defaults are applied.
         'disable_tools' => [
             'telescope' => env('LARANAIL_RUNTIME_DISABLE_TELESCOPE', false),
-            'xdebug'    => env('LARANAIL_RUNTIME_DISABLE_XDEBUG', false),
+            'xdebug' => env('LARANAIL_RUNTIME_DISABLE_XDEBUG', false),
             'clockwork' => env('LARANAIL_RUNTIME_DISABLE_CLOCKWORK', false),
-            'debugbar'  => env('LARANAIL_RUNTIME_DISABLE_DEBUGBAR', false),
+            'debugbar' => env('LARANAIL_RUNTIME_DISABLE_DEBUGBAR', false),
         ],
 
         // Named presets. A profile is a flat map of INI key => value, plus an
@@ -184,10 +184,10 @@ return [
         // (`uploads`' post/upload sizes are php.ini-only per the defaults note —
         // only its memory/timeout take effect at runtime.)
         'profiles' => [
-            'queue'   => ['memory_limit' => '1G', 'max_execution_time' => 0, 'disable' => ['telescope']],
-            'batch'   => ['memory_limit' => '2G', 'max_execution_time' => 0, 'disable' => ['telescope', 'xdebug', 'clockwork', 'debugbar']],
-            'import'  => ['memory_limit' => '1G', 'max_execution_time' => 1800, 'disable' => ['telescope']],
-            'export'  => ['memory_limit' => '1G', 'max_execution_time' => 900, 'disable' => ['telescope']],
+            'queue' => ['memory_limit' => '1G', 'max_execution_time' => 0, 'disable' => ['telescope']],
+            'batch' => ['memory_limit' => '2G', 'max_execution_time' => 0, 'disable' => ['telescope', 'xdebug', 'clockwork', 'debugbar']],
+            'import' => ['memory_limit' => '1G', 'max_execution_time' => 1800, 'disable' => ['telescope']],
+            'export' => ['memory_limit' => '1G', 'max_execution_time' => 900, 'disable' => ['telescope']],
             'uploads' => ['memory_limit' => '512M', 'post_max_size' => '100M', 'upload_max_filesize' => '100M', 'max_execution_time' => 600],
         ],
     ],

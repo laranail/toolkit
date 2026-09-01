@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Exceptions;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Exceptions\LaranailException;
+use Illuminate\Http\Request;
 use Simtabi\Laranail\Toolkit\Exceptions\AuthenticationException;
+use Simtabi\Laranail\Toolkit\Exceptions\LaranailException;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class AuthenticationExceptionTest extends TestCase
 {

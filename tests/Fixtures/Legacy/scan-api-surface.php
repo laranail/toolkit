@@ -58,7 +58,7 @@ foreach ($files as $file) {
             }
             for ($j = $i + 1; $j < $count; $j++) {
                 if (is_array($tokens[$j]) && $tokens[$j][0] === T_STRING) {
-                    $fqcn = ($namespace !== '' ? $namespace . '\\' : '') . $tokens[$j][1];
+                    $fqcn = ($namespace !== '' ? $namespace.'\\' : '').$tokens[$j][1];
                     if (! isset($surface[$fqcn])) {
                         $surface[$fqcn] = [];
                     }
@@ -85,7 +85,7 @@ foreach ($files as $file) {
             }
             for ($j = $i + 1; $j < $count; $j++) {
                 if (is_array($tokens2[$j]) && $tokens2[$j][0] === T_STRING) {
-                    $lastFqcn = ($namespace !== '' ? $namespace . '\\' : '') . $tokens2[$j][1];
+                    $lastFqcn = ($namespace !== '' ? $namespace.'\\' : '').$tokens2[$j][1];
                     break;
                 }
             }
@@ -98,6 +98,7 @@ foreach ($files as $file) {
                     if ($tokens2[$k] === '{' || $tokens2[$k] === '}' || $tokens2[$k] === ';') {
                         break;
                     }
+
                     continue;
                 }
                 if (in_array($tokens2[$k][0], [T_PRIVATE, T_PROTECTED], true)) {
@@ -131,4 +132,4 @@ foreach ($surface as $k => $v) {
 }
 ksort($surface);
 
-echo json_encode($surface, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+echo json_encode($surface, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)."\n";

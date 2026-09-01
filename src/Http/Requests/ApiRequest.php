@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 
 /**
  * FormRequest base for JSON APIs.
@@ -27,7 +27,7 @@ abstract class ApiRequest extends BaseRequest
         throw new ValidationException($validator, new JsonResponse([
             'success' => false,
             'message' => 'The provided data failed validation.',
-            'errors'  => $validator->errors()->toArray(),
+            'errors' => $validator->errors()->toArray(),
         ], Response::HTTP_UNPROCESSABLE_ENTITY));
     }
 }

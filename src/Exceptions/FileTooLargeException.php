@@ -14,9 +14,9 @@ class FileTooLargeException extends RuntimeException
     /**
      * Create a new file-too-large exception.
      *
-     * @param string $path The file path.
-     * @param int $size The actual file size in bytes.
-     * @param int $maxSize The maximum allowed size in bytes.
+     * @param  string  $path  The file path.
+     * @param  int  $size  The actual file size in bytes.
+     * @param  int  $maxSize  The maximum allowed size in bytes.
      */
     public static function create(string $path, int $size, int $maxSize): self
     {

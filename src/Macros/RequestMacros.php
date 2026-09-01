@@ -80,7 +80,7 @@ final class RequestMacros extends ServiceProvider
             // https://evil.com/?ref=trusted.com would match 'trusted.com'.
             $host = parse_url($referer, PHP_URL_HOST);
 
-            return is_string($host) && ($host === $domain || str_ends_with($host, '.' . $domain));
+            return is_string($host) && ($host === $domain || str_ends_with($host, '.'.$domain));
         });
 
         Request::macro('isJsonRequest', function (): bool {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Group;
+use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
 
 #[Group('security')]
 class ApiResponseMiddlewareTest extends TestCase

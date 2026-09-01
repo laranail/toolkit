@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\Security;
 
-use Stringable;
+use InvalidArgumentException;
 use LogicException;
 use RuntimeException;
+use Stringable;
 use ZxcvbnPhp\Zxcvbn;
-use InvalidArgumentException;
 
 /**
  * Fluent, immutable random-password generator.
@@ -131,8 +131,7 @@ final class Password implements Stringable
      * (float), `crack_times_seconds` (array), and `feedback`
      * (`['warning' => string, 'suggestions' => string[]]`).
      *
-     * @param list<string> $userInputs Site/user-specific tokens to penalise (names, email, etc.)
-     *
+     * @param  list<string>  $userInputs  Site/user-specific tokens to penalise (names, email, etc.)
      * @return array{
      *     score: int,
      *     guesses: float,
@@ -147,7 +146,7 @@ final class Password implements Stringable
         if (! class_exists(Zxcvbn::class)) {
             throw new LogicException(
                 'zxcvbn strength estimation requires the optional "bjeavons/zxcvbn-php" package. '
-                . 'Install it with: composer require bjeavons/zxcvbn-php',
+                .'Install it with: composer require bjeavons/zxcvbn-php',
             );
         }
 
@@ -316,10 +315,10 @@ final class Password implements Stringable
         $charsetSize = strlen(implode('', $this->pools()));
 
         $metadata = [
-            'password'     => $password,
-            'entropy'      => $this->entropyBits($charsetSize),
+            'password' => $password,
+            'entropy' => $this->entropyBits($charsetSize),
             'charset_size' => $charsetSize,
-            'length'       => $this->length,
+            'length' => $this->length,
         ];
 
         if (class_exists(Zxcvbn::class)) {
@@ -338,7 +337,7 @@ final class Password implements Stringable
      * Draw a single password satisfying the requireEachClass constraint, retrying
      * up to {@see MAX_ATTEMPTS} times.
      *
-     * @param array<string, string> $pools
+     * @param  array<string, string>  $pools
      *
      * @throws RuntimeException when the constraints cannot be satisfied
      */
@@ -410,7 +409,7 @@ final class Password implements Stringable
     /**
      * Draw one full password uniformly from the combined pool.
      *
-     * @param array<string, string> $pools
+     * @param  array<string, string>  $pools
      */
     private function draw(array $pools, string $combined): string
     {
@@ -427,7 +426,7 @@ final class Password implements Stringable
     /**
      * True when `$password` contains at least one character from every pool.
      *
-     * @param array<string, string> $pools
+     * @param  array<string, string>  $pools
      */
     private function coversEachClass(string $password, array $pools): bool
     {
@@ -478,7 +477,7 @@ final class Password implements Stringable
     /**
      * Return a mutated clone, keeping the builder immutable.
      *
-     * @param callable(self): mixed $mutator
+     * @param  callable(self): mixed  $mutator
      */
     private function with(callable $mutator): self
     {
