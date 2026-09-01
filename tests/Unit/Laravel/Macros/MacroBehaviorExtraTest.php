@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
-use Mockery;
-use RuntimeException;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Str;
+use Mockery;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class MacroBehaviorExtraTest extends TestCase
@@ -133,7 +133,7 @@ class MacroBehaviorExtraTest extends TestCase
         $this->assertSame(['a' => 1], Arr::filterNulls(['a' => 1, 'b' => null]));
         $this->assertSame(['a' => 1], Arr::filterEmpty(['a' => 1, 'b' => 0, 'c' => '']));
 
-        $mapped = Arr::mapKeys(['a' => 1], fn (string $k, int $v): string => $k . $v);
+        $mapped = Arr::mapKeys(['a' => 1], fn (string $k, int $v): string => $k.$v);
         $this->assertSame(['a1' => 1], $mapped);
     }
 

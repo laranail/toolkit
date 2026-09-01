@@ -6,19 +6,19 @@ namespace Simtabi\Laranail\Toolkit\Services;
 
 use Closure;
 use Exception;
-use Throwable;
-use RuntimeException;
-use Psr\Log\NullLogger;
-use Psr\Log\LoggerInterface;
 use Illuminate\Cache\TaggableStore;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Foundation\Application;
 use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Compilers\BladeCompiler;
-use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Throwable;
 
 /**
  * The toolkit's single cache entry point — one surface for both application
@@ -51,7 +51,7 @@ class CacheService implements CacheRepositoryInterface
     private LoggerInterface $logger;
 
     /**
-     * @param array<int, string> $defaultTags
+     * @param  array<int, string>  $defaultTags
      */
     public function __construct(
         protected int $defaultExpiration,
@@ -71,7 +71,7 @@ class CacheService implements CacheRepositoryInterface
     /**
      * Cache data with configurable options (resilient: never throws).
      *
-     * @param array<int, string>|null $tags
+     * @param  array<int, string>|null  $tags
      */
     public function cache(string $key, mixed $data, ?int $minutes = null, ?array $tags = null): mixed
     {
@@ -188,8 +188,7 @@ class CacheService implements CacheRepositoryInterface
     /**
      * Get multiple values at once, keyed by their original (un-namespaced) keys.
      *
-     * @param list<string> $keys
-     *
+     * @param  list<string>  $keys
      * @return array<string, mixed>
      */
     public function many(array $keys, mixed $default = null): array
@@ -249,7 +248,7 @@ class CacheService implements CacheRepositoryInterface
     /**
      * Return a clone scoped to the given tags for grouped invalidation.
      *
-     * @param array<int, string> $tags
+     * @param  array<int, string>  $tags
      */
     public function tags(array $tags): static
     {
@@ -294,7 +293,7 @@ class CacheService implements CacheRepositoryInterface
      * is never unserialized — but the input is sorted first, so `?a=1&b=2` and
      * `?b=2&a=1` stop caching the same response twice.
      *
-     * @param array<string, mixed> $vary extra dimensions the response varies by
+     * @param  array<string, mixed>  $vary  extra dimensions the response varies by
      */
     public function keyFromRequest(array $vary = []): string
     {
@@ -319,9 +318,9 @@ class CacheService implements CacheRepositoryInterface
 
         return hash('sha256', serialize([
             'method' => $request->getMethod(),
-            'url'    => $url,
-            'input'  => $input,
-            'vary'   => $vary,
+            'url' => $url,
+            'input' => $input,
+            'vary' => $vary,
         ]));
     }
 
@@ -381,7 +380,7 @@ class CacheService implements CacheRepositoryInterface
             if (! $this->files()->isDirectory($logPath)) {
                 return;
             }
-            foreach ($this->globFiles($logPath . '/*.log') as $file) {
+            foreach ($this->globFiles($logPath.'/*.log') as $file) {
                 $this->files()->delete($file);
             }
         });
@@ -393,7 +392,7 @@ class CacheService implements CacheRepositoryInterface
      */
     public function clearThirdPartyCache(string $configKey): static
     {
-        return $this->guard('third_party:' . $configKey, fn () => $this->deleteThirdParty($configKey));
+        return $this->guard('third_party:'.$configKey, fn () => $this->deleteThirdParty($configKey));
     }
 
     /** Clear the HTMLPurifier cache directory (config `purifier.cachePath`). */
@@ -445,11 +444,11 @@ class CacheService implements CacheRepositoryInterface
     public function optimize(): CacheOptimizationResult
     {
         return $this->orchestrate('optimize', [
-            'config_cleared'          => fn () => $this->deleteIfExists($this->application()->getCachedConfigPath()),
-            'routes_cleared'          => fn () => $this->deleteIfExists($this->application()->getCachedRoutesPath()),
-            'views_cleared'           => $this->clearCompiledViewsNow(...),
-            'config_cached'           => $this->cacheConfigNow(...),
-            'views_compiled'          => $this->cacheViewsNow(...),
+            'config_cleared' => fn () => $this->deleteIfExists($this->application()->getCachedConfigPath()),
+            'routes_cleared' => fn () => $this->deleteIfExists($this->application()->getCachedRoutesPath()),
+            'views_cleared' => $this->clearCompiledViewsNow(...),
+            'config_cached' => $this->cacheConfigNow(...),
+            'views_compiled' => $this->cacheViewsNow(...),
             'framework_cache_cleared' => fn () => Cache::flush(),
         ]);
     }
@@ -463,7 +462,7 @@ class CacheService implements CacheRepositoryInterface
         return $this->orchestrate('clear_optimization', [
             'config_cleared' => fn () => $this->deleteIfExists($this->application()->getCachedConfigPath()),
             'routes_cleared' => fn () => $this->deleteIfExists($this->application()->getCachedRoutesPath()),
-            'views_cleared'  => $this->clearCompiledViewsNow(...),
+            'views_cleared' => $this->clearCompiledViewsNow(...),
         ]);
     }
 
@@ -476,7 +475,7 @@ class CacheService implements CacheRepositoryInterface
      */
     protected function namespacedKey(string $key): string
     {
-        return $this->namespace !== '' ? $this->namespace . ':' . $key : $key;
+        return $this->namespace !== '' ? $this->namespace.':'.$key : $key;
     }
 
     /**
@@ -498,7 +497,7 @@ class CacheService implements CacheRepositoryInterface
      * Lists are left alone — `?tags[]=a&tags[]=b` is not the same request as
      * `?tags[]=b&tags[]=a`, and sorting it would merge two responses.
      *
-     * @param array<array-key, mixed> $input
+     * @param  array<array-key, mixed>  $input
      */
     private function sortRecursive(array &$input): void
     {
@@ -538,7 +537,7 @@ class CacheService implements CacheRepositoryInterface
      * Run an ordered map of label → step, recording completions and errors into
      * a {@see CacheOptimizationResult} and firing one overall lifecycle event.
      *
-     * @param array<string, callable():mixed> $steps
+     * @param  array<string, callable():mixed>  $steps
      */
     private function orchestrate(string $operation, array $steps): CacheOptimizationResult
     {
@@ -561,7 +560,7 @@ class CacheService implements CacheRepositoryInterface
 
         event($result->successful()
             ? CacheEvents::cleared(['operation' => $operation, 'steps' => $completed])
-            : CacheEvents::failed($operation . ' incomplete', ['operation' => $operation, 'errors' => $errors]));
+            : CacheEvents::failed($operation.' incomplete', ['operation' => $operation, 'errors' => $errors]));
 
         return $result;
     }
@@ -598,7 +597,7 @@ class CacheService implements CacheRepositoryInterface
         if (! $this->isClearableCachePath($path)) {
             $this->logger->warning('Refused to clear a third-party cache path outside storage/.', [
                 'config_key' => $configKey,
-                'path'       => $path,
+                'path' => $path,
             ]);
 
             return;
@@ -635,7 +634,7 @@ class CacheService implements CacheRepositoryInterface
         }
 
         // The root itself is never clearable — only things under it.
-        return $real !== $root && str_starts_with($real, rtrim($root, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
+        return $real !== $root && str_starts_with($real, rtrim($root, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
     }
 
     /** The compiled-view clear body, reused by {@see cacheViews()}/orchestrators. */
@@ -645,7 +644,7 @@ class CacheService implements CacheRepositoryInterface
         if ($compiled === '') {
             return;
         }
-        foreach ($this->globFiles($compiled . '/*.php') as $view) {
+        foreach ($this->globFiles($compiled.'/*.php') as $view) {
             $this->files()->delete($view);
         }
     }
@@ -671,8 +670,8 @@ class CacheService implements CacheRepositoryInterface
             }
         });
 
-        $temp = $path . '.' . uniqid('tmp', true);
-        $this->files()->put($temp, '<?php return ' . var_export($config, true) . ';' . PHP_EOL);
+        $temp = $path.'.'.uniqid('tmp', true);
+        $this->files()->put($temp, '<?php return '.var_export($config, true).';'.PHP_EOL);
 
         try {
             $loaded = require $temp;
@@ -682,7 +681,7 @@ class CacheService implements CacheRepositoryInterface
         } catch (Throwable $e) {
             $this->deleteIfExists($temp);
 
-            throw new RuntimeException('Configuration is not cacheable: ' . $e->getMessage(), 0, $e);
+            throw new RuntimeException('Configuration is not cacheable: '.$e->getMessage(), 0, $e);
         }
 
         $this->deleteIfExists($path);

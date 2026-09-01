@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
+use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\ServiceProvider;
-use Carbon\Exceptions\InvalidFormatException;
 
 /**
  * Registers the toolkit's Carbon macros: quarter/business-day/utility date
@@ -135,15 +135,15 @@ final class CarbonMacros extends ServiceProvider
             $now = Carbon::now();
 
             if ($this->isToday()) {
-                return 'Today at ' . $this->format('g:i A');
+                return 'Today at '.$this->format('g:i A');
             }
 
             if ($this->isYesterday()) {
-                return 'Yesterday at ' . $this->format('g:i A');
+                return 'Yesterday at '.$this->format('g:i A');
             }
 
             if ($this->isTomorrow()) {
-                return 'Tomorrow at ' . $this->format('g:i A');
+                return 'Tomorrow at '.$this->format('g:i A');
             }
 
             if ($this->year === $now->year) {

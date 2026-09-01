@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver;
 
-use ZipArchive;
 use PHPUnit\Framework\Attributes\Test;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use ZipArchive;
 
 /**
  * What the bomb guard actually rests on.
@@ -35,13 +35,13 @@ final class ZipBombGuardTest extends TestCase
     {
         parent::setUp();
 
-        $this->sandbox = sys_get_temp_dir() . '/laranail-zipbomb-' . bin2hex(random_bytes(6));
+        $this->sandbox = sys_get_temp_dir().'/laranail-zipbomb-'.bin2hex(random_bytes(6));
         mkdir($this->sandbox, 0o755, true);
     }
 
     protected function tearDown(): void
     {
-        exec('rm -rf ' . escapeshellarg($this->sandbox));
+        exec('rm -rf '.escapeshellarg($this->sandbox));
 
         parent::tearDown();
     }
@@ -53,15 +53,15 @@ final class ZipBombGuardTest extends TestCase
         // of 1 byte extracts to *one byte* — libzip honours the declaration.
         // If this ever changes, summing declared sizes stops being a guard and
         // this test is where that shows up.
-        $path = $this->sandbox . '/lying.zip';
+        $path = $this->sandbox.'/lying.zip';
         $this->lyingArchive($path, 65_536);
 
         (new Zip)->setLimits(maxEntries: 100, maxTotalBytes: 1_048_576)
-            ->extract($path, $this->sandbox . '/out');
+            ->extract($path, $this->sandbox.'/out');
 
         self::assertSame(
             1,
-            filesize($this->sandbox . '/out/payload.bin'),
+            filesize($this->sandbox.'/out/payload.bin'),
             'libzip no longer truncates to the declared size — the bomb guard needs rewriting.',
         );
     }
@@ -71,28 +71,28 @@ final class ZipBombGuardTest extends TestCase
     {
         // The real zip bomb: a small compressed payload with a large, honest
         // uncompressed size. This is what summing the declarations catches.
-        $path = $this->sandbox . '/big.zip';
+        $path = $this->sandbox.'/big.zip';
         $this->honestArchive($path, 32_768);
 
         $extractor = (new Zip)->setLimits(maxEntries: 100, maxTotalBytes: 4_096);
 
         $this->expectException(ArchiveException::class);
 
-        $extractor->extract($path, $this->sandbox . '/out');
+        $extractor->extract($path, $this->sandbox.'/out');
     }
 
     #[Test]
     public function nothing_is_written_when_the_ceiling_is_exceeded(): void
     {
         // Fail-closed: every entry is validated before a single byte lands.
-        $path = $this->sandbox . '/big.zip';
+        $path = $this->sandbox.'/big.zip';
         $this->honestArchive($path, 32_768);
 
         $refused = false;
 
         try {
             (new Zip)->setLimits(maxEntries: 100, maxTotalBytes: 4_096)
-                ->extract($path, $this->sandbox . '/out');
+                ->extract($path, $this->sandbox.'/out');
         } catch (ArchiveException) {
             $refused = true;
         }
@@ -102,19 +102,19 @@ final class ZipBombGuardTest extends TestCase
         // one that refused — and "nothing was written" is not the claim; "it
         // refused, and therefore nothing was written" is.
         self::assertTrue($refused, 'The ceiling was exceeded but no ArchiveException was thrown.');
-        self::assertFileDoesNotExist($this->sandbox . '/out/payload.bin');
+        self::assertFileDoesNotExist($this->sandbox.'/out/payload.bin');
     }
 
     #[Test]
     public function an_archive_inside_the_ceiling_extracts_normally(): void
     {
-        $path = $this->sandbox . '/ok.zip';
+        $path = $this->sandbox.'/ok.zip';
         $this->honestArchive($path, 512);
 
         (new Zip)->setLimits(maxEntries: 100, maxTotalBytes: 1_048_576)
-            ->extract($path, $this->sandbox . '/out');
+            ->extract($path, $this->sandbox.'/out');
 
-        self::assertSame(512, filesize($this->sandbox . '/out/payload.bin'));
+        self::assertSame(512, filesize($this->sandbox.'/out/payload.bin'));
     }
 
     #[Test]
@@ -123,7 +123,7 @@ final class ZipBombGuardTest extends TestCase
         // P0-5, and the one that was genuinely missing: the tar path checks
         // isLink(), the ZIP path checked names only, and three docblocks
         // claimed symlink safety for both.
-        $path = $this->sandbox . '/link.zip';
+        $path = $this->sandbox.'/link.zip';
         $archive = new ZipArchive;
         $archive->open($path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         $archive->addFromString('evil', '/etc/passwd');
@@ -132,7 +132,7 @@ final class ZipBombGuardTest extends TestCase
 
         $this->expectException(ArchiveException::class);
 
-        (new Zip)->extract($path, $this->sandbox . '/out');
+        (new Zip)->extract($path, $this->sandbox.'/out');
     }
 
     /**
@@ -149,22 +149,22 @@ final class ZipBombGuardTest extends TestCase
         $crc = crc32($data);
 
         $local = "PK\x03\x04"
-            . pack('v', 10) . pack('v', 0) . pack('v', 0) . pack('v', 0) . pack('v', 0)
-            . pack('V', $crc) . pack('V', 1) . pack('V', 1)
-            . pack('v', strlen($name)) . pack('v', 0)
-            . $name . $data;
+            .pack('v', 10).pack('v', 0).pack('v', 0).pack('v', 0).pack('v', 0)
+            .pack('V', $crc).pack('V', 1).pack('V', 1)
+            .pack('v', strlen($name)).pack('v', 0)
+            .$name.$data;
 
         $central = "PK\x01\x02"
-            . pack('v', 10) . pack('v', 10) . pack('v', 0) . pack('v', 0) . pack('v', 0) . pack('v', 0)
-            . pack('V', $crc) . pack('V', 1) . pack('V', 1)
-            . pack('v', strlen($name)) . pack('v', 0) . pack('v', 0)
-            . pack('v', 0) . pack('v', 0) . pack('V', 0) . pack('V', 0)
-            . $name;
+            .pack('v', 10).pack('v', 10).pack('v', 0).pack('v', 0).pack('v', 0).pack('v', 0)
+            .pack('V', $crc).pack('V', 1).pack('V', 1)
+            .pack('v', strlen($name)).pack('v', 0).pack('v', 0)
+            .pack('v', 0).pack('v', 0).pack('V', 0).pack('V', 0)
+            .$name;
 
-        $end = "PK\x05\x06" . pack('v', 0) . pack('v', 0) . pack('v', 1) . pack('v', 1)
-            . pack('V', strlen($central)) . pack('V', strlen($local)) . pack('v', 0);
+        $end = "PK\x05\x06".pack('v', 0).pack('v', 0).pack('v', 1).pack('v', 1)
+            .pack('V', strlen($central)).pack('V', strlen($local)).pack('v', 0);
 
-        file_put_contents($path, $local . $central . $end);
+        file_put_contents($path, $local.$central.$end);
     }
 
     private function honestArchive(string $path, int $bytes): void

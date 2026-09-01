@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Traits;
 
-use Mockery;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Config;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Mockery;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 
 class ApiResponseTraitTest extends TestCase

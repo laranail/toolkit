@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Support;
 
-use Laravel\Telescope\Telescope;
-use Illuminate\Support\Facades\Log;
 use Barryvdh\Debugbar\Facades\Debugbar;
-use Simtabi\Laranail\Toolkit\Services\SystemService;
 use Clockwork\Support\Laravel\ClockworkServiceProvider;
-use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Illuminate\Support\Facades\Log;
+use Laravel\Telescope\Telescope;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\SystemService;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 
 /**
  * Chainable API for adjusting PHP runtime settings during heavy operations:
@@ -47,9 +47,9 @@ final class RuntimeConfigurator
     /** @var array<string, bool> Debugging tools to disable. */
     private array $disableTools = [
         'telescope' => false,
-        'xdebug'    => false,
+        'xdebug' => false,
         'clockwork' => false,
-        'debugbar'  => false,
+        'debugbar' => false,
     ];
 
     private bool $logging = false;
@@ -202,7 +202,7 @@ final class RuntimeConfigurator
 
     public function memoryGb(int|float $gigabytes): self
     {
-        return $this->memory(((int) ($gigabytes * 1024)) . 'M');
+        return $this->memory(((int) ($gigabytes * 1024)).'M');
     }
 
     public function unlimitedMemory(): self
@@ -343,7 +343,7 @@ final class RuntimeConfigurator
     }
 
     /**
-     * @param array<string, mixed> $settings
+     * @param  array<string, mixed>  $settings
      */
     public function setMany(array $settings): self
     {
@@ -559,7 +559,7 @@ final class RuntimeConfigurator
     /**
      * Queue every non-null INI directive from a config map.
      *
-     * @param array<array-key, mixed> $map
+     * @param  array<array-key, mixed>  $map
      */
     private function applyIniMap(array $map): void
     {
@@ -574,7 +574,7 @@ final class RuntimeConfigurator
      * Apply a named profile: a flat INI key => value map plus an optional
      * `disable` list of tool names and an optional nested `ini` map.
      *
-     * @param array<array-key, mixed> $profile
+     * @param  array<array-key, mixed>  $profile
      */
     private function applyProfile(array $profile): void
     {
@@ -698,9 +698,9 @@ final class RuntimeConfigurator
     private function logChanges(string $message): void
     {
         $context = [
-            'pending'            => $this->pending,
-            'disabled_tools'     => array_filter($this->disableTools),
-            'failed_ini'         => $this->failedIni,
+            'pending' => $this->pending,
+            'disabled_tools' => array_filter($this->disableTools),
+            'failed_ini' => $this->failedIni,
             'memory_usage_bytes' => memory_get_usage(true),
         ];
 

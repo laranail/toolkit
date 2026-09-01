@@ -20,7 +20,7 @@ final class ApiResponder
     use ApiResponseTrait;
 
     /**
-     * @param array<string, mixed> $meta
+     * @param  array<string, mixed>  $meta
      */
     public function success(
         mixed $data = null,
@@ -32,7 +32,7 @@ final class ApiResponder
     }
 
     /**
-     * @param array<string, mixed> $errors
+     * @param  array<string, mixed>  $errors
      */
     public function error(
         string $message = 'Something went wrong.',

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 
-use LogicException;
-use RuntimeException;
-use ZxcvbnPhp\Zxcvbn;
 use InvalidArgumentException;
+use LogicException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Modules\Security\Password;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use ZxcvbnPhp\Zxcvbn;
 
 class PasswordTest extends TestCase
 {

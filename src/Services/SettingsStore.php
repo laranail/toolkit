@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 
 /**
  * A small, typed runtime settings store backed by a single JSON file on a
@@ -86,11 +86,11 @@ class SettingsStore implements SettingsStoreInterface
      * Cross-process safety requires an atomic cache store (redis/database/…); the
      * array/file drivers serialise within a single process.
      *
-     * @param callable(array<string, mixed>): void $mutator
+     * @param  callable(array<string, mixed>): void  $mutator
      */
     private function mutate(callable $mutator): void
     {
-        Cache::lock('laranail:toolkit:settings:' . md5($this->path), 10)->block(5, function () use ($mutator): void {
+        Cache::lock('laranail:toolkit:settings:'.md5($this->path), 10)->block(5, function () use ($mutator): void {
             $all = $this->all();
             $mutator($all);
             $this->persist($all);
@@ -98,7 +98,7 @@ class SettingsStore implements SettingsStoreInterface
     }
 
     /**
-     * @param array<string, mixed> $settings
+     * @param  array<string, mixed>  $settings
      */
     private function persist(array $settings): void
     {

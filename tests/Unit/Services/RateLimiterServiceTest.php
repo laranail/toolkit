@@ -7,8 +7,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Contracts\Cache\Repository;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\RateLimiterService;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class RateLimiterServiceTest extends TestCase
 {

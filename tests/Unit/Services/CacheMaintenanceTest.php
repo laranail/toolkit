@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
-use Mockery;
-use Stringable;
-use RuntimeException;
-use Psr\Log\AbstractLogger;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Event;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Mockery;
+use Psr\Log\AbstractLogger;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Enums\CacheAction;
-use Simtabi\Laranail\Toolkit\Services\CacheService;
-use Simtabi\Laranail\Toolkit\Services\CacheOptimizationResult;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
+use Simtabi\Laranail\Toolkit\Services\CacheOptimizationResult;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Stringable;
 
 /**
  * Covers the maintenance half of {@see CacheService}: event lifecycle,
@@ -139,9 +139,9 @@ class CollectingLogger extends AbstractLogger
     public array $errors = [];
 
     /**
-     * @param mixed $level
-     * @param string|Stringable $message
-     * @param array<mixed> $context
+     * @param  mixed  $level
+     * @param  string|Stringable  $message
+     * @param  array<mixed>  $context
      */
     public function log($level, $message, array $context = []): void
     {

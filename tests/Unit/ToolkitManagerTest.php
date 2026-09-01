@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit;
 
+use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
+use Simtabi\Laranail\Toolkit\Modules\Security\Password;
+use Simtabi\Laranail\Toolkit\Modules\Security\Token;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
-use Simtabi\Laranail\Toolkit\Modules\Security\Token;
-use Simtabi\Laranail\Toolkit\Modules\Security\Password;
-use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
 
 class ToolkitManagerTest extends TestCase
 {

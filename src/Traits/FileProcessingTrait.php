@@ -19,7 +19,7 @@ trait FileProcessingTrait
         $this->assertSafePath($filename);
         $this->assertSafePath($directory);
 
-        $filePath = $directory . '/' . $filename;
+        $filePath = $directory.'/'.$filename;
 
         if (Storage::exists($filePath)) {
             return (string) Storage::get($filePath);
@@ -39,7 +39,7 @@ trait FileProcessingTrait
         // name with path segments cannot escape the target directory.
         $original = basename($file->getClientOriginalName());
 
-        $filename = uniqid() . '_' . $original;
+        $filename = uniqid().'_'.$original;
 
         $file->storeAs($directory, $filename);
 
@@ -49,8 +49,7 @@ trait FileProcessingTrait
     /**
      * Upload multiple files.
      *
-     * @param array<int, UploadedFile> $files
-     *
+     * @param  array<int, UploadedFile>  $files
      * @return array<int, string>
      */
     public function uploadFiles(array $files, string $directory = 'uploads'): array
@@ -72,13 +71,13 @@ trait FileProcessingTrait
         $this->assertSafePath($filename);
         $this->assertSafePath($directory);
 
-        Storage::delete($directory . '/' . $filename);
+        Storage::delete($directory.'/'.$filename);
     }
 
     /**
      * Delete multiple files.
      *
-     * @param array<int, string> $filenames
+     * @param  array<int, string>  $filenames
      */
     public function deleteFiles(array $filenames, string $directory = 'uploads'): void
     {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 
 use Illuminate\Http\JsonResponse;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Http\Controllers\BaseController;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class BaseControllerFixture extends BaseController
 {
@@ -31,8 +31,8 @@ class BaseControllerTest extends TestCase
         $this->assertSame([
             'success' => true,
             'message' => 'done',
-            'data'    => ['id' => 1],
-            'meta'    => [],
+            'data' => ['id' => 1],
+            'meta' => [],
         ], $response->getData(true));
     }
 
@@ -44,7 +44,7 @@ class BaseControllerTest extends TestCase
         $this->assertSame([
             'success' => false,
             'message' => 'nope',
-            'errors'  => ['field' => ['bad']],
+            'errors' => ['field' => ['bad']],
         ], $response->getData(true));
     }
 

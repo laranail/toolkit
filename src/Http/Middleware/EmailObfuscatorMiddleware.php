@@ -60,7 +60,7 @@ class EmailObfuscatorMiddleware
         $encoded = '';
 
         foreach (mb_str_split($value) as $character) {
-            $encoded .= '&#' . mb_ord($character) . ';';
+            $encoded .= '&#'.mb_ord($character).';';
         }
 
         return $encoded;

@@ -118,15 +118,15 @@ class BladeServiceProvider extends ServiceProvider
     private function registerIconDirectives(): void
     {
         $iconFamilies = [
-            'fa'    => 'fa fa-',
-            'fas'   => 'fas fa-',
-            'far'   => 'far fa-',
-            'fal'   => 'fal fa-',
-            'fab'   => 'fab fa-',
-            'fad'   => 'fad fa-',
-            'mdi'   => 'mdi mdi-',
+            'fa' => 'fa fa-',
+            'fas' => 'fas fa-',
+            'far' => 'far fa-',
+            'fal' => 'fal fa-',
+            'fab' => 'fab fa-',
+            'fad' => 'fad fa-',
+            'mdi' => 'mdi mdi-',
             'glyph' => 'glyphicons glyphicons-',
-            'bi'    => 'bi bi-',
+            'bi' => 'bi bi-',
         ];
 
         foreach ($iconFamilies as $name => $prefix) {
@@ -135,7 +135,7 @@ class BladeServiceProvider extends ServiceProvider
                 $icon = self::stripQuotes($icon);
                 $classes = self::stripQuotes($classes);
 
-                return '<i class="' . $prefix . trim($icon . ' ' . $classes) . '"></i>';
+                return '<i class="'.$prefix.trim($icon.' '.$classes).'"></i>';
             });
         }
     }
@@ -183,7 +183,7 @@ class BladeServiceProvider extends ServiceProvider
                 return '<style>';
             }
 
-            return '<link rel="stylesheet" href="' . self::stripQuotes($expression) . '">';
+            return '<link rel="stylesheet" href="'.self::stripQuotes($expression).'">';
         });
         Blade::directive('endaddstyle', static fn (): string => '</style>');
 
@@ -192,7 +192,7 @@ class BladeServiceProvider extends ServiceProvider
                 return '<script>';
             }
 
-            return '<script src="' . self::stripQuotes($expression) . '"></script>';
+            return '<script src="'.self::stripQuotes($expression).'"></script>';
         });
         Blade::directive('endaddscript', static fn (): string => '</script>');
 

@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Support\Facades\File;
 use PHPUnit\Framework\Attributes\Test;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * `clearThirdPartyCache()` is public and takes a config *key*, so whatever path
@@ -28,16 +28,16 @@ final class ThirdPartyCacheContainmentTest extends TestCase
     {
         parent::setUp();
 
-        $this->sandbox = sys_get_temp_dir() . '/laranail-tpc-' . bin2hex(random_bytes(6));
+        $this->sandbox = sys_get_temp_dir().'/laranail-tpc-'.bin2hex(random_bytes(6));
 
-        File::ensureDirectoryExists($this->sandbox . '/storage/framework/cache');
-        File::put($this->sandbox . '/storage/framework/cache/blob.php', '<?php // cached');
+        File::ensureDirectoryExists($this->sandbox.'/storage/framework/cache');
+        File::put($this->sandbox.'/storage/framework/cache/blob.php', '<?php // cached');
 
-        File::ensureDirectoryExists($this->sandbox . '/precious');
-        File::put($this->sandbox . '/precious/keep.txt', 'do not delete me');
+        File::ensureDirectoryExists($this->sandbox.'/precious');
+        File::put($this->sandbox.'/precious/keep.txt', 'do not delete me');
 
         $this->app->setBasePath($this->sandbox);
-        $this->app->useStoragePath($this->sandbox . '/storage');
+        $this->app->useStoragePath($this->sandbox.'/storage');
     }
 
     protected function tearDown(): void
@@ -50,13 +50,13 @@ final class ThirdPartyCacheContainmentTest extends TestCase
     #[Test]
     public function it_clears_a_cache_directory_inside_storage(): void
     {
-        config()->set('some-package.cache_path', $this->sandbox . '/storage/framework/cache');
+        config()->set('some-package.cache_path', $this->sandbox.'/storage/framework/cache');
 
         $this->service()->clearThirdPartyCache('some-package.cache_path');
 
-        self::assertFileDoesNotExist($this->sandbox . '/storage/framework/cache/blob.php');
+        self::assertFileDoesNotExist($this->sandbox.'/storage/framework/cache/blob.php');
         self::assertDirectoryExists(
-            $this->sandbox . '/storage/framework/cache',
+            $this->sandbox.'/storage/framework/cache',
             'The directory itself should be preserved — only its contents go.',
         );
     }
@@ -65,12 +65,12 @@ final class ThirdPartyCacheContainmentTest extends TestCase
     public function it_refuses_a_path_outside_storage(): void
     {
         // The bug: any config key holding any path was cleared.
-        config()->set('some-package.cache_path', $this->sandbox . '/precious');
+        config()->set('some-package.cache_path', $this->sandbox.'/precious');
 
         $this->service()->clearThirdPartyCache('some-package.cache_path');
 
         self::assertFileExists(
-            $this->sandbox . '/precious/keep.txt',
+            $this->sandbox.'/precious/keep.txt',
             'A directory outside storage/ was emptied.',
         );
     }
@@ -78,11 +78,11 @@ final class ThirdPartyCacheContainmentTest extends TestCase
     #[Test]
     public function it_refuses_the_storage_root_itself(): void
     {
-        config()->set('some-package.cache_path', $this->sandbox . '/storage');
+        config()->set('some-package.cache_path', $this->sandbox.'/storage');
 
         $this->service()->clearThirdPartyCache('some-package.cache_path');
 
-        self::assertFileExists($this->sandbox . '/storage/framework/cache/blob.php');
+        self::assertFileExists($this->sandbox.'/storage/framework/cache/blob.php');
     }
 
     #[Test]
@@ -90,12 +90,12 @@ final class ThirdPartyCacheContainmentTest extends TestCase
     {
         // Following one would empty somewhere the check never approved, and no
         // legitimate cache path needs to be a link.
-        symlink($this->sandbox . '/precious', $this->sandbox . '/storage/linked');
-        config()->set('some-package.cache_path', $this->sandbox . '/storage/linked');
+        symlink($this->sandbox.'/precious', $this->sandbox.'/storage/linked');
+        config()->set('some-package.cache_path', $this->sandbox.'/storage/linked');
 
         $this->service()->clearThirdPartyCache('some-package.cache_path');
 
-        self::assertFileExists($this->sandbox . '/precious/keep.txt');
+        self::assertFileExists($this->sandbox.'/precious/keep.txt');
     }
 
     #[Test]
@@ -103,7 +103,7 @@ final class ThirdPartyCacheContainmentTest extends TestCase
     {
         $this->service()->clearThirdPartyCache('nothing.configured.here');
 
-        self::assertFileExists($this->sandbox . '/storage/framework/cache/blob.php');
+        self::assertFileExists($this->sandbox.'/storage/framework/cache/blob.php');
     }
 
     #[Test]
@@ -111,13 +111,13 @@ final class ThirdPartyCacheContainmentTest extends TestCase
     {
         // purifier and debugbar are the two real callers, and both point
         // inside storage/ — the containment rule must not break them.
-        File::ensureDirectoryExists($this->sandbox . '/storage/purifier');
-        File::put($this->sandbox . '/storage/purifier/x.php', 'x');
-        config()->set('purifier.cachePath', $this->sandbox . '/storage/purifier');
+        File::ensureDirectoryExists($this->sandbox.'/storage/purifier');
+        File::put($this->sandbox.'/storage/purifier/x.php', 'x');
+        config()->set('purifier.cachePath', $this->sandbox.'/storage/purifier');
 
         $this->service()->clearPurifier();
 
-        self::assertFileDoesNotExist($this->sandbox . '/storage/purifier/x.php');
+        self::assertFileDoesNotExist($this->sandbox.'/storage/purifier/x.php');
     }
 
     private function service(): CacheService

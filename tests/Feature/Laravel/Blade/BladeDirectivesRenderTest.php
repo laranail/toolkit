@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Laravel\Blade;
 
-use stdClass;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use stdClass;
 
 #[Group('blade')]
 class BladeDirectivesRenderTest extends TestCase
@@ -83,7 +83,7 @@ class BladeDirectivesRenderTest extends TestCase
 
     public function test_base64image_directive_inlines_a_file(): void
     {
-        $path = sys_get_temp_dir() . '/laranail-blade-' . uniqid() . '.png';
+        $path = sys_get_temp_dir().'/laranail-blade-'.uniqid().'.png';
         file_put_contents($path, 'PNGDATA');
 
         try {

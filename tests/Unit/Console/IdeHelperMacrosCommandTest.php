@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use ReflectionClass;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Carbon\FactoryImmutable;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Stringable;
 use Illuminate\Contracts\Console\Kernel;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
+use ReflectionClass;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * Exercises the ide-helper-macros generator: it must register under the org
@@ -31,7 +31,7 @@ class IdeHelperMacrosCommandTest extends TestCase
     {
         parent::setUp();
 
-        $this->output = sys_get_temp_dir() . '/laranail_ide_helper_' . uniqid() . '.php';
+        $this->output = sys_get_temp_dir().'/laranail_ide_helper_'.uniqid().'.php';
     }
 
     protected function tearDown(): void
@@ -124,22 +124,21 @@ class IdeHelperMacrosCommandTest extends TestCase
     private function targets(): array
     {
         return [
-            'Str'             => ['class' => Str::class, 'macros' => $this->macroReader(Str::class, 'macros')],
-            'Stringable'      => ['class' => Stringable::class, 'macros' => $this->macroReader(Stringable::class, 'macros')],
-            'Collection'      => ['class' => Collection::class, 'macros' => $this->macroReader(Collection::class, 'macros')],
-            'Arr'             => ['class' => Arr::class, 'macros' => $this->macroReader(Arr::class, 'macros')],
-            'QueryBuilder'    => ['class' => QueryBuilder::class, 'macros' => $this->macroReader(QueryBuilder::class, 'macros')],
+            'Str' => ['class' => Str::class, 'macros' => $this->macroReader(Str::class, 'macros')],
+            'Stringable' => ['class' => Stringable::class, 'macros' => $this->macroReader(Stringable::class, 'macros')],
+            'Collection' => ['class' => Collection::class, 'macros' => $this->macroReader(Collection::class, 'macros')],
+            'Arr' => ['class' => Arr::class, 'macros' => $this->macroReader(Arr::class, 'macros')],
+            'QueryBuilder' => ['class' => QueryBuilder::class, 'macros' => $this->macroReader(QueryBuilder::class, 'macros')],
             'EloquentBuilder' => ['class' => EloquentBuilder::class, 'macros' => $this->macroReader(EloquentBuilder::class, 'macros')],
-            'Request'         => ['class' => Request::class, 'macros' => $this->macroReader(Request::class, 'macros')],
-            'Carbon'          => ['class' => Carbon::class, 'macros' => fn (): array => array_keys(
+            'Request' => ['class' => Request::class, 'macros' => $this->macroReader(Request::class, 'macros')],
+            'Carbon' => ['class' => Carbon::class, 'macros' => fn (): array => array_keys(
                 FactoryImmutable::getDefaultInstance()->getSettings()['macros'] ?? [],
             )],
         ];
     }
 
     /**
-     * @param class-string $class
-     *
+     * @param  class-string  $class
      * @return callable(): list<string>
      */
     private function macroReader(string $class, string $property): callable
@@ -159,8 +158,7 @@ class IdeHelperMacrosCommandTest extends TestCase
      * Extract the `@method` names declared on a given stub class (textual parse,
      * matching the committed-stub drift test).
      *
-     * @param class-string $class
-     *
+     * @param  class-string  $class
      * @return list<string>
      */
     private function stubMethodsFor(string $contents, string $class): array
@@ -168,13 +166,13 @@ class IdeHelperMacrosCommandTest extends TestCase
         $namespace = trim(substr($class, 0, (int) strrpos($class, '\\')), '\\');
         $shortName = substr($class, (int) strrpos($class, '\\') + 1);
 
-        $nsPattern = '/namespace\s+' . preg_quote($namespace, '/') . '\s*\{(.*?)\n\}/s';
+        $nsPattern = '/namespace\s+'.preg_quote($namespace, '/').'\s*\{(.*?)\n\}/s';
 
         if (preg_match($nsPattern, $contents, $nsMatch) !== 1) {
             return [];
         }
 
-        $classPattern = '#/\*\*((?:(?!\*/).)*)\*/\s*class\s+' . preg_quote($shortName, '#') . '\s*\{\}#s';
+        $classPattern = '#/\*\*((?:(?!\*/).)*)\*/\s*class\s+'.preg_quote($shortName, '#').'\s*\{\}#s';
 
         if (preg_match($classPattern, $nsMatch[1], $classMatch) !== 1) {
             return [];

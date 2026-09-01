@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Modules\Eventing;
 
-use Illuminate\Support\Facades\Event;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Support\Facades\Event;
 use Simtabi\Laranail\Toolkit\Enums\CacheAction;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\Event as BaseEvent;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class CacheEventsTest extends TestCase
 {

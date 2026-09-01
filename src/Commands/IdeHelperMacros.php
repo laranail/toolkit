@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Commands;
 
-use Closure;
-use ReflectionType;
-use ReflectionClass;
-use ReflectionMethod;
-use ReflectionFunction;
-use ReflectionException;
-use ReflectionNamedType;
-use ReflectionParameter;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Carbon\FactoryImmutable;
+use Closure;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Http\Request;
+use Illuminate\Routing\ResponseFactory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Stringable;
 use Illuminate\Support\Facades\File;
-use Illuminate\Routing\ResponseFactory;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionFunction;
+use ReflectionMethod;
+use ReflectionNamedType;
+use ReflectionParameter;
+use ReflectionType;
 use Simtabi\Laranail\Console\Tools\Commands\Command;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Simtabi\Laranail\Console\Tools\Commands\Concerns\SupportsNamespacedNames;
 
 /**
@@ -52,14 +52,14 @@ class IdeHelperMacros extends Command
      * @var array<string, array{class: class-string, static: bool}>
      */
     private const TARGETS = [
-        'Str'             => ['class' => Str::class, 'static' => true],
-        'Stringable'      => ['class' => Stringable::class, 'static' => false],
-        'Collection'      => ['class' => Collection::class, 'static' => false],
-        'Arr'             => ['class' => Arr::class, 'static' => true],
-        'Carbon'          => ['class' => Carbon::class, 'static' => false],
-        'QueryBuilder'    => ['class' => QueryBuilder::class, 'static' => false],
+        'Str' => ['class' => Str::class, 'static' => true],
+        'Stringable' => ['class' => Stringable::class, 'static' => false],
+        'Collection' => ['class' => Collection::class, 'static' => false],
+        'Arr' => ['class' => Arr::class, 'static' => true],
+        'Carbon' => ['class' => Carbon::class, 'static' => false],
+        'QueryBuilder' => ['class' => QueryBuilder::class, 'static' => false],
         'EloquentBuilder' => ['class' => EloquentBuilder::class, 'static' => false],
-        'Request'         => ['class' => Request::class, 'static' => false],
+        'Request' => ['class' => Request::class, 'static' => false],
         'ResponseFactory' => ['class' => ResponseFactory::class, 'static' => false],
     ];
 
@@ -94,9 +94,9 @@ class IdeHelperMacros extends Command
         $byteCount = strlen($contents);
 
         $this->services->metadata()->addMany([
-            'path'   => $path,
+            'path' => $path,
             'macros' => $macroCount,
-            'bytes'  => $byteCount,
+            'bytes' => $byteCount,
         ]);
 
         // Structured completion record: how many macros were documented and the
@@ -104,7 +104,7 @@ class IdeHelperMacros extends Command
         $this->services->logger()->logCompletion(self::SUCCESS, [
             'execution_time' => $performance->getFormattedExecutionTime(),
         ], [
-            'macros'    => $macroCount,
+            'macros' => $macroCount,
             'stub_size' => $this->services->display()->formatBytes($byteCount),
         ]);
 
@@ -183,14 +183,14 @@ class IdeHelperMacros extends Command
             $blocks[] = sprintf("namespace %s {\n%s\n}", $namespace, implode("\n\n", $classBlocks));
         }
 
-        return $this->header() . implode("\n\n", $blocks) . "\n";
+        return $this->header().implode("\n\n", $blocks)."\n";
     }
 
     /**
      * Render a single re-declared class block (docblock + empty class body) for a
      * macro target, to be wrapped in its namespace block by {@see buildStub()}.
      *
-     * @param class-string $class
+     * @param  class-string  $class
      */
     private function renderClassBlock(string $label, string $class, bool $static): ?string
     {
@@ -240,8 +240,7 @@ class IdeHelperMacros extends Command
      * factory's settings. All are read here so the stub mirrors what is really
      * registered at boot.
      *
-     * @param class-string $class
-     *
+     * @param  class-string  $class
      * @return array<string, callable>
      */
     private function macrosFor(string $label, string $class): array
@@ -262,8 +261,7 @@ class IdeHelperMacros extends Command
     /**
      * Read a static macro map off a class via reflection.
      *
-     * @param class-string $class
-     *
+     * @param  class-string  $class
      * @return array<string, callable>
      */
     private function readStaticMacros(string $class, string $property): array
@@ -284,13 +282,13 @@ class IdeHelperMacros extends Command
      * Render a single `@method` tag for a macro, deriving its signature from the
      * macro callable's reflection.
      *
-     * @param class-string $target
+     * @param  class-string  $target
      */
     private function renderMethodTag(string $name, callable $macro, string $target, bool $static): string
     {
         $function = $this->reflectMacro($macro);
 
-        $returnType = $static ? 'mixed' : '\\' . ltrim($target, '\\');
+        $returnType = $static ? 'mixed' : '\\'.ltrim($target, '\\');
         if ($function instanceof ReflectionFunction || $function instanceof ReflectionMethod) {
             $resolved = $this->stringifyType($function->getReturnType());
             if ($resolved !== null) {
@@ -335,7 +333,7 @@ class IdeHelperMacros extends Command
     /**
      * Render a parameter list for a `@method` tag.
      *
-     * @param list<ReflectionParameter> $parameters
+     * @param  list<ReflectionParameter>  $parameters
      */
     private function renderParameters(array $parameters): string
     {
@@ -346,17 +344,17 @@ class IdeHelperMacros extends Command
 
             $type = $this->stringifyType($parameter->getType());
             if ($type !== null) {
-                $segment .= $type . ' ';
+                $segment .= $type.' ';
             }
 
             if ($parameter->isVariadic()) {
                 $segment .= '...';
             }
 
-            $segment .= '$' . $parameter->getName();
+            $segment .= '$'.$parameter->getName();
 
             if ($parameter->isOptional() && ! $parameter->isVariadic()) {
-                $segment .= ' = ' . $this->renderDefault($parameter);
+                $segment .= ' = '.$this->renderDefault($parameter);
             }
 
             $rendered[] = $segment;
@@ -377,13 +375,13 @@ class IdeHelperMacros extends Command
         }
 
         return match (true) {
-            $default === null                    => 'null',
-            $default === true                    => 'true',
-            $default === false                   => 'false',
-            is_string($default)                  => var_export($default, true),
-            is_array($default)                   => '[]',
+            $default === null => 'null',
+            $default === true => 'true',
+            $default === false => 'false',
+            is_string($default) => var_export($default, true),
+            is_array($default) => '[]',
             is_int($default), is_float($default) => (string) $default,
-            default                              => 'null',
+            default => 'null',
         };
     }
 
@@ -402,11 +400,11 @@ class IdeHelperMacros extends Command
         $prefix = ! $type->isBuiltin() && $name !== 'self' && $name !== 'static' ? '\\' : '';
         $nullable = $type->allowsNull() && $name !== 'mixed' && $name !== 'null' ? '?' : '';
 
-        return $nullable . $prefix . $name;
+        return $nullable.$prefix.$name;
     }
 
     /**
-     * @param class-string $class
+     * @param  class-string  $class
      */
     private function namespaceOf(string $class): string
     {
@@ -416,7 +414,7 @@ class IdeHelperMacros extends Command
     }
 
     /**
-     * @param class-string $class
+     * @param  class-string  $class
      */
     private function shortNameOf(string $class): string
     {
@@ -463,6 +461,6 @@ class IdeHelperMacros extends Command
             '',
         ];
 
-        return implode("\n", $lines) . "\n";
+        return implode("\n", $lines)."\n";
     }
 }

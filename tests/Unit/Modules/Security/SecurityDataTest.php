@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 
-use RuntimeException;
-use ReflectionProperty;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use ReflectionProperty;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 #[Group('security')]
 class SecurityDataTest extends TestCase

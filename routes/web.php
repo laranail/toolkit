@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'tidy', 'as' => 'tidy.', 'middleware' => ['web']], function () {
 

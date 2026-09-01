@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Observers;
 
 use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Observers\Observer;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * Bare Eloquent model used as the observed subject.

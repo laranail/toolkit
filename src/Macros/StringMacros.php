@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Macros;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\HtmlString;
-use Illuminate\Support\Stringable;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
@@ -75,10 +75,10 @@ final class StringMacros extends ServiceProvider
             // that fits. (`-0` would otherwise make Str::substr return the whole
             // string, producing output longer than the input.)
             if ($halfLength < 1) {
-                return Str::substr($string, 0, $length - $middleLength) . $middle;
+                return Str::substr($string, 0, $length - $middleLength).$middle;
             }
 
-            return Str::substr($string, 0, $halfLength) . $middle . Str::substr($string, -$halfLength);
+            return Str::substr($string, 0, $halfLength).$middle.Str::substr($string, -$halfLength);
         });
 
         Str::macro('isEmail', fn (string $string): bool => filter_var($string, FILTER_VALIDATE_EMAIL) !== false);
@@ -93,7 +93,7 @@ final class StringMacros extends ServiceProvider
             return in_array($string, ['1', 'true', 'yes', 'on'], true);
         });
 
-        Str::macro('wrapWith', fn (string $string, string $wrapper = '"'): string => $wrapper . $string . $wrapper);
+        Str::macro('wrapWith', fn (string $string, string $wrapper = '"'): string => $wrapper.$string.$wrapper);
 
         Str::macro('replaceMany', function (string $string, array $replacements): string {
             foreach ($replacements as $search => $replace) {
@@ -143,10 +143,10 @@ final class StringMacros extends ServiceProvider
 
             // Match against the already-escaped haystack using escaped needles so
             // terms containing HTML-special chars (", &, <, >) still highlight.
-            $pattern = '/(' . implode('|', array_map(
+            $pattern = '/('.implode('|', array_map(
                 static fn (string $term): string => preg_quote(e($term), '/'),
                 $terms,
-            )) . ')/iu';
+            )).')/iu';
 
             $highlighted = preg_replace($pattern, '<mark>$1</mark>', $escaped);
 
@@ -180,7 +180,7 @@ final class StringMacros extends ServiceProvider
             usort($keys, static fn (mixed $a, mixed $b): int => strlen((string) $b) <=> strlen((string) $a));
 
             foreach ($keys as $key) {
-                $string = str_replace(':' . $key, Cast::toString($replacements[$key]), $string);
+                $string = str_replace(':'.$key, Cast::toString($replacements[$key]), $string);
             }
 
             return $string;

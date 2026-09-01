@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\LLM\Gemini;
 
-use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Http;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\RetriesHttpRequests;
-use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
 final class GeminiProvider implements LLMProviderInterface
 {
@@ -40,7 +40,7 @@ final class GeminiProvider implements LLMProviderInterface
         bool $fullResponse = false,
     ): GeminiResponse {
         // Auth via header, never as a query param (which would leak into logs/proxies).
-        $endpoint = $this->baseUrl . '/models/' . $modelName . ':generateContent';
+        $endpoint = $this->baseUrl.'/models/'.$modelName.':generateContent';
 
         [$contents, $systemInstruction] = $this->mapMessages($messages);
 
@@ -72,11 +72,11 @@ final class GeminiProvider implements LLMProviderInterface
         return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse, $modelName) {
             try {
                 $response = Http::withHeaders([
-                    'Content-Type'   => 'application/json',
+                    'Content-Type' => 'application/json',
                     'x-goog-api-key' => $this->apiKey,
                 ])->post($endpoint, $payload);
             } catch (ConnectionException $e) {
-                throw new LLMRequestException('Gemini API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
+                throw new LLMRequestException('Gemini API connection failed: '.$e->getMessage(), retryable: true, previous: $e);
             }
 
             if (! $response->successful()) {
@@ -122,8 +122,7 @@ final class GeminiProvider implements LLMProviderInterface
      * Map chat messages to Gemini `contents`, hoisting any system messages into
      * a `systemInstruction` payload (Gemini only accepts user/model roles).
      *
-     * @param array<int, array<string, mixed>> $messages
-     *
+     * @param  array<int, array<string, mixed>>  $messages
      * @return array{0: array<int, array<string, mixed>>, 1: array<string, mixed>|null}
      */
     private function mapMessages(array $messages): array
@@ -149,7 +148,7 @@ final class GeminiProvider implements LLMProviderInterface
             }
 
             $contents[] = [
-                'role'  => $role,
+                'role' => $role,
                 'parts' => [['text' => $text]],
             ];
         }

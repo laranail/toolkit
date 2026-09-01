@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Throwable;
-use Psr\Log\LoggerInterface;
 use Illuminate\Log\LogManager;
+use Psr\Log\LoggerInterface;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
-use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Throwable;
 
 /**
  * Thin, injectable logging helper that enriches every record with a timestamp
@@ -26,20 +26,20 @@ class LogService implements LoggerServiceInterface
     ) {}
 
     /**
-     * @param array<string, mixed> $context
+     * @param  array<string, mixed>  $context
      */
     public function log(LogLevel $level, string $message, array $context = [], ?string $channel = null): void
     {
         $context += [
             'timestamp' => now()->toDateTimeString(),
-            'env'       => ToolkitConfig::string('app.env'),
+            'env' => ToolkitConfig::string('app.env'),
         ];
 
         $this->logger($channel)->log($level->value, $message, $context);
     }
 
     /**
-     * @param array<string, mixed> $context
+     * @param  array<string, mixed>  $context
      */
     public function info(string $message, array $context = [], ?string $channel = null): void
     {
@@ -47,7 +47,7 @@ class LogService implements LoggerServiceInterface
     }
 
     /**
-     * @param array<string, mixed> $context
+     * @param  array<string, mixed>  $context
      */
     public function debug(string $message, array $context = [], ?string $channel = null): void
     {
@@ -55,7 +55,7 @@ class LogService implements LoggerServiceInterface
     }
 
     /**
-     * @param array<string, mixed> $context
+     * @param  array<string, mixed>  $context
      */
     public function warning(string $message, array $context = [], ?string $channel = null): void
     {
@@ -63,7 +63,7 @@ class LogService implements LoggerServiceInterface
     }
 
     /**
-     * @param array<string, mixed> $context
+     * @param  array<string, mixed>  $context
      */
     public function error(string $message, array $context = [], ?string $channel = null): void
     {
@@ -71,7 +71,7 @@ class LogService implements LoggerServiceInterface
     }
 
     /**
-     * @param array<string, mixed> $context
+     * @param  array<string, mixed>  $context
      */
     public function critical(string $message, array $context = [], ?string $channel = null): void
     {
@@ -86,8 +86,8 @@ class LogService implements LoggerServiceInterface
     {
         $this->error($e->getMessage(), [
             'exception' => $e::class,
-            'file'      => $e->getFile(),
-            'line'      => $e->getLine(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
         ], $channel);
     }
 

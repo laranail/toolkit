@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Helpers;
 
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class HelperFilesTest extends TestCase
 {
@@ -66,7 +66,7 @@ class HelperFilesTest extends TestCase
 
     public function test_probes_are_exception_safe_for_missing_files(): void
     {
-        $missing = sys_get_temp_dir() . '/laranail-does-not-exist-' . uniqid() . '.txt';
+        $missing = sys_get_temp_dir().'/laranail-does-not-exist-'.uniqid().'.txt';
 
         $this->assertFalse($this->files->exists($missing));
         $this->assertSame(0, $this->files->size($missing));
@@ -141,7 +141,7 @@ class HelperFilesTest extends TestCase
 
     public function test_to_data_uri_returns_empty_for_missing_or_unsafe_paths(): void
     {
-        $this->assertSame('', $this->files->toDataUri(sys_get_temp_dir() . '/laranail-missing-' . uniqid()));
+        $this->assertSame('', $this->files->toDataUri(sys_get_temp_dir().'/laranail-missing-'.uniqid()));
         $this->assertSame('', $this->files->toDataUri('../../etc/passwd'));
     }
 
@@ -167,7 +167,7 @@ class HelperFilesTest extends TestCase
 
     private function tempFile(string $contents, string $suffix = '.txt'): string
     {
-        $path = sys_get_temp_dir() . '/laranail-helper-' . uniqid() . $suffix;
+        $path = sys_get_temp_dir().'/laranail-helper-'.uniqid().$suffix;
         file_put_contents($path, $contents);
 
         return $path;

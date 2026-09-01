@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
 use Illuminate\Support\Facades\Log;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * The config-driven path (`fromConfig()`/`usingConfig()`) reading the
@@ -18,7 +18,7 @@ class RuntimeConfiguratorConfigTest extends TestCase
     public function test_using_config_applies_defaults_and_skips_nulls(): void
     {
         config()->set('laranail.toolkit.runtime.defaults', [
-            'memory_limit'       => '321M',
+            'memory_limit' => '321M',
             'max_execution_time' => null,
         ]);
         config()->set('laranail.toolkit.runtime.default_profile', null);

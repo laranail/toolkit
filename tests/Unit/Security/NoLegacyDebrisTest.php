@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Security;
 
-use SplFileInfo;
 use FilesystemIterator;
-use RecursiveIteratorIterator;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;
-use PHPUnit\Framework\Attributes\Group;
+use RecursiveIteratorIterator;
+use SplFileInfo;
 
 /**
  * Guards against the pre-rename `LaraUtilX` / Omar Chouman authorship debris
@@ -36,12 +36,12 @@ class NoLegacyDebrisTest extends TestCase
 
         $files = [];
         foreach ($rootFiles as $f) {
-            if (is_file($root . '/' . $f)) {
-                $files[] = $root . '/' . $f;
+            if (is_file($root.'/'.$f)) {
+                $files[] = $root.'/'.$f;
             }
         }
         foreach ($scan as $dir) {
-            $path = $root . '/' . $dir;
+            $path = $root.'/'.$dir;
             if (! is_dir($path)) {
                 continue;
             }
@@ -59,11 +59,11 @@ class NoLegacyDebrisTest extends TestCase
             $contents = (string) file_get_contents($path);
             foreach (self::DEBRIS as $token) {
                 if (stripos($contents, $token) !== false) {
-                    $offenders[] = $token . ' in ' . $path;
+                    $offenders[] = $token.' in '.$path;
                 }
             }
         }
 
-        $this->assertSame([], $offenders, "Legacy debris found:\n" . implode("\n", $offenders));
+        $this->assertSame([], $offenders, "Legacy debris found:\n".implode("\n", $offenders));
     }
 }

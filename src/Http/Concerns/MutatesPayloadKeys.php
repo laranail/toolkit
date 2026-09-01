@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Http\Concerns;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 
 /**
@@ -27,9 +27,8 @@ trait MutatesPayloadKeys
     /**
      * Recursively rewrite every key of the payload using the given transformer.
      *
-     * @param array<array-key, mixed> $data
-     * @param callable(string): string $transform
-     *
+     * @param  array<array-key, mixed>  $data
+     * @param  callable(string): string  $transform
      * @return array<array-key, mixed>
      */
     protected function mutatePayloadKeys(array $data, callable $transform): array
@@ -57,8 +56,7 @@ trait MutatesPayloadKeys
     /**
      * Recursively convert all string keys to camelCase.
      *
-     * @param array<array-key, mixed> $data
-     *
+     * @param  array<array-key, mixed>  $data
      * @return array<array-key, mixed>
      */
     protected function camelCaseKeys(array $data): array
@@ -69,8 +67,7 @@ trait MutatesPayloadKeys
     /**
      * Recursively convert all string keys to snake_case.
      *
-     * @param array<array-key, mixed> $data
-     *
+     * @param  array<array-key, mixed>  $data
      * @return array<array-key, mixed>
      */
     protected function snakeCaseKeys(array $data): array

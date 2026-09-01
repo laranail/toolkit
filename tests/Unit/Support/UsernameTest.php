@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
-use RuntimeException;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Support\Username;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class UsernameTest extends TestCase
 {

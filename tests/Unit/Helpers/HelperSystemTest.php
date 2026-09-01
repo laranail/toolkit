@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Helpers;
 
 use Illuminate\Http\Request;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class HelperSystemTest extends TestCase
 {
@@ -88,8 +88,8 @@ class HelperSystemTest extends TestCase
 
         try {
             file_put_contents($path, (string) json_encode([
-                'name'        => 'acme/app',
-                'require'     => ['laravel/framework' => '^13.0'],
+                'name' => 'acme/app',
+                'require' => ['laravel/framework' => '^13.0'],
                 'require-dev' => ['phpunit/phpunit' => '^11.0'],
             ]));
 

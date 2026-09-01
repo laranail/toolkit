@@ -27,7 +27,7 @@ final class WithoutBaseUrlMacroTest extends TestCase
         // url('') is the current request root, which is not app.url behind a
         // proxy or on a secondary domain. Stripping only one leaves the other's
         // URLs absolute.
-        self::assertSame('/a.png', Str::withoutBaseUrl(url('') . '/a.png'));
+        self::assertSame('/a.png', Str::withoutBaseUrl(url('').'/a.png'));
     }
 
     public function test_another_hosts_url_is_left_alone(): void

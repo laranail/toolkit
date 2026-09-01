@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 
-use LogicException;
 use InvalidArgumentException;
+use LogicException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Modules\Security\Token;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class TokenTest extends TestCase
 {
@@ -84,7 +84,7 @@ class TokenTest extends TestCase
         $builder = Token::signed('s3cr3t')->encoding('hex')->length(32);
         $token = $builder->generate();
 
-        $this->assertFalse($builder->verify($token . 'x'));
+        $this->assertFalse($builder->verify($token.'x'));
         $this->assertFalse($builder->verify(substr($token, 0, -1)));
     }
 
@@ -178,9 +178,9 @@ class TokenTest extends TestCase
         // signing contract: signedBody = prefix . encoded . pastExpiry, MAC over it.
         $body = bin2hex(random_bytes(16));
         $pastExpiry = (string) (time() - 1);
-        $signedBody = $body . '.' . $pastExpiry;
+        $signedBody = $body.'.'.$pastExpiry;
         $mac = rtrim(strtr(base64_encode(hash_hmac('sha256', $signedBody, $secret, true)), '+/', '-_'), '=');
-        $expired = $signedBody . '.' . $mac;
+        $expired = $signedBody.'.'.$mac;
 
         // The MAC is valid (so it passes hash_equals) but the expiry is in the past.
         $this->assertFalse($builder->verify($expired));
@@ -223,9 +223,9 @@ class TokenTest extends TestCase
         // Hand-build an already-expired but validly-signed token.
         $body = bin2hex(random_bytes(16));
         $pastExpiry = (string) (time() - 1);
-        $signedBody = $body . '.' . $pastExpiry;
+        $signedBody = $body.'.'.$pastExpiry;
         $mac = rtrim(strtr(base64_encode(hash_hmac('sha256', $signedBody, $secret, true)), '+/', '-_'), '=');
-        $expired = $signedBody . '.' . $mac;
+        $expired = $signedBody.'.'.$mac;
 
         // A verifier that did NOT set expiresIn() must still honour the token's
         // own embedded expiry.

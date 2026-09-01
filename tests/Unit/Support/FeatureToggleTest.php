@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
-use stdClass;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Support\FeatureToggle;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use stdClass;
 
 class FeatureToggleTest extends TestCase
 {

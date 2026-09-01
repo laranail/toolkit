@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver;
 
-use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\GuardsArchivePaths;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class GuardHarness
 {
@@ -38,10 +38,10 @@ class GuardsArchivePathsTest extends TestCase
     public static function maliciousEntries(): array
     {
         return [
-            'parent traversal'    => ['../evil.txt'],
-            'deep traversal'      => ['a/b/../../../evil.txt'],
-            'absolute unix'       => ['/etc/passwd'],
-            'windows drive'       => ['C:\\Windows\\system32'],
+            'parent traversal' => ['../evil.txt'],
+            'deep traversal' => ['a/b/../../../evil.txt'],
+            'absolute unix' => ['/etc/passwd'],
+            'windows drive' => ['C:\\Windows\\system32'],
             'backslash traversal' => ['..\\evil.txt'],
         ];
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Traits;
 
+use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\HasGuzzleConfig;
-use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 
 /**
  * Test double exposing the protected {@see HasGuzzleConfig::httpConfig()}.

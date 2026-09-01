@@ -4,64 +4,64 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Providers;
 
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
+use Psr\Log\LoggerInterface;
+use Simtabi\Laranail\Toolkit\Commands\IdeHelperMacros;
+use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 use Simtabi\Laranail\Toolkit\Commands\Tidy;
 use Simtabi\Laranail\Toolkit\Helpers\Helper;
-use Simtabi\Laranail\Toolkit\ToolkitManager;
-use Illuminate\Foundation\Console\AboutCommand;
-use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
-use Simtabi\Laranail\Toolkit\Services\LogService;
-use Simtabi\Laranail\Toolkit\Services\FileService;
-use Simtabi\Laranail\Toolkit\Services\CacheService;
-use Simtabi\Laranail\Toolkit\Services\ModelService;
-use Simtabi\Laranail\Toolkit\Services\RouteService;
-use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
-use Simtabi\Laranail\Toolkit\Services\SettingsStore;
-use Simtabi\Laranail\Toolkit\Services\SystemService;
-use Simtabi\Laranail\Toolkit\Services\SessionService;
-use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
-use Simtabi\Laranail\Toolkit\Commands\IdeHelperMacros;
-use Simtabi\Laranail\Toolkit\Services\SchedulerService;
-use Simtabi\Laranail\Toolkit\Services\ValidationService;
-use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
-use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
-use Simtabi\Laranail\Toolkit\Services\RateLimiterService;
-use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
-use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
-use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
-use Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
-use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiRequestMiddleware;
-use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLog;
 use Simtabi\Laranail\Toolkit\Http\Middleware\ApiResponseMiddleware;
-use Simtabi\Laranail\Toolkit\Macros\Providers\MacroServiceProvider;
-use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
-use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\LLM\Providers\LLMServiceProvider;
-use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware;
+use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
+use Simtabi\Laranail\Toolkit\Macros\Providers\MacroServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Providers\ArchiverServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Eventing\Events\CacheEvents;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Listeners\LogCacheEvents;
+use Simtabi\Laranail\Toolkit\Modules\Livewire\Providers\LivewireServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\LLM\Providers\LLMServiceProvider;
+use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLog;
+use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLogMiddleware;
+use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
+use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
+use Simtabi\Laranail\Toolkit\Services\CacheService;
+use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\ValidationServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLogMiddleware;
-use Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\ErrorStorageServiceInterface;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Providers\ArchiverServiceProvider;
-use Simtabi\Laranail\Toolkit\Modules\Livewire\Providers\LivewireServiceProvider;
-use Simtabi\Laranail\Toolkit\Services\Contracts\HttpConfigurationServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInterface;
+use Simtabi\Laranail\Toolkit\Services\ErrorStorageService;
+use Simtabi\Laranail\Toolkit\Services\FileService;
+use Simtabi\Laranail\Toolkit\Services\HttpConfigurationService;
+use Simtabi\Laranail\Toolkit\Services\LogService;
+use Simtabi\Laranail\Toolkit\Services\ModelService;
+use Simtabi\Laranail\Toolkit\Services\RateLimiterService;
+use Simtabi\Laranail\Toolkit\Services\RouteService;
+use Simtabi\Laranail\Toolkit\Services\SchedulerService;
+use Simtabi\Laranail\Toolkit\Services\SessionService;
+use Simtabi\Laranail\Toolkit\Services\SettingsStore;
+use Simtabi\Laranail\Toolkit\Services\SystemService;
+use Simtabi\Laranail\Toolkit\Services\ValidationService;
+use Simtabi\Laranail\Toolkit\Support\Config as ToolkitConfig;
+use Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics;
+use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
+use Simtabi\Laranail\Toolkit\ToolkitManager;
+use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
+use Simtabi\Laranail\Toolkit\Traits\FileProcessingTrait;
 
 /**
  * The toolkit's single, self-contained service provider.
@@ -119,9 +119,9 @@ class ToolkitServiceProvider extends ServiceProvider
      * @var array<string, class-string>
      */
     private const array MIDDLEWARE_ALIASES = [
-        'laranail-toolkit.access-log'      => AccessLogMiddleware::class,
-        'laranail-toolkit.api-request'     => ApiRequestMiddleware::class,
-        'laranail-toolkit.api-response'    => ApiResponseMiddleware::class,
+        'laranail-toolkit.access-log' => AccessLogMiddleware::class,
+        'laranail-toolkit.api-request' => ApiRequestMiddleware::class,
+        'laranail-toolkit.api-response' => ApiResponseMiddleware::class,
         'laranail-toolkit.email-obfuscate' => EmailObfuscatorMiddleware::class,
     ];
 
@@ -297,7 +297,7 @@ class ToolkitServiceProvider extends ServiceProvider
     {
         $configPublishes = [];
         foreach (self::CONFIG_FILES as $file) {
-            $dest = config_path(str_replace('.', '/', $this->configKey($file)) . '.php');
+            $dest = config_path(str_replace('.', '/', $this->configKey($file)).'.php');
             $configPublishes["{$root}/config/{$file}.php"] = $dest;
         }
         $this->publishes($configPublishes, 'laranail::toolkit-config');
@@ -346,7 +346,7 @@ class ToolkitServiceProvider extends ServiceProvider
             return;
         }
 
-        $published = config_path(str_replace('.', '/', $key) . '.php');
+        $published = config_path(str_replace('.', '/', $key).'.php');
         if (! is_file($published)) {
             return;
         }
@@ -380,7 +380,7 @@ class ToolkitServiceProvider extends ServiceProvider
      * injectable — let the container autowire its LogManager); the rest are
      * fresh-instance binds.
      *
-     * @param list<class-string> $classes
+     * @param  list<class-string>  $classes
      */
     private function loadServiceClasses(array $classes): void
     {

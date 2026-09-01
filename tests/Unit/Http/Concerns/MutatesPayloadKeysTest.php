@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http\Concerns;
 
 use Illuminate\Http\Request;
-use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Illuminate\Http\Resources\Json\JsonResource;
+use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Http\Concerns\MutatesPayloadKeys;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * Exposes the protected concern methods so they can be exercised in isolation.
@@ -18,9 +18,8 @@ class PayloadKeyMutator
     use MutatesPayloadKeys;
 
     /**
-     * @param array<array-key, mixed> $data
-     * @param callable(string): string $transform
-     *
+     * @param  array<array-key, mixed>  $data
+     * @param  callable(string): string  $transform
      * @return array<array-key, mixed>
      */
     public function mutate(array $data, callable $transform): array
@@ -29,8 +28,7 @@ class PayloadKeyMutator
     }
 
     /**
-     * @param array<array-key, mixed> $data
-     *
+     * @param  array<array-key, mixed>  $data
      * @return array<array-key, mixed>
      */
     public function camel(array $data): array
@@ -39,8 +37,7 @@ class PayloadKeyMutator
     }
 
     /**
-     * @param array<array-key, mixed> $data
-     *
+     * @param  array<array-key, mixed>  $data
      * @return array<array-key, mixed>
      */
     public function snake(array $data): array
@@ -57,7 +54,7 @@ class MutatesPayloadKeysTest extends TestCase
         $mutator = new PayloadKeyMutator;
 
         $result = $mutator->camel([
-            'first_name'  => 'Jane',
+            'first_name' => 'Jane',
             'nested_data' => ['inner_key' => 1],
         ]);
 
@@ -72,7 +69,7 @@ class MutatesPayloadKeysTest extends TestCase
         $mutator = new PayloadKeyMutator;
 
         $result = $mutator->snake([
-            'firstName'  => 'Jane',
+            'firstName' => 'Jane',
             'nestedData' => ['innerKey' => 1],
         ]);
 
@@ -109,8 +106,7 @@ class MutatesPayloadKeysTest extends TestCase
         $resource = new class([]) extends JsonResource
         {
             /**
-             * @param Request $request
-             *
+             * @param  Request  $request
              * @return array<string, mixed>
              */
             public function toArray($request): array

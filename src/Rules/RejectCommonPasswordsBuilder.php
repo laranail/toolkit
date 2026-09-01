@@ -23,11 +23,11 @@ use InvalidArgumentException;
 final readonly class RejectCommonPasswordsBuilder
 {
     /**
-     * @param int $minLength Minimum length gate (0 = off).
-     * @param int $minEntropy Minimum Shannon-entropy gate in bits (0 = off).
-     * @param bool $checkHibp Enable the opt-in HIBP k-anonymity breach check.
-     * @param string|null $hibpApiKey Optional HIBP API key for the range request.
-     * @param int $minZxcvbnScore Minimum zxcvbn strength score 0–4 (0 = off).
+     * @param  int  $minLength  Minimum length gate (0 = off).
+     * @param  int  $minEntropy  Minimum Shannon-entropy gate in bits (0 = off).
+     * @param  bool  $checkHibp  Enable the opt-in HIBP k-anonymity breach check.
+     * @param  string|null  $hibpApiKey  Optional HIBP API key for the range request.
+     * @param  int  $minZxcvbnScore  Minimum zxcvbn strength score 0–4 (0 = off).
      */
     public function __construct(
         private int $minLength = 0,

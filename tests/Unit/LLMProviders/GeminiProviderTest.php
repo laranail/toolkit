@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Illuminate\Http\Client\ConnectionException;
-use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiProvider;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class GeminiProviderTest extends TestCase
 {
@@ -158,7 +158,7 @@ class GeminiProviderTest extends TestCase
     {
         Http::fake([
             '*' => Http::response([
-                'candidates'    => [['content' => ['parts' => [['text' => 'Hi from Gemini']]]]],
+                'candidates' => [['content' => ['parts' => [['text' => 'Hi from Gemini']]]]],
                 'usageMetadata' => ['totalTokenCount' => 7],
             ], 200),
         ]);

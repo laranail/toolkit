@@ -13,7 +13,7 @@ namespace Livewire;
 class Livewire
 {
     /**
-     * @param class-string|string $class
+     * @param  class-string|string  $class
      */
     public static function component(string $alias, string $class): void {}
 }
