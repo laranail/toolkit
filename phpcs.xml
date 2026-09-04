@@ -32,6 +32,17 @@
         <!-- Pint emits `new class()` (no space) for anonymous classes; this
              PSR-12 sniff wants `new class ()`. Pint owns formatting. -->
         <exclude name="PSR12.Classes.AnonClassDeclaration.SpaceAfterKeyword"/>
+        <!-- Concatenation spacing. PSR-12 wants `$a . $b`; Pint's laravel preset
+             emits `$a.$b`. Running phpcbf over this took PHPCS to 0 errors and
+             left 108 files dirty for Pint - the two cannot both be satisfied, and
+             this file's premise is that Pint wins. Measured: 876 of the 1078
+             errors were these two codes. -->
+        <exclude name="PSR12.Operators.OperatorSpacing.NoSpaceAfter"/>
+        <exclude name="PSR12.Operators.OperatorSpacing.NoSpaceBefore"/>
+        <!-- `new Foo` vs `new Foo()`. Pint's new_with_parentheses fixer owns this,
+             and the anon-class case above is already carved out for the same
+             reason. The remaining 202 errors were this one code. -->
+        <exclude name="PSR12.Classes.ClassInstantiation.MissingParentheses"/>
     </rule>
 
     <!-- Test methods follow PHPUnit's snake_case convention. -->
