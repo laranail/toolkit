@@ -466,11 +466,11 @@ final class CollectionMacrosBehaviorTest extends TestCase
 
     public function test_chunk_by_groups_while_callback_result_is_stable(): void
     {
-        $this->assertSame([[1, 1], [2, 2], [3]], collect([1, 1, 2, 2, 3])->chunkBy(static fn (int $v): int => $v)->toArray());
+        $this->assertSame([[1, 1], [2, 2], [3]], collect([1, 1, 2, 2, 3])->laranailChunkBy(static fn (int $v): int => $v)->toArray());
         $this->assertSame(
             [[['t' => 'a'], ['t' => 'a']], [['t' => 'b']]],
             collect([['t' => 'a'], ['t' => 'a'], ['t' => 'b']])
-                ->chunkBy(static fn (array $i): string => $i['t'])
+                ->laranailChunkBy(static fn (array $i): string => $i['t'])
                 ->toArray(),
         );
     }

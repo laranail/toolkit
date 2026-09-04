@@ -71,7 +71,7 @@ class MacroG6aBehaviorTest extends TestCase
         $this->assertSame([[1], [2, 4, 6], [7]], $sliced);
 
         $chunked = collect([1, 1, 2, 2, 3])
-            ->chunkBy(fn (int $item): int => $item)
+            ->laranailChunkBy(fn (int $item): int => $item)
             ->map->all()
             ->all();
         $this->assertSame([[1, 1], [2, 2], [3]], $chunked);

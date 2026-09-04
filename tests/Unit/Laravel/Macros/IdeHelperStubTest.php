@@ -158,7 +158,7 @@ class IdeHelperStubTest extends TestCase
                 'sumRecursive', 'averageBy', 'toCsv', 'prioritize', 'rotateLeft', 'rotateRight',
                 'toTree', 'insertAfter', 'insertBefore',
                 'before', 'insertAt', 'rotate', 'firstOrPush',
-                'eachCons', 'sliceBefore', 'chunkBy', 'groupByModel',
+                'eachCons', 'sliceBefore', 'laranailChunkBy', 'groupByModel',
                 'forSelectBox', 'extract', 'tail', 'toPairs', 'fromPairs', 'ifEmpty',
                 'mapKeyValuePairs', 'sortSearchResults',
                 'pluckMany', 'replaceInKeys',
