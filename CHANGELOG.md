@@ -5,6 +5,29 @@ All notable changes to `laranail/toolkit` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- **BREAKING: the `chunkBy` collection macro is now `laranailChunkBy`.** Laravel 13.30.1 added a
+  native `Collection::chunkBy()`, and a macro **never runs when a real method of that name
+  exists** — `__call` is only reached for missing methods. So the bare name silently resolved to
+  Laravel's implementation, which delegates to `chunkWhile()` and **preserves keys**, while this
+  macro re-indexes them.
+
+  | | |
+  |---|---|
+  | Was | `collect($x)->chunkBy($cb, $preserveKeys)` |
+  | Now | `collect($x)->laranailChunkBy($cb, $preserveKeys)` |
+
+  This is the hazard the vendor-scoping convention exists for: a macro name is a flat global
+  registry, and a bare one can be taken out from under you — here by the framework itself. Callers
+  wanting Laravel's semantics should use `chunkBy`, which now reaches the native method; callers
+  wanting re-indexed chunks or `$preserveKeys` need the new name.
+
+  Two tests caught this. Nothing else would have: the call kept working and quietly returned
+  differently-keyed data.
+
 ## [0.1.0] - 2026-08-15
 
 ### Changed

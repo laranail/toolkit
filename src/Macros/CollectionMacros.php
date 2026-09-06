@@ -548,7 +548,16 @@ final class CollectionMacros extends ServiceProvider
         });
 
         // Chunk while $callback's result over consecutive items stays the same.
-        Collection::macro('chunkBy', function (callable $callback, bool $preserveKeys = false): Collection {
+        // VENDOR-SCOPED ON PURPOSE. Laravel 13.30.1 added a native
+        // Collection::chunkBy(), and a macro NEVER runs when a real method of
+        // that name exists - __call is only reached for missing methods. So the
+        // bare name silently resolved to Laravel's implementation, which
+        // delegates to chunkWhile() and PRESERVES keys, while this one
+        // re-indexes. Two tests caught it; nothing else would have.
+        //
+        // Do not rename this back. A macro is a flat global registry and the
+        // bare name is upstream's now.
+        Collection::macro('laranailChunkBy', function (callable $callback, bool $preserveKeys = false): Collection {
             /** @var Collection<array-key, mixed> $this */
             return $this->sliceBefore(
                 static fn (mixed $item, mixed $previous): bool => $callback($item) !== $callback($previous),

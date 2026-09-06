@@ -24,6 +24,13 @@
     // Pest runs on the PHPUnit engine; Infection drives it through the PHPUnit
     // adapter (it does not have a dedicated "pest" framework key).
     "testFramework": "phpunit",
+    // ...but it must invoke Pest's OWN binary. Pest's phpunit shim refuses to be
+    // run directly - it throws Pest\Exceptions\InvalidPestCommand, "Please run
+    // [./vendor/bin/pest] instead" - so Infection's initial test run failed with
+    // a PHPUnit exit code of 1 before a single mutant was generated.
+    "phpUnit": {
+        "customPath": "vendor/bin/pest",
+    },
     "minMsi": 80,
     "minCoveredMsi": 85,
     "logs": {

@@ -51,7 +51,7 @@ class MacroRegistrationTest extends TestCase
             // G6a: navigation / positional.
             'before', 'insertAt', 'rotate', 'firstOrPush',
             // G6a: consecutive-window / predicate chunking.
-            'eachCons', 'sliceBefore', 'chunkBy', 'groupByModel',
+            'eachCons', 'sliceBefore', 'laranailChunkBy', 'groupByModel',
             // G6a: reshape / conditional.
             'forSelectBox', 'extract', 'tail', 'toPairs', 'fromPairs', 'ifEmpty',
             // G8a: key/value reshape + relevance sort (fold the broken legacy
