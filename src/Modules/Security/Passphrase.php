@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\Security;
 
-use Stringable;
-use RuntimeException;
 use InvalidArgumentException;
+use RuntimeException;
+use Stringable;
 
 /**
  * Fluent, immutable EFF-diceware passphrase generator.
@@ -116,7 +116,7 @@ final class Passphrase implements Stringable
      * `all` (UPPERCASE every word) or `title` (Title-case every word, including
      * each segment of a hyphenated compound — "felt-tip" → "Felt-Tip").
      *
-     * @param 'none'|'first'|'all'|'title' $strategy
+     * @param  'none'|'first'|'all'|'title'  $strategy
      *
      * @throws InvalidArgumentException on an unknown strategy
      */
@@ -194,9 +194,9 @@ final class Passphrase implements Stringable
 
         return [
             'passphrase' => implode($this->separator, $tokens),
-            'entropy'    => $this->wordCount * log(self::WORDLIST_SIZE, 2),
+            'entropy' => $this->wordCount * log(self::WORDLIST_SIZE, 2),
             'word_count' => $this->wordCount,
-            'words'      => $words,
+            'words' => $words,
         ];
     }
 
@@ -238,8 +238,7 @@ final class Passphrase implements Stringable
     /**
      * Apply the configured capitalisation to each drawn word.
      *
-     * @param list<string> $words
-     *
+     * @param  list<string>  $words
      * @return list<string>
      */
     private function applyCapitalisation(array $words): array
@@ -258,8 +257,7 @@ final class Passphrase implements Stringable
     /**
      * Capitalise only the first word of the list.
      *
-     * @param list<string> $words
-     *
+     * @param  list<string>  $words
      * @return list<string>
      */
     private function capitaliseFirstWord(array $words): array
@@ -295,7 +293,7 @@ final class Passphrase implements Stringable
     /**
      * Return a mutated clone, keeping the builder immutable.
      *
-     * @param callable(self): mixed $mutator
+     * @param  callable(self): mixed  $mutator
      */
     private function with(callable $mutator): self
     {

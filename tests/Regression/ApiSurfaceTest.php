@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Regression;
 
-use SplFileInfo;
 use FilesystemIterator;
-use RecursiveIteratorIterator;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use RecursiveDirectoryIterator;
-use PHPUnit\Framework\Attributes\Group;
+use RecursiveIteratorIterator;
+use SplFileInfo;
 
 /**
  * Formal 0-unplanned-loss proof.
@@ -52,7 +52,7 @@ class ApiSurfaceTest extends TestCase
             [],
             $unplanned,
             "Legacy symbols vanished without a MIGRATION.md / removed-symbols.json entry:\n"
-            . implode("\n", $unplanned),
+            .implode("\n", $unplanned),
         );
     }
 
@@ -75,7 +75,7 @@ class ApiSurfaceTest extends TestCase
         $this->assertSame(
             [],
             $stale,
-            "Allowlist lists these as removed, but they exist in the toolkit:\n" . implode("\n", $stale),
+            "Allowlist lists these as removed, but they exist in the toolkit:\n".implode("\n", $stale),
         );
     }
 
@@ -84,7 +84,7 @@ class ApiSurfaceTest extends TestCase
      */
     private function json(string $name): array
     {
-        $path = dirname(__DIR__) . '/Fixtures/Legacy/' . $name;
+        $path = dirname(__DIR__).'/Fixtures/Legacy/'.$name;
 
         return (array) json_decode((string) file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
     }
@@ -97,7 +97,7 @@ class ApiSurfaceTest extends TestCase
     }
 
     /**
-     * @param array<string, true> $table
+     * @param  array<string, true>  $table
      */
     private function matched(string $short, array $table): bool
     {
@@ -127,7 +127,7 @@ class ApiSurfaceTest extends TestCase
     private function scanToolkit(): array
     {
         $names = [];
-        $src = dirname(__DIR__, 2) . '/src';
+        $src = dirname(__DIR__, 2).'/src';
 
         $files = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($src, FilesystemIterator::SKIP_DOTS),

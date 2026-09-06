@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Macros;
 
 use ArrayAccess;
-use RuntimeException;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\ServiceProvider;
-use Simtabi\Laranail\Toolkit\Support\Cast;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
+use RuntimeException;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 
 /**
  * Registers the toolkit's general-purpose Collection macros.
@@ -106,8 +106,8 @@ final class CollectionMacros extends ServiceProvider
                 $row = is_array($item) ? $item : (array) $item;
                 $rows[] = implode($delimiter, array_map(
                     static fn (mixed $value): string => $enclosure
-                        . str_replace($enclosure, $escape . $enclosure, Cast::toString($value))
-                        . $enclosure,
+                        .str_replace($enclosure, $escape.$enclosure, Cast::toString($value))
+                        .$enclosure,
                     $row,
                 ));
             }
@@ -340,7 +340,7 @@ final class CollectionMacros extends ServiceProvider
                     $currentName = $name;
                     $results->push(new Collection([
                         $sectionKey => $name,
-                        $itemsKey   => $current,
+                        $itemsKey => $current,
                     ]));
                 }
 
@@ -548,7 +548,16 @@ final class CollectionMacros extends ServiceProvider
         });
 
         // Chunk while $callback's result over consecutive items stays the same.
-        Collection::macro('chunkBy', function (callable $callback, bool $preserveKeys = false): Collection {
+        // VENDOR-SCOPED ON PURPOSE. Laravel 13.30.1 added a native
+        // Collection::chunkBy(), and a macro NEVER runs when a real method of
+        // that name exists - __call is only reached for missing methods. So the
+        // bare name silently resolved to Laravel's implementation, which
+        // delegates to chunkWhile() and PRESERVES keys, while this one
+        // re-indexes. Two tests caught it; nothing else would have.
+        //
+        // Do not rename this back. A macro is a flat global registry and the
+        // bare name is upstream's now.
+        Collection::macro('laranailChunkBy', function (callable $callback, bool $preserveKeys = false): Collection {
             /** @var Collection<array-key, mixed> $this */
             return $this->sliceBefore(
                 static fn (mixed $item, mixed $previous): bool => $callback($item) !== $callback($previous),

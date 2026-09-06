@@ -12,7 +12,7 @@ interface ErrorStorageServiceInterface
     /**
      * Set errors, merging with any already stored.
      *
-     * @param array<int|string, mixed>|string $errors
+     * @param  array<int|string, mixed>|string  $errors
      */
     public function setErrors(array|string $errors): self;
 

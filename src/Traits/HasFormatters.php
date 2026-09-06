@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Traits;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Support\Username;
 
 /**
@@ -46,7 +46,7 @@ trait HasFormatters
         $first = (string) ($this->getAttribute('first_name') ?? '');
         $last = (string) ($this->getAttribute('last_name') ?? '');
 
-        return trim(Str::ucfirst($first) . ' ' . Str::ucfirst($last));
+        return trim(Str::ucfirst($first).' '.Str::ucfirst($last));
     }
 
     /**
@@ -60,7 +60,7 @@ trait HasFormatters
             return false;
         }
 
-        return '@' . Str::lower((string) $username);
+        return '@'.Str::lower((string) $username);
     }
 
     /**
@@ -78,7 +78,7 @@ trait HasFormatters
      * Folded from the legacy `ModelFormatterService` (the only formatters there
      * with real bodies — its address/display-name methods returned `''`).
      *
-     * @param array{strip_html?: bool, truncate?: int} $options
+     * @param  array{strip_html?: bool, truncate?: int}  $options
      */
     public function formattedContent(array $options = []): string
     {
@@ -98,7 +98,7 @@ trait HasFormatters
     /**
      * Join non-empty address components into a single comma-separated line.
      *
-     * @param array<array-key, string|null> $components
+     * @param  array<array-key, string|null>  $components
      */
     public function formatAddress(array $components): string
     {
@@ -117,7 +117,7 @@ trait HasFormatters
     {
         return $line2 === null || trim($line2) === ''
             ? $line1
-            : $line1 . ', ' . $line2;
+            : $line1.', '.$line2;
     }
 
     /**
@@ -125,7 +125,7 @@ trait HasFormatters
      */
     public function formatCityStateZip(string $city, string $state, string $zip): string
     {
-        return Str::ucwords($city) . ', ' . Str::ucwords($state) . ' ' . Str::upper($zip);
+        return Str::ucwords($city).', '.Str::ucwords($state).' '.Str::upper($zip);
     }
 
     /**

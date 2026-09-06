@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Simtabi\Laranail\Toolkit\Support\Cast;
 
 abstract class CrudController extends BaseController
@@ -63,9 +63,9 @@ abstract class CrudController extends BaseController
             'data' => $records->items(),
             'meta' => [
                 'current_page' => $records->currentPage(),
-                'last_page'    => $records->lastPage(),
-                'per_page'     => $records->perPage(),
-                'total'        => $records->total(),
+                'last_page' => $records->lastPage(),
+                'per_page' => $records->perPage(),
+                'total' => $records->total(),
             ],
         ]);
     }
@@ -99,7 +99,7 @@ abstract class CrudController extends BaseController
 
         return response()->json([
             'message' => 'Record created successfully',
-            'data'    => $record,
+            'data' => $record,
         ], 201);
     }
 
@@ -119,7 +119,7 @@ abstract class CrudController extends BaseController
 
         return response()->json([
             'message' => 'Record updated successfully',
-            'data'    => $record,
+            'data' => $record,
         ]);
     }
 
@@ -180,9 +180,8 @@ abstract class CrudController extends BaseController
      * Rewrite `unique:` rules to ignore the record being updated, defaulting the
      * column to the field name when omitted (avoids malformed rule strings).
      *
-     * @param array<string, mixed> $rules
-     * @param int|string $id
-     *
+     * @param  array<string, mixed>  $rules
+     * @param  int|string  $id
      * @return array<string, mixed>
      */
     private function applyUniqueIgnore(array $rules, $id): array

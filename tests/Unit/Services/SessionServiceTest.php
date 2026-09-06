@@ -7,8 +7,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class SessionServiceTest extends TestCase
 {

@@ -99,9 +99,9 @@ final class TidyUserFileGuardTest extends TestCase
         $upload = $this->upload();
 
         $this->artisan('laranail::toolkit.tidy', [
-            'action'       => 'storage',
+            'action' => 'storage',
             '--unfiltered' => true,
-            '--force'      => true,
+            '--force' => true,
         ])->assertExitCode(0);
 
         $this->assertFileDoesNotExist($upload);
@@ -117,9 +117,9 @@ final class TidyUserFileGuardTest extends TestCase
         $upload = $this->upload();
 
         $this->artisan('laranail::toolkit.tidy', [
-            'action'       => 'storage',
+            'action' => 'storage',
             '--unfiltered' => true,
-            '--force'      => true,
+            '--force' => true,
         ])
             ->expectsOutputToContain('in production')
             ->assertExitCode(1);

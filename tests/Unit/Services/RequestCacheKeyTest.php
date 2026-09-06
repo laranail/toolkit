@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Test;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * `keyFromRequest()` hands out a key that a caller will cache a *response*

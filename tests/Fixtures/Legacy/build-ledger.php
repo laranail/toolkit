@@ -23,17 +23,16 @@ declare(strict_types=1);
  * "Done" = this exits 0 AND both packages' gates are green. Do not re-audit by
  * hand; re-run this.
  */
-
 $verify = in_array('--verify', array_slice($argv, 1), true);
 
 $here = __DIR__;
 $toolkitRoot = dirname($here, 3);                 // .../laranail (toolkit repo)
-$oldSrc = dirname($toolkitRoot) . '/old/src';     // .../old/src
-$notifSrc = dirname(dirname($toolkitRoot)) . '/notifications/src'; // .../laranail/notifications/src
+$oldSrc = dirname($toolkitRoot).'/old/src';     // .../old/src
+$notifSrc = dirname(dirname($toolkitRoot)).'/notifications/src'; // .../laranail/notifications/src
 
-$frozenPath = $here . '/old-api-surface.json';
-$removedPath = $here . '/removed-symbols.json';
-$migrationDoc = $toolkitRoot . '/docs/migration/MIGRATION.md';
+$frozenPath = $here.'/old-api-surface.json';
+$removedPath = $here.'/removed-symbols.json';
+$migrationDoc = $toolkitRoot.'/docs/migration/MIGRATION.md';
 
 /** Token-based public-API scanner: returns [fqcn => string[] publicMethods]. */
 $scan = static function (string $root): array {
@@ -79,7 +78,7 @@ $scan = static function (string $root): array {
                 }
                 for ($j = $i + 1; $j < $count; $j++) {
                     if (is_array($tokens[$j]) && $tokens[$j][0] === T_STRING) {
-                        $lastFqcn = ($namespace !== '' ? $namespace . '\\' : '') . $tokens[$j][1];
+                        $lastFqcn = ($namespace !== '' ? $namespace.'\\' : '').$tokens[$j][1];
                         $surface[$lastFqcn] ??= [];
                         break;
                     }
@@ -92,6 +91,7 @@ $scan = static function (string $root): array {
                         if ($tokens[$k] === '{' || $tokens[$k] === '}' || $tokens[$k] === ';') {
                             break;
                         }
+
                         continue;
                     }
                     if (in_array($tokens[$k][0], [T_PRIVATE, T_PROTECTED], true)) {
@@ -142,7 +142,7 @@ $variants = static function (string $s): array {
 // --- Load inputs ------------------------------------------------------------
 $frozen = (array) json_decode((string) file_get_contents($frozenPath), true, 512, JSON_THROW_ON_ERROR);
 $removed = (array) json_decode((string) file_get_contents($removedPath), true, 512, JSON_THROW_ON_ERROR);
-$toolkit = $scan($toolkitRoot . '/src');
+$toolkit = $scan($toolkitRoot.'/src');
 $notif = $scan($notifSrc);
 $oldNow = $scan($oldSrc);
 
@@ -252,7 +252,7 @@ ksort($byNs);
 $total = count($oldSet);
 $summary = sprintf(
     '| **MIGRATED** | %d | direct + %d merged |%s| **RELOCATED** | %d | → laranail/notifications |%s'
-    . '| **DROPPED** | %d | native / out-of-scope (see rows) |%s| **Total** | %d | |',
+    .'| **DROPPED** | %d | native / out-of-scope (see rows) |%s| **Total** | %d | |',
     $counts['MIGRATED'] + $counts['MERGED'],
     $counts['MERGED'],
     "\n",
@@ -276,13 +276,13 @@ $lines[] = '|---|---:|---|';
 $lines[] = $summary;
 $lines[] = '';
 foreach ($byNs as $ns => $entries) {
-    $lines[] = '### ' . $ns;
+    $lines[] = '### '.$ns;
     $lines[] = '';
     $lines[] = '| Legacy type | Status | New target / reason |';
     $lines[] = '|---|---|---|';
     usort($entries, static fn ($a, $b) => strcmp($a[0], $b[0]));
     foreach ($entries as [$fqcn, $status, $target]) {
-        $lines[] = sprintf('| `%s` | %s | %s |', $short($fqcn), $status, $target !== '' ? '`' . $target . '`' : '—');
+        $lines[] = sprintf('| `%s` | %s | %s |', $short($fqcn), $status, $target !== '' ? '`'.$target.'`' : '—');
     }
     $lines[] = '';
 }
@@ -316,13 +316,13 @@ if ($verify) {
 
     if ($newInOld !== []) {
         fwrite(STDOUT, "  NOTE — types in current old/src not in the frozen snapshot:\n    "
-            . implode("\n    ", $newInOld) . "\n");
+            .implode("\n    ", $newInOld)."\n");
     }
 
     if ($lostReport !== []) {
         fwrite(STDOUT, "  REVIEW (public methods not found on the new class — confirm intentional):\n");
         foreach ($lostReport as $fqcn => $lost) {
-            fwrite(STDOUT, "    $fqcn :: " . implode(', ', $lost) . "\n");
+            fwrite(STDOUT, "    $fqcn :: ".implode(', ', $lost)."\n");
         }
     }
 
@@ -331,12 +331,12 @@ if ($verify) {
         $fail = true;
         sort($gaps);
         fwrite(STDERR, "\nFAIL — GAP: legacy types neither in the new code nor the allowlist:\n  "
-            . implode("\n  ", $gaps) . "\n");
+            .implode("\n  ", $gaps)."\n");
     }
     if ($targetFailures !== []) {
         $fail = true;
         sort($targetFailures);
-        fwrite(STDERR, "\nFAIL — target verification:\n  " . implode("\n  ", $targetFailures) . "\n");
+        fwrite(STDERR, "\nFAIL — target verification:\n  ".implode("\n  ", $targetFailures)."\n");
     }
 
     if ($fail) {
@@ -353,7 +353,7 @@ $doc = file_exists($migrationDoc) ? (string) file_get_contents($migrationDoc) : 
 if (preg_match('/<!-- LEDGER:START.*?-->.*?<!-- LEDGER:END -->/s', $doc) === 1) {
     $doc = (string) preg_replace('/<!-- LEDGER:START.*?-->.*?<!-- LEDGER:END -->/s', $block, $doc);
 } else {
-    $doc = rtrim($doc) . "\n\n" . $block . "\n";
+    $doc = rtrim($doc)."\n\n".$block."\n";
 }
 file_put_contents($migrationDoc, $doc);
 fwrite(STDOUT, "Wrote verified ledger block to $migrationDoc\n");

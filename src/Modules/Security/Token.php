@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\Security;
 
-use Stringable;
-use LogicException;
 use InvalidArgumentException;
+use LogicException;
+use Stringable;
 
 /**
  * Fluent, immutable secure-token & one-time-code generator.
@@ -154,7 +154,7 @@ final class Token implements Stringable
      * Choose how the random body is rendered. `numeric` yields an OTP-style
      * decimal code; the rest are opaque token alphabets.
      *
-     * @param self::ENCODING_* $encoding
+     * @param  self::ENCODING_*  $encoding
      *
      * @throws InvalidArgumentException on an unknown encoding
      */
@@ -211,7 +211,7 @@ final class Token implements Stringable
     {
         $encoded = $this->encode(random_bytes($this->bytes));
 
-        $body = $this->prefix . $encoded;
+        $body = $this->prefix.$encoded;
 
         if ($this->secret === null) {
             return $body;
@@ -259,7 +259,7 @@ final class Token implements Stringable
         // type() (or none) must not verify under this builder's configured type.
         // The MAC alone does not prevent this — it authenticates the token's own
         // type, not that it matches what the verifier expects.
-        if ($this->type !== '' && ! str_ends_with($signedBody, '.' . $this->type)) {
+        if ($this->type !== '' && ! str_ends_with($signedBody, '.'.$this->type)) {
             return false;
         }
 
@@ -301,11 +301,11 @@ final class Token implements Stringable
         $signedBody = $body;
 
         if ($expiry !== '') {
-            $signedBody .= '.' . $expiry;
+            $signedBody .= '.'.$expiry;
         }
 
         if ($this->type !== '') {
-            $signedBody .= '.' . $this->type;
+            $signedBody .= '.'.$this->type;
         }
 
         return $signedBody;
@@ -322,8 +322,8 @@ final class Token implements Stringable
     {
         // Strip the matched type suffix so the expiry (when present) is the
         // trailing segment. (verify() has already confirmed this suffix.)
-        if ($this->type !== '' && str_ends_with($signedBody, '.' . $this->type)) {
-            $signedBody = substr($signedBody, 0, -\strlen('.' . $this->type));
+        if ($this->type !== '' && str_ends_with($signedBody, '.'.$this->type)) {
+            $signedBody = substr($signedBody, 0, -\strlen('.'.$this->type));
         }
 
         $segments = explode('.', $signedBody);
@@ -354,12 +354,12 @@ final class Token implements Stringable
     private function encode(string $bytes): string
     {
         return match ($this->encoding) {
-            self::ENCODING_HEX       => bin2hex($bytes),
+            self::ENCODING_HEX => bin2hex($bytes),
             self::ENCODING_BASE64URL => self::base64UrlEncode($bytes),
-            self::ENCODING_BASE32    => self::base32Encode($bytes),
-            self::ENCODING_ALPHANUM  => $this->alphabetEncode($bytes, self::ALPHANUM_ALPHABET),
-            self::ENCODING_NUMERIC   => $this->numericEncode($bytes),
-            default                  => bin2hex($bytes), // unreachable: encoding() guards the set.
+            self::ENCODING_BASE32 => self::base32Encode($bytes),
+            self::ENCODING_ALPHANUM => $this->alphabetEncode($bytes, self::ALPHANUM_ALPHABET),
+            self::ENCODING_NUMERIC => $this->numericEncode($bytes),
+            default => bin2hex($bytes), // unreachable: encoding() guards the set.
         };
     }
 
@@ -398,7 +398,7 @@ final class Token implements Stringable
     /**
      * Return a mutated clone, keeping the builder immutable.
      *
-     * @param callable(self): mixed $mutator
+     * @param  callable(self): mixed  $mutator
      */
     private function with(callable $mutator): self
     {

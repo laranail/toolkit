@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Traits;
 
-use Throwable;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Throwable;
 
 trait ApiResponseTrait
 {
     /**
      * Send a standardized success response.
      *
-     * @param array<string, mixed> $meta
+     * @param  array<string, mixed>  $meta
      */
     protected function successResponse(
         mixed $data = null,
@@ -25,15 +25,15 @@ trait ApiResponseTrait
         return response()->json([
             'success' => true,
             'message' => $message,
-            'data'    => $data,
-            'meta'    => $meta,
+            'data' => $data,
+            'meta' => $meta,
         ], $statusCode);
     }
 
     /**
      * Send a standardized error response with optional debug data.
      *
-     * @param array<string, mixed> $errors
+     * @param  array<string, mixed>  $errors
      */
     protected function errorResponse(
         string $message = 'Something went wrong.',
@@ -44,7 +44,7 @@ trait ApiResponseTrait
         $response = [
             'success' => false,
             'message' => $message,
-            'errors'  => $errors,
+            'errors' => $errors,
         ];
 
         if ((bool) config('app.debug') && $debug !== null) {
@@ -61,8 +61,8 @@ trait ApiResponseTrait
     {
         Log::error($e->getMessage(), [
             'exception' => $e,
-            'file'      => $e->getFile(),
-            'line'      => $e->getLine(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
         ]);
 
         return $this->errorResponse(
@@ -71,8 +71,8 @@ trait ApiResponseTrait
             [],
             [
                 'exception' => $e::class,
-                'message'   => $e->getMessage(),
-                'trace'     => $e->getTrace(),
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace(),
             ],
         );
     }
@@ -80,7 +80,7 @@ trait ApiResponseTrait
     /**
      * Send a paginated response with meta info.
      *
-     * @param LengthAwarePaginator<int, mixed> $paginator
+     * @param  LengthAwarePaginator<int, mixed>  $paginator
      */
     protected function paginatedResponse(
         LengthAwarePaginator $paginator,
@@ -92,11 +92,11 @@ trait ApiResponseTrait
             200,
             [
                 'pagination' => [
-                    'total'        => $paginator->total(),
-                    'count'        => $paginator->count(),
-                    'per_page'     => $paginator->perPage(),
+                    'total' => $paginator->total(),
+                    'count' => $paginator->count(),
+                    'per_page' => $paginator->perPage(),
                     'current_page' => $paginator->currentPage(),
-                    'total_pages'  => $paginator->lastPage(),
+                    'total_pages' => $paginator->lastPage(),
                 ],
             ],
         );

@@ -146,7 +146,7 @@ final class SecurityData
 
         // Framework-free fallback — the package default file:
         //   src/Modules/Security/ --(dirname __DIR__, 3)--> repo root --> config/security.php
-        $path = dirname(__DIR__, 3) . '/config/security.php';
+        $path = dirname(__DIR__, 3).'/config/security.php';
 
         if (! is_file($path)) {
             throw new RuntimeException("Security config not found at [{$path}].");

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 #[Group('http')]
 class ApiMiddlewareTest extends TestCase
@@ -14,7 +14,7 @@ class ApiMiddlewareTest extends TestCase
     public function test_request_middleware_snake_cases_incoming_keys(): void
     {
         $response = $this->postJson('/_test/api/request', [
-            'firstName'   => 'Jane',
+            'firstName' => 'Jane',
             'profileData' => ['lastSeenAt' => '2026-01-01'],
         ]);
 

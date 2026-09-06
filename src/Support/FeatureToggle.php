@@ -18,7 +18,7 @@ class FeatureToggle
         $config = Config::get("laranail.toolkit.feature-toggles.{$feature}", false);
 
         // Check if there's a per-user or per-environment override
-        $overrideKey = "laranail.toolkit.feature-toggles.{$feature}." . self::getOverrideKey();
+        $overrideKey = "laranail.toolkit.feature-toggles.{$feature}.".self::getOverrideKey();
         $isOverridden = Config::get($overrideKey, null);
 
         if ($isOverridden !== null) {
@@ -42,6 +42,6 @@ class FeatureToggle
     {
         $user = auth()->user();
 
-        return $user !== null ? 'user.' . $user->id : 'environment.' . app()->environment();
+        return $user !== null ? 'user.'.$user->id : 'environment.'.app()->environment();
     }
 }

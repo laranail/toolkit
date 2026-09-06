@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Support\Str;
-use Psr\Log\LoggerInterface;
-use InvalidArgumentException;
+use Illuminate\Contracts\Database\Query\Expression;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Database\Query\Expression;
+use Illuminate\Support\Str;
+use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 
 /**
  * Helpers for Eloquent model operations: select-box conversion, formable user
@@ -77,7 +77,7 @@ final readonly class ModelService
 
         $data = $form->map(static fn ($item, $key): array => [
             'name' => $item,
-            'id'   => $key,
+            'id' => $key,
         ])->values()->all();
 
         if ($keyed) {
@@ -94,8 +94,7 @@ final readonly class ModelService
     /**
      * Convert an Eloquent collection/model into a select-box array.
      *
-     * @param Collection<int|string, mixed>|Model $data
-     *
+     * @param  Collection<int|string, mixed>|Model  $data
      * @return array<int|string, mixed>
      */
     public function eloquent2selectbox(
@@ -125,9 +124,8 @@ final readonly class ModelService
     /**
      * Sort a flat list of nodes into a depth-annotated parent→child order.
      *
-     * @param array<int, object>|Collection<int, object> $list
-     * @param array<int, object> $result
-     *
+     * @param  array<int, object>|Collection<int, object>  $list
+     * @param  array<int, object>  $result
      * @return array<int, object>
      */
     public function sortItemWithChildren(
@@ -168,7 +166,7 @@ final readonly class ModelService
             $modelClass::observe($observerClass);
 
             $this->logger->info('Model observer registered', [
-                'model'    => $modelClass,
+                'model' => $modelClass,
                 'observer' => $observerClass,
             ]);
         }
@@ -178,7 +176,7 @@ final readonly class ModelService
      * Build a `CONCAT(first_name, ' ', last_name) as name` expression for the
      * given table, with the table and columns validated + grammar-quoted.
      *
-     * @param string|null $connection Optional connection name for schema/grammar.
+     * @param  string|null  $connection  Optional connection name for schema/grammar.
      */
     public function concatName(string $table, ?string $connection = null): Expression
     {
@@ -230,8 +228,8 @@ final readonly class ModelService
 
         $grammar = DB::connection($connection)->getQueryGrammar();
 
-        $first = $grammar->wrap($table . '.' . self::NAME_COLUMNS[0]);
-        $last = $grammar->wrap($table . '.' . self::NAME_COLUMNS[1]);
+        $first = $grammar->wrap($table.'.'.self::NAME_COLUMNS[0]);
+        $last = $grammar->wrap($table.'.'.self::NAME_COLUMNS[1]);
         $alias = $grammar->wrap('name');
 
         return DB::connection($connection)->raw("CONCAT({$first}, ' ', {$last}) as {$alias}");

@@ -59,7 +59,7 @@ interface FileServiceInterface
     /**
      * Whether the path's (lower-cased) extension is in the allowed list.
      *
-     * @param list<string> $allowed
+     * @param  list<string>  $allowed
      */
     public function hasAllowedExtension(string $path, array $allowed): bool;
 
@@ -73,7 +73,7 @@ interface FileServiceInterface
      * Combined existence + extension + optional size validation. Returns false
      * for an unsafe/missing path, a disallowed extension, or an oversize file.
      *
-     * @param list<string> $allowedExtensions
+     * @param  list<string>  $allowedExtensions
      */
     public function validate(string $path, array $allowedExtensions, ?int $maxMb = null): bool;
 

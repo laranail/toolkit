@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
@@ -71,7 +71,7 @@ class MacroG6aBehaviorTest extends TestCase
         $this->assertSame([[1], [2, 4, 6], [7]], $sliced);
 
         $chunked = collect([1, 1, 2, 2, 3])
-            ->chunkBy(fn (int $item): int => $item)
+            ->laranailChunkBy(fn (int $item): int => $item)
             ->map->all()
             ->all();
         $this->assertSame([[1, 1], [2, 2], [3]], $chunked);

@@ -12,7 +12,7 @@ We release patches for security vulnerabilities for the latest minor release.
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-Instead, report them via email to **opensource@simtabi.com**.
+Instead, report them via email to **security@simtabi.com**.
 
 You should receive a response within 48 hours. If you do not, please follow up
 to ensure we received your original message.
@@ -26,6 +26,11 @@ Please include as much of the following as you can, to help us triage quickly:
 * Step-by-step reproduction instructions
 * Proof-of-concept or exploit code (if possible)
 * Impact, including how an attacker might exploit the issue
+
+> **Prefer GitHub private vulnerability reporting** when you can: open it from this
+> repository's Security tab. The report arrives attached to the repo with a draft advisory
+> and a CVE request path already in place. Email is the fallback for anyone who would
+> rather not use GitHub.
 
 ## Policy
 

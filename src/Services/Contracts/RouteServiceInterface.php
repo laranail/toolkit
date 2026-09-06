@@ -34,9 +34,9 @@ interface RouteServiceInterface
     /**
      * Whether the current URL matches the given segment (prefix-aware).
      *
-     * @param bool $strict When true, does not match wildcard sub-paths.
-     * @param string|null $paramKey Optional query parameter key to additionally require.
-     * @param mixed $paramValue Optional query parameter value to match.
+     * @param  bool  $strict  When true, does not match wildcard sub-paths.
+     * @param  string|null  $paramKey  Optional query parameter key to additionally require.
+     * @param  mixed  $paramValue  Optional query parameter value to match.
      */
     public function isUrlSegment(
         string $segment,
@@ -60,8 +60,8 @@ interface RouteServiceInterface
     /**
      * Return `$class` when the URL parameter/segment is active, otherwise an empty string.
      *
-     * @param string|null $segment URL segment to fall back to when `$value` is empty.
-     * @param string $key Query parameter key (default: `tab`).
+     * @param  string|null  $segment  URL segment to fall back to when `$value` is empty.
+     * @param  string  $key  Query parameter key (default: `tab`).
      */
     public function getActiveCssClassForUrlParameter(
         mixed $value,
@@ -73,7 +73,7 @@ interface RouteServiceInterface
     /**
      * Whether the request matches the given link.
      *
-     * @param string $type Either `name` (route-name compare) or `url` (full-URL compare).
+     * @param  string  $type  Either `name` (route-name compare) or `url` (full-URL compare).
      */
     public function isRequestOnPage(string $link, string $type = 'name'): bool;
 
@@ -90,7 +90,7 @@ interface RouteServiceInterface
     /**
      * Whether the request matches the given pattern.
      *
-     * @param bool $returnBool When true returns the boolean; otherwise returns the padded class or empty string.
+     * @param  bool  $returnBool  When true returns the boolean; otherwise returns the padded class or empty string.
      */
     public function isRequest(string $request, string $class = '', bool $returnBool = false): bool|string;
 
@@ -100,7 +100,7 @@ interface RouteServiceInterface
     /**
      * Return `$className` when the given route (name or list of names) is the active menu item.
      *
-     * @param string|list<string> $route
+     * @param  string|list<string>  $route
      */
     public function getActiveMenuClassName(string|array $route, string $className = 'active'): string;
 }

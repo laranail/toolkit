@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
-use Mockery;
-use Stringable;
-use RuntimeException;
-use Psr\Log\AbstractLogger;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Support\Facades\Cache;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Mockery;
+use Psr\Log\AbstractLogger;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Stringable;
 
 class CacheServiceTest extends TestCase
 {
@@ -317,9 +317,9 @@ class CollectingTestLogger extends AbstractLogger
     public array $errors = [];
 
     /**
-     * @param mixed $level
-     * @param string|Stringable $message
-     * @param array<mixed> $context
+     * @param  mixed  $level
+     * @param  string|Stringable  $message
+     * @param  array<mixed>  $context
      */
     public function log($level, $message, array $context = []): void
     {

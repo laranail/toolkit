@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\LLM\Claude;
 
-use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Http;
+use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMRequestException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\RetriesHttpRequests;
-use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
 final class ClaudeProvider implements LLMProviderInterface
 {
@@ -39,7 +39,7 @@ final class ClaudeProvider implements LLMProviderInterface
         ?bool $jsonMode = false,
         bool $fullResponse = false,
     ): ClaudeResponse {
-        $endpoint = $this->baseUrl . '/v1/messages';
+        $endpoint = $this->baseUrl.'/v1/messages';
 
         $payload = $this->buildPayload(
             modelName: $modelName,
@@ -54,12 +54,12 @@ final class ClaudeProvider implements LLMProviderInterface
         return $this->executeWithRetry(function () use ($endpoint, $payload, $fullResponse) {
             try {
                 $response = Http::withHeaders([
-                    'Content-Type'      => 'application/json',
-                    'x-api-key'         => $this->apiKey,
+                    'Content-Type' => 'application/json',
+                    'x-api-key' => $this->apiKey,
                     'anthropic-version' => '2023-06-01',
                 ])->post($endpoint, $payload);
             } catch (ConnectionException $e) {
-                throw new LLMRequestException('Claude API connection failed: ' . $e->getMessage(), retryable: true, previous: $e);
+                throw new LLMRequestException('Claude API connection failed: '.$e->getMessage(), retryable: true, previous: $e);
             }
 
             if (! $response->successful()) {
@@ -103,8 +103,8 @@ final class ClaudeProvider implements LLMProviderInterface
         ?bool $jsonMode,
     ): array {
         $payload = [
-            'model'      => $modelName,
-            'messages'   => $messages,
+            'model' => $modelName,
+            'messages' => $messages,
             'max_tokens' => $maxTokens ?? 1024,
         ];
 

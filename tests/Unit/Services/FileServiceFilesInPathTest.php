@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 final class FileServiceFilesInPathTest extends TestCase
 {
@@ -17,19 +17,19 @@ final class FileServiceFilesInPathTest extends TestCase
     {
         parent::setUp();
 
-        $this->sandbox = sys_get_temp_dir() . '/laranail-files-' . bin2hex(random_bytes(6));
-        mkdir($this->sandbox . '/nested', 0o755, true);
+        $this->sandbox = sys_get_temp_dir().'/laranail-files-'.bin2hex(random_bytes(6));
+        mkdir($this->sandbox.'/nested', 0o755, true);
 
-        file_put_contents($this->sandbox . '/b.txt', 'b');
-        file_put_contents($this->sandbox . '/a.txt', 'a');
-        file_put_contents($this->sandbox . '/nested/c.txt', 'c');
+        file_put_contents($this->sandbox.'/b.txt', 'b');
+        file_put_contents($this->sandbox.'/a.txt', 'a');
+        file_put_contents($this->sandbox.'/nested/c.txt', 'c');
 
         $this->files = $this->app->make(FileServiceInterface::class);
     }
 
     protected function tearDown(): void
     {
-        exec('rm -rf ' . escapeshellarg($this->sandbox));
+        exec('rm -rf '.escapeshellarg($this->sandbox));
 
         parent::tearDown();
     }
@@ -56,18 +56,18 @@ final class FileServiceFilesInPathTest extends TestCase
 
     public function test_a_missing_directory_is_empty_rather_than_an_error(): void
     {
-        self::assertSame([], $this->files->filesInPath($this->sandbox . '/nope'));
+        self::assertSame([], $this->files->filesInPath($this->sandbox.'/nope'));
     }
 
     public function test_a_traversal_path_is_refused(): void
     {
-        self::assertSame([], $this->files->filesInPath($this->sandbox . '/../../etc'));
+        self::assertSame([], $this->files->filesInPath($this->sandbox.'/../../etc'));
     }
 
     public function test_an_empty_directory_is_empty(): void
     {
-        mkdir($this->sandbox . '/blank');
+        mkdir($this->sandbox.'/blank');
 
-        self::assertSame([], $this->files->filesInPath($this->sandbox . '/blank'));
+        self::assertSame([], $this->files->filesInPath($this->sandbox.'/blank'));
     }
 }

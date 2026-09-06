@@ -40,7 +40,7 @@ interface SessionServiceInterface
      * cookie so client-side JavaScript can read it. No-op when the input is
      * absent.
      *
-     * @param int $duration cookie lifetime in minutes
+     * @param  int  $duration  cookie lifetime in minutes
      */
     public function saveJavaScriptCookies(string $cookieName, int $duration = 60): void;
 }

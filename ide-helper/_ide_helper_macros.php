@@ -78,7 +78,7 @@ namespace Illuminate\Support {
     /**
      * @method mixed averageBy(callable $callback)
      * @method mixed before(mixed $current, bool $strict = false)
-     * @method \Illuminate\Support\Collection chunkBy(callable $callback, bool $preserveKeys = false)
+     * @method \Illuminate\Support\Collection laranailChunkBy(callable $callback, bool $preserveKeys = false)
      * @method \Illuminate\Support\Collection collectBy(mixed $key, mixed $default = null)
      * @method \Illuminate\Support\Collection eachCons(int $chunkSize, bool $preserveKeys = false)
      * @method \Illuminate\Support\Collection extract(mixed $keys)

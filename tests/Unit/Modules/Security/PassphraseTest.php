@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Security;
 
-use ReflectionClass;
-use ReflectionProperty;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use ReflectionClass;
+use ReflectionProperty;
 use Simtabi\Laranail\Toolkit\Modules\Security\Passphrase;
 use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class PassphraseTest extends TestCase
 {
@@ -248,7 +248,7 @@ class PassphraseTest extends TestCase
      * Pin the process-wide wordlist cache for deterministic generation. Pass null
      * to clear it (forcing a reload of the real list on next use).
      *
-     * @param list<string>|null $words
+     * @param  list<string>|null  $words
      */
     private function setWordlist(?array $words): void
     {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Log;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface;
 
 class SchedulerService implements SchedulerServiceInterface
@@ -21,15 +21,15 @@ class SchedulerService implements SchedulerServiceInterface
         $schedule = app(Schedule::class);
         $events = $schedule->events();
 
-        Log::info('Summarized ' . count($events) . ' scheduled event(s).');
+        Log::info('Summarized '.count($events).' scheduled event(s).');
 
         return collect($events)->map(fn (Event $event): array => [
-            'command'     => $event->command,
-            'expression'  => $event->expression,
+            'command' => $event->command,
+            'expression' => $event->expression,
             'description' => $event->description,
-            'next_run'    => $event->nextRunDate(),
-            'is_due'      => $this->isDue($event),
-            'output'      => $event->output,
+            'next_run' => $event->nextRunDate(),
+            'is_due' => $this->isDue($event),
+            'output' => $event->output,
         ])->values()->all();
     }
 

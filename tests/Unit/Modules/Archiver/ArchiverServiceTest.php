@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Modules\Archiver;
 
 use PharData;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Tar;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\TarGz;
-use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiveException;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\Archiver as ArchiverFacade;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverService;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Tar;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\TarGz;
+use Simtabi\Laranail\Toolkit\Modules\Archiver\Zip;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class ArchiverServiceTest extends TestCase
 {
@@ -20,7 +20,7 @@ class ArchiverServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->work = sys_get_temp_dir() . '/laranail-archiver-svc-' . bin2hex(random_bytes(6));
+        $this->work = sys_get_temp_dir().'/laranail-archiver-svc-'.bin2hex(random_bytes(6));
         mkdir($this->work, 0755, true);
     }
 
@@ -41,16 +41,16 @@ class ArchiverServiceTest extends TestCase
 
     public function test_service_extract_delegates_to_manager(): void
     {
-        $tarPath = $this->work . '/data.tar';
+        $tarPath = $this->work.'/data.tar';
         $phar = new PharData($tarPath);
         $phar->addFromString('hello.txt', 'hi');
         unset($phar);
 
-        $dest = $this->work . '/out';
+        $dest = $this->work.'/out';
         (new ArchiverService)->extract($tarPath, $dest);
 
-        $this->assertFileExists($dest . '/hello.txt');
-        $this->assertSame('hi', file_get_contents($dest . '/hello.txt'));
+        $this->assertFileExists($dest.'/hello.txt');
+        $this->assertSame('hi', file_get_contents($dest.'/hello.txt'));
     }
 
     public function test_facade_proxies_to_the_service(): void
@@ -82,7 +82,7 @@ class ArchiverServiceTest extends TestCase
                 continue;
             }
 
-            $path = $dir . '/' . $item;
+            $path = $dir.'/'.$item;
             is_dir($path) ? $this->deleteTree($path) : @unlink($path);
         }
 

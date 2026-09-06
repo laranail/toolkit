@@ -54,8 +54,8 @@ final readonly class OpenAIResponse implements JsonSerializable
     {
         return [
             'content' => $this->content,
-            'model'   => $this->model,
-            'usage'   => $this->usage,
+            'model' => $this->model,
+            'usage' => $this->usage,
         ];
     }
 

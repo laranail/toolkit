@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Throwable;
 use Illuminate\Support\Facades\File;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
+use Throwable;
 
 /**
  * Read-only system / runtime introspection helpers.
@@ -42,9 +42,9 @@ final readonly class SystemService implements SystemServiceInterface
         }
 
         return match ($last) {
-            'g'     => $value * (1024 ** 3),
-            'm'     => $value * (1024 ** 2),
-            'k'     => $value * 1024,
+            'g' => $value * (1024 ** 3),
+            'm' => $value * (1024 ** 2),
+            'k' => $value * 1024,
             default => $value,
         };
     }
@@ -67,11 +67,11 @@ final readonly class SystemService implements SystemServiceInterface
         $peak = memory_get_peak_usage(true);
 
         return [
-            'current'           => $current,
-            'peak'              => $peak,
-            'limit'             => $this->memoryLimit(),
+            'current' => $current,
+            'peak' => $peak,
+            'limit' => $this->memoryLimit(),
             'current_formatted' => $this->files->formatFileSize($current),
-            'peak_formatted'    => $this->files->formatFileSize($peak),
+            'peak_formatted' => $this->files->formatFileSize($peak),
         ];
     }
 
@@ -152,11 +152,11 @@ final readonly class SystemService implements SystemServiceInterface
     public function systemInfo(): array
     {
         return [
-            'php_version'     => PHP_VERSION,
-            'os'              => PHP_OS_FAMILY,
-            'sapi'            => PHP_SAPI,
+            'php_version' => PHP_VERSION,
+            'os' => PHP_OS_FAMILY,
+            'sapi' => PHP_SAPI,
             'laravel_version' => app()->version(),
-            'env'             => app()->environment(),
+            'env' => app()->environment(),
         ];
     }
 
@@ -168,17 +168,17 @@ final readonly class SystemService implements SystemServiceInterface
     public function serverEnv(): array
     {
         return [
-            'https'               => $this->isHttps(),
-            'php_version'         => PHP_VERSION,
-            'php_sapi'            => PHP_SAPI,
-            'php_extensions'      => get_loaded_extensions(),
-            'memory_limit'        => $this->memoryLimit(),
-            'max_execution_time'  => ini_get('max_execution_time'),
+            'https' => $this->isHttps(),
+            'php_version' => PHP_VERSION,
+            'php_sapi' => PHP_SAPI,
+            'php_extensions' => get_loaded_extensions(),
+            'memory_limit' => $this->memoryLimit(),
+            'max_execution_time' => ini_get('max_execution_time'),
             'upload_max_filesize' => ini_get('upload_max_filesize'),
-            'post_max_size'       => ini_get('post_max_size'),
-            'display_errors'      => ini_get('display_errors'),
-            'error_reporting'     => error_reporting(),
-            'timezone'            => date_default_timezone_get(),
+            'post_max_size' => ini_get('post_max_size'),
+            'display_errors' => ini_get('display_errors'),
+            'error_reporting' => error_reporting(),
+            'timezone' => date_default_timezone_get(),
         ];
     }
 }

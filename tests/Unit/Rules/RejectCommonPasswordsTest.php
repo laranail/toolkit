@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Rules;
 
-use ZxcvbnPhp\Zxcvbn;
-use InvalidArgumentException;
-use Illuminate\Support\Facades\Http;
-use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
+use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Group;
+use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use ZxcvbnPhp\Zxcvbn;
 
 #[Group('security')]
 class RejectCommonPasswordsTest extends TestCase
@@ -290,7 +290,7 @@ class RejectCommonPasswordsTest extends TestCase
         $suffix = substr($hash, 5);
 
         Http::fake([
-            'api.pwnedpasswords.com/range/' . $prefix => Http::response(
+            'api.pwnedpasswords.com/range/'.$prefix => Http::response(
                 "0000000000000000000000000000000000A:3\r\n{$suffix}:42\r\n",
                 200,
             ),
@@ -368,10 +368,10 @@ class RejectCommonPasswordsTest extends TestCase
             $body = $request->body();
 
             // The outgoing request carries ONLY the 5-char prefix in the path...
-            $this->assertSame('https://api.pwnedpasswords.com/range/' . $expectedPrefix, $url);
+            $this->assertSame('https://api.pwnedpasswords.com/range/'.$expectedPrefix, $url);
             // ...and never the plaintext password, nor the SHA-1 suffix, anywhere.
-            $this->assertStringNotContainsString($password, $url . $body);
-            $this->assertStringNotContainsString($suffix, $url . $body);
+            $this->assertStringNotContainsString($password, $url.$body);
+            $this->assertStringNotContainsString($suffix, $url.$body);
 
             return true;
         });

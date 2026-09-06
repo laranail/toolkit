@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Helpers\Concerns;
 
 use Faker\Generator;
-use RuntimeException;
-use Illuminate\Support\Str;
 use Illuminate\Support\HtmlString;
-use Simtabi\Laranail\Toolkit\Support\Cast;
+use Illuminate\Support\Str;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Helpers\Helper;
+use Simtabi\Laranail\Toolkit\Support\Cast;
 use Simtabi\Laranail\Toolkit\Support\Username;
 
 /**
@@ -67,7 +67,7 @@ trait InteractsWithStrings
         }
 
         if (! ctype_alpha($local[0])) {
-            $local = 'user_' . $local;
+            $local = 'user_'.$local;
         }
 
         return Username::for($local)
@@ -90,7 +90,7 @@ trait InteractsWithStrings
 
         $username = (string) preg_replace('/[^a-zA-Z0-9._-]/', '', $username);
 
-        return $username . '@' . $domain;
+        return $username.'@'.$domain;
     }
 
     /**
@@ -117,9 +117,9 @@ trait InteractsWithStrings
      * always a valid identifier: it starts with a letter and contains only
      * `[a-z0-9]`.
      *
-     * @param string $prefix Leading word; sanitised to `[a-z]`, falling back to
-     *                       `user` when nothing usable remains.
-     * @param int $digits Number of trailing random digits (clamped to 1..10).
+     * @param  string  $prefix  Leading word; sanitised to `[a-z]`, falling back to
+     *                          `user` when nothing usable remains.
+     * @param  int  $digits  Number of trailing random digits (clamped to 1..10).
      */
     public static function generateUsername(string $prefix = 'user', int $digits = 4): string
     {
@@ -131,7 +131,7 @@ trait InteractsWithStrings
      * XSS-safe {@see HtmlString} via Laravel's `e()` helper. Null yields an
      * empty HtmlString. (Recovered as the legacy `html()` sanitiser.)
      *
-     * @param string|array<int|string, mixed>|null $dirty
+     * @param  string|array<int|string, mixed>|null  $dirty
      */
     public static function escapeHtml(string|array|null $dirty): HtmlString
     {
@@ -160,7 +160,7 @@ trait InteractsWithStrings
      * Bounded (max attempts) so an impossible exclusion set throws rather than
      * recursing forever — the legacy version recursed unbounded.
      *
-     * @param list<int> $except
+     * @param  list<int>  $except
      *
      * @throws RuntimeException when no allowed value is found within the bound
      */

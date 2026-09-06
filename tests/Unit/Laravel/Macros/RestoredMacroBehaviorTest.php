@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
@@ -180,9 +180,9 @@ class RestoredMacroBehaviorTest extends TestCase
     {
         $rows = collect([
             ['v' => 'hello world'],
-            ['v'       => 12345],
-            ['v'       => null],
-            ['v'       => ['hello']],
+            ['v' => 12345],
+            ['v' => null],
+            ['v' => ['hello']],
             ['missing' => 'x'],
         ]);
 

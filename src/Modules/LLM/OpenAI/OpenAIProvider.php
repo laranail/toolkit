@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI;
 
-use OpenAI;
-use RuntimeException;
 use Illuminate\Support\Facades\Log;
+use OpenAI;
 use OpenAI\Contracts\ClientContract;
 use OpenAI\Exceptions\ErrorException;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 
 final readonly class OpenAIProvider implements LLMProviderInterface
@@ -76,19 +76,19 @@ final readonly class OpenAIProvider implements LLMProviderInterface
         ?bool $jsonMode,
     ): array {
         $parameters = [
-            'model'    => $modelName,
+            'model' => $modelName,
             'messages' => $messages,
         ];
 
         $optionalParameters = [
-            'temperature'       => $temperature,
-            'max_tokens'        => $maxTokens,
-            'stop'              => $stop,
-            'top_p'             => $topP,
+            'temperature' => $temperature,
+            'max_tokens' => $maxTokens,
+            'stop' => $stop,
+            'top_p' => $topP,
             'frequency_penalty' => $frequencyPenalty,
-            'presence_penalty'  => $presencePenalty,
-            'logit_bias'        => $logitBias,
-            'user'              => $user,
+            'presence_penalty' => $presencePenalty,
+            'logit_bias' => $logitBias,
+            'user' => $user,
         ];
 
         foreach ($optionalParameters as $key => $value) {
@@ -133,8 +133,7 @@ final readonly class OpenAIProvider implements LLMProviderInterface
      *
      * @template T
      *
-     * @param callable(): T $callback
-     *
+     * @param  callable(): T  $callback
      * @return T
      *
      * @throws ErrorException
@@ -160,7 +159,7 @@ final readonly class OpenAIProvider implements LLMProviderInterface
                 if ($attempt < $this->maxRetries) {
                     Log::warning('OpenAI API request failed, retrying...', [
                         'attempt' => $attempt,
-                        'error'   => $e->getMessage(),
+                        'error' => $e->getMessage(),
                     ]);
                     sleep($this->retryDelay);
                 }

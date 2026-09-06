@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Exceptions;
 
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Exceptions\Handler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use LogicException;
 use ReflectionClass;
 use ReflectionObject;
 use RuntimeException;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Cache;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Illuminate\Foundation\Exceptions\Handler;
-use Illuminate\Foundation\Configuration\Exceptions;
 use Simtabi\Laranail\Toolkit\Exceptions\Concerns\RendersApiExceptions;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class RendersApiExceptionsTest extends TestCase
@@ -72,8 +72,8 @@ class RendersApiExceptionsTest extends TestCase
         config([
             'logging.channels.slack' => [
                 'driver' => 'single',
-                'path'   => storage_path('logs/slack-test.log'),
-                'url'    => 'https://hooks.example.test/abc',
+                'path' => storage_path('logs/slack-test.log'),
+                'url' => 'https://hooks.example.test/abc',
             ],
             'app.debug' => false,
         ]);
@@ -124,8 +124,8 @@ class RendersApiExceptionsTest extends TestCase
         config([
             'logging.channels.slack' => [
                 'driver' => 'single',
-                'path'   => storage_path('logs/slack-test.log'),
-                'url'    => 'https://hooks.example.test/abc',
+                'path' => storage_path('logs/slack-test.log'),
+                'url' => 'https://hooks.example.test/abc',
             ],
             'app.debug' => false,
         ]);

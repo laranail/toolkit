@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
 use Illuminate\Support\Carbon;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Macros\CarbonMacros;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * Exhaustive, mutation-hardened coverage for every Carbon macro registered by
@@ -606,7 +606,7 @@ class CarbonMacrosBehaviorTest extends TestCase
      * on the same day in an adjacent month; optional era floor (true on the
      * floor year, false on the year before it).
      *
-     * @param list<string> $offDates
+     * @param  list<string>  $offDates
      */
     private function assertFixedDate(string $macro, string $onDate, array $offDates, ?string $floorTrue = null, ?string $floorFalse = null): void
     {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Modules\Livewire\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Support\ServiceProvider;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireService;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 

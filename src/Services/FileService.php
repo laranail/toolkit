@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Services;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
-use Symfony\Component\Finder\SplFileInfo;
-use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
+use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * File-name / size inspection plus thin, path-guarded filesystem probes.
@@ -41,7 +41,7 @@ final class FileService implements FileServiceInterface
             $size /= 1024;
         }
 
-        return round($size, $precision) . ' ' . $units[$i];
+        return round($size, $precision).' '.$units[$i];
     }
 
     public function extension(string $path): string
@@ -107,7 +107,7 @@ final class FileService implements FileServiceInterface
      * `Arr::has($list, $value)` (a key check against a value list) by using a
      * strict in_array value comparison against lower-cased extensions.
      *
-     * @param list<string> $allowed
+     * @param  list<string>  $allowed
      */
     public function hasAllowedExtension(string $path, array $allowed): bool
     {
@@ -146,7 +146,7 @@ final class FileService implements FileServiceInterface
      * a hard-coded DB-file set. Returns false for an unsafe/missing path, a
      * disallowed extension, or an oversize file.
      *
-     * @param list<string> $allowedExtensions
+     * @param  list<string>  $allowedExtensions
      */
     public function validate(string $path, array $allowedExtensions, ?int $maxMb = null): bool
     {
@@ -176,14 +176,14 @@ final class FileService implements FileServiceInterface
         }
 
         return [
-            'path'          => $path,
-            'size'          => $this->size($path),
-            'extension'     => $this->extension($path),
-            'name'          => pathinfo($path, PATHINFO_FILENAME),
-            'basename'      => basename($path),
+            'path' => $path,
+            'size' => $this->size($path),
+            'extension' => $this->extension($path),
+            'name' => pathinfo($path, PATHINFO_FILENAME),
+            'basename' => basename($path),
             'last_modified' => $this->lastModified($path),
-            'is_readable'   => File::isReadable($path),
-            'is_writable'   => File::isWritable($path),
+            'is_readable' => File::isReadable($path),
+            'is_writable' => File::isWritable($path),
         ];
     }
 
@@ -198,7 +198,7 @@ final class FileService implements FileServiceInterface
         $extension = ltrim(trim($extension), '.');
         $name = Str::random($length);
 
-        return $extension === '' ? $name : $name . '.' . $extension;
+        return $extension === '' ? $name : $name.'.'.$extension;
     }
 
     /**

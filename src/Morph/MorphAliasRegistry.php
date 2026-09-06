@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Morph;
 
-use RuntimeException;
 use Illuminate\Database\Eloquent\Model;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Morph\Exceptions\UnknownMorphAliasException;
 
 /**

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Exceptions;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
@@ -41,7 +41,7 @@ class AuthenticationException extends LaranailException
     /**
      * The supplied guard is not a known/configured guard.
      *
-     * @param string $guard The invalid guard name.
+     * @param  string  $guard  The invalid guard name.
      */
     public static function invalidGuard(string $guard): self
     {
@@ -57,12 +57,12 @@ class AuthenticationException extends LaranailException
     /**
      * The current user is not authenticated (optionally on a named guard).
      *
-     * @param string|null $guard The guard the user failed to authenticate on.
+     * @param  string|null  $guard  The guard the user failed to authenticate on.
      */
     public static function unauthenticated(?string $guard = null): self
     {
         return new self(
-            message: 'User is not authenticated.' . ($guard !== null ? " (guard: {$guard})" : ''),
+            message: 'User is not authenticated.'.($guard !== null ? " (guard: {$guard})" : ''),
             code: 2003,
             context: array_filter(['guard' => $guard], static fn (mixed $value): bool => $value !== null),
             userMessage: 'Please log in to continue.',
@@ -88,7 +88,7 @@ class AuthenticationException extends LaranailException
         $payload = [
             'success' => false,
             'message' => $this->getUserMessage() ?? $this->getMessage(),
-            'errors'  => $this->getContext(),
+            'errors' => $this->getContext(),
         ];
 
         if ((bool) config('app.debug')) {

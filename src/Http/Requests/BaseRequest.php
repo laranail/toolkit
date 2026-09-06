@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Http\Requests;
 
-use Illuminate\Support\Str;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 /**
  * FormRequest base that sanitizes every string input on
@@ -74,9 +74,8 @@ abstract class BaseRequest extends FormRequest
      * Get the validated data, re-applying field-specific sanitization so the
      * validated set matches the sanitized input.
      *
-     * @param array<string>|int|string|null $key
-     * @param mixed $default
-     *
+     * @param  array<string>|int|string|null  $key
+     * @param  mixed  $default
      * @return ($key is null ? array<string, mixed> : mixed)
      */
     public function validated($key = null, $default = null): mixed

@@ -62,7 +62,7 @@ trait HasErrorStorage
     }
 
     /**
-     * @param array<int|string, mixed>|string $errors
+     * @param  array<int|string, mixed>|string  $errors
      */
     protected function setErrors(array|string $errors): static
     {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http\Requests;
 
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Http\Requests\BaseRequest;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class UrlDbRequest extends BaseRequest
 {
@@ -14,7 +14,7 @@ class UrlDbRequest extends BaseRequest
     {
         return [
             'website_url' => 'nullable|string',
-            'db_table'    => 'nullable|string',
+            'db_table' => 'nullable|string',
         ];
     }
 }

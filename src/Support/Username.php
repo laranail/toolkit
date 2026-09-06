@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Support;
 
 use Exception;
-use Stringable;
-use RuntimeException;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use RuntimeException;
+use Stringable;
 
 /**
  * Fluent, immutable username / handle builder.
@@ -257,7 +257,7 @@ final class Username implements Stringable
      * Reject these names (case-insensitively) from the generated handle. A clash
      * is treated like a taken handle: the uniqueness loop appends random digits.
      *
-     * @param array<int,string> $blacklist
+     * @param  array<int,string>  $blacklist
      */
     public function reserved(array $blacklist): self
     {
@@ -338,7 +338,7 @@ final class Username implements Stringable
      * returns true when the handle is AVAILABLE. Works with any backend
      * (Eloquent, cache, raw DB) — no hard Eloquent coupling.
      *
-     * @param callable(string): bool $checker
+     * @param  callable(string): bool  $checker
      */
     public function unique(callable $checker): self
     {
@@ -369,7 +369,7 @@ final class Username implements Stringable
         }
 
         for ($attempt = 0; $attempt < self::MAX_UNIQUE_ATTEMPTS; $attempt++) {
-            $candidate = $this->finalise($base . $this->separator . $this->randomDigitString(4));
+            $candidate = $this->finalise($base.$this->separator.$this->randomDigitString(4));
 
             if ($this->isAcceptable($candidate)) {
                 return self::assertNoSpaces($candidate);
@@ -409,11 +409,11 @@ final class Username implements Stringable
             $fi = Str::substr($first, 0, 1);
             $li = Str::substr($last, 0, 1);
 
-            $raw[] = $first . $last;
-            $raw[] = $first . '.' . $last;
-            $raw[] = $first . '_' . $last;
-            $raw[] = $fi . $last;
-            $raw[] = $first . '.' . $li;
+            $raw[] = $first.$last;
+            $raw[] = $first.'.'.$last;
+            $raw[] = $first.'_'.$last;
+            $raw[] = $fi.$last;
+            $raw[] = $first.'.'.$li;
             $raw[] = $first;
             $raw[] = $last;
         } else {
@@ -437,7 +437,7 @@ final class Username implements Stringable
         $primary = $finalised[0];
         $i = 0;
         while (count($finalised) < $n && $i < self::MAX_UNIQUE_ATTEMPTS) {
-            $variant = $this->finalise($primary . $this->randomDigitString(3));
+            $variant = $this->finalise($primary.$this->randomDigitString(3));
             if ($variant !== '' && ! in_array($variant, $finalised, true)) {
                 $finalised[] = $variant;
             }
@@ -465,15 +465,15 @@ final class Username implements Stringable
     public function toArray(): array
     {
         return [
-            'username'  => (string) $this,
+            'username' => (string) $this,
             'separator' => $this->separator,
-            'case'      => $this->case,
-            'ascii'     => $this->ascii,
+            'case' => $this->case,
+            'ascii' => $this->ascii,
             'minLength' => $this->minLength,
             'maxLength' => $this->maxLength,
-            'prefix'    => $this->prefix,
-            'suffix'    => $this->suffix,
-            'reserved'  => $this->reserved,
+            'prefix' => $this->prefix,
+            'suffix' => $this->suffix,
+            'reserved' => $this->reserved,
         ];
     }
 
@@ -510,7 +510,7 @@ final class Username implements Stringable
                 $prefix = 'user';
             }
 
-            return $prefix . $this->randomDigitString($this->randomDigits);
+            return $prefix.$this->randomDigitString($this->randomDigits);
         }
 
         $parts = $this->nameParts();
@@ -565,11 +565,11 @@ final class Username implements Stringable
 
         // Strip everything but alphanumerics and the permitted extra chars.
         $allowed = preg_quote($this->allowedExtra, '/');
-        $value = (string) preg_replace('/[^a-zA-Z0-9' . $allowed . ']/', '', $value);
+        $value = (string) preg_replace('/[^a-zA-Z0-9'.$allowed.']/', '', $value);
 
         $value = $this->collapseSeparators($value);
 
-        $value = $this->affix($this->prefix) . $value . $this->affix($this->suffix);
+        $value = $this->affix($this->prefix).$value.$this->affix($this->suffix);
 
         if ($this->randomSuffixDigits > 0) {
             $value .= $this->randomDigitString($this->randomSuffixDigits);
@@ -581,7 +581,7 @@ final class Username implements Stringable
         $value = match ($this->case) {
             self::CASE_LOWER => Str::lower($value),
             self::CASE_UPPER => Str::upper($value),
-            default          => $value,
+            default => $value,
         };
 
         return $this->clampLength($value);
@@ -600,7 +600,7 @@ final class Username implements Stringable
 
         $allowed = preg_quote($this->allowedExtra, '/');
 
-        return (string) preg_replace('/[^a-zA-Z0-9' . $allowed . ']/', '', $affix);
+        return (string) preg_replace('/[^a-zA-Z0-9'.$allowed.']/', '', $affix);
     }
 
     /** Collapse runs of separators to a single one and trim leading/trailing ones. */
@@ -613,7 +613,7 @@ final class Username implements Stringable
         $class = preg_quote($this->allowedExtra, '/');
 
         // Collapse any run of separators (even mixed) down to a single char.
-        $value = (string) preg_replace('/([' . $class . '])[' . $class . ']+/', '$1', $value);
+        $value = (string) preg_replace('/(['.$class.'])['.$class.']+/', '$1', $value);
 
         // Trim leading/trailing separators.
         return trim($value, $this->allowedExtra);
@@ -632,7 +632,7 @@ final class Username implements Stringable
 
         $sep = $this->separator !== '' ? $this->separator : '';
 
-        return $this->collapseSeparators('user' . $sep . $value);
+        return $this->collapseSeparators('user'.$sep.$value);
     }
 
     /** Pad short handles up to minLength, then truncate to maxLength. */
@@ -716,7 +716,7 @@ final class Username implements Stringable
     /**
      * Return a mutated clone, keeping the builder immutable.
      *
-     * @param callable(self): mixed $mutator
+     * @param  callable(self): mixed  $mutator
      */
     private function with(callable $mutator): self
     {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Config;
 
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Providers\ToolkitServiceProvider;
 use Simtabi\Laranail\Toolkit\Tests\Concerns\AssertsPublishedConfigOverrides;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * Publishing the namespaced config writes to the nested path

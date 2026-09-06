@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
 use BadMethodCallException;
-use InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use InvalidArgumentException;
 use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 final class MacroablePost extends Model
 {
@@ -61,7 +61,7 @@ final class MacroableModelsTest extends TestCase
         $this->registry->addMacro(MacroablePost::class, 'shout', fn (): string => 'post!');
 
         $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage(MacroableComment::class . '::shout()');
+        $this->expectExceptionMessage(MacroableComment::class.'::shout()');
 
         MacroableComment::query()->shout();
     }

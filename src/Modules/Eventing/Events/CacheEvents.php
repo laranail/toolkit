@@ -25,8 +25,8 @@ use Simtabi\Laranail\Toolkit\Enums\CacheAction;
 class CacheEvents extends Event
 {
     /**
-     * @param CacheAction $action The lifecycle phase this event represents.
-     * @param array<string, mixed> $metadata Arbitrary, non-PII context for listeners.
+     * @param  CacheAction  $action  The lifecycle phase this event represents.
+     * @param  array<string, mixed>  $metadata  Arbitrary, non-PII context for listeners.
      */
     public function __construct(
         public readonly CacheAction $action = CacheAction::Cleared,
@@ -36,7 +36,7 @@ class CacheEvents extends Event
     /**
      * Cache clearing has started.
      *
-     * @param array<string, mixed> $metadata
+     * @param  array<string, mixed>  $metadata
      */
     public static function clearing(array $metadata = []): self
     {
@@ -46,7 +46,7 @@ class CacheEvents extends Event
     /**
      * Cache clearing completed successfully.
      *
-     * @param array<string, mixed> $metadata
+     * @param  array<string, mixed>  $metadata
      */
     public static function cleared(array $metadata = []): self
     {
@@ -56,8 +56,8 @@ class CacheEvents extends Event
     /**
      * A cache operation failed.
      *
-     * @param string $reason Why the operation failed.
-     * @param array<string, mixed> $metadata Additional context (merged with `reason`).
+     * @param  string  $reason  Why the operation failed.
+     * @param  array<string, mixed>  $metadata  Additional context (merged with `reason`).
      */
     public static function failed(string $reason, array $metadata = []): self
     {
@@ -76,7 +76,7 @@ class CacheEvents extends Event
         if ($this->action === CacheAction::Failed) {
             $reason = $this->metadata['reason'] ?? 'Unknown error';
 
-            return 'Cache operation failed: ' . (is_string($reason) ? $reason : 'Unknown error');
+            return 'Cache operation failed: '.(is_string($reason) ? $reason : 'Unknown error');
         }
 
         return $this->action->description();

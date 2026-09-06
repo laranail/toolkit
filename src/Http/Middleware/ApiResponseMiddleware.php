@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use Simtabi\Laranail\Toolkit\Http\Contracts\HttpStatusInterface;
+use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Wraps a route's JSON response in the standard envelope and rewrites its data
@@ -46,7 +46,7 @@ class ApiResponseMiddleware extends ApiMiddleware
     /**
      * Handle the response.
      *
-     * @param string ...$options Optional envelope tags: [metaTag, dataTag, pageTag].
+     * @param  string  ...$options  Optional envelope tags: [metaTag, dataTag, pageTag].
      */
     public function handle(Request $request, Closure $next, string ...$options): Response
     {
@@ -109,7 +109,7 @@ class ApiResponseMiddleware extends ApiMiddleware
     /**
      * Build the standard `{ success, message, data, meta }` envelope.
      *
-     * @param string ...$options Optional envelope tags: [metaTag, dataTag, pageTag].
+     * @param  string  ...$options  Optional envelope tags: [metaTag, dataTag, pageTag].
      */
     private function buildPayload(JsonResponse $response, string ...$options): JsonResponse
     {
@@ -122,7 +122,7 @@ class ApiResponseMiddleware extends ApiMiddleware
         $payload = [
             'success' => $this->isSuccessful($status),
             'message' => $this->getStatusMessage($status),
-            $metaTag  => $this->getMetaBlock($response),
+            $metaTag => $this->getMetaBlock($response),
         ];
 
         $data = $this->resolveData($response, $payload, $metaTag, $pageTag);
@@ -140,8 +140,7 @@ class ApiResponseMiddleware extends ApiMiddleware
      * Resolve the `data` portion of the payload, mutating `$payload[$metaTag]`
      * in place to add the pagination block when the response is paginated.
      *
-     * @param array<string, mixed> $payload
-     *
+     * @param  array<string, mixed>  $payload
      * @return mixed The data value, or {@see ApiResponseMiddleware::NO_DATA}.
      */
     private function resolveData(
@@ -226,8 +225,8 @@ class ApiResponseMiddleware extends ApiMiddleware
         $code = $response->getStatusCode();
 
         $meta = [
-            'code'    => $code,
-            'status'  => $this->isSuccessful($code) ? 'success' : 'error',
+            'code' => $code,
+            'status' => $this->isSuccessful($code) ? 'success' : 'error',
             'message' => $this->getStatusMessage($code),
         ];
 
@@ -244,18 +243,17 @@ class ApiResponseMiddleware extends ApiMiddleware
      * Build the pagination block. Field names mirror
      * {@see ApiResponseTrait::paginatedResponse()}.
      *
-     * @param LengthAwarePaginator<array-key, mixed> $paginator
-     *
+     * @param  LengthAwarePaginator<array-key, mixed>  $paginator
      * @return array<string, int>
      */
     private function getPaginationBlock(LengthAwarePaginator $paginator): array
     {
         return [
-            'total'        => $paginator->total(),
-            'count'        => $paginator->count(),
-            'per_page'     => $paginator->perPage(),
+            'total' => $paginator->total(),
+            'count' => $paginator->count(),
+            'per_page' => $paginator->perPage(),
             'current_page' => $paginator->currentPage(),
-            'total_pages'  => $paginator->lastPage(),
+            'total_pages' => $paginator->lastPage(),
         ];
     }
 }

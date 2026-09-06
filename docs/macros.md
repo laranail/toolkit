@@ -86,7 +86,7 @@ Arr::average($rows, 'score');
 `before($current, $strict = false)`, `insertAt($index, $item, $key = null)`,
 `rotate($offset)` (signed), `firstOrPush($cb, $value, $instance = null)`,
 `eachCons($size, $preserveKeys = false)` (overlapping windows),
-`sliceBefore($cb, $preserveKeys = false)`, `chunkBy($cb, $preserveKeys = false)`,
+`sliceBefore($cb, $preserveKeys = false)`, `laranailChunkBy($cb, $preserveKeys = false)`,
 `groupByModel($cb, $modelKey = 0, $itemsKey = 1)`,
 `forSelectBox($key, $value, $addEmpty = true)`, `extract($keys)`,
 `tail($preserveKeys = false)`, `toPairs()`, `fromPairs()`, `ifEmpty($cb)`,
@@ -116,7 +116,7 @@ case-insensitive form lowercases multibyte-safely via `Str::lower`.
 ```php
 collect($flatRows)->toTree('parent_id'); // nested children tree
 collect($items)->prioritize(fn ($i) => $i->pinned);
-collect([1, 1, 2, 3, 3])->chunkBy(fn ($n) => $n); // [[1,1],[2],[3,3]]
+collect([1, 1, 2, 3, 3])->laranailChunkBy(fn ($n) => $n); // [[1,1],[2],[3,3]]
 collect($rows)->forSelectBox('id', 'name');       // ['' => '', 5 => 'Apple', ...]
 collect($posts)->sortSearchResults('laravel api', 'title'); // most relevant first
 collect([1, 2, 3, 4])->filterMap(fn ($n) => $n % 2 ? false : $n * 10); // [1 => 20, 3 => 40]

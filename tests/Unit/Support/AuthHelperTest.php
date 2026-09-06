@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
-use Mockery;
-use InvalidArgumentException;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Contracts\Auth\StatefulGuard;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Simtabi\Laranail\Toolkit\Support\AuthHelper;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Schema;
+use InvalidArgumentException;
+use Mockery;
+use Simtabi\Laranail\Toolkit\Support\AuthHelper;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class AuthHelperTest extends TestCase
 {

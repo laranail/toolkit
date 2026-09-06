@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Feature\Support;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Support\RequirementsDiagnostics;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 #[Group('support')]
 class RequirementsDiagnosticsTest extends TestCase

@@ -6,8 +6,8 @@ namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Services\RouteService;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
  * Drives RouteService against a real Router with defined routes so the
@@ -130,7 +130,7 @@ class RouteServiceCoverageTest extends TestCase
      * Define a route group, dispatch a request through it so the Router has a
      * "current" route, and return a service bound to that same Router + Request.
      *
-     * @param array<string, mixed> $query
+     * @param  array<string, mixed>  $query
      */
     private function serviceAtRoute(string $uri, string $name, array $query = [], ?string $prefix = null): RouteService
     {
@@ -147,8 +147,8 @@ class RouteServiceCoverageTest extends TestCase
             $register($router);
         }
 
-        $path = $prefix !== null ? trim($prefix, '/') . '/' . ltrim($uri, '/') : $uri;
-        $request = Request::create('/' . ltrim($path, '/'), 'GET', $query);
+        $path = $prefix !== null ? trim($prefix, '/').'/'.ltrim($uri, '/') : $uri;
+        $request = Request::create('/'.ltrim($path, '/'), 'GET', $query);
 
         // Dispatch through the Router so Router::current()/currentRouteName()
         // resolve to the matched route, mirroring a real HTTP request. Bind the

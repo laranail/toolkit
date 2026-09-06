@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
-use PHPUnit\Framework\Attributes\Group;
-use Illuminate\Database\Schema\Blueprint;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Http\Controllers\CrudController;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class CrudPost extends Model
 {

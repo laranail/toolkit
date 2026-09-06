@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Support;
 
-use function dirname;
-
 use InvalidArgumentException;
+
+use function dirname;
 
 /**
  * Thin diagnostics surface for the toolkit's runtime requirements.
@@ -44,8 +44,8 @@ final class RequirementsDiagnostics
         $minimum = $minimumVersion ?? self::MINIMUM_PHP_VERSION;
 
         return [
-            'current'   => PHP_VERSION,
-            'minimum'   => $minimum,
+            'current' => PHP_VERSION,
+            'minimum' => $minimum,
             'supported' => version_compare(PHP_VERSION, $minimum, '>='),
         ];
     }
@@ -53,8 +53,7 @@ final class RequirementsDiagnostics
     /**
      * Report which of the given extensions are loaded.
      *
-     * @param list<string>|null $extensions
-     *
+     * @param  list<string>|null  $extensions
      * @return array<string, bool>
      */
     public function checkExtensions(?array $extensions = null): array
@@ -75,8 +74,7 @@ final class RequirementsDiagnostics
      * a path's nearest existing ancestor when the path itself does not yet
      * exist, so "can I create files here" is answered correctly.
      *
-     * @param list<string> $paths
-     *
+     * @param  list<string>  $paths
      * @return array<string, bool>
      */
     public function checkWritableDirectories(array $paths): array
@@ -117,8 +115,7 @@ final class RequirementsDiagnostics
      * Report which of the given extensions are missing (the inverse view of
      * {@see checkExtensions()}), handy for a single "all good?" answer.
      *
-     * @param list<string>|null $extensions
-     *
+     * @param  list<string>|null  $extensions
      * @return list<string>
      */
     public function missingExtensions(?array $extensions = null): array
@@ -160,11 +157,11 @@ final class RequirementsDiagnostics
             && ($minimumBytes === null || $freeBytes >= $minimumBytes);
 
         return [
-            'path'       => $path,
-            'free'       => $freeBytes,
-            'total'      => $totalBytes,
-            'minimum'    => $minimumBytes,
-            'available'  => $available,
+            'path' => $path,
+            'free' => $freeBytes,
+            'total' => $totalBytes,
+            'minimum' => $minimumBytes,
+            'available' => $available,
             'sufficient' => $sufficient,
         ];
     }
@@ -182,11 +179,10 @@ final class RequirementsDiagnostics
      * path or a restricted SAPI; that path is reported as `available: false`
      * and drags `healthy` down rather than throwing.
      *
-     * @param list<string> $paths paths to probe (defaults to the app base path)
-     * @param int|null $minMb hard minimum free space in MB, or null to skip the floor check
-     * @param int|null $recommendedMb recommended free space in MB, or null to skip the recommendation
-     * @param int $warnAtPercent emit a warning once used space reaches this percentage (0–100)
-     *
+     * @param  list<string>  $paths  paths to probe (defaults to the app base path)
+     * @param  int|null  $minMb  hard minimum free space in MB, or null to skip the floor check
+     * @param  int|null  $recommendedMb  recommended free space in MB, or null to skip the recommendation
+     * @param  int  $warnAtPercent  emit a warning once used space reaches this percentage (0–100)
      * @return array{
      *     healthy: bool,
      *     warn_at_percent: int,
@@ -236,11 +232,11 @@ final class RequirementsDiagnostics
         }
 
         return [
-            'healthy'         => $healthy,
+            'healthy' => $healthy,
             'warn_at_percent' => $warnAtPercent,
-            'minimum_mb'      => $minMb,
-            'recommended_mb'  => $recommendedMb,
-            'paths'           => $results,
+            'minimum_mb' => $minMb,
+            'recommended_mb' => $recommendedMb,
+            'paths' => $results,
         ];
     }
 
@@ -258,20 +254,19 @@ final class RequirementsDiagnostics
         $disk = $this->checkDiskSpace();
 
         return [
-            'PHP Version'         => $php['current'],
-            'Minimum PHP'         => $php['minimum'],
-            'PHP Supported'       => $php['supported'] ? 'Yes' : 'No',
-            'Required Extensions' => $missing === [] ? 'All loaded' : 'Missing: ' . implode(', ', $missing),
-            'Storage Writable'    => $this->isDirectoryWritable(storage_path()) ? 'Yes' : 'No',
-            'Storage Free Space'  => $disk['free'] === null ? 'Unknown' : $this->formatBytes($disk['free']),
+            'PHP Version' => $php['current'],
+            'Minimum PHP' => $php['minimum'],
+            'PHP Supported' => $php['supported'] ? 'Yes' : 'No',
+            'Required Extensions' => $missing === [] ? 'All loaded' : 'Missing: '.implode(', ', $missing),
+            'Storage Writable' => $this->isDirectoryWritable(storage_path()) ? 'Yes' : 'No',
+            'Storage Free Space' => $disk['free'] === null ? 'Unknown' : $this->formatBytes($disk['free']),
         ];
     }
 
     /**
      * Probe a single path against the supplied byte thresholds.
      *
-     * @param int $warnAtPercent the warning line as a percentage (0–100)
-     *
+     * @param  int  $warnAtPercent  the warning line as a percentage (0–100)
      * @return array{
      *     path: string,
      *     available: bool,
@@ -318,16 +313,16 @@ final class RequirementsDiagnostics
         $warning = $usedPercent !== null && $usedPercent >= $warnAtPercent;
 
         return [
-            'path'              => $path,
-            'available'         => $available,
-            'free'              => $freeBytes,
-            'total'             => $totalBytes,
-            'used'              => $usedBytes,
-            'used_percent'      => $usedPercent,
-            'meets_minimum'     => $meetsMinimum,
+            'path' => $path,
+            'available' => $available,
+            'free' => $freeBytes,
+            'total' => $totalBytes,
+            'used' => $usedBytes,
+            'used_percent' => $usedPercent,
+            'meets_minimum' => $meetsMinimum,
             'meets_recommended' => $meetsRecommended,
-            'warning'           => $warning,
-            'status'            => $this->diskStatus($available, $meetsMinimum, $meetsRecommended, $warning),
+            'warning' => $warning,
+            'status' => $this->diskStatus($available, $meetsMinimum, $meetsRecommended, $warning),
         ];
     }
 
@@ -341,11 +336,11 @@ final class RequirementsDiagnostics
         bool $warning,
     ): string {
         return match (true) {
-            ! $available        => 'unavailable',
-            ! $meetsMinimum     => 'critical',
-            $warning            => 'warning',
+            ! $available => 'unavailable',
+            ! $meetsMinimum => 'critical',
+            $warning => 'warning',
             ! $meetsRecommended => 'low',
-            default             => 'healthy',
+            default => 'healthy',
         };
     }
 
@@ -379,6 +374,6 @@ final class RequirementsDiagnostics
         $power = $bytes > 0 ? (int) floor(log($bytes, 1024)) : 0;
         $power = min($power, count($units) - 1);
 
-        return round($bytes / 1024 ** $power, 2) . ' ' . $units[$power];
+        return round($bytes / 1024 ** $power, 2).' '.$units[$power];
     }
 }

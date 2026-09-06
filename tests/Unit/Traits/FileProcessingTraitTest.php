@@ -39,7 +39,7 @@ class FileProcessingTraitTest extends TestCase
         $content = 'Test file content';
 
         // Create a test file
-        Storage::disk('local')->put($directory . '/' . $filename, $content);
+        Storage::disk('local')->put($directory.'/'.$filename, $content);
 
         $result = $this->getFile($filename, $directory);
 
@@ -65,7 +65,7 @@ class FileProcessingTraitTest extends TestCase
 
         $this->assertIsString($filename);
         $this->assertStringContainsString('test.pdf', $filename);
-        $this->assertTrue(Storage::disk('local')->exists($directory . '/' . $filename));
+        $this->assertTrue(Storage::disk('local')->exists($directory.'/'.$filename));
     }
 
     public function test_uploaded_file_has_unique_name()
@@ -96,7 +96,7 @@ class FileProcessingTraitTest extends TestCase
 
         foreach ($filenames as $filename) {
             $this->assertIsString($filename);
-            $this->assertTrue(Storage::disk('local')->exists($directory . '/' . $filename));
+            $this->assertTrue(Storage::disk('local')->exists($directory.'/'.$filename));
         }
     }
 
@@ -107,13 +107,13 @@ class FileProcessingTraitTest extends TestCase
         $content = 'Test content';
 
         // Create a test file
-        Storage::disk('local')->put($directory . '/' . $filename, $content);
-        $this->assertTrue(Storage::disk('local')->exists($directory . '/' . $filename));
+        Storage::disk('local')->put($directory.'/'.$filename, $content);
+        $this->assertTrue(Storage::disk('local')->exists($directory.'/'.$filename));
 
         // Delete the file
         $this->deleteFile($filename, $directory);
 
-        $this->assertFalse(Storage::disk('local')->exists($directory . '/' . $filename));
+        $this->assertFalse(Storage::disk('local')->exists($directory.'/'.$filename));
     }
 
     public function test_can_delete_multiple_files()
@@ -123,12 +123,12 @@ class FileProcessingTraitTest extends TestCase
 
         // Create test files
         foreach ($filenames as $filename) {
-            Storage::disk('local')->put($directory . '/' . $filename, 'content');
+            Storage::disk('local')->put($directory.'/'.$filename, 'content');
         }
 
         // Verify files exist
         foreach ($filenames as $filename) {
-            $this->assertTrue(Storage::disk('local')->exists($directory . '/' . $filename));
+            $this->assertTrue(Storage::disk('local')->exists($directory.'/'.$filename));
         }
 
         // Delete all files
@@ -136,7 +136,7 @@ class FileProcessingTraitTest extends TestCase
 
         // Verify files are deleted
         foreach ($filenames as $filename) {
-            $this->assertFalse(Storage::disk('local')->exists($directory . '/' . $filename));
+            $this->assertFalse(Storage::disk('local')->exists($directory.'/'.$filename));
         }
     }
 
@@ -146,7 +146,7 @@ class FileProcessingTraitTest extends TestCase
 
         $filename = $this->uploadFile($file);
 
-        $this->assertTrue(Storage::disk('local')->exists('uploads/' . $filename));
+        $this->assertTrue(Storage::disk('local')->exists('uploads/'.$filename));
     }
 
     public function test_handles_empty_files_array()
@@ -183,6 +183,6 @@ class FileProcessingTraitTest extends TestCase
         $filename = $this->uploadFile($file, $directory);
 
         $this->assertIsString($filename);
-        $this->assertTrue(Storage::disk('local')->exists($directory . '/' . $filename));
+        $this->assertTrue(Storage::disk('local')->exists($directory.'/'.$filename));
     }
 }

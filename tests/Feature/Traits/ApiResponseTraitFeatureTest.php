@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Traits;
 
-use InvalidArgumentException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Config;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Config;
+use InvalidArgumentException;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
 
 class ApiResponseTraitFeatureTest extends TestCase
@@ -26,7 +26,7 @@ class ApiResponseTraitFeatureTest extends TestCase
         $message = 'Users retrieved successfully';
         $meta = [
             'total' => 2,
-            'page'  => 1,
+            'page' => 1,
         ];
 
         $response = $this->successResponse($data, $message, 200, $meta);
@@ -48,11 +48,11 @@ class ApiResponseTraitFeatureTest extends TestCase
 
         $message = 'Validation failed';
         $errors = [
-            'email'    => ['The email field is required.'],
+            'email' => ['The email field is required.'],
             'password' => ['The password field is required.'],
         ];
         $debug = [
-            'request_data'     => ['email' => '', 'password' => ''],
+            'request_data' => ['email' => '', 'password' => ''],
             'validation_rules' => ['email' => 'required', 'password' => 'required'],
         ];
 
@@ -72,8 +72,8 @@ class ApiResponseTraitFeatureTest extends TestCase
     {
         // Create a mock paginator with realistic data
         $items = collect(range(1, 25))->map(fn ($i) => [
-            'id'         => $i,
-            'name'       => "Item {$i}",
+            'id' => $i,
+            'name' => "Item {$i}",
             'created_at' => now()->subDays($i)->toDateTimeString(),
         ]);
 
@@ -151,10 +151,10 @@ class ApiResponseTraitFeatureTest extends TestCase
     public function test_large_data_response_performance()
     {
         $largeData = array_fill(0, 1000, [
-            'id'          => 1,
-            'name'        => 'Test Item',
+            'id' => 1,
+            'name' => 'Test Item',
             'description' => 'This is a test item with some description',
-            'metadata'    => [
+            'metadata' => [
                 'created_at' => now()->toDateTimeString(),
                 'updated_at' => now()->toDateTimeString(),
             ],
@@ -175,14 +175,14 @@ class ApiResponseTraitFeatureTest extends TestCase
     {
         $nestedData = [
             'user' => [
-                'id'      => 123,
+                'id' => 123,
                 'profile' => [
-                    'name'     => 'John Doe',
+                    'name' => 'John Doe',
                     'settings' => [
-                        'theme'         => 'dark',
+                        'theme' => 'dark',
                         'notifications' => [
                             'email' => true,
-                            'push'  => false,
+                            'push' => false,
                         ],
                     ],
                 ],

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use ReflectionMethod;
-use RuntimeException;
-use ReflectionProperty;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
+use ReflectionMethod;
+use ReflectionProperty;
+use RuntimeException;
 use Simtabi\Laranail\Toolkit\Commands\Tidy;
-use Simtabi\Laranail\Toolkit\Tests\TestCase;
-use Symfony\Component\Console\Input\ArrayInput;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Symfony\Component\Console\Input\ArrayInput;
 
 /**
  * Targets the harder-to-reach Tidy branches: the declined-confirmation early
@@ -68,7 +68,7 @@ class TidyBranchesTest extends TestCase
 
     public function test_unresolvable_storage_path_fails(): void
     {
-        $this->app->useStoragePath('/laranail-nonexistent-' . uniqid());
+        $this->app->useStoragePath('/laranail-nonexistent-'.uniqid());
 
         $this->artisan('laranail::toolkit.tidy', ['action' => 'logs', '--force' => true])
             ->expectsOutputToContain('storage_path() does not resolve')
@@ -126,7 +126,7 @@ class TidyBranchesTest extends TestCase
 
     public function test_sweep_skips_an_unsafe_relative_root(): void
     {
-        $keep = $this->makeStorageFile('logs/guarded_' . uniqid() . '.log', 'keep');
+        $keep = $this->makeStorageFile('logs/guarded_'.uniqid().'.log', 'keep');
 
         $command = $this->app->make(Tidy::class);
         $base = (string) realpath(storage_path());
@@ -139,7 +139,7 @@ class TidyBranchesTest extends TestCase
 
     public function test_sweep_stops_when_a_termination_signal_arrived(): void
     {
-        $keep = $this->makeStorageFile('logs/signalled_' . uniqid() . '.log', 'keep');
+        $keep = $this->makeStorageFile('logs/signalled_'.uniqid().'.log', 'keep');
 
         $command = $this->app->make(Tidy::class);
         $command->setLaravel($this->app);
@@ -165,9 +165,9 @@ class TidyBranchesTest extends TestCase
 
     public function test_empty_subdirectories_are_skipped_while_files_are_deleted(): void
     {
-        $dir = storage_path('logs/branch_' . uniqid());
-        @mkdir($dir . '/emptydir', 0777, true);
-        $file = $dir . '/old.log';
+        $dir = storage_path('logs/branch_'.uniqid());
+        @mkdir($dir.'/emptydir', 0777, true);
+        $file = $dir.'/old.log';
         file_put_contents($file, 'log');
         $this->created[] = $file;
 
@@ -176,7 +176,7 @@ class TidyBranchesTest extends TestCase
 
         $this->assertFileDoesNotExist($file);
 
-        @rmdir($dir . '/emptydir');
+        @rmdir($dir.'/emptydir');
         @rmdir($dir);
     }
 
@@ -235,7 +235,7 @@ class SpyTidy extends Tidy
         {--force : Skip confirmation prompts}';
 
     /**
-     * @param array<array-key, mixed> $arguments
+     * @param  array<array-key, mixed>  $arguments
      */
     public function call($command, array $arguments = [])
     {

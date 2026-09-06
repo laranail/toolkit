@@ -39,8 +39,8 @@ final readonly class GeminiResponse implements JsonSerializable
     {
         return [
             'content' => $this->content,
-            'model'   => $this->model,
-            'usage'   => $this->usage,
+            'model' => $this->model,
+            'usage' => $this->usage,
         ];
     }
 
