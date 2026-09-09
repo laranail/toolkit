@@ -78,7 +78,7 @@ Arr::average($rows, 'score');
 ## Collection macros
 
 `transpose`, `recursive`, `mapToKey($cb)`, `filterRecursive($cb = null)`,
-`firstOrFail($cb = null, $default = null)`, `sumRecursive($key = null)`,
+`laranailFirstOrFail($cb = null, $default = null)`, `sumRecursive($key = null)`,
 `averageBy($cb)`, `toCsv($delimiter = ',', $enclosure = '"', $escape = '\\')`,
 `prioritize($cb)`, `rotateLeft($count = 1)`, `rotateRight($count = 1)`,
 `toTree($parentKey = 'parent_id', $childrenKey = 'children')`,
