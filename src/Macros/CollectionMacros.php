@@ -75,7 +75,17 @@ final class CollectionMacros extends ServiceProvider
             })->filter($callback);
         });
 
-        Collection::macro('firstOrFail', function (?callable $callback = null, mixed $default = null): mixed {
+        // NOT 'firstOrFail'. Laravel ships Collection::firstOrFail(), and a macro
+        // never runs when a real method of that name exists - __call is only
+        // reached for missing methods. The bare name therefore resolved to
+        // upstream's, whose signature is ($key, $operator, $value) and which
+        // throws ItemNotFoundException: a caller passing this macro's callback
+        // and $default silently got a different method. The ide-helper was
+        // advertising this signature for a macro that never ran.
+        //
+        // Do not rename this back. A macro is a flat global registry and the
+        // bare name is upstream's now.
+        Collection::macro('laranailFirstOrFail', function (?callable $callback = null, mixed $default = null): mixed {
             /** @var Collection<array-key, mixed> $this */
             $result = $this->first($callback, $default);
 
@@ -437,7 +447,12 @@ final class CollectionMacros extends ServiceProvider
     {
         // The previous item relative to $current (mirror of the native after()).
         // Returns null when $current is the first item or is not present.
-        Collection::macro('before', function (mixed $current, bool $strict = false): mixed {
+        // NOT 'before' - shadowed by Laravel's Collection::before() for the same
+        // reason as laranailFirstOrFail above. Renamed rather than deleted: the
+        // two look equivalent by inspection, but that was not measurable here,
+        // and silently swapping a caller onto upstream's is the failure this
+        // whole convention exists to prevent.
+        Collection::macro('laranailBefore', function (mixed $current, bool $strict = false): mixed {
             /** @var Collection<array-key, mixed> $this */
             return $this->reverse()->after($current, $strict);
         });

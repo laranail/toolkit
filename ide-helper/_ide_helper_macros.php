@@ -77,14 +77,14 @@ namespace Illuminate\Support {
 
     /**
      * @method mixed averageBy(callable $callback)
-     * @method mixed before(mixed $current, bool $strict = false)
+     * @method mixed laranailBefore(mixed $current, bool $strict = false)
      * @method \Illuminate\Support\Collection laranailChunkBy(callable $callback, bool $preserveKeys = false)
      * @method \Illuminate\Support\Collection collectBy(mixed $key, mixed $default = null)
      * @method \Illuminate\Support\Collection eachCons(int $chunkSize, bool $preserveKeys = false)
      * @method \Illuminate\Support\Collection extract(mixed $keys)
      * @method \Illuminate\Support\Collection filterMap(callable $callback)
      * @method \Illuminate\Support\Collection filterRecursive(?callable $callback = null)
-     * @method mixed firstOrFail(?callable $callback = null, mixed $default = null)
+     * @method mixed laranailFirstOrFail(?callable $callback = null, mixed $default = null)
      * @method mixed firstOrPush(callable $callback, mixed $value, ?\Illuminate\Support\Collection $instance = null)
      * @method array forSelectBox(string $key, string $value, bool $addEmpty = true)
      * @method \Illuminate\Support\Collection fromPairs()

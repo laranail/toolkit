@@ -154,10 +154,10 @@ class IdeHelperStubTest extends TestCase
                 'linesCount', 'interpolate',
             ],
             'Collection' => [
-                'transpose', 'recursive', 'mapToKey', 'filterRecursive', 'firstOrFail',
+                'transpose', 'recursive', 'mapToKey', 'filterRecursive', 'laranailFirstOrFail',
                 'sumRecursive', 'averageBy', 'toCsv', 'prioritize', 'rotateLeft', 'rotateRight',
                 'toTree', 'insertAfter', 'insertBefore',
-                'before', 'insertAt', 'rotate', 'firstOrPush',
+                'laranailBefore', 'insertAt', 'rotate', 'firstOrPush',
                 'eachCons', 'sliceBefore', 'laranailChunkBy', 'groupByModel',
                 'forSelectBox', 'extract', 'tail', 'toPairs', 'fromPairs', 'ifEmpty',
                 'mapKeyValuePairs', 'sortSearchResults',

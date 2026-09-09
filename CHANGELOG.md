@@ -28,6 +28,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Two tests caught this. Nothing else would have: the call kept working and quietly returned
   differently-keyed data.
 
+- **Breaking. `Collection::firstOrFail()` and `Collection::before()` are now `laranailFirstOrFail()`
+  and `laranailBefore()`** — the same shadowing as `chunkBy` above, found by the same rule. Laravel
+  ships both names natively, so neither macro had been firing.
+
+  `firstOrFail` is the one that mattered: upstream's signature is `($key, $operator, $value)` against
+  this macro's `($callback, $default)`, and it throws `ItemNotFoundException` rather than the macro's
+  message — so a caller passing a callback and a default silently got a different method, and the
+  ide-helper was advertising a signature for something that never ran.
+
+  `before` is renamed rather than deleted. It looks equivalent to upstream's by inspection, but that
+  was not measurable here, and quietly moving callers onto a different implementation is the failure
+  this convention exists to prevent.
+
+  | | |
+  |---|---|
+  | Was | `collect($x)->firstOrFail($cb, $default)` · `collect($x)->before($v, $strict)` |
+  | Now | `collect($x)->laranailFirstOrFail($cb, $default)` · `collect($x)->laranailBefore($v, $strict)` |
+
+  Callers who want upstream's behaviour keep the bare names, which now unambiguously reach Laravel.
+
 ## [0.1.0] - 2026-08-15
 
 ### Changed

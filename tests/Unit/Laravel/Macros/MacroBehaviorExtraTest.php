@@ -77,10 +77,11 @@ class MacroBehaviorExtraTest extends TestCase
         $this->assertInstanceOf(Collection::class, $filtered->get(2));
         $this->assertSame([2], $filtered->get(2)->values()->all());
 
-        $this->assertSame(2, (new Collection([1, 2, 3]))->firstOrFail(fn (int $n): bool => $n === 2));
+        $this->assertSame(2, (new Collection([1, 2, 3]))->laranailFirstOrFail(fn (int $n): bool => $n === 2));
 
         $this->expectException(RuntimeException::class);
-        (new Collection([]))->firstOrFail();
+        $this->expectExceptionMessage('No items found in collection.');
+        (new Collection([]))->laranailFirstOrFail();
     }
 
     public function test_collection_sum_average_and_csv(): void

@@ -19,9 +19,9 @@ class MacroG6aBehaviorTest extends TestCase
     {
         $collection = collect(['a', 'b', 'c']);
 
-        $this->assertSame('a', $collection->before('b'));
-        $this->assertNull($collection->before('a'));
-        $this->assertNull($collection->before('missing'));
+        $this->assertSame('a', $collection->laranailBefore('b'));
+        $this->assertNull($collection->laranailBefore('a'));
+        $this->assertNull($collection->laranailBefore('missing'));
     }
 
     public function test_insert_at_inserts_without_mutating(): void
