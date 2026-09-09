@@ -77,25 +77,27 @@ final class CollectionMacrosBehaviorTest extends TestCase
 
     public function test_first_or_fail_returns_first_match(): void
     {
-        $this->assertSame(1, collect([1, 2, 3])->firstOrFail());
-        $this->assertSame(2, collect([1, 2, 3])->firstOrFail(static fn (int $v): bool => $v > 1));
+        $this->assertSame(1, collect([1, 2, 3])->laranailFirstOrFail());
+        $this->assertSame(2, collect([1, 2, 3])->laranailFirstOrFail(static fn (int $v): bool => $v > 1));
     }
 
     public function test_first_or_fail_throws_on_empty(): void
     {
-        // Note: firstOrFail is a native Collection method in this Laravel version,
-        // so the macro is shadowed; the native throws an ItemNotFoundException
-        // (a RuntimeException) rather than the macro's custom message.
+        // The macro's own message, not the native's ItemNotFoundException. Under
+        // the bare name this assertion could not distinguish the two, which is
+        // how the shadowing went unnoticed.
         $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('No items found in collection.');
 
-        collect([])->firstOrFail();
+        collect([])->laranailFirstOrFail();
     }
 
     public function test_first_or_fail_throws_when_no_match(): void
     {
         $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('No items found in collection.');
 
-        collect([1, 2])->firstOrFail(static fn (int $v): bool => $v > 5);
+        collect([1, 2])->laranailFirstOrFail(static fn (int $v): bool => $v > 5);
     }
 
     public function test_sum_recursive_flattens_then_sums(): void
@@ -384,12 +386,12 @@ final class CollectionMacrosBehaviorTest extends TestCase
 
     public function test_before_returns_the_previous_item(): void
     {
-        $this->assertSame(1, collect([1, 2, 3])->before(2));
-        $this->assertSame(2, collect([1, 2, 3])->before(3));
+        $this->assertSame(1, collect([1, 2, 3])->laranailBefore(2));
+        $this->assertSame(2, collect([1, 2, 3])->laranailBefore(3));
         // No predecessor for the first item.
-        $this->assertNull(collect([1, 2, 3])->before(1));
+        $this->assertNull(collect([1, 2, 3])->laranailBefore(1));
         // Absent value.
-        $this->assertNull(collect([1, 2, 3])->before(99));
+        $this->assertNull(collect([1, 2, 3])->laranailBefore(99));
     }
 
     public function test_insert_at_inserts_at_a_positional_index(): void
