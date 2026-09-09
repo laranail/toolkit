@@ -45,11 +45,11 @@ class MacroRegistrationTest extends TestCase
             'levenshtein', 'similarText', 'jaroWinkler', 'closest',
         ],
         'Collection' => [
-            'transpose', 'recursive', 'mapToKey', 'filterRecursive', 'firstOrFail',
+            'transpose', 'recursive', 'mapToKey', 'filterRecursive', 'laranailFirstOrFail',
             'sumRecursive', 'averageBy', 'toCsv', 'prioritize', 'rotateLeft', 'rotateRight',
             'toTree', 'insertAfter', 'insertBefore',
             // G6a: navigation / positional.
-            'before', 'insertAt', 'rotate', 'firstOrPush',
+            'laranailBefore', 'insertAt', 'rotate', 'firstOrPush',
             // G6a: consecutive-window / predicate chunking.
             'eachCons', 'sliceBefore', 'laranailChunkBy', 'groupByModel',
             // G6a: reshape / conditional.
@@ -228,7 +228,7 @@ class MacroRegistrationTest extends TestCase
         'Macros\\Human / Bind' => 'Broken: called nonexistent Str::human()/Str::bind(); no salvageable intent.',
         'Macros\\Round5' => 'Native round($n / 5) * 5 is a strictly simpler, correct one-liner (the legacy version mishandled negatives).',
         'Macros\\GetFile / Glob' => 'Trivial new SplFileInfo() / glob() wrappers; call PHP/File directly (per the FileService I/O policy).',
-        'Macros\\FirstOrFail (legacy)' => 'Already registered as the inline Collection::firstOrFail() macro; legacy class is redundant.',
+        'Macros\\FirstOrFail (legacy)' => 'Already registered as the inline Collection::laranailFirstOrFail() macro; legacy class is redundant.',
         'Macros\\Prioritize (legacy)' => 'Already registered as the inline Collection::prioritize() macro; legacy class is redundant.',
         'Macros\\InsertAfter / InsertBefore (legacy)' => 'Already registered as inline Collection::insertAfter()/insertBefore() macros.',
         'Macros\\WordsCount' => 'Already registered as the Str::countWords() macro (returns int, not a string).',
