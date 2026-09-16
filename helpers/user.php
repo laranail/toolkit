@@ -21,10 +21,10 @@ declare(strict_types=1);
 |
 */
 
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Simtabi\Laranail\Toolkit\Facades\Toolkit;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
+use Simtabi\Laranail\Toolkit\Facades\Toolkit;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 if (! function_exists('user')) {
     /**

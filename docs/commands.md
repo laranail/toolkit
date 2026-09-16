@@ -8,8 +8,8 @@ alias), and injects its collaborators — no facades in the core logic.
 
 | Command | Namespaced name | Alias | Page |
 |---|---|---|---|
-| CRUD generator | `laranail::toolkit.make-crud` | `make:crud` | [make-crud](make-crud.md) |
-| IDE-helper macros | `laranail::toolkit.ide-helper-macros` | `ide-helper:macros` | [macros](macros.md) |
+| CRUD generator | `laranail::toolkit.make-crud` | `laranail::toolkit.make-crud` | [make-crud](make-crud.md) |
+| IDE-helper macros | `laranail::toolkit.ide-helper-macros` | `laranail::toolkit.ide-helper-macros` | [macros](macros.md) |
 | Tidy | `laranail::toolkit.tidy` | `tidy` | below |
 
 ---
@@ -151,6 +151,6 @@ regenerates, an unfiltered sweep here is not housekeeping.
 ## See also
 
 - [make-crud](make-crud.md) — API CRUD generator.
-- [Macros](macros.md) — includes the `ide-helper:macros` stub regenerator.
+- [Macros](macros.md) — includes the `laranail::toolkit.ide-helper-macros` stub regenerator.
 
 [← Docs index](../README.md#documentation)

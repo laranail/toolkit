@@ -22,7 +22,8 @@ abstract class ApiMiddleware
     /**
      * Recursively rewrite every key of the payload using {@see ApiMiddleware::mutateKey()}.
      *
-     * @param  array<array-key, mixed>  $data
+     * @param array<array-key, mixed> $data
+     *
      * @return array<array-key, mixed>
      */
     protected function mutateKeys(array $data): array

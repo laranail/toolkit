@@ -206,19 +206,19 @@ autocomplete and signatures.
 ### Regenerating the stub
 
 The stub is generated from the **live, registered** macros by the
-`laranail::toolkit.ide-helper-macros` command (alias `ide-helper:macros`). Run
+`laranail::toolkit.ide-helper-macros` command (alias `laranail::toolkit.ide-helper-macros`). Run
 it after adding, renaming or removing a macro to refresh the committed file:
 
 ```bash
 php artisan laranail::toolkit.ide-helper-macros
 # alias:
-php artisan ide-helper:macros
+php artisan laranail::toolkit.ide-helper-macros
 
 # write to a custom location (absolute, or relative to the base path):
-php artisan ide-helper:macros --path=ide-helper/_ide_helper_macros.php
+php artisan laranail::toolkit.ide-helper-macros --path=ide-helper/_ide_helper_macros.php
 ```
 
-Unlike the legacy `ide-helper:macros` (which walked a static class list), this
+Unlike the legacy `laranail::toolkit.ide-helper-macros` (which walked a static class list), this
 reflects the macros actually registered at boot on every macroable target
 (`Str`, `Stringable`, `Collection`, `Arr`, the query / Eloquent builders,
 `Request`, `Carbon`, the response factory) plus the

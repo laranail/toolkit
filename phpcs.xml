@@ -6,8 +6,12 @@
     <arg value="s"/>
     <arg name="colors"/>
 
-    <!-- Line-length and similar warnings stay visible but do not fail the gate. -->
-    <config name="ignore_warnings_on_exit" value="1"/>
+    <!-- `ignore_warnings_on_exit` was removed in PHP_CodeSniffer 4.0, and CI
+         resolves 4.x. It silently stopped applying, so warnings started gating
+         the build: 186 of them, exit code 2, zero errors. The sniffs that
+         produced them are excluded below by name instead, which says which
+         warnings are tolerated and why; a blanket "warnings never fail" hid
+         that distinction anyway. -->
 
     <!-- Paths to check -->
     <file>src</file>
@@ -43,6 +47,28 @@
              and the anon-class case above is already carved out for the same
              reason. The remaining 202 errors were this one code. -->
         <exclude name="PSR12.Classes.ClassInstantiation.MissingParentheses"/>
+        <!-- Pint's `global_namespace_import.import_functions` emits
+             `use function dirname;` in its own group, separated by a blank line
+             from the class imports. PSR-12's file-header sniff reads that blank
+             line as the header ending and reports every class import after it as
+             out of order. Same conflict as the entries above, same resolution. -->
+        <exclude name="PSR12.Files.FileHeader.IncorrectOrder"/>
+    </rule>
+
+    <!-- Line length. Pint's shared config aligns `=>` within a block, which
+         LENGTHENS lines by design, so the two tools pull in opposite directions
+         on exactly the lines Pint just rewrote. 183 of the 186 findings here were
+         this one sniff. Pint owns formatting; this is that premise applied. -->
+    <rule ref="Generic.Files.LineLength">
+        <severity>0</severity>
+    </rule>
+
+    <!-- A Pest test file both declares a class and runs top-level closures. That
+         is what a Pest file IS, so the sniff cannot be satisfied without
+         restructuring the suite around a rule that exists for autoloadable
+         production code. -->
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <exclude-pattern>tests/*</exclude-pattern>
     </rule>
 
     <!-- Test methods follow PHPUnit's snake_case convention. -->

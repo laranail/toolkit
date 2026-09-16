@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\LLMProviders;
 
-use GuzzleHttp\Psr7\Response as Psr7Response;
-use OpenAI\Exceptions\ErrorException;
-use OpenAI\Responses\Chat\CreateResponse;
 use OpenAI\Testing\ClientFake;
+use OpenAI\Exceptions\ErrorException;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI\OpenAIProvider;
+use OpenAI\Responses\Chat\CreateResponse;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use GuzzleHttp\Psr7\Response as Psr7Response;
+use Simtabi\Laranail\Toolkit\Modules\LLM\OpenAI\OpenAIProvider;
 
 class OpenAIProviderTest extends TestCase
 {
@@ -90,11 +90,11 @@ class OpenAIProviderTest extends TestCase
     private function chatResponse(string $content, string $model = 'gpt-4o'): CreateResponse
     {
         return CreateResponse::fake([
-            'model' => $model,
+            'model'   => $model,
             'choices' => [
                 [
-                    'index' => 0,
-                    'message' => ['role' => 'assistant', 'content' => $content],
+                    'index'         => 0,
+                    'message'       => ['role' => 'assistant', 'content' => $content],
                     'finish_reason' => 'stop',
                 ],
             ],

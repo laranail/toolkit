@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Modules\Archiver;
 
 use PharData;
-use RecursiveIteratorIterator;
 use SplFileInfo;
+use RecursiveIteratorIterator;
 
 abstract class Extractor
 {

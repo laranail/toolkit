@@ -20,8 +20,8 @@ enum CacheAction: string
     {
         return match ($this) {
             self::Clearing => 'Cache Clearing Started',
-            self::Cleared => 'Cache Cleared',
-            self::Failed => 'Cache Operation Failed',
+            self::Cleared  => 'Cache Cleared',
+            self::Failed   => 'Cache Operation Failed',
         };
     }
 
@@ -30,8 +30,8 @@ enum CacheAction: string
     {
         return match ($this) {
             self::Clearing => 'Cache clearing operation has started.',
-            self::Cleared => 'Cache has been successfully cleared.',
-            self::Failed => 'Cache operation failed.',
+            self::Cleared  => 'Cache has been successfully cleared.',
+            self::Failed   => 'Cache operation failed.',
         };
     }
 
@@ -40,8 +40,8 @@ enum CacheAction: string
     {
         return match ($this) {
             self::Clearing => 'low',
-            self::Cleared => 'medium',
-            self::Failed => 'high',
+            self::Cleared  => 'medium',
+            self::Failed   => 'high',
         };
     }
 
@@ -50,8 +50,8 @@ enum CacheAction: string
     {
         return match ($this) {
             self::Clearing => 'in_progress',
-            self::Cleared => 'success',
-            self::Failed => 'failure',
+            self::Cleared  => 'success',
+            self::Failed   => 'failure',
         };
     }
 }

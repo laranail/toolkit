@@ -17,10 +17,9 @@ jobs:
       fail-fast: false
       matrix:
         php: [ '8.4', '8.5' ]
-        laravel: [ '13.*' ]
         dependency-version: [ prefer-lowest, prefer-stable ]
 
-    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }}
+    name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }}
 
     steps:
       - name: Checkout code
@@ -59,7 +58,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
@@ -70,7 +68,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         if: matrix.php == '8.4' && matrix.dependency-version == 'prefer-stable'
-        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         with:
           files: ./coverage.xml
           fail_ci_if_error: false
@@ -97,8 +95,12 @@ jobs:
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --error-format=github
 
+      # laranail-pint, not bare pint: it resolves the ONE shared config in
+      # vendor/laranail/package-tools and errors if it is absent. Bare `pint`
+      # silently falls back to its own defaults, so this job was reporting
+      # "clean" against a rule set no other package in the family uses.
       - name: Run Pint (Code Style)
-        run: vendor/bin/pint --test
+        run: vendor/bin/laranail-pint --test
 
       - name: Run PHP CodeSniffer
         run: vendor/bin/phpcs

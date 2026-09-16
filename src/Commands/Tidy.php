@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Commands;
 
+use Throwable;
+use SplFileInfo;
 use FilesystemIterator;
-use Illuminate\Console\ConfirmableTrait;
-use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Simtabi\Laranail\Console\Tools\Commands\Command;
-use Simtabi\Laranail\Console\Tools\Commands\Concerns\SupportsNamespacedNames;
+use RecursiveDirectoryIterator;
+use Illuminate\Console\ConfirmableTrait;
 use Simtabi\Laranail\Toolkit\Enums\LogLevel;
-use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
+use Simtabi\Laranail\Console\Tools\Commands\Command;
 use Simtabi\Laranail\Toolkit\Services\Contracts\FileServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Traits\FilePathGuard;
-use SplFileInfo;
-use Throwable;
+use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
+use Simtabi\Laranail\Console\Tools\Commands\Concerns\SupportsNamespacedNames;
 
 /**
  * Unified, security-hardened maintenance/cleanup command.
@@ -49,8 +49,8 @@ class Tidy extends Command
 
     /** Storage-relative roots swept by each file-deleting action. */
     private const ROOTS = [
-        'logs' => ['logs'],
-        'temp' => ['app/temp', 'app/tmp', 'framework/cache/data'],
+        'logs'    => ['logs'],
+        'temp'    => ['app/temp', 'app/tmp', 'framework/cache/data'],
         'storage' => ['app/public', 'app/uploads', 'app/exports'],
     ];
 
@@ -69,9 +69,6 @@ class Tidy extends Command
      * @var list<string>
      */
     private const USER_DATA_ACTIONS = ['storage'];
-
-    /** @var list<string> */
-    protected array $commandAliases = ['tidy'];
 
     protected $signature = 'laranail::toolkit.tidy
         {action? : What to tidy (cache|logs|temp|storage|db|all) — defaults to all}
@@ -108,16 +105,16 @@ class Tidy extends Command
         $this->services->signals()->setupSignalHandling();
         $this->services->performance()->startTimer();
         $this->services->metadata()->addMany([
-            'action' => $action,
+            'action'  => $action,
             'dry_run' => $this->isDryRun(),
         ]);
 
         $result = match ($action) {
-            'cache' => $this->tidyCache(),
+            'cache'                   => $this->tidyCache(),
             'logs', 'temp', 'storage' => $this->tidyFiles($action),
-            'db' => $this->tidyDatabase(),
-            'all' => $this->tidyAll(),
-            default => $this->invalidAction($action),
+            'db'                      => $this->tidyDatabase(),
+            'all'                     => $this->tidyAll(),
+            default                   => $this->invalidAction($action),
         };
 
         $this->logSummary($action, $result);
@@ -136,7 +133,7 @@ class Tidy extends Command
 
         $this->services->metadata()->addMany([
             'files_processed' => $this->filesProcessed,
-            'space_freed' => $this->services->display()->formatBytes($this->spaceFreed),
+            'space_freed'     => $this->services->display()->formatBytes($this->spaceFreed),
         ]);
 
         $this->services->logger()->logCompletion($exitCode, [
@@ -153,7 +150,7 @@ class Tidy extends Command
         $writer = $this->consoleWriter();
 
         if ($this->isDryRun()) {
-            $writer->info('[dry-run] Would flush the application cache'.($this->boolOption('optimize') ? ' and run optimize:clear' : '').'.');
+            $writer->info('[dry-run] Would flush the application cache' . ($this->boolOption('optimize') ? ' and run optimize:clear' : '') . '.');
 
             return self::SUCCESS;
         }
@@ -224,7 +221,7 @@ class Tidy extends Command
         $verb = $this->isDryRun() ? 'Would free' : 'Freed';
         $this->consoleWriter()->success(sprintf(
             '%s: %d file(s), %s%s.',
-            $this->isDryRun() ? '[dry-run] '.$verb : $verb,
+            $this->isDryRun() ? '[dry-run] ' . $verb : $verb,
             $this->filesProcessed,
             $this->files->formatFileSize($this->spaceFreed),
             $this->isDryRun() ? ' (nothing deleted)' : '',
@@ -245,7 +242,7 @@ class Tidy extends Command
             return;
         }
 
-        $root = realpath($base.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $relative));
+        $root = realpath($base . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $relative));
 
         if ($root === false || ! is_dir($root) || ! $this->isWithin($root, $base)) {
             return;
@@ -337,7 +334,7 @@ class Tidy extends Command
         $writer = $this->consoleWriter();
 
         if ($this->isDryRun()) {
-            $writer->info('[dry-run] Would run migrate:fresh'.($this->boolOption('seed') ? ' --seed' : '').' (skipped in dry-run).');
+            $writer->info('[dry-run] Would run migrate:fresh' . ($this->boolOption('seed') ? ' --seed' : '') . ' (skipped in dry-run).');
 
             return self::SUCCESS;
         }
@@ -404,7 +401,7 @@ class Tidy extends Command
 
         $this->consoleWriter()->success(sprintf(
             'All tidied (db excluded — run the db action explicitly)%s.',
-            $skipped === [] ? '' : ', '.implode(' and ', $skipped).' skipped',
+            $skipped === [] ? '' : ', ' . implode(' and ', $skipped) . ' skipped',
         ));
 
         return self::SUCCESS;
@@ -528,7 +525,7 @@ class Tidy extends Command
 
     private function isWithin(string $path, string $root): bool
     {
-        $root = rtrim($root, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+        $root = rtrim($root, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
         return $path === rtrim($root, DIRECTORY_SEPARATOR) || str_starts_with($path, $root);
     }

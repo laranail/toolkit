@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
 use Illuminate\Http\Request;
-use Simtabi\Laranail\Toolkit\Support\QueryParameters;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Support\QueryParameters;
 
 class QueryParametersTest extends TestCase
 {
     public function test_can_parse_allowed_parameters()
     {
         $request = Request::create('/test', 'GET', [
-            'name' => 'John Doe',
-            'email' => 'john@example.com',
-            'age' => 25,
+            'name'           => 'John Doe',
+            'email'          => 'john@example.com',
+            'age'            => 25,
             'unwanted_param' => 'should_be_ignored',
         ]);
 
@@ -36,8 +36,8 @@ class QueryParametersTest extends TestCase
     public function test_ignores_unallowed_parameters()
     {
         $request = Request::create('/test', 'GET', [
-            'allowed_param' => 'allowed_value',
-            'forbidden_param' => 'forbidden_value',
+            'allowed_param'     => 'allowed_value',
+            'forbidden_param'   => 'forbidden_value',
             'another_forbidden' => 'another_value',
         ]);
 
@@ -79,7 +79,7 @@ class QueryParametersTest extends TestCase
     public function test_handles_partial_parameters()
     {
         $request = Request::create('/test', 'GET', [
-            'name' => 'John Doe',
+            'name'     => 'John Doe',
             'unwanted' => 'ignored',
         ]);
 
@@ -96,9 +96,9 @@ class QueryParametersTest extends TestCase
     {
         $request = Request::create('/test', 'GET', [
             'string_param' => 'string_value',
-            'int_param' => '123',
-            'bool_param' => 'true',
-            'array_param' => ['item1', 'item2'],
+            'int_param'    => '123',
+            'bool_param'   => 'true',
+            'array_param'  => ['item1', 'item2'],
         ]);
 
         $allowedParameters = ['string_param', 'int_param', 'bool_param', 'array_param'];
@@ -129,7 +129,7 @@ class QueryParametersTest extends TestCase
     public function test_handles_empty_string_parameters()
     {
         $request = Request::create('/test', 'GET', [
-            'empty_param' => '',
+            'empty_param'  => '',
             'normal_param' => 'normal_value',
         ]);
 

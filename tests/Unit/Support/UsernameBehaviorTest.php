@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
-use InvalidArgumentException;
 use RuntimeException;
-use Simtabi\Laranail\Toolkit\Support\Username;
+use InvalidArgumentException;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Support\Username;
 
 /**
  * Exhaustive, exact-output behaviour coverage for the Username builder.
@@ -519,15 +519,15 @@ final class UsernameBehaviorTest extends TestCase
             ->toArray();
 
         $this->assertSame([
-            'username' => 'devjane.doeio',
+            'username'  => 'devjane.doeio',
             'separator' => '.',
-            'case' => 'lower',
-            'ascii' => true,
+            'case'      => 'lower',
+            'ascii'     => true,
             'minLength' => 2,
             'maxLength' => 25,
-            'prefix' => 'dev',
-            'suffix' => 'io',
-            'reserved' => ['root'],
+            'prefix'    => 'dev',
+            'suffix'    => 'io',
+            'reserved'  => ['root'],
         ], $array);
     }
 

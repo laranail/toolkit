@@ -30,7 +30,7 @@ Toolkit::archiver()->extract($zip, $dest);
 php artisan laranail::toolkit.make-crud Post \
   --fields="title:string:required,body:text:nullable" \
   --searchable=title,body --soft-deletes --register-routes
-# alias: php artisan make:crud Post ...
+# alias: php artisan laranail::toolkit.make-crud Post ...
 ```
 
 See [make-crud](make-crud.md) and [CrudController](crud-controller.md).
