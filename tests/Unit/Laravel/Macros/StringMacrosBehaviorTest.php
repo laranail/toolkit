@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Stringable;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 

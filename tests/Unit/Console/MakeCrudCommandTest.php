@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Console;
 
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Attributes\Group;
+use Illuminate\Contracts\Console\Kernel;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 class MakeCrudCommandTest extends TestCase
@@ -47,13 +47,13 @@ class MakeCrudCommandTest extends TestCase
     {
         $this->assertTrue(
             collect($this->app[Kernel::class]->all())
-                ->has('make:crud'),
+                ->has('laranail::toolkit.make-crud'),
         );
     }
 
     public function test_command_exits_successfully_with_minimal_args()
     {
-        $this->artisan('make:crud', ['name' => 'Article'])
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Article'])
             ->assertExitCode(0);
 
         $this->track(app_path('Models/Article.php'));
@@ -63,7 +63,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_command_outputs_success_message()
     {
-        $this->artisan('make:crud', ['name' => 'Article'])
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Article'])
             ->expectsOutputToContain('CRUD scaffold generated successfully')
             ->assertExitCode(0);
 
@@ -74,7 +74,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_name_is_converted_to_studly_case()
     {
-        $this->artisan('make:crud', ['name' => 'blog_post'])
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'blog_post'])
             ->assertExitCode(0);
 
         $this->assertFileExists($this->track(app_path('Models/BlogPost.php')));
@@ -88,7 +88,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_generates_migration_file()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $path = $this->trackMigration('products');
         $this->assertNotEmpty($path, 'Migration file was not created');
@@ -97,7 +97,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_migration_contains_correct_table_name()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $content = file_get_contents($this->trackMigration('products'));
         $this->assertStringContainsString("Schema::create('products'", $content);
@@ -106,8 +106,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_migration_contains_string_column()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'     => 'Product',
             '--fields' => 'name:string:required',
         ])->assertExitCode(0);
 
@@ -117,8 +117,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_migration_contains_nullable_modifier_when_rule_is_nullable()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'     => 'Product',
             '--fields' => 'description:text:nullable',
         ])->assertExitCode(0);
 
@@ -128,8 +128,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_migration_maps_all_field_types_correctly()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'     => 'Product',
             '--fields' => 'name:string,bio:text,qty:integer,price:decimal,active:boolean,born:date,created:datetime,meta:json',
         ])->assertExitCode(0);
 
@@ -146,8 +146,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_migration_adds_foreign_key_for_belongs_to()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -160,8 +160,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_migration_adds_soft_deletes_column()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'           => 'Product',
             '--soft-deletes' => true,
         ])->assertExitCode(0);
 
@@ -172,11 +172,11 @@ class MakeCrudCommandTest extends TestCase
     public function test_migration_is_skipped_if_one_already_exists()
     {
         // Create the migration on the first run
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
         $firstPath = $this->trackMigration('products');
 
         // Second run should skip and warn
-        $this->artisan('make:crud', ['name' => 'Product', '--force' => true])
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product', '--force' => true])
             ->expectsOutputToContain('Migration already exists')
             ->assertExitCode(0);
 
@@ -194,7 +194,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_generates_model_file()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $this->assertFileExists($this->track(app_path('Models/Product.php')));
         $this->track(app_path('Http/Controllers/ProductController.php'));
@@ -203,7 +203,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_has_correct_namespace_and_class()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $content = file_get_contents($this->track(app_path('Models/Product.php')));
         $this->assertStringContainsString('namespace App\Models;', $content);
@@ -215,8 +215,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_fillable_contains_fields()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'     => 'Product',
             '--fields' => 'name:string:required,price:decimal:required',
         ])->assertExitCode(0);
 
@@ -230,8 +230,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_fillable_contains_foreign_keys_from_belongs_to()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -244,8 +244,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_casts_are_generated_for_typed_fields()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'     => 'Product',
             '--fields' => 'price:decimal,active:boolean,meta:json,born:date,launched:datetime,qty:integer',
         ])->assertExitCode(0);
 
@@ -263,8 +263,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_includes_soft_deletes_trait()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'           => 'Product',
             '--soft-deletes' => true,
         ])->assertExitCode(0);
 
@@ -278,8 +278,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_generates_belongs_to_relationship()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -294,8 +294,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_generates_has_many_relationship()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'       => 'Product',
             '--has-many' => ['Review'],
         ])->assertExitCode(0);
 
@@ -310,8 +310,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_generates_has_one_relationship()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'      => 'Product',
             '--has-one' => ['Image'],
         ])->assertExitCode(0);
 
@@ -326,8 +326,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_generates_belongs_to_many_relationship()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'              => 'Product',
             '--belongs-to-many' => ['Tag'],
         ])->assertExitCode(0);
 
@@ -342,12 +342,12 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_is_not_overwritten_without_force_flag()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
         $path = $this->track(app_path('Models/Product.php'));
 
         file_put_contents($path, '<?php // sentinel');
 
-        $this->artisan('make:crud', ['name' => 'Product'])
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])
             ->expectsOutputToContain('already exists')
             ->assertExitCode(0);
 
@@ -359,12 +359,12 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_model_is_overwritten_with_force_flag()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
         $path = $this->track(app_path('Models/Product.php'));
 
         file_put_contents($path, '<?php // sentinel');
 
-        $this->artisan('make:crud', ['name' => 'Product', '--force' => true])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product', '--force' => true])->assertExitCode(0);
 
         $this->assertStringNotContainsString('sentinel', file_get_contents($path));
 
@@ -378,7 +378,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_generates_controller_file()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $this->assertFileExists($this->track(app_path('Http/Controllers/ProductController.php')));
         $this->track(app_path('Models/Product.php'));
@@ -387,7 +387,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_has_correct_namespace_and_class()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $content = file_get_contents($this->track(app_path('Http/Controllers/ProductController.php')));
         $this->assertStringContainsString('namespace App\Http\Controllers;', $content);
@@ -400,7 +400,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_has_all_crud_methods()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $content = file_get_contents($this->track(app_path('Http/Controllers/ProductController.php')));
         $this->assertStringContainsString('public function index(', $content);
@@ -415,8 +415,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_store_contains_validation_rules()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'     => 'Product',
             '--fields' => 'name:string:required|max:100,price:decimal:required|min:0',
         ])->assertExitCode(0);
 
@@ -430,8 +430,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_update_modifies_unique_rule_to_ignore_current_record()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'     => 'Product',
             '--fields' => 'slug:string:required|unique:products',
         ])->assertExitCode(0);
 
@@ -444,8 +444,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_store_has_exists_validation_for_belongs_to()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -458,8 +458,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_update_uses_sometimes_for_belongs_to()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -472,8 +472,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_generates_custom_message_for_exists_rule()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
             '--belongs-to' => ['User'],
         ])->assertExitCode(0);
 
@@ -487,8 +487,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_generates_custom_message_for_unique_rule()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'     => 'Product',
             '--fields' => 'slug:string:required|unique:products',
         ])->assertExitCode(0);
 
@@ -502,9 +502,9 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_index_contains_search_logic_when_searchable_provided()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
-            '--fields' => 'name:string,description:text',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
+            '--fields'     => 'name:string,description:text',
             '--searchable' => 'name,description',
         ])->assertExitCode(0);
 
@@ -520,11 +520,11 @@ class MakeCrudCommandTest extends TestCase
     #[Group('security')]
     public function test_generated_controller_index_is_injection_safe()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
-            '--fields' => 'name:string,description:text',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
+            '--fields'     => 'name:string,description:text',
             '--searchable' => 'name,description',
-            '--per-page' => 20,
+            '--per-page'   => 20,
         ])->assertExitCode(0);
 
         $content = file_get_contents($this->track(app_path('Http/Controllers/ProductController.php')));
@@ -544,7 +544,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_index_has_no_search_logic_without_searchable()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $content = file_get_contents($this->track(app_path('Http/Controllers/ProductController.php')));
         $this->assertStringNotContainsString("request->filled('search')", $content);
@@ -555,8 +555,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_index_uses_custom_per_page()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'       => 'Product',
             '--per-page' => '25',
         ])->assertExitCode(0);
 
@@ -569,10 +569,10 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_eager_loads_relationships()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
             '--belongs-to' => ['User'],
-            '--has-many' => ['Review'],
+            '--has-many'   => ['Review'],
         ])->assertExitCode(0);
 
         $content = file_get_contents($this->track(app_path('Http/Controllers/ProductController.php')));
@@ -584,7 +584,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_index_returns_paginated_meta()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $content = file_get_contents($this->track(app_path('Http/Controllers/ProductController.php')));
         $this->assertStringContainsString("'current_page'", $content);
@@ -598,7 +598,7 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_controller_store_returns_201()
     {
-        $this->artisan('make:crud', ['name' => 'Product'])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product'])->assertExitCode(0);
 
         $content = file_get_contents($this->track(app_path('Http/Controllers/ProductController.php')));
         $this->assertStringContainsString('], 201)', $content);
@@ -622,8 +622,8 @@ class MakeCrudCommandTest extends TestCase
         }
         file_put_contents($routesPath, "<?php\n");
 
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'              => 'Product',
             '--register-routes' => true,
         ])->assertExitCode(0);
 
@@ -653,10 +653,10 @@ class MakeCrudCommandTest extends TestCase
         file_put_contents($routesPath, "<?php\n");
 
         // Register once
-        $this->artisan('make:crud', ['name' => 'Product', '--register-routes' => true])->assertExitCode(0);
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product', '--register-routes' => true])->assertExitCode(0);
 
         // Register again — should warn, not duplicate
-        $this->artisan('make:crud', ['name' => 'Product', '--register-routes' => true, '--force' => true])
+        $this->artisan('laranail::toolkit.make-crud', ['name' => 'Product', '--register-routes' => true, '--force' => true])
             ->expectsOutputToContain('already registered')
             ->assertExitCode(0);
 
@@ -679,9 +679,9 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_migrate_flag_runs_migration()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
-            '--fields' => 'name:string:required',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'      => 'Product',
+            '--fields'  => 'name:string:required',
             '--migrate' => true,
         ])->assertExitCode(0);
 
@@ -703,8 +703,8 @@ class MakeCrudCommandTest extends TestCase
 
     public function test_warns_when_related_table_does_not_exist()
     {
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'       => 'Product',
             '--has-many' => ['NonExistentModel'],
         ])
             ->expectsOutputToContain('do not exist yet')
@@ -718,8 +718,8 @@ class MakeCrudCommandTest extends TestCase
     public function test_no_relationship_warning_when_all_tables_exist()
     {
         // users table exists (loaded via loadLaravelMigrations in TestCase)
-        $this->artisan('make:crud', [
-            'name' => 'Product',
+        $this->artisan('laranail::toolkit.make-crud', [
+            'name'         => 'Product',
             '--belongs-to' => ['User'],
         ])
             ->doesntExpectOutputToContain('do not exist yet')
@@ -780,9 +780,9 @@ class MakeCrudCommandTest extends TestCase
 
     private function lintPhp(string $code): int
     {
-        $tmp = tempnam(sys_get_temp_dir(), 'crudlint').'.php';
+        $tmp = tempnam(sys_get_temp_dir(), 'crudlint') . '.php';
         file_put_contents($tmp, $code);
-        exec('php -l '.escapeshellarg($tmp).' 2>&1', $out, $exit);
+        exec('php -l ' . escapeshellarg($tmp) . ' 2>&1', $out, $exit);
         @unlink($tmp);
 
         return $exit;

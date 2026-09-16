@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Http\Controllers\CrudController;
+use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Illuminate\Validation\ValidationException;
+use Simtabi\Laranail\Toolkit\Http\Controllers\CrudController;
 
 class CrudWidget extends Model
 {

@@ -19,7 +19,8 @@ trait InteractsWithArrays
     /**
      * Trim every string value in an array, leaving non-string values untouched.
      *
-     * @param  array<array-key, mixed>  $array
+     * @param array<array-key, mixed> $array
+     *
      * @return array<array-key, mixed>
      */
     public static function arrayTrim(array $array): array
@@ -30,7 +31,8 @@ trait InteractsWithArrays
     /**
      * Flatten a multi-dimensional array into a single level of leaf values.
      *
-     * @param  array<mixed>  $array
+     * @param array<mixed> $array
+     *
      * @return array<int, mixed>
      */
     public static function arrayFlatten(array $array): array

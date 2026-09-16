@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Facades\Log;
 use Mockery;
-use Simtabi\Laranail\Toolkit\Services\SchedulerService;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Console\Scheduling\Schedule;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Services\SchedulerService;
 
 class SchedulerServiceTest extends TestCase
 {

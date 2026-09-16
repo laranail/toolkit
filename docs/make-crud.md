@@ -6,7 +6,7 @@ single field spec.
 ```bash
 php artisan laranail::toolkit.make-crud Post
 # retained alias:
-php artisan make:crud Post
+php artisan laranail::toolkit.make-crud Post
 ```
 
 ## Options

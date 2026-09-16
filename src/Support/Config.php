@@ -68,7 +68,8 @@ final class Config
     }
 
     /**
-     * @param  array<array-key, mixed>  $default
+     * @param array<array-key, mixed> $default
+     *
      * @return array<array-key, mixed>
      */
     public static function array(string $key, array $default = []): array
@@ -81,7 +82,8 @@ final class Config
     /**
      * A list of strings, dropping any non-string members.
      *
-     * @param  list<string>  $default
+     * @param list<string> $default
+     *
      * @return list<string>
      */
     public static function stringList(string $key, array $default = []): array

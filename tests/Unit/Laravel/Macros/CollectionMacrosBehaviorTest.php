@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Laravel\Macros;
 
 use ArrayObject;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use RuntimeException;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 
 /**
@@ -165,9 +165,9 @@ final class CollectionMacrosBehaviorTest extends TestCase
         $this->assertSame(
             [
                 [
-                    'id' => 1,
+                    'id'        => 1,
                     'parent_id' => null,
-                    'children' => [
+                    'children'  => [
                         ['id' => 2, 'parent_id' => 1, 'children' => []],
                     ],
                 ],

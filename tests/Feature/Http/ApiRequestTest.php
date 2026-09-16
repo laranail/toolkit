@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Http;
 
 use Illuminate\Support\Facades\Route;
-use Simtabi\Laranail\Toolkit\Http\Requests\ApiRequest;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Http\Requests\ApiRequest;
 
 class CreateWidgetApiRequest extends ApiRequest
 {
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
+            'name'  => ['required', 'string'],
             'email' => ['required', 'email'],
         ];
     }
@@ -40,14 +40,14 @@ class ApiRequestTest extends TestCase
         Route::post('/api/widgets', static fn (CreateWidgetApiRequest $request): array => $request->validated());
 
         $response = $this->postJson('/api/widgets', [
-            'name' => '  Widget  ',
+            'name'  => '  Widget  ',
             'email' => 'USER@EXAMPLE.COM',
         ]);
 
         $response->assertOk();
         // BaseRequest sanitization: trimmed name, lowercased email.
         $response->assertJson([
-            'name' => 'Widget',
+            'name'  => 'Widget',
             'email' => 'user@example.com',
         ]);
     }

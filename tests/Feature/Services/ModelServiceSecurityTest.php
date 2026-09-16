@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Feature\Services;
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Attributes\Group;
-use Simtabi\Laranail\Toolkit\Services\ModelService;
+use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Services\ModelService;
 
 #[Group('security')]
 class ModelServiceSecurityTest extends TestCase

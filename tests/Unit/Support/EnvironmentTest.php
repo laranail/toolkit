@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Support;
 
-use Simtabi\Laranail\Toolkit\Support\Environment;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Toolkit\Support\Environment;
 
 class EnvironmentTest extends TestCase
 {

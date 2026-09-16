@@ -33,10 +33,10 @@ class NamespacedCommandTest extends TestCase
     {
         $commands = $this->app[Kernel::class]->all();
 
-        $this->assertArrayHasKey('make:crud', $commands);
+        $this->assertArrayHasKey('laranail::toolkit.make-crud', $commands);
         $this->assertSame(
             $commands['laranail::toolkit.make-crud'],
-            $commands['make:crud'],
+            $commands['laranail::toolkit.make-crud'],
         );
     }
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Simtabi\Laranail\Toolkit\Tests\Unit\Services;
 
+use PHPUnit\Framework\TestCase;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
-use Illuminate\Contracts\Auth\Guard;
-use PHPUnit\Framework\TestCase;
 use Simtabi\Laranail\Toolkit\Services\AuthenticationContextService;
 
 class AuthenticationContextServiceTest extends TestCase
