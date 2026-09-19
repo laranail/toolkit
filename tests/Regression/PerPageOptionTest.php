@@ -20,9 +20,7 @@ it('resolves per-page without a null-only default', function (): void {
 it('falls back to the documented default for an empty or non-numeric value', function (): void {
     // The behaviour the fix encodes, exercised directly rather than through the
     // generator, which needs a full scaffold to run.
-    $resolve = static function (mixed $raw): int {
-        return is_numeric($raw) ? max(1, (int) $raw) : 15;
-    };
+    $resolve = (static fn (mixed $raw): int => is_numeric($raw) ? max(1, (int) $raw) : 15);
 
     expect($resolve(''))->toBe(15)
         ->and($resolve('abc'))->toBe(15)

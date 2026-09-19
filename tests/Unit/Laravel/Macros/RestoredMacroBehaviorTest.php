@@ -180,9 +180,9 @@ class RestoredMacroBehaviorTest extends TestCase
     {
         $rows = collect([
             ['v' => 'hello world'],
-            ['v'       => 12345],
-            ['v'       => null],
-            ['v'       => ['hello']],
+            ['v' => 12345],
+            ['v' => null],
+            ['v' => ['hello']],
             ['missing' => 'x'],
         ]);
 
