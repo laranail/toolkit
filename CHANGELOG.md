@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`make:crud --per-page=` generated a controller that paginates by zero.** The default was applied
+  with `??`, which substitutes for `null` — what an ABSENT option gives, and an absent `--per-page`
+  already arrives as the signature's own `15`. The case `??` does not cover is an option written
+  without a value, which arrives as `''` and casts to `0`. That `0` was then interpolated into the
+  generated controller as `paginate(0)`, so the mistake shipped in scaffolded code rather than
+  failing in the command — which is why no test here caught it. A non-numeric `--per-page=abc` did
+  the same.
+
+  Fixed inline rather than by adopting `laranail/package-tools`' `ReadsOptions`: one call site
+  removes no code and would add the package-author toolchain to a package that requires only
+  `laranail/console`.
+
+## [Unreleased]
+
 ### Changed
 
 - **BREAKING: the `chunkBy` collection macro is now `laranailChunkBy`.** Laravel 13.30.1 added a
