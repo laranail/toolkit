@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
 
-/**
- * `--per-page=` arrives as '' rather than null, so the `??` default never fired
- * and `(int) ''` produced 0. That 0 was interpolated into the GENERATED
- * controller as `paginate(0)` -- the defect shipped in scaffolded code rather
- * than failing in this command, which is why nothing here caught it.
- */
+// `--per-page=` arrives as '' rather than null, so the `??` default never fired
+// and `(int) ''` produced 0. That 0 was interpolated into the GENERATED
+// controller as `paginate(0)` -- the defect shipped in scaffolded code rather
+// than failing in this command, which is why nothing here caught it.
+//
+// Written as line comments, not a docblock: Pint's no_blank_lines_after_phpdoc
+// and PSR12's FileHeader.SpacingAfterDocblockBlock demand opposite things of a
+// docblock sitting directly above the first statement, and this repo gates on
+// both. A line comment is outside the argument.
 it('resolves per-page without a null-only default', function (): void {
     $source = (string) file_get_contents((string) (new ReflectionClass(MakeCrud::class))->getFileName());
 
