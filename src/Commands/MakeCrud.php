@@ -431,7 +431,14 @@ PHP;
     private function buildIndexBody(array $relationships): string
     {
         $searchable = $this->getSearchableFields();
-        $perPage = (int) ($this->option('per-page') ?? 15);
+        // `??` substitutes for null, which is what an ABSENT option gives -- and an absent
+        // --per-page already arrives as the signature's own default, '15'. The case it does not
+        // cover is `--per-page=`, which arrives as '' and casts to 0. That 0 is then written into
+        // the GENERATED controller as `paginate(0)`, so the mistake ships in scaffolded code rather
+        // than failing here. Fixed inline rather than with laranail/package-tools' ReadsOptions:
+        // one call site does not earn a dependency on the package-author toolchain.
+        $perPageOption = $this->option('per-page');
+        $perPage = is_numeric($perPageOption) ? max(1, (int) $perPageOption) : 15;
         $lines = [];
 
         $lines[] = "        \$query = {$this->modelName}::query();";
