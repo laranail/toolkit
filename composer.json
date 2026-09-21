@@ -43,7 +43,7 @@
         "illuminate/support": "^13.0",
         "illuminate/validation": "^13.0",
         "laranail/console": "^0.1",
-        "openai-php/client": "^0.20.0"
+        "openai-php/client": "^0.20.0 || ^0.21.0"
     },
     "require-dev": {
         "infection/infection": "^0.33 || ^0.34 || ^0.35",
