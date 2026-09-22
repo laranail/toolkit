@@ -1,8 +1,9 @@
 # laranail/toolkit
 
-[![Latest version on Packagist](https://img.shields.io/packagist/v/laranail/toolkit.svg)](https://packagist.org/packages/laranail/toolkit)
 [![Tests](https://github.com/laranail/toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/laranail/toolkit/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+`laranail/toolkit` is not published to Packagist, so there is no registry-version badge to show — see [Install](#install).
 
 > A security-first Swiss-army toolkit for Laravel — an LLM provider abstraction (OpenAI / Claude / Gemini), an API CRUD generator, an access-log middleware, captcha and archiver modules, and a library of utilities, traits, macros, and custom Blade directives behind clean contracts.
 
