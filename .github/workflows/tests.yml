@@ -1,8 +1,11 @@
 name: Tests
 
+# Tests gate pull requests only. The Codecov baseline for `main` is refreshed
+# by coverage-baseline.yml on a schedule, not by a push trigger.
 on:
   pull_request:
     branches: [ main, develop ]
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -66,12 +69,49 @@ jobs:
       - name: Run security regression suite
         run: vendor/bin/pest --group=security
 
+      # PHP 8.4 / prefer-stable is the canonical coverage row: it writes the
+      # job summary, keeps coverage.xml, and uploads to Codecov. The floor is
+      # enforced on every row by --min above (composer.json test:coverage
+      # carries the same number, which is where the summary reads it from).
+      - name: Coverage summary
+        # always(): show the numbers even when the run fails the floor.
+        if: >-
+          always() && matrix.php == '8.4' && matrix.dependency-version == 'prefer-stable'
+          && hashFiles('coverage.xml') != ''
+        run: php scripts/coverage-summary.php
+
+      - name: Keep coverage.xml
+        if: >-
+          always() && matrix.php == '8.4' && matrix.dependency-version == 'prefer-stable'
+          && hashFiles('coverage.xml') != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-xml-${{ github.sha }}
+          path: coverage.xml
+          retention-days: 7
+
       - name: Upload coverage to Codecov
+        id: codecov
         if: matrix.php == '8.4' && matrix.dependency-version == 'prefer-stable'
+        # Advisory: the gate is --min, and the job summary shows the numbers.
+        # fail_ci_if_error makes the CLI exit non-zero when Codecov answers
+        # HTTP >= 400 (with it off, the action always exits 0 and a rejection
+        # is silent); continue-on-error keeps that from failing the job, and
+        # the next step turns it into a visible warning.
+        continue-on-error: true
         uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           files: ./coverage.xml
-          fail_ci_if_error: false
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+
+      - name: Report a rejected Codecov upload
+        if: steps.codecov.outcome == 'failure'
+        run: |
+          msg="Codecov rejected the upload (repository not activated or token mismatch) — coverage is still enforced by pest --min and shown in the job summary. See the 'Upload coverage to Codecov' step log for the server response."
+          echo "::warning title=Codecov upload failed::$msg"
+          printf '\n> [!WARNING]\n> %s\n' "$msg" >> "$GITHUB_STEP_SUMMARY"
 
   code-quality:
     runs-on: ubuntu-latest
