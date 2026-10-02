@@ -48,8 +48,16 @@ is validated:
   **1 GiB** uncompressed; adjust them on the `Extractor` with
   `setLimits(int $maxEntries, int $maxTotalBytes): static` before extracting.
 
-A malformed or unreadable entry aborts the operation rather than partially
-extracting. Always extract untrusted archives into a dedicated, isolated
-directory.
+- **Entries that lie about themselves** — the size limit is checked against the
+  sizes the archive declares, so each entry is then copied with a bounded read:
+  never more than its declared size is read, and its content must match the
+  declared size and CRC-32. An entry that is shorter, longer or corrupt is
+  refused with `ArchiveException`, whatever the installed zip library does with
+  it.
+
+A malformed or unreadable entry aborts the operation, and the files and
+directories that extraction had already created are removed, so a refused
+archive leaves nothing partially extracted. Always extract untrusted archives
+into a dedicated, isolated directory.
 
 [← Docs index](../../README.md#documentation)
