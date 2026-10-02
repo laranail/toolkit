@@ -1,0 +1,90 @@
+name: Coverage baseline
+
+# Refreshes the Codecov baseline for `main` so PR comparisons have a recent
+# base commit to diff against. Runs weekly (Monday 06:00 America/New_York,
+# 11:00 UTC) and on demand; scheduled runs always use the default branch.
+# It stands in for a `push: branches: [main]` trigger on tests.yml, which
+# would re-run the full matrix after every merge. Steps mirror the canonical
+# coverage row of tests.yml (PHP 8.4, prefer-stable).
+
+on:
+  schedule:
+    - cron: '0 11 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: '8.4'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, fileinfo, gd
+          coverage: pcov
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v6
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: deps-coverage-php-8.4-prefer-stable
+          restore-keys: deps-coverage-php-8.4-
+
+      - name: Drop cached laranail archives
+        # Same reason as tests.yml: laranail/* resolve through a MOVING tag,
+        # so a cached dist archive can be silently stale.
+        shell: bash
+        run: rm -rf "$(composer config cache-files-dir)/laranail"
+
+      - name: Install dependencies
+        run: composer update --prefer-stable --prefer-dist --no-interaction
+
+      - name: Execute tests
+        run: vendor/bin/pest --coverage --coverage-clover=coverage.xml --min=88
+
+      - name: Coverage summary
+        if: always() && hashFiles('coverage.xml') != ''
+        run: php scripts/coverage-summary.php
+
+      - name: Keep coverage.xml
+        if: always() && hashFiles('coverage.xml') != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-xml-${{ github.sha }}
+          path: coverage.xml
+          retention-days: 7
+
+      - name: Upload coverage to Codecov
+        id: codecov
+        # Same detection as tests.yml: fail_ci_if_error surfaces an HTTP >= 400
+        # as a step failure, continue-on-error keeps the job green.
+        continue-on-error: true
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          files: ./coverage.xml
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+
+      - name: Report a rejected Codecov upload
+        if: steps.codecov.outcome == 'failure'
+        run: |
+          msg="Codecov rejected the upload (repository not activated or token mismatch) — coverage is still enforced by pest --min and shown in the job summary. See the 'Upload coverage to Codecov' step log for the server response."
+          echo "::warning title=Codecov upload failed::$msg"
+          printf '\n> [!WARNING]\n> %s\n' "$msg" >> "$GITHUB_STEP_SUMMARY"
