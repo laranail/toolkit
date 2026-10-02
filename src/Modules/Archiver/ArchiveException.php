@@ -23,6 +23,11 @@ class ArchiveException extends RuntimeException
         return new self('Refusing to extract archive: entry count or uncompressed size exceeds the configured limit.');
     }
 
+    public static function corruptEntry(string $entry): self
+    {
+        return new self("Refusing to extract archive entry [{$entry}]: it is unreadable, or its content does not match the size or checksum the archive declares.");
+    }
+
     public static function missingExtractor(string $extension): self
     {
         return new self("There is no archive extractor registered for extension [{$extension}].");

@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **The zip bomb guard no longer depends on which PHP patch release is installed.** The guard sums
+  the uncompressed sizes an archive declares, which is only sound if no entry can produce more than
+  it declared. That used to rest on libzip truncating an understated entry and on `extractTo()`
+  reporting the truncation as success. PHP 8.4.26 and 8.5.11 (php-src GH-23240) made the same
+  truncation fail its CRC: `extractTo()` now raised an `ErrorException` rather than the guard's
+  `ArchiveException`, and left the truncated file on disk. Extraction now streams each entry
+  through `BoundedEntryWriter`, which reads at most the declared size, verifies the declared
+  CRC-32 itself, and renames a verified copy into place. An understated, overstated or corrupt
+  entry is refused with `ArchiveException::corruptEntry()` on every runtime, and the files and
+  directories the call created are removed.
+
 - **`make:crud --per-page=` generated a controller that paginates by zero.** The default was applied
   with `??`, which substitutes for `null` — what an ABSENT option gives, and an absent `--per-page`
   already arrives as the signature's own `15`. The case `??` does not cover is an option written

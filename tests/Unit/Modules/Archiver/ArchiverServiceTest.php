@@ -67,6 +67,7 @@ class ArchiverServiceTest extends TestCase
         $this->assertStringContainsString('unsafe archive entry', ArchiveException::unsafeEntry('../evil')->getMessage());
         $this->assertStringContainsString('exceeds the configured limit', ArchiveException::tooLarge()->getMessage());
         $this->assertStringContainsString('no archive extractor', ArchiveException::missingExtractor('rar')->getMessage());
+        $this->assertStringContainsString('does not match the size or checksum', ArchiveException::corruptEntry('payload.bin')->getMessage());
     }
 
     private function deleteTree(string $dir): void
