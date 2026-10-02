@@ -6,9 +6,13 @@ the full reference see the [Documentation index](../README.md#documentation).
 ## 1. Install + publish
 
 ```bash
-composer require laranail/toolkit
+composer config repositories.laranail-console vcs https://github.com/laranail/console
+composer config repositories.laranail-toolkit vcs https://github.com/laranail/toolkit
+composer require laranail/toolkit:^0.2
 php artisan vendor:publish --tag=laranail::toolkit-config
 ```
+
+Both packages install from GitHub until they are on Packagist; see [Installation](installation.md).
 
 `ToolkitServiceProvider` is auto-discovered; feature modules are deferred (they boot on demand). See
 [Installation](installation.md) for every publish tag.

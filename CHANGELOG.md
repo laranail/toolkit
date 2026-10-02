@@ -7,32 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+## [0.2.0] - 2026-10-02
 
-- **The zip bomb guard no longer depends on which PHP patch release is installed.** The guard sums
-  the uncompressed sizes an archive declares, which is only sound if no entry can produce more than
-  it declared. That used to rest on libzip truncating an understated entry and on `extractTo()`
-  reporting the truncation as success. PHP 8.4.26 and 8.5.11 (php-src GH-23240) made the same
-  truncation fail its CRC: `extractTo()` now raised an `ErrorException` rather than the guard's
-  `ArchiveException`, and left the truncated file on disk. Extraction now streams each entry
-  through `BoundedEntryWriter`, which reads at most the declared size, verifies the declared
-  CRC-32 itself, and renames a verified copy into place. An understated, overstated or corrupt
-  entry is refused with `ArchiveException::corruptEntry()` on every runtime, and the files and
-  directories the call created are removed.
-
-- **`make:crud --per-page=` generated a controller that paginates by zero.** The default was applied
-  with `??`, which substitutes for `null` — what an ABSENT option gives, and an absent `--per-page`
-  already arrives as the signature's own `15`. The case `??` does not cover is an option written
-  without a value, which arrives as `''` and casts to `0`. That `0` was then interpolated into the
-  generated controller as `paginate(0)`, so the mistake shipped in scaffolded code rather than
-  failing in the command — which is why no test here caught it. A non-numeric `--per-page=abc` did
-  the same.
-
-  Fixed inline rather than by adopting `laranail/package-tools`' `ReadsOptions`: one call site
-  removes no code and would add the package-author toolchain to a package that requires only
-  `laranail/console`.
-
-## [Unreleased]
+Contains breaking changes: three collection macros are renamed (see **Changed**). Under 0.x semantic versioning a breaking change is a minor bump.
 
 ### Changed
 
@@ -74,6 +51,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   | Now | `collect($x)->laranailFirstOrFail($cb, $default)` · `collect($x)->laranailBefore($v, $strict)` |
 
   Callers who want upstream's behaviour keep the bare names, which now unambiguously reach Laravel.
+
+### Fixed
+
+- **The zip bomb guard no longer depends on which PHP patch release is installed.** The guard sums
+  the uncompressed sizes an archive declares, which is only sound if no entry can produce more than
+  it declared. That used to rest on libzip truncating an understated entry and on `extractTo()`
+  reporting the truncation as success. PHP 8.4.26 and 8.5.11 (php-src GH-23240) made the same
+  truncation fail its CRC: `extractTo()` now raised an `ErrorException` rather than the guard's
+  `ArchiveException`, and left the truncated file on disk. Extraction now streams each entry
+  through `BoundedEntryWriter`, which reads at most the declared size, verifies the declared
+  CRC-32 itself, and renames a verified copy into place. An understated, overstated or corrupt
+  entry is refused with `ArchiveException::corruptEntry()` on every runtime, and the files and
+  directories the call created are removed.
+
+- **`make:crud --per-page=` generated a controller that paginates by zero.** The default was applied
+  with `??`, which substitutes for `null` — what an ABSENT option gives, and an absent `--per-page`
+  already arrives as the signature's own `15`. The case `??` does not cover is an option written
+  without a value, which arrives as `''` and casts to `0`. That `0` was then interpolated into the
+  generated controller as `paginate(0)`, so the mistake shipped in scaffolded code rather than
+  failing in the command — which is why no test here caught it. A non-numeric `--per-page=abc` did
+  the same.
+
+  Fixed inline rather than by adopting `laranail/package-tools`' `ReadsOptions`: one call site
+  removes no code and would add the package-author toolchain to a package that requires only
+  `laranail/console`.
 
 ## [0.1.0] - 2026-08-15
 
@@ -241,5 +243,6 @@ Initial public release. Folded in during the pre-stable phase:
   guards) and the `auth.user_model` config comment (a reserved hint, not read at
   runtime — the `userAs()` generic provides the IDE typing).
 
-[Unreleased]: https://github.com/laranail/toolkit/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/laranail/toolkit/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/laranail/toolkit/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/laranail/toolkit/releases/tag/v0.1.0
