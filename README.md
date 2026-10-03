@@ -18,7 +18,26 @@ composer config repositories.laranail-toolkit vcs https://github.com/laranail/to
 composer require laranail/toolkit:^0.2
 ```
 
-## Quick start
+## Quick start guide and usage
+
+### Getting started
+
+`ToolkitServiceProvider` is auto-discovered, and its migrations, views and translations load
+from the package. Two steps remain:
+
+1. Publish the config if you want to own it (it lands under `config/laranail/toolkit*`):
+
+   ```bash
+   php artisan vendor:publish --tag=laranail::toolkit-config
+   ```
+
+2. Run the migrations, which create the `access_logs` and `model_audits` tables:
+
+   ```bash
+   php artisan migrate
+   ```
+
+### Usage
 
 ```php
 use Simtabi\Laranail\Toolkit\Facades\Toolkit;
