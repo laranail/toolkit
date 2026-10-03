@@ -18,6 +18,23 @@ composer config repositories.laranail-toolkit vcs https://github.com/laranail/to
 composer require laranail/toolkit:^0.2
 ```
 
+## Quick start
+
+```php
+use Simtabi\Laranail\Toolkit\Facades\Toolkit;
+
+// The authenticated user on a named guard, or null.
+$admin = Toolkit::user('admin');
+
+// A 20-character password, every character class, no ambiguous glyphs.
+$password = Toolkit::password()->generate();
+
+// Extract an archive, picking the extractor from its extension.
+Toolkit::archiver()->extract(storage_path('app/imports/catalogue.zip'), storage_path('app/imports/catalogue'));
+```
+
+The full walkthrough is in [Getting started](docs/getting-started.md); everything else is in the [documentation index](#documentation).
+
 ## <a name="documentation"></a>Documentation
 
 Full documentation is at **[opensource.simtabi.com/documentation/laranail/toolkit](https://opensource.simtabi.com/documentation/laranail/toolkit/)** — the feature overview, LLM providers, the API CRUD generator + middleware, the feature modules, the guard-aware authenticated-user accessors, the unified cache (data + maintenance), the fluent runtime config manager, the Python microservice HTTP client, the PHP runtime/INI configurator, and the per-model macro registry, and the utilities/traits/macros/directives reference.
