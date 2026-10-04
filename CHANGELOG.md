@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **The `dev-main` branch alias is now `0.2.x-dev`** (was `0.1.x-dev`), matching the 0.2 line
+  released as `v0.2.0`, so a `dev-main` or path checkout satisfies `^0.2`. The family consumers
+  (`crm-tools-vtiger-client`, `sis-wrapper`) move to `^0.2` alongside this.
+
 ## [0.2.0] - 2026-10-02
 
 Contains breaking changes: three collection macros are renamed (see **Changed**). Under 0.x semantic versioning a breaking change is a minor bump.
