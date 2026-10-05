@@ -10,15 +10,27 @@ Pre-1.0, the package follows SemVer's 0.x convention: breaking changes bump the 
 
 ## Cutting a release
 
-1. Land everything on `main` with the full suite green (`vendor/bin/pest`) and PHPStan clean — CI runs both on every push.
-2. Add the `## [0.X.Y]` block to `CHANGELOG.md` (Keep a Changelog).
-3. Commit, push, wait for CI green.
-4. Tag and release with the CHANGELOG block as the body (never a bare stub):
+Everything reaches `main` through a pull request, the release included.
+
+1. Land the changes on `main` by pull request, with every required check green. Each one adds its
+   entry under `## [Unreleased]` in `CHANGELOG.md` (Keep a Changelog).
+2. Branch `release/v0.X.Y` from `main` and make one commit, `Release 0.X.Y`, that renames
+   `## [Unreleased]` to `## [0.X.Y] - <date>`.
+3. Open a pull request for it, wait for the checks, and merge it with a merge commit.
+4. Tag the merge commit and push the tag:
 
    ```bash
+   git switch main && git pull --ff-only
    git tag v0.X.Y && git push origin v0.X.Y
-   gh release create v0.X.Y --title "v0.X.Y" --notes-file <(awk '/^## \[0.X.Y\]/{f=1;next} /^## \[/{f=0} f' CHANGELOG.md) --generate-notes
    ```
+
+The tag starts `.github/workflows/release.yml`, which checks that `extra.branch-alias` is on the
+tag's line, refuses a tag while `[Unreleased]` still has entries, publishes the GitHub Release with
+the version's `CHANGELOG.md` section as its body (never a bare stub) and attaches a CycloneDX SBOM.
+To publish or refresh the release for an existing tag, run the workflow by hand with that tag.
+
+Never move a published tag: consumers who already resolved it would receive different code under
+the same name. Cut the next patch instead.
 
 The repo is GitHub-only (not on Packagist); consumers resolve tags via a `vcs` repository entry, so the tag IS the release channel.
 
