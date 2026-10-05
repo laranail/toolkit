@@ -5,6 +5,12 @@ All notable changes to `laranail/toolkit` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- `laravel/framework ^13.0` is now declared in `require`. `src/` uses `Application`, `AuthorizesRequests`, `Dispatchable`, `Exceptions` and others from `Illuminate\Foundation`, which no `illuminate/*` component ships, so the dependency only arrived through the host application.
+
 ## [0.2.1] - 2026-10-05
 
 ### Added
