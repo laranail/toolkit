@@ -56,19 +56,22 @@ final class ToolkitServiceProviderTest extends TestCase
     }
 
     /**
-     * A hyphen, matching the view namespace.
+     * A hyphen, matching the view namespace, and still where published files go.
      *
-     * A slash here is a namespace and not a path: Laravel publishes to
-     * `lang/vendor/{namespace}`, so `laranail/toolkit` nests the files a
-     * directory deeper than the loader looks, and every published override is
-     * silently ignored while the packaged default keeps answering.
+     * The publish tag writes to `lang/vendor/laranail-toolkit`, and that is the
+     * directory the hyphen namespace reads overrides from, so a host that has
+     * published keeps its overrides. The canonical `laranail/toolkit` is
+     * registered beside it over the same packaged files (see
+     * NamingConventionTest); it reads overrides from
+     * `lang/vendor/laranail/toolkit`. The bare `toolkit` is never claimed.
      */
     public function test_translations_are_namespaced_with_a_hyphen(): void
     {
         $namespaces = Lang::getLoader()->namespaces();
 
         self::assertArrayHasKey('laranail-toolkit', $namespaces);
-        self::assertArrayNotHasKey('laranail/toolkit', $namespaces);
+        self::assertArrayHasKey('laranail/toolkit', $namespaces);
+        self::assertSame($namespaces['laranail-toolkit'], $namespaces['laranail/toolkit']);
         self::assertArrayNotHasKey('toolkit', $namespaces);
     }
 

@@ -7,11 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Container keys `laranail.toolkit.access-log` and `laranail.toolkit.helper`**, also exposed as
+  `ToolkitServiceProvider::ACCESS_LOG` and `::HELPER`. They keep the lifetimes of the keys they
+  replace: a fresh `AccessLog` per resolve, one shared `Helper`.
+- **Views and translations also answer to the canonical `laranail/toolkit::` namespace**, over the
+  same files and published overrides as `laranail-toolkit::`, which keeps working unchanged.
+- **`NamingConventionTest`** asserts the view, translation, middleware and container registries of
+  the booted application through package-tools' `AssertsRegisteredNames`. The dev requirement on
+  `laranail/package-tools` is raised to `^0.1.3`, the first release that ships it.
+
 ### Changed
 
 - **The `dev-main` branch alias is now `0.2.x-dev`** (was `0.1.x-dev`), matching the 0.2 line
   released as `v0.2.0`, so a `dev-main` or path checkout satisfies `^0.2`. The family consumers
   (`crm-tools-vtiger-client`, `sis-wrapper`) move to `^0.2` alongside this.
+
+### Deprecated
+
+- **The bare container keys `AccessLog` and `helper`.** Both sit in the container's flat key map,
+  where a host or another package binding the same word silently replaces them. They still resolve
+  the same objects through the scoped keys, and raise one `E_USER_DEPRECATED` notice each per
+  process naming the replacement. Removal no earlier than the next minor after 0.2.
 
 ## [0.2.0] - 2026-10-02
 
