@@ -22,8 +22,18 @@ composer require laranail/toolkit:^0.2
 ```
 
 `ToolkitServiceProvider` is auto-registered through Laravel package discovery.
-Migrations, views (namespace `laranail-toolkit`), and translations are loaded
-automatically; you only publish assets you want to own or customize.
+Migrations, views and translations are loaded automatically; you only publish
+assets you want to own or customize. Views and translations answer to the
+canonical `laranail/toolkit::` namespace and to the `laranail-toolkit::` spelling,
+over the same files:
+
+```php
+view('laranail/toolkit::blade-javascript');   // canonical
+view('laranail-toolkit::blade-javascript');   // also resolves
+```
+
+Published files land under `laranail-toolkit` (below), which is where the
+`laranail-toolkit::` namespace reads overrides from.
 
 ## Publish tags
 
@@ -56,6 +66,14 @@ These are resolved from the package and need **no** `vendor:publish`:
   AuthHelper}` (static utilities).
 - **`reject_common_passwords`** validation rule (registered via the package).
 - **`ApiResponseTrait`** (`use` it from the package namespace).
-- **`AccessLog`** model (bound as `app('AccessLog')`; extend it in your app if needed).
+- **`AccessLog`** model, bound as `app('laranail.toolkit.access-log')` (a fresh
+  instance per resolve); extend it in your app if needed.
+- **`Helper`**, bound as the shared `app('laranail.toolkit.helper')`.
+
+> The bare container keys `app('AccessLog')` and `app('helper')` are deprecated
+> aliases. They still resolve the same objects, raise one `E_USER_DEPRECATED`
+> notice per process naming the replacement, and will be removed no earlier than
+> the next minor after 0.2. The keys are also available as
+> `ToolkitServiceProvider::ACCESS_LOG` and `ToolkitServiceProvider::HELPER`.
 
 [← Docs index](../README.md#documentation)

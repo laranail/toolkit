@@ -8,13 +8,16 @@ use Psr\Log\LoggerInterface;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Translation\Translator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\Factory as ViewFactory;
 use Simtabi\Laranail\Toolkit\Commands\Tidy;
 use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Illuminate\Foundation\Console\AboutCommand;
 use Simtabi\Laranail\Toolkit\Commands\MakeCrud;
+use Illuminate\Contracts\Foundation\Application;
 use Simtabi\Laranail\Toolkit\Services\LogService;
 use Simtabi\Laranail\Toolkit\Services\FileService;
 use Simtabi\Laranail\Toolkit\Services\CacheService;
@@ -79,6 +82,16 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\AuthenticationContextServiceInte
 class ToolkitServiceProvider extends ServiceProvider
 {
     /**
+     * Container key of the access-log model (a fresh instance per resolve).
+     */
+    public const string ACCESS_LOG = 'laranail.toolkit.access-log';
+
+    /**
+     * Container key of the shared {@see Helper} instance.
+     */
+    public const string HELPER = 'laranail.toolkit.helper';
+
+    /**
      * Config files merged/published under the dotted namespace. The default
      * file (`toolkit`) mounts at `laranail.toolkit`; every other file mounts at
      * `laranail.toolkit.<file>`.
@@ -125,6 +138,23 @@ class ToolkitServiceProvider extends ServiceProvider
         'laranail-toolkit.email-obfuscate' => EmailObfuscatorMiddleware::class,
     ];
 
+    /**
+     * Bare container keys already reported in this process, so each warns once.
+     *
+     * @var array<string, true>
+     */
+    private static array $deprecationNoticesSent = [];
+
+    /**
+     * Forget which deprecated keys have warned, so a test can observe the notice.
+     *
+     * @internal
+     */
+    public static function resetDeprecationNotices(): void
+    {
+        self::$deprecationNoticesSent = [];
+    }
+
     public function register(): void
     {
         $root = $this->packageRoot();
@@ -159,6 +189,7 @@ class ToolkitServiceProvider extends ServiceProvider
         // loader looks for them, and every published override is silently
         // ignored while the packaged default keeps answering.
         $this->loadTranslationsFrom("{$root}/resources/lang", 'laranail-toolkit');
+        $this->mirrorCanonicalNamespaces();
         $this->loadJsonTranslationsFrom("{$root}/resources/lang");
         // Published JSON string-translation overrides in the app lang path.
         $this->loadJsonTranslationsFrom($this->app->langPath('vendor/laranail-toolkit'));
@@ -194,7 +225,8 @@ class ToolkitServiceProvider extends ServiceProvider
 
     private function registerBindings(): void
     {
-        $this->app->bind('AccessLog', AccessLog::class);
+        $this->app->bind(self::ACCESS_LOG, AccessLog::class);
+        $this->app->bind('AccessLog', fn ($app): mixed => $this->resolveDeprecatedKey($app, 'AccessLog', self::ACCESS_LOG));
 
         // Foundation services (stateful — fresh instance per resolve so each
         // consuming object gets its own error/auth context).
@@ -249,7 +281,8 @@ class ToolkitServiceProvider extends ServiceProvider
             $app->make(LoggerInterface::class),
         ));
 
-        $this->app->singleton('helper', fn () => new Helper);
+        $this->app->singleton(self::HELPER, fn () => new Helper);
+        $this->app->bind('helper', fn ($app): mixed => $this->resolveDeprecatedKey($app, 'helper', self::HELPER));
 
         // Unified entry point to the feature modules (the `Toolkit` facade root).
         $this->app->singleton(ToolkitManager::class, fn ($app): ToolkitManager => new ToolkitManager($app));
@@ -412,6 +445,70 @@ class ToolkitServiceProvider extends ServiceProvider
     private function loadRateLimiterService(): void
     {
         $this->app->bind(RateLimiterService::class, fn ($app) => new RateLimiterService($app->make('cache.store')));
+    }
+
+    /**
+     * Resolve a bare container key through its scoped replacement, warning once.
+     *
+     * `AccessLog` and `helper` sit in the container's flat key map, where a
+     * second package or the host binding the same word silently replaces this
+     * one. They keep working, delegating to the scoped key, so a caller that
+     * still writes the bare name gets the same object it always did.
+     *
+     * @deprecated since 0.2: the bare keys `AccessLog` and `helper` are removed no
+     *             earlier than the next minor after 0.2. Resolve
+     *             {@see self::ACCESS_LOG} and {@see self::HELPER} instead.
+     */
+    private function resolveDeprecatedKey(Application $app, string $bare, string $scoped): mixed
+    {
+        if (! isset(self::$deprecationNoticesSent[$bare])) {
+            self::$deprecationNoticesSent[$bare] = true;
+
+            trigger_error(sprintf(
+                'laranail/toolkit: the container key [%s] is deprecated and will be removed no earlier than the next minor after 0.2. Use [%s] instead.',
+                $bare,
+                $scoped,
+            ), E_USER_DEPRECATED);
+        }
+
+        return $app->make($scoped);
+    }
+
+    /**
+     * Register the canonical `laranail/toolkit` view and translation namespaces
+     * over the paths `laranail-toolkit` resolved, published overrides included.
+     *
+     * The slash form names the composer package; the hyphen form is what a
+     * Blade tag can spell and what every existing caller writes, so both answer.
+     * This mirrors laranail/package-tools' `NamespaceForms::mirror()` without
+     * taking a runtime dependency on package-tools, which the toolkit does not
+     * have. Called after the `load*From()` calls, which defer the same way.
+     */
+    private function mirrorCanonicalNamespaces(): void
+    {
+        $this->callAfterResolving('view', static function (mixed $view): void {
+            if (! $view instanceof ViewFactory) {
+                return;
+            }
+
+            $hints = $view->getFinder()->getHints();
+
+            if (isset($hints['laranail-toolkit']) && ! isset($hints['laranail/toolkit'])) {
+                $view->addNamespace('laranail/toolkit', $hints['laranail-toolkit']);
+            }
+        });
+
+        $this->callAfterResolving('translator', static function (mixed $translator): void {
+            if (! $translator instanceof Translator) {
+                return;
+            }
+
+            $namespaces = $translator->getLoader()->namespaces();
+
+            if (isset($namespaces['laranail-toolkit']) && ! isset($namespaces['laranail/toolkit'])) {
+                $translator->addNamespace('laranail/toolkit', $namespaces['laranail-toolkit']);
+            }
+        });
     }
 
     /**
