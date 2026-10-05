@@ -1,0 +1,91 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to (re)publish, e.g. v0.2.1'
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Publish GitHub release + SBOM
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
+
+      # A branch-alias that lags the tag makes main advertise an old line, so Composer offers
+      # main to consumers pinned to that line. Failing here costs a re-tag.
+      - name: Assert branch-alias matches the tag
+        run: |
+          alias=$(jq -r '.extra["branch-alias"]["dev-main"] // empty' composer.json | sed 's/\.x-dev$//')
+          line=$(cut -d. -f1,2 <<<"${TAG#v}")
+          if [ -n "$alias" ] && [ "$alias" != "$line" ]; then
+            echo "::error::branch-alias is ${alias}.x-dev but the tag is on the ${line} line."
+            exit 1
+          fi
+
+      # The notes are the tagged version's CHANGELOG section, never a bare stub, and entries still
+      # under [Unreleased] would ship in this release without being described by it.
+      - name: Extract release notes from CHANGELOG
+        run: |
+          version="${TAG#v}"
+          awk -v v="$version" '
+            $0 ~ ("^## \\[" v "\\]") {f=1; next}
+            f && /^## \[/ {exit}
+            f {print}
+          ' CHANGELOG.md | sed '/./,$!d' > release-notes.md
+          if [ ! -s release-notes.md ]; then
+            echo "::error::CHANGELOG.md has no '## [${version}]' section."
+            exit 1
+          fi
+          if awk '/^## \[Unreleased\]/{f=1;next} /^## \[/{f=0} f && /^- /{found=1} END{exit !found}' CHANGELOG.md; then
+            echo "::error::[Unreleased] still has entries; cut them into ${version} or a later release first."
+            exit 1
+          fi
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: '8.5'
+          extensions: dom, curl, libxml, mbstring, zip, fileinfo
+          coverage: none
+
+      - name: Install runtime dependencies
+        run: composer install --no-dev --prefer-dist --no-interaction --no-progress
+
+      - name: Generate CycloneDX SBOM
+        uses: anchore/sbom-action@66cbf4bc1f1c0d2edc94016e65bc221b6bb0ad6c # v0.24.3
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: toolkit.cdx.json
+          upload-artifact: false
+          upload-release-assets: false
+
+      # Updates the release in place when it already exists (a hand-made one, or a re-run).
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+        with:
+          tag_name: ${{ env.TAG }}
+          name: ${{ env.TAG }}
+          generate_release_notes: true
+          body_path: release-notes.md
+          files: toolkit.cdx.json

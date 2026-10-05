@@ -5,6 +5,16 @@ All notable changes to `laranail/toolkit` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- `.github/workflows/release.yml`: a pushed `vX.Y.Z` tag now publishes the GitHub Release with that version's CHANGELOG section as its body and a CycloneDX SBOM attached, after checking the branch-alias line and that `[Unreleased]` is empty. `docs/release.md` already described this workflow, but it did not exist, so releases were made by hand and `v0.2.1` never got one. It can also be run by hand for an existing tag.
+
+### Changed
+
+- `docs/release.md` describes the release-branch process (`release/vX.Y.Z`, merged by pull request, tag on the merge commit). It used to say to push to `main` and that CI runs on every push; CI runs on pull requests.
+
 ## [0.2.2] - 2026-10-05
 
 ### Changed
