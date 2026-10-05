@@ -103,6 +103,8 @@ Contains breaking changes: three collection macros are renamed (see **Changed**)
 
 ## [0.1.0] - 2026-08-15
 
+Initial public release. Folded in during the pre-stable phase:
+
 ### Changed
 
 - **Route-middleware aliases are vendor-scoped.** The router's alias map is flat, so a second package
@@ -131,6 +133,26 @@ Contains breaking changes: three collection macros are renamed (see **Changed**)
   the packaged default kept answering. It is `laranail-toolkit` now, matching the view namespace,
   and `vendor:publish --tag=laranail::toolkit-translations` writes to `lang/vendor/laranail-toolkit`.
 
+- **Documentation that still described the removed captcha module.**
+  `docs/modules/captcha.md` was still shipping in full, and `architecture.md`,
+  `configuration.md`, `installation.md` and `getting-started.md` all still
+  referenced the module, its config file and `Toolkit::captcha()`.
+  `architecture.md` also told you to register a child provider through
+  `configurePackage()->hasChildProviders([...])`, a method that does not exist —
+  it is the `CHILD_PROVIDERS` constant on `ToolkitServiceProvider`.
+
+- **`Toolkit::userOrFail()`** throws Laravel's `Illuminate\Auth\AuthenticationException`,
+  so an unauthenticated **web** request gets the framework's login redirect (and
+  a JSON/API request a `401`) — matching the `auth` middleware — instead of a
+  `500`.
+- **`Toolkit::userAs()`** carries its generic through the facade `@method`, so
+  `Toolkit::userAs(User::class)` is inferred as `?User` (not `?Authenticatable`).
+- **`RequirementsDiagnostics` disk-space tests** are environment-robust — they
+  pin the thresholds so they no longer fail on a low-free-space runner.
+- Corrected the `AuthHelper::userExists()` doc (it is gated to stateful/session
+  guards) and the `auth.user_model` config comment (a reserved hint, not read at
+  runtime — the `userAs()` generic provides the IDE typing).
+
 ### Removed
 
 - **`Modules\Atlas`, `Modules\Avatar` and `Modules\Gravatar`** — extracted to
@@ -153,23 +175,6 @@ Contains breaking changes: three collection macros are renamed (see **Changed**)
   unit was set by a string argument several lines earlier.
 
 - **`Traits\HasAvatar`** — moved with the Avatar module.
-
-### Security
-
-- **`clearThirdPartyCache()` recursively deleted whatever a config key pointed
-  at.** The method is public and takes a config *key*, so any path that key held
-  was handed straight to `deleteDirectory()` — no containment check, no symlink
-  check, no dry run. `filesystems.disks.local.root`, `view.compiled`, or simply a
-  mistyped key would each have emptied a directory the method has no business
-  touching.
-
-  Both shipped callers — `purifier.cachePath` and `debugbar.storage.path` — name
-  somewhere inside `storage/`, so that is now the boundary: a path outside it is
-  refused and logged rather than cleared. The storage root itself is never
-  clearable, only things under it, and a symlink is refused outright because
-  following one would empty somewhere the check never approved.
-
-### Removed
 
 - **`Toolkit::config()` — the runtime `ConfigManager` moved to `laranail/package-tools`.**
   That package already owned the config file resolver, merger, validator and
@@ -194,6 +199,26 @@ Contains breaking changes: three collection macros are renamed (see **Changed**)
   Both are `suggest`-ed rather than required. See
   [UPGRADING.md](UPGRADING.md) for the two behaviour changes that came with the
   moves.
+
+- The `Captcha` module (`src/Modules/Captcha/`), its config file and the `Captcha` facade alias have
+  been relocated to [`laranail/captcha`](https://github.com/laranail/captcha), which covers eleven
+  providers, environment-scoped credentials, a database-backed settings store and edge bot
+  management. `Toolkit::captcha()` is gone with it. See UPGRADING.md.
+
+### Security
+
+- **`clearThirdPartyCache()` recursively deleted whatever a config key pointed
+  at.** The method is public and takes a config *key*, so any path that key held
+  was handed straight to `deleteDirectory()` — no containment check, no symlink
+  check, no dry run. `filesystems.disks.local.root`, `view.compiled`, or simply a
+  mistyped key would each have emptied a directory the method has no business
+  touching.
+
+  Both shipped callers — `purifier.cachePath` and `debugbar.storage.path` — name
+  somewhere inside `storage/`, so that is now the boundary: a path outside it is
+  refused and logged rather than cleared. The storage root itself is never
+  clearable, only things under it, and a symlink is refused outright because
+  following one would empty somewhere the check never approved.
 
 ### Added
 
@@ -220,52 +245,17 @@ Contains breaking changes: three collection macros are renamed (see **Changed**)
   directory, non-recursive by default, path-guarded and exception-safe like the
   other probes there.
 
-### Changed — breaking
-
-- **`Services\Contracts\FileServiceInterface` gains `filesInPath()`.** Anything
-  implementing that contract directly must add the method. Consumers resolving
-  it from the container are unaffected.
-
-### Removed
-
-- The `Captcha` module (`src/Modules/Captcha/`), its config file and the `Captcha` facade alias have
-  been relocated to [`laranail/captcha`](https://github.com/laranail/captcha), which covers eleven
-  providers, environment-scoped credentials, a database-backed settings store and edge bot
-  management. `Toolkit::captcha()` is gone with it. See UPGRADING.md.
-
-### Fixed
-
-- **Documentation that still described the removed captcha module.**
-  `docs/modules/captcha.md` was still shipping in full, and `architecture.md`,
-  `configuration.md`, `installation.md` and `getting-started.md` all still
-  referenced the module, its config file and `Toolkit::captcha()`.
-  `architecture.md` also told you to register a child provider through
-  `configurePackage()->hasChildProviders([...])`, a method that does not exist —
-  it is the `CHILD_PROVIDERS` constant on `ToolkitServiceProvider`.
-
-Initial public release. Folded in during the pre-stable phase:
-
-### Added
-
 - **Swappable auth guard** — `Toolkit::withGuard('admin')` returns a scoped clone
   whose `user()` / `userAs()` / `userOrFail()` resolve against that guard, without
   a per-call argument or mutating the shared manager. Resolution order: explicit
   per-call `$guard` → `withGuard()` swap → `config('laranail.toolkit.auth.default_guard')`
   → the framework default. See [docs/auth.md](docs/auth.md).
 
-### Fixed
+### Changed — breaking
 
-- **`Toolkit::userOrFail()`** throws Laravel's `Illuminate\Auth\AuthenticationException`,
-  so an unauthenticated **web** request gets the framework's login redirect (and
-  a JSON/API request a `401`) — matching the `auth` middleware — instead of a
-  `500`.
-- **`Toolkit::userAs()`** carries its generic through the facade `@method`, so
-  `Toolkit::userAs(User::class)` is inferred as `?User` (not `?Authenticatable`).
-- **`RequirementsDiagnostics` disk-space tests** are environment-robust — they
-  pin the thresholds so they no longer fail on a low-free-space runner.
-- Corrected the `AuthHelper::userExists()` doc (it is gated to stateful/session
-  guards) and the `auth.user_model` config comment (a reserved hint, not read at
-  runtime — the `userAs()` generic provides the IDE typing).
+- **`Services\Contracts\FileServiceInterface` gains `filesInPath()`.** Anything
+  implementing that contract directly must add the method. Consumers resolving
+  it from the container are unaffected.
 
 [Unreleased]: https://github.com/laranail/toolkit/compare/v0.2.0...HEAD
 [0.2.0]: https://github.com/laranail/toolkit/compare/v0.1.0...v0.2.0
