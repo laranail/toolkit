@@ -10,7 +10,6 @@ alias), and injects its collaborators — no facades in the core logic.
 |---|---|---|---|
 | CRUD generator | `laranail::toolkit.make-crud` | `laranail::toolkit.make-crud` | [make-crud](make-crud.md) |
 | IDE-helper macros | `laranail::toolkit.ide-helper-macros` | `laranail::toolkit.ide-helper-macros` | [macros](macros.md) |
-| Tidy | `laranail::toolkit.tidy` | `tidy` | below |
 
 ---
 
@@ -62,89 +61,20 @@ non-zero. The non-interactive flag is read from the input, so `--no-interaction`
   the stub size via `display()->formatBytes(strlen(...))`. Accepts `--path=` to
   override the output location (default
   `ide-helper/_ide_helper_macros.php` under the base path).
-- **`tidy`** (heavy) — `consoleWriter()` throughout; the file sweep is
-  **signal-safe** (`shouldKeepRunning()` is polled per root and per file);
-  destructive prompts route through `interaction()->confirmAction()` (the existing
-  `db` gating is preserved); each run is timed with `performance()` and logged via
-  `logger()->logCompletion()` with files-processed + space-freed `metadata()`.
 
 ---
 
-## `laranail::toolkit.tidy` — maintenance / cleanup
+## Tidy moved to `laranail/artisan-ui`
 
-Unified, path-confined cleanup: `cache`, `logs`, `temp`, `storage`, `db`, `all`.
+The maintenance command `laranail::toolkit.tidy` was removed in 0.3.0. It now lives in
+[`laranail/artisan-ui`](https://opensource.simtabi.com/documentation/laranail/artisan-ui/) as
+`laranail::artisan-ui.tidy`, with the same actions, options and safety rules (storage-confined
+deletion, scoped `storage` sweeps, `db` gated and kept out of `all`). Install that package and call
+the new name:
 
 ```bash
-php artisan laranail::toolkit.tidy [action] [options]
+php artisan laranail::artisan-ui.tidy logs --days=30 --force
 ```
-
-| Option | Description |
-|---|---|
-| `action` (argument) | `cache`, `logs`, `temp`, `storage`, `db`, or `all` (default). |
-| `--days=` | Only delete files older than this many days. |
-| `--size=` | Only delete files larger than this many MB. |
-| `--seed` | (db) also run `db:seed` after `migrate:fresh`. |
-| `--optimize` | (cache) also run `optimize:clear`. |
-| `--dry-run` | Show what would be removed without deleting anything. |
-| `--unfiltered` | (`storage`) sweep user files with no age/size filter. Refused in production. |
-| `--force` | Skip confirmation prompts (required for the `db` action). |
-
-### Actions
-
-- **`cache`** — flushes the application cache; with `--optimize` also runs
-  `optimize:clear`. `--dry-run` previews; the freed space is reported.
-- **`logs` / `temp` / `storage`** — delete files under the relevant
-  `storage_path()` roots, filtered by `--days` (age) and/or `--size`.
-  `.gitignore` files are always preserved.
-- **`db`** — runs `migrate:fresh` (optionally `--seed`). **Excluded from
-  `all`.** Requires `--force` AND passes the production-safety
-  `confirmToProceed()` guard; it is a no-op under `--dry-run`.
-- **`all`** — tidies cache + `logs` / `temp`, and `storage` **only when scoped**
-  (see below). It **never** runs the destructive `db` action.
-
-### The `storage` action needs a scope
-
-`storage` sweeps `storage/app/public`, `storage/app/uploads` and
-`storage/app/exports`. The first is the disk behind `storage:link` — user
-uploads. So unlike `logs` and `temp`, which hold data the application
-regenerates, an unfiltered sweep here is not housekeeping.
-
-| Invocation | Result |
-|---|---|
-| `tidy storage --days=30 --force` | Deletes uploads older than 30 days. |
-| `tidy storage --size=100 --force` | Deletes uploads over 100 MB. |
-| `tidy storage --force` | **Refused.** Every file would match. |
-| `tidy storage --unfiltered --force` | Deletes everything — outside production only. |
-| `tidy storage --unfiltered --force` *(production)* | **Refused**, with no override. |
-| `tidy all --force` | Sweeps cache + logs + temp; **skips** `storage` and says so. |
-| `tidy all --days=30 --force` | Sweeps everything, `storage` included. |
-
-> Through v0.1.0, `tidy storage --force` and `tidy all --force` deleted every
-> file in those roots. The containment guard did not catch it and never would
-> have: it answers "can this delete something outside `storage_path()`", and
-> those roots are inside it.
-
-### Safety notes
-
-- **Every deletion is confined to `storage_path()`.** The swept roots are
-  storage-relative; each is realpath-resolved and proven to sit inside
-  `realpath(storage_path())` before any delete. Each candidate file is
-  realpath-resolved and re-checked for containment, so a `..` path or a symlink
-  pointing **outside** storage is skipped, never followed. Paths are additionally
-  screened by the `FilePathGuard` (`..` / null-byte rejection).
-- **`--dry-run` deletes nothing** — it previews each candidate and reports the
-  space that *would* be freed.
-- **`db` is hard-gated** behind `--force` + `confirmToProceed()` and excluded
-  from `all`, so a bulk tidy can never drop your tables.
-- **`--force` is not the gate for user files.** It appears in every CI
-  invocation, so it is typed by habit; scoping the `storage` sweep with
-  `--days`/`--size`, or acknowledging it with `--unfiltered`, is.
-- **Signal-safe sweep.** The deletion loop polls
-  `signals()->shouldKeepRunning()` per root and per file, so a `SIGTERM` /
-  `SIGINT` stops the sweep cleanly mid-directory rather than leaving it half-run.
-  Without ext-pcntl (e.g. Windows) the check defaults `true`, so a normal run is
-  unaffected. Every run is timed and a `logger()->logCompletion()` summary records
-  files-processed and space-freed.
 
 ---
 

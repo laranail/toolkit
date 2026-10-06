@@ -293,7 +293,7 @@
   },
   "Simtabi\\Laranail\\Laravel\\Commands\\TidyCommand": {
     "status": "merged",
-    "target": "Merged + hardened into Simtabi\\Laranail\\Toolkit\\Commands\\Tidy (laranail::toolkit.tidy; storage-confined deletion, gated migrate:fresh)."
+    "target": "Merged + hardened into Simtabi\\Laranail\\Toolkit\\Commands\\Tidy (laranail::toolkit.tidy), which moved to laranail/artisan-ui as laranail::artisan-ui.tidy in toolkit 0.3.0."
   },
   "Simtabi\\Laranail\\Laravel\\Listeners\\BaseListener": {
     "status": "merged",

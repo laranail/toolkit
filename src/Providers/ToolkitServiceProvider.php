@@ -12,7 +12,6 @@ use Illuminate\Translation\Translator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\Factory as ViewFactory;
-use Simtabi\Laranail\Toolkit\Commands\Tidy;
 use Simtabi\Laranail\Toolkit\Helpers\Helper;
 use Simtabi\Laranail\Toolkit\ToolkitManager;
 use Illuminate\Foundation\Console\AboutCommand;
@@ -195,7 +194,7 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom($this->app->langPath('vendor/laranail-toolkit'));
         $this->loadMigrationsFrom("{$root}/database/migrations");
 
-        $this->commands([MakeCrud::class, IdeHelperMacros::class, Tidy::class]);
+        $this->commands([MakeCrud::class, IdeHelperMacros::class]);
 
         $router = $this->app->make(Router::class);
         foreach (self::MIDDLEWARE_ALIASES as $alias => $class) {

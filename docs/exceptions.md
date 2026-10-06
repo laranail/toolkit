@@ -131,8 +131,8 @@ throw InvalidPathException::directoryTraversal($path);     // \RuntimeException
 
 `InvalidPathException` adds reason-specific factories on top of `create()`:
 `directoryTraversal()`, `nullByteDetected()`, `outsideAllowedDirectory()`, and
-`invalidCharacters()` — used by the path-confinement guards across the file,
-database, and tidy code paths.
+`invalidCharacters()` — used by the path-confinement guards across the file
+and database code paths.
 
 `FileTooLargeException::create()` formats both the actual and maximum size as
 human-readable strings (e.g. `1.50 MB`) in the message.

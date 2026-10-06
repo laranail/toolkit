@@ -5,6 +5,17 @@ All notable changes to `laranail/toolkit` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Removed
+
+- **Breaking: the `laranail::toolkit.tidy` command** (`Simtabi\Laranail\Toolkit\Commands\Tidy`) moved to `laranail/artisan-ui` as `laranail::artisan-ui.tidy`, with the same actions, options and safety rules. Install that package and call the new name; there is no forwarder here.
+- **`routes/web.php` and `routes/api.php`.** No provider ever loaded them. `web.php` held seven unauthenticated `GET` closures that rebuilt and cleared caches (`/tidy/*`), and `api.php` was empty. Their actions are in `laranail/artisan-ui`'s authenticated Caches and Tidy quick-action groups.
+
+### Changed
+
+- The branch alias is `0.3.x-dev`. Consumers on `^0.2` stay on 0.2.x and keep `laranail::toolkit.tidy`; require `^0.3` to move.
+
 ## [0.2.3] - 2026-10-05
 
 ### Added
