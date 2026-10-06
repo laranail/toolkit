@@ -43,17 +43,13 @@ src/
 
 > The command base (`Command` + `SupportsNamespacedNames`) is **not** local — it
 > comes from [`laranail/console`](https://opensource.simtabi.com/console/) `^1.0`,
-> the org-canonical command base. All three toolkit commands — `MakeCrud`,
-> `IdeHelperMacros`, `Tidy` — extend it and use its **full
+> the org-canonical command base. Both toolkit commands — `MakeCrud` and
+> `IdeHelperMacros` — extend it and use its **full
 > feature set**: the fluent `$this->consoleWriter()` (context statuses
 > success/error/warning/info/note, styling, emoji) and the `$this->services`
 > lifecycle (`performance`, `signals`, `interaction`, `logger`, `error`,
-> `metadata`, `display`). The heavy `Tidy` command makes its destructive sweep
-> **signal-safe** (`signals()->shouldKeepRunning()`), confirms through
-> `interaction()->confirmAction()` (safe default in non-interactive mode), and
-> captures failures via the **auto-redacting** `error()->logError()` — so
-> credentials never reach a log channel. The existing security hardening
-> (FilePathGuard storage confinement, `db` action gating) is untouched.
+> `metadata`, `display`). The maintenance command `Tidy` moved to `laranail/artisan-ui`
+> (`laranail::artisan-ui.tidy`) in 0.3.0.
 
 ## Adding a feature / tool / module
 
