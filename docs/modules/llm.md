@@ -145,7 +145,7 @@ set the API key and (optionally) the default provider:
 
 ```dotenv
 LLM_DEFAULT_PROVIDER=openai
-OPENAI_API_KEY=sk-...
+OPENAI_API_KEY=sk-xxxxxxxx
 ```
 
 [← Docs index](../../README.md#documentation)
