@@ -5,6 +5,12 @@ All notable changes to `laranail/toolkit` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- `docs/modules/llm.md` shows a placeholder for the OpenAI key instead of a value shaped like a real one, so secret scanners stop flagging the example.
+
 ## [0.3.0] - 2026-10-06
 
 ### Removed
