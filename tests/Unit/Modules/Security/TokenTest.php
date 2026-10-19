@@ -9,6 +9,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Modules\Security\Token;
+use Simtabi\Laranail\Package\Tools\Testing\TestCredentials;
 
 class TokenTest extends TestCase
 {
@@ -62,7 +63,7 @@ class TokenTest extends TestCase
 
     public function test_signed_round_trip_verifies_true(): void
     {
-        $builder = Token::signed('s3cr3t')->encoding('hex')->length(32);
+        $builder = Token::signed(TestCredentials::secret('signing'))->encoding('hex')->length(32);
 
         $token = $builder->generate();
 
@@ -71,7 +72,7 @@ class TokenTest extends TestCase
 
     public function test_signed_token_with_prefix_and_type_round_trips(): void
     {
-        $builder = Token::signed('s3cr3t')->prefix('rt_')->type('reset')->encoding('base64url')->length(32);
+        $builder = Token::signed(TestCredentials::secret('signing'))->prefix('rt_')->type('reset')->encoding('base64url')->length(32);
 
         $token = $builder->generate();
 
@@ -81,7 +82,7 @@ class TokenTest extends TestCase
 
     public function test_tampered_token_verifies_false(): void
     {
-        $builder = Token::signed('s3cr3t')->encoding('hex')->length(32);
+        $builder = Token::signed(TestCredentials::secret('signing'))->encoding('hex')->length(32);
         $token = $builder->generate();
 
         $this->assertFalse($builder->verify($token . 'x'));
@@ -162,7 +163,7 @@ class TokenTest extends TestCase
     #[Group('security')]
     public function test_non_expired_signed_token_verifies_true(): void
     {
-        $builder = Token::signed('s3cr3t')->expiresIn(3600)->encoding('hex')->length(16);
+        $builder = Token::signed(TestCredentials::secret('signing'))->expiresIn(3600)->encoding('hex')->length(16);
         $token = $builder->generate();
 
         $this->assertTrue($builder->verify($token));
@@ -171,7 +172,7 @@ class TokenTest extends TestCase
     #[Group('security')]
     public function test_expired_token_verifies_false(): void
     {
-        $secret = 's3cr3t';
+        $secret = TestCredentials::secret('signing');
         $builder = Token::signed($secret)->expiresIn(60)->encoding('hex')->length(16);
 
         // Hand-build a structurally valid but already-expired token using the SAME
@@ -189,7 +190,7 @@ class TokenTest extends TestCase
     #[Group('security')]
     public function test_tampered_type_is_rejected_by_the_signature(): void
     {
-        $builder = Token::signed('s3cr3t')->type('reset')->encoding('hex')->length(16);
+        $builder = Token::signed(TestCredentials::secret('signing'))->type('reset')->encoding('hex')->length(16);
         $token = $builder->generate();
 
         // Swap the type segment to 'verify' while keeping the original MAC.
@@ -202,7 +203,7 @@ class TokenTest extends TestCase
     #[Group('security')]
     public function test_a_validly_signed_token_of_another_type_is_rejected(): void
     {
-        $secret = 's3cr3t';
+        $secret = TestCredentials::secret('signing');
 
         // A genuinely-signed token minted for the 'verify' purpose.
         $verifyToken = Token::signed($secret)->type('verify')->encoding('hex')->length(16)->generate();
@@ -218,7 +219,7 @@ class TokenTest extends TestCase
     #[Group('security')]
     public function test_embedded_expiry_is_enforced_even_when_the_verifier_omits_expires_in(): void
     {
-        $secret = 's3cr3t';
+        $secret = TestCredentials::secret('signing');
 
         // Hand-build an already-expired but validly-signed token.
         $body = bin2hex(random_bytes(16));

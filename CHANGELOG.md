@@ -5,6 +5,15 @@ All notable changes to `laranail/toolkit` are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Test credentials are generated at run time with `TestCredentials` instead of being written into
+  the tests, and `tests/Architecture/NoLiteralCredentialsTest.php` fails the suite on any literal
+  credential left behind, so secret scanning has nothing to report. The `laranail/package-tools`
+  floor is now `^0.1.9`, the first release shipping those helpers.
+
 ## [0.3.1] - 2026-10-12
 
 ### Changed

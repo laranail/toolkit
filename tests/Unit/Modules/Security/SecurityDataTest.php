@@ -84,7 +84,7 @@ class SecurityDataTest extends TestCase
 
     public function test_a_non_array_section_yields_an_empty_list(): void
     {
-        config()->set('laranail.toolkit.security.passwords', 'not-an-array');
+        config()->set('laranail.toolkit.security.passwords', 'not-an-array'); // @credential-literal-exempt: a malformed config value, not a credential
         $this->resetSecurityDataCache();
 
         $this->assertSame([], SecurityData::commonPasswords());
@@ -92,7 +92,7 @@ class SecurityDataTest extends TestCase
 
     public function test_a_non_array_entry_within_a_section_yields_an_empty_list(): void
     {
-        config()->set('laranail.toolkit.security.passwords.common', 'not-a-list');
+        config()->set('laranail.toolkit.security.passwords.common', 'not-a-list'); // @credential-literal-exempt: a malformed config value, not a credential
         $this->resetSecurityDataCache();
 
         $this->assertSame([], SecurityData::commonPasswords());

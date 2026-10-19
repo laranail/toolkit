@@ -11,6 +11,7 @@ use PHPUnit\Framework\Attributes\Group;
 use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Illuminate\Validation\ValidationException;
+use Simtabi\Laranail\Package\Tools\Testing\TestCredentials;
 use Simtabi\Laranail\Toolkit\Http\Controllers\CrudController;
 
 class CrudWidget extends Model
@@ -71,7 +72,7 @@ class CrudControllerTest extends TestCase
         $controller = new CrudWidgetController;
 
         $response = $controller->storeRecord(
-            Request::create('/', 'POST', ['name' => 'Acme', 'secret' => 'pwned']),
+            Request::create('/', 'POST', ['name' => 'Acme', 'secret' => TestCredentials::secret('guarded')]),
         );
 
         $id = $response->getData(true)['data']['id'];
