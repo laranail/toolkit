@@ -12,6 +12,7 @@ use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Simtabi\Laranail\Toolkit\Rules\RejectCommonPasswords;
+use Simtabi\Laranail\Package\Tools\Testing\TestCredentials;
 use Illuminate\Support\Facades\Validator as ValidatorFacade;
 
 #[Group('security')]
@@ -284,7 +285,7 @@ class RejectCommonPasswordsTest extends TestCase
 
     public function test_hibp_rejects_a_breached_password_when_suffix_matches(): void
     {
-        $password = 'P@ssw0rd-breached-fixture';
+        $password = TestCredentials::password('breached');
         $hash = strtoupper(sha1($password));
         $prefix = substr($hash, 0, 5);
         $suffix = substr($hash, 5);
@@ -336,6 +337,7 @@ class RejectCommonPasswordsTest extends TestCase
 
         $rule = RejectCommonPasswords::config()->minZxcvbnScore(4)->rule();
 
+        // @credential-literal-exempt: a weak input the zxcvbn rule must reject
         $validator = ValidatorFacade::make(['password' => 'Summer2024'], ['password' => [$rule]]);
 
         $this->assertTrue($validator->fails());
@@ -357,7 +359,7 @@ class RejectCommonPasswordsTest extends TestCase
             'api.pwnedpasswords.com/*' => Http::response('', 200),
         ]);
 
-        $password = 'NeverLeakThisPassword!2026';
+        $password = TestCredentials::password('plaintext');
         $expectedPrefix = strtoupper(substr(sha1($password), 0, 5));
         $suffix = strtoupper(substr(sha1($password), 5));
 

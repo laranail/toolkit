@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use PHPUnit\Framework\Attributes\Group;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
+use Simtabi\Laranail\Package\Tools\Testing\TestCredentials;
 use Simtabi\Laranail\Toolkit\Modules\Security\SecurityData;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLog;
 use Simtabi\Laranail\Toolkit\Modules\Security\AccessLog\AccessLogMiddleware;
@@ -19,9 +20,9 @@ class AccessLogMiddlewareTest extends TestCase
     {
         $request = Request::create('/login', 'POST', [
             'email'    => 'user@example.com',
-            'password' => 'super-secret',
-            'token'    => 'abc123',
-            'profile'  => ['api_key' => 'nested-secret', 'name' => 'Jane'],
+            'password' => TestCredentials::password('login'),
+            'token'    => TestCredentials::secret('token'),
+            'profile'  => ['api_key' => TestCredentials::secret('nested'), 'name' => 'Jane'],
         ]);
 
         $this->logRequest($request);
@@ -40,7 +41,7 @@ class AccessLogMiddlewareTest extends TestCase
         $request = Request::create('/deep', 'POST', [
             'wrapper' => [
                 'inner' => [
-                    'password' => 'deep-secret',
+                    'password' => TestCredentials::password('deep'),
                     'safe'     => 'keep',
                 ],
             ],
@@ -84,7 +85,7 @@ class AccessLogMiddlewareTest extends TestCase
 
         $request = Request::create('/override', 'POST', [
             'custom_field' => 'hide-me',
-            'password'     => 'no-longer-in-deny-list',
+            'password'     => TestCredentials::password('verbatim'),
         ]);
 
         $this->logRequest($request);
@@ -93,7 +94,7 @@ class AccessLogMiddlewareTest extends TestCase
 
         $this->assertSame('[REDACTED]', $log->request_data['custom_field']);
         // password is not in the overriding list, so it is stored verbatim.
-        $this->assertSame('no-longer-in-deny-list', $log->request_data['password']);
+        $this->assertSame(TestCredentials::password('verbatim'), $log->request_data['password']);
     }
 
     public function test_query_string_secrets_are_not_stored_in_url(): void

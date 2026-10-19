@@ -11,6 +11,7 @@ use Simtabi\Laranail\Toolkit\Modules\LLM\LLM;
 use Simtabi\Laranail\Toolkit\Facades\Laranail;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator;
+use Simtabi\Laranail\Package\Tools\Testing\TestCredentials;
 use Simtabi\Laranail\Toolkit\Modules\LLM\LLMProviderInterface;
 use Simtabi\Laranail\Toolkit\Modules\LLM\Claude\ClaudeProvider;
 use Simtabi\Laranail\Toolkit\Modules\LLM\Gemini\GeminiProvider;
@@ -112,7 +113,7 @@ class FacadesTest extends TestCase
     {
         $this->app->forgetInstance(LLMProviderInterface::class);
         $this->app['config']->set('laranail.toolkit.llm.default_provider', 'openai');
-        $this->app['config']->set('laranail.toolkit.llm.openai.api_key', 'sk-test');
+        $this->app['config']->set('laranail.toolkit.llm.openai.api_key', sprintf('sk-%s', TestCredentials::secret('openai')));
 
         $this->assertInstanceOf(OpenAIProvider::class, $this->app->make(LLMProviderInterface::class));
     }
@@ -121,7 +122,7 @@ class FacadesTest extends TestCase
     {
         $this->app->forgetInstance(LLMProviderInterface::class);
         $this->app['config']->set('laranail.toolkit.llm.default_provider', 'gemini');
-        $this->app['config']->set('laranail.toolkit.llm.gemini.api_key', 'gemini-test');
+        $this->app['config']->set('laranail.toolkit.llm.gemini.api_key', TestCredentials::secret('gemini'));
 
         $this->assertInstanceOf(GeminiProvider::class, $this->app->make(LLMProviderInterface::class));
     }
@@ -130,7 +131,7 @@ class FacadesTest extends TestCase
     {
         $this->app->forgetInstance(LLMProviderInterface::class);
         $this->app['config']->set('laranail.toolkit.llm.default_provider', 'claude');
-        $this->app['config']->set('laranail.toolkit.llm.claude.api_key', 'claude-test');
+        $this->app['config']->set('laranail.toolkit.llm.claude.api_key', TestCredentials::secret('claude'));
 
         $this->assertInstanceOf(ClaudeProvider::class, $this->app->make(LLMProviderInterface::class));
     }

@@ -11,6 +11,7 @@ use PHPUnit\Framework\Attributes\Group;
 use Illuminate\Database\Schema\Blueprint;
 use Simtabi\Laranail\Toolkit\Tests\TestCase;
 use Simtabi\Laranail\Toolkit\Traits\Auditable;
+use Simtabi\Laranail\Package\Tools\Testing\TestCredentials;
 
 class AuditWidget extends Model
 {
@@ -47,14 +48,14 @@ class AuditableTest extends TestCase
 
     public function test_create_audit_redacts_hidden_attributes(): void
     {
-        AuditWidget::create(['name' => 'Acme', 'secret' => 'top-secret']);
+        AuditWidget::create(['name' => 'Acme', 'secret' => TestCredentials::secret('hidden')]);
 
         $audit = DB::table('model_audits')->where('event', 'created')->first();
         $newValues = json_decode((string) $audit->new_values, true);
 
         $this->assertSame('Acme', $newValues['name']);
         $this->assertSame('[REDACTED]', $newValues['secret']);
-        $this->assertStringNotContainsString('top-secret', $audit->new_values);
+        $this->assertStringNotContainsString(TestCredentials::secret('hidden'), $audit->new_values);
     }
 
     public function test_audit_failure_does_not_break_the_model_write(): void
