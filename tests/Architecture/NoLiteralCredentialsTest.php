@@ -15,4 +15,9 @@ final class NoLiteralCredentialsTest extends TestCase
     {
         $this->assertNoLiteralCredentialsIn([dirname(__DIR__)], minFiles: 114);
     }
+
+    public function test_it_names_every_generated_credential_with_a_single_word(): void
+    {
+        $this->assertCredentialPurposesAreWordsIn([dirname(__DIR__)], minFiles: 114);
+    }
 }

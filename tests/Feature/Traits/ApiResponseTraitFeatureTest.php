@@ -52,8 +52,7 @@ class ApiResponseTraitFeatureTest extends TestCase
             'password' => ['The password field is required.'],
         ];
         $debug = [
-            'request_data' => ['email' => '', 'password' => ''],
-            // @credential-literal-exempt: a validation rule, not a credential
+            'request_data'     => ['email' => '', 'password' => ''],
             'validation_rules' => ['email' => 'required', 'password' => 'required'],
         ];
 
