@@ -1,7 +1,7 @@
 name: Coverage baseline
 
-# Refreshes the Codecov baseline for `main` so PR comparisons have a recent
-# base commit to diff against. Runs weekly (Monday 06:00 America/New_York,
+# Runs the canonical coverage row against `main` so coverage drift after a
+# merge stays visible. Runs weekly (Monday 06:00 America/New_York,
 # 11:00 UTC) and on demand; scheduled runs always use the default branch.
 # It stands in for a `push: branches: [main]` trigger on tests.yml, which
 # would re-run the full matrix after every merge. Steps mirror the canonical
@@ -69,22 +69,3 @@ jobs:
           name: coverage-xml-${{ github.sha }}
           path: coverage.xml
           retention-days: 7
-
-      - name: Upload coverage to Codecov
-        id: codecov
-        # Same detection as tests.yml: fail_ci_if_error surfaces an HTTP >= 400
-        # as a step failure, continue-on-error keeps the job green.
-        continue-on-error: true
-        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
-        with:
-          files: ./coverage.xml
-          disable_search: true
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
-
-      - name: Report a rejected Codecov upload
-        if: steps.codecov.outcome == 'failure'
-        run: |
-          msg="Codecov rejected the upload (repository not activated or token mismatch) — coverage is still enforced by pest --min and shown in the job summary. See the 'Upload coverage to Codecov' step log for the server response."
-          echo "::warning title=Codecov upload failed::$msg"
-          printf '\n> [!WARNING]\n> %s\n' "$msg" >> "$GITHUB_STEP_SUMMARY"
