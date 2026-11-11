@@ -8,7 +8,7 @@ the full reference see the [Documentation index](../README.md#documentation).
 ```bash
 composer config repositories.laranail-console vcs https://github.com/laranail/console
 composer config repositories.laranail-toolkit vcs https://github.com/laranail/toolkit
-composer require laranail/toolkit:^0.2
+composer require laranail/toolkit:^0.1
 php artisan vendor:publish --tag=laranail::toolkit-config
 ```
 

@@ -1,10 +1,10 @@
 # Upgrade guide
 
-## The settings store moved to `laranail/settings` (0.4.0)
+## The settings store moved to `laranail/settings` (0.1.0, versions reset)
 
 Toolkit's JSON-file settings store is gone. Runtime settings now live in
 [`laranail/settings`](https://opensource.simtabi.com/documentation/laranail/settings/), which stores
-them in the database with types, scopes and encryption. This is a breaking change, shipping in 0.4.0.
+them in the database with types, scopes and encryption. This is a breaking change. It ships as 0.1.0: the version line restarted, and the `v0.1.0`–`v0.3.2` tags were withdrawn, so require `^0.1` and run `composer clear-cache` once.
 
 Removed, with no forwarder:
 

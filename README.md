@@ -15,7 +15,7 @@ Compatible with PHP `^8.4.1 || ^8.5` and Laravel `^13.0`.
 # laranail/toolkit and laranail/console are not on Packagist yet: point Composer at GitHub.
 composer config repositories.laranail-console vcs https://github.com/laranail/console
 composer config repositories.laranail-toolkit vcs https://github.com/laranail/toolkit
-composer require laranail/toolkit:^0.2
+composer require laranail/toolkit:^0.1
 ```
 
 ## Quick start guide and usage
