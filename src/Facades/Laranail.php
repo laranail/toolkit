@@ -31,7 +31,6 @@ use Simtabi\Laranail\Toolkit\ToolkitManager;
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface cache()
  * @method static \Simtabi\Laranail\Toolkit\Support\RuntimeConfigurator runtime()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface log()
- * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface settings()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\RateLimiterServiceInterface rateLimiter()
  * @method static \Simtabi\Laranail\Toolkit\Services\Contracts\SchedulerServiceInterface scheduler()
  * @method static \Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface livewire()

@@ -20,7 +20,6 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
@@ -226,14 +225,6 @@ class ToolkitManager
     public function log(): LoggerServiceInterface
     {
         return $this->app->make(LoggerServiceInterface::class);
-    }
-
-    /**
-     * Runtime settings store (dynamic, persisted-at-runtime key/value JSON).
-     */
-    public function settings(): SettingsStoreInterface
-    {
-        return $this->app->make(SettingsStoreInterface::class);
     }
 
     /**

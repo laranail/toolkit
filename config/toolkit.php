@@ -119,15 +119,6 @@ return [
     ],
 
     /*
-     * Runtime settings store (Services\SettingsStore) — a JSON file of dynamic,
-     * persisted-at-runtime values, kept separate from this static config.
-     */
-    'settings' => [
-        'disk' => env('LARANAIL_SETTINGS_DISK', 'local'),
-        'path' => env('LARANAIL_SETTINGS_PATH', 'laranail/settings.json'),
-    ],
-
-    /*
      * PHP runtime / INI settings applied by Support\RuntimeConfigurator via
      * ->usingConfig()/::fromConfig(). Everything here is data — override any
      * value (env or by publishing this file) without touching code.
