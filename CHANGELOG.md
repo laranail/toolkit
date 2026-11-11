@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-11
+
+Versions restart at 0.1.0. The tags `v0.1.0` to `v0.3.2` were withdrawn and their releases removed;
+this is the toolkit as it stands after the settings store moved to `laranail/settings`. Require
+`laranail/toolkit:^0.1`, and run `composer clear-cache` once if you installed an earlier tag.
+
 ### Removed
 
-- **Breaking, for 0.4.0: the runtime settings store.** `Toolkit::settings()`, `Laranail::settings()`,
+- **The runtime settings store.** `Toolkit::settings()`, `Laranail::settings()`,
   `Services\SettingsStore`, `Services\Contracts\SettingsStoreInterface`, their container bindings,
   the `laranail.toolkit.settings` config block and its env keys `LARANAIL_SETTINGS_DISK` and
   `LARANAIL_SETTINGS_PATH` are removed, with no forwarder. Runtime settings now live in
@@ -18,9 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `--apply`); see [UPGRADING.md](UPGRADING.md). `isValidDatabaseConnection('settings')`,
   `RuntimeConfigurator` and the feature toggles are unaffected.
 
-## [0.3.2] - 2026-10-20
+## [Internal history] (not published)
 
-### Changed
+The entries below describe the withdrawn `v0.1.0`–`v0.3.2` tags. They are kept for the record.
+
+### 0.3.2 - 2026-10-20 (withdrawn)
+
+#### Changed
 
 - Test credentials are generated at run time with `TestCredentials` instead of being written into
   the tests, and `tests/Architecture/NoLiteralCredentialsTest.php` fails the suite on any literal
@@ -29,42 +39,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   compound purpose as the password itself. The `laranail/package-tools` floor is now `^0.1.10`,
   the first release shipping that check.
 
-## [0.3.1] - 2026-10-12
+### 0.3.1 - 2026-10-12 (withdrawn)
 
-### Changed
+#### Changed
 
 - `docs/modules/llm.md` shows a placeholder for the OpenAI key instead of a value shaped like a real one, so secret scanners stop flagging the example.
 
-## [0.3.0] - 2026-10-06
+### 0.3.0 - 2026-10-06 (withdrawn)
 
-### Removed
+#### Removed
 
 - **Breaking: the `laranail::toolkit.tidy` command** (`Simtabi\Laranail\Toolkit\Commands\Tidy`) moved to `laranail/artisan-ui` as `laranail::artisan-ui.tidy`, with the same actions, options and safety rules. Install that package and call the new name; there is no forwarder here.
 - **`routes/web.php` and `routes/api.php`.** No provider ever loaded them. `web.php` held seven unauthenticated `GET` closures that rebuilt and cleared caches (`/tidy/*`), and `api.php` was empty. Their actions are in `laranail/artisan-ui`'s authenticated Caches and Tidy quick-action groups.
 
-### Changed
+#### Changed
 
 - The branch alias is `0.3.x-dev`. Consumers on `^0.2` stay on 0.2.x and keep `laranail::toolkit.tidy`; require `^0.3` to move.
 
-## [0.2.3] - 2026-10-05
+### 0.2.3 - 2026-10-05 (withdrawn)
 
-### Added
+#### Added
 
 - `.github/workflows/release.yml`: a pushed `vX.Y.Z` tag now publishes the GitHub Release with that version's CHANGELOG section as its body and a CycloneDX SBOM attached, after checking the branch-alias line and that `[Unreleased]` is empty. `docs/release.md` already described this workflow, but it did not exist, so releases were made by hand and `v0.2.1` never got one. It can also be run by hand for an existing tag.
 
-### Changed
+#### Changed
 
 - `docs/release.md` describes the release-branch process (`release/vX.Y.Z`, merged by pull request, tag on the merge commit). It used to say to push to `main` and that CI runs on every push; CI runs on pull requests.
 
-## [0.2.2] - 2026-10-05
+### 0.2.2 - 2026-10-05 (withdrawn)
 
-### Changed
+#### Changed
 
 - `laravel/framework ^13.0` is now declared in `require`. `src/` uses `Application`, `AuthorizesRequests`, `Dispatchable`, `Exceptions` and others from `Illuminate\Foundation`, which no `illuminate/*` component ships, so the dependency only arrived through the host application.
 
-## [0.2.1] - 2026-10-05
+### 0.2.1 - 2026-10-05 (withdrawn)
 
-### Added
+#### Added
 
 - **Container keys `laranail.toolkit.access-log` and `laranail.toolkit.helper`**, also exposed as
   `ToolkitServiceProvider::ACCESS_LOG` and `::HELPER`. They keep the lifetimes of the keys they
@@ -75,24 +85,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the booted application through package-tools' `AssertsRegisteredNames`. The dev requirement on
   `laranail/package-tools` is raised to `^0.1.3`, the first release that ships it.
 
-### Changed
+#### Changed
 
 - **The `dev-main` branch alias is now `0.2.x-dev`** (was `0.1.x-dev`), matching the 0.2 line
   released as `v0.2.0`, so a `dev-main` or path checkout satisfies `^0.2`. The family consumers
   (`crm-tools-vtiger-client`, `sis-wrapper`) move to `^0.2` alongside this.
 
-### Deprecated
+#### Deprecated
 
 - **The bare container keys `AccessLog` and `helper`.** Both sit in the container's flat key map,
   where a host or another package binding the same word silently replaces them. They still resolve
   the same objects through the scoped keys, and raise one `E_USER_DEPRECATED` notice each per
   process naming the replacement. Removal no earlier than the next minor after 0.2.
 
-## [0.2.0] - 2026-10-02
+### 0.2.0 - 2026-10-02 (withdrawn)
 
 Contains breaking changes: three collection macros are renamed (see **Changed**). Under 0.x semantic versioning a breaking change is a minor bump.
 
-### Changed
+#### Changed
 
 - **BREAKING: the `chunkBy` collection macro is now `laranailChunkBy`.** Laravel 13.30.1 added a
   native `Collection::chunkBy()`, and a macro **never runs when a real method of that name
@@ -133,7 +143,7 @@ Contains breaking changes: three collection macros are renamed (see **Changed**)
 
   Callers who want upstream's behaviour keep the bare names, which now unambiguously reach Laravel.
 
-### Fixed
+#### Fixed
 
 - **The zip bomb guard no longer depends on which PHP patch release is installed.** The guard sums
   the uncompressed sizes an archive declares, which is only sound if no entry can produce more than
@@ -158,11 +168,11 @@ Contains breaking changes: three collection macros are renamed (see **Changed**)
   removes no code and would add the package-author toolchain to a package that requires only
   `laranail/console`.
 
-## [0.1.0] - 2026-08-15
+### 0.1.0 - 2026-08-15 (withdrawn)
 
 Initial public release. Folded in during the pre-stable phase:
 
-### Changed
+#### Changed
 
 - **Route-middleware aliases are vendor-scoped.** The router's alias map is flat, so a second package
   registering `api.request` does not conflict — it silently replaces this one, and the damage
@@ -182,7 +192,7 @@ Initial public release. Folded in during the pre-stable phase:
   `:toolkit.api-response`. The dot form keeps `->middleware('laranail-toolkit.api-response:meta,data')`
   working.
 
-### Fixed
+#### Fixed
 
 - **The translation namespace was `laranail/toolkit`, with a slash.** That is a namespace, not a
   path: Laravel publishes to `lang/vendor/{namespace}`, so the files landed one directory deeper
@@ -210,7 +220,7 @@ Initial public release. Folded in during the pre-stable phase:
   guards) and the `auth.user_model` config comment (a reserved hint, not read at
   runtime — the `userAs()` generic provides the IDE typing).
 
-### Removed
+#### Removed
 
 - **`Modules\Atlas`, `Modules\Avatar` and `Modules\Gravatar`** — extracted to
   [`laranail/atlas`](https://opensource.simtabi.com/documentation/laranail/atlas/) and
@@ -262,7 +272,7 @@ Initial public release. Folded in during the pre-stable phase:
   providers, environment-scoped credentials, a database-backed settings store and edge bot
   management. `Toolkit::captcha()` is gone with it. See UPGRADING.md.
 
-### Security
+#### Security
 
 - **`clearThirdPartyCache()` recursively deleted whatever a config key pointed
   at.** The method is public and takes a config *key*, so any path that key held
@@ -277,7 +287,7 @@ Initial public release. Folded in during the pre-stable phase:
   clearable, only things under it, and a symlink is refused outright because
   following one would empty somewhere the check never approved.
 
-### Added
+#### Added
 
 - **`Macros\MacroableModels`** — a macro registry keyed by model class, reachable
   as `Toolkit::macroableModels()`. `Builder::macro()` is global: register
@@ -308,7 +318,7 @@ Initial public release. Folded in during the pre-stable phase:
   per-call `$guard` → `withGuard()` swap → `config('laranail.toolkit.auth.default_guard')`
   → the framework default. See [docs/auth.md](docs/auth.md).
 
-### Changed — breaking
+#### Changed — breaking
 
 - **`Services\Contracts\FileServiceInterface` gains `filesInPath()`.** Anything
   implementing that contract directly must add the method. Consumers resolving

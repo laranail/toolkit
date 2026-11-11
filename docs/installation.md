@@ -18,7 +18,7 @@ of the `json` / `mbstring` / `fileinfo` extensions, and storage writability.
 # laranail/toolkit and laranail/console are not on Packagist yet: point Composer at GitHub.
 composer config repositories.laranail-console vcs https://github.com/laranail/console
 composer config repositories.laranail-toolkit vcs https://github.com/laranail/toolkit
-composer require laranail/toolkit:^0.2
+composer require laranail/toolkit:^0.1
 ```
 
 `ToolkitServiceProvider` is auto-registered through Laravel package discovery.
