@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- **Breaking, for 0.4.0: the runtime settings store.** `Toolkit::settings()`, `Laranail::settings()`,
+  `Services\SettingsStore`, `Services\Contracts\SettingsStoreInterface`, their container bindings,
+  the `laranail.toolkit.settings` config block and its env keys `LARANAIL_SETTINGS_DISK` and
+  `LARANAIL_SETTINGS_PATH` are removed, with no forwarder. Runtime settings now live in
+  `laranail/settings`, added to `suggest`. Move the JSON file's data with
+  `php artisan laranail::settings.import <absolute path> --from=toolkit --apply` (a dry run without
+  `--apply`); see [UPGRADING.md](UPGRADING.md). `isValidDatabaseConnection('settings')`,
+  `RuntimeConfigurator` and the feature toggles are unaffected.
+
 ## [0.3.2] - 2026-10-20
 
 ### Changed

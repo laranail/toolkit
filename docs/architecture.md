@@ -22,7 +22,7 @@ src/
 ├── Commands/MakeCrud.php                   # make-crud (extends the laranail/console base)
 ├── Http/Controllers/CrudController.php     # abstract base controller
 ├── Services/                               # injectable, interface-backed services (File, System,
-│                                           #   Cache, Log, SettingsStore, RateLimiter, Scheduler, ...)
+│                                           #   Cache, Log, RateLimiter, Scheduler, ...)
 ├── Macros/                                 # grouped macro providers + MacroServiceProvider
 ├── Traits/                                 # ApiResponse, Auditable, FilePathGuard, ...
 ├── Support/                                # pure/static helpers: ApiResponder, Cast, Config, AuthHelper,
@@ -86,14 +86,13 @@ or the unified `Toolkit` facade (`Toolkit::archiver()`, …).
 injectable core services with typed `@method` accessors. Alongside the module
 accessors (`archiver()`, `cache()`,
 `livewire()`) and the security generators (`token()`, `password()`,
-`passphrase()`), it exposes the core services — including the **five service
+`passphrase()`), it exposes the core services — including the **four service
 accessors**:
 
 | Accessor | Returns (contract) |
 |---|---|
 | `Toolkit::cache()` | `Services\Contracts\CacheRepositoryInterface` |
 | `Toolkit::log()` | `Services\Contracts\LoggerServiceInterface` |
-| `Toolkit::settings()` | `Services\Contracts\SettingsStoreInterface` |
 | `Toolkit::rateLimiter()` | `Services\Contracts\RateLimiterServiceInterface` |
 | `Toolkit::scheduler()` | `Services\Contracts\SchedulerServiceInterface` |
 

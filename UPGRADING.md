@@ -1,5 +1,43 @@
 # Upgrade guide
 
+## The settings store moved to `laranail/settings` (0.4.0)
+
+Toolkit's JSON-file settings store is gone. Runtime settings now live in
+[`laranail/settings`](https://opensource.simtabi.com/documentation/laranail/settings/), which stores
+them in the database with types, scopes and encryption. This is a breaking change, shipping in 0.4.0.
+
+Removed, with no forwarder:
+
+- `Toolkit::settings()` and `Laranail::settings()`;
+- `Simtabi\Laranail\Toolkit\Services\SettingsStore` and
+  `Services\Contracts\SettingsStoreInterface`, and their container bindings;
+- the `laranail.toolkit.settings` config block (`disk`, `path`) and its env keys
+  `LARANAIL_SETTINGS_DISK` and `LARANAIL_SETTINGS_PATH`. Delete them from your `.env` and from a
+  published `config/laranail/toolkit.php`.
+
+Move the data before you upgrade. The file defaulted to `laranail/settings.json` on the `local`
+disk, so it is usually `storage/app/laranail/settings.json`. The importer reads a local absolute
+path; if the file sat on another disk (for example `s3`), copy it down first.
+
+```bash
+composer require laranail/settings
+php artisan laranail::settings.import /var/www/storage/app/laranail/settings.json --from=toolkit          # a dry run
+php artisan laranail::settings.import /var/www/storage/app/laranail/settings.json --from=toolkit --apply
+```
+
+The importer flattens nested objects to dot keys (`{"mail": {"host": …}}` becomes `mail.host`) and
+keeps a list as one value. Then replace the calls:
+
+```diff
+-   Toolkit::settings()->get('mail.host', 'localhost');
+-   Toolkit::settings()->set('mail.host', $host);
++   Settings::get('mail.host', 'localhost');
++   Settings::set('mail.host', $host);
+```
+
+See the settings package's importer and usage docs for keys that must be defined before they are
+set, and for scoped values.
+
 ## Atlas, Avatar and Gravatar moved out
 
 Three modules left this package. `Modules\Atlas` became

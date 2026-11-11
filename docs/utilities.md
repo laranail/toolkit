@@ -69,21 +69,6 @@ Level methods: `debug()`, `info()`, `warning()`, `error()`, `critical()` (each
 `(string $message, array $context = [], ?string $channel = null)`), plus the
 enum-keyed `log(LogLevel $level, ...)` and `exception(Throwable $e, ...)`.
 
-### SettingsStore
-
-Read/write dynamic settings persisted as a JSON file on a configured disk — a
-runtime store, deliberately separate from Laravel's static `config()`. Keys use
-dot notation. Bound to `Services\Contracts\SettingsStoreInterface`.
-
-```php
-$settings = app(SettingsStore::class);
-$settings->all();
-$settings->get('feature.enabled', false);
-$settings->has('feature.enabled');
-$settings->set('feature.enabled', true);
-$settings->forget('feature.enabled');
-```
-
 ### RateLimiterService
 
 Thin wrapper over Laravel's rate limiter. Bound to
