@@ -59,8 +59,8 @@ php artisan migrate
 
 These are resolved from the package and need **no** `vendor:publish`:
 
-- **Services** — `Services\{CacheService, SettingsStore, SchedulerService,
-  RateLimiterService, LogService}` (container-bound by their contracts + concrete
+- **Services** — `Services\{CacheService, SchedulerService, RateLimiterService,
+  LogService}` (container-bound by their contracts + concrete
   class; inject or `app(...)` them).
 - **Support helpers** — `Support\{QueryParameters, CollectionFilter, Environment,
   AuthHelper}` (static utilities).

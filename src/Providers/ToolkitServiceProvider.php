@@ -23,7 +23,6 @@ use Simtabi\Laranail\Toolkit\Services\CacheService;
 use Simtabi\Laranail\Toolkit\Services\ModelService;
 use Simtabi\Laranail\Toolkit\Services\RouteService;
 use Simtabi\Laranail\Toolkit\Macros\MacroableModels;
-use Simtabi\Laranail\Toolkit\Services\SettingsStore;
 use Simtabi\Laranail\Toolkit\Services\SystemService;
 use Simtabi\Laranail\Toolkit\Services\SessionService;
 use Simtabi\Laranail\Toolkit\Traits\ApiResponseTrait;
@@ -51,7 +50,6 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Http\Middleware\EmailObfuscatorMiddleware;
 use Simtabi\Laranail\Toolkit\Modules\Eventing\Listeners\LogCacheEvents;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
@@ -270,8 +268,7 @@ class ToolkitServiceProvider extends ServiceProvider
         $this->app->bind(CacheRepositoryInterface::class, CacheService::class);
         $this->app->bind(LoggerServiceInterface::class, LogService::class);
 
-        // Settings store, rate limiter and scheduler service contracts.
-        $this->app->bind(SettingsStoreInterface::class, SettingsStore::class);
+        // Rate limiter and scheduler service contracts.
         $this->app->bind(RateLimiterServiceInterface::class, RateLimiterService::class);
         $this->app->bind(SchedulerServiceInterface::class, SchedulerService::class);
 
@@ -290,7 +287,7 @@ class ToolkitServiceProvider extends ServiceProvider
         // `app(...)` keeps resolving them.
         $this->loadClass(ApiResponseTrait::class);
         $this->loadClass(FileProcessingTrait::class);
-        $this->loadServiceClasses([SettingsStore::class, SchedulerService::class, LogService::class]);
+        $this->loadServiceClasses([SchedulerService::class, LogService::class]);
         $this->loadRateLimiterService();
         $this->loadCacheService();
     }

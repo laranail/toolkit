@@ -77,16 +77,6 @@ Named profiles live under `defaults.<name>`, each a `{max_attempts, decay_minute
 | `defaults.auth` | `5` | `15` |
 | `defaults.download` | `3` | `1` |
 
-## `laranail.toolkit.settings`
-
-The runtime settings store (`SettingsStore`) — a JSON file of dynamic,
-persisted-at-runtime values, kept separate from this static config.
-
-| Key | Default | Notes |
-|-----|---------|-------|
-| `disk` | `local` | Filesystem disk for the settings file. Env: `LARANAIL_SETTINGS_DISK`. |
-| `path` | `laranail/settings.json` | Path on the disk. Env: `LARANAIL_SETTINGS_PATH`. |
-
 ## `laranail.toolkit.runtime`
 
 PHP runtime / INI settings applied by

@@ -21,7 +21,6 @@ use Simtabi\Laranail\Toolkit\Services\Contracts\RouteServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Archiver\ArchiverServiceInterface;
 use Simtabi\Laranail\Toolkit\Modules\Livewire\LivewireServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\LoggerServiceInterface;
-use Simtabi\Laranail\Toolkit\Services\Contracts\SettingsStoreInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SystemServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\SessionServiceInterface;
 use Simtabi\Laranail\Toolkit\Services\Contracts\CacheRepositoryInterface;
@@ -73,14 +72,12 @@ class FacadesTest extends TestCase
     {
         $this->assertInstanceOf(CacheRepositoryInterface::class, Toolkit::cache());
         $this->assertInstanceOf(LoggerServiceInterface::class, Toolkit::log());
-        $this->assertInstanceOf(SettingsStoreInterface::class, Toolkit::settings());
         $this->assertInstanceOf(RateLimiterServiceInterface::class, Toolkit::rateLimiter());
         $this->assertInstanceOf(SchedulerServiceInterface::class, Toolkit::scheduler());
 
         // The same accessors are reachable through the Laranail alias facade.
         $this->assertInstanceOf(CacheRepositoryInterface::class, Laranail::cache());
         $this->assertInstanceOf(LoggerServiceInterface::class, Laranail::log());
-        $this->assertInstanceOf(SettingsStoreInterface::class, Laranail::settings());
         $this->assertInstanceOf(RateLimiterServiceInterface::class, Laranail::rateLimiter());
         $this->assertInstanceOf(SchedulerServiceInterface::class, Laranail::scheduler());
     }
